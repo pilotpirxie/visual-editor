@@ -1,0 +1,3 @@
+export default{
+  CHANGE_APP_NAME: 'CONFIG/CHANGE_APP_NAME'
+};
