@@ -4,43 +4,34 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
-import actionTypes from "../constants/actionTypes";
+import NarrowSidebar from "../components/NarrowSidebar";
+import WideSidebar from "../components/WideSidebar";
+import Preview from "./Preview";
 
 class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      inside: ''
+    }
+  }
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <Router>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-              <li>
-                <Link to="/users">Users</Link>
-              </li>
-            </ul>
-          </nav>
+        <div className="wrapper d-flex">
           <Switch>
-            <Route path="/about">
-              <div>About</div>
-            </Route>
-            <Route path="/users">
-              <div>Users</div>
-            </Route>
             <Route path="/">
-              <div>Welcome in {this.props.config.appName}</div>
-              <button onClick={() => {
-                this.props.dispatch({
-                  type: actionTypes.CHANGE_APP_NAME,
-                  newName: 'Sample App'
-                })
-              }}>Click here</button>
+              <NarrowSidebar changeActiveTab={() => {}} activeTab={0} />
+              <WideSidebar>
+                <h3>Hello</h3>
+              </WideSidebar>
+              <Preview html={'<b>Hello</b>'} />
             </Route>
           </Switch>
         </div>

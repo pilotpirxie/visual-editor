@@ -1,0 +1,64 @@
+body {
+    background: #e2e4e6 !important;
+    width: 100vw;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.active-button {
+    background: #d4b412;
+}
+
+.active-button:hover {
+    background: #cf8609;
+}
+
+.btn-sidebar {
+    color: #fff;
+    padding: 0.75rem;
+}
+
+.btn-sidebar:hover {
+    color: #fff;
+}
+
+.shadow {
+    -webkit-box-shadow: 0px 0px 22px -1px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 22px -1px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 22px -1px rgba(0,0,0,0.25);
+}
+
+.inspector-wrapper {
+    overflow-y: scroll;
+    height: 100vh;
+    width: 300px;
+}
+
+.icons-wrapper {
+    width: 3rem;
+    min-width: 48px;
+    overflow-y: hidden;
+    height: 100vh;
+}
+
+.page-content-wrapper {
+    width: 100vw;
+}
+
+.bg-dark-blue {
+    background: #232428 !important;
+}
+
+.visual-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
