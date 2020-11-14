@@ -5,48 +5,49 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import handlebars from 'handlebars';
 
 import NarrowSidebar from "../components/NarrowSidebar";
 import WideSidebar from "../components/WideSidebar";
 import Preview from "./Preview";
+import actionTypes from "../constants/actionTypes";
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.state = {
-      inside: ''
-    }
-
-    this.handleChangeInput = this.handleChangeInput.bind(this);
+    this.handleChangeActiveTab = this.handleChangeActiveTab.bind(this);
+    this.handleChangePreviewMode = this.handleChangePreviewMode.bind(this);
   }
 
-  componentDidMount() {
-
+  handleChangeActiveTab(index) {
+    this.props.dispatch({
+      type: actionTypes.CHANGE_ACTIVE_TAB,
+      index
+    });
   }
 
-  handleChangeInput(val) {
-    this.setState({
-      inside: val
+  handleChangePreviewMode(mode) {
+    this.props.dispatch({
+      type: actionTypes.CHANGE_PREVIEW_MODE,
+      mode
     });
   }
 
   render() {
-    const hbs = handlebars.compile('<b style="background-color: {{inside}};">{{inside}}</b>')({
-      inside: this.state.inside
-    });
     return (
       <Router>
         <div className="wrapper d-flex">
           <Switch>
             <Route path="/">
-              <NarrowSidebar changeActiveTab={() => {}} activeTab={0} />
+              <NarrowSidebar
+                onChangeActiveTab={this.handleChangeActiveTab}
+                activeTab={this.props.config.activeTab} />
               <WideSidebar>
                 <h6>Hello</h6>
-                <input type='color' className='form-control' value={this.state.inside} onChange={el => this.handleChangeInput(el.target.value)}/>
               </WideSidebar>
-              <Preview html={hbs} />
+              <Preview
+                onChangePreviewMode={this.handleChangePreviewMode}
+                previewMode={this.props.config.previewMode}/>
             </Route>
           </Switch>
         </div>

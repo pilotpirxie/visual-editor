@@ -67,11 +67,25 @@ body {
 }
 
 .preview-window {
-    width: 95%;
-    max-width: 1400px;
     background-color: white;
     margin-top: 32px;
     margin-bottom: 8px;
+}
+
+.preview-mode-0 {
+    width: 95%;
+}
+
+.preview-mode-1 {
+    width: 1200px;
+}
+
+.preview-mode-2 {
+    width: 800px;
+}
+
+.preview-mode-3 {
+    width: 450px;
 }
 
 .preview-toolbar {
