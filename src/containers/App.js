@@ -57,8 +57,16 @@ class App extends React.Component {
                 activeTab={activeTab} />
               <WideSidebar>
                 <BlocksGallery
-                  category='header'
+                  category='article'
                   display={activeTab === 2}
+                  onPushBlock={this.handlePushBlock} />
+                <BlocksGallery
+                  category='header'
+                  display={activeTab === 3}
+                  onPushBlock={this.handlePushBlock} />
+                <BlocksGallery
+                  category='gallery'
+                  display={activeTab === 4}
                   onPushBlock={this.handlePushBlock} />
               </WideSidebar>
               <Preview

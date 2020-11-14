@@ -1,11 +1,9 @@
 const component = `
-<section>
-  <div class="container text-center">
-    <strong>{{title}}</strong>
-    <h1 class="display-4 my-3">{{tagline}}</h1>
-    <a class="btn btn-link my-2" href="#">{{link}}</a>
-  </div>
-</section>
+<div class="container text-center">
+  <strong>{{title}}</strong>
+  <h1 class="display-4 my-3">{{tagline}}</h1>
+  <a class="btn btn-link my-2" href="#">{{link}}</a>
+</div>
 `;
 
 const block = {

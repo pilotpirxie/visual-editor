@@ -1,12 +1,12 @@
 const component = `
-<section class="jumbotron">
+<div class="jumbotron">
   <div class="container text-center">
     <h1 class="display-4">{{title}}</h1>
     <p class="lead text-muted">{{tagline}}</p>
     <a class="btn btn-primary my-2" href="#">{{button}}</a>
     <a class="btn btn-link my-2" href="#">{{link}}</a>
   </div>
-</section>
+</div>
 `;
 
 const block = {

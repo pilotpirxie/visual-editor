@@ -14,11 +14,12 @@ class BlocksGallery extends Component {
                 src={block.preview}
                 key={blockId}
                 alt={block.title}
-                className='img-fluid block-entry'
-                onClick={() => this.props.onPushBlock(blockId)}/>
+                className='img-fluid block-entry' />
                 <div className='d-flex align-items-center justify-content-between mt-1 mb-3'>
                   <div>{block.title}</div>
-                  <button className='btn btn-primary btn-sm'>Add</button>
+                  <button
+                    className='btn btn-primary btn-sm'
+                    onClick={() => this.props.onPushBlock(blockId)}>Add</button>
                 </div>
             </div>
           } else {
