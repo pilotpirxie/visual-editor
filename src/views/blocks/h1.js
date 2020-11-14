@@ -1,4 +1,4 @@
-const component = `
+const hbs = `
 <div class="container text-center">
   <strong>{{title}}</strong>
   <h1 class="display-4 my-3">{{tagline}}</h1>
@@ -7,7 +7,7 @@ const component = `
 `;
 
 const block = {
-  component,
+  hbs,
   title: 'Simple Header #1',
   preview: 'https://i.imgur.com/IXz7LZ5.png',
   category: 'header',

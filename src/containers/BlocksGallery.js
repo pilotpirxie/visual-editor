@@ -9,10 +9,9 @@ class BlocksGallery extends Component {
         {Object.keys(blocks).map(blockId => {
           const block = blocks[blockId];
           if (block.category === this.props.category) {
-            return <div>
+            return <div key={blockId}>
               <img
                 src={block.preview}
-                key={blockId}
                 alt={block.title}
                 className='img-fluid block-entry' />
                 <div className='d-flex align-items-center justify-content-between mt-1 mb-3'>

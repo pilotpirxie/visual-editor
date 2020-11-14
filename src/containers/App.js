@@ -20,6 +20,19 @@ class App extends React.Component {
     this.handleChangeActiveTab = this.handleChangeActiveTab.bind(this);
     this.handleChangePreviewMode = this.handleChangePreviewMode.bind(this);
     this.handlePushBlock = this.handlePushBlock.bind(this);
+    this.handleMessage = this.handleMessage.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener("message", this.handleMessage)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("message", this.handleMessage)
+  }
+
+  handleMessage(event) {
+    console.log(event.data)
   }
 
   handleChangeActiveTab(index) {

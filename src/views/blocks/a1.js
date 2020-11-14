@@ -1,4 +1,4 @@
-const component = `
+const hbs = `
 <div>
   <div class="container">
     <div class="row">
@@ -37,7 +37,7 @@ const component = `
 `;
 
 const block = {
-  component,
+  hbs,
   title: 'Article #1',
   preview: 'https://i.imgur.com/6QUsWtK.png',
   category: 'article',

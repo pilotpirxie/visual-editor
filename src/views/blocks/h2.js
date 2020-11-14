@@ -1,4 +1,4 @@
-const component = `
+const hbs = `
 <div class="jumbotron">
   <div class="container text-center">
     <h1 class="display-4">{{title}}</h1>
@@ -10,7 +10,7 @@ const component = `
 `;
 
 const block = {
-  component,
+  hbs,
   title: 'Simple Header #2',
   preview: 'https://i.imgur.com/1bYEKB4.png',
   category: 'header',
