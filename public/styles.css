@@ -7,6 +7,10 @@ body {
     overflow-x: hidden;
 }
 
+.overflow-x-scroll {
+    overflow-x: scroll;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -70,6 +74,7 @@ body {
     background-color: white;
     margin-top: 32px;
     margin-bottom: 8px;
+    border: 1px solid #ddd;
 }
 
 .preview-mode-0 {
@@ -91,7 +96,8 @@ body {
 .preview-toolbar {
     width: 100%;
     padding: 4px 16px;
-    background-color: #eeecf3;
+    background-color: #f7f5fb;
+    border-bottom: 1px solid #ddd;
 }
 
 .preview-toolbar-dot {

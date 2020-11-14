@@ -11,7 +11,7 @@ const component = `
 export default {
   component,
   title: 'Simple Header',
-  preview: '',
+  preview: 'https://i.imgur.com/IXz7LZ5.png',
   category: 'header',
   config: {
     title: {

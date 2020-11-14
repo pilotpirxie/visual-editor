@@ -6,6 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 
+import renderHandlebars from '../utils/renderHandlebars';
 import NarrowSidebar from "../components/NarrowSidebar";
 import WideSidebar from "../components/WideSidebar";
 import Preview from "./Preview";
@@ -34,6 +35,8 @@ class App extends React.Component {
   }
 
   render() {
+    const innerHTML = renderHandlebars(this.props.layout.blocks);
+
     return (
       <Router>
         <div className="wrapper d-flex">
@@ -46,6 +49,7 @@ class App extends React.Component {
                 <h6>Hello</h6>
               </WideSidebar>
               <Preview
+                html={innerHTML}
                 onChangePreviewMode={this.handleChangePreviewMode}
                 previewMode={this.props.config.previewMode}/>
             </Route>
@@ -59,6 +63,7 @@ class App extends React.Component {
 const mapStateToProps = state => {
   return {
     config: state.config,
+    layout: state.layout,
   };
 };
 const mapDispatchToProps = dispatch => ({ dispatch });

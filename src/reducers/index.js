@@ -1,9 +1,9 @@
 import { combineReducers} from "redux";
 
 import config from './config';
-import blocks from './blocks';
+import layout from './layout';
 
 export default combineReducers({
   config,
-  blocks
+  layout
 });

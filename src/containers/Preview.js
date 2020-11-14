@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Preview(props) {
-  return <div className='page-content-wrapper  d-flex justify-content-center'>
+  return <div className='page-content-wrapper overflow-hidden d-flex justify-content-center'>
     <div className={`preview-window preview-mode-${props.previewMode}`}>
       <div className='preview-toolbar d-flex align-items-center justify-content-between'>
         <div className='d-flex align-items-center'>
