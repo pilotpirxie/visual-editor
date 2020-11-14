@@ -1,5 +1,5 @@
 body {
-    background: #222222 !important;
+    background: #faf8ff !important;
     width: 100vw;
     height: 100%;
     padding: 0;
@@ -17,11 +17,15 @@ body {
 
 .active-button {
     background: #232323;
+    color: #fff!important;
 }
 
 .btn-sidebar {
-    color: #fff;
-    padding: 0.5rem;
+    color: #8d8d8d;
+    padding: 0.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-sidebar:hover {
@@ -36,19 +40,18 @@ body {
 
 
 .icons-wrapper {
-    width: 3rem;
+    width: 4rem;
     min-width: 32px;
     overflow-y: hidden;
     height: 100vh;
-    background: #404040;
+    background: rgb(52, 62, 75) none repeat scroll 0% 0%;
 }
 
 .inspector-wrapper {
     overflow-y: scroll;
     height: 100vh;
     width: 300px;
-    background: #333333 !important;
-    color: white;
+    background: white;
 }
 
 .page-content-wrapper {
@@ -65,22 +68,21 @@ body {
 
 .preview-window {
     width: 95%;
+    max-width: 1400px;
     background-color: white;
     margin-top: 32px;
     margin-bottom: 8px;
-    border: 1px solid #282828;
 }
 
 .preview-toolbar {
     width: 100%;
     padding: 4px 16px;
-    background-color: #282828;
-    border-bottom: 1px solid #282828;
+    background-color: #eeecf3;
 }
 
 .preview-toolbar-dot {
     font-size: 1.2rem!important;
-    color: #454545;
+    color: #e4e2ea;
     margin-right: 4px;
     cursor: default;
 }
@@ -91,6 +93,5 @@ body {
 
 .btn-preview-toolbar.active,
 .btn-preview-toolbar:hover {
-    background-color: #232323;
-    color: white;
+    background-color: #e4e2ea;
 }
