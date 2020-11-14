@@ -10,6 +10,7 @@ import renderHandlebars from '../utils/renderHandlebars';
 import NarrowSidebar from "../components/NarrowSidebar";
 import WideSidebar from "../components/WideSidebar";
 import Preview from "./Preview";
+import BlocksGallery from "./BlocksGallery";
 import actionTypes from "../constants/actionTypes";
 
 class App extends React.Component {
@@ -18,6 +19,7 @@ class App extends React.Component {
 
     this.handleChangeActiveTab = this.handleChangeActiveTab.bind(this);
     this.handleChangePreviewMode = this.handleChangePreviewMode.bind(this);
+    this.handlePushBlock = this.handlePushBlock.bind(this);
   }
 
   handleChangeActiveTab(index) {
@@ -34,8 +36,16 @@ class App extends React.Component {
     });
   }
 
+  handlePushBlock(blockId) {
+    this.props.dispatch({
+      type: actionTypes.PUSH_BLOCK,
+      blockId
+    });
+  }
+
   render() {
     const innerHTML = renderHandlebars(this.props.layout.blocks);
+    const {activeTab, previewMode} = this.props.config;
 
     return (
       <Router>
@@ -44,14 +54,17 @@ class App extends React.Component {
             <Route path="/">
               <NarrowSidebar
                 onChangeActiveTab={this.handleChangeActiveTab}
-                activeTab={this.props.config.activeTab} />
+                activeTab={activeTab} />
               <WideSidebar>
-                <h6>Hello</h6>
+                <BlocksGallery
+                  category='header'
+                  display={activeTab === 2}
+                  onPushBlock={this.handlePushBlock} />
               </WideSidebar>
               <Preview
                 html={innerHTML}
                 onChangePreviewMode={this.handleChangePreviewMode}
-                previewMode={this.props.config.previewMode}/>
+                previewMode={previewMode}/>
             </Route>
           </Switch>
         </div>

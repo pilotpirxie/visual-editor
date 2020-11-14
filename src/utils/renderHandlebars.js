@@ -3,9 +3,9 @@ import document from "../views/document";
 import blocks from "../views/blocks";
 
 function render(layoutBlocks) {
-  const innerHTML = layoutBlocks.reduce((acc, curr) => {
-    const tpl = handlebars.compile(blocks[curr.cid].component);
-    return `${acc}${tpl(curr.data)}`;
+  const innerHTML = layoutBlocks.reduce((acc, layoutBlock) => {
+    const tpl = handlebars.compile(blocks[layoutBlock.blockId].component);
+    return `${acc}${tpl(layoutBlock.data)}`;
   }, ``);
 
   return handlebars.compile(document)({

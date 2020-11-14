@@ -54,17 +54,19 @@ body {
 .inspector-wrapper {
     overflow-y: scroll;
     height: 100vh;
-    width: 300px;
+    width: 600px;
     background: white;
 }
 
 .page-content-wrapper {
     width: 100vw;
+    padding-top: 32px;
+    padding-bottom: 8px;
 }
 
 .visual-iframe {
     width: 100%;
-    height: 100%;
+    flex: 1;
     border: none;
     margin: 0;
     padding: 0;
@@ -72,9 +74,9 @@ body {
 
 .preview-window {
     background-color: white;
-    margin-top: 32px;
-    margin-bottom: 8px;
     border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
 }
 
 .preview-mode-0 {
@@ -114,4 +116,9 @@ body {
 .btn-preview-toolbar.active,
 .btn-preview-toolbar:hover {
     background-color: #e4e2ea;
+}
+
+.block-entry {
+    border: 1px solid #ddd;
+    cursor: pointer;
 }
