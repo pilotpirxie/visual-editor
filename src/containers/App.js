@@ -31,7 +31,7 @@ class App extends React.Component {
               <WideSidebar>
                 <h3>Hello</h3>
               </WideSidebar>
-              <Preview html={'<b>Hello</b>'} />
+              <Preview html={`<b>Hi</b>`} />
             </Route>
           </Switch>
         </div>

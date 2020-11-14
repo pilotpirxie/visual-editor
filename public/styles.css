@@ -1,5 +1,5 @@
 body {
-    background: #e2e4e6 !important;
+    background: #222222 !important;
     width: 100vw;
     height: 100%;
     padding: 0;
@@ -11,17 +11,17 @@ body {
     cursor: pointer;
 }
 
-.active-button {
-    background: #d4b412;
+.btn-sidebar:hover {
+    background: #232323;
 }
 
-.active-button:hover {
-    background: #cf8609;
+.active-button {
+    background: #232323;
 }
 
 .btn-sidebar {
     color: #fff;
-    padding: 0.75rem;
+    padding: 0.5rem;
 }
 
 .btn-sidebar:hover {
@@ -34,25 +34,25 @@ body {
     box-shadow: 0px 0px 22px -1px rgba(0,0,0,0.25);
 }
 
+
+.icons-wrapper {
+    width: 3rem;
+    min-width: 32px;
+    overflow-y: hidden;
+    height: 100vh;
+    background: #404040;
+}
+
 .inspector-wrapper {
     overflow-y: scroll;
     height: 100vh;
     width: 300px;
-}
-
-.icons-wrapper {
-    width: 3rem;
-    min-width: 48px;
-    overflow-y: hidden;
-    height: 100vh;
+    background: #333333 !important;
+    color: white;
 }
 
 .page-content-wrapper {
     width: 100vw;
-}
-
-.bg-dark-blue {
-    background: #232428 !important;
 }
 
 .visual-iframe {
@@ -61,4 +61,36 @@ body {
     border: none;
     margin: 0;
     padding: 0;
+}
+
+.preview-window {
+    width: 95%;
+    background-color: white;
+    margin-top: 32px;
+    margin-bottom: 8px;
+    border: 1px solid #282828;
+}
+
+.preview-toolbar {
+    width: 100%;
+    padding: 4px 16px;
+    background-color: #282828;
+    border-bottom: 1px solid #282828;
+}
+
+.preview-toolbar-dot {
+    font-size: 1.2rem!important;
+    color: #454545;
+    margin-right: 4px;
+    cursor: default;
+}
+
+.btn-preview-toolbar {
+    color: #A2A2A2;
+}
+
+.btn-preview-toolbar.active,
+.btn-preview-toolbar:hover {
+    background-color: #232323;
+    color: white;
 }
