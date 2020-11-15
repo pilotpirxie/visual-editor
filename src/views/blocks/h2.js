@@ -1,5 +1,5 @@
 const hbs = `
-<div class="jumbotron">
+<div class="jumbotron m-0">
   <div class="container text-center">
     <h1 class="display-4">{{title}}</h1>
     <p class="lead text-muted">{{tagline}}</p>
@@ -11,8 +11,8 @@ const hbs = `
 
 const block = {
   hbs,
-  title: 'Simple Header #2',
-  preview: 'https://i.imgur.com/1bYEKB4.png',
+  name: 'Simple Header #2',
+  previewImageUrl: 'https://i.imgur.com/1bYEKB4.png',
   category: 'header',
   defaultData: {
     title: "Hello World",

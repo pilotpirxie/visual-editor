@@ -119,5 +119,33 @@ body {
 }
 
 .block-entry {
-    border: 1px solid #ddd;
+    cursor: pointer;
 }
+
+.block-entry > .prompt {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    opacity: 0;
+    transition: 100ms linear 0s;
+}
+
+.block-entry > .prompt > .prompt-inside {
+    background: rgb(52, 62, 75) none repeat scroll 0% 0%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.block-entry:hover > .prompt {
+    opacity: 0.95;
+}
+
+

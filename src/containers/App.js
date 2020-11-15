@@ -9,8 +9,11 @@ import {
 import renderHandlebars from '../utils/renderHandlebars';
 import NarrowSidebar from "../components/NarrowSidebar";
 import WideSidebar from "../components/WideSidebar";
+
 import Preview from "./Preview";
 import BlocksGallery from "./BlocksGallery";
+import Search from "./Search";
+
 import actionTypes from "../constants/actionTypes";
 
 class App extends React.Component {
@@ -21,6 +24,7 @@ class App extends React.Component {
     this.handleChangePreviewMode = this.handleChangePreviewMode.bind(this);
     this.handlePushBlock = this.handlePushBlock.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
+    this.handleSetSelectedBlock = this.handleSetSelectedBlock.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +37,10 @@ class App extends React.Component {
 
   handleMessage(event) {
     console.log(event.data)
+    if (event.data.blockId && event.data.event) {
+      this.handleChangeActiveTab(0);
+      this.handleSetSelectedBlock(event.data.blockId);
+    }
   }
 
   handleChangeActiveTab(index) {
@@ -56,6 +64,13 @@ class App extends React.Component {
     });
   }
 
+  handleSetSelectedBlock(blockId) {
+    this.props.dispatch({
+      type: actionTypes.SET_SELECTED_BLOCK,
+      blockId
+    });
+  }
+
   render() {
     const innerHTML = renderHandlebars(this.props.layout.blocks);
     const {activeTab, previewMode} = this.props.config;
@@ -69,6 +84,9 @@ class App extends React.Component {
                 onChangeActiveTab={this.handleChangeActiveTab}
                 activeTab={activeTab} />
               <WideSidebar>
+                <Search
+                  display={activeTab === 1}
+                  onPushBlock={this.handlePushBlock} />
                 <BlocksGallery
                   category='article'
                   display={activeTab === 2}

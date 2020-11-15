@@ -8,8 +8,8 @@ const hbs = `
 
 const block = {
   hbs,
-  title: 'Simple Header #1',
-  preview: 'https://i.imgur.com/IXz7LZ5.png',
+  name: 'Simple Header #1',
+  previewImageUrl: 'https://i.imgur.com/IXz7LZ5.png',
   category: 'header',
   defaultData: {
     title: "Hello World",

@@ -29,8 +29,8 @@ const hbs = `
 
 const block = {
   hbs,
-  title: 'Article #2',
-  preview: 'https://i.imgur.com/xljS5RC.png',
+  name: 'Article #2',
+  previewImageUrl: 'https://i.imgur.com/xljS5RC.png',
   category: 'article',
   defaultData: {
     title: 'Sample section',

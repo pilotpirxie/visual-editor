@@ -18,8 +18,8 @@ const hbs = `
 
 const block = {
   hbs,
-  title: 'Image Gallery #1',
-  preview: 'https://i.imgur.com/EwoDspY.png',
+  name: 'Image Gallery #1',
+  previewImageUrl: 'https://i.imgur.com/EwoDspY.png',
   category: 'gallery',
   defaultData: {
     img1: "https://via.placeholder.com/150x150",

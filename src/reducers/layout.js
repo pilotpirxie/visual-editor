@@ -3,7 +3,8 @@ import blocks from "../views/blocks/";
 import {v4 as uuidv4} from 'uuid';
 
 const initialState = {
-  blocks: []
+  blocks: [],
+  selectedBlockId: ''
 };
 
 export default function reducer(state = initialState, action) {
@@ -18,6 +19,11 @@ export default function reducer(state = initialState, action) {
             ...blocks[action.blockId].defaultData
           }
         }]
+      }
+    case actionTypes.SET_SELECTED_BLOCK:
+      return {
+        ...state,
+        selectedBlockId: action.blockId
       }
     default:
       return state;
