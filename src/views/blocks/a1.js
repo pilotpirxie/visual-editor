@@ -2,12 +2,10 @@ const hbs = `
 <div>
   <div class="container">
     <div class="row">
-      <col-12>
-        <div class="intro">
-            <h2 class="text-center">{{title}}</h2>
-            <p class="text-center">{{description}}</p>
-        </div>
-      </col-12>
+      <div class="col-12">
+        <h2 class="text-center">{{title}}</h2>
+        <p class="text-center">{{description}}</p>
+      </div>
     </div>
     <div class="row">
       <div class="col-sm-6 col-md-4 item">

@@ -4,7 +4,7 @@ import {v4 as uuidv4} from 'uuid';
 
 const initialState = {
   blocks: [],
-  selectedBlockId: ''
+  selectedBlockUuid: ''
 };
 
 export default function reducer(state = initialState, action) {
@@ -23,7 +23,17 @@ export default function reducer(state = initialState, action) {
     case actionTypes.SET_SELECTED_BLOCK:
       return {
         ...state,
-        selectedBlockId: action.blockId
+        selectedBlockUuid: action.blockUuid
+      }
+    case actionTypes.CHANGE_BLOCK_DATA:
+      const index = state.blocks.findIndex(el => {
+        return el.uuid === action.blockUuid;
+      });
+      const newBlocks = [...state.blocks];
+      newBlocks[index].data[action.key] = action.value;
+      return {
+        ...state,
+        blocks: [...newBlocks]
       }
     default:
       return state;

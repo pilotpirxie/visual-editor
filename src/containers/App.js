@@ -13,6 +13,7 @@ import WideSidebar from "../components/WideSidebar";
 import Preview from "./Preview";
 import BlocksGallery from "./BlocksGallery";
 import Search from "./Search";
+import Inspector from "./Inspector";
 
 import actionTypes from "../constants/actionTypes";
 
@@ -64,10 +65,10 @@ class App extends React.Component {
     });
   }
 
-  handleSetSelectedBlock(blockId) {
+  handleSetSelectedBlock(blockUuid) {
     this.props.dispatch({
       type: actionTypes.SET_SELECTED_BLOCK,
-      blockId
+      blockUuid
     });
   }
 
@@ -84,6 +85,8 @@ class App extends React.Component {
                 onChangeActiveTab={this.handleChangeActiveTab}
                 activeTab={activeTab} />
               <WideSidebar>
+                <Inspector
+                  display={activeTab === 0} />
                 <Search
                   display={activeTab === 1}
                   onPushBlock={this.handlePushBlock} />
@@ -118,6 +121,7 @@ const mapStateToProps = state => {
     layout: state.layout,
   };
 };
+
 const mapDispatchToProps = dispatch => ({ dispatch });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
