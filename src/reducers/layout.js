@@ -4,7 +4,8 @@ import {v4 as uuidv4} from 'uuid';
 
 const initialState = {
   blocks: [],
-  selectedBlockUuid: ''
+  selectedBlockUuid: '',
+  documentId: 'document1'
 };
 
 export default function reducer(state = initialState, action) {
@@ -50,6 +51,11 @@ export default function reducer(state = initialState, action) {
         ...state,
         blocks: [...newArr],
         selectedBlockUuid: ''
+      }
+    case actionTypes.CHANGE_DOCUMENT_ID:
+      return {
+        ...state,
+        documentId: action.documentId
       }
     default:
       return state;

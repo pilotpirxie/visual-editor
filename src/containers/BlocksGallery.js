@@ -30,7 +30,8 @@ class BlocksGallery extends Component {
 
 BlocksGallery.propTypes = {
   onPushBlock: PropTypes.func,
-  block: PropTypes.object
+  block: PropTypes.object,
+  display: PropTypes.bool
 }
 
 export default BlocksGallery;

@@ -14,6 +14,7 @@ import Preview from "./Preview";
 import BlocksGallery from "./BlocksGallery";
 import Search from "./Search";
 import Inspector from "./Inspector";
+import Settings from "./Settings";
 
 import actionTypes from "../constants/actionTypes";
 
@@ -93,7 +94,7 @@ class App extends React.Component {
   }
 
   render() {
-    const innerHTML = renderHandlebars(this.props.layout.blocks);
+    const innerHTML = renderHandlebars(this.props.layout.blocks, this.props.layout.documentId);
     const {activeTab, previewMode} = this.props.config;
 
     return (
@@ -122,6 +123,7 @@ class App extends React.Component {
                   category='gallery'
                   display={activeTab === 4}
                   onPushBlock={this.handlePushBlock} />
+                <Settings display={activeTab === 9}/>
               </WideSidebar>
               <Preview
                 html={innerHTML}

@@ -1,9 +1,9 @@
 import handlebars from "handlebars";
-import document from "../views/document";
+import documents from "../views/documents";
 import section from "../views/section";
 import blocks from "../views/blocks";
 
-function render(layoutBlocks) {
+function render(layoutBlocks, documentId) {
   const innerHTML = layoutBlocks.reduce((acc, layoutBlock) => {
     const blockHbs = blocks[layoutBlock.blockId].hbs;
     const blockTemplate = handlebars.compile(blockHbs);
@@ -18,7 +18,7 @@ function render(layoutBlocks) {
     return `${acc}${sectionHTML}`;
   }, ``);
 
-  return handlebars.compile(document)({
+  return handlebars.compile(documents[documentId].hbs)({
     content: innerHTML
   });
 }

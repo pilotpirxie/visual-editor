@@ -72,12 +72,11 @@ class Inspector extends Component {
 
 Inspector.propTypes = {
   layout: PropTypes.object,
-  config: PropTypes.object,
+  display: PropTypes.bool
 };
 
 const mapStateToProps = state => {
   return {
-    config: state.config,
     layout: state.layout,
   };
 };
