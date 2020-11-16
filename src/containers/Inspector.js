@@ -10,6 +10,7 @@ class Inspector extends Component {
     super(props);
 
     this.handleChangeBlockData = this.handleChangeBlockData.bind(this);
+    this.handleDeleteBlock = this.handleDeleteBlock.bind(this);
   }
 
   handleChangeBlockData(blockUuid, key, value) {
@@ -18,6 +19,13 @@ class Inspector extends Component {
       blockUuid,
       key,
       value
+    });
+  }
+
+  handleDeleteBlock(blockUuid) {
+    this.props.dispatch({
+      type: actionTypes.DELETE_BLOCK,
+      blockUuid,
     });
   }
 
@@ -35,6 +43,11 @@ class Inspector extends Component {
 
     return (
       <div>
+        <div className='d-flex justify-content-between align-items-center'>
+        <h5>Inspector</h5>
+        <button className='btn btn-outline-danger btn-sm' onClick={() => this.handleDeleteBlock(blockUuid)}>Delete block</button>
+        </div>
+        <hr />
         {Object.keys(config).map((el, index) => {
           if (config[el].type === 'string') {
             return <div className='form-group' key={index}>

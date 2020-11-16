@@ -42,6 +42,15 @@ export default function reducer(state = initialState, action) {
         ...state,
         blocks: [...newBlocks]
       }
+    case actionTypes.DELETE_BLOCK:
+      const newArr = state.blocks.filter(block => {
+        return block.uuid != action.blockUuid;
+      });
+      return {
+        ...state,
+        blocks: [...newArr],
+        selectedBlockUuid: ''
+      }
     default:
       return state;
   }
