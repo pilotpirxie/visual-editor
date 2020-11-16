@@ -25,6 +25,13 @@ export default function reducer(state = initialState, action) {
         ...state,
         selectedBlockUuid: action.blockUuid
       }
+    case actionTypes.REORDER_LAYOUT:
+      return {
+        ...state,
+        blocks: [
+          ...action.newBlocksLayout
+        ]
+      }
     case actionTypes.CHANGE_BLOCK_DATA:
       const index = state.blocks.findIndex(el => {
         return el.uuid === action.blockUuid;

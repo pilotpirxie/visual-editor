@@ -1,15 +1,21 @@
-import h1 from './h1';
-import h2 from './h2';
-import g1 from './g1';
-import a1 from './a1';
-import a2 from './a2';
+import header1 from './header1';
+import header2 from './header2';
+
+import gallery3 from './gallery3';
+import gallery4 from './gallery4';
+import gallery2 from './gallery2';
+
+import article1 from './article1';
+import article2 from './article2';
 
 const blocks = {
-  h1,
-  h2,
-  g1,
-  a1,
-  a2
+  header1,
+  header2,
+  gallery3,
+  gallery4,
+  gallery2,
+  article1,
+  article2,
 };
 
 export default blocks;

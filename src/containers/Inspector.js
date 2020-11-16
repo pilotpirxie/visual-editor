@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-
+import {DebounceInput} from 'react-debounce-input';
 import actionTypes from "../constants/actionTypes";
 import blocks from "../views/blocks";
 
@@ -39,7 +39,8 @@ class Inspector extends Component {
           if (config[el].type === 'string') {
             return <div className='form-group' key={index}>
               <label>{config[el].name}</label>
-              <input
+              <DebounceInput
+                debounceTimeout={500}
                 type='text'
                 className='form-control'
                 placeholder={config[el].name}
@@ -47,6 +48,8 @@ class Inspector extends Component {
                 onChange={(e) => this.handleChangeBlockData(blockUuid, el, e.target.value)}
               />
             </div>
+          } else {
+            return null;
           }
         })}
       </div>
@@ -54,7 +57,10 @@ class Inspector extends Component {
   }
 }
 
-Inspector.propTypes = {};
+Inspector.propTypes = {
+  layout: PropTypes.object,
+  config: PropTypes.object,
+};
 
 const mapStateToProps = state => {
   return {

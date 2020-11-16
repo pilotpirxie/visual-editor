@@ -6,37 +6,96 @@ const document = `
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <title>Hello, world!</title>
+    <style>
+        .drag-n-drop-placeholder {
+            border: 2px dashed black; 
+        }
+        section[visual-editor]:hover {
+            border: 2px dashed black; 
+            cursor: grab;
+        }
+        section[visual-editor] {
+            border: 2px solid transparent; 
+        }
+        
+        body { 
+            animation: fadeInAnimation ease-in 150ms; 
+            animation-iteration-count: 1; 
+            animation-fill-mode: forwards; 
+        } 
+        @keyframes fadeInAnimation { 
+            0% { 
+                opacity: 0; 
+            } 
+            100% { 
+                opacity: 1; 
+            } 
+        } 
+    </style>
   </head>
   <body>
-  {{{content}}}
-  <div id="visual-editor-rectangle" style="display: none; cursor: pointer; background-color: transparent; border: 2px dashed black; position: absolute; z-index: 9999;"></div>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  
+  <div class="sortable">
+    {{{content}}}
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
   <script>
-document.querySelectorAll('section[visual-editor]').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    const rectangle = document.getElementById('visual-editor-rectangle');
+    const scrollY = localStorage.getItem('scrollY');
+    const bodyHeight = localStorage.getItem('bodyHeight');
+    if (scrollY) {
+        window.scrollTo(0, scrollY);
+    }
     
-    rectangle.style.display = 'block';
-    rectangle.style.top = el.offsetTop + 'px';
-    rectangle.style.left = el.offsetLeft + 'px';
-    rectangle.style.width = el.offsetWidth + 'px';
-    rectangle.style.height = el.offsetHeight + 'px';
-    rectangle.setAttribute('visual-editor', el.getAttribute('visual-editor'));
-  });  
-});
-
-document.body.addEventListener('mouseleave', () => {
-  const rectangle = document.getElementById('visual-editor-rectangle');
-  rectangle.style.display = 'none';
-});
-
-document.getElementById('visual-editor-rectangle').addEventListener('click', () => {
-  window.top.postMessage({
-    event: 'click',
-    blockId: document.getElementById('visual-editor-rectangle').getAttribute('visual-editor')
-  }, '*');
-});
+    if (bodyHeight) {
+        window.scroll(0, scrollY);
+    }
+    
+    window.addEventListener('scroll', () => {
+      localStorage.setItem('scrollY', window.scrollY);
+    });
+    
+  $(function() {
+    const sort = $(".sortable").sortable({
+        placeholder: "drag-n-drop-placeholder",
+        axis: 'y',
+        cursor: 'grabbing',
+        distance: 10,
+        items: '> section[visual-editor]',
+        opacity: 0.25,
+        scrollSensitivity: 100,
+        forcePlaceholderSize: true,
+    }).disableSelection();
+    
+    $('a').click(function(e) {
+        e.preventDefault();
+    });
+    
+    sort.on("sortupdate", function( event, ui ) {
+      const newOrder = [];
+      document.querySelectorAll('section[visual-editor]').forEach(el => {
+        newOrder.push(el.getAttribute('visual-editor'));
+      });
+      window.top.postMessage({
+        event: 'sorted',
+        newOrder
+      }, '*');
+    });
+  });
+  </script>
+  
+  <script>
+  document.querySelectorAll('section[visual-editor]').forEach(el => {
+    el.addEventListener('click', () => {
+      window.top.postMessage({
+        event: 'click',
+        blockId: el.getAttribute('visual-editor')
+      }, '*');
+    })
+  });
   </script>
   </body>
 </html>
