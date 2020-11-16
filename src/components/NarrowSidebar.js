@@ -38,7 +38,7 @@ export default function NarrowSidebar(props) {
         type="button"
         className={`btn btn-sidebar btn-block m-0 ${props.activeTab === 5 ? "active-button" : ""}`}
         onClick={() => props.onChangeActiveTab(5)}>
-        <span className="material-icons">place</span>
+        <span className="material-icons">featured_video</span>
       </button>
       <button
         type="button"
@@ -64,6 +64,12 @@ export default function NarrowSidebar(props) {
         type="button"
         className={`btn btn-sidebar btn-block m-0 ${props.activeTab === 9 ? "active-button" : ""}`}
         onClick={() => props.onChangeActiveTab(9)}>
+        <span className="material-icons">save</span>
+      </button>
+      <button
+        type="button"
+        className={`btn btn-sidebar btn-block m-0 ${props.activeTab === 10 ? "active-button" : ""}`}
+        onClick={() => props.onChangeActiveTab(10)}>
         <span className="material-icons">settings</span>
       </button>
       <button

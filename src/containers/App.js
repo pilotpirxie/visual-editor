@@ -17,6 +17,7 @@ import Inspector from "./Inspector";
 import Settings from "./Settings";
 
 import actionTypes from "../constants/actionTypes";
+import Output from "./Output";
 
 class App extends React.Component {
   constructor(props) {
@@ -123,7 +124,15 @@ class App extends React.Component {
                   category='gallery'
                   display={activeTab === 4}
                   onPushBlock={this.handlePushBlock} />
-                <Settings display={activeTab === 9}/>
+                <BlocksGallery
+                  category='ad'
+                  display={activeTab === 5}
+                  onPushBlock={this.handlePushBlock} />
+                <Output
+                  display={activeTab === 9}
+                  html={innerHTML}/>
+                <Settings
+                  display={activeTab === 10}/>
               </WideSidebar>
               <Preview
                 html={innerHTML}
