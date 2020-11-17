@@ -14,7 +14,7 @@ Website editor built with React with predefined blocks and a drag and drop.
 * Easily to write blocks with handlebars syntax
 
 <p align="center">
- <img src="https://i.imgur.com/VH9MmCd.png" alt="Visual Editor"/>
+ <img src="https://i.imgur.com/GSHqyTV.png" alt="Visual Editor"/>
 </p>
 
 ## Installation

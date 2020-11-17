@@ -1,8 +1,8 @@
 const hbs = `
-<div class="container text-center">
-  <strong>{{title}}</strong>
-  <h1 class="display-4 my-3">{{tagline}}</h1>
-  <a class="btn btn-link my-2" href="#">{{link}}</a>
+<div class="container text-center pt-5 pb-5">
+  <h5>{{title}}</h5>
+  <h1 class="display-4">{{tagline}}</h1>
+  <a class="btn btn-link" href="#">{{link}}</a>
 </div>
 `;
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class BlockPreview extends Component {
   render() {
     return (
-      <div className='card card-body p-2 shadow block-entry mb-2'>
+      <div className='card card-body p-2 shadow-lg block-entry mb-2'>
         <img
           src={this.props.image}
           alt={this.props.name}
