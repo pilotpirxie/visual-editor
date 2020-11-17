@@ -61,6 +61,25 @@ class Inspector extends Component {
                 onChange={(e) => this.handleChangeBlockData(blockUuid, el, e.target.value)}
               />
             </div>
+          } else if (config[el].type === 'color') {
+            return <div className='form-group' key={index}>
+              <label>{config[el].name}</label>
+              <DebounceInput
+                debounceTimeout={500}
+                type='color'
+                className='form-control'
+                placeholder={config[el].name}
+                value={block.data[el]}
+                onChange={(e) => this.handleChangeBlockData(blockUuid, el, e.target.value)}
+              />
+            </div>
+          } else if (config[el].type === 'boolean') {
+            return <div className='form-check' key={index}>
+              <label>
+                <input type={'checkbox'} className='form-check-input' checked={block.data[el]} onChange={(e) => this.handleChangeBlockData(blockUuid, el, e.target.checked)}/>
+                {config[el].name}
+              </label>
+            </div>
           } else {
             return null;
           }
