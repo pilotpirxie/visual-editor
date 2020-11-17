@@ -10,8 +10,10 @@ Website editor built with React with predefined blocks and a drag and drop.
 * Live preview with different responsive modes
 * Easily add new blocks and sections
 * Works offline without a backend server
+* Search blocks by the name or with categories
 * The built-in inspector and preferences editor
 * Easily to write blocks with handlebars syntax
+* Works with every CSS framework
 
 <p align="center">
  <img src="https://i.imgur.com/GSHqyTV.png" alt="Visual Editor"/>
