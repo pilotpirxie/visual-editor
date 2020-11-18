@@ -3,7 +3,7 @@
 </p>
 
 # visual-editor
-Website editor built with React. Make a website in second with predefined blocks and drag and drop.
+Website editor built with React. Make a modern website in seconds with predefined blocks and drag and drop.
 
 ## Features
 * Drag and drop editor built with React
