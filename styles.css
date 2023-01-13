@@ -1,0 +1,151 @@
+body {
+    background: #faf8ff !important;
+    width: 100vw;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.overflow-x-scroll {
+    overflow-x: scroll;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.btn-sidebar:hover {
+    background: #232323;
+}
+
+.active-button {
+    background: #232323;
+    color: #fff!important;
+}
+
+.btn-sidebar {
+    color: #8d8d8d;
+    padding: 0.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-sidebar:hover {
+    color: #fff;
+}
+
+.shadow {
+    -webkit-box-shadow: 0px 0px 22px -1px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 22px -1px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 22px -1px rgba(0,0,0,0.25);
+}
+
+
+.icons-wrapper {
+    width: 4rem;
+    min-width: 32px;
+    overflow-y: hidden;
+    height: 100vh;
+    background: rgb(52, 62, 75) none repeat scroll 0% 0%;
+}
+
+.inspector-wrapper {
+    overflow-y: scroll;
+    height: 100vh;
+    width: 600px;
+    background: white;
+}
+
+.page-content-wrapper {
+    width: 100vw;
+    padding-top: 32px;
+    padding-bottom: 8px;
+}
+
+.visual-iframe {
+    width: 100%;
+    flex: 1;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.preview-window {
+    background-color: white;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-mode-0 {
+    width: 95%;
+}
+
+.preview-mode-1 {
+    width: 1200px;
+}
+
+.preview-mode-2 {
+    width: 800px;
+}
+
+.preview-mode-3 {
+    width: 450px;
+}
+
+.preview-toolbar {
+    width: 100%;
+    padding: 4px 16px;
+    background-color: #f7f5fb;
+    border-bottom: 1px solid #ddd;
+}
+
+.preview-toolbar-dot {
+    font-size: 1.2rem!important;
+    color: #e4e2ea;
+    margin-right: 4px;
+    cursor: default;
+}
+
+.btn-preview-toolbar {
+    color: #A2A2A2;
+}
+
+.btn-preview-toolbar.active,
+.btn-preview-toolbar:hover {
+    background-color: #e4e2ea;
+}
+
+.block-entry {
+    cursor: pointer;
+}
+
+.block-entry > .prompt {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    opacity: 0;
+    transition: 100ms linear 0s;
+}
+
+.block-entry > .prompt > .prompt-inside {
+    background: rgb(52, 62, 75) none repeat scroll 0% 0%;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.block-entry:hover > .prompt {
+    opacity: 0.95;
+}
+
+
