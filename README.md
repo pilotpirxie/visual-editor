@@ -5,6 +5,8 @@
 # visual-editor
 Website editor built with React. Make a modern website in seconds with predefined blocks and drag and drop.
 
+Demo: https://pilotpirxie.github.io/visual-editor/
+
 ## Features
 * Drag and drop editor built with React
 * Live preview with different responsive modes
