@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import renderHandlebars from '../utils/renderHandlebars';
@@ -21,8 +21,8 @@ class Output extends Component {
       zip.file(`${page.name.replace(/ /g, '_')}.html`, html);
     });
 
-    zip.generateAsync({type:"blob"})
-      .then(function(content) {
+    zip.generateAsync({ type: "blob" })
+      .then(function (content) {
         saveAs(content, "website.zip");
       });
   }
@@ -85,13 +85,21 @@ export default defineConfig({
     zip.folder(`${viteProjectName}/src/pages`);
     zip.folder(`${viteProjectName}/src/assets`); // For react.svg, vite.svg if needed
 
-    const blockComponentNames = {}; // To store mapping from blockId to component name
-
-    // 3. Process each block and create JSX components
-    Object.keys(blocks).forEach(blockId => {
+    const usedBlockIds = new Set();
+    const collectBlocks = (blocksArray) => {
+      blocksArray.forEach(b => {
+        usedBlockIds.add(b.blockId);
+        if (b.children && b.children.length > 0) {
+          collectBlocks(b.children);
+        }
+      });
+    };
+    this.props.pages.forEach(page => collectBlocks(page.blocks));
+    const blockComponentNames = {};
+    usedBlockIds.forEach(blockId => {
       const blockConfig = blocks[blockId];
-      if (blockConfig.hbs) {
-        const componentName = blockId.charAt(0).toUpperCase() + blockId.slice(1); // e.g., header1 -> Header1
+      if (blockConfig?.hbs) {
+        const componentName = blockId.charAt(0).toUpperCase() + blockId.slice(1);
         blockComponentNames[blockId] = componentName;
 
         const dataKeys = Object.keys(blockConfig.defaultData || {});
@@ -99,9 +107,11 @@ export default defineConfig({
 
         const componentString = `import React from 'react';
 
-const ${componentName} = ({ ${dataKeys.join(', ')} }) => {
+const ${componentName} = ({ ${dataKeys.join(', ')}, children }) => {
   return (
-    ${jsxContent}
+    <>
+      ${jsxContent}
+    </>
   );
 };
 
@@ -111,6 +121,35 @@ export default ${componentName};
       }
     });
 
+    // Recursive function to generate JSX for a list of blocks
+    const generateJsxForBlocks = (blocksArray) => {
+      let jsx = '';
+      const imports = new Set();
+
+      blocksArray.forEach(layoutBlock => {
+        const componentName = blockComponentNames[layoutBlock.blockId];
+        if (componentName) {
+          imports.add(componentName);
+          const props = Object.keys(layoutBlock.data).map(key => `${key}={${JSON.stringify(layoutBlock.data[key])}}`).join(' ');
+
+          if (layoutBlock.children && layoutBlock.children.length > 0) {
+            const { jsx: childrenJsx, imports: childrenImports } = generateJsxForBlocks(layoutBlock.children);
+            childrenImports.forEach(imp => imports.add(imp));
+            jsx += `      <${componentName} ${props}>
+${childrenJsx}      </${componentName}>
+`;
+          } else {
+            jsx += `      <${componentName} ${props} />
+`;
+          }
+        } else {
+          console.warn(`Block ID ${layoutBlock.blockId} not found in blocks config. Skipping.`);
+        }
+      });
+
+      return { jsx, imports };
+    };
+
     // 4. Process each page and create JSX page components
     const pageRoutes = [];
     this.props.pages.forEach((page, index) => {
@@ -118,20 +157,7 @@ export default ${componentName};
       const pagePath = `/${page.name.replace(/ /g, '-').toLowerCase()}`;
       pageRoutes.push({ path: pagePath, component: pageComponentName });
 
-      let pageContentJsx = '';
-      const pageImports = new Set();
-
-      page.blocks.forEach(layoutBlock => {
-        const componentName = blockComponentNames[layoutBlock.blockId];
-        if (componentName) {
-          pageImports.add(componentName);
-          const props = Object.keys(layoutBlock.data).map(key => `${key}={${JSON.stringify(layoutBlock.data[key])}}`).join(' ');
-          pageContentJsx += `      <${componentName} ${props} />
-`;
-        } else {
-          console.warn(`Block ID ${layoutBlock.blockId} not found in blocks config. Skipping.`);
-        }
-      });
+      const { jsx: pageContentJsx, imports: pageImports } = generateJsxForBlocks(page.blocks);
 
       const pageComponentString = `import React from 'react';
 ${Array.from(pageImports).map(comp => `import ${comp} from '../components/${comp}.jsx';`).join('\n')}
@@ -202,8 +228,8 @@ export default App;
 
 
     // Trigger download
-    zip.generateAsync({type:"blob"})
-      .then(function(content) {
+    zip.generateAsync({ type: "blob" })
+      .then(function (content) {
         saveAs(content, `${viteProjectName}.zip`);
       });
   }
@@ -225,7 +251,7 @@ export default App;
             Export to Vite JSX
           </button>
         </div>
-        <div style={{marginTop: '20px'}}>
+        <div style={{ marginTop: '20px' }}>
           <label>Output HTML (Active Page)</label>
           <textarea readOnly className='form-control' rows={10} value={this.props.html}></textarea>
         </div>

@@ -50,6 +50,10 @@ class Inspector extends Component {
         <button className='btn btn-outline-danger btn-sm' onClick={() => this.handleDeleteBlock(blockUuid)}>Delete block</button>
         </div>
         <hr />
+        <img
+          src={blocks[block.blockId].previewImageUrl}
+          alt={blocks[block.blockId].name}
+          className='img-fluid' />
         {Object.keys(config).map((el, index) => {
           if (config[el].type === 'string') {
             return <div className='form-group' key={index}>

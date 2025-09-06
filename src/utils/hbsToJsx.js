@@ -1,6 +1,9 @@
 const hbsToJsx = (hbsString, dataKeys = []) => {
   let tempJsxString = hbsString;
 
+  // Handle {{{content}}} for component children
+  tempJsxString = tempJsxString.replace(/\{\{\{content\}\}\}/g, '{children}');
+
   // 1. Handle {{#each array}} ... {{/each}} with support for nested properties
   tempJsxString = tempJsxString.replace(/\{\{\s*#each\s+([a-zA-Z0-9_.]+)\s*\}\}\s*([\s\S]*?)\s*\{\{\s*\/each\s*\}\}/g, (match, arrayVar, content) => {
     // Process content within each block

@@ -29,7 +29,7 @@ class App extends React.Component {
     this.handlePushBlock = this.handlePushBlock.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
     this.handleSetSelectedBlock = this.handleSetSelectedBlock.bind(this);
-    this.handleReorderLayout = this.handleReorderLayout.bind(this);
+    
   }
 
   componentDidMount() {
@@ -41,13 +41,22 @@ class App extends React.Component {
   }
 
   handleMessage(event) {
-    console.log(event.data)
-    if (event.data.event) {
-      if (event.data.blockId && event.data.event === 'click') {
-        this.handleChangeActiveTab(0);
-        this.handleSetSelectedBlock(event.data.blockId);
-      } else if (event.data.newOrder && event.data.event === 'sorted') {
-        this.handleReorderLayout(event.data.newOrder);
+    const { data } = event;
+    if (data && data.event) {
+      switch (data.event) {
+        case 'click':
+          this.handleChangeActiveTab(0);
+          this.handleSetSelectedBlock(data.blockId);
+          break;
+        case 'MOVE_BLOCK':
+          this.props.dispatch({
+            type: actionTypes.MOVE_BLOCK,
+            payload: data.payload,
+          });
+          break;
+        default:
+          // Other events can be ignored
+          return;
       }
     }
   }
@@ -80,24 +89,7 @@ class App extends React.Component {
     });
   }
 
-  handleReorderLayout(newOrder) {
-    const { pages, activePageIndex } = this.props.layout;
-    const activePage = pages[activePageIndex];
-    const newBlocksLayout = [];
-    newOrder.forEach(blockUuid => {
-      const block = activePage.blocks.find(el => {
-        return el.uuid === blockUuid;
-      });
-      if (block) {
-        newBlocksLayout.push(block);
-      }
-    });
-
-    this.props.dispatch({
-      type: actionTypes.REORDER_LAYOUT,
-      newBlocksLayout
-    });
-  }
+  
 
   render() {
     const { pages, activePageIndex } = this.props.layout;
