@@ -32,8 +32,10 @@ class Inspector extends Component {
   render() {
     if (!this.props.display) return null;
 
-    const blockUuid = this.props.layout.selectedBlockUuid;
-    const block = this.props.layout.blocks.find(el => {
+    const { pages, activePageIndex, selectedBlockUuid } = this.props.layout;
+    const blockUuid = selectedBlockUuid;
+    const activePage = pages[activePageIndex];
+    const block = activePage.blocks.find(el => {
       return el.uuid === blockUuid;
     });
 
@@ -44,10 +46,14 @@ class Inspector extends Component {
     return (
       <div>
         <div className='d-flex justify-content-between align-items-center'>
-        <h5>Inspector</h5>
+        <h5>Props</h5>
         <button className='btn btn-outline-danger btn-sm' onClick={() => this.handleDeleteBlock(blockUuid)}>Delete block</button>
         </div>
         <hr />
+        <img
+          src={blocks[block.blockId].previewImageUrl}
+          alt={blocks[block.blockId].name}
+          className='img-fluid' />
         {Object.keys(config).map((el, index) => {
           if (config[el].type === 'string') {
             return <div className='form-group' key={index}>

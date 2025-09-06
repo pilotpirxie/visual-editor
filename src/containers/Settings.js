@@ -11,16 +11,17 @@ class Settings extends Component {
     this.handleDocumentChange = this.handleDocumentChange.bind(this);
   }
 
-  handleDocumentChange(documentId) {
-    console.log(documentId)
+  handleDocumentChange(templateId) {
     this.props.dispatch({
-      type: actionTypes.CHANGE_DOCUMENT_ID,
-      documentId
+      type: actionTypes.CHANGE_TEMPLATE_ID,
+      templateId
     });
   }
 
   render() {
     if (!this.props.display) return null;
+
+    const activePage = this.props.layout.pages[this.props.layout.activePageIndex];
 
     return (
       <div>
@@ -30,7 +31,7 @@ class Settings extends Component {
         <hr />
         <div>
           <label>Document template</label>
-          <select className='form-control' onChange={e => this.handleDocumentChange(e.target.value)} value={this.props.layout.documentId}>
+          <select className='form-control' onChange={e => this.handleDocumentChange(e.target.value)} value={activePage.templateId}>
             {Object.keys(documents).map(documentId => <option key={documentId} value={documentId}>{documents[documentId].name}</option>)}
           </select>
         </div>

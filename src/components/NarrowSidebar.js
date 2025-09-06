@@ -44,19 +44,7 @@ export default function NarrowSidebar(props) {
         type="button"
         className={`btn btn-sidebar btn-block m-0 ${props.activeTab === 6 ? "active-button" : ""}`}
         onClick={() => props.onChangeActiveTab(6)}>
-        <span className="material-icons">perm_contact_calendar</span>
-      </button>
-      <button
-        type="button"
-        className={`btn btn-sidebar btn-block m-0 ${props.activeTab === 7 ? "active-button" : ""}`}
-        onClick={() => props.onChangeActiveTab(7)}>
-        <span className="material-icons">table_chart</span>
-      </button>
-      <button
-        type="button"
-        className={`btn btn-sidebar btn-block m-0 ${props.activeTab === 8 ? "active-button" : ""}`}
-        onClick={() => props.onChangeActiveTab(8)}>
-        <span className="material-icons">view_agenda</span>
+        <span className="material-icons">library_books</span>
       </button>
     </div>
     <div>
@@ -72,16 +60,11 @@ export default function NarrowSidebar(props) {
         onClick={() => props.onChangeActiveTab(10)}>
         <span className="material-icons">settings</span>
       </button>
-      <button
-        type="button"
-        className={`btn btn-sidebar btn-block m-0 ${props.activeTab === 10 ? "active-button" : ""}`}
-        onClick={() => props.onChangeActiveTab(11)}>
-        <span className="material-icons">help_outline</span>
-      </button>
     </div>
   </div>;
 }
 
 NarrowSidebar.propTypes = {
-  onChangeActiveTab: PropTypes.func.isRequired
+  onChangeActiveTab: PropTypes.func.isRequired,
+  activeTab: PropTypes.number.isRequired,
 };

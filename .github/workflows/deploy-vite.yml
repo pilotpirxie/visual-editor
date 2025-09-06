@@ -1,0 +1,48 @@
+name: Build, Deploy, and Release Site Builder
+
+on:
+  workflow_dispatch:
+  release:
+    types: [released, prereleased]
+
+jobs:
+  deploy-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies (fresh, no lockfile)
+        run: yarn install --no-lockfile
+
+      - name: Build React Design
+        run: yarn build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          cname: react-design.tcp4.me
+
+      - name: Create release-blocks.zip
+        run: |
+          mkdir -p release
+          zip -r release/release-blocks.zip src/views/blocks
+
+      - name: Upload release-blocks.zip to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/release-blocks.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
