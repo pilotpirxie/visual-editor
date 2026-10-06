@@ -11,7 +11,14 @@ import type { Block, Project } from './types';
 
 const blocksAdapter = createEntityAdapter<Block>();
 
-export type EditMeta = { mergeKey: string; at: number };
+export type EditKind = 'continuous' | 'discrete';
+
+export type EditMeta = { mergeKey: string | null; at: number };
+
+function editMeta(kind: EditKind, mergeKey: string): EditMeta {
+  if (kind === 'continuous') return { mergeKey, at: Date.now() };
+  return { mergeKey: null, at: Date.now() };
+}
 
 export const projectLoaded = createAction<{ project: Project; pageId: string | null }>(
   'project/loaded',
@@ -29,21 +36,24 @@ export const projectSlice = createSlice({
       reducer(state, action: PayloadAction<{ pageId: string; index: number; block: Block }>) {
         const { pageId, index, block } = action.payload;
         const page = state.pages.entities[pageId];
-        if (!page) return;
+        if (page === undefined) return;
         blocksAdapter.addOne(state.blocks, block);
         page.blockIds.splice(clamp(index, 0, page.blockIds.length), 0, block.id);
       },
       prepare(pageId: string, index: number, componentId: string) {
         const component = registry.get(componentId);
-        if (!component) throw new Error(`Cannot insert unknown component "${componentId}"`);
+        if (component === undefined) {
+          throw new Error(`Cannot insert unknown component "${componentId}"`);
+        }
         return { payload: { pageId, index, block: createBlock(component.definition) } };
       },
     },
     blockMoved(state, action: PayloadAction<{ pageId: string; blockId: string; toIndex: number }>) {
       const { pageId, blockId, toIndex } = action.payload;
       const page = state.pages.entities[pageId];
-      const from = page?.blockIds.indexOf(blockId) ?? -1;
-      if (!page || from === -1) return;
+      if (page === undefined) return;
+      const from = page.blockIds.indexOf(blockId);
+      if (from === -1) return;
       const to = clamp(toIndex, 0, page.blockIds.length - 1);
       if (to === from) return;
       page.blockIds.splice(from, 1);
@@ -57,9 +67,11 @@ export const projectSlice = createSlice({
         const { pageId, blockId, newBlockId } = action.payload;
         const page = state.pages.entities[pageId];
         const source = state.blocks.entities[blockId];
-        const index = page?.blockIds.indexOf(blockId) ?? -1;
-        if (!page || !source || index === -1) return;
-        blocksAdapter.addOne(state.blocks, { ...structuredClone(current(source)), id: newBlockId });
+        if (page === undefined || source === undefined) return;
+        const index = page.blockIds.indexOf(blockId);
+        if (index === -1) return;
+        const copy = structuredClone(current(source));
+        blocksAdapter.addOne(state.blocks, { ...copy, id: newBlockId });
         page.blockIds.splice(index + 1, 0, newBlockId);
       },
       prepare(pageId: string, blockId: string) {
@@ -69,14 +81,15 @@ export const projectSlice = createSlice({
     blockRemoved(state, action: PayloadAction<{ pageId: string; blockId: string }>) {
       const { pageId, blockId } = action.payload;
       const page = state.pages.entities[pageId];
-      const index = page?.blockIds.indexOf(blockId) ?? -1;
-      if (!page || index === -1) return;
+      if (page === undefined) return;
+      const index = page.blockIds.indexOf(blockId);
+      if (index === -1) return;
       page.blockIds.splice(index, 1);
       blocksAdapter.removeOne(state.blocks, blockId);
     },
     blockDisabledSet(state, action: PayloadAction<{ blockId: string; disabled: boolean }>) {
       const block = state.blocks.entities[action.payload.blockId];
-      if (block) block.disabled = action.payload.disabled;
+      if (block !== undefined) block.disabled = action.payload.disabled;
     },
     blockValueSet: {
       reducer(
@@ -85,23 +98,23 @@ export const projectSlice = createSlice({
       ) {
         const { blockId, name, value } = action.payload;
         const block = state.blocks.entities[blockId];
-        if (!block || Object.is(block.values[name], value)) return;
+        if (block === undefined || Object.is(block.values[name], value)) return;
         block.values[name] = value;
       },
-      prepare(blockId: string, name: string, value: unknown) {
+      prepare(blockId: string, name: string, value: unknown, kind: EditKind) {
         return {
           payload: { blockId, name, value },
-          meta: { mergeKey: `value:${blockId}:${name}`, at: Date.now() },
+          meta: editMeta(kind, `value:${blockId}:${name}`),
         };
       },
     },
     tokenSet: {
       reducer(state, action: PayloadAction<{ name: string; value: string }, string, EditMeta>) {
         const token = state.designSystem.tokens[action.payload.name];
-        if (token) token.value = action.payload.value;
+        if (token !== undefined) token.value = action.payload.value;
       },
-      prepare(payload: { name: string; value: string }) {
-        return { payload, meta: { mergeKey: `token:${payload.name}`, at: Date.now() } };
+      prepare(payload: { name: string; value: string }, kind: EditKind) {
+        return { payload, meta: editMeta(kind, `token:${payload.name}`) };
       },
     },
   },

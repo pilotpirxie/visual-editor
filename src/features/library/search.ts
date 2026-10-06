@@ -1,22 +1,43 @@
 import { CATEGORIES, type RegisteredComponent } from '../../components/types';
 
-const CATEGORY_LABELS = new Map<string, string>(CATEGORIES.map(({ id, label }) => [id, label]));
+const WHITESPACE = /\s+/;
+
+function categoryLabel(categoryId: string): string {
+  for (const category of CATEGORIES) {
+    if (category.id === categoryId) return category.label;
+  }
+  return '';
+}
+
+function searchableText(component: RegisteredComponent): string {
+  const { definition } = component;
+  const parts = [
+    definition.name,
+    definition.description ?? '',
+    ...(definition.tags ?? []),
+    categoryLabel(definition.category),
+  ];
+  return parts.join(' ').toLowerCase();
+}
+
+function searchWords(query: string): string[] {
+  const words: string[] = [];
+  for (const word of query.toLowerCase().split(WHITESPACE)) {
+    if (word !== '') words.push(word);
+  }
+  return words;
+}
 
 export function filterComponents(
   components: RegisteredComponent[],
   query: string,
 ): RegisteredComponent[] {
-  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const words = searchWords(query);
   if (words.length === 0) return components;
-  return components.filter(({ definition }) => {
-    const text = [
-      definition.name,
-      definition.description ?? '',
-      ...(definition.tags ?? []),
-      CATEGORY_LABELS.get(definition.category) ?? '',
-    ]
-      .join(' ')
-      .toLowerCase();
-    return words.every((word) => text.includes(word));
-  });
+  const matches: RegisteredComponent[] = [];
+  for (const component of components) {
+    const text = searchableText(component);
+    if (words.every((word) => text.includes(word))) matches.push(component);
+  }
+  return matches;
 }

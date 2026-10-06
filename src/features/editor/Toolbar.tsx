@@ -1,12 +1,19 @@
 import type { JSX } from 'react';
 import { behaviors, core } from 'virtual:site-runtime';
-import { DEVICE_WIDTHS, deviceChanged, panelToggled, type Device } from '../../app/editorSlice';
+import {
+  DEVICE_VIEWPORTS,
+  deviceChanged,
+  panelToggled,
+  type Device,
+  type PanelSide,
+} from '../../app/editorSlice';
+import { describeError } from '../../app/errors';
 import { redo, undo } from '../../app/history';
 import { followLink, HOME_PATH } from '../../app/router';
 import { dispatch, store, useStore } from '../../app/store';
 import { registry } from '../../components/registry';
-import { buildExportFiles } from '../../render/exportSite';
 import type { SaveStatus } from '../../persistence/autosave';
+import { buildExportFiles } from '../../render/exportSite';
 import { downloadFiles } from '../export/downloadFiles';
 import { Icon } from './Icon';
 
@@ -22,39 +29,66 @@ const DEVICES: { id: Device; label: string; icon: string }[] = [
   { id: 'phone', label: 'Phone', icon: 'smartphone' },
 ];
 
+const PANEL_TOGGLES: Record<PanelSide, { name: string; icon: string }> = {
+  left: { name: 'library panel', icon: 'panel-left' },
+  right: { name: 'properties panel', icon: 'panel-right' },
+};
+
+export function deviceReadout(device: Device): string {
+  const { width, height } = DEVICE_VIEWPORTS[device];
+  if (height === null) return `${width} px`;
+  return `${width} × ${height}`;
+}
+
 async function exportSite(): Promise<void> {
   try {
     await downloadFiles(buildExportFiles(store.getState().project, registry, { core, behaviors }));
   } catch (error) {
     console.error('Export failed', error);
-    window.alert(`Export failed: ${error instanceof Error ? error.message : String(error)}`);
+    window.alert(`Export failed: ${describeError(error)}`);
   }
+}
+
+function PanelToggle({ side }: { side: PanelSide }): JSX.Element {
+  const isOpen = useStore((state) => !state.editor.panels[side].collapsed);
+  const { name, icon } = PANEL_TOGGLES[side];
+  const label = isOpen ? `Hide ${name}` : `Show ${name}`;
+  return (
+    <button
+      type="button"
+      className="ve-icon-button ve-wide-only"
+      aria-label={label}
+      title={label}
+      aria-pressed={isOpen}
+      onClick={() => dispatch(panelToggled(side))}
+    >
+      <Icon name={icon} />
+    </button>
+  );
 }
 
 export function Toolbar(): JSX.Element {
   const device = useStore((state) => state.editor.device);
   const title = useStore((state) => state.project.settings.title);
   const saveStatus = useStore((state) => state.editor.saveStatus);
-  const isLeftOpen = useStore((state) => !state.editor.panels.left.collapsed);
-  const isRightOpen = useStore((state) => !state.editor.panels.right.collapsed);
   const canUndo = useStore((state) => state.history.past.length > 0);
   const canRedo = useStore((state) => state.history.future.length > 0);
 
   return (
     <header className="ve-toolbar">
       <div className="ve-toolbar-group">
-        <button
-          type="button"
-          className="ve-icon-button"
-          aria-label={isLeftOpen ? 'Hide library panel' : 'Show library panel'}
-          title={isLeftOpen ? 'Hide library panel' : 'Show library panel'}
-          aria-pressed={isLeftOpen}
-          onClick={() => dispatch(panelToggled('left'))}
+        <PanelToggle side="left" />
+        <a
+          className="ve-logo"
+          href={HOME_PATH}
+          onClick={followLink}
+          title="My projects"
+          aria-label="My projects"
         >
-          <Icon name="panel-left" />
-        </button>
-        <a className="ve-logo" href={HOME_PATH} onClick={followLink} title="My projects">
-          Visual Editor
+          <span className="ve-compact-only">
+            <Icon name="house" />
+          </span>
+          <span className="ve-wide-only">Visual Editor</span>
         </a>
         <span className="ve-project-title">{title}</span>
         <span className="ve-save-status" data-status={saveStatus} role="status">
@@ -69,13 +103,14 @@ export function Toolbar(): JSX.Element {
             type="button"
             className="ve-device-button"
             aria-pressed={device === id}
+            title={label}
             onClick={() => dispatch(deviceChanged(id))}
           >
             <Icon name={icon} />
-            {label}
+            <span className="ve-device-label">{label}</span>
           </button>
         ))}
-        <span className="ve-readout">{DEVICE_WIDTHS[device]} px</span>
+        <span className="ve-readout">{deviceReadout(device)}</span>
       </div>
 
       <div className="ve-toolbar-group">
@@ -99,20 +134,16 @@ export function Toolbar(): JSX.Element {
         >
           <Icon name="redo" />
         </button>
-        <button type="button" className="ve-button ve-button--primary" onClick={exportSite}>
-          <Icon name="download" />
-          Export
-        </button>
         <button
           type="button"
-          className="ve-icon-button"
-          aria-label={isRightOpen ? 'Hide properties panel' : 'Show properties panel'}
-          title={isRightOpen ? 'Hide properties panel' : 'Show properties panel'}
-          aria-pressed={isRightOpen}
-          onClick={() => dispatch(panelToggled('right'))}
+          className="ve-button ve-button--primary"
+          aria-label="Export"
+          onClick={exportSite}
         >
-          <Icon name="panel-right" />
+          <Icon name="download" />
+          <span className="ve-wide-only">Export</span>
         </button>
+        <PanelToggle side="right" />
       </div>
     </header>
   );

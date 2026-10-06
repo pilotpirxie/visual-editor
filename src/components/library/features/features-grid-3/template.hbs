@@ -3,7 +3,7 @@
     <header class="b-head stack">
       {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
       <h2 data-field="title">{{title}}</h2>
-      {{#if intro}}<div class="b-intro prose" data-field="intro">{{{intro}}}</div>{{/if}}
+      {{#if intro}}<div class="b-intro prose" data-field="intro">{{richText intro}}</div>{{/if}}
     </header>
     <div class="b-grid grid" style="--cols: {{columns}}">
       {{#each items}}

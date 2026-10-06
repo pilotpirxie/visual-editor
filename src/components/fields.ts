@@ -17,7 +17,9 @@ const ISO_DATE = /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})$/;
 const HTML_TAG = /<[^>]*>/g;
 
 export function defaultValues(fields: Field[]): Record<string, unknown> {
-  return Object.fromEntries(fields.map((field) => [field.name, structuredClone(field.default)]));
+  const values: Record<string, unknown> = {};
+  for (const field of fields) values[field.name] = structuredClone(field.default);
+  return values;
 }
 
 export function groupFields(definition: ComponentDefinition): FieldGroup[] {
@@ -33,7 +35,8 @@ export function groupFields(definition: ComponentDefinition): FieldGroup[] {
     fields.push(field);
     groups.set(field.group, fields);
   }
-  groups.set(UNGROUPED, [...(groups.get(UNGROUPED) ?? []), ...ungrouped]);
+  const generalFields = groups.get(UNGROUPED) ?? [];
+  groups.set(UNGROUPED, [...generalFields, ...ungrouped]);
   const nonEmptyGroups: FieldGroup[] = [];
   for (const [name, fields] of groups) {
     if (fields.length > 0) nonEmptyGroups.push({ name, fields });
@@ -93,9 +96,11 @@ export function replaceItem(items: readonly ListItem[], index: number, item: Lis
 }
 
 export function itemTitle(field: Field, item: ListItem, index: number): string {
-  const label = field.itemLabel === undefined ? undefined : item[field.itemLabel];
+  const fallbackTitle = `Item ${index + 1}`;
+  if (field.itemLabel === undefined) return fallbackTitle;
+  const label = item[field.itemLabel];
   if (typeof label === 'string' && label.trim() !== '') return label;
-  return `Item ${index + 1}`;
+  return fallbackTitle;
 }
 
 export function isColorValue(value: unknown): value is string {
@@ -173,9 +178,11 @@ export function validateField(field: Field, value: unknown): string | null {
     case 'select':
     case 'segmented':
       return validateOption(field, value);
-    case 'date':
+    case 'date': {
       if (value === '' && !field.required) return null;
-      return typeof value === 'string' && isValidDate(value) ? null : 'Enter a valid date';
+      const isDate = typeof value === 'string' && isValidDate(value);
+      return isDate ? null : 'Enter a valid date';
+    }
     case 'color':
       return isColorValue(value) ? null : 'Choose a design color or a hex color like #4f46e5';
     case 'image':

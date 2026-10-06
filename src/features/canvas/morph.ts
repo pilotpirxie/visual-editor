@@ -2,6 +2,12 @@ function isElement(node: Node): node is Element {
   return node.nodeType === Node.ELEMENT_NODE;
 }
 
+function isSameNode(current: Node, next: Node): boolean {
+  if (current.nodeName !== next.nodeName) return false;
+  if (isElement(current) && isElement(next)) return current.id === next.id;
+  return true;
+}
+
 export function morphChildren(target: Element, html: string): void {
   const template = target.ownerDocument.createElement('template');
   template.innerHTML = html;
@@ -11,14 +17,11 @@ export function morphChildren(target: Element, html: string): void {
 function patchChildren(current: Node, next: Node): void {
   let cursor = current.firstChild;
   for (const nextChild of [...next.childNodes]) {
-    if (!cursor) {
+    if (cursor === null) {
       current.appendChild(nextChild);
       continue;
     }
-    const isSameNode =
-      cursor.nodeName === nextChild.nodeName &&
-      (!isElement(cursor) || !isElement(nextChild) || cursor.id === nextChild.id);
-    if (!isSameNode) {
+    if (!isSameNode(cursor, nextChild)) {
       const replaced = cursor;
       cursor = cursor.nextSibling;
       current.replaceChild(nextChild, replaced);
@@ -32,7 +35,7 @@ function patchChildren(current: Node, next: Node): void {
     }
     cursor = cursor.nextSibling;
   }
-  while (cursor) {
+  while (cursor !== null) {
     const following: ChildNode | null = cursor.nextSibling;
     current.removeChild(cursor);
     cursor = following;

@@ -27,9 +27,9 @@ function notice(blockId: string, text: string): string {
 }
 
 function renderForCanvas(block: Block | undefined, ctx: RenderContext): string {
-  if (!block) return '';
+  if (block === undefined) return '';
   const component = registry.get(block.componentId);
-  if (!component) {
+  if (component === undefined) {
     console.error(`Canvas: block ${block.id} uses unknown component "${block.componentId}"`);
     return notice(block.id, `Missing component: ${block.componentId}`);
   }
@@ -54,11 +54,11 @@ export const BlockHost = memo(function BlockHost({
 
   useLayoutEffect(() => {
     const host = hostRef.current;
-    if (!host) return;
+    if (host === null) return;
     anchor.capture();
     morphChildren(host, html);
     const runtime = doc.defaultView?.siteRuntime;
-    if (!runtime) {
+    if (runtime === undefined) {
       console.error('Canvas: the site runtime is not loaded in the canvas iframe');
       return;
     }

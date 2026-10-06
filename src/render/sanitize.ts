@@ -106,13 +106,21 @@ function hasText(element: Element): boolean {
 function inlineTagOf(element: Element): InlineTag | null {
   const tag = tagOf(element);
   const style = element.getAttribute('style') ?? '';
-  if (tag === 'A') return 'a';
-  if (tag === 'STRONG') return 'strong';
-  if (tag === 'B') return NORMAL_WEIGHT.test(style) ? null : 'strong';
-  if (tag === 'EM' || tag === 'I') return 'em';
-  if (BOLD_WEIGHT.test(style)) return 'strong';
-  if (ITALIC_STYLE.test(style)) return 'em';
-  return null;
+  if (tag === 'A') {
+    return 'a';
+  } else if (tag === 'STRONG') {
+    return 'strong';
+  } else if (tag === 'B') {
+    return NORMAL_WEIGHT.test(style) ? null : 'strong';
+  } else if (tag === 'EM' || tag === 'I') {
+    return 'em';
+  } else if (BOLD_WEIGHT.test(style)) {
+    return 'strong';
+  } else if (ITALIC_STYLE.test(style)) {
+    return 'em';
+  } else {
+    return null;
+  }
 }
 
 function trimTrailingBreaks(element: Element): void {
@@ -143,7 +151,11 @@ function appendInlineNode(node: Node, target: Element, doc: Document): void {
   const element = doc.createElement(inlineTag);
   if (inlineTag === 'a') element.setAttribute('href', href);
   appendInlineChildren(node, element, doc);
-  if (hasText(element)) target.append(element);
+  if (hasText(element)) {
+    target.append(element);
+    return;
+  }
+  target.append(...element.childNodes);
 }
 
 function appendInlineChildren(source: Node, target: Element, doc: Document): void {
@@ -182,7 +194,8 @@ function buildList(source: Element, doc: Document): Element | null {
     trimTrailingBreaks(item);
     if (hasText(item)) list.append(item);
   }
-  return list.children.length > 0 ? list : null;
+  if (list.children.length === 0) return null;
+  return list;
 }
 
 function openParagraph(writer: BlockWriter): Element {

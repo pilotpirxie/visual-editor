@@ -2,6 +2,7 @@ import { createBlock, registry } from '../components/registry';
 import clean from '../presets/clean.json';
 import {
   TOKEN_GROUPS,
+  type Block,
   type DesignSystem,
   type Page,
   type Project,
@@ -42,20 +43,23 @@ export function createBlankProject(title: string): Project {
 
 export function createSampleProject(): Project {
   const project = createBlankProject('Fieldnote');
-  const blocks = SAMPLE_PAGE_COMPONENTS.map((componentId) => {
+  const blockIds: string[] = [];
+  const blockEntities: Record<string, Block> = {};
+  for (const componentId of SAMPLE_PAGE_COMPONENTS) {
     const component = registry.get(componentId);
-    if (!component) throw new Error(`The sample project needs component "${componentId}"`);
-    return createBlock(component.definition);
-  });
+    if (component === undefined) {
+      throw new Error(`The sample project needs component "${componentId}"`);
+    }
+    const block = createBlock(component.definition);
+    blockIds.push(block.id);
+    blockEntities[block.id] = block;
+  }
   const homeId = project.pages.homePageId;
-  const home = { ...project.pages.entities[homeId], blockIds: blocks.map(({ id }) => id) };
+  const home: Page = { ...project.pages.entities[homeId], blockIds };
 
   return {
     ...project,
     pages: { ...project.pages, entities: { [homeId]: home } },
-    blocks: {
-      ids: blocks.map(({ id }) => id),
-      entities: Object.fromEntries(blocks.map((block) => [block.id, block])),
-    },
+    blocks: { ids: [...blockIds], entities: blockEntities },
   };
 }

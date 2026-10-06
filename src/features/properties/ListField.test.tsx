@@ -1,7 +1,8 @@
-import { act, useState, type JSX } from 'react';
-import { createRoot, type Root } from 'react-dom/client';
-import { afterEach, beforeAll, describe, expect, it } from 'vitest';
+import { useState, type JSX } from 'react';
+import { describe, expect, it } from 'vitest';
+import type { EditKind } from '../../app/projectSlice';
 import type { Field } from '../../components/types';
+import { changeValue, click, getButton, pressKey, render } from '../../test/dom';
 import { ListField } from './ListField';
 
 const list: Field = {
@@ -25,78 +26,139 @@ const list: Field = {
   ],
 };
 
-let root: Root | null = null;
-let container: HTMLDivElement | null = null;
-let latest: unknown = null;
+const roomyList: Field = { ...list, minItems: 0, maxItems: 5 };
 
-function Harness({ initial }: { initial: unknown }): JSX.Element {
-  const [value, setValue] = useState(initial);
-  return (
-    <ListField
-      field={list}
-      value={value}
-      id="ve-field-items"
-      path="items"
-      describedBy={undefined}
-      isInvalid={false}
-      onChange={(next) => {
-        latest = next;
-        setValue(next);
-      }}
-    />
-  );
+type Change = { value: unknown; kind: EditKind };
+
+function renderList(
+  field: Field,
+  initial: unknown,
+): { element: HTMLDivElement; changes: Change[] } {
+  const changes: Change[] = [];
+
+  function Harness(): JSX.Element {
+    const [value, setValue] = useState(initial);
+    return (
+      <ListField
+        field={field}
+        value={value}
+        id="ve-field-items"
+        path="items"
+        describedBy={undefined}
+        isInvalid={false}
+        onChange={(next, kind) => {
+          changes.push({ value: next, kind });
+          setValue(next);
+        }}
+      />
+    );
+  }
+
+  return { element: render(<Harness />).container, changes };
 }
 
-function render(initial: unknown): HTMLDivElement {
-  container = document.createElement('div');
-  document.body.append(container);
-  root = createRoot(container);
-  act(() => root?.render(<Harness initial={initial} />));
-  return container;
+function nextFrame(): Promise<void> {
+  return new Promise((resolve) => requestAnimationFrame(() => resolve()));
 }
 
-function button(element: HTMLElement, label: string): HTMLButtonElement {
-  const found = element.querySelector(`button[aria-label="${label}"]`);
-  if (!(found instanceof HTMLButtonElement)) throw new Error(`No button labelled ${label}`);
-  return found;
+function openDetails(element: HTMLElement): string[] {
+  const titles: string[] = [];
+  for (const details of element.querySelectorAll('details')) {
+    if (details.open) titles.push(details.querySelector('summary')?.textContent ?? '');
+  }
+  return titles;
 }
 
 describe('ListField', () => {
-  beforeAll(() => {
-    Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
-  });
-
-  afterEach(() => {
-    act(() => root?.unmount());
-    container?.remove();
-  });
-
   it('titles items, hides conditional item fields and respects min and max', () => {
-    const element = render([{ title: 'Fast setup', showNote: false, note: '' }]);
+    const { element, changes } = renderList(list, [
+      { title: 'Fast setup', showNote: false, note: '' },
+    ]);
     expect(element.querySelector('summary')?.textContent).toBe('Fast setup');
     expect(element.querySelector('[data-field-path="items.0.note"]')).toBeNull();
-    expect(button(element, 'Remove Fast setup').disabled).toBe(true);
+    expect(getButton(element, 'Remove Fast setup').disabled).toBe(true);
 
-    const add = [...element.querySelectorAll('button')].find(
-      (candidate) => candidate.textContent === 'Add item',
-    );
-    act(() => add?.click());
-    expect(latest).toEqual([
-      { title: 'Fast setup', showNote: false, note: '' },
-      { title: 'New feature', showNote: false, note: '' },
-    ]);
-    expect(add?.disabled).toBe(true);
-    expect(button(element, 'Duplicate Fast setup').disabled).toBe(true);
+    const add = getButton(element, 'Add item');
+    click(add);
+    expect(changes.at(-1)).toEqual({
+      value: [
+        { title: 'Fast setup', showNote: false, note: '' },
+        { title: 'New feature', showNote: false, note: '' },
+      ],
+      kind: 'discrete',
+    });
+    expect(add.disabled).toBe(true);
+    expect(getButton(element, 'Duplicate Fast setup').disabled).toBe(true);
   });
 
-  it('moves an item with Alt and the arrow keys', () => {
-    const element = render([{ title: 'One' }, { title: 'Two' }]);
-    const handle = button(element, 'Move One');
-    act(() => {
-      handle.dispatchEvent(
-        new KeyboardEvent('keydown', { key: 'ArrowDown', altKey: true, bubbles: true }),
-      );
+  it('moves an item with Alt and the arrow keys as one discrete change', () => {
+    const { element, changes } = renderList(list, [{ title: 'One' }, { title: 'Two' }]);
+    pressKey(getButton(element, 'Move One'), 'ArrowDown', { altKey: true });
+    expect(changes.at(-1)).toEqual({
+      value: [{ title: 'Two' }, { title: 'One' }],
+      kind: 'discrete',
     });
-    expect(latest).toEqual([{ title: 'Two' }, { title: 'One' }]);
+  });
+
+  it('ignores arrow keys without Alt and moves past either end', () => {
+    const { element, changes } = renderList(list, [{ title: 'One' }, { title: 'Two' }]);
+    pressKey(getButton(element, 'Move One'), 'ArrowDown');
+    pressKey(getButton(element, 'Move One'), 'ArrowUp', { altKey: true });
+    expect(changes).toHaveLength(0);
+  });
+
+  it('reports typing inside an item as a continuous change of the whole list', () => {
+    const { element, changes } = renderList(list, [{ title: 'One' }, { title: 'Two' }]);
+    changeValue(element.querySelector('[data-field-path="items.1.title"] input'), 'Second');
+    expect(changes.at(-1)).toEqual({
+      value: [{ title: 'One' }, { title: 'Second' }],
+      kind: 'continuous',
+    });
+  });
+
+  it('keeps an open item open when it moves to another position', () => {
+    const { element } = renderList(roomyList, [
+      { title: 'One' },
+      { title: 'Two' },
+      { title: 'Three' },
+    ]);
+    const details = element.querySelectorAll('details');
+    details[0].open = true;
+    pressKey(getButton(element, 'Move One'), 'ArrowDown', { altKey: true });
+    pressKey(getButton(element, 'Move One'), 'ArrowDown', { altKey: true });
+    expect(openDetails(element)).toEqual(['One']);
+  });
+
+  it('keeps an open item open after an item above it is removed', () => {
+    const { element } = renderList(roomyList, [{ title: 'One' }, { title: 'Two' }]);
+    element.querySelectorAll('details')[1].open = true;
+    click(getButton(element, 'Remove One'));
+    expect(openDetails(element)).toEqual(['Two']);
+  });
+
+  it('keeps an item open while typing changes its title', () => {
+    const { element } = renderList(roomyList, [{ title: 'One' }]);
+    element.querySelectorAll('details')[0].open = true;
+    changeValue(element.querySelector('[data-field-path="items.0.title"] input'), 'Uno');
+    expect(openDetails(element)).toEqual(['Uno']);
+  });
+
+  it('opens and focuses the first item added to an empty list', async () => {
+    const { element } = renderList(roomyList, []);
+    click(getButton(element, 'Add item'));
+    await nextFrame();
+    expect(openDetails(element)).toEqual(['New feature']);
+    expect(document.activeElement).toBe(
+      element.querySelector('[data-field-path="items.0.title"] input'),
+    );
+  });
+
+  it('duplicates an item right after itself', () => {
+    const { element, changes } = renderList(roomyList, [{ title: 'One' }, { title: 'Two' }]);
+    click(getButton(element, 'Duplicate One'));
+    expect(changes.at(-1)).toEqual({
+      value: [{ title: 'One' }, { title: 'One' }, { title: 'Two' }],
+      kind: 'discrete',
+    });
   });
 });

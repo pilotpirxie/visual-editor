@@ -28,28 +28,42 @@ export function resolveIcon(ref: string): ResolvedIcon | null {
   if (data === undefined) return null;
   const icon = data.icons[data.aliases[name] ?? name];
   if (icon === undefined) return null;
-  return { body: icon.body, width: icon.width ?? data.width, height: icon.height ?? data.height };
+  return {
+    body: icon.body,
+    width: icon.width ?? data.width,
+    height: icon.height ?? data.height,
+  };
 }
 
 export function iconSvg(icon: ResolvedIcon): string {
   return `<svg class="icon" aria-hidden="true" viewBox="0 0 ${icon.width} ${icon.height}">${icon.body}</svg>`;
 }
 
-function searchTerm(query: string): string {
-  return query.trim().toLowerCase().replace(/\s+/g, '-');
+const WHITESPACE = /\s+/g;
+
+function toSearchTerm(query: string): string {
+  const lowerCase = query.trim().toLowerCase();
+  return lowerCase.replace(WHITESPACE, '-');
 }
 
+type RankedName = { name: string; rank: number };
+
 function matchRank(label: string, term: string): number | null {
-  if (label === term) return EXACT_MATCH;
-  if (label.startsWith(term)) return PREFIX_MATCH;
-  if (label.includes(term)) return PARTIAL_MATCH;
-  return null;
+  if (label === term) {
+    return EXACT_MATCH;
+  } else if (label.startsWith(term)) {
+    return PREFIX_MATCH;
+  } else if (label.includes(term)) {
+    return PARTIAL_MATCH;
+  } else {
+    return null;
+  }
 }
 
 export function searchIcons(set: string, query: string): string[] {
   const data = iconSets.get(set);
   if (data === undefined) return [];
-  const term = searchTerm(query);
+  const term = toSearchTerm(query);
   const names: string[] = [];
   for (const [name, icon] of Object.entries(data.icons)) {
     if (icon.hidden !== true) names.push(name);
@@ -68,6 +82,10 @@ export function searchIcons(set: string, query: string): string[] {
     if (data.icons[name]?.hidden !== true) consider(alias, name);
   }
 
-  const ranked = [...bestRanks.entries()].sort((left, right) => left[1] - right[1]);
-  return ranked.map(([name]) => name);
+  const ranked: RankedName[] = [];
+  for (const [name, rank] of bestRanks) ranked.push({ name, rank });
+  ranked.sort((left, right) => left.rank - right.rank);
+  const rankedNames: string[] = [];
+  for (const { name } of ranked) rankedNames.push(name);
+  return rankedNames;
 }

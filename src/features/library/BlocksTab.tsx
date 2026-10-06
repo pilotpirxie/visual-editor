@@ -1,4 +1,5 @@
-import { useState, type JSX } from 'react';
+import { useState, type JSX, type PointerEvent } from 'react';
+import { dispatch } from '../../app/store';
 import { registry } from '../../components/registry';
 import { CATEGORIES, type RegisteredComponent } from '../../components/types';
 import { dragController } from '../canvas/dragController';
@@ -6,31 +7,50 @@ import { insertComponent } from '../editor/blockActions';
 import { Icon } from '../editor/Icon';
 import { filterComponents } from './search';
 
-const COMPONENTS = [...registry.values()];
+const THUMBNAIL_WIDTH = 640;
+const THUMBNAIL_HEIGHT = 400;
 
-const CATEGORY_GROUPS: { id: string; label: string; components: RegisteredComponent[] }[] = [];
-for (const { id, label } of CATEGORIES) {
-  const components = COMPONENTS.filter(({ definition }) => definition.category === id);
-  if (components.length > 0) CATEGORY_GROUPS.push({ id, label, components });
+type CategoryGroup = { id: string; label: string; components: RegisteredComponent[] };
+
+export function groupByCategory(components: RegisteredComponent[]): CategoryGroup[] {
+  const groups: CategoryGroup[] = [];
+  for (const { id, label } of CATEGORIES) {
+    const inCategory = components.filter(({ definition }) => definition.category === id);
+    if (inCategory.length > 0) groups.push({ id, label, components: inCategory });
+  }
+  return groups;
 }
+
+const COMPONENTS = [...registry.values()];
+const CATEGORY_GROUPS = groupByCategory(COMPONENTS);
 
 function ComponentCard({ component }: { component: RegisteredComponent }): JSX.Element {
   const { definition, thumbnail } = component;
+
+  function startDrag(event: PointerEvent<HTMLButtonElement>): void {
+    if (event.pointerType === 'touch') return;
+    dragController.start(
+      { kind: 'new', componentId: definition.id, label: definition.name },
+      event,
+    );
+  }
+
   return (
     <li>
       <button
         type="button"
         className="ve-component-card"
         title={definition.description}
-        onClick={() => insertComponent(definition.id)}
-        onPointerDown={(event) =>
-          dragController.start(
-            { kind: 'new', componentId: definition.id, label: definition.name },
-            event,
-          )
-        }
+        onClick={() => dispatch(insertComponent(definition.id))}
+        onPointerDown={startDrag}
       >
-        <img src={thumbnail} alt="" width={640} height={400} draggable={false} />
+        <img
+          src={thumbnail}
+          alt=""
+          width={THUMBNAIL_WIDTH}
+          height={THUMBNAIL_HEIGHT}
+          draggable={false}
+        />
         <span>{definition.name}</span>
       </button>
     </li>

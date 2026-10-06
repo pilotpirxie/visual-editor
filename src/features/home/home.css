@@ -39,7 +39,7 @@
 
   .ve-home-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
     gap: 16px;
   }
 
@@ -88,5 +88,27 @@
   .ve-loading {
     padding: 48px;
     color: var(--ve-muted);
+  }
+
+  @media (width < 1024px) {
+    .ve-home,
+    .ve-notice {
+      padding: 24px 16px;
+    }
+
+    .ve-home-empty {
+      padding: 32px 16px;
+    }
+
+    .ve-home .ve-icon-button,
+    .ve-home .ve-button {
+      min-width: 44px;
+      height: 44px;
+      justify-content: center;
+    }
+
+    .ve-home-rename {
+      font-size: 16px;
+    }
   }
 }

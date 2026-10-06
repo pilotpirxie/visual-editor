@@ -40,6 +40,15 @@ describe('template helpers', () => {
     expect(helpers.or('', 'label')).toBe(true);
   });
 
+  it('richText renders only the allowed rich text markup', () => {
+    const html = '<p>Hi <b>there</b><img src="x" onerror="alert(1)"></p><script>alert(2)</script>';
+    expect(String(helpers.richText(html))).toBe('<p>Hi <strong>there</strong></p>');
+  });
+
+  it('richText renders nothing for a value that is not text', () => {
+    expect(String(helpers.richText(undefined))).toBe('');
+  });
+
   it('nl2br escapes text before adding line breaks', () => {
     expect(String(helpers.nl2br('One <b>\nTwo'))).toBe('One &lt;b&gt;<br>Two');
   });

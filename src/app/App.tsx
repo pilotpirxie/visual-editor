@@ -1,5 +1,6 @@
 import { useEffect, useEffectEvent, useState, type JSX } from 'react';
 import { EditorShell } from '../features/editor/EditorShell';
+import { describeError } from './errors';
 import { HomeScreen } from '../features/home/HomeScreen';
 import { loadIconSet } from '../features/icons/loadIconSet';
 import { getProject } from '../persistence/db';
@@ -57,8 +58,8 @@ function ProjectEditor({
         project = storedProject;
       } catch (error) {
         console.error(`Could not open project ${projectId}`, error);
-        const message = error instanceof Error ? error.message : String(error);
-        if (!isCancelled) setOpenState({ status: 'failed', projectId, message });
+        if (isCancelled) return;
+        setOpenState({ status: 'failed', projectId, message: describeError(error) });
         return;
       }
       if (isCancelled) return;
@@ -78,26 +79,27 @@ function ProjectEditor({
 
   if (openState === null || openState.projectId !== projectId) {
     return <p className="ve-loading">Opening project…</p>;
-  }
-  if (openState.status === 'missing') {
+  } else if (openState.status === 'missing') {
     return (
       <Notice
         title="Project not found"
         text="It may have been deleted, or it was saved in another browser."
       />
     );
-  }
-  if (openState.status === 'failed') {
+  } else if (openState.status === 'failed') {
     return <Notice title="Couldn't open this project" text={openState.message} />;
+  } else {
+    return <EditorShell />;
   }
-  return <EditorShell />;
 }
 
 export function App(): JSX.Element {
   const route = useRoute();
-  if (route.name === 'home') return <HomeScreen />;
-  if (route.name === 'not-found') {
+  if (route.name === 'home') {
+    return <HomeScreen />;
+  } else if (route.name === 'not-found') {
     return <Notice title="Page not found" text="There is nothing at this address." />;
+  } else {
+    return <ProjectEditor projectId={route.projectId} pageId={route.pageId} />;
   }
-  return <ProjectEditor projectId={route.projectId} pageId={route.pageId} />;
 }

@@ -1,4 +1,10 @@
-import { configureStore, createListenerMiddleware, createSelector } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  createListenerMiddleware,
+  createSelector,
+  type ThunkAction,
+  type UnknownAction,
+} from '@reduxjs/toolkit';
 import { useSyncExternalStore } from 'react';
 import { createRenderContext } from '../render/renderBlock';
 import { createAutosave } from '../persistence/autosave';
@@ -10,6 +16,8 @@ import type { Page, Project } from './types';
 
 export type { RootState };
 
+export type AppThunk<Result = void> = ThunkAction<Result, RootState, unknown, UnknownAction>;
+
 type AppStoreOptions = {
   preloadedState?: Partial<RootState>;
   onProjectEdited?(project: Project): void;
@@ -20,7 +28,7 @@ const AUTOSAVE_DELAY_MS = 1000;
 
 export function createAppStore({ preloadedState, onProjectEdited }: AppStoreOptions = {}) {
   const listener = createListenerMiddleware<RootState>();
-  if (onProjectEdited) {
+  if (onProjectEdited !== undefined) {
     listener.startListening({
       predicate: (action, current, previous) =>
         current.project !== previous.project && !projectLoaded.match(action),
@@ -54,12 +62,9 @@ export function useStore<T>(selector: (state: RootState) => T): T {
   return useSyncExternalStore(store.subscribe, () => selector(store.getState()));
 }
 
-export function selectCurrentPageId(state: RootState): string {
-  return state.editor.currentPageId ?? state.project.pages.homePageId;
-}
-
 export function selectCurrentPage(state: RootState): Page {
-  return state.project.pages.entities[selectCurrentPageId(state)];
+  const pageId = state.editor.currentPageId ?? state.project.pages.homePageId;
+  return state.project.pages.entities[pageId];
 }
 
 export const selectCanvasRenderContext = createSelector(

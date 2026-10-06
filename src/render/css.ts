@@ -14,5 +14,14 @@ export function buildTokensCss(tokens: Record<string, Token>): string {
 }
 
 export function buildSiteCss(tokens: Record<string, Token>, componentStyles: string[]): string {
-  return `${[buildTokensCss(tokens), LAYER_ORDER, reset, base, primitives, ...componentStyles, utilities].join('\n\n')}\n`;
+  const sections = [
+    buildTokensCss(tokens),
+    LAYER_ORDER,
+    reset,
+    base,
+    primitives,
+    ...componentStyles,
+    utilities,
+  ];
+  return `${sections.join('\n\n')}\n`;
 }

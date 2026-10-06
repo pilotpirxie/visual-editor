@@ -7,7 +7,7 @@ import type { Project } from './types';
 enablePatches();
 
 export const MAX_HISTORY_STEPS = 100;
-export const MERGE_WINDOW_MS = 500;
+const MERGE_WINDOW_MS = 500;
 
 export type HistoryStep = { patches: Patch[]; inversePatches: Patch[] };
 
@@ -20,7 +20,7 @@ export type HistoryState = {
 
 export type RootState = { project: Project; editor: EditorState; history: HistoryState };
 
-export const EMPTY_HISTORY: HistoryState = {
+const EMPTY_HISTORY: HistoryState = {
   past: [],
   future: [],
   lastMergeKey: null,
@@ -37,18 +37,17 @@ function editMetaOf(action: UnknownAction): EditMeta | null {
   const { meta } = action;
   if (typeof meta !== 'object' || meta === null) return null;
   if (!('mergeKey' in meta) || !('at' in meta)) return null;
-  if (typeof meta.mergeKey !== 'string' || typeof meta.at !== 'number') return null;
-  return { mergeKey: meta.mergeKey, at: meta.at };
+  if (typeof meta.at !== 'number') return null;
+  if (typeof meta.mergeKey === 'string') return { mergeKey: meta.mergeKey, at: meta.at };
+  if (meta.mergeKey === null) return { mergeKey: null, at: meta.at };
+  return null;
 }
 
-export function recordStep(
-  history: HistoryState,
-  step: HistoryStep,
-  meta: EditMeta | null,
-): HistoryState {
+function recordStep(history: HistoryState, step: HistoryStep, meta: EditMeta | null): HistoryState {
   const last = history.past.at(-1);
   const canMerge =
     meta !== null &&
+    meta.mergeKey !== null &&
     last !== undefined &&
     meta.mergeKey === history.lastMergeKey &&
     meta.at - history.lastEditAt <= MERGE_WINDOW_MS;
@@ -143,11 +142,12 @@ export function createRootReducer(
       projectReducer(draft, action),
     );
     if (project === state.project || patches.length === 0) {
-      return editor === state.editor ? state : { ...state, editor };
+      const reconciledEditor = reconcileEditor(editor, state.project);
+      return reconciledEditor === state.editor ? state : { ...state, editor: reconciledEditor };
     }
     return {
       project,
-      editor,
+      editor: reconcileEditor(editor, project),
       history: recordStep(state.history, { patches, inversePatches }, editMetaOf(action)),
     };
   };

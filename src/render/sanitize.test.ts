@@ -70,6 +70,13 @@ describe('normalizeRichText', () => {
     const once = normalizeRichText(messy);
     expect(normalizeRichText(once)).toBe(once);
   });
+
+  it('keeps spaces that sit inside empty formatting from pasted HTML', () => {
+    expect(normalizeRichText('<p>foo<b> </b>bar</p>')).toBe('<p>foo bar</p>');
+    expect(normalizeRichText('<p>one<span style="font-weight:700">&nbsp;</span>two</p>')).toBe(
+      '<p>one&nbsp;two</p>',
+    );
+  });
 });
 
 describe('plainTextToHtml', () => {

@@ -1,4 +1,4 @@
-import { useState, type JSX } from 'react';
+import { useMemo, useRef, useState, type JSX } from 'react';
 import {
   DEFAULT_ICON_SET,
   iconSvg,
@@ -13,21 +13,31 @@ const MAX_RESULTS = 96;
 
 function iconMarkup(ref: string): string {
   const icon = resolveIcon(ref);
-  return icon === null ? '' : iconSvg(icon);
+  if (icon === null) return '';
+  return iconSvg(icon);
 }
 
 export function IconField({ field, value, id, describedBy, onChange }: ControlProps): JSX.Element {
   const [query, setQuery] = useState<string | null>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const ref = typeof value === 'string' ? value : '';
   const selected = parseIconRef(ref);
   const isPickerOpen = query !== null;
-  const matches = isPickerOpen ? searchIcons(DEFAULT_ICON_SET, query) : [];
+  const matches = useMemo(() => {
+    if (query === null) return [];
+    return searchIcons(DEFAULT_ICON_SET, query);
+  }, [query]);
   const shown = matches.slice(0, MAX_RESULTS);
   const labelId = `${id}-label`;
 
-  function pick(name: string): void {
-    onChange(`${DEFAULT_ICON_SET}:${name}`);
+  function closePicker(): void {
     setQuery(null);
+    toggleRef.current?.focus();
+  }
+
+  function pick(name: string): void {
+    onChange(`${DEFAULT_ICON_SET}:${name}`, 'discrete');
+    closePicker();
   }
 
   return (
@@ -39,9 +49,11 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
         <span className="ve-icon-preview" dangerouslySetInnerHTML={{ __html: iconMarkup(ref) }} />
         <span className="ve-icon-name">{ref === '' ? 'No icon' : selected.name}</span>
         <button
+          ref={toggleRef}
           id={id}
           type="button"
           className="ve-button ve-button--outline"
+          aria-labelledby={`${labelId} ${id}`}
           aria-expanded={isPickerOpen}
           aria-describedby={describedBy}
           onClick={() => setQuery(isPickerOpen ? null : '')}
@@ -63,7 +75,7 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
               onKeyDown={(event) => {
                 if (event.key !== 'Escape') return;
                 event.preventDefault();
-                setQuery(null);
+                closePicker();
               }}
             />
           </label>

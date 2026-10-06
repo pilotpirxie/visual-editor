@@ -110,8 +110,8 @@
     background: none;
     text-align: left;
     cursor: grab;
-    touch-action: none;
     user-select: none;
+    -webkit-touch-callout: none;
   }
 
   .ve-component-card img {
@@ -140,6 +140,15 @@
     display: flex;
     align-items: center;
     border-radius: var(--ve-radius);
+  }
+
+  .ve-layer-grip {
+    display: grid;
+    place-items: center;
+    align-self: stretch;
+    padding-inline: 6px 0;
+    color: var(--ve-muted);
+    cursor: grab;
     touch-action: none;
   }
 
@@ -193,7 +202,27 @@
     white-space: nowrap;
   }
 
-  .ve-layer-name .ve-icon {
-    color: var(--ve-muted);
+  @media (width < 1024px) {
+    .ve-library .ve-tabs {
+      display: none;
+    }
+
+    .ve-layer-grip {
+      padding-inline: 12px 4px;
+    }
+
+    .ve-layer-name,
+    .ve-categories button,
+    .ve-back {
+      min-height: 44px;
+    }
+
+    .ve-search {
+      height: 44px;
+    }
+
+    .ve-component-grid {
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+    }
   }
 }

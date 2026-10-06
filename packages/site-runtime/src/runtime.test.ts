@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 import './core';
 
 describe('site runtime core', () => {
@@ -31,5 +31,33 @@ describe('site runtime core', () => {
     expect(host.firstElementChild?.hasAttribute('data-count')).toBe(false);
     window.siteRuntime.attach(host);
     expect(host.firstElementChild?.getAttribute('data-count')).toBe('1');
+  });
+
+  it('keeps starting other behaviors when one of them fails', () => {
+    window.siteRuntime.register({
+      name: 'broken',
+      init() {
+        throw new Error('broken on purpose');
+      },
+    });
+    const errors: unknown[] = [];
+    vi.spyOn(console, 'error').mockImplementation((...args: unknown[]) => {
+      errors.push(args[0]);
+    });
+    const host = document.createElement('div');
+    host.innerHTML =
+      '<nav data-behavior="broken mark"></nav><footer data-behavior="mark"></footer>';
+    window.siteRuntime.attach(host);
+    expect(host.querySelector('nav')?.getAttribute('data-count')).toBe('1');
+    expect(host.querySelector('footer')?.getAttribute('data-count')).toBe('1');
+    expect(errors).toEqual(['siteRuntime: behavior "broken" failed to start']);
+  });
+
+  it('warns about behaviors it does not know', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const host = document.createElement('div');
+    host.innerHTML = '<div data-behavior="unknown"></div>';
+    window.siteRuntime.attach(host);
+    expect(warn).toHaveBeenCalledOnce();
   });
 });

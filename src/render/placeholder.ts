@@ -6,6 +6,11 @@ const LONG_EDGE_PX = 1200;
 const GLYPH_SHARE = 0.16;
 const LABEL_SHARE = 0.045;
 const GLYPH_VIEWBOX = 24;
+const BACKGROUND_COLOR = '#e5e7eb';
+const GLYPH_COLOR = '#9ca3af';
+const LABEL_COLOR = '#6b7280';
+const GLYPH_STROKE_WIDTH = 1.5;
+const RATIO_PATTERN = /^(?<width>\d+):(?<height>\d+)$/;
 
 const SUBJECT_GLYPHS: Record<PlaceholderSubject, string> = {
   photo:
@@ -19,7 +24,10 @@ const SUBJECT_GLYPHS: Record<PlaceholderSubject, string> = {
 };
 
 export function placeholderSize(ratio: PlaceholderRatio): { width: number; height: number } {
-  const [ratioWidth, ratioHeight] = ratio.split(':').map(Number);
+  const groups = RATIO_PATTERN.exec(ratio)?.groups;
+  if (groups === undefined) throw new Error(`Placeholder ratio "${ratio}" is not in the form W:H`);
+  const ratioWidth = Number(groups.width);
+  const ratioHeight = Number(groups.height);
   if (ratioWidth >= ratioHeight) {
     return { width: LONG_EDGE_PX, height: Math.round((LONG_EDGE_PX * ratioHeight) / ratioWidth) };
   }
@@ -52,9 +60,9 @@ export function placeholderSvg({ ratio, subject }: Placeholder): string {
   const scale = glyphSize / GLYPH_VIEWBOX;
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`,
-    '<rect width="100%" height="100%" fill="#e5e7eb"/>',
-    `<g transform="translate(${glyphX} ${glyphY}) scale(${scale})" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${SUBJECT_GLYPHS[subject]}</g>`,
-    `<text x="50%" y="${labelY}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="${fontSize}" fill="#6b7280">${width} × ${height}</text>`,
+    `<rect width="100%" height="100%" fill="${BACKGROUND_COLOR}"/>`,
+    `<g transform="translate(${glyphX} ${glyphY}) scale(${scale})" fill="none" stroke="${GLYPH_COLOR}" stroke-width="${GLYPH_STROKE_WIDTH}" stroke-linecap="round" stroke-linejoin="round">${SUBJECT_GLYPHS[subject]}</g>`,
+    `<text x="50%" y="${labelY}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="${fontSize}" fill="${LABEL_COLOR}">${width} × ${height}</text>`,
     '</svg>',
   ].join('');
 }

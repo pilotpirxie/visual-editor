@@ -6,6 +6,7 @@ import { registry } from '../../components/registry';
 import { CANVAS_BASE_CSS, buildTokensCss } from '../../render/css';
 import { BlockHost } from './BlockHost';
 import { blockRoot } from './frameDom';
+import { isOutOfView } from './geometry';
 import { createScrollAnchor } from './scrollAnchor';
 
 const SRC_DOC = [
@@ -34,18 +35,16 @@ type CanvasFrameProps = {
 
 function findScrollAnchor(doc: Document): Element | null {
   const view = doc.defaultView;
-  if (!view) return null;
+  if (view === null) return null;
   const selectedId = store.getState().editor.selectedBlockId;
-  const selected = selectedId ? blockRoot(doc, selectedId) : null;
-  const selectedBox = selected?.getBoundingClientRect();
-  if (selected && selectedBox && selectedBox.bottom > 0 && selectedBox.top < view.innerHeight) {
+  const selected = selectedId === null ? null : blockRoot(doc, selectedId);
+  if (selected !== null && !isOutOfView(selected.getBoundingClientRect(), view.innerHeight)) {
     return selected;
   }
-  return (
-    [...doc.querySelectorAll('[data-block-id]')].find(
-      (element) => element.getBoundingClientRect().bottom > 0,
-    ) ?? null
-  );
+  for (const element of doc.querySelectorAll('[data-block-id]')) {
+    if (element.getBoundingClientRect().bottom > 0) return element;
+  }
+  return null;
 }
 
 export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps): JSX.Element {
@@ -59,16 +58,16 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
     () =>
       createScrollAnchor(
         () => doc?.defaultView ?? null,
-        () => (doc ? findScrollAnchor(doc) : null),
+        () => (doc === null ? null : findScrollAnchor(doc)),
       ),
     [doc],
   );
 
-  const handleLoad = (event: SyntheticEvent<HTMLIFrameElement>) => {
+  function handleLoad(event: SyntheticEvent<HTMLIFrameElement>): void {
     const iframe = event.currentTarget;
     const frameDoc = iframe.contentDocument;
-    const baseStyle = frameDoc?.getElementById('ve-base');
-    if (!frameDoc || !baseStyle) {
+    const baseStyle = frameDoc === null ? null : frameDoc.getElementById('ve-base');
+    if (frameDoc === null || baseStyle === null) {
       console.error('Canvas iframe loaded without its page skeleton');
       return;
     }
@@ -78,30 +77,30 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
     frameDoc.head.append(script);
     setDoc(frameDoc);
     onReady({ iframe, doc: frameDoc });
-  };
+  }
 
   useLayoutEffect(() => {
-    doc?.documentElement.setAttribute('lang', language);
+    if (doc === null) return;
+    doc.documentElement.setAttribute('lang', language);
   }, [doc, language]);
 
   useLayoutEffect(() => {
-    const tokensStyle = doc?.getElementById('ve-tokens');
-    if (!tokensStyle) return;
+    if (doc === null) return;
+    const tokensStyle = doc.getElementById('ve-tokens');
+    if (tokensStyle === null) return;
     anchor.capture();
     tokensStyle.textContent = buildTokensCss(tokens);
   }, [doc, anchor, tokens]);
 
   useLayoutEffect(() => {
-    if (!doc) return;
+    if (doc === null) return;
     for (const blockId of page.blockIds) {
-      const componentId = blocks[blockId]?.componentId;
-      const component = componentId ? registry.get(componentId) : undefined;
-      if (
-        !component ||
-        doc.head.querySelector(`style[data-component-css="${CSS.escape(component.definition.id)}"]`)
-      ) {
-        continue;
-      }
+      const block = blocks[blockId];
+      if (block === undefined) continue;
+      const component = registry.get(block.componentId);
+      if (component === undefined) continue;
+      const styleSelector = `style[data-component-css="${CSS.escape(component.definition.id)}"]`;
+      if (doc.head.querySelector(styleSelector) !== null) continue;
       const style = doc.createElement('style');
       style.dataset.componentCss = component.definition.id;
       style.textContent = component.styles;
@@ -109,7 +108,7 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
     }
   }, [doc, page, blocks]);
 
-  const pageRoot = doc?.getElementById('ve-page');
+  const pageRoot = doc === null ? null : doc.getElementById('ve-page');
 
   return (
     <>
@@ -120,8 +119,8 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
         onLoad={handleLoad}
         style={{ width, height, transform: `scale(${scale})` }}
       />
-      {doc &&
-        pageRoot &&
+      {doc !== null &&
+        pageRoot !== null &&
         createPortal(
           page.blockIds.map((blockId) => (
             <BlockHost key={blockId} blockId={blockId} doc={doc} anchor={anchor} />

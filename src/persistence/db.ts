@@ -7,6 +7,7 @@ const DB_VERSION = 1;
 const PROJECTS = 'projects';
 const DOCUMENTS = 'documents';
 const SUPPORTED_SCHEMA_VERSION = 1;
+const STORE_NAMES = [PROJECTS, DOCUMENTS];
 
 let databasePromise: Promise<IDBDatabase> | null = null;
 
@@ -26,16 +27,31 @@ function transactionDone(transaction: IDBTransaction): Promise<void> {
   });
 }
 
+function createMissingStores(db: IDBDatabase): void {
+  for (const name of STORE_NAMES) {
+    if (!db.objectStoreNames.contains(name)) db.createObjectStore(name, { keyPath: 'id' });
+  }
+}
+
+function closeOnVersionChange(db: IDBDatabase): void {
+  db.onversionchange = () => {
+    db.close();
+    databasePromise = null;
+  };
+}
+
 function openDatabase(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
-    request.onupgradeneeded = () => {
-      request.result.createObjectStore(PROJECTS, { keyPath: 'id' });
-      request.result.createObjectStore(DOCUMENTS, { keyPath: 'id' });
+    request.onupgradeneeded = () => createMissingStores(request.result);
+    request.onsuccess = () => {
+      closeOnVersionChange(request.result);
+      resolve(request.result);
     };
-    request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
-    request.onblocked = () => reject(new Error('Close other tabs of this app and reload'));
+    request.onblocked = () => {
+      console.warn('Browser storage is waiting for other tabs of this app to close');
+    };
   });
 }
 
@@ -74,22 +90,24 @@ function isProject(value: unknown): value is Project {
 
 export async function listProjects(): Promise<ProjectSummary[]> {
   const db = await database();
-  const stored: unknown[] = await requestResult(
-    db.transaction(PROJECTS).objectStore(PROJECTS).getAll(),
-  );
+  const projectsStore = db.transaction(PROJECTS).objectStore(PROJECTS);
+  const stored: unknown[] = await requestResult(projectsStore.getAll());
   const summaries: ProjectSummary[] = [];
   for (const value of stored) {
-    if (isProjectSummary(value)) summaries.push(value);
-    else console.warn('Skipped a stored project summary with an unknown shape', value);
+    if (isProjectSummary(value)) {
+      summaries.push(value);
+    } else {
+      console.warn('Skipped a stored project summary with an unknown shape', value);
+    }
   }
-  return summaries.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+  summaries.sort((left, right) => right.updatedAt.localeCompare(left.updatedAt));
+  return summaries;
 }
 
 export async function getProject(id: string): Promise<Project | null> {
   const db = await database();
-  const stored: unknown = await requestResult(
-    db.transaction(DOCUMENTS).objectStore(DOCUMENTS).get(id),
-  );
+  const documentsStore = db.transaction(DOCUMENTS).objectStore(DOCUMENTS);
+  const stored: unknown = await requestResult(documentsStore.get(id));
   if (stored === undefined) return null;
   if (!isProject(stored)) throw new Error(`Project ${id} was saved in an unsupported format`);
   return stored;

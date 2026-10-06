@@ -6,9 +6,14 @@ import { createBlock, registry } from '../components/registry';
 import type { RegisteredComponent } from '../components/types';
 import { createRenderContext, renderBlock } from './renderBlock';
 
-const registeredHero = registry.get('hero-centered');
-if (!registeredHero) throw new Error('hero-centered is missing from the registry');
-const hero: RegisteredComponent = registeredHero;
+function registered(componentId: string): RegisteredComponent {
+  const component = registry.get(componentId);
+  if (!component) throw new Error(`${componentId} is missing from the registry`);
+  return component;
+}
+
+const hero = registered('hero-centered');
+const content = registered('content-text-image');
 const canvas = createRenderContext(createSampleProject(), 'canvas');
 const exported = createRenderContext(createSampleProject(), 'export');
 
@@ -52,11 +57,50 @@ describe('renderBlock', () => {
     expect(html).toContain('data-component="hero-centered"');
   });
 
+  it('keeps text the user typed even when it looks like an editor attribute', () => {
+    const block = { ...createBlock(content.definition) };
+    block.values = { ...block.values, body: '<p>Write data-field="x" in your HTML</p>' };
+    const html = renderBlock(block, content, exported);
+    expect(html).toContain('Write data-field="x" in your HTML');
+    expect(html).not.toMatch(/<[^>]+data-field=/);
+  });
+
+  it('sanitizes stored rich text when rendering it', () => {
+    const block = { ...createBlock(content.definition) };
+    block.values = {
+      ...block.values,
+      body: '<p>Hi<img src="x" onerror="alert(1)"></p><script>alert(2)</script>',
+    };
+    const html = renderBlock(block, content, canvas);
+    expect(html).toContain('<p>Hi</p>');
+    expect(html).not.toContain('onerror');
+    expect(html).not.toContain('<script>');
+  });
+
   it('rejects a template that does not start with its root element', () => {
     const plainText: TemplateDelegate = () => 'just text';
     const broken: RegisteredComponent = { ...hero, template: plainText };
     expect(() => renderBlock(heroBlock(), broken, canvas)).toThrow(
       /must start with its root element/,
     );
+  });
+});
+
+describe('createRenderContext', () => {
+  it('maps every page to its file name, with the home page as index', () => {
+    const project = createSampleProject();
+    const context = createRenderContext(project, 'export');
+    expect(context.pageSlugs).toEqual({ [project.pages.homePageId]: 'index' });
+    expect(context.site.title).toBe('Fieldnote');
+    expect(context.mode).toBe('export');
+  });
+
+  it('skips page ids that have no page', () => {
+    const project = createSampleProject();
+    const withDanglingId = {
+      ...project,
+      pages: { ...project.pages, ids: [...project.pages.ids, 'gone'] },
+    };
+    expect(createRenderContext(withDanglingId, 'canvas').pageSlugs).not.toHaveProperty('gone');
   });
 });

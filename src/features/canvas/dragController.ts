@@ -1,9 +1,9 @@
+import type { Point } from './geometry';
+
 export type DragPayload =
   | { kind: 'new'; componentId: string; label: string }
   | { kind: 'move'; blockId: string; label: string }
   | { kind: 'list-item'; ownerKey: string; index: number; label: string };
-
-export type Point = { x: number; y: number };
 
 export type DropTarget = {
   accepts(payload: DragPayload): boolean;
@@ -23,6 +23,8 @@ type PointerStart = {
   currentTarget: EventTarget | null;
 };
 
+type HoveredDrop = { target: DropTarget; index: number };
+
 const DRAG_THRESHOLD_PX = 4;
 const PRIMARY_BUTTON = 0;
 const PRIMARY_BUTTON_MASK = 1;
@@ -41,7 +43,7 @@ function suppressClickUntilRelease(): void {
   window.addEventListener('pointerdown', stop, true);
 }
 
-type DragController = {
+export type DragController = {
   start(payload: DragPayload, down: PointerStart): void;
   cancel(): void;
   isActive(): boolean;
@@ -50,7 +52,7 @@ type DragController = {
   getSnapshot(): DragSnapshot;
 };
 
-function createDragController(): DragController {
+export function createDragController(): DragController {
   const targets = new Set<DropTarget>();
   const listeners = new Set<() => void>();
   let snapshot: DragSnapshot = null;
@@ -61,16 +63,16 @@ function createDragController(): DragController {
   }
 
   function start(payload: DragPayload, down: PointerStart): void {
-    if (down.button !== PRIMARY_BUTTON || cancelSession) return;
+    if (down.button !== PRIMARY_BUTTON || cancelSession !== null) return;
     const source = down.currentTarget instanceof Element ? down.currentTarget : null;
 
     const origin = { x: down.clientX, y: down.clientY };
     let point = origin;
     let isActive = false;
-    let hovered: { target: DropTarget; index: number } | null = null;
+    let hovered: HoveredDrop | null = null;
     let frame = 0;
 
-    function findDrop(): { target: DropTarget; index: number } | null {
+    function findDrop(): HoveredDrop | null {
       for (const target of targets) {
         if (!target.accepts(payload)) continue;
         const index = target.resolve(point, payload);
@@ -80,11 +82,13 @@ function createDragController(): DragController {
     }
 
     function updateDrop(): void {
-      hovered = findDrop();
+      const drop = findDrop();
+      hovered = drop;
       for (const target of targets) {
-        if (target !== hovered?.target) target.showIndicator(null, payload);
+        const isHovered = drop !== null && drop.target === target;
+        if (!isHovered) target.showIndicator(null, payload);
       }
-      if (hovered !== null) hovered.target.showIndicator(hovered.index, payload);
+      if (drop !== null) drop.target.showIndicator(drop.index, payload);
     }
 
     function loop(): void {
@@ -95,7 +99,7 @@ function createDragController(): DragController {
 
     function activate(): void {
       isActive = true;
-      if (source?.isConnected) source.setPointerCapture(down.pointerId);
+      if (source !== null && source.isConnected) source.setPointerCapture(down.pointerId);
       document.documentElement.classList.add('is-dragging');
       suppressClickUntilRelease();
       frame = requestAnimationFrame(loop);
@@ -115,7 +119,8 @@ function createDragController(): DragController {
     }
 
     function onMove(event: PointerEvent): void {
-      if ((event.buttons & PRIMARY_BUTTON_MASK) === 0) {
+      const isPrimaryPressed = (event.buttons & PRIMARY_BUTTON_MASK) !== 0;
+      if (!isPrimaryPressed) {
         finish();
         return;
       }
@@ -151,7 +156,7 @@ function createDragController(): DragController {
   }
 
   function cancel(): void {
-    if (cancelSession) cancelSession();
+    if (cancelSession !== null) cancelSession();
   }
 
   function isActive(): boolean {

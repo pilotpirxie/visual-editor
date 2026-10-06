@@ -43,6 +43,7 @@ export function ImageField({ field, value, id, describedBy, onChange }: ControlP
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [draft, setDraft] = useState<ImageValue | null>(null);
   const image = isImageValue(value) ? value : null;
+  const labelId = `${id}-label`;
   const titleId = `${id}-dialog-title`;
   const altId = `${id}-alt`;
   const altErrorId = `${id}-alt-error`;
@@ -61,7 +62,7 @@ export function ImageField({ field, value, id, describedBy, onChange }: ControlP
   function finish(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     if (draft === null || !hasAccessibleText(draft)) return;
-    onChange(draft);
+    onChange(draft, 'discrete');
     dialogRef.current?.close();
   }
 
@@ -74,7 +75,9 @@ export function ImageField({ field, value, id, describedBy, onChange }: ControlP
 
   return (
     <>
-      <span className="ve-control-label">{field.label}</span>
+      <span className="ve-control-label" id={labelId}>
+        {field.label}
+      </span>
       <div className="ve-image">
         {image && (
           <img className="ve-image-thumb" src={placeholderDataUrl(image.placeholder)} alt="" />
@@ -85,6 +88,7 @@ export function ImageField({ field, value, id, describedBy, onChange }: ControlP
             id={id}
             type="button"
             className="ve-button ve-button--outline"
+            aria-labelledby={`${labelId} ${id}`}
             aria-describedby={describedBy}
             onClick={open}
           >

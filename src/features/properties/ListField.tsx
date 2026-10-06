@@ -1,4 +1,5 @@
-import { useEffect, useEffectEvent, useRef, useState, type JSX, type KeyboardEvent } from 'react';
+import { useRef, useState, type JSX, type KeyboardEvent, type RefObject } from 'react';
+import type { EditKind } from '../../app/projectSlice';
 import {
   addItem,
   asListItems,
@@ -10,81 +11,130 @@ import {
   moveItem,
   removeItem,
   replaceItem,
+  type ListItem,
 } from '../../components/fields';
-import { dragController } from '../canvas/dragController';
-import { dropIndexFromSpans, finalMoveIndex } from '../canvas/dropIndex';
+import type { Field } from '../../components/types';
+import { dragController, type DragPayload } from '../canvas/dragController';
+import { dropEdgeAt, finalMoveIndex } from '../canvas/geometry';
+import { useListDropTarget } from '../canvas/useListDropTarget';
 import { Icon } from '../editor/Icon';
 import { FieldControl, hasControl, type ControlProps } from './FieldControl';
 
-const DROP_MARGIN = 8;
+const DROP_EDGE_MARGIN = 8;
+const ITEM_HANDLE = '.ve-list-handle';
+const ITEM_FIRST_INPUT = 'input, textarea, select, [contenteditable="true"]';
 
-function focusItem(list: HTMLElement | null, index: number, selector: string): void {
+type ItemKeys = { keyOf(item: object): string; carry(from: object, to: object): void };
+
+function createItemKeys(): ItemKeys {
+  const keys = new WeakMap<object, string>();
+  let createdCount = 0;
+
+  function keyOf(item: object): string {
+    const known = keys.get(item);
+    if (known !== undefined) return known;
+    createdCount += 1;
+    const created = `item-${createdCount}`;
+    keys.set(item, created);
+    return created;
+  }
+
+  function carry(from: object, to: object): void {
+    keys.set(to, keyOf(from));
+  }
+
+  return { keyOf, carry };
+}
+
+function uniqueItemKeys(itemKeys: ItemKeys, items: readonly ListItem[]): string[] {
+  const used = new Set<string>();
+  const keys: string[] = [];
+  for (const [index, item] of items.entries()) {
+    let key = itemKeys.keyOf(item);
+    if (used.has(key)) key = `${key}-copy-${index}`;
+    used.add(key);
+    keys.push(key);
+  }
+  return keys;
+}
+
+function focusItemLater(
+  listRef: RefObject<HTMLElement | null>,
+  index: number,
+  target: 'handle' | 'first-input',
+): void {
   requestAnimationFrame(() => {
-    const item = list?.children[index];
+    const list = listRef.current;
+    if (list === null) return;
+    const item = list.children[index];
     if (item === undefined) return;
+    if (target === 'handle') {
+      item.querySelector<HTMLElement>(ITEM_HANDLE)?.focus();
+      return;
+    }
     const details = item.querySelector('details');
-    if (selector !== '.ve-list-handle' && details !== null) details.open = true;
-    item.querySelector<HTMLElement>(selector)?.focus();
+    if (details !== null) details.open = true;
+    item.querySelector<HTMLElement>(ITEM_FIRST_INPUT)?.focus();
   });
+}
+
+function visibleItemFields(itemFields: Field[], item: ListItem): Field[] {
+  const visible: Field[] = [];
+  for (const itemField of itemFields) {
+    if (isFieldVisible(itemField, item)) visible.push(itemField);
+  }
+  return visible;
 }
 
 export function ListField({ field, value, id, path, onChange }: ControlProps): JSX.Element {
   const items = asListItems(value);
   const listRef = useRef<HTMLOListElement>(null);
-  const [dropIndex, setDropIndex] = useState<number | null>(null);
+  const [itemKeys] = useState(createItemKeys);
   const labelId = `${id}-label`;
   const canAdd = canAddItem(field, items);
   const canRemove = canRemoveItem(field, items);
   const itemFields = (field.itemFields ?? []).filter(hasControl);
+  const keys = uniqueItemKeys(itemKeys, items);
 
-  const dropItem = useEffectEvent((from: number, dropAt: number) => {
-    const to = finalMoveIndex(from, dropAt);
-    if (to !== from) onChange(moveItem(items, from, to));
+  function isOwnItem(payload: DragPayload): boolean {
+    return payload.kind === 'list-item' && payload.ownerKey === path;
+  }
+
+  const dropIndex = useListDropTarget({
+    listRef,
+    edgeMargin: DROP_EDGE_MARGIN,
+    accepts: isOwnItem,
+    isNoopDrop(payload, index) {
+      if (payload.kind !== 'list-item') return true;
+      return finalMoveIndex(payload.index, index) === payload.index;
+    },
+    drop(payload, index) {
+      if (payload.kind !== 'list-item') return;
+      const to = finalMoveIndex(payload.index, index);
+      if (to !== payload.index) onChange(moveItem(items, payload.index, to), 'discrete');
+    },
   });
 
-  useEffect(
-    () =>
-      dragController.registerTarget({
-        accepts: (payload) => payload.kind === 'list-item' && payload.ownerKey === path,
-        resolve(point) {
-          const list = listRef.current;
-          if (list === null) return null;
-          const box = list.getBoundingClientRect();
-          const isOver =
-            point.x >= box.left &&
-            point.x <= box.right &&
-            point.y >= box.top - DROP_MARGIN &&
-            point.y <= box.bottom + DROP_MARGIN;
-          if (!isOver) return null;
-          const rows = [...list.children].map((row) => row.getBoundingClientRect());
-          return dropIndexFromSpans(rows, point.y);
-        },
-        showIndicator(index, payload) {
-          const isNoop =
-            index === null ||
-            payload.kind !== 'list-item' ||
-            finalMoveIndex(payload.index, index) === payload.index;
-          setDropIndex(isNoop ? null : index);
-        },
-        drop(payload, index) {
-          if (payload.kind === 'list-item') dropItem(payload.index, index);
-        },
-      }),
-    [path],
-  );
-
   function moveWithKeyboard(event: KeyboardEvent<HTMLButtonElement>, index: number): void {
-    if (!event.altKey || (event.key !== 'ArrowUp' && event.key !== 'ArrowDown')) return;
+    const isArrow = event.key === 'ArrowUp' || event.key === 'ArrowDown';
+    if (!event.altKey || !isArrow) return;
     event.preventDefault();
     const to = event.key === 'ArrowUp' ? index - 1 : index + 1;
     if (to < 0 || to >= items.length) return;
-    onChange(moveItem(items, index, to));
-    focusItem(listRef.current, to, '.ve-list-handle');
+    onChange(moveItem(items, index, to), 'discrete');
+    focusItemLater(listRef, to, 'handle');
   }
 
   function add(): void {
-    onChange(addItem(field, items));
-    focusItem(listRef.current, items.length, 'input, textarea, select, [contenteditable="true"]');
+    onChange(addItem(field, items), 'discrete');
+    focusItemLater(listRef, items.length, 'first-input');
+  }
+
+  function changeItemField(index: number, name: string, next: unknown, kind: EditKind): void {
+    const item = items[index];
+    const nextItem = { ...item, [name]: next };
+    itemKeys.carry(item, nextItem);
+    onChange(replaceItem(items, index, nextItem), kind);
   }
 
   return (
@@ -97,32 +147,27 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
           {items.map((item, index) => {
             const title = itemTitle(field, item, index);
             const itemPath = `${path}.${index}`;
-            let dropEdge: 'before' | 'after' | undefined;
-            if (dropIndex === index) dropEdge = 'before';
-            else if (dropIndex === items.length && index === items.length - 1) dropEdge = 'after';
             return (
               <li
-                key={index}
+                key={keys[index]}
                 className="ve-list-item"
                 data-field-path={itemPath}
-                data-drop={dropEdge}
+                data-drop={dropEdgeAt(dropIndex, index, items.length) ?? undefined}
               >
                 <details>
                   <summary className="ve-list-item-summary">{title}</summary>
                   <div className="ve-list-item-fields">
-                    {itemFields
-                      .filter((itemField) => isFieldVisible(itemField, item))
-                      .map((itemField) => (
-                        <FieldControl
-                          key={itemField.name}
-                          field={itemField}
-                          value={item[itemField.name]}
-                          path={`${itemPath}.${itemField.name}`}
-                          onChange={(next) =>
-                            onChange(replaceItem(items, index, { ...item, [itemField.name]: next }))
-                          }
-                        />
-                      ))}
+                    {visibleItemFields(itemFields, item).map((itemField) => (
+                      <FieldControl
+                        key={itemField.name}
+                        field={itemField}
+                        value={item[itemField.name]}
+                        path={`${itemPath}.${itemField.name}`}
+                        onChange={(next, kind) =>
+                          changeItemField(index, itemField.name, next, kind)
+                        }
+                      />
+                    ))}
                   </div>
                 </details>
                 <div className="ve-list-item-actions">
@@ -147,7 +192,7 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
                     aria-label={`Duplicate ${title}`}
                     title="Duplicate"
                     disabled={!canAdd}
-                    onClick={() => onChange(duplicateItem(field, items, index))}
+                    onClick={() => onChange(duplicateItem(field, items, index), 'discrete')}
                   >
                     <Icon name="copy" />
                   </button>
@@ -157,7 +202,7 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
                     aria-label={`Remove ${title}`}
                     title="Remove"
                     disabled={!canRemove}
-                    onClick={() => onChange(removeItem(field, items, index))}
+                    onClick={() => onChange(removeItem(field, items, index), 'discrete')}
                   >
                     <Icon name="trash" />
                   </button>

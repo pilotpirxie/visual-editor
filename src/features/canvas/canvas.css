@@ -6,14 +6,14 @@
     min-width: 0;
     min-height: 0;
     padding: 24px;
-    overflow: hidden;
+    overflow: clip;
     background: var(--ve-canvas-bg);
   }
 
   .ve-canvas-device {
     position: relative;
     flex: none;
-    overflow: hidden;
+    overflow: clip;
     background: #ffffff;
     box-shadow: var(--ve-shadow);
   }
@@ -47,7 +47,7 @@
   .ve-overlay {
     position: absolute;
     inset: 0;
-    overflow: hidden;
+    overflow: clip;
     pointer-events: none;
   }
 
@@ -65,6 +65,16 @@
     outline-offset: -2px;
   }
 
+  .ve-outline--moving {
+    background: repeating-linear-gradient(
+      -45deg,
+      rgb(47 91 234 / 0.1) 0 8px,
+      rgb(47 91 234 / 0.18) 8px 16px
+    );
+    outline: 1px dashed var(--ve-accent);
+    outline-offset: -1px;
+  }
+
   .ve-outline-label {
     position: absolute;
     top: 0;
@@ -80,6 +90,8 @@
 
   .ve-block-toolbar {
     position: absolute;
+    top: var(--ve-toolbar-top);
+    right: var(--ve-toolbar-right);
     display: flex;
     gap: 2px;
     padding: 2px;
@@ -124,6 +136,7 @@
     border-radius: 2px;
     background: var(--ve-accent);
     box-shadow: 0 0 0 2px rgb(255 255 255 / 0.85);
+    transition: top 80ms ease-out;
   }
 
   .ve-empty {
@@ -151,5 +164,30 @@
     white-space: nowrap;
     pointer-events: none;
     box-shadow: var(--ve-shadow);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ve-drop-line {
+      transition: none;
+    }
+  }
+
+  @media (width < 1024px) {
+    .ve-canvas {
+      padding: 12px;
+    }
+
+    .ve-block-toolbar {
+      top: auto;
+      right: auto;
+      bottom: 8px;
+      left: 50%;
+      translate: -50% 0;
+    }
+
+    .ve-block-toolbar button {
+      width: 40px;
+      height: 40px;
+    }
   }
 }

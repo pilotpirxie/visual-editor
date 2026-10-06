@@ -8,7 +8,10 @@ import {
 } from 'react';
 import { isSafeUrl, normalizeRichText, plainTextToHtml } from '../../render/sanitize';
 import { Icon } from '../editor/Icon';
+import type { EditKind } from '../../app/projectSlice';
 import type { ControlProps } from './FieldControl';
+
+const DEFAULT_LINK_URL = 'https://';
 
 type FormatCommand = 'bold' | 'italic' | 'insertUnorderedList' | 'insertOrderedList';
 
@@ -51,6 +54,7 @@ export function RichTextField({
 }: ControlProps): JSX.Element {
   const editorRef = useRef<HTMLDivElement>(null);
   const lastEmittedRef = useRef<string | null>(null);
+  const isCommandRunningRef = useRef(false);
   const savedRangeRef = useRef<Range | null>(null);
   const [linkUrl, setLinkUrl] = useState<string | null>(null);
   const html = typeof value === 'string' ? value : '';
@@ -63,20 +67,35 @@ export function RichTextField({
     lastEmittedRef.current = html;
   }, [html]);
 
-  function emit(): void {
+  function emit(kind: EditKind): void {
     const editor = editorRef.current;
     if (editor === null) return;
     const next = normalizeRichText(editor.innerHTML);
+    if (next === lastEmittedRef.current) return;
     lastEmittedRef.current = next;
-    onChange(next);
+    onChange(next, kind);
+  }
+
+  function runCommand(command: string, argument?: string): void {
+    isCommandRunningRef.current = true;
+    try {
+      document.execCommand(command, false, argument);
+    } finally {
+      isCommandRunningRef.current = false;
+    }
+    emit('discrete');
+  }
+
+  function handleInput(): void {
+    if (isCommandRunningRef.current) return;
+    emit('continuous');
   }
 
   function format(command: FormatCommand): void {
     const editor = editorRef.current;
     if (editor === null) return;
     editor.focus();
-    document.execCommand(command);
-    emit();
+    runCommand(command);
   }
 
   function paste(event: ClipboardEvent<HTMLDivElement>): void {
@@ -84,8 +103,7 @@ export function RichTextField({
     const pastedHtml = event.clipboardData.getData('text/html');
     const pasted =
       pastedHtml === '' ? plainTextToHtml(event.clipboardData.getData('text/plain')) : pastedHtml;
-    document.execCommand('insertHTML', false, normalizeRichText(pasted));
-    emit();
+    runCommand('insertHTML', normalizeRichText(pasted));
   }
 
   function openLinkRow(): void {
@@ -93,27 +111,34 @@ export function RichTextField({
     if (editor === null) return;
     const range = selectionRangeIn(editor);
     savedRangeRef.current = range;
-    setLinkUrl(linkAround(range)?.getAttribute('href') ?? 'https://');
+    const existingLink = linkAround(range);
+    const existingHref = existingLink === null ? null : existingLink.getAttribute('href');
+    setLinkUrl(existingHref ?? DEFAULT_LINK_URL);
   }
 
   function applyLink(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     const editor = editorRef.current;
-    const url = linkUrl?.trim() ?? '';
+    const url = linkUrl === null ? '' : linkUrl.trim();
     if (editor === null || url === '' || !isSafeUrl(url)) return;
     restoreSelection(editor, savedRangeRef.current);
-    document.execCommand('createLink', false, url);
     setLinkUrl(null);
-    emit();
+    runCommand('createLink', url);
   }
 
   function removeLink(): void {
     const editor = editorRef.current;
     if (editor === null) return;
     restoreSelection(editor, savedRangeRef.current);
-    document.execCommand('unlink');
     setLinkUrl(null);
-    emit();
+    runCommand('unlink');
+  }
+
+  function cancelLink(): void {
+    setLinkUrl(null);
+    const editor = editorRef.current;
+    if (editor === null) return;
+    restoreSelection(editor, savedRangeRef.current);
   }
 
   const isLinkSafe = linkUrl === null || isSafeUrl(linkUrl);
@@ -166,10 +191,9 @@ export function RichTextField({
               aria-invalid={!isLinkSafe}
               onChange={(event) => setLinkUrl(event.target.value)}
               onKeyDown={(event) => {
-                if (event.key === 'Escape') {
-                  event.preventDefault();
-                  setLinkUrl(null);
-                }
+                if (event.key !== 'Escape') return;
+                event.preventDefault();
+                cancelLink();
               }}
             />
             <button type="submit" className="ve-button ve-button--outline" disabled={!isLinkSafe}>
@@ -193,7 +217,7 @@ export function RichTextField({
           aria-invalid={isInvalid}
           aria-describedby={describedBy}
           onFocus={() => document.execCommand('defaultParagraphSeparator', false, 'p')}
-          onInput={emit}
+          onInput={handleInput}
           onPaste={paste}
         />
       </div>

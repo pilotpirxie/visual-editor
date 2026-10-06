@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type JSX, type KeyboardEvent } from 'react';
+import { describeError } from '../../app/errors';
 import { createBlankProject, UNTITLED_PROJECT_TITLE } from '../../app/projectFactory';
 import { editorPath, followLink, navigate, projectPath } from '../../app/router';
 import { autosave } from '../../app/store';
@@ -22,14 +23,12 @@ async function requireProject(id: string): Promise<Project> {
 
 type ProjectList = { summaries: ProjectSummary[]; listedAt: number };
 
+type RenameExit = 'keyboard' | 'blur';
+
 async function loadProjectList(): Promise<ProjectList> {
   await autosave.flush();
   const summaries = await listProjects();
   return { summaries, listedAt: Date.now() };
-}
-
-function errorMessage(error: unknown): string {
-  return error instanceof Error ? error.message : String(error);
 }
 
 function RenameInput({
@@ -37,19 +36,22 @@ function RenameInput({
   onDone,
 }: {
   summary: ProjectSummary;
-  onDone(title: string | null): void;
+  onDone(title: string | null, exit: RenameExit): void;
 }): JSX.Element {
   const isDoneRef = useRef(false);
 
-  function finish(title: string | null): void {
+  function finish(title: string | null, exit: RenameExit): void {
     if (isDoneRef.current) return;
     isDoneRef.current = true;
-    onDone(title);
+    onDone(title, exit);
   }
 
   function onKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
-    if (event.key === 'Enter') finish(event.currentTarget.value);
-    if (event.key === 'Escape') finish(null);
+    if (event.key === 'Enter') {
+      finish(event.currentTarget.value, 'keyboard');
+    } else if (event.key === 'Escape') {
+      finish(null, 'keyboard');
+    }
   }
 
   return (
@@ -59,7 +61,7 @@ function RenameInput({
       defaultValue={summary.title}
       autoFocus
       onKeyDown={onKeyDown}
-      onBlur={(event) => finish(event.currentTarget.value)}
+      onBlur={(event) => finish(event.currentTarget.value, 'blur')}
     />
   );
 }
@@ -68,6 +70,7 @@ export function HomeScreen(): JSX.Element {
   const [projectList, setProjectList] = useState<ProjectList | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [renamingId, setRenamingId] = useState<string | null>(null);
+  const renameButtonsRef = useRef(new Map<string, HTMLButtonElement>());
 
   useEffect(() => {
     let isCancelled = false;
@@ -77,7 +80,7 @@ export function HomeScreen(): JSX.Element {
         if (!isCancelled) setProjectList(list);
       } catch (loadError) {
         console.error('Could not list projects', loadError);
-        if (!isCancelled) setError(errorMessage(loadError));
+        if (!isCancelled) setError(describeError(loadError));
       }
     }
     void load();
@@ -86,14 +89,15 @@ export function HomeScreen(): JSX.Element {
     };
   }, []);
 
-  async function run(description: string, action: () => Promise<void>): Promise<void> {
+  async function runProjectAction(description: string, action: () => Promise<void>): Promise<void> {
     setError(null);
     try {
       await action();
-      setProjectList(await loadProjectList());
+      const refreshedList = await loadProjectList();
+      setProjectList(refreshedList);
     } catch (actionError) {
       console.error(`Could not ${description}`, actionError);
-      setError(`Could not ${description}: ${errorMessage(actionError)}`);
+      setError(`Could not ${description}: ${describeError(actionError)}`);
     }
   }
 
@@ -103,33 +107,35 @@ export function HomeScreen(): JSX.Element {
       await putProject(project);
     } catch (createError) {
       console.error('Could not create a project', createError);
-      setError(`Could not create a project: ${errorMessage(createError)}`);
+      setError(`Could not create a project: ${describeError(createError)}`);
       return;
     }
     navigate(editorPath(project.id, project.pages.homePageId));
   }
 
-  function finishRename(summary: ProjectSummary, title: string | null): void {
+  function finishRename(summary: ProjectSummary, title: string | null, exit: RenameExit): void {
     setRenamingId(null);
+    if (exit === 'keyboard') renameButtonsRef.current.get(summary.id)?.focus();
     const trimmed = title?.trim() ?? '';
     if (trimmed === '' || trimmed === summary.title) return;
-    void run('rename the project', async () => {
-      await putProject(withTitle(await requireProject(summary.id), trimmed));
+    void runProjectAction('rename the project', async () => {
+      const project = await requireProject(summary.id);
+      await putProject(withTitle(project, trimmed));
     });
   }
 
   function duplicate(summary: ProjectSummary): void {
-    void run('duplicate the project', async () => {
-      await putProject(duplicateProject(await requireProject(summary.id), crypto.randomUUID()));
+    void runProjectAction('duplicate the project', async () => {
+      const project = await requireProject(summary.id);
+      await putProject(duplicateProject(project, crypto.randomUUID()));
     });
   }
 
   function remove(summary: ProjectSummary): void {
-    if (!window.confirm(`Delete “${summary.title}”? This cannot be undone.`)) return;
-    void run('delete the project', () => deleteProject(summary.id));
+    const isConfirmed = window.confirm(`Delete “${summary.title}”? This cannot be undone.`);
+    if (!isConfirmed) return;
+    void runProjectAction('delete the project', () => deleteProject(summary.id));
   }
-
-  const projects = projectList?.summaries ?? null;
 
   return (
     <main className="ve-home">
@@ -141,24 +147,27 @@ export function HomeScreen(): JSX.Element {
         </button>
       </header>
 
-      {error && (
+      {error !== null && (
         <p className="ve-home-error" role="alert">
           {error}
         </p>
       )}
-      {projects === null && !error && <p className="ve-muted">Loading your projects…</p>}
-      {projects?.length === 0 && (
+      {projectList === null && error === null && <p className="ve-muted">Loading your projects…</p>}
+      {projectList !== null && projectList.summaries.length === 0 && (
         <p className="ve-home-empty">
           You have no projects yet. Create one to start building a site.
         </p>
       )}
 
-      {projects && projects.length > 0 && (
+      {projectList !== null && projectList.summaries.length > 0 && (
         <ul className="ve-home-grid" aria-label="Projects">
-          {projects.map((summary) => (
+          {projectList.summaries.map((summary) => (
             <li key={summary.id} className="ve-home-card">
               {renamingId === summary.id ? (
-                <RenameInput summary={summary} onDone={(title) => finishRename(summary, title)} />
+                <RenameInput
+                  summary={summary}
+                  onDone={(title, exit) => finishRename(summary, title, exit)}
+                />
               ) : (
                 <h2 className="ve-home-card-title">
                   <a href={projectPath(summary.id)} onClick={followLink}>
@@ -167,10 +176,17 @@ export function HomeScreen(): JSX.Element {
                 </h2>
               )}
               <p className="ve-muted">
-                Edited {formatLastEdit(summary.updatedAt, projectList?.listedAt ?? 0)}
+                Edited {formatLastEdit(summary.updatedAt, projectList.listedAt)}
               </p>
               <div className="ve-home-card-actions">
                 <button
+                  ref={(button) => {
+                    if (button === null) return;
+                    renameButtonsRef.current.set(summary.id, button);
+                    return () => {
+                      renameButtonsRef.current.delete(summary.id);
+                    };
+                  }}
                   type="button"
                   className="ve-icon-button"
                   aria-label={`Rename ${summary.title}`}

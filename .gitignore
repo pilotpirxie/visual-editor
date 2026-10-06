@@ -7,6 +7,10 @@
 
 # testing
 /coverage
+/test-results
+/playwright-report
+/blob-report
+/.vitest
 
 # production
 /build

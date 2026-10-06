@@ -7,11 +7,12 @@
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "strict": true,
+    "allowImportingTsExtensions": true,
     "noEmit": true,
     "isolatedModules": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "types": ["vite/client", "node"]
   },
-  "include": ["src", "packages", "vite.config.ts"]
+  "include": ["src", "packages", "e2e", "vite.config.ts", "playwright.config.ts"]
 }

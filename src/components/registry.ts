@@ -22,6 +22,8 @@ const thumbnails = import.meta.glob<string>('./library/*/*/thumbnail.svg', {
   import: 'default',
 });
 
+const DEFINITION_FILE = '/definition.ts';
+
 function requireFile<T>(files: Record<string, T>, folder: string, file: string): T {
   const value = files[`${folder}/${file}`];
   if (value === undefined) throw new Error(`Component folder ${folder} is missing ${file}`);
@@ -31,8 +33,9 @@ function requireFile<T>(files: Record<string, T>, folder: string, file: string):
 function buildRegistry(): ReadonlyMap<string, RegisteredComponent> {
   const registry = new Map<string, RegisteredComponent>();
   for (const [path, definition] of Object.entries(definitions)) {
-    const folder = path.slice(0, -'/definition.ts'.length);
-    if (folder.slice(folder.lastIndexOf('/') + 1) !== definition.id) {
+    const folder = path.slice(0, path.length - DEFINITION_FILE.length);
+    const folderName = folder.slice(folder.lastIndexOf('/') + 1);
+    if (folderName !== definition.id) {
       throw new Error(`Component folder ${folder} must be named after its id "${definition.id}"`);
     }
     if (registry.has(definition.id)) {

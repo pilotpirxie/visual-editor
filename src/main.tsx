@@ -5,9 +5,12 @@ import { App } from './app/App';
 import { autosave } from './app/store';
 
 const rootElement = document.getElementById('root');
-if (!rootElement) throw new Error('index.html is missing the #root element');
+if (rootElement === null) throw new Error('index.html is missing the #root element');
 
 window.addEventListener('pagehide', () => void autosave.flush());
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') void autosave.flush();
+});
 
 if ('storage' in navigator) {
   navigator.storage

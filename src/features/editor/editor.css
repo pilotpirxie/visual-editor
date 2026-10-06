@@ -5,8 +5,12 @@
       'toolbar toolbar toolbar toolbar toolbar'
       'left left-handle canvas right-handle right';
     grid-template-rows: var(--ve-toolbar-height) minmax(0, 1fr);
+    grid-template-columns: var(--ve-left-width) 0 minmax(0, 1fr) 0 var(--ve-right-width);
     height: 100%;
-    min-width: 1280px;
+  }
+
+  .ve-compact-tabs {
+    display: none;
   }
 
   .ve-toolbar {
@@ -27,6 +31,8 @@
   }
 
   .ve-logo {
+    display: inline-flex;
+    align-items: center;
     margin-inline: 8px 12px;
     color: inherit;
     font-weight: 700;
@@ -156,5 +162,110 @@
 
   .ve-button--primary:hover {
     background: color-mix(in oklab, var(--ve-accent), black 12%);
+  }
+
+  @media (width >= 1024px) {
+    .ve-shell[data-left-collapsed] :is(.ve-library, .ve-resize-handle[data-side='left']),
+    .ve-shell[data-right-collapsed] :is(.ve-properties, .ve-resize-handle[data-side='right']) {
+      display: none;
+    }
+  }
+
+  @media (width < 1024px) {
+    .ve-shell {
+      grid-template-areas: 'toolbar' 'view' 'tabs';
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1fr);
+      height: 100dvh;
+    }
+
+    .ve-library,
+    .ve-canvas,
+    .ve-properties {
+      grid-area: view;
+      border: 0;
+    }
+
+    .ve-resize-handle,
+    .ve-project-title,
+    .ve-readout,
+    .ve-device-label {
+      display: none;
+    }
+
+    .ve-shell:not([data-compact-view='library']) .ve-library,
+    .ve-shell:not([data-compact-view='properties']) .ve-properties {
+      display: none;
+    }
+
+    .ve-shell:not([data-compact-view='canvas']) .ve-canvas {
+      visibility: hidden;
+    }
+
+    .ve-toolbar {
+      gap: 4px;
+      min-height: 52px;
+      padding-inline: 4px;
+    }
+
+    .ve-toolbar-group {
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .ve-logo {
+      margin-inline: 0;
+    }
+
+    .ve-save-status {
+      margin-left: 4px;
+      white-space: nowrap;
+    }
+
+    .ve-icon-button,
+    .ve-device-button,
+    .ve-button,
+    .ve-logo {
+      min-width: 44px;
+      height: 44px;
+      justify-content: center;
+    }
+
+    .ve-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .ve-compact-tabs {
+      grid-area: tabs;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding-bottom: env(safe-area-inset-bottom);
+      border-top: 1px solid var(--ve-border);
+      background: var(--ve-bg);
+    }
+
+    .ve-compact-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      min-height: 56px;
+      border: 0;
+      background: none;
+      color: var(--ve-muted);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .ve-compact-tab[aria-current='page'] {
+      color: var(--ve-accent);
+    }
+
+    .ve-shell :is(input, select, textarea, [contenteditable='true']) {
+      font-size: 16px;
+    }
   }
 }

@@ -5,7 +5,7 @@ const GHOST_OFFSET_PX = 14;
 
 export function DragGhost(): JSX.Element | null {
   const drag = useSyncExternalStore(dragController.subscribe, dragController.getSnapshot);
-  if (!drag) return null;
+  if (drag === null) return null;
   const x = drag.point.x + GHOST_OFFSET_PX;
   const y = drag.point.y + GHOST_OFFSET_PX;
   return (

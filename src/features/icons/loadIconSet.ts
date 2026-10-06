@@ -14,15 +14,19 @@ async function fetchAndRegister(name: string): Promise<void> {
     const module = await load();
     registerIconSet(name, module.default);
   } catch (error) {
-    loadingSets.delete(name);
     throw new Error(`Could not load the ${name} icon set`, { cause: error });
   }
 }
 
-export function loadIconSet(name: string): Promise<void> {
+export async function loadIconSet(name: string): Promise<void> {
   const existing = loadingSets.get(name);
   if (existing !== undefined) return existing;
   const loading = fetchAndRegister(name);
   loadingSets.set(name, loading);
-  return loading;
+  try {
+    await loading;
+  } catch (error) {
+    loadingSets.delete(name);
+    throw error;
+  }
 }

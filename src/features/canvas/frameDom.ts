@@ -1,4 +1,4 @@
-import type { VerticalSpan } from './dropIndex';
+import type { VerticalSpan } from './geometry';
 
 export function isElementTarget(target: EventTarget | null): target is Element {
   return target !== null && 'closest' in target;
@@ -17,7 +17,9 @@ export function blockSpans(doc: Document): VerticalSpan[] {
 
 export function blockIdFromEvent(event: Event): string | null {
   if (!isElementTarget(event.target)) return null;
-  return event.target.closest('[data-block-id]')?.getAttribute('data-block-id') ?? null;
+  const blockElement = event.target.closest('[data-block-id]');
+  if (blockElement === null) return null;
+  return blockElement.getAttribute('data-block-id');
 }
 
 export function fieldPathFromEvent(event: Event): string | null {

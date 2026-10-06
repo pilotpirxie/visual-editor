@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { createSampleProject } from '../app/projectFactory';
 import type { Project } from '../app/types';
 import { registry } from '../components/registry';
@@ -45,6 +45,17 @@ describe('buildExportFiles', () => {
     const files = buildExportFiles(project, registry, runtime);
     expect(files['index.html']).not.toContain('b-hero-centered');
     expect(files['site.css']).not.toContain('@scope (.b-hero-centered)');
+  });
+
+  it('skips blocks that are listed on the page but missing from the project', () => {
+    const project = createSampleProject();
+    homePage(project).blockIds.push('lost-block');
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const files = buildExportFiles(project, registry, runtime);
+    expect(files['index.html']).toContain('b-footer-simple');
+    expect(warn).toHaveBeenCalledWith(
+      'Export skipped block lost-block: it is missing from the project',
+    );
   });
 
   it('ships no site.js and no script tag when no behavior is used', () => {

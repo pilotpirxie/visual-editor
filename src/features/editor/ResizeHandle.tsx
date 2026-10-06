@@ -10,7 +10,7 @@ export function ResizeHandle({ side }: { side: PanelSide }): JSX.Element {
   const { min, max } = PANEL_LIMITS[side];
   const direction = side === 'left' ? 1 : -1;
 
-  const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+  function handlePointerDown(event: ReactPointerEvent<HTMLDivElement>): void {
     if (event.button !== PRIMARY_BUTTON) return;
     const handle = event.currentTarget;
     const startX = event.clientX;
@@ -27,9 +27,9 @@ export function ResizeHandle({ side }: { side: PanelSide }): JSX.Element {
     handle.addEventListener('pointermove', onMove);
     handle.addEventListener('pointerup', onEnd);
     handle.addEventListener('pointercancel', onEnd);
-  };
+  }
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>): void {
     let step: number;
     if (event.key === 'ArrowRight') {
       step = KEYBOARD_STEP;
@@ -40,7 +40,7 @@ export function ResizeHandle({ side }: { side: PanelSide }): JSX.Element {
     }
     event.preventDefault();
     dispatch(panelResized({ side, width: width + step * direction }));
-  };
+  }
 
   return (
     <div

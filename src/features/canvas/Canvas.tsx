@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useEffectEvent,
   useLayoutEffect,
   useRef,
   useState,
@@ -7,13 +8,22 @@ import {
   type JSX,
   type RefObject,
 } from 'react';
-import { DEVICE_WIDTHS, blockSelected, fieldFocusRequested } from '../../app/editorSlice';
+import { blockSelected, DEVICE_VIEWPORTS, fieldFocusRequested } from '../../app/editorSlice';
 import { dispatch, selectCurrentPage, useStore } from '../../app/store';
-import { dropOnCurrentPage, isNoopDrop } from '../editor/blockActions';
+import { dropBlock, isNoopDrop } from '../editor/blockActions';
 import { useShortcuts } from '../editor/useShortcuts';
 import { CanvasFrame, type CanvasFrameHandle } from './CanvasFrame';
-import { dragController } from './dragController';
-import { dropIndexFromSpans, indicatorY } from './dropIndex';
+import { dragController, type DragPayload } from './dragController';
+import {
+  autoScrollDelta,
+  dropIndexFromSpans,
+  fitDevice,
+  indicatorY,
+  isFullyInView,
+  isOutOfView,
+  isPointInBox,
+  type Size,
+} from './geometry';
 import {
   blockIdFromEvent,
   blockRoot,
@@ -24,17 +34,18 @@ import {
 import { Overlay } from './Overlay';
 import './canvas.css';
 
-const GUTTER = 24;
-const AUTO_SCROLL_EDGE = 56;
-const AUTO_SCROLL_MAX_SPEED = 18;
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
-function useElementSize(ref: RefObject<HTMLElement | null>): { width: number; height: number } {
-  const [size, setSize] = useState({ width: 0, height: 0 });
+function useElementSize(ref: RefObject<HTMLElement | null>): Size {
+  const [size, setSize] = useState<Size>({ width: 0, height: 0 });
   useLayoutEffect(() => {
     const element = ref.current;
-    if (!element) return;
-    const observer = new ResizeObserver(([entry]) => {
-      setSize({ width: entry.contentRect.width, height: entry.contentRect.height });
+    if (element === null) return;
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        if (width > 0 && height > 0) setSize({ width, height });
+      }
     });
     observer.observe(element);
     return () => observer.disconnect();
@@ -46,8 +57,9 @@ function useCanvasPointer(doc: Document | null): string | null {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!doc) return;
+    if (doc === null) return;
     function onPointerMove(event: PointerEvent): void {
+      if (event.pointerType === 'touch') return;
       setHoveredId(blockIdFromEvent(event));
     }
     function onPointerLeave(): void {
@@ -76,107 +88,125 @@ function useCanvasPointer(doc: Document | null): string | null {
   return hoveredId;
 }
 
-export function Canvas(): JSX.Element {
-  const device = useStore((state) => state.editor.device);
-  const selectedId = useStore((state) => state.editor.selectedBlockId);
-  const blockIds = useStore((state) => selectCurrentPage(state).blockIds);
-  const isDragging = useSyncExternalStore(dragController.subscribe, dragController.isActive);
+function isShown(element: HTMLElement): boolean {
+  return getComputedStyle(element).visibility !== 'hidden';
+}
 
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const deviceRef = useRef<HTMLDivElement>(null);
-  const available = useElementSize(viewportRef);
-  const [frame, setFrame] = useState<CanvasFrameHandle | null>(null);
+function useCanvasDropTarget(
+  frame: CanvasFrameHandle | null,
+  viewportRef: RefObject<HTMLElement | null>,
+  scale: number,
+): number | null {
   const [dropY, setDropY] = useState<number | null>(null);
-  const hoveredId = useCanvasPointer(frame?.doc ?? null);
-  useShortcuts(frame?.doc ?? null);
-
-  const deviceWidth = DEVICE_WIDTHS[device];
-  const scale = available.width > 0 ? Math.min(1, (available.width - GUTTER * 2) / deviceWidth) : 1;
-  const visibleHeight = Math.max(0, available.height - GUTTER * 2);
+  const blockIds = useStore((state) => selectCurrentPage(state).blockIds);
+  const isNoop = useEffectEvent((payload: DragPayload, index: number) =>
+    isNoopDrop(blockIds, payload, index),
+  );
 
   useEffect(() => {
-    const doc = frame?.doc;
-    if (!doc) return;
+    if (frame === null) return;
+    const { iframe, doc } = frame;
     return dragController.registerTarget({
       accepts: (payload) => payload.kind === 'new' || payload.kind === 'move',
       resolve(point) {
-        const viewport = viewportRef.current?.getBoundingClientRect();
-        const page = deviceRef.current?.getBoundingClientRect();
-        if (!viewport || !page) return null;
-        const isOverCanvas =
-          point.x >= viewport.left &&
-          point.x <= viewport.right &&
-          point.y >= viewport.top &&
-          point.y <= viewport.bottom;
-        if (!isOverCanvas) return null;
-        return dropIndexFromSpans(blockSpans(doc), (point.y - page.top) / scale);
+        const viewport = viewportRef.current;
+        if (viewport === null || !isShown(viewport)) return null;
+        if (!isPointInBox(point, viewport.getBoundingClientRect(), 0)) return null;
+        const frameTop = iframe.getBoundingClientRect().top;
+        return dropIndexFromSpans(blockSpans(doc), (point.y - frameTop) / scale);
       },
       showIndicator(index, payload) {
-        setDropY(
-          index === null || isNoopDrop(payload, index)
-            ? null
-            : indicatorY(blockSpans(doc), index) * scale,
-        );
-      },
-      drop: dropOnCurrentPage,
-      tick(point) {
-        const page = deviceRef.current?.getBoundingClientRect();
-        if (!page) return;
-        const fromTop = point.y - page.top;
-        const fromBottom = page.bottom - point.y;
-        let direction = 0;
-        let closeness = 0;
-        if (fromTop < AUTO_SCROLL_EDGE) {
-          direction = -1;
-          closeness = (AUTO_SCROLL_EDGE - fromTop) / AUTO_SCROLL_EDGE;
-        } else if (fromBottom < AUTO_SCROLL_EDGE) {
-          direction = 1;
-          closeness = (AUTO_SCROLL_EDGE - fromBottom) / AUTO_SCROLL_EDGE;
+        if (index === null || isNoop(payload, index)) {
+          setDropY(null);
+          return;
         }
-        if (direction === 0) return;
-        const speed = direction * Math.min(closeness, 1) * AUTO_SCROLL_MAX_SPEED;
-        doc.defaultView?.scrollBy(0, speed / scale);
+        setDropY(indicatorY(blockSpans(doc), index) * scale);
+      },
+      drop: (payload, index) => dispatch(dropBlock(payload, index)),
+      tick(point) {
+        const delta = autoScrollDelta(point.y, iframe.getBoundingClientRect(), scale);
+        if (delta !== 0) doc.defaultView?.scrollBy(0, delta);
       },
     });
-  }, [frame, scale]);
+  }, [frame, viewportRef, scale]);
+
+  return dropY;
+}
+
+function useScrollSelectedIntoView(
+  frame: CanvasFrameHandle | null,
+  selectedId: string | null,
+): void {
+  const blockIds = useStore((state) => selectCurrentPage(state).blockIds);
+  const previousBlockIdsRef = useRef(blockIds);
 
   useEffect(() => {
-    const doc = frame?.doc;
-    const view = doc?.defaultView;
-    const root = doc && selectedId ? blockRoot(doc, selectedId) : null;
-    if (!view || !root) return;
+    const hasPageChanged = previousBlockIdsRef.current !== blockIds;
+    previousBlockIdsRef.current = blockIds;
+    if (frame === null || selectedId === null) return;
+    const view = frame.doc.defaultView;
+    if (view === null) return;
+    const root = blockRoot(frame.doc, selectedId);
+    if (root === null) return;
     const box = root.getBoundingClientRect();
-    if (box.bottom < 0 || box.top > view.innerHeight)
-      root.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    const shouldScroll = hasPageChanged
+      ? !isFullyInView(box, view.innerHeight)
+      : isOutOfView(box, view.innerHeight);
+    if (!shouldScroll) return;
+    const prefersReducedMotion = view.matchMedia(REDUCED_MOTION_QUERY).matches;
+    view.scrollBy({ top: box.top, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
   }, [frame, selectedId, blockIds]);
+}
+
+function movingBlockId(): string | null {
+  const snapshot = dragController.getSnapshot();
+  if (snapshot === null || snapshot.payload.kind !== 'move') return null;
+  return snapshot.payload.blockId;
+}
+
+export function Canvas(): JSX.Element {
+  const device = useStore((state) => state.editor.device);
+  const selectedId = useStore((state) => state.editor.selectedBlockId);
+  const isEmpty = useStore((state) => selectCurrentPage(state).blockIds.length === 0);
+  const isDragging = useSyncExternalStore(dragController.subscribe, dragController.isActive);
+  const movingId = useSyncExternalStore(dragController.subscribe, movingBlockId);
+
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const available = useElementSize(viewportRef);
+  const [frame, setFrame] = useState<CanvasFrameHandle | null>(null);
+  const hoveredId = useCanvasPointer(frame?.doc ?? null);
+  const fit = fitDevice(DEVICE_VIEWPORTS[device], available);
+  const dropY = useCanvasDropTarget(frame, viewportRef, fit.scale);
+  useScrollSelectedIntoView(frame, selectedId);
+  useShortcuts(frame?.doc ?? null);
 
   return (
     <div className="ve-canvas" ref={viewportRef}>
       <div
         className="ve-canvas-device"
         data-device={device}
-        ref={deviceRef}
-        style={{ width: deviceWidth * scale, height: visibleHeight }}
+        style={{ width: fit.box.width, height: fit.box.height }}
       >
         <CanvasFrame
-          width={deviceWidth}
-          height={visibleHeight / scale}
-          scale={scale}
+          width={fit.frame.width}
+          height={fit.frame.height}
+          scale={fit.scale}
           onReady={setFrame}
         />
-        {frame && (
+        {frame !== null && (
           <Overlay
             doc={frame.doc}
-            scale={scale}
-            height={visibleHeight}
+            scale={fit.scale}
+            height={fit.box.height}
             hoveredId={isDragging ? null : hoveredId}
             selectedId={selectedId}
+            movingId={movingId}
             dropY={dropY}
-            isEmpty={blockIds.length === 0}
+            isEmpty={isEmpty}
           />
         )}
       </div>
-      {scale < 1 && <p className="ve-canvas-zoom">Zoom {Math.round(scale * 100)}%</p>}
+      {fit.scale < 1 && <p className="ve-canvas-zoom">Zoom {Math.round(fit.scale * 100)}%</p>}
       {isDragging && <div className="ve-canvas-catcher" />}
     </div>
   );

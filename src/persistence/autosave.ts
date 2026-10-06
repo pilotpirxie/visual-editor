@@ -18,16 +18,24 @@ export function createAutosave({ save, delayMs, onStatus }: AutosaveOptions): Au
   let timer: ReturnType<typeof setTimeout> | null = null;
   let lastWrite: Promise<void> = Promise.resolve();
 
+  async function saveAndReport(project: Project): Promise<void> {
+    try {
+      await save(project);
+    } catch (error) {
+      console.error(`Autosave failed for project ${project.id}`, error);
+      onStatus('error');
+      return;
+    }
+    if (pending === null) onStatus('saved');
+  }
+
+  async function saveAfter(previousWrite: Promise<void>, project: Project): Promise<void> {
+    await previousWrite;
+    await saveAndReport(project);
+  }
+
   function write(project: Project): Promise<void> {
-    lastWrite = lastWrite.then(async () => {
-      try {
-        await save(project);
-        if (pending === null) onStatus('saved');
-      } catch (error) {
-        console.error(`Autosave failed for project ${project.id}`, error);
-        onStatus('error');
-      }
-    });
+    lastWrite = saveAfter(lastWrite, project);
     return lastWrite;
   }
 

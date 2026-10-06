@@ -3,3 +3,7 @@ build/
 AGENTS.md
 README.md
 *.hbs
+test-results
+playwright-report
+blob-report
+.vitest

@@ -6,12 +6,19 @@ import type { Project } from './types';
 export type Device = 'desktop' | 'tablet' | 'phone';
 export type PanelSide = 'left' | 'right';
 export type LibraryTab = 'blocks' | 'layers';
+export type CompactView = 'library' | 'canvas' | 'properties';
+export type CompactTab = LibraryTab | 'canvas' | 'properties';
+export type DeviceViewport = { width: number; height: number | null };
 
-export const DEVICE_WIDTHS: Record<Device, number> = { desktop: 1440, tablet: 768, phone: 375 };
+export const DEVICE_VIEWPORTS: Record<Device, DeviceViewport> = {
+  desktop: { width: 1440, height: null },
+  tablet: { width: 768, height: 1024 },
+  phone: { width: 375, height: 812 },
+};
 
-export const PANEL_LIMITS: Record<PanelSide, { min: number; max: number }> = {
-  left: { min: 240, max: 400 },
-  right: { min: 280, max: 480 },
+export const PANEL_LIMITS: Record<PanelSide, { min: number; max: number; initial: number }> = {
+  left: { min: 240, max: 400, initial: 280 },
+  right: { min: 280, max: 480, initial: 320 },
 };
 
 export type FocusRequest = { blockId: string; path: string };
@@ -23,6 +30,7 @@ export type EditorState = {
   device: Device;
   panels: Record<PanelSide, { width: number; collapsed: boolean }>;
   libraryTab: LibraryTab;
+  compactView: CompactView;
   saveStatus: SaveStatus;
 };
 
@@ -31,8 +39,12 @@ const initialState: EditorState = {
   selectedBlockId: null,
   focusRequest: null,
   device: 'desktop',
-  panels: { left: { width: 280, collapsed: false }, right: { width: 320, collapsed: false } },
+  panels: {
+    left: { width: PANEL_LIMITS.left.initial, collapsed: false },
+    right: { width: PANEL_LIMITS.right.initial, collapsed: false },
+  },
   libraryTab: 'blocks',
+  compactView: 'canvas',
   saveStatus: 'saved',
 };
 
@@ -48,6 +60,9 @@ export const editorSlice = createSlice({
       state.selectedBlockId = action.payload.blockId;
       state.focusRequest = action.payload;
     },
+    focusRequestHandled(state) {
+      state.focusRequest = null;
+    },
     deviceChanged(state, action: PayloadAction<Device>) {
       state.device = action.payload;
     },
@@ -62,6 +77,15 @@ export const editorSlice = createSlice({
     libraryTabChanged(state, action: PayloadAction<LibraryTab>) {
       state.libraryTab = action.payload;
     },
+    compactTabSelected(state, action: PayloadAction<CompactTab>) {
+      const tab = action.payload;
+      if (tab === 'blocks' || tab === 'layers') {
+        state.libraryTab = tab;
+        state.compactView = 'library';
+      } else {
+        state.compactView = tab;
+      }
+    },
     saveStatusChanged(state, action: PayloadAction<SaveStatus>) {
       state.saveStatus = action.payload;
     },
@@ -70,6 +94,7 @@ export const editorSlice = createSlice({
     builder
       .addCase(blockInserted, (state, action) => {
         state.selectedBlockId = action.payload.block.id;
+        if (state.compactView === 'library') state.compactView = 'canvas';
       })
       .addCase(blockDuplicated, (state, action) => {
         state.selectedBlockId = action.payload.newBlockId;
@@ -81,6 +106,7 @@ export const editorSlice = createSlice({
         state.currentPageId = action.payload.pageId;
         state.selectedBlockId = null;
         state.focusRequest = null;
+        state.saveStatus = 'saved';
       });
   },
 });
@@ -88,12 +114,19 @@ export const editorSlice = createSlice({
 export const {
   blockSelected,
   fieldFocusRequested,
+  focusRequestHandled,
   deviceChanged,
   panelResized,
   panelToggled,
   libraryTabChanged,
+  compactTabSelected,
   saveStatusChanged,
 } = editorSlice.actions;
+
+export function selectCompactTab(editor: EditorState): CompactTab {
+  if (editor.compactView === 'library') return editor.libraryTab;
+  return editor.compactView;
+}
 
 export function reconcileEditor(editor: EditorState, project: Project): EditorState {
   const { entities, homePageId } = project.pages;

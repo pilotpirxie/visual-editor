@@ -2,6 +2,8 @@ import type { JSX } from 'react';
 import { tokenSet } from '../../app/projectSlice';
 import { dispatch, useStore } from '../../app/store';
 
+const FALLBACK_PRIMARY = '#000000';
+
 const HEADING_FONTS = [
   { label: 'Sans serif', value: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' },
   { label: 'Serif', value: 'Georgia, "Times New Roman", serif' },
@@ -11,7 +13,7 @@ const HEADING_FONTS = [
 export function TemporaryDesignFields(): JSX.Element {
   const primary = useStore((state) => state.project.designSystem.tokens['--color-primary']?.value);
   const headingFont = useStore(
-    (state) => state.project.designSystem.tokens['--font-heading']?.value,
+    (state) => state.project.designSystem.tokens['--font-heading']?.value ?? HEADING_FONTS[0].value,
   );
 
   return (
@@ -22,9 +24,9 @@ export function TemporaryDesignFields(): JSX.Element {
         <span>Primary color</span>
         <input
           type="color"
-          value={primary ?? '#000000'}
+          value={primary ?? FALLBACK_PRIMARY}
           onChange={(event) =>
-            dispatch(tokenSet({ name: '--color-primary', value: event.target.value }))
+            dispatch(tokenSet({ name: '--color-primary', value: event.target.value }, 'continuous'))
           }
         />
       </label>
@@ -33,7 +35,7 @@ export function TemporaryDesignFields(): JSX.Element {
         <select
           value={headingFont}
           onChange={(event) =>
-            dispatch(tokenSet({ name: '--font-heading', value: event.target.value }))
+            dispatch(tokenSet({ name: '--font-heading', value: event.target.value }, 'discrete'))
           }
         >
           {HEADING_FONTS.map(({ label, value }) => (

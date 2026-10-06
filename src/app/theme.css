@@ -80,6 +80,12 @@
     outline: 2px solid var(--ve-accent);
     outline-offset: 1px;
   }
+
+  button,
+  a,
+  label {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 @layer utilities {
@@ -90,6 +96,18 @@
     overflow: hidden;
     clip: rect(0 0 0 0);
     white-space: nowrap;
+  }
+
+  @media (width >= 1024px) {
+    .ve-compact-only {
+      display: none;
+    }
+  }
+
+  @media (width < 1024px) {
+    .ve-wide-only {
+      display: none;
+    }
   }
 
   .is-dragging,
