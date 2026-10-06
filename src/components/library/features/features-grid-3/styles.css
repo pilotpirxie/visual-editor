@@ -1,0 +1,52 @@
+@layer components {
+  @scope (.b-features-grid-3) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    :scope[data-align='center'] .b-head {
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      --grid-min: 16rem;
+      --grid-gap: var(--space-6);
+    }
+
+    .b-card {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-card p {
+      color: var(--color-text-muted);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: inline-grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(var(--cols), 1fr);
+      }
+    }
+  }
+}

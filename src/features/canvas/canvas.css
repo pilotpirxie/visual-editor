@@ -1,0 +1,155 @@
+@layer components {
+  .ve-canvas {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+    min-height: 0;
+    padding: 24px;
+    overflow: hidden;
+    background: var(--ve-canvas-bg);
+  }
+
+  .ve-canvas-device {
+    position: relative;
+    flex: none;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: var(--ve-shadow);
+  }
+
+  .ve-canvas-device:is([data-device='tablet'], [data-device='phone']) {
+    border-radius: 12px;
+    outline: 6px solid var(--ve-device-frame);
+  }
+
+  .ve-canvas-frame {
+    display: block;
+    border: 0;
+    transform-origin: 0 0;
+    background: #ffffff;
+  }
+
+  .ve-canvas-zoom {
+    position: absolute;
+    right: 12px;
+    bottom: 4px;
+    font-size: 12px;
+    color: var(--ve-muted);
+  }
+
+  .ve-canvas-catcher {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+  }
+
+  .ve-overlay {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .ve-outline {
+    position: absolute;
+  }
+
+  .ve-outline--hover {
+    outline: 1px solid var(--ve-hover);
+    outline-offset: -1px;
+  }
+
+  .ve-outline--selected {
+    outline: 2px solid var(--ve-accent);
+    outline-offset: -2px;
+  }
+
+  .ve-outline-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 2px 8px;
+    border-bottom-right-radius: 4px;
+    background: var(--ve-hover);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .ve-block-toolbar {
+    position: absolute;
+    display: flex;
+    gap: 2px;
+    padding: 2px;
+    border-radius: 6px;
+    background: var(--ve-accent);
+    box-shadow: var(--ve-shadow);
+    pointer-events: auto;
+  }
+
+  .ve-block-toolbar button {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  .ve-block-toolbar button:hover:not(:disabled) {
+    background: rgb(255 255 255 / 0.18);
+  }
+
+  .ve-block-toolbar button:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+
+  .ve-block-toolbar .ve-block-handle {
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .ve-drop-line {
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 4px;
+    margin-top: -2px;
+    border-radius: 2px;
+    background: var(--ve-accent);
+    box-shadow: 0 0 0 2px rgb(255 255 255 / 0.85);
+  }
+
+  .ve-empty {
+    position: absolute;
+    inset: 24px;
+    display: grid;
+    place-items: center;
+    border: 2px dashed var(--ve-border-strong);
+    border-radius: 12px;
+    color: var(--ve-muted);
+    font-size: 15px;
+  }
+
+  .ve-drag-ghost {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: var(--ve-text);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: var(--ve-shadow);
+  }
+}

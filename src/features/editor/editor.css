@@ -1,0 +1,138 @@
+@layer components {
+  .ve-shell {
+    display: grid;
+    grid-template-areas:
+      'toolbar toolbar toolbar toolbar toolbar'
+      'left left-handle canvas right-handle right';
+    grid-template-rows: var(--ve-toolbar-height) minmax(0, 1fr);
+    height: 100%;
+    min-width: 1280px;
+  }
+
+  .ve-toolbar {
+    grid-area: toolbar;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-inline: 8px;
+    border-bottom: 1px solid var(--ve-border);
+    background: var(--ve-bg);
+  }
+
+  .ve-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .ve-logo {
+    margin-inline: 8px 12px;
+    font-weight: 700;
+  }
+
+  .ve-project-title {
+    padding-left: 12px;
+    border-left: 1px solid var(--ve-border);
+    color: var(--ve-muted);
+  }
+
+  .ve-readout {
+    min-width: 64px;
+    margin-left: 8px;
+    color: var(--ve-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ve-library {
+    grid-area: left;
+  }
+
+  .ve-canvas {
+    grid-area: canvas;
+  }
+
+  .ve-properties {
+    grid-area: right;
+  }
+
+  .ve-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    background: var(--ve-bg);
+  }
+
+  .ve-library {
+    border-right: 1px solid var(--ve-border);
+  }
+
+  .ve-properties {
+    border-left: 1px solid var(--ve-border);
+  }
+
+  .ve-resize-handle {
+    position: relative;
+    z-index: 5;
+    width: 8px;
+    margin-left: -4px;
+    cursor: col-resize;
+    touch-action: none;
+  }
+
+  .ve-resize-handle[data-side='left'] {
+    grid-area: left-handle;
+  }
+
+  .ve-resize-handle[data-side='right'] {
+    grid-area: right-handle;
+  }
+
+  .ve-resize-handle:hover,
+  .ve-resize-handle:focus-visible {
+    background: linear-gradient(var(--ve-accent), var(--ve-accent)) center / 2px 100% no-repeat;
+    outline: none;
+  }
+
+  .ve-icon {
+    width: 16px;
+    height: 16px;
+    flex: none;
+  }
+
+  .ve-icon-button,
+  .ve-device-button,
+  .ve-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding-inline: 8px;
+    border: 1px solid transparent;
+    border-radius: var(--ve-radius);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .ve-icon-button:hover,
+  .ve-device-button:hover {
+    background: var(--ve-surface);
+  }
+
+  .ve-device-button[aria-pressed='true'] {
+    background: var(--ve-accent-soft);
+    color: var(--ve-accent);
+  }
+
+  .ve-button--primary {
+    padding-inline: 12px;
+    background: var(--ve-accent);
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .ve-button--primary:hover {
+    background: color-mix(in oklab, var(--ve-accent), black 12%);
+  }
+}

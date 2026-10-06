@@ -1,0 +1,18 @@
+<section class="b-features-grid-3 section" data-align="{{align}}">
+  <div class="container stack b-inner">
+    <header class="b-head stack">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-grid grid" style="--cols: {{columns}}">
+      {{#each items}}
+      <article class="b-card card stack" data-field="items.{{@index}}">
+        <span class="b-icon">{{svgIcon icon}}</span>
+        <h3>{{title}}</h3>
+        <p>{{nl2br text}}</p>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

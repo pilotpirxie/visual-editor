@@ -1,0 +1,38 @@
+@layer components {
+  .ve-properties-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-properties-title {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .ve-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .ve-field select {
+    height: 32px;
+    padding-inline: 6px;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    background: var(--ve-bg);
+  }
+
+  .ve-field input[type='color'] {
+    width: 48px;
+    height: 32px;
+    padding: 2px;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    background: var(--ve-bg);
+  }
+}

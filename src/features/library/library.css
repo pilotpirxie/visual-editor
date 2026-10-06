@@ -1,0 +1,199 @@
+@layer components {
+  .ve-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 8px 8px 0;
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-tabs [role='tab'] {
+    padding: 8px 10px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: var(--ve-muted);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .ve-tabs [aria-selected='true'] {
+    border-bottom-color: var(--ve-accent);
+    color: var(--ve-text);
+  }
+
+  .ve-tab-panel {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .ve-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .ve-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding-inline: 8px;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    color: var(--ve-muted);
+  }
+
+  .ve-search:focus-within {
+    border-color: var(--ve-accent);
+  }
+
+  .ve-search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: none;
+    color: var(--ve-text);
+  }
+
+  .ve-categories button,
+  .ve-back {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 8px;
+    border: 0;
+    border-radius: var(--ve-radius);
+    background: none;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .ve-categories button:hover,
+  .ve-back:hover {
+    background: var(--ve-surface);
+  }
+
+  .ve-back {
+    color: var(--ve-muted);
+  }
+
+  .ve-count {
+    margin-left: auto;
+    color: var(--ve-muted);
+  }
+
+  .ve-heading {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .ve-muted {
+    color: var(--ve-muted);
+  }
+
+  .ve-component-grid {
+    display: grid;
+    gap: 12px;
+  }
+
+  .ve-component-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    text-align: left;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .ve-component-card img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    -webkit-user-drag: none;
+  }
+
+  .ve-component-card:hover img,
+  .ve-component-card:focus-visible img {
+    border-color: var(--ve-accent);
+  }
+
+  .ve-layers {
+    padding: 8px;
+  }
+
+  .ve-layers-empty {
+    padding: 16px 12px;
+  }
+
+  .ve-layer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: var(--ve-radius);
+    touch-action: none;
+  }
+
+  .ve-layer:hover {
+    background: var(--ve-surface);
+  }
+
+  .ve-layer[data-selected] {
+    background: var(--ve-accent-soft);
+  }
+
+  .ve-layer[data-disabled] .ve-layer-name {
+    color: var(--ve-muted);
+    text-decoration: line-through;
+  }
+
+  .ve-layer[data-drop]::before {
+    position: absolute;
+    right: 4px;
+    left: 4px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--ve-accent);
+    content: '';
+  }
+
+  .ve-layer[data-drop='before']::before {
+    top: -1px;
+  }
+
+  .ve-layer[data-drop='after']::before {
+    bottom: -1px;
+  }
+
+  .ve-layer-name {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    padding: 8px;
+    border: 0;
+    background: none;
+    text-align: left;
+    cursor: grab;
+  }
+
+  .ve-layer-name span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ve-layer-name .ve-icon {
+    color: var(--ve-muted);
+  }
+}

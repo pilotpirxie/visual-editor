@@ -1,0 +1,21 @@
+@layer components {
+  @scope (.b-hero-centered) {
+    .b-inner {
+      --container-max-width: 52rem;
+      --stack-gap: var(--space-6);
+      text-align: center;
+    }
+
+    .b-lead {
+      max-width: 40rem;
+      margin-inline: auto;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+      margin-top: var(--space-2);
+    }
+  }
+}

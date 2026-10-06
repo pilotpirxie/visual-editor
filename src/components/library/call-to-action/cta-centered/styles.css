@@ -1,0 +1,23 @@
+@layer components {
+  @scope (.b-cta-centered) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-panel {
+      --stack-gap: var(--space-6);
+      max-width: 44rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+    }
+  }
+}

@@ -1,0 +1,87 @@
+@layer reset, base, components, utilities;
+
+:root {
+  --ve-font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ve-bg: #ffffff;
+  --ve-canvas-bg: #eceef3;
+  --ve-surface: #f6f7f9;
+  --ve-border: #e3e5ea;
+  --ve-border-strong: #c9cdd6;
+  --ve-text: #161a23;
+  --ve-muted: #5d6474;
+  --ve-accent: #2f5bea;
+  --ve-accent-soft: #e6ecfd;
+  --ve-hover: #6b8cf2;
+  --ve-device-frame: #d5d8df;
+  --ve-radius: 6px;
+  --ve-shadow: 0 1px 2px rgb(16 24 40 / 0.08), 0 4px 12px rgb(16 24 40 / 0.08);
+  --ve-toolbar-height: 48px;
+}
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  p,
+  ol,
+  ul {
+    margin: 0;
+  }
+
+  ol,
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  button,
+  input,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    font: 13px/1.4 var(--ve-font);
+    color: var(--ve-text);
+    background: var(--ve-bg);
+    overflow: hidden;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ve-accent);
+    outline-offset: 1px;
+  }
+}
+
+@layer utilities {
+  .ve-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .is-dragging,
+  .is-dragging * {
+    cursor: grabbing !important;
+    user-select: none !important;
+  }
+}
