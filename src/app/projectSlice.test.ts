@@ -1,20 +1,19 @@
-import { configureStore } from '@reduxjs/toolkit';
 import { describe, expect, it } from 'vitest';
-import { editorSlice, panelResized } from './editorSlice';
+import { blockSelected, fieldFocusRequested, panelResized } from './editorSlice';
 import {
   blockDisabledSet,
   blockDuplicated,
   blockInserted,
   blockMoved,
   blockRemoved,
-  projectSlice,
+  blockValueSet,
   tokenSet,
 } from './projectSlice';
+import { createSampleProject } from './projectFactory';
+import { createAppStore } from './store';
 
 function setup() {
-  const store = configureStore({
-    reducer: { project: projectSlice.reducer, editor: editorSlice.reducer },
-  });
+  const store = createAppStore({ preloadedState: { project: createSampleProject() } });
   const pageId = store.getState().project.pages.homePageId;
   const blockIds = () => store.getState().project.pages.entities[pageId].blockIds;
   const componentIds = () =>
@@ -83,6 +82,22 @@ describe('project and editor slices', () => {
     expect(store.getState().project.blocks.entities[blockId].disabled).toBe(false);
   });
 
+  it('sets a block value and ignores unknown blocks', () => {
+    const { store, blockIds } = setup();
+    const blockId = blockIds()[1];
+    store.dispatch(blockValueSet(blockId, 'title', 'Ship what customers asked for'));
+    store.dispatch(blockValueSet('missing', 'title', 'Nothing'));
+    expect(store.getState().project.blocks.entities[blockId].values.title).toBe(
+      'Ship what customers asked for',
+    );
+  });
+
+  it('tags value edits with a merge key per block field', () => {
+    const action = blockValueSet('block-1', 'title', 'Hello');
+    expect(action.meta.mergeKey).toBe('value:block-1:title');
+    expect(action.meta.at).toBeTypeOf('number');
+  });
+
   it('changes a design token and ignores unknown tokens', () => {
     const { store } = setup();
     store.dispatch(tokenSet({ name: '--color-primary', value: '#0f766e' }));
@@ -90,6 +105,16 @@ describe('project and editor slices', () => {
     const { tokens } = store.getState().project.designSystem;
     expect(tokens['--color-primary'].value).toBe('#0f766e');
     expect(tokens['--color-unknown']).toBeUndefined();
+  });
+
+  it('selects the block of a focus request and clears the request on plain selection', () => {
+    const { store, blockIds } = setup();
+    const blockId = blockIds()[2];
+    store.dispatch(fieldFocusRequested({ blockId, path: 'items.1' }));
+    expect(store.getState().editor.selectedBlockId).toBe(blockId);
+    expect(store.getState().editor.focusRequest).toEqual({ blockId, path: 'items.1' });
+    store.dispatch(blockSelected(null));
+    expect(store.getState().editor.focusRequest).toBeNull();
   });
 
   it('clamps panel widths to their limits', () => {

@@ -32,6 +32,7 @@ export function removeBlock(blockId: string): void {
 }
 
 export function isNoopDrop(payload: DragPayload, dropIndex: number): boolean {
+  if (payload.kind === 'list-item') return true;
   if (payload.kind === 'new') return false;
   const from = currentPage().blockIds.indexOf(payload.blockId);
   return from === -1 || finalMoveIndex(from, dropIndex) === from;
@@ -39,6 +40,7 @@ export function isNoopDrop(payload: DragPayload, dropIndex: number): boolean {
 
 export function dropOnCurrentPage(payload: DragPayload, dropIndex: number): void {
   const page = currentPage();
+  if (payload.kind === 'list-item') return;
   if (payload.kind === 'new') {
     dispatch(blockInserted(page.id, dropIndex, payload.componentId));
     return;

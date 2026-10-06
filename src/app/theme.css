@@ -12,6 +12,7 @@
   --ve-accent: #2f5bea;
   --ve-accent-soft: #e6ecfd;
   --ve-hover: #6b8cf2;
+  --ve-danger: #b42318;
   --ve-device-frame: #d5d8df;
   --ve-radius: 6px;
   --ve-shadow: 0 1px 2px rgb(16 24 40 / 0.08), 0 4px 12px rgb(16 24 40 / 0.08);
@@ -43,9 +44,21 @@
 
   button,
   input,
-  select {
+  select,
+  textarea {
     font: inherit;
     color: inherit;
+  }
+
+  fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  legend {
+    padding: 0;
   }
 }
 

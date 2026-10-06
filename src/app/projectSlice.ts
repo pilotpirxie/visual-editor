@@ -1,9 +1,21 @@
-import { createEntityAdapter, createSlice, current, type PayloadAction } from '@reduxjs/toolkit';
+import {
+  createAction,
+  createEntityAdapter,
+  createSlice,
+  current,
+  type PayloadAction,
+} from '@reduxjs/toolkit';
 import { createBlock, registry } from '../components/registry';
-import { createSampleProject } from './sampleProject';
-import type { Block } from './types';
+import { createBlankProject, UNTITLED_PROJECT_TITLE } from './projectFactory';
+import type { Block, Project } from './types';
 
 const blocksAdapter = createEntityAdapter<Block>();
+
+export type EditMeta = { mergeKey: string; at: number };
+
+export const projectLoaded = createAction<{ project: Project; pageId: string | null }>(
+  'project/loaded',
+);
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
@@ -11,7 +23,7 @@ function clamp(value: number, min: number, max: number): number {
 
 export const projectSlice = createSlice({
   name: 'project',
-  initialState: createSampleProject,
+  initialState: () => createBlankProject(UNTITLED_PROJECT_TITLE),
   reducers: {
     blockInserted: {
       reducer(state, action: PayloadAction<{ pageId: string; index: number; block: Block }>) {
@@ -32,8 +44,10 @@ export const projectSlice = createSlice({
       const page = state.pages.entities[pageId];
       const from = page?.blockIds.indexOf(blockId) ?? -1;
       if (!page || from === -1) return;
+      const to = clamp(toIndex, 0, page.blockIds.length - 1);
+      if (to === from) return;
       page.blockIds.splice(from, 1);
-      page.blockIds.splice(clamp(toIndex, 0, page.blockIds.length), 0, blockId);
+      page.blockIds.splice(to, 0, blockId);
     },
     blockDuplicated: {
       reducer(
@@ -55,17 +69,40 @@ export const projectSlice = createSlice({
     blockRemoved(state, action: PayloadAction<{ pageId: string; blockId: string }>) {
       const { pageId, blockId } = action.payload;
       const page = state.pages.entities[pageId];
-      if (!page) return;
-      page.blockIds = page.blockIds.filter((id) => id !== blockId);
+      const index = page?.blockIds.indexOf(blockId) ?? -1;
+      if (!page || index === -1) return;
+      page.blockIds.splice(index, 1);
       blocksAdapter.removeOne(state.blocks, blockId);
     },
     blockDisabledSet(state, action: PayloadAction<{ blockId: string; disabled: boolean }>) {
       const block = state.blocks.entities[action.payload.blockId];
       if (block) block.disabled = action.payload.disabled;
     },
-    tokenSet(state, action: PayloadAction<{ name: string; value: string }>) {
-      const token = state.designSystem.tokens[action.payload.name];
-      if (token) token.value = action.payload.value;
+    blockValueSet: {
+      reducer(
+        state,
+        action: PayloadAction<{ blockId: string; name: string; value: unknown }, string, EditMeta>,
+      ) {
+        const { blockId, name, value } = action.payload;
+        const block = state.blocks.entities[blockId];
+        if (!block || Object.is(block.values[name], value)) return;
+        block.values[name] = value;
+      },
+      prepare(blockId: string, name: string, value: unknown) {
+        return {
+          payload: { blockId, name, value },
+          meta: { mergeKey: `value:${blockId}:${name}`, at: Date.now() },
+        };
+      },
+    },
+    tokenSet: {
+      reducer(state, action: PayloadAction<{ name: string; value: string }, string, EditMeta>) {
+        const token = state.designSystem.tokens[action.payload.name];
+        if (token) token.value = action.payload.value;
+      },
+      prepare(payload: { name: string; value: string }) {
+        return { payload, meta: { mergeKey: `token:${payload.name}`, at: Date.now() } };
+      },
     },
   },
 });
@@ -76,5 +113,6 @@ export const {
   blockDuplicated,
   blockRemoved,
   blockDisabledSet,
+  blockValueSet,
   tokenSet,
 } = projectSlice.actions;

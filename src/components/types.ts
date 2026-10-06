@@ -104,3 +104,21 @@ export type RegisteredComponent = {
   styles: string;
   thumbnail: string;
 };
+
+export const PLACEHOLDER_RATIOS = ['1:1', '4:3', '3:2', '16:9', '3:4', '21:9'] as const;
+
+export type PlaceholderRatio = (typeof PLACEHOLDER_RATIOS)[number];
+
+export const PLACEHOLDER_SUBJECTS = ['photo', 'person', 'product', 'logo', 'screenshot'] as const;
+
+export type PlaceholderSubject = (typeof PLACEHOLDER_SUBJECTS)[number];
+
+export type ImageValue = {
+  source: 'placeholder';
+  src: string;
+  alt: string;
+  decorative: boolean;
+  width: number;
+  height: number;
+  placeholder: { ratio: PlaceholderRatio; subject: PlaceholderSubject };
+};

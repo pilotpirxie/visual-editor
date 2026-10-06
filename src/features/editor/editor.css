@@ -28,7 +28,24 @@
 
   .ve-logo {
     margin-inline: 8px 12px;
+    color: inherit;
     font-weight: 700;
+    text-decoration: none;
+  }
+
+  .ve-logo:hover {
+    color: var(--ve-accent);
+  }
+
+  .ve-save-status {
+    margin-left: 12px;
+    color: var(--ve-muted);
+    font-size: 12px;
+  }
+
+  .ve-save-status[data-status='error'] {
+    color: var(--ve-danger);
+    font-weight: 600;
   }
 
   .ve-project-title {
@@ -115,9 +132,14 @@
     cursor: pointer;
   }
 
-  .ve-icon-button:hover,
+  .ve-icon-button:hover:enabled,
   .ve-device-button:hover {
     background: var(--ve-surface);
+  }
+
+  .ve-icon-button:disabled {
+    color: var(--ve-border-strong);
+    cursor: default;
   }
 
   .ve-device-button[aria-pressed='true'] {

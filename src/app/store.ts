@@ -1,15 +1,52 @@
-import { configureStore, createSelector } from '@reduxjs/toolkit';
+import { configureStore, createListenerMiddleware, createSelector } from '@reduxjs/toolkit';
 import { useSyncExternalStore } from 'react';
 import { createRenderContext } from '../render/renderBlock';
-import { editorSlice } from './editorSlice';
-import { projectSlice } from './projectSlice';
-import type { Page } from './types';
+import { createAutosave } from '../persistence/autosave';
+import { putProject } from '../persistence/db';
+import { editorSlice, saveStatusChanged } from './editorSlice';
+import { createRootReducer, type RootState } from './history';
+import { projectLoaded, projectSlice } from './projectSlice';
+import type { Page, Project } from './types';
 
-export const store = configureStore({
-  reducer: { project: projectSlice.reducer, editor: editorSlice.reducer },
+export type { RootState };
+
+type AppStoreOptions = {
+  preloadedState?: Partial<RootState>;
+  onProjectEdited?(project: Project): void;
+};
+
+const UNCHECKED_PATHS = ['history'];
+const AUTOSAVE_DELAY_MS = 1000;
+
+export function createAppStore({ preloadedState, onProjectEdited }: AppStoreOptions = {}) {
+  const listener = createListenerMiddleware<RootState>();
+  if (onProjectEdited) {
+    listener.startListening({
+      predicate: (action, current, previous) =>
+        current.project !== previous.project && !projectLoaded.match(action),
+      effect: (_action, api) => onProjectEdited(api.getState().project),
+    });
+  }
+  return configureStore({
+    reducer: createRootReducer(projectSlice.reducer, editorSlice.reducer),
+    preloadedState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: { ignoredPaths: UNCHECKED_PATHS },
+        immutableCheck: { ignoredPaths: UNCHECKED_PATHS },
+      }).prepend(listener.middleware),
+  });
+}
+
+export const store = createAppStore({
+  onProjectEdited: (project) => autosave.schedule(project),
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+export const autosave = createAutosave({
+  save: putProject,
+  delayMs: AUTOSAVE_DELAY_MS,
+  onStatus: (status) => store.dispatch(saveStatusChanged(status)),
+});
 
 export const dispatch = store.dispatch;
 

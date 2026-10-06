@@ -1,6 +1,7 @@
 export type DragPayload =
   | { kind: 'new'; componentId: string; label: string }
-  | { kind: 'move'; blockId: string; label: string };
+  | { kind: 'move'; blockId: string; label: string }
+  | { kind: 'list-item'; ownerKey: string; index: number; label: string };
 
 export type Point = { x: number; y: number };
 

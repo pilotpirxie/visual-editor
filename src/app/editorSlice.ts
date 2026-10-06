@@ -1,5 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { blockDuplicated, blockInserted, blockRemoved } from './projectSlice';
+import { blockDuplicated, blockInserted, blockRemoved, projectLoaded } from './projectSlice';
+import type { SaveStatus } from '../persistence/autosave';
+import type { Project } from './types';
 
 export type Device = 'desktop' | 'tablet' | 'phone';
 export type PanelSide = 'left' | 'right';
@@ -12,20 +14,26 @@ export const PANEL_LIMITS: Record<PanelSide, { min: number; max: number }> = {
   right: { min: 280, max: 480 },
 };
 
-type EditorState = {
+export type FocusRequest = { blockId: string; path: string };
+
+export type EditorState = {
   currentPageId: string | null;
   selectedBlockId: string | null;
+  focusRequest: FocusRequest | null;
   device: Device;
   panels: Record<PanelSide, { width: number; collapsed: boolean }>;
   libraryTab: LibraryTab;
+  saveStatus: SaveStatus;
 };
 
 const initialState: EditorState = {
   currentPageId: null,
   selectedBlockId: null,
+  focusRequest: null,
   device: 'desktop',
   panels: { left: { width: 280, collapsed: false }, right: { width: 320, collapsed: false } },
   libraryTab: 'blocks',
+  saveStatus: 'saved',
 };
 
 export const editorSlice = createSlice({
@@ -34,6 +42,11 @@ export const editorSlice = createSlice({
   reducers: {
     blockSelected(state, action: PayloadAction<string | null>) {
       state.selectedBlockId = action.payload;
+      state.focusRequest = null;
+    },
+    fieldFocusRequested(state, action: PayloadAction<FocusRequest>) {
+      state.selectedBlockId = action.payload.blockId;
+      state.focusRequest = action.payload;
     },
     deviceChanged(state, action: PayloadAction<Device>) {
       state.device = action.payload;
@@ -49,6 +62,9 @@ export const editorSlice = createSlice({
     libraryTabChanged(state, action: PayloadAction<LibraryTab>) {
       state.libraryTab = action.payload;
     },
+    saveStatusChanged(state, action: PayloadAction<SaveStatus>) {
+      state.saveStatus = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -60,9 +76,38 @@ export const editorSlice = createSlice({
       })
       .addCase(blockRemoved, (state, action) => {
         if (state.selectedBlockId === action.payload.blockId) state.selectedBlockId = null;
+      })
+      .addCase(projectLoaded, (state, action) => {
+        state.currentPageId = action.payload.pageId;
+        state.selectedBlockId = null;
+        state.focusRequest = null;
       });
   },
 });
 
-export const { blockSelected, deviceChanged, panelResized, panelToggled, libraryTabChanged } =
-  editorSlice.actions;
+export const {
+  blockSelected,
+  fieldFocusRequested,
+  deviceChanged,
+  panelResized,
+  panelToggled,
+  libraryTabChanged,
+  saveStatusChanged,
+} = editorSlice.actions;
+
+export function reconcileEditor(editor: EditorState, project: Project): EditorState {
+  const { entities, homePageId } = project.pages;
+  const hasCurrentPage =
+    editor.currentPageId !== null && entities[editor.currentPageId] !== undefined;
+  const currentPageId = hasCurrentPage ? editor.currentPageId : null;
+  const page = entities[currentPageId ?? homePageId];
+  const isSelectionOnPage =
+    editor.selectedBlockId !== null &&
+    page !== undefined &&
+    page.blockIds.includes(editor.selectedBlockId);
+  const selectedBlockId = isSelectionOnPage ? editor.selectedBlockId : null;
+  const isUnchanged =
+    currentPageId === editor.currentPageId && selectedBlockId === editor.selectedBlockId;
+  if (isUnchanged) return editor;
+  return { ...editor, currentPageId, selectedBlockId, focusRequest: null };
+}

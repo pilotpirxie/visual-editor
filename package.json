@@ -16,11 +16,13 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.13.0",
     "handlebars": "^4.7.10",
+    "immer": "^11.1.21",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@iconify-json/lucide": "^1.2.140",
     "@types/node": "^26.6.4",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",

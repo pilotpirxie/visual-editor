@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createSampleProject } from '../app/sampleProject';
+import { createSampleProject } from '../app/projectFactory';
 import type { Project } from '../app/types';
 import { registry } from '../components/registry';
 import { buildExportFiles, buildSiteJs } from './exportSite';

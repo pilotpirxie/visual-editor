@@ -34,7 +34,12 @@ export function renderBlock(
   const html = component
     .template(
       { ...block.values, block: { id: block.id }, site: ctx.site },
-      { data: { pageSlugs: ctx.pageSlugs } },
+      {
+        data: {
+          pageSlugs: ctx.pageSlugs,
+          eagerImages: component.definition.category === 'headers',
+        },
+      },
     )
     .trim();
   if (!ROOT_OPEN_TAG.test(html)) {

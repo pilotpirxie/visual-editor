@@ -1,5 +1,6 @@
 import type { TemplateDelegate } from 'handlebars';
 import type { ComponentBlock } from '../app/types';
+import { defaultValues } from './fields';
 import type { ComponentDefinition, RegisteredComponent } from './types';
 
 const definitions = import.meta.glob<ComponentDefinition>('./library/*/*/definition.ts', {
@@ -55,9 +56,7 @@ export function createBlock(definition: ComponentDefinition): ComponentBlock {
     kind: 'component',
     componentId: definition.id,
     componentVersion: definition.version,
-    values: Object.fromEntries(
-      definition.fields.map((field) => [field.name, structuredClone(field.default)]),
-    ),
+    values: defaultValues(definition.fields),
     overrides: {},
     disabled: false,
   };

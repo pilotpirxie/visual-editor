@@ -1,0 +1,29 @@
+@layer components {
+  @scope (.b-content-text-image) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-body {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-12);
+      }
+
+      :scope[data-image-side='left'] .b-media {
+        order: -1;
+      }
+    }
+  }
+}

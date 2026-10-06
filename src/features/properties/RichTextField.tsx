@@ -1,0 +1,202 @@
+import {
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ClipboardEvent,
+  type FormEvent,
+  type JSX,
+} from 'react';
+import { isSafeUrl, normalizeRichText, plainTextToHtml } from '../../render/sanitize';
+import { Icon } from '../editor/Icon';
+import type { ControlProps } from './FieldControl';
+
+type FormatCommand = 'bold' | 'italic' | 'insertUnorderedList' | 'insertOrderedList';
+
+const FORMAT_BUTTONS: { command: FormatCommand; label: string; icon: string }[] = [
+  { command: 'bold', label: 'Bold', icon: 'bold' },
+  { command: 'italic', label: 'Italic', icon: 'italic' },
+  { command: 'insertUnorderedList', label: 'Bulleted list', icon: 'list' },
+  { command: 'insertOrderedList', label: 'Numbered list', icon: 'list-ordered' },
+];
+
+function selectionRangeIn(editor: HTMLElement): Range | null {
+  const selection = window.getSelection();
+  if (selection === null || selection.rangeCount === 0) return null;
+  const range = selection.getRangeAt(0);
+  return editor.contains(range.commonAncestorContainer) ? range.cloneRange() : null;
+}
+
+function restoreSelection(editor: HTMLElement, range: Range | null): void {
+  editor.focus();
+  if (range === null) return;
+  const selection = window.getSelection();
+  selection?.removeAllRanges();
+  selection?.addRange(range);
+}
+
+function linkAround(range: Range | null): HTMLAnchorElement | null {
+  if (range === null) return null;
+  const container = range.commonAncestorContainer;
+  const element = container instanceof Element ? container : container.parentElement;
+  return element?.closest('a') ?? null;
+}
+
+export function RichTextField({
+  field,
+  value,
+  id,
+  describedBy,
+  isInvalid,
+  onChange,
+}: ControlProps): JSX.Element {
+  const editorRef = useRef<HTMLDivElement>(null);
+  const lastEmittedRef = useRef<string | null>(null);
+  const savedRangeRef = useRef<Range | null>(null);
+  const [linkUrl, setLinkUrl] = useState<string | null>(null);
+  const html = typeof value === 'string' ? value : '';
+  const labelId = `${id}-label`;
+
+  useLayoutEffect(() => {
+    const editor = editorRef.current;
+    if (editor === null || html === lastEmittedRef.current) return;
+    editor.innerHTML = normalizeRichText(html);
+    lastEmittedRef.current = html;
+  }, [html]);
+
+  function emit(): void {
+    const editor = editorRef.current;
+    if (editor === null) return;
+    const next = normalizeRichText(editor.innerHTML);
+    lastEmittedRef.current = next;
+    onChange(next);
+  }
+
+  function format(command: FormatCommand): void {
+    const editor = editorRef.current;
+    if (editor === null) return;
+    editor.focus();
+    document.execCommand(command);
+    emit();
+  }
+
+  function paste(event: ClipboardEvent<HTMLDivElement>): void {
+    event.preventDefault();
+    const pastedHtml = event.clipboardData.getData('text/html');
+    const pasted =
+      pastedHtml === '' ? plainTextToHtml(event.clipboardData.getData('text/plain')) : pastedHtml;
+    document.execCommand('insertHTML', false, normalizeRichText(pasted));
+    emit();
+  }
+
+  function openLinkRow(): void {
+    const editor = editorRef.current;
+    if (editor === null) return;
+    const range = selectionRangeIn(editor);
+    savedRangeRef.current = range;
+    setLinkUrl(linkAround(range)?.getAttribute('href') ?? 'https://');
+  }
+
+  function applyLink(event: FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
+    const editor = editorRef.current;
+    const url = linkUrl?.trim() ?? '';
+    if (editor === null || url === '' || !isSafeUrl(url)) return;
+    restoreSelection(editor, savedRangeRef.current);
+    document.execCommand('createLink', false, url);
+    setLinkUrl(null);
+    emit();
+  }
+
+  function removeLink(): void {
+    const editor = editorRef.current;
+    if (editor === null) return;
+    restoreSelection(editor, savedRangeRef.current);
+    document.execCommand('unlink');
+    setLinkUrl(null);
+    emit();
+  }
+
+  const isLinkSafe = linkUrl === null || isSafeUrl(linkUrl);
+
+  return (
+    <>
+      <span className="ve-control-label" id={labelId}>
+        {field.label}
+      </span>
+      <div className="ve-richtext" data-invalid={isInvalid || undefined}>
+        <div
+          className="ve-richtext-toolbar"
+          role="toolbar"
+          aria-label={`${field.label} formatting`}
+        >
+          {FORMAT_BUTTONS.map(({ command, label, icon }) => (
+            <button
+              key={command}
+              type="button"
+              className="ve-icon-button"
+              aria-label={label}
+              title={label}
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => format(command)}
+            >
+              <Icon name={icon} />
+            </button>
+          ))}
+          <button
+            type="button"
+            className="ve-icon-button"
+            aria-label="Link"
+            title="Link"
+            aria-expanded={linkUrl !== null}
+            onMouseDown={(event) => event.preventDefault()}
+            onClick={openLinkRow}
+          >
+            <Icon name="link" />
+          </button>
+        </div>
+        {linkUrl !== null && (
+          <form className="ve-richtext-link" onSubmit={applyLink}>
+            <input
+              className="ve-input"
+              type="text"
+              inputMode="url"
+              aria-label="Link address"
+              value={linkUrl}
+              autoFocus
+              aria-invalid={!isLinkSafe}
+              onChange={(event) => setLinkUrl(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Escape') {
+                  event.preventDefault();
+                  setLinkUrl(null);
+                }
+              }}
+            />
+            <button type="submit" className="ve-button ve-button--outline" disabled={!isLinkSafe}>
+              Apply
+            </button>
+            <button type="button" className="ve-button ve-button--outline" onClick={removeLink}>
+              Remove
+            </button>
+          </form>
+        )}
+        <div
+          id={id}
+          ref={editorRef}
+          className="ve-richtext-editor"
+          contentEditable
+          suppressContentEditableWarning
+          role="textbox"
+          aria-multiline="true"
+          aria-labelledby={labelId}
+          aria-required={field.required}
+          aria-invalid={isInvalid}
+          aria-describedby={describedBy}
+          onFocus={() => document.execCommand('defaultParagraphSeparator', false, 'p')}
+          onInput={emit}
+          onPaste={paste}
+        />
+      </div>
+    </>
+  );
+}

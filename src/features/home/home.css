@@ -1,0 +1,92 @@
+@layer components {
+  .ve-home,
+  .ve-notice {
+    height: 100%;
+    overflow-y: auto;
+    padding: 48px max(24px, calc((100% - 1120px) / 2));
+    background: var(--ve-surface);
+  }
+
+  .ve-home-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .ve-home-header h1,
+  .ve-notice h1 {
+    font-size: 24px;
+  }
+
+  .ve-home-error {
+    margin-bottom: 16px;
+    padding: 10px 12px;
+    border: 1px solid #f3c1c1;
+    border-radius: var(--ve-radius);
+    background: #fdf0f0;
+    color: #a12020;
+  }
+
+  .ve-home-empty {
+    padding: 48px;
+    border: 1px dashed var(--ve-border-strong);
+    border-radius: var(--ve-radius);
+    color: var(--ve-muted);
+    text-align: center;
+  }
+
+  .ve-home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .ve-home-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    background: var(--ve-bg);
+    box-shadow: var(--ve-shadow);
+  }
+
+  .ve-home-card-title {
+    font-size: 16px;
+  }
+
+  .ve-home-card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .ve-home-card-title a:hover {
+    color: var(--ve-accent);
+    text-decoration: underline;
+  }
+
+  .ve-home-card-actions {
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  .ve-notice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ve-notice a {
+    color: var(--ve-accent);
+  }
+
+  .ve-loading {
+    padding: 48px;
+    color: var(--ve-muted);
+  }
+}

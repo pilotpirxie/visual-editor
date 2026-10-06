@@ -1,6 +1,6 @@
 import type { TemplateDelegate } from 'handlebars';
 import { describe, expect, it } from 'vitest';
-import { createSampleProject } from '../app/sampleProject';
+import { createSampleProject } from '../app/projectFactory';
 import type { Block } from '../app/types';
 import { createBlock, registry } from '../components/registry';
 import type { RegisteredComponent } from '../components/types';

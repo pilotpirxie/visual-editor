@@ -1,6 +1,8 @@
+import lucide from 'virtual:icon-set/lucide';
 import { behaviors } from 'virtual:site-runtime';
-import { describe, expect, it } from 'vitest';
-import { createSampleProject } from '../app/sampleProject';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
+import { createSampleProject } from '../app/projectFactory';
+import { registerIconSet, resolveIcon } from '../render/icons';
 import { createRenderContext, renderBlock } from '../render/renderBlock';
 import { createBlock, registry } from './registry';
 import { CATEGORIES } from './types';
@@ -8,6 +10,8 @@ import { CATEGORIES } from './types';
 const ROOT_TAGS = ['section', 'header', 'nav', 'footer', 'aside', 'div'];
 const CATEGORY_IDS: string[] = CATEGORIES.map(({ id }) => id);
 const ctx = createRenderContext(createSampleProject(), 'canvas');
+
+beforeAll(() => registerIconSet('lucide', lucide));
 
 describe.each([...registry.values()])(
   'component $definition.id',
@@ -26,6 +30,17 @@ describe.each([...registry.values()])(
       expect(roots).toHaveLength(1);
       expect(ROOT_TAGS).toContain(roots[0].localName);
       expect(roots[0].classList).toContain(`b-${definition.id}`);
+    });
+
+    it('renders only icons that exist in the default icon set', () => {
+      const warn = vi.spyOn(console, 'warn');
+      renderBlock(createBlock(definition), { definition, template, styles, thumbnail: '' }, ctx);
+      expect(warn).not.toHaveBeenCalled();
+      for (const field of definition.fields) {
+        if (field.type === 'icon')
+          expect(resolveIcon(String(field.default)), field.name).not.toBeNull();
+      }
+      warn.mockRestore();
     });
 
     it('has default values for required fields and valid visibleWhen references', () => {

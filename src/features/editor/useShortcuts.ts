@@ -1,11 +1,17 @@
 import { useEffect } from 'react';
 import { blockSelected } from '../../app/editorSlice';
+import { redo, undo } from '../../app/history';
 import { dispatch, store } from '../../app/store';
 import { dragController } from '../canvas/dragController';
 import { isElementTarget } from '../canvas/frameDom';
 import { duplicateBlock, moveBlock, removeBlock } from './blockActions';
 
 const TEXT_ENTRY = 'input, textarea, select, [contenteditable]:not([contenteditable="false"])';
+const PROPERTIES_PANEL = '.ve-properties';
+
+function isInside(target: EventTarget | null, selector: string): boolean {
+  return isElementTarget(target) && target.closest(selector) !== null;
+}
 
 function handleKeyDown(event: KeyboardEvent): void {
   if (dragController.isActive()) {
@@ -15,13 +21,25 @@ function handleKeyDown(event: KeyboardEvent): void {
     }
     return;
   }
+  const isModifierPressed = event.metaKey || event.ctrlKey;
+  const key = event.key.toLowerCase();
+  const isHistoryKey = key === 'z' || key === 'y';
+  if (isModifierPressed && isHistoryKey && !event.altKey && !event.isComposing) {
+    event.preventDefault();
+    const isRedo = key === 'y' || event.shiftKey;
+    dispatch(isRedo ? redo() : undo());
+    return;
+  }
+
   const isTyping = isElementTarget(event.target) && event.target.matches(TEXT_ENTRY);
-  if (event.defaultPrevented || isTyping) return;
+  if (event.defaultPrevented || isTyping || isInside(event.target, 'dialog')) return;
 
   if (event.key === 'Escape') {
     dispatch(blockSelected(null));
     return;
   }
+
+  if (isInside(event.target, PROPERTIES_PANEL)) return;
 
   const blockId = store.getState().editor.selectedBlockId;
   if (!blockId) return;

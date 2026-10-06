@@ -1,6 +1,7 @@
 import Handlebars from 'handlebars/runtime';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { resolveHref } from './handlebars';
+import { registerIconSet } from './icons';
 
 const data = { pageSlugs: { home: 'index', about: 'about' } };
 
@@ -43,15 +44,64 @@ describe('template helpers', () => {
     expect(String(helpers.nl2br('One <b>\nTwo'))).toBe('One &lt;b&gt;<br>Two');
   });
 
-  it('svgIcon renders a decorative inline icon and accepts set:name references', () => {
-    const icon = String(helpers.svgIcon('lucide:check'));
-    expect(icon).toMatch(/^<svg class="icon" aria-hidden="true"/);
-    expect(icon).toContain('<path d="M20 6 9 17l-5-5"/>');
+  it('svgIcon renders a decorative inline icon from a bare name or a set:name reference', () => {
+    registerIconSet('lucide', {
+      width: 24,
+      height: 24,
+      icons: { check: { body: '<path d="M20 6 9 17l-5-5"/>' } },
+      aliases: { tick: 'check' },
+    });
+    const expected =
+      '<svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
+    expect(String(helpers.svgIcon('lucide:check'))).toBe(expected);
+    expect(String(helpers.svgIcon('check'))).toBe(expected);
+    expect(String(helpers.svgIcon('tick'))).toBe(expected);
   });
 
   it('svgIcon warns and renders nothing for an unknown icon', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     expect(helpers.svgIcon('no-such-icon')).toBe('');
     expect(warn).toHaveBeenCalledWith('svgIcon: unknown icon "no-such-icon"');
+  });
+
+  describe('img', () => {
+    const image = {
+      source: 'placeholder',
+      src: '',
+      alt: 'Team "planning" <session>',
+      decorative: false,
+      width: 1200,
+      height: 900,
+      placeholder: { ratio: '4:3', subject: 'photo' },
+    };
+    const lazy = { hash: {}, data: { pageSlugs: {} } };
+
+    it('renders a lazy placeholder image with escaped alt text and its size', () => {
+      const html = String(helpers.img(image, lazy));
+      expect(html).toMatch(/^<img src="data:image\/svg\+xml,/);
+      expect(html).toContain('alt="Team &quot;planning&quot; &lt;session&gt;"');
+      expect(html).toContain('width="1200" height="900" loading="lazy"');
+    });
+
+    it('adds a class and loads eagerly in header blocks', () => {
+      const html = String(
+        helpers.img(image, {
+          hash: { class: 'b-photo' },
+          data: { pageSlugs: {}, eagerImages: true },
+        }),
+      );
+      expect(html).toContain('class="b-photo"');
+      expect(html).toContain('loading="eager" fetchpriority="high"');
+    });
+
+    it('renders an empty alt for decorative images', () => {
+      expect(String(helpers.img({ ...image, decorative: true }, lazy))).toContain('alt=""');
+    });
+
+    it('warns and renders nothing for values that are not images', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      expect(helpers.img({ src: 'javascript:alert(1)' }, lazy)).toBe('');
+      expect(warn).toHaveBeenCalled();
+    });
   });
 });

@@ -7,14 +7,20 @@ import {
   type JSX,
   type RefObject,
 } from 'react';
-import { DEVICE_WIDTHS, blockSelected } from '../../app/editorSlice';
+import { DEVICE_WIDTHS, blockSelected, fieldFocusRequested } from '../../app/editorSlice';
 import { dispatch, selectCurrentPage, useStore } from '../../app/store';
 import { dropOnCurrentPage, isNoopDrop } from '../editor/blockActions';
 import { useShortcuts } from '../editor/useShortcuts';
 import { CanvasFrame, type CanvasFrameHandle } from './CanvasFrame';
 import { dragController } from './dragController';
 import { dropIndexFromSpans, indicatorY } from './dropIndex';
-import { blockIdFromEvent, blockRoot, blockSpans, isElementTarget } from './frameDom';
+import {
+  blockIdFromEvent,
+  blockRoot,
+  blockSpans,
+  fieldPathFromEvent,
+  isElementTarget,
+} from './frameDom';
 import { Overlay } from './Overlay';
 import './canvas.css';
 
@@ -49,7 +55,13 @@ function useCanvasPointer(doc: Document | null): string | null {
     }
     function onClick(event: MouseEvent): void {
       if (isElementTarget(event.target) && event.target.closest('a[href]')) event.preventDefault();
-      dispatch(blockSelected(blockIdFromEvent(event)));
+      const blockId = blockIdFromEvent(event);
+      const path = fieldPathFromEvent(event);
+      if (blockId !== null && path !== null) {
+        dispatch(fieldFocusRequested({ blockId, path }));
+        return;
+      }
+      dispatch(blockSelected(blockId));
     }
     doc.addEventListener('pointermove', onPointerMove);
     doc.documentElement.addEventListener('pointerleave', onPointerLeave);
@@ -86,7 +98,7 @@ export function Canvas(): JSX.Element {
     const doc = frame?.doc;
     if (!doc) return;
     return dragController.registerTarget({
-      accepts: () => true,
+      accepts: (payload) => payload.kind === 'new' || payload.kind === 'move',
       resolve(point) {
         const viewport = viewportRef.current?.getBoundingClientRect();
         const page = deviceRef.current?.getBoundingClientRect();

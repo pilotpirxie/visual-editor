@@ -1,0 +1,12 @@
+<section class="b-content-text-image section" data-image-side="{{imageSide}}">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if body}}<div class="prose b-body" data-field="body">{{{body}}}</div>{{/if}}
+    </div>
+    <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">
+      {{img image}}
+    </div>
+  </div>
+</section>

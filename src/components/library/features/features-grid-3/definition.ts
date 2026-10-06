@@ -28,9 +28,9 @@ export const definition: ComponentDefinition = {
     {
       name: 'intro',
       label: 'Intro',
-      type: 'textarea',
+      type: 'richtext',
       default:
-        'Fieldnote takes care of the busywork of research, so your team spends its time on what customers actually said.',
+        '<p>Fieldnote takes care of the busywork of research, so your team spends its time on what customers actually said.</p>',
       group: 'Heading',
     },
     {

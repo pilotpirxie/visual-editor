@@ -19,3 +19,10 @@ export function blockIdFromEvent(event: Event): string | null {
   if (!isElementTarget(event.target)) return null;
   return event.target.closest('[data-block-id]')?.getAttribute('data-block-id') ?? null;
 }
+
+export function fieldPathFromEvent(event: Event): string | null {
+  if (!isElementTarget(event.target)) return null;
+  const field = event.target.closest('[data-field]');
+  if (field === null || field.closest('[data-block-id]') === null) return null;
+  return field.getAttribute('data-field');
+}

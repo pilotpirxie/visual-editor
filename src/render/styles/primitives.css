@@ -97,6 +97,35 @@
     color: var(--color-primary);
   }
 
+  .media {
+    overflow: hidden;
+    aspect-ratio: var(--media-ratio, 16 / 9);
+    border-radius: var(--media-radius, var(--radius-lg));
+    background: var(--color-surface);
+  }
+
+  .media > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .prose {
+    max-inline-size: var(--prose-measure, 65ch);
+  }
+
+  .prose > * + * {
+    margin-block-start: var(--space-4);
+  }
+
+  .prose :is(ul, ol) {
+    padding-inline-start: 1.25em;
+  }
+
+  .prose li + li {
+    margin-block-start: var(--space-2);
+  }
+
   .icon {
     display: inline-block;
     flex-shrink: 0;
