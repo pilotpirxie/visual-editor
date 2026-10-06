@@ -2,12 +2,14 @@ import type { JSX } from 'react';
 import { libraryTabChanged, type LibraryTab } from '../../app/editorSlice';
 import { dispatch, useStore } from '../../app/store';
 import { BlocksTab } from './BlocksTab';
+import { PagesTab } from '../pages/PagesTab';
 import { LayersTab } from './LayersTab';
 import './library.css';
 
 const TABS: { id: LibraryTab; label: string }[] = [
   { id: 'blocks', label: 'Blocks' },
   { id: 'layers', label: 'Layers' },
+  { id: 'pages', label: 'Pages' },
 ];
 
 export function LibraryPanel(): JSX.Element {
@@ -36,7 +38,9 @@ export function LibraryPanel(): JSX.Element {
         id="ve-library-panel"
         aria-labelledby={`ve-tab-${activeTab}`}
       >
-        {activeTab === 'blocks' ? <BlocksTab /> : <LayersTab />}
+        {activeTab === 'blocks' && <BlocksTab />}
+        {activeTab === 'layers' && <LayersTab />}
+        {activeTab === 'pages' && <PagesTab />}
       </div>
     </aside>
   );

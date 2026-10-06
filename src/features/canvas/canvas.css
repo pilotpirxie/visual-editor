@@ -38,6 +38,34 @@
     color: var(--ve-muted);
   }
 
+  .ve-canvas-width {
+    position: absolute;
+    bottom: 4px;
+    left: 12px;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    color: var(--ve-muted);
+  }
+
+  .ve-responsive-handle {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 12px;
+    height: 72px;
+    translate: 0 -50%;
+    border-radius: 6px;
+    background: var(--ve-border-strong);
+    cursor: ew-resize;
+    touch-action: none;
+  }
+
+  .ve-responsive-handle:hover,
+  .ve-responsive-handle:focus-visible {
+    background: var(--ve-accent);
+    outline: none;
+  }
+
   .ve-canvas-catcher {
     position: absolute;
     inset: 0;
@@ -75,6 +103,29 @@
     outline-offset: -1px;
   }
 
+  .ve-outline--hidden {
+    background: repeating-linear-gradient(
+      -45deg,
+      rgb(17 24 39 / 0.08) 0 8px,
+      rgb(17 24 39 / 0.16) 8px 16px
+    );
+    outline: 1px dashed var(--ve-border-strong);
+    outline-offset: -1px;
+  }
+
+  .ve-outline-note {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px 8px;
+    border-bottom-left-radius: 4px;
+    background: var(--ve-text);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
   .ve-outline-label {
     position: absolute;
     top: 0;
@@ -86,6 +137,23 @@
     font-size: 11px;
     font-weight: 600;
     white-space: nowrap;
+  }
+
+  .ve-outline-label--selected {
+    background: var(--ve-accent);
+  }
+
+  .ve-outline-badge {
+    margin-left: 6px;
+    padding: 0 6px;
+    border-radius: 3px;
+    background: rgb(255 255 255 / 0.22);
+  }
+
+  .ve-outline-label--selected .ve-outline-badge {
+    margin-left: 0;
+    padding: 0;
+    background: none;
   }
 
   .ve-block-toolbar {
@@ -139,6 +207,10 @@
     transition: top 80ms ease-out;
   }
 
+  .ve-empty-area {
+    position: absolute;
+  }
+
   .ve-empty {
     position: absolute;
     inset: 24px;
@@ -175,6 +247,10 @@
   @media (width < 1024px) {
     .ve-canvas {
       padding: 12px;
+    }
+
+    .ve-responsive-handle {
+      display: none;
     }
 
     .ve-block-toolbar {

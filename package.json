@@ -13,7 +13,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test:e2e": "playwright test",
-    "test:e2e:install": "playwright install chromium firefox webkit"
+    "test:e2e:install": "playwright install chromium firefox webkit",
+    "fonts:update": "node packages/font-data/src/update.ts"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.13.0",

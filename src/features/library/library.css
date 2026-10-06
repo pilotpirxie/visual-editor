@@ -1,32 +1,4 @@
 @layer components {
-  .ve-tabs {
-    display: flex;
-    gap: 4px;
-    padding: 8px 8px 0;
-    border-bottom: 1px solid var(--ve-border);
-  }
-
-  .ve-tabs [role='tab'] {
-    padding: 8px 10px;
-    border: 0;
-    border-bottom: 2px solid transparent;
-    background: none;
-    color: var(--ve-muted);
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .ve-tabs [aria-selected='true'] {
-    border-bottom-color: var(--ve-accent);
-    color: var(--ve-text);
-  }
-
-  .ve-tab-panel {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-  }
-
   .ve-blocks {
     display: flex;
     flex-direction: column;
@@ -133,6 +105,19 @@
 
   .ve-layers-empty {
     padding: 16px 12px;
+  }
+
+  .ve-layer-group {
+    padding-top: 12px;
+  }
+
+  .ve-layer-group > .ve-group-title {
+    padding-inline: 16px;
+  }
+
+  .ve-layer-group > .ve-layers-empty {
+    padding-block: 8px;
+    padding-inline: 16px;
   }
 
   .ve-layer {

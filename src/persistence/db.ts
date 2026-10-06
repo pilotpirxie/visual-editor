@@ -1,4 +1,5 @@
 import type { Project } from '../app/types';
+import { migrateProject } from './migrate';
 
 export type ProjectSummary = { id: string; title: string; updatedAt: string };
 
@@ -6,7 +7,6 @@ const DB_NAME = 'visual-editor';
 const DB_VERSION = 1;
 const PROJECTS = 'projects';
 const DOCUMENTS = 'documents';
-const SUPPORTED_SCHEMA_VERSION = 1;
 const STORE_NAMES = [PROJECTS, DOCUMENTS];
 
 let databasePromise: Promise<IDBDatabase> | null = null;
@@ -75,19 +75,6 @@ function isProjectSummary(value: unknown): value is ProjectSummary {
   );
 }
 
-function isProject(value: unknown): value is Project {
-  if (typeof value !== 'object' || value === null) return false;
-  if (!('schemaVersion' in value) || value.schemaVersion !== SUPPORTED_SCHEMA_VERSION) return false;
-  return (
-    'id' in value &&
-    typeof value.id === 'string' &&
-    'settings' in value &&
-    'designSystem' in value &&
-    'pages' in value &&
-    'blocks' in value
-  );
-}
-
 export async function listProjects(): Promise<ProjectSummary[]> {
   const db = await database();
   const projectsStore = db.transaction(PROJECTS).objectStore(PROJECTS);
@@ -109,8 +96,7 @@ export async function getProject(id: string): Promise<Project | null> {
   const documentsStore = db.transaction(DOCUMENTS).objectStore(DOCUMENTS);
   const stored: unknown = await requestResult(documentsStore.get(id));
   if (stored === undefined) return null;
-  if (!isProject(stored)) throw new Error(`Project ${id} was saved in an unsupported format`);
-  return stored;
+  return migrateProject(stored);
 }
 
 export async function putProject(project: Project): Promise<void> {

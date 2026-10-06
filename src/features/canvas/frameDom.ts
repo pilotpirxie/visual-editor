@@ -8,8 +8,10 @@ export function blockRoot(doc: Document, blockId: string): Element | null {
   return doc.querySelector(`[data-block-id="${CSS.escape(blockId)}"]`);
 }
 
+export const PAGE_ROOT_ID = 've-page';
+
 export function blockSpans(doc: Document): VerticalSpan[] {
-  return [...doc.querySelectorAll('[data-block-id]')].map((element) => {
+  return [...doc.querySelectorAll(`#${PAGE_ROOT_ID} [data-block-id]`)].map((element) => {
     const { top, bottom } = element.getBoundingClientRect();
     return { top, bottom };
   });
@@ -27,4 +29,8 @@ export function fieldPathFromEvent(event: Event): string | null {
   const field = event.target.closest('[data-field]');
   if (field === null || field.closest('[data-block-id]') === null) return null;
   return field.getAttribute('data-field');
+}
+
+export function pageRootTop(doc: Document): number {
+  return doc.getElementById(PAGE_ROOT_ID)?.getBoundingClientRect().top ?? 0;
 }

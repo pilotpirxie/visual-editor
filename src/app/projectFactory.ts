@@ -7,10 +7,17 @@ import {
   type Page,
   type Project,
   type Token,
+  type TokenGenerators,
   type TokenGroup,
 } from './types';
 
 export const UNTITLED_PROJECT_TITLE = 'Untitled site';
+
+export const DEFAULT_GENERATORS: TokenGenerators = {
+  typeBasePx: 16,
+  typeRatio: 1.25,
+  spaceUnitPx: 4,
+};
 
 const SAMPLE_PAGE_COMPONENTS = ['nav-simple', 'hero-centered', 'features-grid-3', 'footer-simple'];
 
@@ -18,7 +25,7 @@ function isTokenGroup(group: string): group is TokenGroup {
   return TOKEN_GROUPS.some((known) => known === group);
 }
 
-function presetDesignSystem(preset: typeof clean): DesignSystem {
+function presetTokens(preset: typeof clean): Record<string, Token> {
   const tokens: Record<string, Token> = {};
   for (const token of Object.values(preset.tokens)) {
     if (!isTokenGroup(token.group)) {
@@ -26,18 +33,40 @@ function presetDesignSystem(preset: typeof clean): DesignSystem {
     }
     tokens[token.name] = { ...token, group: token.group };
   }
-  return { tokens };
+  return tokens;
+}
+
+function presetDesignSystem(preset: typeof clean): DesignSystem {
+  return { tokens: presetTokens(preset), fonts: [], generators: { ...DEFAULT_GENERATORS } };
+}
+
+export function cleanPresetToken(name: string): Token | undefined {
+  return presetTokens(clean)[name];
+}
+
+export function createPage(id: string, name: string, slug: string): Page {
+  return {
+    id,
+    name,
+    slug,
+    blockIds: [],
+    seo: {},
+    showSharedHeader: true,
+    showSharedFooter: true,
+  };
 }
 
 export function createBlankProject(title: string): Project {
-  const home: Page = { id: crypto.randomUUID(), name: 'Home', slug: 'home', blockIds: [] };
+  const home = createPage(crypto.randomUUID(), 'Home', 'home');
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     id: crypto.randomUUID(),
     settings: { title, language: 'en' },
     designSystem: presetDesignSystem(clean),
     pages: { ids: [home.id], entities: { [home.id]: home }, homePageId: home.id },
     blocks: { ids: [], entities: {} },
+    sharedSlots: { header: [], footer: [] },
+    assets: {},
   };
 }
 

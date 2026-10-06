@@ -1,4 +1,32 @@
 @layer components {
+  .ve-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 8px 8px 0;
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-tabs [role='tab'] {
+    padding: 8px 10px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: var(--ve-muted);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .ve-tabs [aria-selected='true'] {
+    border-bottom-color: var(--ve-accent);
+    color: var(--ve-text);
+  }
+
+  .ve-tab-panel {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
   .ve-shell {
     display: grid;
     grid-template-areas:
@@ -164,6 +192,10 @@
     background: color-mix(in oklab, var(--ve-accent), black 12%);
   }
 
+  .ve-shell[data-preview] :is(.ve-library, .ve-properties, .ve-resize-handle, .ve-compact-tabs) {
+    display: none;
+  }
+
   @media (width >= 1024px) {
     .ve-shell[data-left-collapsed] :is(.ve-library, .ve-resize-handle[data-side='left']),
     .ve-shell[data-right-collapsed] :is(.ve-properties, .ve-resize-handle[data-side='right']) {
@@ -202,8 +234,13 @@
       visibility: hidden;
     }
 
+    .ve-shell[data-preview] .ve-canvas {
+      visibility: visible;
+    }
+
     .ve-toolbar {
-      gap: 4px;
+      flex-wrap: wrap;
+      gap: 0 4px;
       min-height: 52px;
       padding-inline: 4px;
     }

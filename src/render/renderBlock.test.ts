@@ -50,6 +50,41 @@ describe('renderBlock', () => {
     );
   });
 
+  it('puts the anchor id and extra classes on the root element', () => {
+    const block = heroBlock({ anchor: 'pricing', extraClasses: ['promo', 'wide'] });
+    const html = renderBlock(block, hero, canvas);
+    expect(html).toMatch(
+      /^<header data-component="hero-centered" data-block-id="[^"]+" id="pricing" class="b-hero-centered section promo wide">/,
+    );
+  });
+
+  it('lets templates read the anchor', () => {
+    const block = heroBlock({ anchor: 'top' });
+    const template: TemplateDelegate = (values) =>
+      `<section class="b-x" data-anchor="${String(values.block.anchor)}"></section>`;
+    expect(renderBlock(block, { ...hero, template }, canvas)).toContain('data-anchor="top"');
+  });
+
+  it('adds hide-on-device classes in export and preview mode, never while editing', () => {
+    const block = heroBlock({ hideOn: ['phone', 'desktop'] });
+    const preview = createRenderContext(createSampleProject(), 'preview');
+    expect(renderBlock(block, hero, exported)).toContain(
+      'class="b-hero-centered section hide-phone hide-desktop"',
+    );
+    expect(renderBlock(block, hero, preview)).toContain(
+      `data-block-id="${block.id}" class="b-hero-centered section hide-phone hide-desktop"`,
+    );
+    expect(renderBlock(block, hero, canvas)).toContain('class="b-hero-centered section"');
+  });
+
+  it('adds a class attribute when the root has none', () => {
+    const template: TemplateDelegate = () => '<section data-x="1"></section>';
+    const block = heroBlock({ extraClasses: ['extra'] });
+    expect(renderBlock(block, { ...hero, template }, exported)).toBe(
+      '<section data-component="hero-centered" data-x="1" class="extra"></section>',
+    );
+  });
+
   it('drops editor attributes in export mode', () => {
     const html = renderBlock(heroBlock(), hero, exported);
     expect(html).not.toContain('data-block-id');

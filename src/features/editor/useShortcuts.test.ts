@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { blockSelected } from '../../app/editorSlice';
+import { blockSelected, previewToggled } from '../../app/editorSlice';
 import { blockValueSet } from '../../app/projectSlice';
 import { createTestStore, homePage, type TestStore } from '../../test/fixtures';
 import { applyShortcut, shortcutFor, type ShortcutKeyEvent } from './useShortcuts';
@@ -99,6 +99,19 @@ describe('shortcutFor', () => {
 });
 
 describe('applyShortcut', () => {
+  it('leaves Preview with Escape and ignores every other shortcut while previewing', () => {
+    const store = createTestStore();
+    const hero = blockIds(store)[1];
+    store.dispatch(blockSelected(hero));
+    store.dispatch(previewToggled(true));
+    expect(store.dispatch(applyShortcut({ kind: 'remove' }))).toBe(false);
+    expect(store.dispatch(applyShortcut({ kind: 'undo' }))).toBe(false);
+    expect(blockIds(store)).toContain(hero);
+    expect(store.dispatch(applyShortcut({ kind: 'clear-selection' }))).toBe(true);
+    expect(store.getState().editor.isPreview).toBe(false);
+    expect(store.getState().editor.selectedBlockId).toBe(hero);
+  });
+
   it('undoes and redoes and reports the key as used', () => {
     const store = createTestStore();
     const hero = blockIds(store)[1];

@@ -124,4 +124,18 @@ describe('createScrollAnchor', () => {
     await afterMicrotasks();
     expect(view.scrolls).toEqual([40]);
   });
+
+  it('drops a captured position when the change is cancelled, such as a page switch', async () => {
+    const view = createFakeView();
+    const anchored = elementAt(200);
+    const anchor = createScrollAnchor(
+      () => view.window,
+      () => anchored.element,
+    );
+    anchor.capture();
+    anchored.moveTo(900);
+    anchor.cancel();
+    await afterMicrotasks();
+    expect(view.scrolls).toEqual([]);
+  });
 });

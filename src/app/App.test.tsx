@@ -1,9 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getProject } from '../persistence/db';
-import { render } from '../test/dom';
+import { render, runInAct } from '../test/dom';
 import { App } from './App';
-import { createSampleProject } from './projectFactory';
-import { store } from './store';
+import { createPage, createSampleProject } from './projectFactory';
+import { pageRemoved } from './projectSlice';
+import { navigate } from './router';
+import { dispatch, selectCurrentPage, store } from './store';
+import type { Project } from './types';
 
 vi.mock('../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
@@ -26,6 +29,27 @@ async function heading(container: HTMLElement): Promise<string> {
 beforeEach(() => {
   vi.spyOn(console, 'error').mockImplementation(() => {});
 });
+
+function projectWithAbout(): Project {
+  const project = createSampleProject();
+  const about = createPage('about-page', 'About', 'about');
+  return {
+    ...project,
+    pages: {
+      ...project.pages,
+      ids: [...project.pages.ids, about.id],
+      entities: { ...project.pages.entities, [about.id]: about },
+    },
+  };
+}
+
+async function openEditor(project: Project, pageId: string): Promise<HTMLElement> {
+  vi.mocked(getProject).mockResolvedValueOnce(project);
+  openPath(`/p/${project.id}/${pageId}`);
+  const { container } = render(<App />);
+  await vi.waitFor(() => expect(container.querySelector('.ve-toolbar')).not.toBeNull());
+  return container;
+}
 
 describe('App', () => {
   it('shows the project list at the root address', async () => {
@@ -64,5 +88,28 @@ describe('App', () => {
     await vi.waitFor(() => expect(container.querySelector('.ve-toolbar')).not.toBeNull());
     expect(window.location.pathname).toBe(`/p/${project.id}/${project.pages.homePageId}`);
     expect(store.getState().project.id).toBe(project.id);
+  });
+
+  it('opens the page named in the address', async () => {
+    const project = projectWithAbout();
+    await openEditor(project, 'about-page');
+    expect(selectCurrentPage(store.getState()).id).toBe('about-page');
+  });
+
+  it('follows the address to another page without reloading the project', async () => {
+    const project = projectWithAbout();
+    await openEditor(project, project.pages.homePageId);
+    runInAct(() => navigate(`/p/${project.id}/about-page`));
+    await vi.waitFor(() => expect(selectCurrentPage(store.getState()).id).toBe('about-page'));
+    expect(getProject).toHaveBeenCalledTimes(1);
+  });
+
+  it('moves the address to the home page when the open page is deleted', async () => {
+    const project = projectWithAbout();
+    await openEditor(project, 'about-page');
+    runInAct(() => dispatch(pageRemoved({ pageId: 'about-page' })));
+    await vi.waitFor(() =>
+      expect(window.location.pathname).toBe(`/p/${project.id}/${project.pages.homePageId}`),
+    );
   });
 });

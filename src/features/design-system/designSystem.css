@@ -1,0 +1,238 @@
+@layer components {
+  .ve-design-sheet {
+    grid-area: canvas;
+    z-index: 3;
+    justify-self: end;
+    display: flex;
+    flex-direction: column;
+    width: min(560px, 100%);
+    min-height: 0;
+    border-left: 1px solid var(--ve-border);
+    background: var(--ve-bg);
+    box-shadow: -12px 0 32px rgb(17 24 39 / 0.12);
+  }
+
+  .ve-design-sheet-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-design-sheet-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .ve-design-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-design-generator {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border-radius: var(--ve-radius);
+    background: var(--ve-surface);
+  }
+
+  .ve-design-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ve-design-details > summary {
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .ve-design-details[open] > summary {
+    margin-bottom: 12px;
+  }
+
+  .ve-design-details .ve-token-row + .ve-token-row {
+    margin-top: 12px;
+  }
+
+  .ve-design-warnings {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ve-design-warnings li {
+    display: flex;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: var(--ve-radius);
+    background: #fef3c7;
+    color: #78350f;
+    font-size: 13px;
+  }
+
+  .ve-token-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 4px 12px;
+    align-items: center;
+  }
+
+  .ve-token-row > .ve-control-error {
+    grid-column: 2;
+  }
+
+  .ve-token-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .ve-token-inputs > .ve-input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ve-token-inputs > .ve-control-error {
+    flex-basis: 100%;
+  }
+
+  .ve-token-inputs input[type='color'] {
+    width: 40px;
+    height: 32px;
+    padding: 2px;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    background: var(--ve-bg);
+  }
+
+  .ve-token-inputs input[type='range'] {
+    flex: 1;
+    min-width: 80px;
+  }
+
+  .ve-token-unit {
+    color: var(--ve-muted);
+    font-size: 12px;
+  }
+
+  .ve-design-sheet .ve-token-select {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 4px 12px;
+    align-items: center;
+  }
+
+  .ve-design-sheet .ve-token-select > :nth-child(n + 3) {
+    grid-column: 2;
+  }
+
+  .ve-font-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ve-font-current {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ve-font-weights {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .ve-font-weight-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+
+  .ve-font-weight {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ve-font-browser {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+  }
+
+  .ve-font-filters {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  .ve-font-list {
+    max-height: 320px;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+  }
+
+  .ve-font-option {
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: var(--ve-radius);
+    background: none;
+    color: var(--ve-text);
+    font-size: 18px;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .ve-font-option:hover,
+  .ve-font-option[aria-pressed='true'] {
+    background: var(--ve-surface);
+  }
+
+  .ve-font-option[aria-pressed='true'] {
+    box-shadow: inset 3px 0 0 var(--ve-accent);
+  }
+
+  @media (width < 1024px) {
+    .ve-design-sheet {
+      grid-area: view;
+      width: 100%;
+      border-left: 0;
+      box-shadow: none;
+    }
+
+    .ve-token-row,
+    .ve-design-sheet .ve-token-select {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ve-token-row > .ve-control-error,
+    .ve-design-sheet .ve-token-select > :nth-child(n + 3) {
+      grid-column: 1;
+    }
+  }
+}

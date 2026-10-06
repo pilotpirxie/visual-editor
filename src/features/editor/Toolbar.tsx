@@ -2,19 +2,23 @@ import type { JSX } from 'react';
 import { behaviors, core } from 'virtual:site-runtime';
 import {
   DEVICE_VIEWPORTS,
+  designSheetToggled,
   deviceChanged,
   panelToggled,
-  type Device,
+  previewToggled,
+  type DeviceMode,
   type PanelSide,
 } from '../../app/editorSlice';
 import { describeError } from '../../app/errors';
 import { redo, undo } from '../../app/history';
 import { followLink, HOME_PATH } from '../../app/router';
 import { dispatch, store, useStore } from '../../app/store';
+import type { Device } from '../../app/types';
 import { registry } from '../../components/registry';
 import type { SaveStatus } from '../../persistence/autosave';
 import { buildExportFiles } from '../../render/exportSite';
 import { downloadFiles } from '../export/downloadFiles';
+import { PageSwitcher } from '../pages/PageSwitcher';
 import { Icon } from './Icon';
 
 const SAVE_STATUS_LABELS: Record<SaveStatus, string> = {
@@ -23,7 +27,8 @@ const SAVE_STATUS_LABELS: Record<SaveStatus, string> = {
   error: 'Not saved',
 };
 
-const DEVICES: { id: Device; label: string; icon: string }[] = [
+const DEVICE_MODES: { id: DeviceMode; label: string; icon: string }[] = [
+  { id: 'responsive', label: 'Responsive', icon: 'move-horizontal' },
   { id: 'desktop', label: 'Desktop', icon: 'monitor' },
   { id: 'tablet', label: 'Tablet', icon: 'tablet' },
   { id: 'phone', label: 'Phone', icon: 'smartphone' },
@@ -73,6 +78,8 @@ export function Toolbar(): JSX.Element {
   const saveStatus = useStore((state) => state.editor.saveStatus);
   const canUndo = useStore((state) => state.history.past.length > 0);
   const canRedo = useStore((state) => state.history.future.length > 0);
+  const isDesignSheetOpen = useStore((state) => state.editor.isDesignSheetOpen);
+  const isPreview = useStore((state) => state.editor.isPreview);
 
   return (
     <header className="ve-toolbar">
@@ -96,21 +103,24 @@ export function Toolbar(): JSX.Element {
         </span>
       </div>
 
-      <div className="ve-toolbar-group" role="group" aria-label="Device">
-        {DEVICES.map(({ id, label, icon }) => (
-          <button
-            key={id}
-            type="button"
-            className="ve-device-button"
-            aria-pressed={device === id}
-            title={label}
-            onClick={() => dispatch(deviceChanged(id))}
-          >
-            <Icon name={icon} />
-            <span className="ve-device-label">{label}</span>
-          </button>
-        ))}
-        <span className="ve-readout">{deviceReadout(device)}</span>
+      <div className="ve-toolbar-group ve-toolbar-center">
+        <PageSwitcher />
+        <div className="ve-toolbar-group" role="group" aria-label="Device">
+          {DEVICE_MODES.map(({ id, label, icon }) => (
+            <button
+              key={id}
+              type="button"
+              className="ve-device-button"
+              aria-pressed={device === id}
+              title={label}
+              onClick={() => dispatch(deviceChanged(id))}
+            >
+              <Icon name={icon} />
+              <span className="ve-device-label">{label}</span>
+            </button>
+          ))}
+          {device !== 'responsive' && <span className="ve-readout">{deviceReadout(device)}</span>}
+        </div>
       </div>
 
       <div className="ve-toolbar-group">
@@ -133,6 +143,26 @@ export function Toolbar(): JSX.Element {
           onClick={() => dispatch(redo())}
         >
           <Icon name="redo" />
+        </button>
+        <button
+          type="button"
+          className="ve-icon-button"
+          aria-label="Design system"
+          title="Design system"
+          aria-pressed={isDesignSheetOpen}
+          onClick={() => dispatch(designSheetToggled(!isDesignSheetOpen))}
+        >
+          <Icon name="palette" />
+        </button>
+        <button
+          type="button"
+          className="ve-button"
+          aria-label={isPreview ? 'Exit preview' : 'Preview'}
+          title={isPreview ? 'Exit preview (Esc)' : 'Preview'}
+          onClick={() => dispatch(previewToggled(!isPreview))}
+        >
+          <Icon name={isPreview ? 'eye-off' : 'eye'} />
+          <span className="ve-wide-only">{isPreview ? 'Exit preview' : 'Preview'}</span>
         </button>
         <button
           type="button"

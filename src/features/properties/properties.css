@@ -12,30 +12,6 @@
     font-weight: 700;
   }
 
-  .ve-field {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .ve-field select {
-    height: 32px;
-    padding-inline: 6px;
-    border: 1px solid var(--ve-border);
-    border-radius: var(--ve-radius);
-    background: var(--ve-bg);
-  }
-
-  .ve-field input[type='color'] {
-    width: 48px;
-    height: 32px;
-    padding: 2px;
-    border: 1px solid var(--ve-border);
-    border-radius: var(--ve-radius);
-    background: var(--ve-bg);
-  }
-
   .ve-properties-body {
     flex: 1;
     min-height: 0;
@@ -321,6 +297,126 @@
     border: 1px solid var(--ve-border);
     border-radius: var(--ve-radius);
     background: var(--ve-bg);
+  }
+
+  .ve-override {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 8px;
+    align-items: center;
+  }
+
+  .ve-override > .ve-control-label {
+    grid-column: 1 / -1;
+  }
+
+  .ve-override--open {
+    align-items: start;
+  }
+
+  .ve-override .ve-button {
+    border-color: var(--ve-border);
+  }
+
+  .ve-override-inherited {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--ve-muted);
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ve-override-inherited .ve-swatch-color {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+
+  .ve-prefixed-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .ve-prefixed-input > span {
+    color: var(--ve-muted);
+    font-weight: 600;
+  }
+
+  .ve-prefixed-input > .ve-input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ve-prefixed-input > .ve-control-error {
+    flex-basis: 100%;
+  }
+
+  .ve-hide-on {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ve-hide-on-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+
+  .ve-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  .ve-page-settings {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .ve-social-preview {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    aspect-ratio: 1200 / 630;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    object-fit: cover;
+  }
+
+  .ve-social-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ve-link,
+  .ve-button-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .ve-button-field .ve-link {
+    padding: 10px;
+    border-radius: var(--ve-radius);
+    background: var(--ve-surface);
+  }
+
+  .ve-token-select {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
   }
 
   .ve-image {

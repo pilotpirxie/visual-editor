@@ -1,9 +1,14 @@
+import { isSafeUrl } from '../render/sanitize';
 import {
+  BUTTON_VARIANTS,
+  LINK_TYPES,
   PLACEHOLDER_RATIOS,
   PLACEHOLDER_SUBJECTS,
+  type ButtonValue,
   type ComponentDefinition,
   type Field,
   type ImageValue,
+  type LinkValue,
 } from './types';
 
 export type FieldGroup = { name: string; fields: Field[] };
@@ -15,6 +20,8 @@ const COLOR_TOKEN = /^var\(--[a-z0-9-]+\)$/;
 const HEX_COLOR = /^#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
 const ISO_DATE = /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})$/;
 const HTML_TAG = /<[^>]*>/g;
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE = /^\+?[\d\s().-]{3,}$/;
 
 export function defaultValues(fields: Field[]): Record<string, unknown> {
   const values: Record<string, unknown> = {};
@@ -127,6 +134,51 @@ export function isImageValue(value: unknown): value is ImageValue {
   );
 }
 
+function isOptionalString(value: unknown): boolean {
+  return value === undefined || typeof value === 'string';
+}
+
+export function isLinkValue(value: unknown): value is LinkValue {
+  if (typeof value !== 'object' || value === null) return false;
+  if (!('type' in value) || !('newTab' in value)) return false;
+  const isKnownType = LINK_TYPES.some((type) => type === value.type);
+  return (
+    isKnownType &&
+    typeof value.newTab === 'boolean' &&
+    isOptionalString('pageId' in value ? value.pageId : undefined) &&
+    isOptionalString('anchor' in value ? value.anchor : undefined) &&
+    isOptionalString('url' in value ? value.url : undefined)
+  );
+}
+
+export function isButtonValue(value: unknown): value is ButtonValue {
+  if (typeof value !== 'object' || value === null) return false;
+  if (!('label' in value) || !('link' in value) || !('variant' in value)) return false;
+  const isKnownVariant = BUTTON_VARIANTS.some((variant) => variant === value.variant);
+  return typeof value.label === 'string' && isLinkValue(value.link) && isKnownVariant;
+}
+
+function linkError(value: unknown): string | null {
+  if (!isLinkValue(value)) return 'Choose where the link goes';
+  const address = value.url?.trim() ?? '';
+  if (address === '') return null;
+  if (value.type === 'url' && !isSafeUrl(address)) {
+    return 'This address cannot be used as a link';
+  } else if (value.type === 'email' && !EMAIL.test(address)) {
+    return 'Enter an email address like hello@example.com';
+  } else if (value.type === 'phone' && !PHONE.test(address)) {
+    return 'Enter a phone number using digits, spaces and + ( ) -';
+  } else {
+    return null;
+  }
+}
+
+function buttonError(value: unknown): string | null {
+  if (!isButtonValue(value)) return 'Set up the button';
+  if (value.label.trim() === '') return 'Enter the button label';
+  return linkError(value.link);
+}
+
 function isValidDate(value: string): boolean {
   const groups = ISO_DATE.exec(value)?.groups;
   if (groups === undefined) return false;
@@ -191,11 +243,13 @@ export function validateField(field: Field, value: unknown): string | null {
         return 'Add alt text or mark the image as decorative';
       }
       return null;
+    case 'link':
+      return linkError(value);
+    case 'button':
+      return buttonError(value);
     case 'richtext':
     case 'boolean':
     case 'icon':
-    case 'link':
-    case 'button':
     case 'list':
       return null;
     default: {

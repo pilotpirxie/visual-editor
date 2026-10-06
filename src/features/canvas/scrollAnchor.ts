@@ -1,4 +1,4 @@
-export type ScrollAnchor = { capture(): void };
+export type ScrollAnchor = { capture(): void; cancel(): void };
 
 type ScrollableView = { scrollY: number; scrollBy(x: number, y: number): void };
 
@@ -29,5 +29,9 @@ export function createScrollAnchor(
     queueMicrotask(restore);
   }
 
-  return { capture };
+  function cancel(): void {
+    pending = null;
+  }
+
+  return { capture, cancel };
 }

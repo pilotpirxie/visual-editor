@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { isSafeImageSrc, isSafeUrl, normalizeRichText, plainTextToHtml } from './sanitize';
+import {
+  isSafeCssValue,
+  isSafeImageSrc,
+  isSafeUrl,
+  normalizeRichText,
+  plainTextToHtml,
+} from './sanitize';
 
 describe('isSafeUrl', () => {
   it.each([
@@ -20,6 +26,25 @@ describe('isSafeUrl', () => {
     expect(isSafeImageSrc('data:image/svg+xml,%3Csvg%3E')).toBe(true);
     expect(isSafeUrl('data:image/svg+xml,%3Csvg%3E')).toBe(false);
     expect(isSafeImageSrc('data:text/html,hi')).toBe(false);
+  });
+});
+
+describe('isSafeCssValue', () => {
+  it.each([
+    ['#4f46e5', true],
+    ['var(--color-surface)', true],
+    ['clamp(1rem, 2vw, 3rem)', true],
+    ['"Inter", system-ui, sans-serif', true],
+    ['red; position: fixed', false],
+    ['red } body { display: none', false],
+    ['url(https://example.com/x.png)', false],
+    ['URL (x)', false],
+    ['red /* comment', false],
+    ['</style>', false],
+    ['\\61', false],
+    ['   ', false],
+  ])('%s is %s', (value, expected) => {
+    expect(isSafeCssValue(value)).toBe(expected);
   });
 });
 

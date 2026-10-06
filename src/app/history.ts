@@ -135,7 +135,8 @@ export function createRootReducer(
 
     const editor = editorReducer(state.editor, action);
     if (!action.type.startsWith(PROJECT_ACTION_PREFIX)) {
-      return editor === state.editor ? state : { ...state, editor };
+      const reconciledEditor = reconcileEditor(editor, state.project);
+      return reconciledEditor === state.editor ? state : { ...state, editor: reconciledEditor };
     }
 
     const [project, patches, inversePatches] = produceWithPatches(state.project, (draft) =>

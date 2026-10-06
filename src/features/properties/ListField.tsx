@@ -18,7 +18,7 @@ import { dragController, type DragPayload } from '../canvas/dragController';
 import { dropEdgeAt, finalMoveIndex } from '../canvas/geometry';
 import { useListDropTarget } from '../canvas/useListDropTarget';
 import { Icon } from '../editor/Icon';
-import { FieldControl, hasControl, type ControlProps } from './FieldControl';
+import { FieldControl, type ControlProps } from './FieldControl';
 
 const DROP_EDGE_MARGIN = 8;
 const ITEM_HANDLE = '.ve-list-handle';
@@ -93,7 +93,7 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
   const labelId = `${id}-label`;
   const canAdd = canAddItem(field, items);
   const canRemove = canRemoveItem(field, items);
-  const itemFields = (field.itemFields ?? []).filter(hasControl);
+  const itemFields = field.itemFields ?? [];
   const keys = uniqueItemKeys(itemKeys, items);
 
   function isOwnItem(payload: DragPayload): boolean {

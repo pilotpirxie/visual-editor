@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import type { EditKind } from '../../app/projectSlice';
 import type { Field } from '../../components/types';
 import { blur, changeValue, click, render } from '../../test/dom';
-import { FieldControl, hasControl } from './FieldControl';
+import { FieldControl } from './FieldControl';
 
 const fields = {
   title: { name: 'title', label: 'Title', type: 'text', default: '', required: true },
@@ -153,20 +153,5 @@ describe('FieldControl', () => {
     rerender(<FieldControl field={fields.title} value="Hello" path="title" onChange={onChange} />);
     expect(container.querySelector('[role="alert"]')).toBeNull();
     expect(container.querySelector('input')?.value).toBe('Hello');
-  });
-
-  it('renders nothing for field types without a control yet', () => {
-    const link: Field = { name: 'cta', label: 'Button', type: 'button', default: null };
-    const { container } = render(
-      <FieldControl field={link} value={null} path="cta" onChange={vi.fn()} />,
-    );
-    expect(container.innerHTML).toBe('');
-  });
-});
-
-describe('hasControl', () => {
-  it('is true for editable types and false for types that come later', () => {
-    expect(hasControl(fields.title)).toBe(true);
-    expect(hasControl({ name: 'cta', label: 'Button', type: 'button', default: null })).toBe(false);
   });
 });

@@ -54,6 +54,12 @@
       "group": "typography",
       "value": "system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif"
     },
+    "--font-mono": {
+      "name": "--font-mono",
+      "label": "Mono font",
+      "group": "typography",
+      "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+    },
     "--font-weight-regular": {
       "name": "--font-weight-regular",
       "label": "Regular weight",

@@ -5,9 +5,10 @@ import { HomeScreen } from '../features/home/HomeScreen';
 import { loadIconSet } from '../features/icons/loadIconSet';
 import { getProject } from '../persistence/db';
 import { DEFAULT_ICON_SET } from '../render/icons';
+import { pageOpened } from './editorSlice';
 import { projectLoaded } from './projectSlice';
 import { editorPath, followLink, HOME_PATH, navigate, useRoute } from './router';
-import { autosave, dispatch } from './store';
+import { autosave, dispatch, selectCurrentPage, useStore } from './store';
 import type { Project } from './types';
 
 type OpenState =
@@ -27,6 +28,24 @@ function Notice({ title, text }: { title: string; text: string }): JSX.Element {
   );
 }
 
+function useRoutedPage(projectId: string, routePageId: string | null, isReady: boolean): void {
+  const loadedProjectId = useStore((state) => state.project.id);
+  const shownPageId = useStore((state) => selectCurrentPage(state).id);
+  const hasRoutePage = useStore(
+    (state) => routePageId !== null && state.project.pages.entities[routePageId] !== undefined,
+  );
+  const isSynced = isReady && loadedProjectId === projectId;
+
+  useEffect(() => {
+    if (!isSynced || routePageId === shownPageId) return;
+    if (routePageId !== null && hasRoutePage) {
+      dispatch(pageOpened({ pageId: routePageId, fromPageId: shownPageId }));
+      return;
+    }
+    navigate(editorPath(projectId, shownPageId), { replace: true });
+  }, [isSynced, projectId, routePageId, hasRoutePage, shownPageId]);
+}
+
 function ProjectEditor({
   projectId,
   pageId,
@@ -35,6 +54,11 @@ function ProjectEditor({
   pageId: string | null;
 }): JSX.Element {
   const [openState, setOpenState] = useState<OpenState | null>(null);
+  useRoutedPage(
+    projectId,
+    pageId,
+    openState?.status === 'ready' && openState.projectId === projectId,
+  );
 
   const showProject = useEffectEvent((project: Project) => {
     const hasPage = pageId !== null && project.pages.entities[pageId] !== undefined;

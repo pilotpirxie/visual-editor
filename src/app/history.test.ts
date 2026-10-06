@@ -86,7 +86,7 @@ describe('undo', () => {
   it('records no step for actions that change nothing', () => {
     const { store, title, steps, edit } = setup();
     edit(title(), 1000);
-    store.dispatch(blockRemoved({ pageId: 'missing', blockId: 'missing' }));
+    store.dispatch(blockRemoved({ blockId: 'missing' }));
     store.dispatch(blockSelected(null));
     expect(steps()).toBe(0);
   });

@@ -7,3 +7,4 @@ test-results
 playwright-report
 blob-report
 .vitest
+src/features/design-system/google-fonts.json

@@ -6,13 +6,14 @@ import {
   type UnknownAction,
 } from '@reduxjs/toolkit';
 import { useSyncExternalStore } from 'react';
-import { createRenderContext } from '../render/renderBlock';
+import { pageSlugsOf, renderContextFor } from '../render/renderBlock';
 import { createAutosave } from '../persistence/autosave';
 import { putProject } from '../persistence/db';
 import { editorSlice, saveStatusChanged } from './editorSlice';
 import { createRootReducer, type RootState } from './history';
 import { projectLoaded, projectSlice } from './projectSlice';
-import type { Page, Project } from './types';
+import { visibleBlockLists } from './blockLists';
+import type { Page, Project, SharedSlot } from './types';
 
 export type { RootState };
 
@@ -67,7 +68,29 @@ export function selectCurrentPage(state: RootState): Page {
   return state.project.pages.entities[pageId];
 }
 
+export function selectShownSlot(state: RootState, slot: SharedSlot): string[] {
+  return visibleBlockLists(state.project, selectCurrentPage(state))[slot];
+}
+
+function hasSameSlugs(left: Record<string, string>, right: Record<string, string>): boolean {
+  const leftIds = Object.keys(left);
+  if (leftIds.length !== Object.keys(right).length) return false;
+  return leftIds.every((id) => left[id] === right[id]);
+}
+
+const selectPageSlugs = createSelector(
+  [(state: RootState) => state.project.pages],
+  (pages) => pageSlugsOf(pages),
+  { memoizeOptions: { resultEqualityCheck: hasSameSlugs } },
+);
+
 export const selectCanvasRenderContext = createSelector(
-  [(state: RootState) => state.project.settings, (state: RootState) => state.project.pages],
-  (settings, pages) => createRenderContext({ settings, pages }, 'canvas'),
+  [
+    (state: RootState) => state.project.settings,
+    selectPageSlugs,
+    (state: RootState) => state.editor.isPreview,
+    (state: RootState) => selectCurrentPage(state).id,
+  ],
+  (settings, pageSlugs, isPreview, currentPageId) =>
+    renderContextFor(settings, pageSlugs, isPreview ? 'preview' : 'canvas', currentPageId),
 );

@@ -4,14 +4,21 @@ import { createTestStore, homePage } from '../test/fixtures';
 import {
   blockSelected,
   compactTabSelected,
+  designSheetToggled,
   deviceChanged,
   editorSlice,
   fieldFocusRequested,
   focusRequestHandled,
   libraryTabChanged,
+  pageAnchorRequested,
+  pageOpened,
+  pageSelectionForgotten,
   panelResized,
   panelToggled,
+  previewToggled,
+  propertiesTabChanged,
   reconcileEditor,
+  responsiveWidthChanged,
   saveStatusChanged,
   selectCompactTab,
   type EditorState,
@@ -30,6 +37,98 @@ describe('editorSlice initial state', () => {
     expect(editor.panels.right).toEqual({ width: 320, collapsed: false });
     expect(editor.compactView).toBe('canvas');
     expect(editor.saveStatus).toBe('saved');
+  });
+});
+
+describe('pageOpened', () => {
+  it('remembers the selection of the page it leaves and restores the one it opens', () => {
+    let editor = editorSlice.reducer(initialEditor(), blockSelected('hero'));
+    editor = editorSlice.reducer(editor, pageOpened({ pageId: 'about', fromPageId: 'home' }));
+    expect(editor.currentPageId).toBe('about');
+    expect(editor.selectedBlockId).toBeNull();
+    editor = editorSlice.reducer(editor, blockSelected('team'));
+    editor = editorSlice.reducer(editor, pageOpened({ pageId: 'home', fromPageId: 'about' }));
+    expect(editor.selectedBlockId).toBe('hero');
+    expect(editor.pageSelections).toEqual({ home: 'hero', about: 'team' });
+  });
+
+  it('shows the canvas when a page is opened from the library on a phone', () => {
+    let editor = editorSlice.reducer(initialEditor(), compactTabSelected('pages'));
+    expect(editor.compactView).toBe('library');
+    editor = editorSlice.reducer(editor, pageOpened({ pageId: 'about', fromPageId: 'home' }));
+    expect(editor.compactView).toBe('canvas');
+  });
+
+  it('does nothing when the page is already open', () => {
+    const editor = editorSlice.reducer(initialEditor(), blockSelected('hero'));
+    expect(editorSlice.reducer(editor, pageOpened({ pageId: 'home', fromPageId: 'home' }))).toBe(
+      editor,
+    );
+  });
+});
+
+describe('pageSelectionForgotten', () => {
+  it('opens the page next time with nothing selected', () => {
+    let editor = editorSlice.reducer(initialEditor(), blockSelected('hero'));
+    editor = editorSlice.reducer(editor, pageOpened({ pageId: 'about', fromPageId: 'home' }));
+    editor = editorSlice.reducer(editor, pageSelectionForgotten('home'));
+    editor = editorSlice.reducer(editor, pageOpened({ pageId: 'home', fromPageId: 'about' }));
+    expect(editor.selectedBlockId).toBeNull();
+  });
+});
+
+describe('pageAnchorRequested', () => {
+  it('keeps the section to scroll to once the page opens', () => {
+    const editor = editorSlice.reducer(initialEditor(), pageAnchorRequested('pricing'));
+    expect(editor.pendingAnchor).toBe('pricing');
+  });
+});
+
+describe('responsiveWidthChanged', () => {
+  it('stores a whole-pixel width of at least 320 px', () => {
+    let editor = editorSlice.reducer(initialEditor(), responsiveWidthChanged(612.4));
+    expect(editor.responsiveWidth).toBe(612);
+    editor = editorSlice.reducer(editor, responsiveWidthChanged(100));
+    expect(editor.responsiveWidth).toBe(320);
+  });
+
+  it('goes back to filling the canvas with null', () => {
+    let editor = editorSlice.reducer(initialEditor(), responsiveWidthChanged(500));
+    editor = editorSlice.reducer(editor, responsiveWidthChanged(null));
+    expect(editor.responsiveWidth).toBeNull();
+  });
+});
+
+describe('previewToggled', () => {
+  it('starts Preview and closes the design system sheet', () => {
+    let editor = editorSlice.reducer(initialEditor(), designSheetToggled(true));
+    editor = editorSlice.reducer(editor, previewToggled(true));
+    expect(editor.isPreview).toBe(true);
+    expect(editor.isDesignSheetOpen).toBe(false);
+  });
+
+  it('ends Preview when another project opens', () => {
+    const project = createSampleProject();
+    let editor = editorSlice.reducer(initialEditor(), previewToggled(true));
+    editor = editorSlice.reducer(
+      editor,
+      projectLoaded({ project, pageId: project.pages.homePageId }),
+    );
+    expect(editor.isPreview).toBe(false);
+  });
+});
+
+describe('propertiesTabChanged', () => {
+  it('switches the properties panel tab and keeps it while other blocks are selected', () => {
+    let editor = editorSlice.reducer(initialEditor(), propertiesTabChanged('style'));
+    editor = editorSlice.reducer(editor, blockSelected('b'));
+    expect(editor.propertiesTab).toBe('style');
+  });
+
+  it('returns to the content tab when a field is focused from the canvas', () => {
+    let editor = editorSlice.reducer(initialEditor(), propertiesTabChanged('style'));
+    editor = editorSlice.reducer(editor, fieldFocusRequested({ blockId: 'a', path: 'title' }));
+    expect(editor.propertiesTab).toBe('content');
   });
 });
 

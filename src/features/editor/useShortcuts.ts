@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { blockSelected } from '../../app/editorSlice';
+import { blockSelected, previewToggled } from '../../app/editorSlice';
 import { redo, undo } from '../../app/history';
 import { dispatch, type AppThunk } from '../../app/store';
 import { dragController } from '../canvas/dragController';
@@ -7,7 +7,7 @@ import { isElementTarget } from '../canvas/frameDom';
 import { duplicateBlock, moveBlockBy, removeBlock, type MoveOffset } from './blockActions';
 
 const TEXT_ENTRY = 'input, textarea, select, [contenteditable]:not([contenteditable="false"])';
-const PROPERTIES_PANEL = '.ve-properties';
+const EDITING_PANELS = '.ve-properties, .ve-design-sheet';
 
 export type Shortcut =
   | { kind: 'undo' }
@@ -64,7 +64,7 @@ export function shortcutFor(event: ShortcutKeyEvent): Shortcut | null {
   const isTyping = isElementTarget(event.target) && event.target.matches(TEXT_ENTRY);
   if (event.defaultPrevented || isTyping || isInside(event.target, 'dialog')) return null;
   if (event.key === 'Escape') return { kind: 'clear-selection' };
-  if (isInside(event.target, PROPERTIES_PANEL)) return null;
+  if (isInside(event.target, EDITING_PANELS)) return null;
   return blockShortcut(event);
 }
 
@@ -82,6 +82,11 @@ function applyBlockShortcut(shortcut: Shortcut, blockId: string): AppThunk {
 
 export function applyShortcut(shortcut: Shortcut): AppThunk<boolean> {
   return (dispatchAction, getState) => {
+    if (getState().editor.isPreview) {
+      if (shortcut.kind !== 'clear-selection') return false;
+      dispatchAction(previewToggled(false));
+      return true;
+    }
     if (shortcut.kind === 'undo') {
       dispatchAction(undo());
       return true;

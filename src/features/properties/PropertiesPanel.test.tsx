@@ -31,9 +31,9 @@ beforeEach(() => {
 });
 
 describe('PropertiesPanel', () => {
-  it('shows the design settings when no block is selected', () => {
+  it('shows the settings of the current page when no block is selected', () => {
     const { container } = render(<PropertiesPanel />);
-    expect(container.querySelector('h2')?.textContent).toBe('Design');
+    expect(container.querySelector('h2')?.textContent).toBe('Page settings');
   });
 
   it('shows the selected block name, category and grouped fields', () => {
@@ -46,9 +46,22 @@ describe('PropertiesPanel', () => {
     expect(container.querySelectorAll('.ve-group-title').length).toBeGreaterThan(0);
   });
 
+  it('switches between the Content, Style and Advanced tabs of the selected block', () => {
+    const { container } = render(<PropertiesPanel />);
+    select(1);
+    const tabs = [...container.querySelectorAll('[role="tab"]')].map((tab) => tab.textContent);
+    expect(tabs).toEqual(['Content', 'Style', 'Advanced']);
+    click(container.querySelector('#ve-properties-tab-style'));
+    expect(container.querySelector('.ve-override')).not.toBeNull();
+    expect(fieldInput(container, 'title')).toBeNull();
+    expect(store.getState().editor.propertiesTab).toBe('style');
+  });
+
   it('hides fields that are switched off by another field', () => {
     const { container } = render(<PropertiesPanel />);
     select(1);
+    expect(container.querySelector('[data-field-path="secondaryButton"]')).not.toBeNull();
+    click(container.querySelector('[data-field-path="showSecondary"] input'));
     expect(container.querySelector('[data-field-path="secondaryButton"]')).toBeNull();
   });
 

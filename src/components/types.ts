@@ -84,8 +84,16 @@ export type ComponentDefinition = {
   behaviors?: string[];
 };
 
+export const LINK_TYPES = ['page', 'section', 'url', 'email', 'phone'] as const;
+
+export type LinkType = (typeof LINK_TYPES)[number];
+
+export const BUTTON_VARIANTS = ['primary', 'secondary', 'ghost'] as const;
+
+export type ButtonVariant = (typeof BUTTON_VARIANTS)[number];
+
 export type LinkValue = {
-  type: 'page' | 'section' | 'url' | 'email' | 'phone';
+  type: LinkType;
   pageId?: string;
   anchor?: string;
   url?: string;
@@ -95,7 +103,7 @@ export type LinkValue = {
 export type ButtonValue = {
   label: string;
   link: LinkValue;
-  variant: 'primary' | 'secondary' | 'ghost';
+  variant: ButtonVariant;
 };
 
 export type RegisteredComponent = {

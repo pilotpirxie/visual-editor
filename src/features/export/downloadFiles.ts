@@ -18,9 +18,10 @@ function wait(milliseconds: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
-export async function downloadFiles(files: Record<string, string>): Promise<void> {
+export async function downloadFiles(files: Record<string, string | Blob>): Promise<void> {
   for (const [name, content] of Object.entries(files)) {
-    const blob = new Blob([content], { type: mimeTypeOf(name) });
+    const blob =
+      content instanceof Blob ? content : new Blob([content], { type: mimeTypeOf(name) });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;

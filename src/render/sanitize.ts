@@ -3,6 +3,7 @@ type InlineTag = 'strong' | 'em' | 'a';
 type BlockWriter = { doc: Document; root: Element; paragraph: Element | null };
 
 const UNSAFE_SCHEME = /^(?:javascript|vbscript|data):/i;
+const UNSAFE_CSS_VALUE = /[;{}<>\\]|\/\*|url\s*\(|expression\s*\(/i;
 const IMAGE_DATA_URL = /^data:image\/(?:svg\+xml|png|jpeg|gif|webp|avif)[;,]/i;
 const LAST_SPACE_OR_CONTROL_CODE = 0x20;
 const DELETE_CODE = 0x7f;
@@ -81,6 +82,10 @@ function withoutSpacesAndControls(url: string): string {
 
 export function isSafeUrl(url: string): boolean {
   return !UNSAFE_SCHEME.test(withoutSpacesAndControls(url));
+}
+
+export function isSafeCssValue(value: string): boolean {
+  return value.trim() !== '' && !UNSAFE_CSS_VALUE.test(value);
 }
 
 export function isSafeImageSrc(src: string): boolean {

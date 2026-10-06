@@ -1,5 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { deviceChanged, panelToggled, saveStatusChanged } from '../../app/editorSlice';
+import {
+  deviceChanged,
+  panelToggled,
+  previewToggled,
+  saveStatusChanged,
+} from '../../app/editorSlice';
 import { blockValueSet } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
 import { click, getButton, render, runInAct } from '../../test/dom';
@@ -19,6 +24,7 @@ vi.mock('../export/downloadFiles', () => ({ downloadFiles: vi.fn(async () => {})
 beforeEach(() => {
   loadIntoAppStore();
   dispatch(deviceChanged('desktop'));
+  dispatch(previewToggled(false));
   if (store.getState().editor.panels.left.collapsed) dispatch(panelToggled('left'));
 });
 
@@ -39,6 +45,21 @@ describe('Toolbar', () => {
     expect(container.querySelector('.ve-readout')?.textContent).toBe('375 × 812');
   });
 
+  it('switches to responsive mode, which hides the fixed size readout', () => {
+    const { container } = render(<Toolbar />);
+    click(getButton(container, 'Responsive'));
+    expect(store.getState().editor.device).toBe('responsive');
+    expect(container.querySelector('.ve-readout')).toBeNull();
+  });
+
+  it('starts and ends Preview', () => {
+    const { container } = render(<Toolbar />);
+    click(getButton(container, 'Preview'));
+    expect(store.getState().editor.isPreview).toBe(true);
+    click(getButton(container, 'Exit preview'));
+    expect(store.getState().editor.isPreview).toBe(false);
+  });
+
   it('enables undo only when there is something to undo, and undoes on click', () => {
     const { container } = render(<Toolbar />);
     expect(getButton(container, 'Undo').disabled).toBe(true);
@@ -55,6 +76,15 @@ describe('Toolbar', () => {
     click(getButton(container, 'Hide library panel'));
     expect(store.getState().editor.panels.left.collapsed).toBe(true);
     expect(getButton(container, 'Show library panel').getAttribute('aria-pressed')).toBe('false');
+  });
+
+  it('opens and closes the design system sheet', () => {
+    const { container } = render(<Toolbar />);
+    click(getButton(container, 'Design system'));
+    expect(store.getState().editor.isDesignSheetOpen).toBe(true);
+    expect(getButton(container, 'Design system').getAttribute('aria-pressed')).toBe('true');
+    click(getButton(container, 'Design system'));
+    expect(store.getState().editor.isDesignSheetOpen).toBe(false);
   });
 
   it('shows the save status', () => {

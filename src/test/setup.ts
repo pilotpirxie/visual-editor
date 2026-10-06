@@ -13,6 +13,19 @@ class NoopResizeObserver implements ResizeObserver {
   disconnect(): void {}
 }
 
+class NoopIntersectionObserver implements IntersectionObserver {
+  readonly root = null;
+  readonly rootMargin = '0px';
+  readonly scrollMargin = '0px';
+  readonly thresholds: number[] = [];
+  observe(): void {}
+  unobserve(): void {}
+  disconnect(): void {}
+  takeRecords(): IntersectionObserverEntry[] {
+    return [];
+  }
+}
+
 function escapeCssIdentifier(value: string): string {
   let escaped = '';
   for (let index = 0; index < value.length; index += 1) {
@@ -59,8 +72,21 @@ function defineIfMissing(target: object, name: string, value: unknown): void {
 }
 
 defineIfMissing(globalThis, 'ResizeObserver', NoopResizeObserver);
+defineIfMissing(globalThis, 'IntersectionObserver', NoopIntersectionObserver);
 defineIfMissing(globalThis, 'CSS', { escape: escapeCssIdentifier });
 defineIfMissing(window, 'matchMedia', matchNothing);
+defineIfMissing(
+  HTMLDialogElement.prototype,
+  'showModal',
+  function showModal(this: HTMLDialogElement) {
+    this.setAttribute('open', '');
+  },
+);
+defineIfMissing(HTMLDialogElement.prototype, 'close', function close(this: HTMLDialogElement) {
+  if (!this.hasAttribute('open')) return;
+  this.removeAttribute('open');
+  this.dispatchEvent(new Event('close'));
+});
 defineIfMissing(Element.prototype, 'setPointerCapture', function setPointerCapture() {});
 defineIfMissing(Element.prototype, 'releasePointerCapture', function releasePointerCapture() {});
 defineIfMissing(Element.prototype, 'hasPointerCapture', function hasPointerCapture() {

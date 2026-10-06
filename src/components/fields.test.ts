@@ -4,8 +4,10 @@ import {
   defaultValues,
   duplicateItem,
   groupFields,
+  isButtonValue,
   isColorValue,
   isFieldVisible,
+  isLinkValue,
   itemTitle,
   moveItem,
   removeItem,
@@ -188,5 +190,74 @@ describe('list items', () => {
   it('titles items by their label field, falling back to a number', () => {
     expect(itemTitle(list, one, 0)).toBe('One');
     expect(itemTitle(list, { title: '  ' }, 1)).toBe('Item 2');
+  });
+});
+
+describe('isLinkValue', () => {
+  it('accepts every link type with its optional parts', () => {
+    expect(isLinkValue({ type: 'section', pageId: 'p1', anchor: 'team', newTab: false })).toBe(
+      true,
+    );
+    expect(isLinkValue({ type: 'url', url: 'https://example.com', newTab: true })).toBe(true);
+  });
+
+  it.each([
+    ['an unknown type', { type: 'ftp', newTab: false }],
+    ['a missing new tab flag', { type: 'url', url: '#' }],
+    ['a page id that is not text', { type: 'page', pageId: 7, newTab: false }],
+    ['nothing', null],
+  ])('rejects %s', (_name, value) => {
+    expect(isLinkValue(value)).toBe(false);
+  });
+});
+
+describe('isButtonValue', () => {
+  it('accepts a label, a link and a known style', () => {
+    const link = { type: 'url', url: '#', newTab: false };
+    expect(isButtonValue({ label: 'Go', link, variant: 'ghost' })).toBe(true);
+    expect(isButtonValue({ label: 'Go', link, variant: 'outline' })).toBe(false);
+  });
+});
+
+describe('validateField for links and buttons', () => {
+  const link: Field = { name: 'link', label: 'Link', type: 'link', default: null };
+  const button: Field = { name: 'cta', label: 'Button', type: 'button', default: null };
+
+  it.each([
+    [{ type: 'url', url: 'https://example.com', newTab: false }, null],
+    [{ type: 'url', url: '', newTab: false }, null],
+    [
+      { type: 'url', url: 'javascript:alert(1)', newTab: false },
+      'This address cannot be used as a link',
+    ],
+    [{ type: 'email', url: 'hello@example.com', newTab: false }, null],
+    [
+      { type: 'email', url: 'hello', newTab: false },
+      'Enter an email address like hello@example.com',
+    ],
+    [{ type: 'phone', url: '+48 (12) 345-67-89', newTab: false }, null],
+    [
+      { type: 'phone', url: 'call me', newTab: false },
+      'Enter a phone number using digits, spaces and + ( ) -',
+    ],
+    [{ type: 'page', pageId: 'p1', newTab: false }, null],
+    ['not a link', 'Choose where the link goes'],
+  ])('checks the link %o', (value, expected) => {
+    expect(validateField(link, value)).toBe(expected);
+  });
+
+  it('asks for a button label and checks the button link', () => {
+    const goodLink = { type: 'url', url: '#', newTab: false };
+    expect(validateField(button, { label: ' ', link: goodLink, variant: 'primary' })).toBe(
+      'Enter the button label',
+    );
+    expect(
+      validateField(button, {
+        label: 'Write to us',
+        link: { type: 'email', url: 'nope', newTab: false },
+        variant: 'primary',
+      }),
+    ).toBe('Enter an email address like hello@example.com');
+    expect(validateField(button, { label: 'Go', link: goodLink, variant: 'primary' })).toBeNull();
   });
 });

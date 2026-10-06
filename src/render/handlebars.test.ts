@@ -12,12 +12,23 @@ describe('resolveHref', () => {
     [{ type: 'page', pageId: 'deleted', newTab: false }, '#'],
     [{ type: 'section', anchor: 'pricing', newTab: false }, '#pricing'],
     [{ type: 'section', pageId: 'about', anchor: 'team', newTab: false }, 'about.html#team'],
+    [{ type: 'section', pageId: 'about', newTab: false }, 'about.html'],
+    [{ type: 'section', pageId: 'deleted', anchor: 'team', newTab: false }, '#'],
+    [{ type: 'section', anchor: '', newTab: false }, '#'],
     [{ type: 'url', url: 'https://example.com', newTab: true }, 'https://example.com'],
     [{ type: 'url', url: 'javascript:alert(1)', newTab: false }, '#'],
     [{ type: 'email', url: 'hello@example.com', newTab: false }, 'mailto:hello@example.com'],
     [{ type: 'phone', url: '+15550100', newTab: false }, 'tel:+15550100'],
   ] as const)('resolves %o to %s', (link, expected) => {
     expect(resolveHref(link, data)).toBe(expected);
+  });
+});
+
+describe('resolveHref on the page that holds the link', () => {
+  it('points a section link to its own page at the section only', () => {
+    const onAbout = { ...data, currentPageId: 'about' };
+    const link = { type: 'section', pageId: 'about', anchor: 'team', newTab: false } as const;
+    expect(resolveHref(link, onAbout)).toBe('#team');
   });
 });
 

@@ -6,7 +6,9 @@ import {
   BLOCK_TOOLBAR_HEIGHT_PX,
   autoScrollDelta,
   blockToolbarTop,
+  canvasViewport,
   clamp,
+  deviceForWidth,
   dropEdgeAt,
   dropIndexFromSpans,
   finalMoveIndex,
@@ -233,5 +235,40 @@ describe('dropEdgeAt', () => {
     expect(dropEdgeAt(1, 0, 3)).toBeNull();
     expect(dropEdgeAt(3, 1, 3)).toBeNull();
     expect(dropEdgeAt(null, 0, 3)).toBeNull();
+  });
+});
+
+describe('deviceForWidth', () => {
+  it.each([
+    [320, 'phone'],
+    [767, 'phone'],
+    [768, 'tablet'],
+    [1023, 'tablet'],
+    [1024, 'desktop'],
+    [1440, 'desktop'],
+  ])('treats a %i px wide page as %s', (width, device) => {
+    expect(deviceForWidth(width)).toBe(device);
+  });
+});
+
+describe('canvasViewport', () => {
+  const available = { width: 900.6, height: 700 };
+
+  it('uses the fixed size of a device preset', () => {
+    expect(canvasViewport('tablet', 500, available)).toEqual({ width: 768, height: 1024 });
+  });
+
+  it('fills the available width in responsive mode until the user resizes it', () => {
+    expect(canvasViewport('responsive', null, available)).toEqual({ width: 900, height: null });
+  });
+
+  it('keeps a resized responsive width between 320 px and the available width', () => {
+    expect(canvasViewport('responsive', 500, available).width).toBe(500);
+    expect(canvasViewport('responsive', 100, available).width).toBe(320);
+    expect(canvasViewport('responsive', 2000, available).width).toBe(900);
+  });
+
+  it('never goes below 320 px, even when the canvas is narrower', () => {
+    expect(canvasViewport('responsive', null, { width: 0, height: 0 }).width).toBe(320);
   });
 });

@@ -62,5 +62,7 @@ export function createBlock(definition: ComponentDefinition): ComponentBlock {
     values: defaultValues(definition.fields),
     overrides: {},
     disabled: false,
+    extraClasses: [],
+    hideOn: [],
   };
 }

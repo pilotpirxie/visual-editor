@@ -1,13 +1,24 @@
-import { useLayoutEffect, useMemo, useState, type JSX, type SyntheticEvent } from 'react';
+import {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type JSX,
+  type ReactPortal,
+  type SyntheticEvent,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { behaviors, core } from 'virtual:site-runtime';
-import { selectCurrentPage, store, useStore } from '../../app/store';
+import { pageAnchorRequested } from '../../app/editorSlice';
+import { dispatch, selectCurrentPage, selectShownSlot, store, useStore } from '../../app/store';
 import { registry } from '../../components/registry';
 import { CANVAS_BASE_CSS, buildTokensCss } from '../../render/css';
 import { BlockHost } from './BlockHost';
+import { syncFontLink } from './fontLink';
 import { blockRoot } from './frameDom';
 import { isOutOfView } from './geometry';
-import { createScrollAnchor } from './scrollAnchor';
+import { createScrollAnchor, type ScrollAnchor } from './scrollAnchor';
 
 const SRC_DOC = [
   '<!doctype html>',
@@ -18,11 +29,15 @@ const SRC_DOC = [
   '<style id="ve-base"></style>',
   '<style id="ve-tokens"></style>',
   '</head>',
-  '<body><main id="ve-page"></main></body>',
+  '<body><div id="ve-header"></div><main id="ve-page"></main><div id="ve-footer"></div></body>',
   '</html>',
 ].join('');
 
-const EDITOR_CSS = 'html { overflow-anchor: none; }';
+const EDITOR_CSS = [
+  'html { overflow-anchor: none; }',
+  '#ve-header, #ve-footer { display: contents; }',
+  '#ve-page:empty { min-height: 100vh; }',
+].join('\n');
 
 export type CanvasFrameHandle = { iframe: HTMLIFrameElement; doc: Document };
 
@@ -47,11 +62,48 @@ function findScrollAnchor(doc: Document): Element | null {
   return null;
 }
 
+function usePageScrollMemory(doc: Document | null, pageId: string, anchor: ScrollAnchor): void {
+  const scrollByPageRef = useRef(new Map<string, number>());
+  const shownPageIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    const view = doc?.defaultView;
+    if (view === null || view === undefined) return;
+    const scrolledView = view;
+    function rememberScroll(): void {
+      const shownPageId = shownPageIdRef.current;
+      if (shownPageId !== null) scrollByPageRef.current.set(shownPageId, scrolledView.scrollY);
+    }
+    scrolledView.addEventListener('scroll', rememberScroll, { passive: true });
+    return () => scrolledView.removeEventListener('scroll', rememberScroll);
+  }, [doc]);
+
+  useLayoutEffect(() => {
+    const view = doc?.defaultView;
+    if (doc === null || view === null || view === undefined) return;
+    const previousPageId = shownPageIdRef.current;
+    shownPageIdRef.current = pageId;
+    if (previousPageId === null || previousPageId === pageId) return;
+    anchor.cancel();
+    const anchorId = store.getState().editor.pendingAnchor;
+    if (anchorId !== null) dispatch(pageAnchorRequested(null));
+    const target = anchorId === null ? null : doc.getElementById(anchorId);
+    if (target !== null) {
+      target.scrollIntoView({ block: 'start' });
+      return;
+    }
+    view.scrollTo(0, scrollByPageRef.current.get(pageId) ?? 0);
+  }, [doc, pageId, anchor]);
+}
+
 export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps): JSX.Element {
   const [doc, setDoc] = useState<Document | null>(null);
   const page = useStore(selectCurrentPage);
+  const headerBlockIds = useStore((state) => selectShownSlot(state, 'header'));
+  const footerBlockIds = useStore((state) => selectShownSlot(state, 'footer'));
   const blocks = useStore((state) => state.project.blocks.entities);
   const tokens = useStore((state) => state.project.designSystem.tokens);
+  const fonts = useStore((state) => state.project.designSystem.fonts);
   const language = useStore((state) => state.project.settings.language);
 
   const anchor = useMemo(
@@ -86,6 +138,11 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
 
   useLayoutEffect(() => {
     if (doc === null) return;
+    syncFontLink(doc, fonts);
+  }, [doc, fonts]);
+
+  useLayoutEffect(() => {
+    if (doc === null) return;
     const tokensStyle = doc.getElementById('ve-tokens');
     if (tokensStyle === null) return;
     anchor.capture();
@@ -94,7 +151,7 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
 
   useLayoutEffect(() => {
     if (doc === null) return;
-    for (const blockId of page.blockIds) {
+    for (const blockId of [...headerBlockIds, ...page.blockIds, ...footerBlockIds]) {
       const block = blocks[blockId];
       if (block === undefined) continue;
       const component = registry.get(block.componentId);
@@ -106,9 +163,20 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
       style.textContent = component.styles;
       doc.head.append(style);
     }
-  }, [doc, page, blocks]);
+  }, [doc, page, headerBlockIds, footerBlockIds, blocks]);
 
-  const pageRoot = doc === null ? null : doc.getElementById('ve-page');
+  usePageScrollMemory(doc, page.id, anchor);
+
+  function renderInto(rootId: string, blockIds: string[]): ReactPortal | null {
+    const root = doc === null ? null : doc.getElementById(rootId);
+    if (doc === null || root === null) return null;
+    return createPortal(
+      blockIds.map((blockId) => (
+        <BlockHost key={blockId} blockId={blockId} doc={doc} anchor={anchor} />
+      )),
+      root,
+    );
+  }
 
   return (
     <>
@@ -119,14 +187,9 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
         onLoad={handleLoad}
         style={{ width, height, transform: `scale(${scale})` }}
       />
-      {doc !== null &&
-        pageRoot !== null &&
-        createPortal(
-          page.blockIds.map((blockId) => (
-            <BlockHost key={blockId} blockId={blockId} doc={doc} anchor={anchor} />
-          )),
-          pageRoot,
-        )}
+      {renderInto('ve-header', headerBlockIds)}
+      {renderInto('ve-page', page.blockIds)}
+      {renderInto('ve-footer', footerBlockIds)}
     </>
   );
 }

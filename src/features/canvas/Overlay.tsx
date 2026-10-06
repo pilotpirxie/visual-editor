@@ -1,11 +1,13 @@
 import { useLayoutEffect, useState, type CSSProperties, type JSX } from 'react';
 import { compactTabSelected } from '../../app/editorSlice';
-import { dispatch, selectCurrentPage, store, useStore } from '../../app/store';
+import { findBlockList, sharedSlotOf } from '../../app/blockLists';
+import { dispatch, store, useStore } from '../../app/store';
+import type { Device } from '../../app/types';
 import { registry } from '../../components/registry';
 import { duplicateBlock, moveBlockBy, removeBlock } from '../editor/blockActions';
 import { Icon } from '../editor/Icon';
 import { dragController } from './dragController';
-import { blockRoot } from './frameDom';
+import { PAGE_ROOT_ID } from './frameDom';
 import { blockToolbarTop, clamp } from './geometry';
 
 type Rect = { top: number; left: number; width: number; height: number };
@@ -19,6 +21,8 @@ type OverlayProps = {
   movingId: string | null;
   dropY: number | null;
   isEmpty: boolean;
+  hiddenIds: string[];
+  pageDevice: Device;
 };
 
 const DROP_LINE_INSET_PX = 2;
@@ -37,7 +41,15 @@ function isSameRect(previous: Rect | null, next: Rect): boolean {
   );
 }
 
+function blockSelector(blockId: string): string {
+  return `[data-block-id="${CSS.escape(blockId)}"]`;
+}
+
 function useBlockRect(doc: Document, blockId: string | null, scale: number): Rect | null {
+  return useElementRect(doc, blockId === null ? null : blockSelector(blockId), scale);
+}
+
+function useElementRect(doc: Document, selector: string | null, scale: number): Rect | null {
   const [rect, setRect] = useState<Rect | null>(null);
 
   useLayoutEffect(() => {
@@ -47,7 +59,7 @@ function useBlockRect(doc: Document, blockId: string | null, scale: number): Rec
 
     function update(): void {
       frame = 0;
-      const root = blockId === null ? null : blockRoot(doc, blockId);
+      const root = selector === null ? null : doc.querySelector(selector);
       if (root === null) {
         setRect(null);
         return;
@@ -79,9 +91,17 @@ function useBlockRect(doc: Document, blockId: string | null, scale: number): Rec
       view.removeEventListener('resize', schedule);
       unsubscribe();
     };
-  }, [doc, blockId, scale]);
+  }, [doc, selector, scale]);
 
   return rect;
+}
+
+function useIsShared(blockId: string | null): boolean {
+  return useStore((state) => blockId !== null && sharedSlotOf(state.project, blockId) !== null);
+}
+
+function SharedBadge(): JSX.Element {
+  return <span className="ve-outline-badge">Shared on all pages</span>;
 }
 
 function useBlockName(blockId: string | null): string | null {
@@ -95,11 +115,33 @@ function useBlockName(blockId: string | null): string | null {
   return component.definition.name;
 }
 
+function HiddenShade({
+  doc,
+  blockId,
+  scale,
+  device,
+}: {
+  doc: Document;
+  blockId: string;
+  scale: number;
+  device: Device;
+}): JSX.Element | null {
+  const rect = useBlockRect(doc, blockId, scale);
+  if (rect === null) return null;
+  return (
+    <div className="ve-outline ve-outline--hidden" style={boxStyle(rect)}>
+      <span className="ve-outline-note">Hidden on {device}</span>
+    </div>
+  );
+}
+
 type BlockToolbarProps = { blockId: string; rect: Rect; name: string; overlayHeight: number };
 
 function BlockToolbar({ blockId, rect, name, overlayHeight }: BlockToolbarProps): JSX.Element {
-  const blockIds = useStore((state) => selectCurrentPage(state).blockIds);
-  const index = blockIds.indexOf(blockId);
+  const blockIds = useStore((state) => findBlockList(state.project, blockId));
+  const isShared = useIsShared(blockId);
+  const index = blockIds === null ? -1 : blockIds.indexOf(blockId);
+  const count = blockIds === null ? 0 : blockIds.length;
   const top = blockToolbarTop({ top: rect.top, bottom: rect.top + rect.height }, overlayHeight);
   const style: CSSProperties = {
     '--ve-toolbar-top': `${top}px`,
@@ -108,18 +150,20 @@ function BlockToolbar({ blockId, rect, name, overlayHeight }: BlockToolbarProps)
 
   return (
     <div className="ve-block-toolbar" role="toolbar" aria-label={`${name} actions`} style={style}>
-      <button
-        type="button"
-        className="ve-block-handle"
-        aria-label="Drag to move"
-        title="Drag to move"
-        onPointerDown={(event) => {
-          event.currentTarget.setPointerCapture(event.pointerId);
-          dragController.start({ kind: 'move', blockId, label: name }, event);
-        }}
-      >
-        <Icon name="grip" />
-      </button>
+      {!isShared && (
+        <button
+          type="button"
+          className="ve-block-handle"
+          aria-label="Drag to move"
+          title="Drag to move"
+          onPointerDown={(event) => {
+            event.currentTarget.setPointerCapture(event.pointerId);
+            dragController.start({ kind: 'move', blockId, label: name }, event);
+          }}
+        >
+          <Icon name="grip" />
+        </button>
+      )}
       <button
         type="button"
         aria-label="Move up"
@@ -133,7 +177,7 @@ function BlockToolbar({ blockId, rect, name, overlayHeight }: BlockToolbarProps)
         type="button"
         aria-label="Move down"
         title="Move down (Alt+↓)"
-        disabled={index === -1 || index >= blockIds.length - 1}
+        disabled={index === -1 || index >= count - 1}
         onClick={() => dispatch(moveBlockBy(blockId, 1))}
       >
         <Icon name="arrow-down" />
@@ -176,6 +220,8 @@ export function Overlay({
   movingId,
   dropY,
   isEmpty,
+  hiddenIds,
+  pageDevice,
 }: OverlayProps): JSX.Element {
   const visibleHoverId = hoveredId === selectedId ? null : hoveredId;
   const hoverRect = useBlockRect(doc, visibleHoverId, scale);
@@ -183,18 +229,29 @@ export function Overlay({
   const movingRect = useBlockRect(doc, movingId, scale);
   const hoverName = useBlockName(visibleHoverId);
   const selectedName = useBlockName(selectedId);
+  const isHoverShared = useIsShared(visibleHoverId);
+  const isSelectedShared = useIsShared(selectedId);
+  const emptyRect = useElementRect(doc, isEmpty ? `#${PAGE_ROOT_ID}` : null, scale);
 
   return (
     <div className="ve-overlay">
-      {isEmpty && (
-        <div className="ve-empty">
-          <span className="ve-wide-only">Drag a block here to start</span>
-          <span className="ve-compact-only">Add a block from the Blocks tab</span>
+      {isEmpty && emptyRect !== null && (
+        <div className="ve-empty-area" style={boxStyle(emptyRect)}>
+          <div className="ve-empty">
+            <span className="ve-wide-only">Drag a block here to start</span>
+            <span className="ve-compact-only">Add a block from the Blocks tab</span>
+          </div>
         </div>
       )}
+      {hiddenIds.map((blockId) => (
+        <HiddenShade key={blockId} doc={doc} blockId={blockId} scale={scale} device={pageDevice} />
+      ))}
       {visibleHoverId !== null && hoverRect !== null && (
         <div className="ve-outline ve-outline--hover" style={boxStyle(hoverRect)}>
-          <span className="ve-outline-label">{hoverName}</span>
+          <span className="ve-outline-label">
+            {hoverName}
+            {isHoverShared && <SharedBadge />}
+          </span>
         </div>
       )}
       {movingRect !== null && (
@@ -202,7 +259,13 @@ export function Overlay({
       )}
       {selectedId !== null && selectedRect !== null && selectedName !== null && (
         <>
-          <div className="ve-outline ve-outline--selected" style={boxStyle(selectedRect)} />
+          <div className="ve-outline ve-outline--selected" style={boxStyle(selectedRect)}>
+            {isSelectedShared && (
+              <span className="ve-outline-label ve-outline-label--selected">
+                <SharedBadge />
+              </span>
+            )}
+          </div>
           <BlockToolbar
             blockId={selectedId}
             rect={selectedRect}

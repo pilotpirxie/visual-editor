@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { blockSelected } from './editorSlice';
+import { blockSelected, previewToggled } from './editorSlice';
 import { createSampleProject } from './projectFactory';
-import { blockValueSet, projectLoaded } from './projectSlice';
+import {
+  blockInserted,
+  blockValueSet,
+  pageAdded,
+  pageSlugSet,
+  projectLoaded,
+} from './projectSlice';
 import { createAppStore, selectCanvasRenderContext, selectCurrentPage } from './store';
 import type { Project } from './types';
 import { homePage } from '../test/fixtures';
@@ -66,5 +72,28 @@ describe('selectCanvasRenderContext', () => {
     expect(selectCanvasRenderContext(store.getState())).toBe(first);
     expect(first.mode).toBe('canvas');
     expect(first.site.title).toBe('Fieldnote');
+  });
+
+  it('keeps the same context when blocks are added, so other blocks do not re-render', () => {
+    const store = createAppStore();
+    const project = createSampleProject();
+    store.dispatch(projectLoaded({ project, pageId: null }));
+    const first = selectCanvasRenderContext(store.getState());
+    store.dispatch(blockInserted(project.pages.homePageId, 0, 'cta-centered'));
+    expect(selectCanvasRenderContext(store.getState())).toBe(first);
+  });
+
+  it('builds a new context when a slug changes, the preview starts or another page opens', () => {
+    const store = createAppStore();
+    const project = createSampleProject();
+    store.dispatch(projectLoaded({ project, pageId: null }));
+    store.dispatch(pageAdded({ id: 'about', name: 'About', slug: 'about' }));
+    const first = selectCanvasRenderContext(store.getState());
+    expect(first.currentPageId).toBe(project.pages.homePageId);
+    store.dispatch(pageSlugSet('about', 'company', 'discrete'));
+    const renamed = selectCanvasRenderContext(store.getState());
+    expect(renamed.pageSlugs.about).toBe('company');
+    store.dispatch(previewToggled(true));
+    expect(selectCanvasRenderContext(store.getState()).mode).toBe('preview');
   });
 });

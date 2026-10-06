@@ -1,7 +1,7 @@
 @layer components {
   @scope (.b-cta-centered) {
     :scope {
-      --section-bg: var(--color-surface);
+      --color-background: var(--color-surface);
     }
 
     .b-panel {

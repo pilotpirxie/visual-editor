@@ -14,6 +14,7 @@ import {
 import { ColorField } from './ColorField';
 import { IconField } from './IconField';
 import { ImageField } from './ImageField';
+import { ButtonField, LinkField } from './LinkField';
 import { ListField } from './ListField';
 import { RichTextField } from './RichTextField';
 
@@ -36,7 +37,7 @@ type FieldControlProps = {
 
 type Draft = { value: unknown; base: unknown };
 
-const CONTROLS: Partial<Record<FieldType, (props: ControlProps) => JSX.Element>> = {
+const CONTROLS: Record<FieldType, (props: ControlProps) => JSX.Element> = {
   text: TextControl,
   date: TextControl,
   textarea: TextareaControl,
@@ -50,11 +51,9 @@ const CONTROLS: Partial<Record<FieldType, (props: ControlProps) => JSX.Element>>
   image: ImageField,
   richtext: RichTextField,
   icon: IconField,
+  link: LinkField,
+  button: ButtonField,
 };
-
-export function hasControl(field: Field): boolean {
-  return CONTROLS[field.type] !== undefined;
-}
 
 function describedByIds(helpId: string | null, errorId: string | null): string | undefined {
   const ids: string[] = [];
@@ -64,18 +63,12 @@ function describedByIds(helpId: string | null, errorId: string | null): string |
   return ids.join(' ');
 }
 
-export function FieldControl({
-  field,
-  value,
-  path,
-  onChange,
-}: FieldControlProps): JSX.Element | null {
+export function FieldControl({ field, value, path, onChange }: FieldControlProps): JSX.Element {
   const [draft, setDraft] = useState<Draft | null>(null);
   const isDraftStale = draft !== null && !Object.is(draft.base, value);
   if (isDraftStale) setDraft(null);
 
   const Control = CONTROLS[field.type];
-  if (Control === undefined) return null;
 
   const activeDraft = isDraftStale ? null : draft;
   const shownValue = activeDraft === null ? value : activeDraft.value;

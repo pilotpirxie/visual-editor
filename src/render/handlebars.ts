@@ -6,7 +6,11 @@ import { iconSvg, resolveIcon } from './icons';
 import { placeholderDataUrl } from './placeholder';
 import { isSafeImageSrc, isSafeUrl, normalizeRichText } from './sanitize';
 
-export type RenderData = { pageSlugs: Record<string, string>; eagerImages?: boolean };
+export type RenderData = {
+  pageSlugs: Record<string, string>;
+  currentPageId?: string | null;
+  eagerImages?: boolean;
+};
 
 const NEW_TAB_ATTRIBUTES = 'target="_blank" rel="noopener"';
 const LINE_BREAK = /\r?\n/g;
@@ -24,8 +28,13 @@ export function resolveHref(link: LinkValue | undefined, data: RenderData): stri
   switch (link.type) {
     case 'page':
       return pageFile === '' ? '#' : pageFile;
-    case 'section':
-      return `${pageFile}#${link.anchor ?? ''}`;
+    case 'section': {
+      const anchor = encodeURIComponent(link.anchor ?? '');
+      const isSamePage = link.pageId === undefined || link.pageId === data.currentPageId;
+      if (isSamePage) return anchor === '' ? '#' : `#${anchor}`;
+      if (pageFile === '') return '#';
+      return anchor === '' ? pageFile : `${pageFile}#${anchor}`;
+    }
     case 'email':
       return `mailto:${link.url ?? ''}`;
     case 'phone':

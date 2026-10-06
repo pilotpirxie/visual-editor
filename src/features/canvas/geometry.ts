@@ -1,4 +1,10 @@
-import type { DeviceViewport } from '../../app/editorSlice';
+import {
+  DEVICE_VIEWPORTS,
+  MIN_RESPONSIVE_WIDTH,
+  type DeviceMode,
+  type DeviceViewport,
+} from '../../app/editorSlice';
+import type { Device } from '../../app/types';
 
 export type Point = { x: number; y: number };
 export type Size = { width: number; height: number };
@@ -11,9 +17,21 @@ export const AUTO_SCROLL_EDGE_PX = 56;
 export const AUTO_SCROLL_MAX_SPEED_PX = 18;
 export const BLOCK_TOOLBAR_HEIGHT_PX = 32;
 export const BLOCK_TOOLBAR_GAP_PX = 4;
+export const TABLET_MIN_WIDTH_PX = 768;
+export const DESKTOP_MIN_WIDTH_PX = 1024;
 
 export function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
+}
+
+export function deviceForWidth(width: number): Device {
+  if (width < TABLET_MIN_WIDTH_PX) {
+    return 'phone';
+  } else if (width < DESKTOP_MIN_WIDTH_PX) {
+    return 'tablet';
+  } else {
+    return 'desktop';
+  }
 }
 
 export function dropIndexFromSpans(spans: VerticalSpan[], y: number): number {
@@ -22,8 +40,8 @@ export function dropIndexFromSpans(spans: VerticalSpan[], y: number): number {
   return index;
 }
 
-export function indicatorY(spans: VerticalSpan[], index: number): number {
-  if (spans.length === 0) return 0;
+export function indicatorY(spans: VerticalSpan[], index: number, emptyY = 0): number {
+  if (spans.length === 0) return emptyY;
   if (index <= 0) return spans[0].top;
   if (index >= spans.length) return spans[spans.length - 1].bottom;
   return (spans[index - 1].bottom + spans[index].top) / 2;
@@ -32,6 +50,17 @@ export function indicatorY(spans: VerticalSpan[], index: number): number {
 export function finalMoveIndex(from: number, dropIndex: number): number {
   if (dropIndex > from) return dropIndex - 1;
   return dropIndex;
+}
+
+export function canvasViewport(
+  device: DeviceMode,
+  responsiveWidth: number | null,
+  available: Size,
+): DeviceViewport {
+  if (device !== 'responsive') return DEVICE_VIEWPORTS[device];
+  const maxWidth = Math.max(Math.floor(available.width), MIN_RESPONSIVE_WIDTH);
+  const width = clamp(responsiveWidth ?? maxWidth, MIN_RESPONSIVE_WIDTH, maxWidth);
+  return { width, height: null };
 }
 
 export function fitDevice(viewport: DeviceViewport, available: Size): DeviceFit {

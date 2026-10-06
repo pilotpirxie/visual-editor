@@ -1,41 +1,47 @@
+import { findBlockList, sharedSlotOf } from '../../app/blockLists';
 import { blockDuplicated, blockInserted, blockMoved, blockRemoved } from '../../app/projectSlice';
-import { selectCurrentPage, type AppThunk } from '../../app/store';
+import { selectCurrentPage, type AppThunk, type RootState } from '../../app/store';
 import type { DragPayload } from '../canvas/dragController';
 import { finalMoveIndex } from '../canvas/geometry';
 
 export type MoveOffset = -1 | 1;
 
+function insertionIndex(state: RootState, pageBlockIds: string[]): number {
+  const { selectedBlockId } = state.editor;
+  if (selectedBlockId === null) return pageBlockIds.length;
+  const slot = sharedSlotOf(state.project, selectedBlockId);
+  if (slot === 'header') return 0;
+  const selectedIndex = pageBlockIds.indexOf(selectedBlockId);
+  return selectedIndex === -1 ? pageBlockIds.length : selectedIndex + 1;
+}
+
 export function insertComponent(componentId: string): AppThunk {
   return (dispatch, getState) => {
     const state = getState();
     const page = selectCurrentPage(state);
-    const { selectedBlockId } = state.editor;
-    const selectedIndex = selectedBlockId === null ? -1 : page.blockIds.indexOf(selectedBlockId);
-    const index = selectedIndex === -1 ? page.blockIds.length : selectedIndex + 1;
-    dispatch(blockInserted(page.id, index, componentId));
+    dispatch(blockInserted(page.id, insertionIndex(state, page.blockIds), componentId));
   };
 }
 
 export function moveBlockBy(blockId: string, offset: MoveOffset): AppThunk {
   return (dispatch, getState) => {
-    const page = selectCurrentPage(getState());
-    const from = page.blockIds.indexOf(blockId);
-    const to = from + offset;
-    const isInRange = from !== -1 && to >= 0 && to < page.blockIds.length;
-    if (!isInRange) return;
-    dispatch(blockMoved({ pageId: page.id, blockId, toIndex: to }));
+    const list = findBlockList(getState().project, blockId);
+    if (list === null) return;
+    const to = list.indexOf(blockId) + offset;
+    if (to < 0 || to >= list.length) return;
+    dispatch(blockMoved({ blockId, toIndex: to }));
   };
 }
 
 export function duplicateBlock(blockId: string): AppThunk {
-  return (dispatch, getState) => {
-    dispatch(blockDuplicated(selectCurrentPage(getState()).id, blockId));
+  return (dispatch) => {
+    dispatch(blockDuplicated(blockId));
   };
 }
 
 export function removeBlock(blockId: string): AppThunk {
-  return (dispatch, getState) => {
-    dispatch(blockRemoved({ pageId: selectCurrentPage(getState()).id, blockId }));
+  return (dispatch) => {
+    dispatch(blockRemoved({ blockId }));
   };
 }
 
@@ -55,10 +61,11 @@ export function dropBlock(payload: DragPayload, dropIndex: number): AppThunk {
     const page = selectCurrentPage(getState());
     if (payload.kind === 'new') {
       dispatch(blockInserted(page.id, dropIndex, payload.componentId));
-    } else if (payload.kind === 'move' && !isNoopDrop(page.blockIds, payload, dropIndex)) {
-      const from = page.blockIds.indexOf(payload.blockId);
-      const toIndex = finalMoveIndex(from, dropIndex);
-      dispatch(blockMoved({ pageId: page.id, blockId: payload.blockId, toIndex }));
+    } else if (payload.kind === 'move') {
+      const list = findBlockList(getState().project, payload.blockId);
+      if (list === null || isNoopDrop(list, payload, dropIndex)) return;
+      const toIndex = finalMoveIndex(list.indexOf(payload.blockId), dropIndex);
+      dispatch(blockMoved({ blockId: payload.blockId, toIndex }));
     }
   };
 }
