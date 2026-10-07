@@ -1,0 +1,114 @@
+@layer components {
+  @scope (.b-richtext-sidebar) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-article {
+      --stack-gap: var(--space-8);
+      min-width: 0;
+      max-width: 42rem;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      padding-block-end: var(--space-8);
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-lead {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-body {
+      --prose-measure: none;
+      --prose-gap: var(--space-6);
+      --prose-item-gap: var(--space-3);
+      --prose-marker-color: var(--color-primary);
+      font-size: var(--text-base);
+    }
+
+    .b-sidebar {
+      --stack-gap: var(--space-3);
+      align-self: start;
+      padding: var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-sidebar-title {
+      font-size: var(--text-lg);
+    }
+
+    .b-sidebar-text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-links {
+      display: grid;
+    }
+
+    .b-links li + li {
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-links a {
+      --icon-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      min-height: 2.75rem;
+      padding-block: var(--space-2);
+      color: var(--color-text);
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-links a:hover {
+      color: var(--color-primary);
+    }
+
+    .b-links .icon {
+      color: var(--color-primary);
+      transition: translate var(--transition-fast);
+    }
+
+    .b-links a:hover .icon {
+      translate: var(--space-1) 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .b-links .icon {
+        transition: none;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .b-lead {
+        font-size: var(--text-xl);
+      }
+
+      .b-body {
+        font-size: var(--text-lg);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 42rem) 20rem;
+        justify-content: space-between;
+        gap: var(--space-16);
+      }
+
+      .b-sidebar {
+        position: sticky;
+        top: var(--space-8);
+      }
+    }
+  }
+}

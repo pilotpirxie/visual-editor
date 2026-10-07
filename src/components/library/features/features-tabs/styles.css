@@ -1,0 +1,96 @@
+@layer components {
+  @scope (.b-features-tabs) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-tablist {
+      display: flex;
+      gap: var(--space-1);
+      max-width: 100%;
+      margin-inline: auto;
+      padding: var(--space-1);
+      overflow-x: auto;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+    }
+
+    .b-tab {
+      --icon-size: 1.125rem;
+      display: inline-flex;
+      flex: none;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      padding: var(--space-2) var(--space-4);
+      border: 0;
+      border-radius: var(--radius-full);
+      background: none;
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-bold);
+      white-space: nowrap;
+      cursor: pointer;
+      transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .b-tab:hover {
+      color: var(--color-text);
+    }
+
+    .b-tab[aria-selected='true'] {
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .b-panels {
+      display: grid;
+      gap: var(--space-16);
+    }
+
+    .b-panel {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-panel:focus-visible {
+      outline-offset: var(--space-2);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-media {
+      box-shadow: var(--shadow-lg);
+    }
+
+    @media (min-width: 1024px) {
+      .b-panel {
+        grid-template-columns: 2fr 3fr;
+        gap: var(--space-12);
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+@layer components {
+  @scope (.b-signin-split) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-panel {
+      --stack-gap: var(--space-6);
+      width: 100%;
+      max-width: 26rem;
+      margin-inline: auto;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-options {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0 var(--space-4);
+    }
+
+    .b-forgot {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-submit {
+      width: 100%;
+    }
+
+    .b-switch {
+      color: var(--color-text-muted);
+    }
+
+    .b-switch a {
+      font-weight: var(--font-weight-bold);
+      white-space: nowrap;
+    }
+
+    :is(.b-forgot, .b-switch a) {
+      text-decoration: none;
+    }
+
+    :is(.b-forgot, .b-switch a):hover {
+      text-decoration: underline;
+    }
+
+    .b-visual {
+      position: relative;
+      display: none;
+    }
+
+    .b-media {
+      --media-radius: var(--radius-lg);
+    }
+
+    .b-quote {
+      --stack-gap: var(--space-3);
+      position: absolute;
+      inset: auto var(--space-4) var(--space-4);
+      padding: var(--space-6);
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-background) 92%, transparent);
+      color: var(--color-text);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-quote blockquote {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-person {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-8);
+      }
+
+      .b-visual {
+        display: block;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        gap: var(--space-16);
+      }
+
+      .b-quote {
+        inset: auto var(--space-6) var(--space-6);
+        padding: var(--space-8);
+      }
+
+      .b-quote blockquote {
+        font-size: var(--text-xl);
+      }
+    }
+  }
+}

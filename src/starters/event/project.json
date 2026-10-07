@@ -1,0 +1,2066 @@
+{
+  "schemaVersion": 3,
+  "id": "starter-event",
+  "settings": {
+    "title": "Gridlines",
+    "description": "Gridlines is a two-day conference on software for the energy transition, 19–20 November 2026 at Kraftwerk Berlin.",
+    "language": "en",
+    "titleTemplate": "{{page.title}} | {{site.title}}"
+  },
+  "designSystem": {
+    "presetId": "bold",
+    "tokens": {
+      "--color-primary": {
+        "name": "--color-primary",
+        "label": "Primary",
+        "group": "color",
+        "value": "#be123c"
+      },
+      "--color-primary-contrast": {
+        "name": "--color-primary-contrast",
+        "label": "Primary contrast",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--color-background": {
+        "name": "--color-background",
+        "label": "Background",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--color-surface": {
+        "name": "--color-surface",
+        "label": "Surface",
+        "group": "color",
+        "value": "#fff1f2"
+      },
+      "--color-text": {
+        "name": "--color-text",
+        "label": "Text",
+        "group": "color",
+        "value": "#0f0f14"
+      },
+      "--color-text-muted": {
+        "name": "--color-text-muted",
+        "label": "Muted text",
+        "group": "color",
+        "value": "#4a4a57"
+      },
+      "--color-border": {
+        "name": "--color-border",
+        "label": "Border",
+        "group": "color",
+        "value": "#f1d3d8"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#0f0f14"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#1c1c24"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#a1a1b0"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#2e2e3a"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#fb7185"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#0f0f14"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--font-heading": {
+        "name": "--font-heading",
+        "label": "Heading font",
+        "group": "typography",
+        "value": "\"Archivo Black\", system-ui, sans-serif"
+      },
+      "--font-body": {
+        "name": "--font-body",
+        "label": "Body font",
+        "group": "typography",
+        "value": "\"Archivo\", system-ui, sans-serif"
+      },
+      "--font-mono": {
+        "name": "--font-mono",
+        "label": "Mono font",
+        "group": "typography",
+        "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+      },
+      "--font-weight-heading": {
+        "name": "--font-weight-heading",
+        "label": "Heading weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-regular": {
+        "name": "--font-weight-regular",
+        "label": "Body weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-bold": {
+        "name": "--font-weight-bold",
+        "label": "Bold weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--text-xs": {
+        "name": "--text-xs",
+        "label": "Extra small",
+        "group": "typography",
+        "value": "0.598rem"
+      },
+      "--text-sm": {
+        "name": "--text-sm",
+        "label": "Small",
+        "group": "typography",
+        "value": "0.7971rem"
+      },
+      "--text-base": {
+        "name": "--text-base",
+        "label": "Base",
+        "group": "typography",
+        "value": "1.0625rem"
+      },
+      "--text-lg": {
+        "name": "--text-lg",
+        "label": "Large",
+        "group": "typography",
+        "value": "1.4163rem"
+      },
+      "--text-xl": {
+        "name": "--text-xl",
+        "label": "XL",
+        "group": "typography",
+        "value": "1.8879rem"
+      },
+      "--text-2xl": {
+        "name": "--text-2xl",
+        "label": "2XL",
+        "group": "typography",
+        "value": "2.5166rem"
+      },
+      "--text-3xl": {
+        "name": "--text-3xl",
+        "label": "3XL",
+        "group": "typography",
+        "value": "clamp(1.9673rem, 1.5048rem + 2.3123vw, 3.3547rem)"
+      },
+      "--text-4xl": {
+        "name": "--text-4xl",
+        "label": "4XL",
+        "group": "typography",
+        "value": "clamp(2.2948rem, 1.5692rem + 3.6282vw, 4.4718rem)"
+      },
+      "--text-5xl": {
+        "name": "--text-5xl",
+        "label": "5XL",
+        "group": "typography",
+        "value": "clamp(2.6769rem, 1.5823rem + 5.4732vw, 5.9609rem)"
+      },
+      "--line-height-tight": {
+        "name": "--line-height-tight",
+        "label": "Heading line height",
+        "group": "typography",
+        "value": "1.05"
+      },
+      "--line-height-normal": {
+        "name": "--line-height-normal",
+        "label": "Body line height",
+        "group": "typography",
+        "value": "1.6"
+      },
+      "--space-1": {
+        "name": "--space-1",
+        "label": "Space 1",
+        "group": "spacing",
+        "value": "0.3125rem"
+      },
+      "--space-2": {
+        "name": "--space-2",
+        "label": "Space 2",
+        "group": "spacing",
+        "value": "0.625rem"
+      },
+      "--space-3": {
+        "name": "--space-3",
+        "label": "Space 3",
+        "group": "spacing",
+        "value": "0.9375rem"
+      },
+      "--space-4": {
+        "name": "--space-4",
+        "label": "Space 4",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--space-6": {
+        "name": "--space-6",
+        "label": "Space 6",
+        "group": "spacing",
+        "value": "1.875rem"
+      },
+      "--space-8": {
+        "name": "--space-8",
+        "label": "Space 8",
+        "group": "spacing",
+        "value": "2.5rem"
+      },
+      "--space-12": {
+        "name": "--space-12",
+        "label": "Space 12",
+        "group": "spacing",
+        "value": "3.75rem"
+      },
+      "--space-16": {
+        "name": "--space-16",
+        "label": "Space 16",
+        "group": "spacing",
+        "value": "5rem"
+      },
+      "--section-padding-y": {
+        "name": "--section-padding-y",
+        "label": "Section padding",
+        "group": "spacing",
+        "value": "clamp(4rem, 3rem + 5vw, 8rem)"
+      },
+      "--container-max-width": {
+        "name": "--container-max-width",
+        "label": "Container width",
+        "group": "spacing",
+        "value": "72rem"
+      },
+      "--container-padding-x": {
+        "name": "--container-padding-x",
+        "label": "Container padding",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--radius-sm": {
+        "name": "--radius-sm",
+        "label": "Small radius",
+        "group": "shape",
+        "value": "0.5rem"
+      },
+      "--radius-md": {
+        "name": "--radius-md",
+        "label": "Medium radius",
+        "group": "shape",
+        "value": "1rem"
+      },
+      "--radius-lg": {
+        "name": "--radius-lg",
+        "label": "Large radius",
+        "group": "shape",
+        "value": "1.75rem"
+      },
+      "--radius-full": {
+        "name": "--radius-full",
+        "label": "Full radius",
+        "group": "shape",
+        "value": "9999px"
+      },
+      "--border-width": {
+        "name": "--border-width",
+        "label": "Border width",
+        "group": "shape",
+        "value": "1px"
+      },
+      "--shadow-sm": {
+        "name": "--shadow-sm",
+        "label": "Small shadow",
+        "group": "elevation",
+        "value": "0 1px 2px rgb(15 15 20 / 0.08)"
+      },
+      "--shadow-md": {
+        "name": "--shadow-md",
+        "label": "Medium shadow",
+        "group": "elevation",
+        "value": "0 6px 16px rgb(15 15 20 / 0.12)"
+      },
+      "--shadow-lg": {
+        "name": "--shadow-lg",
+        "label": "Large shadow",
+        "group": "elevation",
+        "value": "0 18px 44px rgb(15 15 20 / 0.18)"
+      },
+      "--button-radius": {
+        "name": "--button-radius",
+        "label": "Button radius",
+        "group": "component",
+        "value": "var(--radius-full)"
+      },
+      "--button-padding-y": {
+        "name": "--button-padding-y",
+        "label": "Button padding Y",
+        "group": "component",
+        "value": "0.875rem"
+      },
+      "--button-padding-x": {
+        "name": "--button-padding-x",
+        "label": "Button padding X",
+        "group": "component",
+        "value": "1.5rem"
+      },
+      "--card-radius": {
+        "name": "--card-radius",
+        "label": "Card radius",
+        "group": "component",
+        "value": "var(--radius-lg)"
+      },
+      "--card-shadow": {
+        "name": "--card-shadow",
+        "label": "Card shadow",
+        "group": "component",
+        "value": "var(--shadow-sm)"
+      },
+      "--transition-fast": {
+        "name": "--transition-fast",
+        "label": "Fast",
+        "group": "motion",
+        "value": "120ms"
+      },
+      "--transition-normal": {
+        "name": "--transition-normal",
+        "label": "Normal",
+        "group": "motion",
+        "value": "200ms"
+      }
+    },
+    "fonts": [
+      {
+        "role": "heading",
+        "family": "Archivo Black",
+        "weights": [400]
+      },
+      {
+        "role": "body",
+        "family": "Archivo",
+        "weights": [400, 700]
+      }
+    ],
+    "generators": {
+      "typeBasePx": 17,
+      "typeRatio": 1.333,
+      "spaceUnitPx": 5
+    },
+    "iconSet": "remix"
+  },
+  "pages": {
+    "ids": ["home", "schedule", "speakers", "tickets"],
+    "entities": {
+      "home": {
+        "id": "home",
+        "name": "Home",
+        "slug": "home",
+        "blockIds": [
+          "home-hero",
+          "home-tracks",
+          "home-numbers",
+          "home-speakers",
+          "home-quote",
+          "home-sponsors",
+          "home-cta"
+        ],
+        "seo": {
+          "description": "Gridlines 2026: two days of talks and workshops on software for the energy transition, 19–20 November at Kraftwerk Berlin."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "schedule": {
+        "id": "schedule",
+        "name": "Schedule",
+        "slug": "schedule",
+        "blockIds": ["schedule-hero", "schedule-agenda", "schedule-party", "schedule-cta"],
+        "seo": {
+          "description": "The full Gridlines 2026 schedule: keynotes, track talks, workshops and the Thursday party, 19–20 November in Berlin."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "speakers": {
+        "id": "speakers",
+        "name": "Speakers",
+        "slug": "speakers",
+        "blockIds": ["speakers-hero", "speakers-lineup", "speakers-rules", "speakers-cta"],
+        "seo": {
+          "description": "Meet the twelve Gridlines 2026 speakers from grid operators, wind farms, energy startups and open-source projects."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "tickets": {
+        "id": "tickets",
+        "name": "Tickets",
+        "slug": "tickets",
+        "blockIds": [
+          "tickets-hero",
+          "tickets-passes",
+          "tickets-faq",
+          "tickets-venue",
+          "tickets-contact"
+        ],
+        "seo": {
+          "description": "Gridlines 2026 passes from €120, early-bird prices until 16 October, and details on refunds, transfers, access and the venue."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      }
+    },
+    "homePageId": "home"
+  },
+  "blocks": {
+    "ids": [
+      "header-banner",
+      "header-nav",
+      "footer-footer",
+      "home-hero",
+      "home-tracks",
+      "home-numbers",
+      "home-speakers",
+      "home-quote",
+      "home-sponsors",
+      "home-cta",
+      "schedule-hero",
+      "schedule-agenda",
+      "schedule-party",
+      "schedule-cta",
+      "speakers-hero",
+      "speakers-lineup",
+      "speakers-rules",
+      "speakers-cta",
+      "tickets-hero",
+      "tickets-passes",
+      "tickets-faq",
+      "tickets-venue",
+      "tickets-contact"
+    ],
+    "entities": {
+      "header-banner": {
+        "id": "header-banner",
+        "kind": "component",
+        "componentId": "banner-announcement",
+        "componentVersion": 1,
+        "values": {
+          "showIcon": true,
+          "icon": "tag",
+          "text": "Early-bird passes are €390 until 16 October.",
+          "linkLabel": "See passes",
+          "link": {
+            "type": "section",
+            "pageId": "tickets",
+            "anchor": "passes",
+            "newTab": false
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "header-nav": {
+        "id": "header-nav",
+        "kind": "component",
+        "componentId": "nav-cta",
+        "componentVersion": 1,
+        "values": {
+          "logoIcon": "lucide:zap",
+          "links": [
+            {
+              "label": "Schedule",
+              "link": {
+                "type": "page",
+                "pageId": "schedule",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Speakers",
+              "link": {
+                "type": "page",
+                "pageId": "speakers",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Tickets",
+              "link": {
+                "type": "page",
+                "pageId": "tickets",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Venue",
+              "link": {
+                "type": "section",
+                "pageId": "tickets",
+                "anchor": "venue",
+                "newTab": false
+              }
+            }
+          ],
+          "signIn": {
+            "label": "Become a sponsor",
+            "link": {
+              "type": "section",
+              "pageId": "home",
+              "anchor": "sponsors",
+              "newTab": false
+            },
+            "variant": "ghost"
+          },
+          "cta": {
+            "label": "Get your ticket",
+            "link": {
+              "type": "page",
+              "pageId": "tickets",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "menuIcon": "menu"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "footer-footer": {
+        "id": "footer-footer",
+        "kind": "component",
+        "componentId": "footer-columns",
+        "componentVersion": 1,
+        "values": {
+          "tagline": "The conference for people who write software for the energy transition. 19–20 November 2026 at Kraftwerk Berlin.",
+          "productTitle": "Conference",
+          "productLinks": [
+            {
+              "label": "Schedule",
+              "link": {
+                "type": "page",
+                "pageId": "schedule",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Speakers",
+              "link": {
+                "type": "page",
+                "pageId": "speakers",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Tickets",
+              "link": {
+                "type": "page",
+                "pageId": "tickets",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Talks from 2025",
+              "link": {
+                "type": "url",
+                "url": "https://www.youtube.com",
+                "newTab": true
+              }
+            }
+          ],
+          "companyTitle": "Get involved",
+          "companyLinks": [
+            {
+              "label": "Become a sponsor",
+              "link": {
+                "type": "email",
+                "url": "sponsors@gridlines.example",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Volunteer",
+              "link": {
+                "type": "email",
+                "url": "volunteers@gridlines.example",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Press",
+              "link": {
+                "type": "email",
+                "url": "press@gridlines.example",
+                "newTab": false
+              }
+            }
+          ],
+          "resourcesTitle": "Good to know",
+          "resourcesLinks": [
+            {
+              "label": "Ticket FAQ",
+              "link": {
+                "type": "section",
+                "pageId": "tickets",
+                "anchor": "faq",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Venue and travel",
+              "link": {
+                "type": "section",
+                "pageId": "tickets",
+                "anchor": "venue",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact us",
+              "link": {
+                "type": "email",
+                "url": "hello@gridlines.example",
+                "newTab": false
+              }
+            }
+          ],
+          "socials": [
+            {
+              "label": "LinkedIn",
+              "icon": "simple-icons:linkedin",
+              "link": {
+                "type": "url",
+                "url": "https://www.linkedin.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "Bluesky",
+              "icon": "simple-icons:bluesky",
+              "link": {
+                "type": "url",
+                "url": "https://bsky.app",
+                "newTab": true
+              }
+            },
+            {
+              "label": "YouTube",
+              "icon": "simple-icons:youtube",
+              "link": {
+                "type": "url",
+                "url": "https://www.youtube.com",
+                "newTab": true
+              }
+            }
+          ],
+          "copyright": "© 2026 Gridlines Events GmbH, Berlin. All rights reserved."
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-hero": {
+        "id": "home-hero",
+        "kind": "component",
+        "componentId": "hero-background",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "19–20 November 2026 · Kraftwerk Berlin",
+          "title": "Software for a grid that runs on wind and sun",
+          "text": "Two days of talks and hands-on workshops for the engineers, data scientists and product people building the energy transition, inside a former power station.",
+          "primaryButton": {
+            "label": "Get your ticket",
+            "link": {
+              "type": "page",
+              "pageId": "tickets",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "See the schedule",
+            "link": {
+              "type": "page",
+              "pageId": "schedule",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The concrete main hall of Kraftwerk Berlin lit in red for the Gridlines opening keynote",
+            "decorative": false,
+            "width": 1600,
+            "height": 900,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "photo"
+            }
+          },
+          "align": "left"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-tracks": {
+        "id": "home-tracks",
+        "kind": "component",
+        "componentId": "features-bento",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "What to expect",
+          "title": "Three tracks, one workshop day",
+          "intro": "Every talk is about software running in production today: real systems, real numbers and no sales pitches.",
+          "items": [
+            {
+              "size": "large",
+              "visual": "image",
+              "icon": "sparkles",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A speaker on the main stage in front of a slide showing grid frequency over one day",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "title": "Main stage talks",
+              "text": "Both keynotes and the strongest talk from each track, in the main hall, with live captions for every session."
+            },
+            {
+              "size": "small",
+              "visual": "icon",
+              "icon": "zap",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Product screenshot",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "screenshot"
+                }
+              },
+              "title": "Grid and flexibility",
+              "text": "Congestion, balancing and demand response, and the code that runs them."
+            },
+            {
+              "size": "small",
+              "visual": "icon",
+              "icon": "chart",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Product screenshot",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "screenshot"
+                }
+              },
+              "title": "Forecasting and data",
+              "text": "Weather, load and price forecasts, from notebooks to 15-minute production runs."
+            },
+            {
+              "size": "small",
+              "visual": "icon",
+              "icon": "house",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Product screenshot",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "screenshot"
+                }
+              },
+              "title": "Homes and fleets",
+              "text": "Heat pumps, batteries, EV charging and the apps people use to control them."
+            },
+            {
+              "size": "wide",
+              "visual": "image",
+              "icon": "sparkles",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Attendees with laptops at long tables during a hands-on workshop",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "title": "Hands-on workshops on day two",
+              "text": "Rooms of 40 seats, from OpenADR clients to forecasting with real smart-meter data. Pick your workshop when you book."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "tracks"
+      },
+      "home-numbers": {
+        "id": "home-numbers",
+        "kind": "component",
+        "componentId": "stats-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Gridlines 2026",
+          "title": "The energy software crowd, all in one hall",
+          "intro": "Our fourth edition, and the first in a hall big enough for everyone on last year’s waiting list.",
+          "stats": [
+            {
+              "value": "900",
+              "label": "Attendees"
+            },
+            {
+              "value": "46",
+              "label": "Talks and workshops"
+            },
+            {
+              "value": "32",
+              "label": "Countries"
+            },
+            {
+              "value": "50%",
+              "label": "Speakers who are women or non-binary"
+            }
+          ],
+          "countUp": true,
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The packed main hall during a keynote at Gridlines 2025, seen from the back row",
+            "decorative": false,
+            "width": 1600,
+            "height": 900,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "photo"
+            }
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-speakers": {
+        "id": "home-speakers",
+        "kind": "component",
+        "componentId": "team-cards",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Featured speakers",
+          "title": "Who takes the stage",
+          "intro": "Twelve speakers from grid operators, wind farms, startups and open-source projects. Ines opens day one and Oluwaseun closes day two.",
+          "people": [
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ines Albrecht",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Ines Albrecht",
+              "role": "CTO, Nordwerk Netz",
+              "bio": "Opens day one with what 40,000 new heat pumps a month did to a distribution grid in northern Germany, and the software that kept it stable.",
+              "socials": [
+                {
+                  "label": "LinkedIn",
+                  "icon": "simple-icons:linkedin",
+                  "link": {
+                    "type": "url",
+                    "url": "https://www.linkedin.com",
+                    "newTab": true
+                  }
+                }
+              ]
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Marta Kowalczyk",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Marta Kowalczyk",
+              "role": "Staff engineer, Ampwise",
+              "bio": "Runs the platform that bids 60,000 home batteries into local flexibility markets every 15 minutes.",
+              "socials": [
+                {
+                  "label": "LinkedIn",
+                  "icon": "simple-icons:linkedin",
+                  "link": {
+                    "type": "url",
+                    "url": "https://www.linkedin.com",
+                    "newTab": true
+                  }
+                },
+                {
+                  "label": "GitHub",
+                  "icon": "simple-icons:github",
+                  "link": {
+                    "type": "url",
+                    "url": "https://github.com",
+                    "newTab": true
+                  }
+                }
+              ]
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Oluwaseun Adeyemi",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Oluwaseun Adeyemi",
+              "role": "Founder, Sunloop",
+              "bio": "Closes day two with ten years of energy software, from pay-as-you-go solar in Lagos to virtual power plants in Europe.",
+              "socials": [
+                {
+                  "label": "LinkedIn",
+                  "icon": "simple-icons:linkedin",
+                  "link": {
+                    "type": "url",
+                    "url": "https://www.linkedin.com",
+                    "newTab": true
+                  }
+                },
+                {
+                  "label": "Bluesky",
+                  "icon": "simple-icons:bluesky",
+                  "link": {
+                    "type": "url",
+                    "url": "https://bsky.app",
+                    "newTab": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-quote": {
+        "id": "home-quote",
+        "kind": "component",
+        "componentId": "testimonial-quote",
+        "componentVersion": 1,
+        "values": {
+          "quote": "The person next to you at lunch runs the system you complained about in your talk. That only happens at Gridlines.",
+          "name": "Grace Mwangi",
+          "role": "Software engineer at Brightwatt, attendee in 2025",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Grace Mwangi",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-sponsors": {
+        "id": "home-sponsors",
+        "kind": "component",
+        "componentId": "logos-heading",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Partners",
+          "title": "Our 2026 partners",
+          "text": "Partners fund student passes, live captions and free recordings. Sponsorship packages start at €4,000.",
+          "logos": [
+            {
+              "company": "Nordwerk Netz",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Nordwerk Netz logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Kestrel Wind",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Kestrel Wind logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Voltpark",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Voltpark logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Heatwell",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Heatwell logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Brightwatt",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Brightwatt logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Gridstone Capital",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Gridstone Capital logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "sponsors"
+      },
+      "home-cta": {
+        "id": "home-cta",
+        "kind": "component",
+        "componentId": "cta-centered",
+        "componentVersion": 1,
+        "values": {
+          "title": "Early-bird passes end 16 October",
+          "text": "Save €200 on a pass that covers both days, every talk, a workshop seat, lunch and the Thursday party.",
+          "button": {
+            "label": "Get your ticket",
+            "link": {
+              "type": "page",
+              "pageId": "tickets",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-primary-background)",
+          "--color-surface": "var(--theme-primary-surface)",
+          "--color-text": "var(--theme-primary-text)",
+          "--color-text-muted": "var(--theme-primary-text-muted)",
+          "--color-border": "var(--theme-primary-border)",
+          "--color-primary": "var(--theme-primary-accent)",
+          "--color-primary-contrast": "var(--theme-primary-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "schedule-hero": {
+        "id": "schedule-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Schedule",
+          "title": "Two days, 46 sessions, one power station",
+          "text": "Thursday is for talks on the main stage and in two track rooms. Friday is for hands-on workshops and the closing keynote. All times are Berlin time.",
+          "primaryButton": {
+            "label": "Get your ticket",
+            "link": {
+              "type": "page",
+              "pageId": "tickets",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Meet the speakers",
+            "link": {
+              "type": "page",
+              "pageId": "speakers",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "schedule-agenda": {
+        "id": "schedule-agenda",
+        "kind": "component",
+        "componentId": "content-agenda",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Main stage and workshops",
+          "title": "Hour by hour, both days",
+          "intro": "Talks are 30 minutes including questions. The two track rooms run in parallel, and main stage sessions are recorded for ticket holders.",
+          "days": [
+            {
+              "label": "Thursday, 19 November",
+              "note": "Main hall",
+              "sessions": [
+                {
+                  "time": "08:30",
+                  "title": "Doors open, coffee and badges",
+                  "speaker": "",
+                  "description": "Breakfast from Berlin bakeries in the foyer. Bring a photo ID to pick up your badge.",
+                  "tag": ""
+                },
+                {
+                  "time": "09:30",
+                  "title": "The grid we planned for and the grid we got",
+                  "speaker": "Ines Albrecht, Nordwerk Netz",
+                  "description": "What 40,000 new heat pumps a month did to a distribution grid in northern Germany, and the software that kept it stable.",
+                  "tag": "Keynote"
+                },
+                {
+                  "time": "10:30",
+                  "title": "Forecasting solar output one cloud at a time",
+                  "speaker": "Rahul Iyer, Weatherline",
+                  "description": "Nowcasting with satellite images and 3,000 rooftop inverters, and why the last 15 minutes matter most.",
+                  "tag": "Talk"
+                },
+                {
+                  "time": "11:15",
+                  "title": "Flexibility markets without spreadsheets",
+                  "speaker": "Marta Kowalczyk, Ampwise",
+                  "description": "How Ampwise bids 60,000 home batteries into local flexibility markets every 15 minutes, and settles every one of them.",
+                  "tag": "Talk"
+                },
+                {
+                  "time": "12:00",
+                  "title": "Lunch",
+                  "speaker": "",
+                  "description": "Long tables by topic: forecasting, markets, hardware and open source.",
+                  "tag": ""
+                },
+                {
+                  "time": "13:30",
+                  "title": "Who maintains the code that runs the grid?",
+                  "speaker": "Sanne de Vries, Tidewater Energy; Diego Navarro, OpenFlux Foundation; Elif Demir, Nordwerk Netz",
+                  "description": "Open source in a regulated industry: who reviews it, who pays for it and who gets the call at 3 am.",
+                  "tag": "Panel"
+                },
+                {
+                  "time": "14:30",
+                  "title": "Charging 800 city buses overnight",
+                  "speaker": "Lars Eriksen, Voltpark",
+                  "description": "Scheduling depot charging for fleets in Oslo and Hamburg without upgrading a single substation.",
+                  "tag": "Talk"
+                },
+                {
+                  "time": "15:30",
+                  "title": "Lightning talks",
+                  "speaker": "Eight attendees, five minutes each",
+                  "description": "Picked by attendee vote from 140 proposals. Sign-ups open in October.",
+                  "tag": "Lightning"
+                },
+                {
+                  "time": "19:00",
+                  "title": "Gridlines party",
+                  "speaker": "",
+                  "description": "Food trucks, a hardware show-and-tell and a live DJ set in the main hall until 01:00.",
+                  "tag": "Social"
+                }
+              ]
+            },
+            {
+              "label": "Friday, 20 November",
+              "note": "Workshop rooms and main hall",
+              "sessions": [
+                {
+                  "time": "09:00",
+                  "title": "Workshop: forecasting with your own meter data",
+                  "speaker": "Hana Kobayashi, Weatherline",
+                  "description": "Bring a laptop with Python 3.12. We provide a year of anonymized smart-meter data from 2,000 homes. 40 seats.",
+                  "tag": "Workshop"
+                },
+                {
+                  "time": "09:00",
+                  "title": "Workshop: build an OpenADR 3 client",
+                  "speaker": "Tomás Ferreira, Heatwell",
+                  "description": "Write a demand response client that a utility can send real signals to, and test it against our live server. 40 seats.",
+                  "tag": "Workshop"
+                },
+                {
+                  "time": "11:00",
+                  "title": "A digital twin for 30,000 kilometres of cable",
+                  "speaker": "Elif Demir, Nordwerk Netz",
+                  "description": "How a grid operator built a live model of its low-voltage network from meter data, and what it found.",
+                  "tag": "Talk"
+                },
+                {
+                  "time": "11:45",
+                  "title": "Running a wind farm control room in the cloud",
+                  "speaker": "Jakob Lindqvist, Kestrel Wind",
+                  "description": "What it took to move monitoring for 400 turbines to the cloud, and what had to stay on site.",
+                  "tag": "Talk"
+                },
+                {
+                  "time": "12:30",
+                  "title": "Lunch",
+                  "speaker": "",
+                  "description": "Workshop leads join the tables to answer the questions you ran out of time for.",
+                  "tag": ""
+                },
+                {
+                  "time": "13:30",
+                  "title": "Dynamic tariffs people actually trust",
+                  "speaker": "Niamh O’Connor, Brightwatt",
+                  "description": "Results from 18 months of testing hourly prices with 9,000 households, and the app changes that made them stick.",
+                  "tag": "Talk"
+                },
+                {
+                  "time": "14:30",
+                  "title": "Ten years of code for the energy transition",
+                  "speaker": "Oluwaseun Adeyemi, Sunloop",
+                  "description": "From pay-as-you-go solar in Lagos to virtual power plants in Europe: what scales and what never will.",
+                  "tag": "Keynote"
+                },
+                {
+                  "time": "15:30",
+                  "title": "Closing drinks",
+                  "speaker": "",
+                  "description": "One last coffee or beer in the foyer before the trains home.",
+                  "tag": ""
+                }
+              ]
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "agenda"
+      },
+      "schedule-party": {
+        "id": "schedule-party",
+        "kind": "component",
+        "componentId": "content-text-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Thursday, 19:00",
+          "title": "Then the party starts",
+          "body": "<p>From 19:00 the main hall turns into the Gridlines party. It is included with every pass, and so is dinner.</p><ul><li>Five Berlin food trucks, with vegan and halal options</li><li>A show-and-tell of home-built meters, inverters and chargers</li><li>A live set from the Berlin DJ collective Phasenwechsel until 01:00</li></ul>",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Attendees dancing under red stage lights in the main hall at the 2025 Gridlines party",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "left"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "schedule-cta": {
+        "id": "schedule-cta",
+        "kind": "component",
+        "componentId": "cta-banner",
+        "componentVersion": 1,
+        "values": {
+          "title": "Workshops have 40 seats per room",
+          "text": "Pick yours when you book. Early-bird holders choose first.",
+          "button": {
+            "label": "Get your ticket",
+            "link": {
+              "type": "page",
+              "pageId": "tickets",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "speakers-hero": {
+        "id": "speakers-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Speakers",
+          "title": "Meet the 2026 speakers",
+          "text": "Twelve speakers from grid operators, wind farms, startups and open-source projects, picked from 140 proposals by a committee of past attendees.",
+          "primaryButton": {
+            "label": "See the full schedule",
+            "link": {
+              "type": "page",
+              "pageId": "schedule",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": false,
+          "secondaryButton": {
+            "label": "Get your ticket",
+            "link": {
+              "type": "page",
+              "pageId": "tickets",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "speakers-lineup": {
+        "id": "speakers-lineup",
+        "kind": "component",
+        "componentId": "team-grid",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "2026 lineup",
+          "title": "Twelve speakers, no sales pitches",
+          "intro": "Every talk is about a system running in production today. Talk descriptions are on the schedule.",
+          "people": [
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ines Albrecht",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Ines Albrecht",
+              "role": "CTO, Nordwerk Netz"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Oluwaseun Adeyemi",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Oluwaseun Adeyemi",
+              "role": "Founder, Sunloop"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Rahul Iyer",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Rahul Iyer",
+              "role": "Head of forecasting, Weatherline"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Marta Kowalczyk",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Marta Kowalczyk",
+              "role": "Staff engineer, Ampwise"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Lars Eriksen",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Lars Eriksen",
+              "role": "Fleet charging lead, Voltpark"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Sanne de Vries",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Sanne de Vries",
+              "role": "Platform engineer, Tidewater Energy"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Diego Navarro",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Diego Navarro",
+              "role": "Maintainer, OpenFlux Foundation"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Elif Demir",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Elif Demir",
+              "role": "Digital twin lead, Nordwerk Netz"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Hana Kobayashi",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Hana Kobayashi",
+              "role": "Data scientist, Weatherline"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tomás Ferreira",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Tomás Ferreira",
+              "role": "Principal engineer, Heatwell"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Jakob Lindqvist",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Jakob Lindqvist",
+              "role": "Control room engineering, Kestrel Wind"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Niamh O’Connor",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Niamh O’Connor",
+              "role": "Product director, Brightwatt"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "lineup"
+      },
+      "speakers-rules": {
+        "id": "speakers-rules",
+        "kind": "component",
+        "componentId": "features-grid-3",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "How we pick talks",
+          "title": "What makes a Gridlines talk",
+          "intro": "<p>Our program committee reads every proposal twice. These are the three things they look for.</p>",
+          "items": [
+            {
+              "icon": "users",
+              "title": "Chosen by practitioners",
+              "text": "Nine past attendees score every proposal with names and companies hidden."
+            },
+            {
+              "icon": "chart",
+              "title": "Real systems, real numbers",
+              "text": "Talks show code, data or incidents from production, including what went wrong."
+            },
+            {
+              "icon": "shield",
+              "title": "No paid stage time",
+              "text": "Sponsors cannot buy a talk. Product demos belong at the coffee bar, not on stage."
+            }
+          ],
+          "align": "center",
+          "columns": "3"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "speakers-cta": {
+        "id": "speakers-cta",
+        "kind": "component",
+        "componentId": "cta-two-buttons",
+        "componentVersion": 1,
+        "values": {
+          "title": "See all twelve live in Berlin",
+          "text": "Early-bird passes are €390 until 16 October and include every talk, a workshop seat and the Thursday party.",
+          "primaryButton": {
+            "label": "Get your ticket",
+            "link": {
+              "type": "page",
+              "pageId": "tickets",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "secondaryButton": {
+            "label": "Plan your trip",
+            "link": {
+              "type": "section",
+              "pageId": "tickets",
+              "anchor": "venue",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-primary-background)",
+          "--color-surface": "var(--theme-primary-surface)",
+          "--color-text": "var(--theme-primary-text)",
+          "--color-text-muted": "var(--theme-primary-text-muted)",
+          "--color-border": "var(--theme-primary-border)",
+          "--color-primary": "var(--theme-primary-accent)",
+          "--color-primary-contrast": "var(--theme-primary-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "tickets-hero": {
+        "id": "tickets-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Tickets",
+          "title": "One pass, both days",
+          "text": "Every pass includes all talks, a workshop seat, lunch and coffee on both days, the Thursday party and the recordings. Prices include 19% German VAT.",
+          "primaryButton": {
+            "label": "Compare passes",
+            "link": {
+              "type": "section",
+              "pageId": "tickets",
+              "anchor": "passes",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Read the FAQ",
+            "link": {
+              "type": "section",
+              "pageId": "tickets",
+              "anchor": "faq",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "tickets-passes": {
+        "id": "tickets-passes",
+        "kind": "component",
+        "componentId": "pricing-3-plans",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Passes",
+          "title": "Book early, pay less",
+          "intro": "Standard passes cost €590 from 17 October. Need an invoice before you pay? Write to tickets@gridlines.example.",
+          "featuredLabel": "Ends 16 October",
+          "plans": [
+            {
+              "name": "Student",
+              "price": "€120",
+              "period": "per person",
+              "description": "For students and recent graduates. 100 passes, funded by our partners.",
+              "features": "<ul><li>Both conference days</li><li>One workshop seat</li><li>Lunch, coffee and the party</li><li>Student ID checked at the door</li></ul>",
+              "featured": false,
+              "button": {
+                "label": "Get a student pass",
+                "link": {
+                  "type": "url",
+                  "url": "https://tickets.gridlines.example/student",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            },
+            {
+              "name": "Early bird",
+              "price": "€390",
+              "period": "per person",
+              "description": "Everything at €200 less than the standard price, plus first pick of workshops.",
+              "features": "<ul><li>Both conference days</li><li>First pick of workshop seats</li><li>Lunch, coffee and the party</li><li>Recordings of every main stage talk</li></ul>",
+              "featured": true,
+              "button": {
+                "label": "Get early bird",
+                "link": {
+                  "type": "url",
+                  "url": "https://tickets.gridlines.example/early-bird",
+                  "newTab": false
+                },
+                "variant": "primary"
+              }
+            },
+            {
+              "name": "Team of five",
+              "price": "€1,750",
+              "period": "per team",
+              "description": "Five early-bird passes on one invoice, at €350 per person.",
+              "features": "<ul><li>Five full passes</li><li>One invoice with your VAT ID</li><li>Free name changes until 18 November</li><li>A reserved lunch table on both days</li></ul>",
+              "featured": false,
+              "button": {
+                "label": "Book for your team",
+                "link": {
+                  "type": "url",
+                  "url": "https://tickets.gridlines.example/team",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "passes"
+      },
+      "tickets-faq": {
+        "id": "tickets-faq",
+        "kind": "component",
+        "componentId": "faq-accordion",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Questions",
+          "title": "Before you book",
+          "expandIcon": "chevron-down",
+          "items": [
+            {
+              "question": "Can I get a refund?",
+              "answer": "<p>Yes. You get a full refund until 19 October and half the price back until 5 November. After that we cannot refund passes, but you can transfer yours to a colleague.</p>"
+            },
+            {
+              "question": "Can I transfer my pass to someone else?",
+              "answer": "<p>Yes, for free, until 18 November. Change the name with the link in your confirmation email. Team passes can change names as often as you need.</p>"
+            },
+            {
+              "question": "Is the venue accessible?",
+              "answer": "<p>The entrance, main hall and workshop rooms are step-free, with lifts between floors and accessible toilets. Every main stage session has live captions, and a quiet room is open on both days. Write to access@gridlines.example and we will plan your visit with you.</p>"
+            },
+            {
+              "question": "Do you offer free or reduced tickets?",
+              "answer": "<p>Yes. Besides the 100 student passes, our partners fund 60 free passes for people from groups under-represented in energy tech. Apply by 23 October.</p>"
+            },
+            {
+              "question": "Can my company pay by invoice?",
+              "answer": "<p>Yes. Choose invoice at checkout and add your company’s VAT ID. Invoices are due within 14 days and must be paid before 5 November.</p>"
+            },
+            {
+              "question": "Will the talks be recorded?",
+              "answer": "<p>Every main stage talk is recorded and shared with ticket holders a week after the conference. Recordings go public in January 2027.</p>"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "faq"
+      },
+      "tickets-venue": {
+        "id": "tickets-venue",
+        "kind": "component",
+        "componentId": "content-text-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Venue: Kraftwerk Berlin",
+          "title": "A former power station",
+          "body": "<p>Gridlines takes over Kraftwerk Berlin, a 1960s heating plant in Mitte with a main hall of raw concrete and steel, ten minutes from Alexanderplatz.</p><ul><li><strong>Address:</strong> Köpenicker Straße 70, 10179 Berlin</li><li><strong>Underground:</strong> U8 to Heinrich-Heine-Straße, then five minutes on foot</li><li><strong>S-Bahn:</strong> Jannowitzbrücke, then ten minutes on foot</li><li><strong>Hotels:</strong> partner rates near the venue until 16 October, linked in your booking email</li></ul>",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The main hall of Kraftwerk Berlin, a former power station with raw concrete walls and steel galleries",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "left"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "venue"
+      },
+      "tickets-contact": {
+        "id": "tickets-contact",
+        "kind": "component",
+        "componentId": "contact-cards",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Get in touch",
+          "title": "Still have a question?",
+          "cards": [
+            {
+              "icon": "tag",
+              "title": "Tickets and invoices",
+              "text": "Bookings, receipts, name changes and group discounts.",
+              "link": {
+                "label": "tickets@gridlines.example",
+                "link": {
+                  "type": "email",
+                  "url": "tickets@gridlines.example",
+                  "newTab": false
+                },
+                "variant": "ghost"
+              }
+            },
+            {
+              "icon": "users",
+              "title": "Access and support",
+              "text": "Captions, the quiet room, step-free routes or anything else that helps you attend.",
+              "link": {
+                "label": "access@gridlines.example",
+                "link": {
+                  "type": "email",
+                  "url": "access@gridlines.example",
+                  "newTab": false
+                },
+                "variant": "ghost"
+              }
+            },
+            {
+              "icon": "briefcase",
+              "title": "Sponsorship",
+              "text": "Partner packages from €4,000, including funded student passes.",
+              "link": {
+                "label": "sponsors@gridlines.example",
+                "link": {
+                  "type": "email",
+                  "url": "sponsors@gridlines.example",
+                  "newTab": false
+                },
+                "variant": "ghost"
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      }
+    }
+  },
+  "sharedSlots": {
+    "header": ["header-banner", "header-nav"],
+    "footer": ["footer-footer"]
+  },
+  "assets": {}
+}

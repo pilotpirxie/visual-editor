@@ -1,0 +1,43 @@
+@layer components {
+  @scope (.b-divider) {
+    :scope {
+      padding-block: var(--space-8);
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    :scope[data-spacing='small'] {
+      padding-block: var(--space-4);
+    }
+
+    :scope[data-spacing='large'] {
+      padding-block: var(--space-16);
+    }
+
+    :scope[data-width='full'] .b-frame {
+      --container-max-width: none;
+      --container-padding-x: 0;
+    }
+
+    .b-rule {
+      height: 0;
+      border: 0;
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    :scope:is([data-style='dashed'], [data-style='short']) .b-rule {
+      border-block-start-color: color-mix(in oklab, var(--color-border), var(--color-text) 20%);
+    }
+
+    :scope[data-style='dashed'] .b-rule {
+      border-block-start-style: dashed;
+      border-block-start-width: calc(var(--border-width) * 2);
+    }
+
+    :scope[data-style='short'] .b-rule {
+      width: 5rem;
+      margin-inline: auto;
+      border-block-start-width: calc(var(--border-width) * 4);
+    }
+  }
+}

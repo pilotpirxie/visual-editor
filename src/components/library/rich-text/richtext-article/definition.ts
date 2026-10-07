@@ -1,0 +1,66 @@
+import type { ComponentDefinition } from '../../../types';
+
+const ARTICLE_BODY = [
+  '<p>When activation dipped for the second quarter in a row, our team had plenty of opinions and very little evidence. Dashboards showed where new workspaces stalled. They could not tell us why. So we set ourselves a deadline: forty conversations with new customers in two weeks, and a decision on the onboarding roadmap by the end of the month.</p>',
+  '<h2>Recruiting without slowing down</h2>',
+  '<p>We invited every workspace created in the previous six weeks and asked for 30 minutes instead of a full hour. Customer success flagged accounts that had gone quiet, so we heard from people who struggled as well as people who thrived. Within four days the calendar was full.</p>',
+  '<p>Every call was recorded and transcribed in Fieldnote, and two of us joined each session: one to lead the conversation and one to tag highlights as they happened. By the end of each day, the notes were already searchable by the whole team.</p>',
+  '<h2>What we heard</h2>',
+  '<p>Three themes came up again and again, across company sizes and roles:</p>',
+  '<ul><li>New admins invited their team before uploading a single recording, so colleagues arrived to an empty workspace.</li><li>People expected tags to exist already and did not know where to start with their own.</li><li>The first transcript was the moment it clicked, and on average it took four days to get there.</li></ul>',
+  '<p>None of this showed up in our funnel. Watching Priya Raman at Northwind look for a tag list that did not exist yet did more for the roadmap than a month of charts.</p>',
+  '<p>We have since moved the first upload to the start of onboarding, added starter tag sets for common research goals and given every new workspace a sample interview to explore. Activation is up 18 percent since the change, and the next round of calls is already on the calendar.</p>',
+].join('');
+
+export const definition: ComponentDefinition = {
+  id: 'richtext-article',
+  version: 1,
+  name: 'Rich text, article',
+  category: 'rich-text',
+  description: 'A single readable column for long-form text with a title, byline and date.',
+  tags: ['article', 'blog', 'post', 'text', 'long-form', 'story', 'prose'],
+  fieldGroups: ['Heading', 'Article'],
+  styleOverrides: ['--color-background', '--color-text', '--section-padding-y'],
+  fields: [
+    {
+      name: 'eyebrow',
+      label: 'Category',
+      type: 'text',
+      default: 'Research practice',
+      group: 'Heading',
+    },
+    {
+      name: 'title',
+      label: 'Title',
+      type: 'text',
+      default: 'What forty customer interviews taught us about onboarding',
+      required: true,
+      maxLength: 140,
+      group: 'Heading',
+    },
+    {
+      name: 'author',
+      label: 'Author',
+      type: 'text',
+      default: 'Ingrid Solberg, Head of research',
+      group: 'Heading',
+    },
+    { name: 'date', label: 'Publish date', type: 'date', default: '2026-09-14', group: 'Heading' },
+    {
+      name: 'lead',
+      label: 'Lead paragraph',
+      type: 'textarea',
+      default:
+        'In August our product team spoke with forty new customers in their first month. Here is how we ran the study in two weeks, and the three changes it led to.',
+      group: 'Heading',
+    },
+    {
+      name: 'body',
+      label: 'Article',
+      type: 'richtext',
+      allowHeadings: true,
+      default: ARTICLE_BODY,
+      group: 'Article',
+    },
+  ],
+};

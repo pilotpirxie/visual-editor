@@ -8,7 +8,7 @@ import {
   createSampleProject,
   UNTITLED_PROJECT_TITLE,
 } from './projectFactory';
-import type { DesignSystemPreset } from './types';
+import { SCHEMA_VERSION, type DesignSystemPreset } from './types';
 
 function presetById(id: string): DesignSystemPreset {
   const preset = BUILTIN_PRESETS.find((item) => item.id === id);
@@ -40,7 +40,7 @@ describe('createPage', () => {
 describe('createBlankProject', () => {
   it('uses the given title and default settings', () => {
     const project = createBlankProject('Harbor Bakery');
-    expect(project.schemaVersion).toBe(2);
+    expect(project.schemaVersion).toBe(SCHEMA_VERSION);
     expect(project.settings).toEqual({
       title: 'Harbor Bakery',
       description: '',

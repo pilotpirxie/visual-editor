@@ -30,6 +30,63 @@
     outline-offset: 2px;
   }
 
+  .field :is(input, textarea)::placeholder {
+    color: var(--color-text-muted);
+    opacity: 1;
+  }
+
+  .field-check {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+  }
+
+  .field-check input {
+    display: inline-grid;
+    flex: none;
+    place-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+    border: var(--border-width) solid var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    background: var(--color-background);
+    cursor: pointer;
+    appearance: none;
+    transition:
+      background-color var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+
+  .field-check input::before {
+    content: '';
+    width: 0.75rem;
+    height: 0.75rem;
+    background: var(--color-primary-contrast);
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0, 43% 62%);
+    transform: scale(0);
+    transition: transform var(--transition-fast);
+  }
+
+  .field-check input:checked {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+  }
+
+  .field-check input:checked::before {
+    transform: scale(1);
+  }
+
+  .field-check input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .field-check label {
+    cursor: pointer;
+  }
+
   .field-hint {
     color: var(--color-text-muted);
     font-size: var(--text-sm);

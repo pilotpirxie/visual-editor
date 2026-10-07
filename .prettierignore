@@ -8,3 +8,4 @@ playwright-report
 blob-report
 .vitest
 src/features/design-system/google-fonts.json
+src/persistence/fixtures/*.export.html

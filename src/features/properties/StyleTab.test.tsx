@@ -32,6 +32,10 @@ function row(container: HTMLElement, token: string): HTMLElement {
   return element;
 }
 
+function themeInput(container: HTMLElement, label: string): HTMLInputElement | null {
+  return container.querySelector(`fieldset.ui-segmented [title="${label}"] input`);
+}
+
 beforeEach(() => {
   loadIntoAppStore();
 });
@@ -96,5 +100,40 @@ describe('StyleTab', () => {
     expect(
       row(container, '--color-text').querySelector('[title="Primary"] input:checked'),
     ).not.toBeNull();
+  });
+
+  it('switches the section theme in one undo step and shows a custom mix as no theme', () => {
+    const { container } = render(<PropertiesPanel />);
+    const heroId = selectHeroStyle();
+    function theme(label: string): HTMLInputElement | null {
+      return themeInput(container, label);
+    }
+    click(getButton(row(container, '--color-text'), 'Override Text'));
+    click(row(container, '--color-text').querySelector('[title="Primary"] input'));
+    click(theme('Dark'));
+    expect(overridesOf(heroId)).toMatchObject({
+      '--color-background': 'var(--theme-dark-background)',
+      '--color-text': 'var(--theme-dark-text)',
+      '--color-primary': 'var(--theme-dark-accent)',
+    });
+    expect(theme('Dark')?.checked).toBe(true);
+    runInAct(() => dispatch(undo()));
+    expect(overridesOf(heroId)).toEqual({ '--color-text': 'var(--color-primary)' });
+    expect(container.querySelector('fieldset.ui-segmented input:checked')).toBeNull();
+    click(theme('Default'));
+    expect(overridesOf(heroId)).toEqual({});
+    expect(theme('Default')?.checked).toBe(true);
+  });
+
+  it('keeps padding overrides when the theme changes', () => {
+    const { container } = render(<PropertiesPanel />);
+    const heroId = selectHeroStyle();
+    click(getButton(row(container, '--section-padding-y'), 'Override Section padding'));
+    changeValue(row(container, '--section-padding-y').querySelector('select'), '--space-8');
+    click(themeInput(container, 'Surface'));
+    expect(overridesOf(heroId)).toEqual({
+      '--section-padding-y': 'var(--space-8)',
+      '--color-background': 'var(--color-surface)',
+    });
   });
 });

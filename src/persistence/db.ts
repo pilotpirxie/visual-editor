@@ -1,5 +1,5 @@
 import type { Project } from '../app/types';
-import { parseProjectDocument } from './validateProject';
+import { openProjectDocument } from './migrations';
 
 export type ProjectSummary = { id: string; title: string; updatedAt: string };
 
@@ -106,7 +106,7 @@ export async function getProject(id: string): Promise<Project | null> {
   const documentsStore = db.transaction(DOCUMENTS).objectStore(DOCUMENTS);
   const stored: unknown = await requestResult(documentsStore.get(id));
   if (stored === undefined) return null;
-  return parseProjectDocument(stored);
+  return openProjectDocument(stored);
 }
 
 export async function getProjectSummary(id: string): Promise<ProjectSummary | null> {

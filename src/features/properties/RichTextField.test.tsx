@@ -9,7 +9,10 @@ type CommandCall = { command: string; argument: string | undefined };
 
 const SETTING_COMMANDS = new Set(['defaultParagraphSeparator']);
 
-function renderEditor(value: string): {
+function renderEditor(
+  value: string,
+  field: Field = richText,
+): {
   container: HTMLDivElement;
   editor: HTMLElement;
   onChange: ReturnType<typeof vi.fn>;
@@ -17,7 +20,7 @@ function renderEditor(value: string): {
   const onChange = vi.fn();
   const { container } = render(
     <RichTextField
-      field={richText}
+      field={field}
       value={value}
       id="ve-field-intro"
       path="intro"
@@ -93,6 +96,18 @@ describe('RichTextField', () => {
     click(getButton(container, 'Bold'));
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenCalledWith('<p><strong>Hello</strong></p>', 'discrete');
+  });
+
+  it('offers heading buttons and keeps headings only for fields that allow them', () => {
+    const calls = stubExecCommand(() => {});
+    const plain = renderEditor('<h2>Title</h2>');
+    expect(plain.editor.innerHTML).toBe('<p>Title</p>');
+    expect(plain.container.querySelector('[aria-label="Heading"]')).toBeNull();
+
+    const article = renderEditor('<h2>Title</h2>', { ...richText, allowHeadings: true });
+    expect(article.editor.innerHTML).toBe('<h2>Title</h2>');
+    click(getButton(article.container, 'Subheading'));
+    expect(calls).toEqual([{ command: 'formatBlock', argument: 'h3' }]);
   });
 
   it('pastes plain text as paragraphs through one insert command', () => {

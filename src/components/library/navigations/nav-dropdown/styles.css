@@ -1,0 +1,186 @@
+@layer components {
+  @scope (.b-nav-dropdown) {
+    :scope {
+      background: var(--color-background);
+      color: var(--color-text);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .b-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+      min-height: 4rem;
+    }
+
+    .b-logo {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-toggle {
+      --icon-size: 1.5rem;
+    }
+
+    .b-menu {
+      inset: 4rem 0 auto;
+      width: auto;
+      height: auto;
+      max-height: calc(100dvh - 4rem);
+      margin: 0;
+      padding: var(--space-4) var(--container-padding-x) var(--space-6);
+      overflow-y: auto;
+      border: 0;
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-menu:popover-open {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .b-links {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .b-link,
+    .b-sub a {
+      display: flex;
+      align-items: center;
+      min-height: 2.75rem;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-link:hover,
+    .b-sub a:hover {
+      color: var(--color-primary);
+    }
+
+    .b-group-label {
+      display: block;
+      padding-block: var(--space-3) var(--space-1);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-muted);
+    }
+
+    .b-parent {
+      display: none;
+    }
+
+    .b-sub {
+      position: static;
+      display: block;
+      width: auto;
+      height: auto;
+      margin: 0;
+      padding: 0 0 var(--space-2) var(--space-4);
+      overflow: visible;
+      border: 0;
+      background: none;
+      color: inherit;
+    }
+
+    @media (min-width: 1024px) {
+      .b-toggle,
+      .b-group-label {
+        display: none;
+      }
+
+      .b-menu {
+        position: static;
+        display: flex;
+        align-items: center;
+        gap: var(--space-8);
+        max-height: none;
+        padding: 0;
+        overflow: visible;
+        border: 0;
+        background: none;
+        box-shadow: none;
+      }
+
+      .b-links {
+        flex-direction: row;
+        gap: var(--space-6);
+      }
+
+      .b-link,
+      .b-parent {
+        font-weight: var(--font-weight-regular);
+      }
+
+      .b-parent {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-1);
+        min-height: 2.75rem;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .b-parent:hover {
+        color: var(--color-primary);
+      }
+
+      .b-parent .icon {
+        --icon-size: 1rem;
+        transition: rotate var(--transition-fast);
+      }
+
+      .b-parent[aria-expanded='true'] .icon {
+        rotate: 180deg;
+      }
+
+      .b-sub {
+        display: none;
+      }
+
+      .b-sub:popover-open {
+        position: fixed;
+        inset: auto;
+        top: anchor(bottom);
+        left: anchor(left);
+        position-try-fallbacks: flip-inline;
+        display: flex;
+        flex-direction: column;
+        min-width: 14rem;
+        margin: var(--space-2) 0 0;
+        padding: var(--space-2);
+        border: var(--border-width) solid var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-background);
+        color: var(--color-text);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .b-sub a {
+        padding-inline: var(--space-3);
+        border-radius: var(--radius-sm);
+      }
+
+      .b-sub a:hover,
+      .b-sub a:focus-visible {
+        background: var(--color-surface);
+      }
+    }
+  }
+}

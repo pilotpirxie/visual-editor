@@ -1,0 +1,20 @@
+<section class="b-newsletter-inline section">
+  <div class="container">
+    <div class="b-panel">
+      <div class="stack b-copy">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      </div>
+      <div class="stack b-signup">
+        <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+          <div class="field b-field">
+            <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+            <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+          </div>
+          <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+        </form>
+        {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+      </div>
+    </div>
+  </div>
+</section>

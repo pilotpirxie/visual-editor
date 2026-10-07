@@ -28,6 +28,10 @@
       overflow-wrap: anywhere;
     }
 
+    .b-value[data-count] {
+      font-variant-numeric: tabular-nums;
+    }
+
     .b-label {
       color: var(--color-text-muted);
     }

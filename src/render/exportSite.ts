@@ -15,6 +15,7 @@ import {
   pageSlugsOf,
   renderBlock,
   renderContextFor,
+  siteContextOf,
   renderHtmlBlock,
   type RenderContext,
 } from './renderBlock';
@@ -153,7 +154,7 @@ export function renderProjectPage(
   const slug = pageSlugs[pageId];
   if (page === undefined || slug === undefined) throw new Error(`Page ${pageId} does not exist`);
   const collector = createRenderCollector();
-  const site = { siteTitle: project.settings.title, iconSet: project.designSystem.iconSet };
+  const site = siteContextOf(project);
   const ctx: RenderContext = { ...renderContextFor(site, pageSlugs, 'export', pageId), collector };
   const lists = visibleBlockLists(project, page);
   const blocks: PageBlocks = {
@@ -333,8 +334,12 @@ export function renderStandalonePage(
 ): string {
   const page = project.pages.entities[pageId];
   if (page === undefined) throw new Error(`Page ${pageId} does not exist`);
-  const site = { siteTitle: project.settings.title, iconSet: project.designSystem.iconSet };
-  const ctx = renderContextFor(site, pageSlugsOf(project.pages), 'preview', pageId);
+  const ctx = renderContextFor(
+    siteContextOf(project),
+    pageSlugsOf(project.pages),
+    'preview',
+    pageId,
+  );
   const lists = visibleBlockLists(project, page);
   const usedComponents: UsedComponents = new Map();
   const header = renderBlocks(lists.header, project, registry, ctx, usedComponents);

@@ -1,0 +1,51 @@
+<section class="b-contact-map section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    <div class="b-body">
+      <form class="card stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field">
+          <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+          <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-message" data-field="messageLabel">{{messageLabel}}</label>
+          <textarea id="{{block.id}}-message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary b-submit" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      <div class="stack b-location">
+        <div class="media b-map" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">
+          {{img image}}
+        </div>
+        <div class="b-details">
+          {{#if address}}
+          <div class="b-detail">
+            <span class="b-icon">{{svgIcon "map-pin"}}</span>
+            <div class="stack b-detail-copy">
+              <h3 data-field="addressTitle">{{addressTitle}}</h3>
+              <address data-field="address">{{nl2br address}}</address>
+            </div>
+          </div>
+          {{/if}}
+          {{#if hours}}
+          <div class="b-detail">
+            <span class="b-icon">{{svgIcon "clock"}}</span>
+            <div class="stack b-detail-copy">
+              <h3 data-field="hoursTitle">{{hoursTitle}}</h3>
+              <p data-field="hours">{{nl2br hours}}</p>
+            </div>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

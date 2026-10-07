@@ -44,7 +44,7 @@ describe('parseProjectDocument', () => {
 
   it('rejects other formats and versions', () => {
     expectInvalid('nope', 'project is missing');
-    expectInvalid({ ...sample(), schemaVersion: 3 }, 'unsupported format');
+    expectInvalid({ ...sample(), schemaVersion: 2 }, 'unsupported format');
   });
 
   it('names the part of the file that is wrong', () => {

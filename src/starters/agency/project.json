@@ -1,0 +1,2369 @@
+{
+  "schemaVersion": 3,
+  "id": "starter-agency",
+  "settings": {
+    "title": "Quire",
+    "description": "An independent design studio in Glasgow making brand identities, websites and campaigns since 2014.",
+    "language": "en",
+    "titleTemplate": "{{page.title}} | {{site.title}}"
+  },
+  "designSystem": {
+    "presetId": "editorial",
+    "tokens": {
+      "--color-primary": {
+        "name": "--color-primary",
+        "label": "Primary",
+        "group": "color",
+        "value": "#b42318"
+      },
+      "--color-primary-contrast": {
+        "name": "--color-primary-contrast",
+        "label": "Primary contrast",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--color-background": {
+        "name": "--color-background",
+        "label": "Background",
+        "group": "color",
+        "value": "#fffdf8"
+      },
+      "--color-surface": {
+        "name": "--color-surface",
+        "label": "Surface",
+        "group": "color",
+        "value": "#f6f1e7"
+      },
+      "--color-text": {
+        "name": "--color-text",
+        "label": "Text",
+        "group": "color",
+        "value": "#1a1a1a"
+      },
+      "--color-text-muted": {
+        "name": "--color-text-muted",
+        "label": "Muted text",
+        "group": "color",
+        "value": "#57514b"
+      },
+      "--color-border": {
+        "name": "--color-border",
+        "label": "Border",
+        "group": "color",
+        "value": "#e2dacb"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#1a1a1a"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#262421"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#fffdf8"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#b5ada3"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#3a3632"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#f4846f"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#1a1a1a"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--font-heading": {
+        "name": "--font-heading",
+        "label": "Heading font",
+        "group": "typography",
+        "value": "\"Fraunces\", ui-serif, Georgia, serif"
+      },
+      "--font-body": {
+        "name": "--font-body",
+        "label": "Body font",
+        "group": "typography",
+        "value": "\"Source Sans 3\", system-ui, sans-serif"
+      },
+      "--font-mono": {
+        "name": "--font-mono",
+        "label": "Mono font",
+        "group": "typography",
+        "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+      },
+      "--font-weight-heading": {
+        "name": "--font-weight-heading",
+        "label": "Heading weight",
+        "group": "typography",
+        "value": "600"
+      },
+      "--font-weight-regular": {
+        "name": "--font-weight-regular",
+        "label": "Body weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-bold": {
+        "name": "--font-weight-bold",
+        "label": "Bold weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--text-xs": {
+        "name": "--text-xs",
+        "label": "Extra small",
+        "group": "typography",
+        "value": "0.598rem"
+      },
+      "--text-sm": {
+        "name": "--text-sm",
+        "label": "Small",
+        "group": "typography",
+        "value": "0.7971rem"
+      },
+      "--text-base": {
+        "name": "--text-base",
+        "label": "Base",
+        "group": "typography",
+        "value": "1.0625rem"
+      },
+      "--text-lg": {
+        "name": "--text-lg",
+        "label": "Large",
+        "group": "typography",
+        "value": "1.4163rem"
+      },
+      "--text-xl": {
+        "name": "--text-xl",
+        "label": "XL",
+        "group": "typography",
+        "value": "1.8879rem"
+      },
+      "--text-2xl": {
+        "name": "--text-2xl",
+        "label": "2XL",
+        "group": "typography",
+        "value": "2.5166rem"
+      },
+      "--text-3xl": {
+        "name": "--text-3xl",
+        "label": "3XL",
+        "group": "typography",
+        "value": "clamp(1.9673rem, 1.5048rem + 2.3123vw, 3.3547rem)"
+      },
+      "--text-4xl": {
+        "name": "--text-4xl",
+        "label": "4XL",
+        "group": "typography",
+        "value": "clamp(2.2948rem, 1.5692rem + 3.6282vw, 4.4718rem)"
+      },
+      "--text-5xl": {
+        "name": "--text-5xl",
+        "label": "5XL",
+        "group": "typography",
+        "value": "clamp(2.6769rem, 1.5823rem + 5.4732vw, 5.9609rem)"
+      },
+      "--line-height-tight": {
+        "name": "--line-height-tight",
+        "label": "Heading line height",
+        "group": "typography",
+        "value": "1.1"
+      },
+      "--line-height-normal": {
+        "name": "--line-height-normal",
+        "label": "Body line height",
+        "group": "typography",
+        "value": "1.65"
+      },
+      "--space-1": {
+        "name": "--space-1",
+        "label": "Space 1",
+        "group": "spacing",
+        "value": "0.25rem"
+      },
+      "--space-2": {
+        "name": "--space-2",
+        "label": "Space 2",
+        "group": "spacing",
+        "value": "0.5rem"
+      },
+      "--space-3": {
+        "name": "--space-3",
+        "label": "Space 3",
+        "group": "spacing",
+        "value": "0.75rem"
+      },
+      "--space-4": {
+        "name": "--space-4",
+        "label": "Space 4",
+        "group": "spacing",
+        "value": "1rem"
+      },
+      "--space-6": {
+        "name": "--space-6",
+        "label": "Space 6",
+        "group": "spacing",
+        "value": "1.5rem"
+      },
+      "--space-8": {
+        "name": "--space-8",
+        "label": "Space 8",
+        "group": "spacing",
+        "value": "2rem"
+      },
+      "--space-12": {
+        "name": "--space-12",
+        "label": "Space 12",
+        "group": "spacing",
+        "value": "3rem"
+      },
+      "--space-16": {
+        "name": "--space-16",
+        "label": "Space 16",
+        "group": "spacing",
+        "value": "4rem"
+      },
+      "--section-padding-y": {
+        "name": "--section-padding-y",
+        "label": "Section padding",
+        "group": "spacing",
+        "value": "clamp(3rem, 2rem + 4vw, 6rem)"
+      },
+      "--container-max-width": {
+        "name": "--container-max-width",
+        "label": "Container width",
+        "group": "spacing",
+        "value": "72rem"
+      },
+      "--container-padding-x": {
+        "name": "--container-padding-x",
+        "label": "Container padding",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--radius-sm": {
+        "name": "--radius-sm",
+        "label": "Small radius",
+        "group": "shape",
+        "value": "0rem"
+      },
+      "--radius-md": {
+        "name": "--radius-md",
+        "label": "Medium radius",
+        "group": "shape",
+        "value": "0rem"
+      },
+      "--radius-lg": {
+        "name": "--radius-lg",
+        "label": "Large radius",
+        "group": "shape",
+        "value": "0rem"
+      },
+      "--radius-full": {
+        "name": "--radius-full",
+        "label": "Full radius",
+        "group": "shape",
+        "value": "9999px"
+      },
+      "--border-width": {
+        "name": "--border-width",
+        "label": "Border width",
+        "group": "shape",
+        "value": "1px"
+      },
+      "--shadow-sm": {
+        "name": "--shadow-sm",
+        "label": "Small shadow",
+        "group": "elevation",
+        "value": "0 1px 2px rgb(26 26 26 / 0.06)"
+      },
+      "--shadow-md": {
+        "name": "--shadow-md",
+        "label": "Medium shadow",
+        "group": "elevation",
+        "value": "0 4px 12px rgb(26 26 26 / 0.08)"
+      },
+      "--shadow-lg": {
+        "name": "--shadow-lg",
+        "label": "Large shadow",
+        "group": "elevation",
+        "value": "0 12px 32px rgb(26 26 26 / 0.12)"
+      },
+      "--button-radius": {
+        "name": "--button-radius",
+        "label": "Button radius",
+        "group": "component",
+        "value": "var(--radius-md)"
+      },
+      "--button-padding-y": {
+        "name": "--button-padding-y",
+        "label": "Button padding Y",
+        "group": "component",
+        "value": "0.75rem"
+      },
+      "--button-padding-x": {
+        "name": "--button-padding-x",
+        "label": "Button padding X",
+        "group": "component",
+        "value": "1.25rem"
+      },
+      "--card-radius": {
+        "name": "--card-radius",
+        "label": "Card radius",
+        "group": "component",
+        "value": "var(--radius-lg)"
+      },
+      "--card-shadow": {
+        "name": "--card-shadow",
+        "label": "Card shadow",
+        "group": "component",
+        "value": "var(--shadow-sm)"
+      },
+      "--transition-fast": {
+        "name": "--transition-fast",
+        "label": "Fast",
+        "group": "motion",
+        "value": "120ms"
+      },
+      "--transition-normal": {
+        "name": "--transition-normal",
+        "label": "Normal",
+        "group": "motion",
+        "value": "200ms"
+      }
+    },
+    "fonts": [
+      {
+        "role": "heading",
+        "family": "Fraunces",
+        "weights": [600]
+      },
+      {
+        "role": "body",
+        "family": "Source Sans 3",
+        "weights": [400, 700]
+      }
+    ],
+    "generators": {
+      "typeBasePx": 17,
+      "typeRatio": 1.333,
+      "spaceUnitPx": 4
+    },
+    "iconSet": "iconoir"
+  },
+  "pages": {
+    "ids": ["home", "services", "work", "team", "contact"],
+    "entities": {
+      "home": {
+        "id": "home",
+        "name": "Home",
+        "slug": "home",
+        "blockIds": [
+          "home-hero",
+          "home-clients",
+          "home-disciplines",
+          "home-work",
+          "home-quote",
+          "home-cta"
+        ],
+        "seo": {
+          "description": "Quire is a design studio of 14 in Glasgow making brand identities, websites and campaigns for distillers, theatres and publishers.",
+          "title": "Independent design studio in Glasgow"
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "services": {
+        "id": "services",
+        "name": "Services",
+        "slug": "services",
+        "blockIds": [
+          "services-hero",
+          "services-capabilities",
+          "services-process",
+          "services-fees",
+          "services-cta"
+        ],
+        "seo": {
+          "description": "Brand identity, websites and campaigns from Quire in Glasgow, with our four-stage process and typical engagement fees."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "work": {
+        "id": "work",
+        "name": "Work",
+        "slug": "work",
+        "blockIds": [
+          "work-hero",
+          "work-projects",
+          "work-ardlin",
+          "work-merrow",
+          "work-manifesto",
+          "work-cta"
+        ],
+        "seo": {
+          "description": "Selected identities, websites and campaigns by Quire from 2023 to 2026, with the results they delivered for each client."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "team": {
+        "id": "team",
+        "name": "Team",
+        "slug": "team",
+        "blockIds": ["team-hero", "team-people", "team-studio", "team-careers", "team-cta"],
+        "seo": {
+          "description": "Meet the 14 designers, writers and developers of Quire in Glasgow, and see open roles at the studio."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "contact": {
+        "id": "contact",
+        "name": "Contact",
+        "slug": "contact",
+        "blockIds": ["contact-hero", "contact-enquiry", "contact-channels", "contact-questions"],
+        "seo": {
+          "description": "Start a project with Quire: send an enquiry, visit the studio on King Street in Glasgow, or read what to expect first."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      }
+    },
+    "homePageId": "home"
+  },
+  "blocks": {
+    "ids": [
+      "header-banner",
+      "header-nav",
+      "footer-footer",
+      "home-hero",
+      "home-clients",
+      "home-disciplines",
+      "home-work",
+      "home-quote",
+      "home-cta",
+      "services-hero",
+      "services-capabilities",
+      "services-process",
+      "services-fees",
+      "services-cta",
+      "work-hero",
+      "work-projects",
+      "work-ardlin",
+      "work-merrow",
+      "work-manifesto",
+      "work-cta",
+      "team-hero",
+      "team-people",
+      "team-studio",
+      "team-careers",
+      "team-cta",
+      "contact-hero",
+      "contact-enquiry",
+      "contact-channels",
+      "contact-questions"
+    ],
+    "entities": {
+      "header-banner": {
+        "id": "header-banner",
+        "kind": "component",
+        "componentId": "banner-announcement",
+        "componentVersion": 1,
+        "values": {
+          "showIcon": true,
+          "icon": "sparkles",
+          "text": "New work: the identity and packaging for Ardlin Distillery on Islay.",
+          "linkLabel": "See the project",
+          "link": {
+            "type": "section",
+            "pageId": "work",
+            "anchor": "ardlin",
+            "newTab": false
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "header-nav": {
+        "id": "header-nav",
+        "kind": "component",
+        "componentId": "nav-simple",
+        "componentVersion": 1,
+        "values": {
+          "links": [
+            {
+              "label": "Services",
+              "link": {
+                "type": "page",
+                "pageId": "services",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Work",
+              "link": {
+                "type": "page",
+                "pageId": "work",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Team",
+              "link": {
+                "type": "page",
+                "pageId": "team",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "page",
+                "pageId": "contact",
+                "newTab": false
+              }
+            }
+          ],
+          "showCta": true,
+          "cta": {
+            "label": "Start a project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "enquiry",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "menuIcon": "menu"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "footer-footer": {
+        "id": "footer-footer",
+        "kind": "component",
+        "componentId": "footer-columns",
+        "componentVersion": 1,
+        "values": {
+          "tagline": "An independent design studio in Glasgow. Brand identity, websites and campaigns since 2014.",
+          "productTitle": "Studio",
+          "productLinks": [
+            {
+              "label": "Services",
+              "link": {
+                "type": "page",
+                "pageId": "services",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Work",
+              "link": {
+                "type": "page",
+                "pageId": "work",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Team",
+              "link": {
+                "type": "page",
+                "pageId": "team",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Careers",
+              "link": {
+                "type": "section",
+                "pageId": "team",
+                "anchor": "careers",
+                "newTab": false
+              }
+            }
+          ],
+          "companyTitle": "Contact",
+          "companyLinks": [
+            {
+              "label": "Email the studio",
+              "link": {
+                "type": "email",
+                "url": "hello@quire.example",
+                "newTab": false
+              }
+            },
+            {
+              "label": "+44 141 496 0213",
+              "link": {
+                "type": "phone",
+                "url": "+441414960213",
+                "newTab": false
+              }
+            },
+            {
+              "label": "41 King Street, Glasgow",
+              "link": {
+                "type": "section",
+                "pageId": "contact",
+                "anchor": "enquiry",
+                "newTab": false
+              }
+            }
+          ],
+          "resourcesTitle": "Working with us",
+          "resourcesLinks": [
+            {
+              "label": "What we do",
+              "link": {
+                "type": "section",
+                "pageId": "services",
+                "anchor": "capabilities",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Our process",
+              "link": {
+                "type": "section",
+                "pageId": "services",
+                "anchor": "process",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Engagement fees",
+              "link": {
+                "type": "section",
+                "pageId": "services",
+                "anchor": "fees",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Questions",
+              "link": {
+                "type": "section",
+                "pageId": "contact",
+                "anchor": "questions",
+                "newTab": false
+              }
+            }
+          ],
+          "socials": [
+            {
+              "label": "Instagram",
+              "icon": "simple-icons:instagram",
+              "link": {
+                "type": "url",
+                "url": "https://www.instagram.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "LinkedIn",
+              "icon": "simple-icons:linkedin",
+              "link": {
+                "type": "url",
+                "url": "https://www.linkedin.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "Behance",
+              "icon": "simple-icons:behance",
+              "link": {
+                "type": "url",
+                "url": "https://www.behance.net",
+                "newTab": true
+              }
+            }
+          ],
+          "copyright": "© 2026 Quire Studio Ltd, registered in Scotland no. SC481207."
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-hero": {
+        "id": "home-hero",
+        "kind": "component",
+        "componentId": "hero-background",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Independent design studio, Glasgow",
+          "title": "Design for people with something to say",
+          "text": "We are 14 designers, writers and developers in the Merchant City. Since 2014 we have made identities, websites and campaigns for distillers, theatres, publishers and architects.",
+          "primaryButton": {
+            "label": "See selected work",
+            "link": {
+              "type": "page",
+              "pageId": "work",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Start a project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "enquiry",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The Quire studio, with print proofs pinned along a long white wall and the team at work below",
+            "decorative": false,
+            "width": 1600,
+            "height": 900,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "photo"
+            }
+          },
+          "align": "left"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-clients": {
+        "id": "home-clients",
+        "kind": "component",
+        "componentId": "logos-row",
+        "componentVersion": 1,
+        "values": {
+          "title": "Recent clients include",
+          "logos": [
+            {
+              "company": "Ardlin Distillery",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ardlin Distillery",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Merrow",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Merrow",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Saltmarket Theatre",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Saltmarket Theatre",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Hollin Architects",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Hollin Architects",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Aird Press",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Aird Press",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Kintra Bakery",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Kintra Bakery",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-disciplines": {
+        "id": "home-disciplines",
+        "kind": "component",
+        "componentId": "features-grid-3",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "What we do",
+          "title": "Three disciplines, one team",
+          "intro": "<p>Most clients come to us for one of these and stay for the other two. The same people carry your project from the first workshop to the last line of code.</p>",
+          "items": [
+            {
+              "icon": "pencil",
+              "title": "Brand identity",
+              "text": "Strategy, naming, logotypes, type and colour, packaging, and guidelines that keep it all consistent long after we hand over."
+            },
+            {
+              "icon": "monitor",
+              "title": "Websites",
+              "text": "Editorial sites and online shops designed and built in-house, fast on a phone and simple for your own team to update."
+            },
+            {
+              "icon": "flag",
+              "title": "Campaigns",
+              "text": "Launches, theatre seasons and appeals across posters, film, social and print, with one idea running through all of it."
+            }
+          ],
+          "align": "left",
+          "columns": "3"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-work": {
+        "id": "home-work",
+        "kind": "component",
+        "componentId": "gallery-masonry",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Selected work",
+          "title": "Recent projects from the studio",
+          "intro": "Six projects from the last two years. The work page has more, along with what each one changed for the client.",
+          "items": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Three Ardlin single malt bottles with letterpress labels on a slate shelf",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Ardlin Distillery, identity and packaging, 2025"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Red and black Saltmarket Theatre season posters pasted along a city wall",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Saltmarket Theatre, autumn season, 2026"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A swimmer in a Merrow suit walking into a grey sea at dawn",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Merrow, website and online shop, 2025"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A stack of Aird Classics paperbacks with bold typographic covers",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Aird Press, Aird Classics series, 2024"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The Hollin Architects website open on a laptop beside a timber model of a library",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Hollin Architects, identity and website, 2024"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A painted Kintra Bakery shopfront in the morning with loaves in the window",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Kintra Bakery, identity and shopfronts, 2026"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "selected-work"
+      },
+      "home-quote": {
+        "id": "home-quote",
+        "kind": "component",
+        "componentId": "testimonial-quote",
+        "componentVersion": 1,
+        "values": {
+          "quote": "They read every script in the season before they drew a single poster. Our audiences could tell.",
+          "name": "Dele Adeyemi",
+          "role": "Artistic director, Saltmarket Theatre",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Dele Adeyemi",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-cta": {
+        "id": "home-cta",
+        "kind": "component",
+        "componentId": "cta-centered",
+        "componentVersion": 1,
+        "values": {
+          "title": "Booking now for spring 2027",
+          "text": "We take on eight to ten new projects a year, so each one gets a senior team. Tell us about yours and we will reply within two working days.",
+          "button": {
+            "label": "Start a project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "enquiry",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "services-hero": {
+        "id": "services-hero",
+        "kind": "component",
+        "componentId": "hero-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Services",
+          "title": "One team, start to finish",
+          "text": "No account managers and no hand-offs between departments. The people in your first workshop are the people who finish the work.",
+          "primaryButton": {
+            "label": "See engagement fees",
+            "link": {
+              "type": "section",
+              "pageId": "services",
+              "anchor": "fees",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Start a project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "enquiry",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tomasz Wrona and Callum Baird comparing printed type proofs on the studio table",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "right"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "services-capabilities": {
+        "id": "services-capabilities",
+        "kind": "component",
+        "componentId": "features-tabs",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "What we do",
+          "title": "What each discipline includes",
+          "intro": "Choose a discipline to see what it includes, how long it usually takes and who we have done it for.",
+          "items": [
+            {
+              "icon": "pencil",
+              "label": "Brand",
+              "title": "Brand identity",
+              "text": "<p>Strategy workshops, naming, logotype, type and colour, photography direction and an online guidelines site your team will actually open.</p><ul><li>Usually 12 to 16 weeks</li><li>Recent clients: Ardlin Distillery, Hollin Architects, Kintra Bakery</li></ul>",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ardlin Distillery labels, a cask stencil and a type specimen laid out on a studio table",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "icon": "monitor",
+              "label": "Web",
+              "title": "Websites and online shops",
+              "text": "<p>Editorial sites, shops and archives designed and built in-house on a system your team can run. Every site is tested on real phones and meets WCAG 2.2 AA.</p><ul><li>Usually 14 to 20 weeks</li><li>Recent clients: Merrow, Aird Press, Hollin Architects</li></ul>",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The Merrow online shop open on a laptop and a phone",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "screenshot"
+                }
+              }
+            },
+            {
+              "icon": "flag",
+              "label": "Launch",
+              "title": "Campaigns and launches",
+              "text": "<p>Launches, theatre seasons and fundraising appeals, with one idea carried through posters, film, social and print.</p><ul><li>Usually 6 to 10 weeks</li><li>Recent clients: Saltmarket Theatre, Clydeside Book Festival</li></ul>",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Saltmarket Theatre posters pasted in a long row on a wall on Trongate",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "capabilities"
+      },
+      "services-process": {
+        "id": "services-process",
+        "kind": "component",
+        "componentId": "steps-images",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Process",
+          "title": "How a project runs",
+          "intro": "Every project follows the same shape, whether it is a label or a 200-page website. You meet everyone doing the work in the first week.",
+          "steps": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Niamh Docherty interviewing a client team around a table covered in notes",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "title": "Listen",
+              "text": "Two weeks of interviews with your team, your customers and the people who chose someone else. We write it up as a two-page brief you sign off."
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Early poster and label sketches pinned to a cork wall",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "title": "Sketch",
+              "text": "Two or three routes shown as real things: a label, a homepage, a poster on a wall. Never a logo floating on white."
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ama Owusu reviewing a website build on two monitors with a designer",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "title": "Build",
+              "text": "We develop one route into a complete system and make it, with a weekly call and a shared board you can check at any time."
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A printed brand guidelines book open next to a laptop showing the guidelines site",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "title": "Hand over",
+              "text": "Guidelines, source files and training for your team, then a check-in 90 days after launch to fix what real use reveals."
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "process"
+      },
+      "services-fees": {
+        "id": "services-fees",
+        "kind": "component",
+        "componentId": "pricing-list",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Engagement fees",
+          "title": "What projects usually cost",
+          "intro": "We quote every project after a first conversation, but most of our work falls into these ranges. Fees cover the whole senior team, with no separate account management.",
+          "groups": [
+            {
+              "name": "Brand identity",
+              "note": "Fixed fee, starting from",
+              "items": [
+                {
+                  "name": "Identity refresh",
+                  "description": "A redrawn logotype, type and colour palette and core templates for an organisation that already knows who it is.",
+                  "price": "£14,000",
+                  "tag": ""
+                },
+                {
+                  "name": "Full brand identity",
+                  "description": "Strategy, naming support, the identity system, photography direction and an online guidelines site.",
+                  "price": "£32,000",
+                  "tag": "Most requested"
+                },
+                {
+                  "name": "Packaging range",
+                  "description": "Structure, labels and print management for a range of up to six products.",
+                  "price": "£18,000",
+                  "tag": ""
+                }
+              ]
+            },
+            {
+              "name": "Websites",
+              "note": "Fixed fee, starting from",
+              "items": [
+                {
+                  "name": "Editorial website",
+                  "description": "Up to 20 page templates on a content system your team can run, with training.",
+                  "price": "£28,000",
+                  "tag": ""
+                },
+                {
+                  "name": "Online shop",
+                  "description": "Product, collection and checkout design built on Shopify, with photography direction.",
+                  "price": "£42,000",
+                  "tag": ""
+                },
+                {
+                  "name": "Website care",
+                  "description": "Hosting, updates and two days of design and development every month.",
+                  "price": "£1,800 a month",
+                  "tag": ""
+                }
+              ]
+            },
+            {
+              "name": "Campaigns",
+              "note": "Per campaign, starting from",
+              "items": [
+                {
+                  "name": "Launch campaign",
+                  "description": "The idea, a key visual, a film edit and assets for print, outdoor and social.",
+                  "price": "£18,000",
+                  "tag": ""
+                },
+                {
+                  "name": "Season campaign",
+                  "description": "A full theatre, festival or gallery season, including the brochure and posters.",
+                  "price": "£24,000",
+                  "tag": ""
+                }
+              ]
+            },
+            {
+              "name": "Day rates",
+              "note": "For existing clients and smaller pieces of work",
+              "items": [
+                {
+                  "name": "Studio day",
+                  "description": "One senior designer or developer, booked by the day.",
+                  "price": "£950",
+                  "tag": ""
+                },
+                {
+                  "name": "Design retainer",
+                  "description": "Four days a month with the same team, rolling monthly.",
+                  "price": "£3,400 a month",
+                  "tag": ""
+                }
+              ]
+            }
+          ],
+          "footnote": "Prices in pounds sterling, excluding VAT. We start eight to ten new projects a year, so start dates are usually six to ten weeks out."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "fees"
+      },
+      "services-cta": {
+        "id": "services-cta",
+        "kind": "component",
+        "componentId": "cta-banner",
+        "componentVersion": 1,
+        "values": {
+          "title": "Not sure which of these you need?",
+          "text": "Most projects start with a 45-minute call. No deck required.",
+          "button": {
+            "label": "Book a first call",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "enquiry",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "work-hero": {
+        "id": "work-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Selected work",
+          "title": "Work we are proud of",
+          "text": "Identities, websites and campaigns from 2023 to 2026, for clients from Islay to Edinburgh.",
+          "primaryButton": {
+            "label": "Start a project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "enquiry",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "See our services",
+            "link": {
+              "type": "page",
+              "pageId": "services",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "work-projects": {
+        "id": "work-projects",
+        "kind": "component",
+        "componentId": "gallery-grid",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "2023 to 2026",
+          "title": "Nine recent projects",
+          "intro": "Every project here was led by a founder and made by the same small team from the first workshop to launch.",
+          "items": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ardlin single malt bottles with letterpress labels lined up on a warehouse cask",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Ardlin Distillery, identity and packaging"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The Merrow homepage showing tide times above a photograph of the Firth of Forth",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Merrow, website and online shop"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A Saltmarket Theatre poster on a bus shelter at night",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Saltmarket Theatre, autumn season campaign"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Hollin Architects business cards and a printed project book on a drawing board",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Hollin Architects, identity and website"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Twenty-four Aird Classics paperbacks arranged in a grid by spine colour",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Aird Press, Aird Classics series"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Kintra Bakery paper bags and a hand-painted price board on a counter",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Kintra Bakery, identity and shopfronts"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A green Westbank wayfinding sign at the entrance to a tenement close",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Westbank Housing Co-operative, identity and signage"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Clydeside Book Festival banners hanging along a riverside walkway",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Clydeside Book Festival, 2024 campaign"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A row of Tolbooth Records vinyl sleeves with matching typographic covers",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Tolbooth Records, label identity"
+            }
+          ],
+          "ratio": "landscape",
+          "columns": "3"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "projects"
+      },
+      "work-ardlin": {
+        "id": "work-ardlin",
+        "kind": "component",
+        "componentId": "testimonial-logo",
+        "componentVersion": 1,
+        "values": {
+          "logo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ardlin Distillery",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "quote": "The bottle finally looks as good as the whisky inside it.",
+          "result": "First release of 6,000 bottles sold out in nine days",
+          "resultIcon": "trending-up",
+          "name": "Morag Lindsay",
+          "role": "Managing director, Ardlin Distillery",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Morag Lindsay",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "ardlin"
+      },
+      "work-merrow": {
+        "id": "work-merrow",
+        "kind": "component",
+        "componentId": "content-list-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Case study: Merrow",
+          "title": "A shop built around the sea",
+          "text": "Merrow makes cold-water swimwear in Portobello. We rebuilt their shop with tide times on the homepage, kit chosen by water temperature and photography shot at dawn on the Forth.",
+          "checkIcon": "check",
+          "items": [
+            {
+              "text": "Online sales up 64% in the first six months"
+            },
+            {
+              "text": "Mobile conversion rate from 1.1% to 2.6%"
+            },
+            {
+              "text": "Returns down by a third with a fit guide shot on real swimmers"
+            },
+            {
+              "text": "Run day to day by Merrow’s own team of three"
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "Talk to us about your shop",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "enquiry",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A swimmer in a navy Merrow suit wading into the sea at Portobello at sunrise",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "right"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "work-manifesto": {
+        "id": "work-manifesto",
+        "kind": "component",
+        "componentId": "content-quote",
+        "componentVersion": 1,
+        "values": {
+          "showIcon": true,
+          "quoteIcon": "quote",
+          "quote": "Make one thing that lasts ten years, not ten things that last a season.",
+          "name": "Isla Rennie",
+          "role": "Co-founder and creative director, Quire",
+          "showPhoto": true,
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Isla Rennie",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "work-cta": {
+        "id": "work-cta",
+        "kind": "component",
+        "componentId": "cta-two-buttons",
+        "componentVersion": 1,
+        "values": {
+          "title": "Have a project in mind?",
+          "text": "Tell us what you are making and when it needs to launch. We reply to every enquiry within two working days.",
+          "primaryButton": {
+            "label": "Start a project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "enquiry",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "secondaryButton": {
+            "label": "See engagement fees",
+            "link": {
+              "type": "section",
+              "pageId": "services",
+              "anchor": "fees",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "team-hero": {
+        "id": "team-hero",
+        "kind": "component",
+        "componentId": "hero-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "The studio",
+          "title": "Fourteen people, one table",
+          "text": "Designers, writers and developers who have mostly worked together for years, in a converted warehouse in Glasgow’s Merchant City.",
+          "primaryButton": {
+            "label": "Meet the team",
+            "link": {
+              "type": "section",
+              "pageId": "team",
+              "anchor": "people",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "See open roles",
+            "link": {
+              "type": "section",
+              "pageId": "team",
+              "anchor": "careers",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The Quire team sharing lunch at the long table in the middle of the studio",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "left"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "team-people": {
+        "id": "team-people",
+        "kind": "component",
+        "componentId": "team-cards",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "The people",
+          "title": "Who you will work with",
+          "intro": "Every project is led by one of the founders and made by the people below, from the first workshop to launch.",
+          "people": [
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Isla Rennie",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Isla Rennie",
+              "role": "Co-founder and creative director",
+              "bio": "Ran the design team at a London publisher for nine years before starting the studio. Leads our identity work and reads every brief twice.",
+              "socials": [
+                {
+                  "label": "LinkedIn",
+                  "icon": "simple-icons:linkedin",
+                  "link": {
+                    "type": "url",
+                    "url": "https://www.linkedin.com",
+                    "newTab": true
+                  }
+                },
+                {
+                  "label": "Instagram",
+                  "icon": "simple-icons:instagram",
+                  "link": {
+                    "type": "url",
+                    "url": "https://www.instagram.com",
+                    "newTab": true
+                  }
+                }
+              ]
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tomasz Wrona",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Tomasz Wrona",
+              "role": "Co-founder and design director",
+              "bio": "Typographer from Kraków, in Glasgow since 2009. Draws the custom lettering in most of our identities and teaches type one evening a week.",
+              "socials": [
+                {
+                  "label": "LinkedIn",
+                  "icon": "simple-icons:linkedin",
+                  "link": {
+                    "type": "url",
+                    "url": "https://www.linkedin.com",
+                    "newTab": true
+                  }
+                },
+                {
+                  "label": "Behance",
+                  "icon": "simple-icons:behance",
+                  "link": {
+                    "type": "url",
+                    "url": "https://www.behance.net",
+                    "newTab": true
+                  }
+                }
+              ]
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Niamh Docherty",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Niamh Docherty",
+              "role": "Strategy director",
+              "bio": "A former arts journalist. Runs the listening stage of every project and writes the words that end up on the posters and the walls.",
+              "socials": [
+                {
+                  "label": "LinkedIn",
+                  "icon": "simple-icons:linkedin",
+                  "link": {
+                    "type": "url",
+                    "url": "https://www.linkedin.com",
+                    "newTab": true
+                  }
+                }
+              ]
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ama Owusu",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Ama Owusu",
+              "role": "Head of digital",
+              "bio": "Leads our team of four developers and has built every site we have launched since 2019. Still answers the support inbox herself.",
+              "socials": [
+                {
+                  "label": "LinkedIn",
+                  "icon": "simple-icons:linkedin",
+                  "link": {
+                    "type": "url",
+                    "url": "https://www.linkedin.com",
+                    "newTab": true
+                  }
+                }
+              ]
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Callum Baird",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Callum Baird",
+              "role": "Senior designer",
+              "bio": "Our packaging and print specialist. Spent much of 2025 at a label printer in Paisley getting the Ardlin bottles exactly right.",
+              "socials": [
+                {
+                  "label": "Instagram",
+                  "icon": "simple-icons:instagram",
+                  "link": {
+                    "type": "url",
+                    "url": "https://www.instagram.com",
+                    "newTab": true
+                  }
+                },
+                {
+                  "label": "Behance",
+                  "icon": "simple-icons:behance",
+                  "link": {
+                    "type": "url",
+                    "url": "https://www.behance.net",
+                    "newTab": true
+                  }
+                }
+              ]
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Rosa Lindqvist",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Rosa Lindqvist",
+              "role": "Producer",
+              "bio": "Keeps budgets, schedules and printers in line, and makes sure every client knows what happens next week.",
+              "socials": [
+                {
+                  "label": "LinkedIn",
+                  "icon": "simple-icons:linkedin",
+                  "link": {
+                    "type": "url",
+                    "url": "https://www.linkedin.com",
+                    "newTab": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "people"
+      },
+      "team-studio": {
+        "id": "team-studio",
+        "kind": "component",
+        "componentId": "content-text-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "How we run the studio",
+          "title": "Small on purpose",
+          "body": "<p>We start eight to ten projects a year and turn down more than we take on. That is what lets a founder sit in every meeting, and it is why we have stayed at fourteen people.</p><ul><li>A four-day week since 2022, with Fridays kept for our own projects</li><li>Every piece of work credited to the people who made it</li><li>One paid week a year for teaching, writing or speaking</li></ul>",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Shelves of type specimens, printed proofs and bound guidelines in the studio library",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "right"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "team-careers": {
+        "id": "team-careers",
+        "kind": "component",
+        "componentId": "careers-list",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Careers",
+          "title": "Join the studio",
+          "intro": "We hire slowly, about two people a year. Every role is based in the Glasgow studio four days a week, and the salary band is in every job description.",
+          "positions": [
+            {
+              "title": "Senior brand designer",
+              "team": "Design",
+              "location": "Glasgow studio",
+              "type": "Full-time, £48,000 to £56,000",
+              "link": {
+                "type": "email",
+                "url": "jobs@quire.example",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Front-end developer",
+              "team": "Digital",
+              "location": "Glasgow studio",
+              "type": "Full-time, £44,000 to £52,000",
+              "link": {
+                "type": "email",
+                "url": "jobs@quire.example",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Design intern, summer 2027",
+              "team": "Design",
+              "location": "Glasgow studio",
+              "type": "12 weeks, paid",
+              "link": {
+                "type": "email",
+                "url": "jobs@quire.example",
+                "newTab": false
+              }
+            }
+          ],
+          "emptyText": "No open roles right now. Send a portfolio any time to jobs@quire.example."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "careers"
+      },
+      "team-cta": {
+        "id": "team-cta",
+        "kind": "component",
+        "componentId": "cta-centered",
+        "componentVersion": 1,
+        "values": {
+          "title": "Work with the people on this page",
+          "text": "Tell us about your project and one of the founders will reply within two working days.",
+          "button": {
+            "label": "Start a project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "enquiry",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-hero": {
+        "id": "contact-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Contact",
+          "title": "Tell us what you are making",
+          "text": "We reply to every enquiry within two working days, usually with a few questions and a time for a first call.",
+          "primaryButton": {
+            "label": "Email the studio",
+            "link": {
+              "type": "email",
+              "url": "hello@quire.example",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Call +44 141 496 0213",
+            "link": {
+              "type": "phone",
+              "url": "+441414960213",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-enquiry": {
+        "id": "contact-enquiry",
+        "kind": "component",
+        "componentId": "contact-map",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "New projects",
+          "title": "Start with a few lines",
+          "text": "Tell us what you need, roughly when, and the budget you have in mind. A range is fine.",
+          "nameLabel": "Your name",
+          "emailLabel": "Email",
+          "messageLabel": "What are you working on?",
+          "buttonLabel": "Send enquiry",
+          "formAction": "",
+          "formMethod": "post",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Map of the Merchant City in Glasgow with the studio marked on King Street",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "addressTitle": "Studio",
+          "address": "Third floor, 41 King Street\nMerchant City\nGlasgow G1 5RA",
+          "hoursTitle": "Studio hours",
+          "hours": "Monday to Thursday, 9 am to 6 pm\nFridays by appointment"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "enquiry"
+      },
+      "contact-channels": {
+        "id": "contact-channels",
+        "kind": "component",
+        "componentId": "contact-cards",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Other ways in",
+          "title": "Write to the right person",
+          "cards": [
+            {
+              "icon": "briefcase",
+              "title": "New business",
+              "text": "Isla and Niamh read every project enquiry and reply themselves.",
+              "link": {
+                "label": "newbusiness@quire.example",
+                "link": {
+                  "type": "email",
+                  "url": "newbusiness@quire.example",
+                  "newTab": false
+                },
+                "variant": "ghost"
+              }
+            },
+            {
+              "icon": "message",
+              "title": "Press and talks",
+              "text": "Interviews, image requests and invitations to speak or teach.",
+              "link": {
+                "label": "press@quire.example",
+                "link": {
+                  "type": "email",
+                  "url": "press@quire.example",
+                  "newTab": false
+                },
+                "variant": "ghost"
+              }
+            },
+            {
+              "icon": "users",
+              "title": "Careers",
+              "text": "Portfolios and questions about open roles at the studio.",
+              "link": {
+                "label": "jobs@quire.example",
+                "link": {
+                  "type": "email",
+                  "url": "jobs@quire.example",
+                  "newTab": false
+                },
+                "variant": "ghost"
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-questions": {
+        "id": "contact-questions",
+        "kind": "component",
+        "componentId": "faq-side-heading",
+        "componentVersion": 1,
+        "values": {
+          "title": "Before you write",
+          "text": "The questions we hear most in a first call. Anything else, ask Niamh directly.",
+          "showButton": true,
+          "button": {
+            "label": "Email Niamh",
+            "link": {
+              "type": "email",
+              "url": "newbusiness@quire.example",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "expandIcon": "plus",
+          "items": [
+            {
+              "question": "Do you take part in free pitches?",
+              "answer": "<p>No. We do not make unpaid creative work to win a project. We are glad to share past work, meet your team and write a detailed proposal at no cost.</p>"
+            },
+            {
+              "question": "What is the smallest project you take on?",
+              "answer": "<p>Our projects usually start at £14,000. For smaller pieces of work, existing clients can book studio days at £950 a day.</p>"
+            },
+            {
+              "question": "How far ahead do you book?",
+              "answer": "<p>Usually six to ten weeks. If you have a fixed launch date, get in touch as early as you can.</p>"
+            },
+            {
+              "question": "Do you work with clients outside Scotland?",
+              "answer": "<p>About a third of our clients are in England, Ireland and Scandinavia. We travel for the first workshop and run the rest of the project remotely.</p>"
+            },
+            {
+              "question": "Who owns the work at the end?",
+              "answer": "<p>You do. On final payment you get full rights to the identity, the code and every source file. We only ask to show the work in our portfolio.</p>"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "questions"
+      }
+    }
+  },
+  "sharedSlots": {
+    "header": ["header-banner", "header-nav"],
+    "footer": ["footer-footer"]
+  },
+  "assets": {}
+}

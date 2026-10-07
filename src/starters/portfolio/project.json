@@ -1,0 +1,1879 @@
+{
+  "schemaVersion": 3,
+  "id": "starter-portfolio",
+  "settings": {
+    "title": "Maren Holt",
+    "description": "Maren Holt is an independent product designer in Copenhagen, designing banking, health, mobility and logistics software.",
+    "language": "en",
+    "titleTemplate": "{{page.title}} | {{site.title}}"
+  },
+  "designSystem": {
+    "presetId": "mono",
+    "tokens": {
+      "--color-primary": {
+        "name": "--color-primary",
+        "label": "Primary",
+        "group": "color",
+        "value": "#111111"
+      },
+      "--color-primary-contrast": {
+        "name": "--color-primary-contrast",
+        "label": "Primary contrast",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--color-background": {
+        "name": "--color-background",
+        "label": "Background",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--color-surface": {
+        "name": "--color-surface",
+        "label": "Surface",
+        "group": "color",
+        "value": "#f4f4f4"
+      },
+      "--color-text": {
+        "name": "--color-text",
+        "label": "Text",
+        "group": "color",
+        "value": "#111111"
+      },
+      "--color-text-muted": {
+        "name": "--color-text-muted",
+        "label": "Muted text",
+        "group": "color",
+        "value": "#555555"
+      },
+      "--color-border": {
+        "name": "--color-border",
+        "label": "Border",
+        "group": "color",
+        "value": "#d4d4d4"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#111111"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#1c1c1c"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#a3a3a3"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#333333"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#111111"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--font-heading": {
+        "name": "--font-heading",
+        "label": "Heading font",
+        "group": "typography",
+        "value": "\"JetBrains Mono\", ui-monospace, monospace"
+      },
+      "--font-body": {
+        "name": "--font-body",
+        "label": "Body font",
+        "group": "typography",
+        "value": "\"Inter\", system-ui, sans-serif"
+      },
+      "--font-mono": {
+        "name": "--font-mono",
+        "label": "Mono font",
+        "group": "typography",
+        "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+      },
+      "--font-weight-heading": {
+        "name": "--font-weight-heading",
+        "label": "Heading weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--font-weight-regular": {
+        "name": "--font-weight-regular",
+        "label": "Body weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-bold": {
+        "name": "--font-weight-bold",
+        "label": "Bold weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--text-xs": {
+        "name": "--text-xs",
+        "label": "Extra small",
+        "group": "typography",
+        "value": "0.651rem"
+      },
+      "--text-sm": {
+        "name": "--text-sm",
+        "label": "Small",
+        "group": "typography",
+        "value": "0.7813rem"
+      },
+      "--text-base": {
+        "name": "--text-base",
+        "label": "Base",
+        "group": "typography",
+        "value": "0.9375rem"
+      },
+      "--text-lg": {
+        "name": "--text-lg",
+        "label": "Large",
+        "group": "typography",
+        "value": "1.125rem"
+      },
+      "--text-xl": {
+        "name": "--text-xl",
+        "label": "XL",
+        "group": "typography",
+        "value": "1.35rem"
+      },
+      "--text-2xl": {
+        "name": "--text-2xl",
+        "label": "2XL",
+        "group": "typography",
+        "value": "1.62rem"
+      },
+      "--text-3xl": {
+        "name": "--text-3xl",
+        "label": "3XL",
+        "group": "typography",
+        "value": "clamp(1.3726rem, 1.1821rem + 0.9523vw, 1.944rem)"
+      },
+      "--text-4xl": {
+        "name": "--text-4xl",
+        "label": "4XL",
+        "group": "typography",
+        "value": "clamp(1.5099rem, 1.2355rem + 1.3716vw, 2.3328rem)"
+      },
+      "--text-5xl": {
+        "name": "--text-5xl",
+        "label": "5XL",
+        "group": "typography",
+        "value": "clamp(1.6608rem, 1.2813rem + 1.8975vw, 2.7994rem)"
+      },
+      "--line-height-tight": {
+        "name": "--line-height-tight",
+        "label": "Heading line height",
+        "group": "typography",
+        "value": "1.2"
+      },
+      "--line-height-normal": {
+        "name": "--line-height-normal",
+        "label": "Body line height",
+        "group": "typography",
+        "value": "1.6"
+      },
+      "--space-1": {
+        "name": "--space-1",
+        "label": "Space 1",
+        "group": "spacing",
+        "value": "0.25rem"
+      },
+      "--space-2": {
+        "name": "--space-2",
+        "label": "Space 2",
+        "group": "spacing",
+        "value": "0.5rem"
+      },
+      "--space-3": {
+        "name": "--space-3",
+        "label": "Space 3",
+        "group": "spacing",
+        "value": "0.75rem"
+      },
+      "--space-4": {
+        "name": "--space-4",
+        "label": "Space 4",
+        "group": "spacing",
+        "value": "1rem"
+      },
+      "--space-6": {
+        "name": "--space-6",
+        "label": "Space 6",
+        "group": "spacing",
+        "value": "1.5rem"
+      },
+      "--space-8": {
+        "name": "--space-8",
+        "label": "Space 8",
+        "group": "spacing",
+        "value": "2rem"
+      },
+      "--space-12": {
+        "name": "--space-12",
+        "label": "Space 12",
+        "group": "spacing",
+        "value": "3rem"
+      },
+      "--space-16": {
+        "name": "--space-16",
+        "label": "Space 16",
+        "group": "spacing",
+        "value": "4rem"
+      },
+      "--section-padding-y": {
+        "name": "--section-padding-y",
+        "label": "Section padding",
+        "group": "spacing",
+        "value": "clamp(3rem, 2rem + 4vw, 6rem)"
+      },
+      "--container-max-width": {
+        "name": "--container-max-width",
+        "label": "Container width",
+        "group": "spacing",
+        "value": "72rem"
+      },
+      "--container-padding-x": {
+        "name": "--container-padding-x",
+        "label": "Container padding",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--radius-sm": {
+        "name": "--radius-sm",
+        "label": "Small radius",
+        "group": "shape",
+        "value": "0.125rem"
+      },
+      "--radius-md": {
+        "name": "--radius-md",
+        "label": "Medium radius",
+        "group": "shape",
+        "value": "0.25rem"
+      },
+      "--radius-lg": {
+        "name": "--radius-lg",
+        "label": "Large radius",
+        "group": "shape",
+        "value": "0.375rem"
+      },
+      "--radius-full": {
+        "name": "--radius-full",
+        "label": "Full radius",
+        "group": "shape",
+        "value": "9999px"
+      },
+      "--border-width": {
+        "name": "--border-width",
+        "label": "Border width",
+        "group": "shape",
+        "value": "1px"
+      },
+      "--shadow-sm": {
+        "name": "--shadow-sm",
+        "label": "Small shadow",
+        "group": "elevation",
+        "value": "none"
+      },
+      "--shadow-md": {
+        "name": "--shadow-md",
+        "label": "Medium shadow",
+        "group": "elevation",
+        "value": "none"
+      },
+      "--shadow-lg": {
+        "name": "--shadow-lg",
+        "label": "Large shadow",
+        "group": "elevation",
+        "value": "none"
+      },
+      "--button-radius": {
+        "name": "--button-radius",
+        "label": "Button radius",
+        "group": "component",
+        "value": "var(--radius-md)"
+      },
+      "--button-padding-y": {
+        "name": "--button-padding-y",
+        "label": "Button padding Y",
+        "group": "component",
+        "value": "0.75rem"
+      },
+      "--button-padding-x": {
+        "name": "--button-padding-x",
+        "label": "Button padding X",
+        "group": "component",
+        "value": "1.25rem"
+      },
+      "--card-radius": {
+        "name": "--card-radius",
+        "label": "Card radius",
+        "group": "component",
+        "value": "var(--radius-lg)"
+      },
+      "--card-shadow": {
+        "name": "--card-shadow",
+        "label": "Card shadow",
+        "group": "component",
+        "value": "var(--shadow-sm)"
+      },
+      "--transition-fast": {
+        "name": "--transition-fast",
+        "label": "Fast",
+        "group": "motion",
+        "value": "120ms"
+      },
+      "--transition-normal": {
+        "name": "--transition-normal",
+        "label": "Normal",
+        "group": "motion",
+        "value": "200ms"
+      }
+    },
+    "fonts": [
+      {
+        "role": "heading",
+        "family": "JetBrains Mono",
+        "weights": [700]
+      },
+      {
+        "role": "body",
+        "family": "Inter",
+        "weights": [400, 700]
+      }
+    ],
+    "generators": {
+      "typeBasePx": 15,
+      "typeRatio": 1.2,
+      "spaceUnitPx": 4
+    },
+    "iconSet": "remix"
+  },
+  "pages": {
+    "ids": ["home", "projects", "about", "contact"],
+    "entities": {
+      "home": {
+        "id": "home",
+        "name": "Home",
+        "slug": "home",
+        "blockIds": [
+          "home-hero",
+          "home-clients",
+          "home-projects",
+          "home-services",
+          "home-quotes",
+          "home-cta"
+        ],
+        "seo": {
+          "description": "Maren Holt is an independent product designer in Copenhagen, designing clear software for banking, health, mobility and logistics teams.",
+          "title": "Independent product designer in Copenhagen"
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "projects": {
+        "id": "projects",
+        "name": "Projects",
+        "slug": "projects",
+        "blockIds": [
+          "projects-hero",
+          "projects-havn",
+          "projects-havn-quote",
+          "projects-tolva",
+          "projects-process",
+          "projects-more",
+          "projects-cta"
+        ],
+        "seo": {
+          "description": "Case studies from Havn, Tolva Health, Morrow Freight, Ferro and Kvist: the problem, the design work and what changed after launch."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "about": {
+        "id": "about",
+        "name": "About",
+        "slug": "about",
+        "blockIds": [
+          "about-hero",
+          "about-story",
+          "about-numbers",
+          "about-experience",
+          "about-process",
+          "about-cta"
+        ],
+        "seo": {
+          "description": "Eleven years of product design, from a Copenhagen studio to leading design at Kvist, and how Maren Holt works with product teams today."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "contact": {
+        "id": "contact",
+        "name": "Contact",
+        "slug": "contact",
+        "blockIds": ["contact-hero", "contact-ways", "contact-form", "contact-faq"],
+        "seo": {
+          "description": "Booking projects from 2 November 2026. Rates, ways to work together and a short form to send Maren Holt a project brief."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      }
+    },
+    "homePageId": "home"
+  },
+  "blocks": {
+    "ids": [
+      "header-banner",
+      "header-nav",
+      "footer-footer",
+      "home-hero",
+      "home-clients",
+      "home-projects",
+      "home-services",
+      "home-quotes",
+      "home-cta",
+      "projects-hero",
+      "projects-havn",
+      "projects-havn-quote",
+      "projects-tolva",
+      "projects-process",
+      "projects-more",
+      "projects-cta",
+      "about-hero",
+      "about-story",
+      "about-numbers",
+      "about-experience",
+      "about-process",
+      "about-cta",
+      "contact-hero",
+      "contact-ways",
+      "contact-form",
+      "contact-faq"
+    ],
+    "entities": {
+      "header-banner": {
+        "id": "header-banner",
+        "kind": "component",
+        "componentId": "banner-announcement",
+        "componentVersion": 1,
+        "values": {
+          "showIcon": true,
+          "icon": "calendar",
+          "text": "Booking new projects from 2 November 2026",
+          "linkLabel": "Check availability",
+          "link": {
+            "type": "section",
+            "pageId": "contact",
+            "anchor": "faq",
+            "newTab": false
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "header-nav": {
+        "id": "header-nav",
+        "kind": "component",
+        "componentId": "nav-simple",
+        "componentVersion": 1,
+        "values": {
+          "links": [
+            {
+              "label": "Projects",
+              "link": {
+                "type": "page",
+                "pageId": "projects",
+                "newTab": false
+              }
+            },
+            {
+              "label": "About",
+              "link": {
+                "type": "page",
+                "pageId": "about",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "page",
+                "pageId": "contact",
+                "newTab": false
+              }
+            }
+          ],
+          "showCta": true,
+          "cta": {
+            "label": "Start a project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "start",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "menuIcon": "menu"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "footer-footer": {
+        "id": "footer-footer",
+        "kind": "component",
+        "componentId": "footer-simple",
+        "componentVersion": 1,
+        "values": {
+          "tagline": "Independent product designer in Copenhagen.\nBanking, health, mobility and logistics software since 2015.",
+          "links": [
+            {
+              "label": "Projects",
+              "link": {
+                "type": "page",
+                "pageId": "projects",
+                "newTab": false
+              }
+            },
+            {
+              "label": "About",
+              "link": {
+                "type": "page",
+                "pageId": "about",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "page",
+                "pageId": "contact",
+                "newTab": false
+              }
+            },
+            {
+              "label": "LinkedIn",
+              "link": {
+                "type": "url",
+                "url": "https://www.linkedin.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "Email",
+              "link": {
+                "type": "email",
+                "url": "hello@marenholt.example",
+                "newTab": false
+              }
+            }
+          ],
+          "copyright": "© 2026 Maren Holt"
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-hero": {
+        "id": "home-hero",
+        "kind": "component",
+        "componentId": "hero-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Product designer in Copenhagen",
+          "title": "I design clear software for complicated work",
+          "text": "I’m Maren Holt. For eleven years I have designed banking, health and logistics products, from the first interviews to the release. Since 2023 I work independently with small product teams.",
+          "primaryButton": {
+            "label": "See selected projects",
+            "link": {
+              "type": "page",
+              "pageId": "projects",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "About me",
+            "link": {
+              "type": "page",
+              "pageId": "about",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Maren Holt at her desk in Nørrebro, sketching app screens next to a printed calendar layout",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "right"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-clients": {
+        "id": "home-clients",
+        "kind": "component",
+        "componentId": "logos-row",
+        "componentVersion": 1,
+        "values": {
+          "title": "Clients and teams I have worked with",
+          "logos": [
+            {
+              "company": "Havn",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Havn",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Tolva Health",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tolva Health",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Morrow Freight",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Morrow Freight",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Ferro",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ferro",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Kvist",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Kvist",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Nordlys",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Nordlys",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-projects": {
+        "id": "home-projects",
+        "kind": "component",
+        "componentId": "blog-cards",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Selected work",
+          "title": "Recent projects and what they changed",
+          "showButton": true,
+          "button": {
+            "label": "All projects",
+            "link": {
+              "type": "page",
+              "pageId": "projects",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "posts": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A Havn bike at a docking station on Jægersborggade with the rental app open on the rider’s phone",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "category": "Mobility app",
+              "title": "Renting a bike in 19 seconds, with one hand",
+              "excerpt": "A new rental flow for a bike and scooter share in three Nordic cities. Abandoned rentals fell from 24 to 9 percent.",
+              "date": "2026-06-15",
+              "author": "Havn",
+              "link": {
+                "type": "section",
+                "pageId": "projects",
+                "anchor": "havn",
+                "newTab": false
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A receptionist rescheduling a patient in the new Tolva clinic calendar",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "category": "Health software",
+              "title": "A clinic calendar physiotherapists can run between patients",
+              "excerpt": "Booking and scheduling for 140 clinics in Denmark and Norway. Online bookings rose from 41 to 63 percent.",
+              "date": "2026-03-09",
+              "author": "Tolva Health",
+              "link": {
+                "type": "section",
+                "pageId": "projects",
+                "anchor": "tolva",
+                "newTab": false
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Freight planners in front of the Morrow dispatch board on two large screens",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "category": "Logistics",
+              "title": "A dispatch board for planners who lived in spreadsheets",
+              "excerpt": "Thirty planners in Hamburg and Aarhus left their spreadsheets in eight weeks and now handle 30 percent more loads per shift.",
+              "date": "2026-01-26",
+              "author": "Morrow Freight",
+              "link": {
+                "type": "section",
+                "pageId": "projects",
+                "anchor": "more-projects",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-services": {
+        "id": "home-services",
+        "kind": "component",
+        "componentId": "features-icon-list",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Services",
+          "title": "Where I am most useful",
+          "intro": "I join a team for one product problem at a time, usually for six to twelve weeks, and work directly with engineers and the people who use the product.",
+          "showButton": true,
+          "button": {
+            "label": "How I work",
+            "link": {
+              "type": "section",
+              "pageId": "about",
+              "anchor": "process",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "items": [
+            {
+              "icon": "compass",
+              "title": "Product direction",
+              "text": "Turning a vague brief into a clear problem, a plan and a first prototype within two weeks."
+            },
+            {
+              "icon": "users",
+              "title": "Research with users",
+              "text": "Interviews and field visits with the people who use the product, not only the people who buy it."
+            },
+            {
+              "icon": "smartphone",
+              "title": "Interaction design",
+              "text": "Flows and screens for web and mobile, tested with users before anyone writes code."
+            },
+            {
+              "icon": "layers",
+              "title": "Design systems",
+              "text": "Components, tokens and documentation your team can keep up after I leave."
+            },
+            {
+              "icon": "workflow",
+              "title": "Prototyping",
+              "text": "Clickable prototypes in Figma, or coded ones when timing and motion matter."
+            },
+            {
+              "icon": "code",
+              "title": "Handover to engineering",
+              "text": "Specs, edge cases and empty states written down, with time set aside for questions during the build."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-quotes": {
+        "id": "home-quotes",
+        "kind": "component",
+        "componentId": "testimonials-carousel",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Clients",
+          "title": "From the teams I worked with",
+          "items": [
+            {
+              "quote": "Maren spent her first week at our stations talking to riders. The flow she came back with was shorter than anything we had sketched, and it held up in testing in all three cities.",
+              "name": "Jesper Lund",
+              "role": "Head of Product, Havn",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Portrait of Jesper Lund",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "She worked with us two days a week and it felt like having a full-time senior designer. Our engineers still use her specs as the reference for edge cases.",
+              "name": "Ingrid Aasen",
+              "role": "CTO, Tolva Health",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Portrait of Ingrid Aasen",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "Our planners did not want a new tool. Maren sat next to them for three shifts and designed around how they actually work. Nobody has opened the old spreadsheet since February.",
+              "name": "Lukas Brandt",
+              "role": "Operations Director, Morrow Freight",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Portrait of Lukas Brandt",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "The design system Maren set up is the reason three designers can look after four products without them drifting apart.",
+              "name": "Sofie Dahl",
+              "role": "Design Lead, Ferro",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Portrait of Sofie Dahl",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-cta": {
+        "id": "home-cta",
+        "kind": "component",
+        "componentId": "cta-centered",
+        "componentVersion": 1,
+        "values": {
+          "title": "Booking projects from November 2026",
+          "text": "I work with two clients at a time. If you have a product problem that needs a senior designer for six weeks or more, send me a short brief.",
+          "button": {
+            "label": "Start a project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "start",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "projects-hero": {
+        "id": "projects-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Projects",
+          "title": "Selected projects, 2022 to 2026",
+          "text": "Five projects from my own studio and my years at Kvist. Each starts with the problem, then what I did and what changed after launch. The numbers come from each client’s own reporting.",
+          "primaryButton": {
+            "label": "Start a project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "start",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "How I work",
+            "link": {
+              "type": "section",
+              "pageId": "about",
+              "anchor": "process",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "projects-havn": {
+        "id": "projects-havn",
+        "kind": "component",
+        "componentId": "content-list-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Havn · Mobility · 2026",
+          "title": "Renting a bike in 19 seconds, with one hand",
+          "text": "Havn runs 4,200 shared bikes and scooters in Copenhagen, Aarhus and Malmö. One in four rentals was abandoned between scanning the bike and unlocking it. Over 14 weeks I interviewed riders at stations, cut the rental flow from seven screens to three and saw it through release with four engineers.",
+          "checkIcon": "check",
+          "items": [
+            {
+              "text": "Unlock time down from 48 to 19 seconds"
+            },
+            {
+              "text": "Abandoned rentals down from 24 to 9 percent"
+            },
+            {
+              "text": "App Store rating up from 3.6 to 4.6 in four months"
+            },
+            {
+              "text": "Released in all three cities in June 2026"
+            }
+          ],
+          "showButton": false,
+          "button": {
+            "label": "Start a similar project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "start",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The new Havn unlock screen on a phone clipped to a bike handlebar",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "left"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "havn"
+      },
+      "projects-havn-quote": {
+        "id": "projects-havn-quote",
+        "kind": "component",
+        "componentId": "testimonial-logo",
+        "componentVersion": 1,
+        "values": {
+          "logo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Havn",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "quote": "We had tried to fix the rental flow twice before. Maren was the first person to ask riders where they hold their phone while they unlock a bike. That one question changed the whole design.",
+          "result": "Completed rentals up from 76 to 91 percent",
+          "resultIcon": "trending-up",
+          "name": "Jesper Lund",
+          "role": "Head of Product, Havn",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait of Jesper Lund",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "projects-tolva": {
+        "id": "projects-tolva",
+        "kind": "component",
+        "componentId": "content-list-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Tolva Health · Health software · 2026",
+          "title": "A clinic calendar physiotherapists can run between patients",
+          "text": "Tolva sells booking software to 140 physiotherapy clinics in Denmark and Norway. Receptionists juggled the calendar while patients called to book. For five months, two days a week, I redesigned the calendar and the patient booking flow, and set up the design system the team now runs on its own.",
+          "checkIcon": "check",
+          "items": [
+            {
+              "text": "Online bookings up from 41 to 63 percent"
+            },
+            {
+              "text": "Rescheduling takes 3 clicks instead of 11"
+            },
+            {
+              "text": "No-shows down 22 percent after new reminders"
+            },
+            {
+              "text": "64 components handed over to Tolva’s own team"
+            }
+          ],
+          "showButton": false,
+          "button": {
+            "label": "Start a similar project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "start",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A clinic’s week view in the new Tolva calendar on a reception desk monitor",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "right"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "tolva"
+      },
+      "projects-process": {
+        "id": "projects-process",
+        "kind": "component",
+        "componentId": "gallery-masonry",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Process",
+          "title": "Most of the work happens away from the screen",
+          "intro": "Field visits, paper prototypes and long walls of printouts. A few moments from projects in 2026.",
+          "items": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Maren Holt talking with a cyclist next to a row of shared bikes on Nørrebrogade",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Rider interviews at a Havn station"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Paper prototypes of a clinic calendar spread across a table",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "photo"
+                }
+              },
+              "caption": "The Tolva calendar, on paper first"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A rider testing a prototype on a phone while holding a bike with one hand",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Testing the unlock flow outdoors"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Freight planners at their desks in front of large route maps",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "A night shift at Morrow Freight"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Four engineers and Maren Holt reviewing component specs on a large screen",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Handover with Tolva’s engineers"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Printed screens and sticky notes pinned in rows on a white studio wall",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "photo"
+                }
+              },
+              "caption": "The studio wall in Nørrebro"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "process"
+      },
+      "projects-more": {
+        "id": "projects-more",
+        "kind": "component",
+        "componentId": "features-alternating",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "More work",
+          "title": "Three more projects",
+          "intro": "A freight dispatch board, a design system for four products and the savings feature I led at Kvist.",
+          "rows": [
+            {
+              "title": "Morrow Freight: a dispatch board for planners who lived in spreadsheets",
+              "text": "Thirty planners in Hamburg and Aarhus assign 900 loads a day. I sat with them for three shifts, then designed a board around how they already worked. The spreadsheet was retired eight weeks after launch in January 2026, and planners now handle 30 percent more loads per shift.",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The Morrow dispatch board showing trucks, loads and delivery windows on a timeline",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "screenshot"
+                }
+              }
+            },
+            {
+              "title": "Ferro: one design system for four invoicing products",
+              "text": "Ferro’s four products had drifted into four styles. Over ten weeks in 2025 I built a shared system of 180 components with their designers and engineers. A new feature now takes two weeks to design instead of six.",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A Ferro design system page showing buttons, form fields and their states",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "screenshot"
+                }
+              }
+            },
+            {
+              "title": "Kvist: savings goals that customers finish",
+              "text": "As lead product designer at Kvist, I redesigned savings goals for 1.8 million customers. Clearer progress and automatic transfers raised goal completion by 31 percent in 2022.",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A Kvist savings goal screen showing progress towards a summer holiday fund",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "screenshot"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "more-projects"
+      },
+      "projects-cta": {
+        "id": "projects-cta",
+        "kind": "component",
+        "componentId": "cta-banner",
+        "componentVersion": 1,
+        "values": {
+          "title": "Have a product that needs this kind of attention?",
+          "text": "Booking projects from 2 November 2026.",
+          "button": {
+            "label": "Start a project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "start",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-hero": {
+        "id": "about-hero",
+        "kind": "component",
+        "componentId": "hero-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "About",
+          "title": "Eleven years of product design, three on my own",
+          "text": "I spent three years at a Copenhagen design studio and five leading design at Kvist. Since 2023 I have worked for myself from a small studio in Nørrebro.",
+          "primaryButton": {
+            "label": "How I work",
+            "link": {
+              "type": "section",
+              "anchor": "process",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Get in touch",
+            "link": {
+              "type": "page",
+              "pageId": "contact",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait of Maren Holt in her studio, standing by a wall of printed screens",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "person"
+            }
+          },
+          "imageSide": "left"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-story": {
+        "id": "about-story",
+        "kind": "component",
+        "componentId": "richtext-sidebar",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Background",
+          "title": "How I got here",
+          "lead": "The short version: a studio, then one product for five years, then my own practice. The longer version explains why I work the way I do.",
+          "body": "<p>I started at Nordlys, a digital studio in Copenhagen, designing ticket machines and booking sites for transport companies in Denmark and Sweden. Three years of short projects taught me to find the real problem quickly, and that most of it sits outside the screen.</p><h2>Five years inside one product</h2><p>In 2018 I joined Kvist as its second designer. By 2023 I led a team of six, working on payments, savings and the design system every Kvist screen is still built on. Staying with one product that long taught me what studios rarely see: what happens to a design two years after launch.</p><h2>Why I went independent</h2><p>I wanted to work on more kinds of problems without losing that depth. So I take two clients at a time, stay for at least six weeks and work inside the team, rather than handing over a deck at the end.</p><ul><li>Banking, health, mobility and logistics software</li><li>Product teams of 3 to 30 people</li><li>On site in Copenhagen, Aarhus or Malmö, remote anywhere in Europe</li></ul><h2>Outside client work</h2><p>Each spring I teach a six-week course on designing public services, and I mentor two junior designers a year.</p>",
+          "sidebarTitle": "Elsewhere",
+          "sidebarText": "Projects, rates and the places I post now and then.",
+          "links": [
+            {
+              "label": "Selected projects",
+              "link": {
+                "type": "page",
+                "pageId": "projects",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Rates and availability",
+              "link": {
+                "type": "section",
+                "pageId": "contact",
+                "anchor": "faq",
+                "newTab": false
+              }
+            },
+            {
+              "label": "LinkedIn",
+              "link": {
+                "type": "url",
+                "url": "https://www.linkedin.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "Dribbble",
+              "link": {
+                "type": "url",
+                "url": "https://dribbble.com",
+                "newTab": true
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-numbers": {
+        "id": "about-numbers",
+        "kind": "component",
+        "componentId": "stats-row",
+        "componentVersion": 2,
+        "values": {
+          "stats": [
+            {
+              "value": "11",
+              "label": "Years in product design"
+            },
+            {
+              "value": "24",
+              "label": "Products shipped"
+            },
+            {
+              "value": "6",
+              "label": "Design systems built"
+            },
+            {
+              "value": "9",
+              "label": "Clients since 2023"
+            }
+          ],
+          "countUp": false
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-experience": {
+        "id": "about-experience",
+        "kind": "component",
+        "componentId": "content-two-columns",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Experience",
+          "title": "Where I have worked",
+          "left": "<p><strong>Independent product designer</strong>, 2023 to today. Havn, Tolva Health, Morrow Freight, Ferro and five other clients.</p><p><strong>Lead product designer at Kvist</strong>, 2018 to 2023. Payments, savings and the Kvist design system, with a team of six.</p>",
+          "right": "<p><strong>Interaction designer at Nordlys</strong>, 2015 to 2018. Ticketing and booking for transport companies in Denmark and Sweden.</p><p><strong>MA in interaction design</strong>, Copenhagen, 2015. Thesis on wayfinding in busy train stations.</p>"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-process": {
+        "id": "about-process",
+        "kind": "component",
+        "componentId": "steps-row",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "How I work",
+          "title": "Four steps, on every project",
+          "steps": [
+            {
+              "title": "Listen",
+              "text": "Week one: interviews with your team and the people who use the product. You get a one-page brief with the problem we agree to solve."
+            },
+            {
+              "title": "Sketch and test",
+              "text": "Weeks two to four: paper and clickable prototypes, tested with five to eight users in each round."
+            },
+            {
+              "title": "Design and specify",
+              "text": "Final screens, states and edge cases, built on your design system or a new one we set up together."
+            },
+            {
+              "title": "Ship together",
+              "text": "I stay through the build, review every release candidate and measure the results after launch."
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "process"
+      },
+      "about-cta": {
+        "id": "about-cta",
+        "kind": "component",
+        "componentId": "cta-two-buttons",
+        "componentVersion": 1,
+        "values": {
+          "title": "Planning something for early 2027?",
+          "text": "I am booking projects that start from 2 November 2026. Send a short brief, or look through the projects first.",
+          "primaryButton": {
+            "label": "Start a project",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "start",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "secondaryButton": {
+            "label": "See projects",
+            "link": {
+              "type": "page",
+              "pageId": "projects",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-hero": {
+        "id": "contact-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Contact",
+          "title": "Tell me what you are working on",
+          "text": "I am booking projects that start from 2 November 2026, with room for two clients at a time. I read every message myself and reply within two working days.",
+          "primaryButton": {
+            "label": "Send a brief",
+            "link": {
+              "type": "section",
+              "anchor": "start",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Rates and availability",
+            "link": {
+              "type": "section",
+              "anchor": "faq",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-ways": {
+        "id": "contact-ways",
+        "kind": "component",
+        "componentId": "contact-cards",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Ways to work together",
+          "title": "Three ways to work with me",
+          "cards": [
+            {
+              "icon": "target",
+              "title": "Project",
+              "text": "Six to twelve weeks on one product problem, from research to handover. A fixed fee, agreed after a free scoping call.",
+              "link": {
+                "label": "Ask about a project",
+                "link": {
+                  "type": "section",
+                  "anchor": "start",
+                  "newTab": false
+                },
+                "variant": "ghost"
+              }
+            },
+            {
+              "icon": "users",
+              "title": "Design partner",
+              "text": "Two days a week inside your team for three months or more. For teams that do not have a senior designer yet.",
+              "link": {
+                "label": "Ask about a partnership",
+                "link": {
+                  "type": "section",
+                  "anchor": "start",
+                  "newTab": false
+                },
+                "variant": "ghost"
+              }
+            },
+            {
+              "icon": "search",
+              "title": "Design review",
+              "text": "One day with your product and your team, then a written review with clear priorities. €1,900, fixed.",
+              "link": {
+                "label": "Book a review",
+                "link": {
+                  "type": "email",
+                  "url": "hello@marenholt.example",
+                  "newTab": false
+                },
+                "variant": "ghost"
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-form": {
+        "id": "contact-form",
+        "kind": "component",
+        "componentId": "contact-form",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Start a project",
+          "title": "Send me a short brief",
+          "text": "A few lines are enough: what the product is, who uses it, what is not working and when you would like to start.",
+          "email": "hello@marenholt.example",
+          "phone": "+45 31 12 48 07",
+          "address": "Studio 3, Jægersborggade 14\n2200 Copenhagen N, Denmark",
+          "nameLabel": "Your name",
+          "emailLabel": "Email",
+          "messageLabel": "What are you working on, and when would you like to start?",
+          "buttonLabel": "Send brief",
+          "formAction": "",
+          "formMethod": "post"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "start"
+      },
+      "contact-faq": {
+        "id": "contact-faq",
+        "kind": "component",
+        "componentId": "faq-side-heading",
+        "componentVersion": 1,
+        "values": {
+          "title": "Rates and availability",
+          "text": "Something else you would like to know? Ask me directly.",
+          "showButton": true,
+          "button": {
+            "label": "Email me",
+            "link": {
+              "type": "email",
+              "url": "hello@marenholt.example",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "expandIcon": "plus",
+          "items": [
+            {
+              "question": "What does a project cost?",
+              "answer": "<p>Most projects are a fixed fee, agreed after a free 30-minute scoping call. As a guide, a six-week project costs between €26,000 and €34,000. For smaller pieces of work my day rate is €950, excluding VAT.</p>"
+            },
+            {
+              "question": "When are you available?",
+              "answer": "<p>I am booking projects that start from 2 November 2026. I work with two clients at a time, so a short brief now helps me hold a slot for you.</p>"
+            },
+            {
+              "question": "Do you work on site or remotely?",
+              "answer": "<p>Both. I am happy to spend one or two days a week with your team in Copenhagen, Aarhus or Malmö, and I work remotely with teams anywhere in Europe.</p>"
+            },
+            {
+              "question": "Do you work with agencies?",
+              "answer": "<p>Yes, as the senior product designer on an agency team, as long as I can talk directly to the client’s users and engineers.</p>"
+            },
+            {
+              "question": "What do you need from us to start?",
+              "answer": "<p>A product owner who can make decisions, access to the people who use the product and one engineer I can ask questions. Everything else we set up in the first week.</p>"
+            },
+            {
+              "question": "Will you sign an NDA?",
+              "answer": "<p>Yes. I sign NDAs as standard, and I only show client work on this site with written permission.</p>"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "faq"
+      }
+    }
+  },
+  "sharedSlots": {
+    "header": ["header-banner", "header-nav"],
+    "footer": ["footer-footer"]
+  },
+  "assets": {}
+}

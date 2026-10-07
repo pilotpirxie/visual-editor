@@ -2,6 +2,7 @@ import { FAVICON_TYPES, settingError, SOCIAL_IMAGE_TYPES } from '../app/settings
 import { slugError } from '../app/slugs';
 import {
   FONT_ROLES,
+  SCHEMA_VERSION,
   SHARED_SLOTS,
   TOKEN_GROUPS,
   type Asset,
@@ -257,7 +258,7 @@ function parsePages(
 
 export function parseProjectDocument(value: unknown): Project {
   const raw = recordAt(value, 'project');
-  if (raw.schemaVersion !== 2) {
+  if (raw.schemaVersion !== SCHEMA_VERSION) {
     throw new ProjectFormatError('This project was saved in an unsupported format');
   }
   const id = stringAt(raw.id, 'id');
@@ -271,7 +272,7 @@ export function parseProjectDocument(value: unknown): Project {
   };
   const starterId = optionalStringAt(raw.starterId, 'starterId');
   return {
-    schemaVersion: 2,
+    schemaVersion: SCHEMA_VERSION,
     id,
     ...(starterId === undefined ? {} : { starterId }),
     settings: parseSettings(raw.settings, assets),

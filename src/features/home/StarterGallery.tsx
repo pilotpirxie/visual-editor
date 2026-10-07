@@ -3,16 +3,44 @@ import { describeError } from '../../app/errors';
 import type { Project } from '../../app/types';
 import { registry } from '../../components/registry';
 import { renderStandalonePage } from '../../render/exportSite';
-import { loadStarter, STARTERS, type StarterInfo } from '../../starters/starters';
+import {
+  loadStarter,
+  STARTER_USE_CASES,
+  STARTERS,
+  type StarterInfo,
+  type StarterUseCase,
+} from '../../starters/starters';
 import { useElementSize } from '../canvas/Canvas';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import { StarterPreview } from './StarterPreview';
-import { Button } from '../../../packages/ui/src';
+import { Button, SegmentedControl } from '../../../packages/ui/src';
 
 const THUMBNAIL_WIDTH = 1440;
 const THUMBNAIL_HEIGHT = 900;
 
 type LoadedStarter = { starter: StarterInfo; project: Project };
+
+type UseCaseFilter = StarterUseCase | 'all';
+
+const ALL_USE_CASES = 'all';
+
+const USE_CASE_OPTIONS = [
+  { value: ALL_USE_CASES, label: 'All' },
+  ...STARTER_USE_CASES.map(({ id, label }) => ({ value: id, label })),
+];
+
+function filterFromValue(value: string): UseCaseFilter {
+  return STARTER_USE_CASES.find(({ id }) => id === value)?.id ?? ALL_USE_CASES;
+}
+
+function startersFor(starters: LoadedStarter[], filter: UseCaseFilter): LoadedStarter[] {
+  if (filter === ALL_USE_CASES) return starters;
+  const shown: LoadedStarter[] = [];
+  for (const loaded of starters) {
+    if (loaded.starter.useCase === filter) shown.push(loaded);
+  }
+  return shown;
+}
 
 type StarterGalleryProps = {
   isDisabled: boolean;
@@ -64,6 +92,7 @@ export function StarterGallery({ isDisabled, onUse }: StarterGalleryProps): JSX.
   const [starters, setStarters] = useState<LoadedStarter[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [previewing, setPreviewing] = useState<LoadedStarter | null>(null);
+  const [useCase, setUseCase] = useState<UseCaseFilter>(ALL_USE_CASES);
 
   useEffect(() => {
     let isCancelled = false;
@@ -93,8 +122,16 @@ export function StarterGallery({ isDisabled, onUse }: StarterGalleryProps): JSX.
 
   return (
     <>
+      <SegmentedControl
+        legend="Use case"
+        name="ve-starter-use-case"
+        className="ve-starter-filter"
+        options={USE_CASE_OPTIONS}
+        value={useCase}
+        onChange={(value) => setUseCase(filterFromValue(value))}
+      />
       <ul className="ve-starter-grid" aria-label="Starters">
-        {starters.map((loaded) => {
+        {startersFor(starters, useCase).map((loaded) => {
           const { starter, project } = loaded;
           return (
             <li key={starter.id} className="ve-starter-card">

@@ -1,0 +1,53 @@
+@layer components {
+  @scope (.b-gallery-masonry) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-masonry {
+      column-gap: var(--space-6);
+      columns: 1;
+    }
+
+    .b-item {
+      margin-block-end: var(--space-6);
+      break-inside: avoid;
+    }
+
+    .b-media {
+      --media-radius: var(--radius-lg);
+    }
+
+    .b-caption {
+      margin-block-start: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-masonry {
+        columns: 2;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        --stack-gap: var(--space-12);
+      }
+
+      .b-masonry {
+        columns: 3;
+      }
+    }
+  }
+}

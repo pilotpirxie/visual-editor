@@ -5,6 +5,8 @@ import { BUILTIN_PRESETS } from '../../presets/presets';
 import { changeValue, click, getButton, render } from '../../test/dom';
 import { NewProjectDialog } from './NewProjectDialog';
 
+const STARTERS_LOAD_TIMEOUT_MS = 5000;
+
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
 }));
@@ -46,6 +48,14 @@ function presetLabels(container: HTMLElement): string[] {
   for (const button of presetButtons(container))
     labels.push(button.getAttribute('aria-label') ?? '');
   return labels;
+}
+
+function starterNames(container: HTMLElement): string[] {
+  const names: string[] = [];
+  for (const name of container.querySelectorAll('.ve-starter-name')) {
+    names.push(name.textContent ?? '');
+  }
+  return names;
 }
 
 function nameInput(container: HTMLElement): HTMLInputElement | null {
@@ -159,10 +169,28 @@ describe('NewProjectDialog tabs', () => {
     const container = await renderDialog();
     changeValue(nameInput(container), 'Orbit for Teams');
     click(getButton(container, 'Starters'));
-    click(await vi.waitFor(() => getButton(container, 'Use the Startup waitlist starter')));
+    click(
+      await vi.waitFor(() => getButton(container, 'Use the Startup waitlist starter'), {
+        timeout: STARTERS_LOAD_TIMEOUT_MS,
+      }),
+    );
     await vi.waitFor(() => expect(savedProjects()).toHaveLength(1));
     expect(savedProjects()[0].settings.title).toBe('Orbit for Teams');
     expect(savedProjects()[0].starterId).toBe('waitlist');
+  });
+
+  it('filters the starters by use case', async () => {
+    const container = await renderDialog();
+    click(getButton(container, 'Starters'));
+    await vi.waitFor(() => expect(starterNames(container)).toHaveLength(8), {
+      timeout: STARTERS_LOAD_TIMEOUT_MS,
+    });
+    click(container.querySelector('.ve-starter-filter [title="Personal"] input'));
+    expect(starterNames(container)).toEqual(['Portfolio']);
+    click(container.querySelector('.ve-starter-filter [title="Local and events"] input'));
+    expect(starterNames(container)).toEqual(['Event or conference', 'Restaurant or cafe']);
+    click(container.querySelector('.ve-starter-filter [title="All"] input'));
+    expect(starterNames(container)).toHaveLength(8);
   });
 
   it('closes without creating anything on Cancel', async () => {

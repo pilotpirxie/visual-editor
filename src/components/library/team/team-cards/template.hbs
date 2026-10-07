@@ -1,0 +1,30 @@
+<section class="b-team-cards section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="grid b-grid" role="list">
+      {{#each people}}
+      <li class="card stack b-card" data-field="people.{{@index}}">
+        <div class="b-person">
+          <div class="media b-photo">{{img photo}}</div>
+          <div class="b-identity">
+            <h3 class="b-name">{{name}}</h3>
+            {{#if role}}<p class="b-role">{{role}}</p>{{/if}}
+          </div>
+        </div>
+        {{#if bio}}<p class="b-bio">{{nl2br bio}}</p>{{/if}}
+        {{#if socials.length}}
+        <ul class="cluster b-socials" role="list">
+          {{#each socials}}
+          <li><a class="b-social" href="{{href link}}" {{linkAttrs link}}>{{svgIcon icon}}<span class="visually-hidden">{{label}}, {{../name}}</span></a></li>
+          {{/each}}
+        </ul>
+        {{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

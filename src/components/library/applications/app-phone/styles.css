@@ -1,0 +1,104 @@
+@layer components {
+  @scope (.b-app-phone) {
+    .b-phone {
+      --device-width: 13rem;
+    }
+
+    .b-inner {
+      display: grid;
+      grid-template-areas: 'head' 'device' 'body';
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      grid-area: head;
+      max-width: 36rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-device {
+      display: grid;
+      grid-area: device;
+      place-items: center;
+      padding: var(--space-8) var(--space-4);
+      border-radius: var(--radius-lg);
+      background: color-mix(in oklab, var(--color-primary) 10%, transparent);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-8);
+      grid-area: body;
+      align-items: flex-start;
+    }
+
+    .b-features {
+      display: grid;
+      gap: var(--space-6);
+      max-width: 36rem;
+    }
+
+    .b-feature {
+      display: flex;
+      gap: var(--space-4);
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-feature-copy {
+      --stack-gap: var(--space-1);
+    }
+
+    .b-feature-copy h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-feature-copy p {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-device {
+        padding: var(--space-12);
+      }
+
+      .b-phone {
+        --device-width: 15rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 'device head' 'device body';
+        gap: var(--space-8) var(--space-16);
+      }
+
+      .b-head {
+        align-self: end;
+      }
+
+      .b-body {
+        align-self: start;
+      }
+
+      .b-phone {
+        --device-width: 17rem;
+      }
+    }
+  }
+}

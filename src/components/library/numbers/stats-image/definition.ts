@@ -1,0 +1,78 @@
+import type { ComponentDefinition } from '../../../types';
+
+export const definition: ComponentDefinition = {
+  id: 'stats-image',
+  version: 1,
+  name: 'Numbers, stats over an image',
+  category: 'numbers',
+  description: 'A heading and big numbers over a full-width background image.',
+  tags: ['numbers', 'stats', 'metrics', 'results', 'background', 'image'],
+  fieldGroups: ['Heading', 'Numbers', 'Image'],
+  styleOverrides: ['--color-background', '--color-text', '--section-padding-y'],
+  behaviors: ['counter'],
+  fields: [
+    {
+      name: 'eyebrow',
+      label: 'Eyebrow',
+      type: 'text',
+      default: 'Fieldnote in numbers',
+      group: 'Heading',
+    },
+    {
+      name: 'title',
+      label: 'Title',
+      type: 'text',
+      default: 'Research that makes it onto the roadmap',
+      required: true,
+      group: 'Heading',
+    },
+    {
+      name: 'intro',
+      label: 'Intro',
+      type: 'textarea',
+      default: 'From our 2026 survey of 412 research and product teams using Fieldnote.',
+      group: 'Heading',
+    },
+    {
+      name: 'stats',
+      label: 'Numbers',
+      type: 'list',
+      group: 'Numbers',
+      minItems: 1,
+      maxItems: 4,
+      itemLabel: 'label',
+      itemFields: [
+        { name: 'value', label: 'Number', type: 'text', default: '100' },
+        { name: 'label', label: 'Label', type: 'text', default: 'Label' },
+      ],
+      default: [
+        { value: '900+', label: 'Product teams' },
+        { value: '1.2M', label: 'Hours of interviews transcribed' },
+        { value: '6 hrs', label: 'Saved per study' },
+        { value: '87%', label: 'Shipped a change backed by a quote' },
+      ],
+    },
+    {
+      name: 'countUp',
+      label: 'Count up when visible',
+      type: 'boolean',
+      default: true,
+      group: 'Numbers',
+    },
+    {
+      name: 'image',
+      label: 'Background image',
+      type: 'image',
+      default: {
+        source: 'placeholder',
+        src: '',
+        alt: 'A research team reviewing interview highlights together in a meeting room',
+        decorative: false,
+        width: 1200,
+        height: 675,
+        placeholder: { ratio: '16:9', subject: 'photo' },
+      },
+      group: 'Image',
+    },
+  ],
+};

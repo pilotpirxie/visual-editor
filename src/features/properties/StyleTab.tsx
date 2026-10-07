@@ -1,5 +1,11 @@
 import { useState, type JSX } from 'react';
-import { blockOverrideRemoved, blockOverrideSet, type EditKind } from '../../app/projectSlice';
+import {
+  blockOverrideRemoved,
+  blockOverrideSet,
+  blockSectionThemeSet,
+  type EditKind,
+} from '../../app/projectSlice';
+import { activeSectionTheme, SECTION_THEMES, supportsSectionThemes } from '../../app/sectionThemes';
 import { dispatch, useStore } from '../../app/store';
 import type { ComponentBlock, Token } from '../../app/types';
 import type { ComponentDefinition, Field } from '../../components/types';
@@ -7,7 +13,7 @@ import { tokenReference } from '../../render/css';
 import { resolveColor } from '../design-system/colors';
 import { FieldControl } from './FieldControl';
 import { TokenSelect } from './TokenSelect';
-import { Button, IconButton, Section } from '../../../packages/ui/src';
+import { Button, IconButton, Section, SegmentedControl } from '../../../packages/ui/src';
 import { useSection } from '../editor/useSection';
 
 type OverrideRowProps = {
@@ -126,6 +132,24 @@ function OverrideRow({
   );
 }
 
+const THEME_OPTIONS = SECTION_THEMES.map(({ id, label }) => ({ value: id, label }));
+
+function SectionThemePicker({ block }: { block: ComponentBlock }): JSX.Element {
+  const section = useSection('style:theme');
+  return (
+    <Section title="Section theme" isOpen={section.isOpen} onToggle={section.onToggle}>
+      <SegmentedControl
+        legend="Section theme"
+        isLegendHidden
+        name={`ve-section-theme-${block.id}`}
+        options={THEME_OPTIONS}
+        value={activeSectionTheme(block.overrides) ?? ''}
+        onChange={(themeId) => dispatch(blockSectionThemeSet({ blockId: block.id, themeId }))}
+      />
+    </Section>
+  );
+}
+
 export function StyleTab({
   block,
   definition,
@@ -142,18 +166,21 @@ export function StyleTab({
   }
 
   return (
-    <Section title="Overrides" isOpen={section.isOpen} onToggle={section.onToggle}>
-      {definition.styleOverrides.map((name) => (
-        <OverrideRow
-          key={name}
-          block={block}
-          name={name}
-          tokens={tokens}
-          isOpen={openTokens.includes(name)}
-          onOpen={() => setOpenTokens([...openTokens, name])}
-          onClose={() => setOpenTokens(openTokens.filter((open) => open !== name))}
-        />
-      ))}
-    </Section>
+    <>
+      {supportsSectionThemes(definition) && <SectionThemePicker block={block} />}
+      <Section title="Overrides" isOpen={section.isOpen} onToggle={section.onToggle}>
+        {definition.styleOverrides.map((name) => (
+          <OverrideRow
+            key={name}
+            block={block}
+            name={name}
+            tokens={tokens}
+            isOpen={openTokens.includes(name)}
+            onOpen={() => setOpenTokens([...openTokens, name])}
+            onClose={() => setOpenTokens(openTokens.filter((open) => open !== name))}
+          />
+        ))}
+      </Section>
+    </>
   );
 }

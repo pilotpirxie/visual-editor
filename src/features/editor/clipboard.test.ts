@@ -143,6 +143,19 @@ describe('prepareForPaste', () => {
     });
   });
 
+  it('upgrades a block copied from a tab running an older version', () => {
+    const project = createSampleProject();
+    const { heroId } = sampleIds(project);
+    const envelope = envelopeOf(project, heroId);
+    const copied = asComponent(envelope.block);
+    const current = componentBlock(project, heroId);
+    copied.componentVersion = 0;
+    delete copied.values.title;
+    const pasted = asComponent(prepareForPaste(envelope, project, 'new-id')?.block);
+    expect(pasted.componentVersion).toBe(current.componentVersion);
+    expect(pasted.values.title).toBe(current.values.title);
+  });
+
   it('keeps links to pages that exist in the target project', () => {
     const project = createSampleProject();
     linkHeroTo(project, project.pages.homePageId);

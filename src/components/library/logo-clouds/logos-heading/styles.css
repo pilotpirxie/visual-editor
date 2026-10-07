@@ -1,0 +1,66 @@
+@layer components {
+  @scope (.b-logos-heading) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 36rem;
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-logos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .b-logo {
+      display: grid;
+      place-items: center;
+      min-height: 5rem;
+      padding: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+
+    .b-logo img {
+      width: 100%;
+      max-width: 8rem;
+      height: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      opacity: 0.8;
+    }
+
+    @media (min-width: 768px) {
+      .b-logos {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-4);
+      }
+
+      .b-logo {
+        min-height: 6rem;
+        padding: var(--space-4) var(--space-6);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+        align-items: center;
+      }
+    }
+  }
+}

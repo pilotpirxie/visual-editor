@@ -1,0 +1,113 @@
+@layer components {
+  @scope (.b-blog-cards) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+
+    .b-heading {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-grid {
+      --grid-min: 18rem;
+      --grid-gap: var(--space-6);
+    }
+
+    .b-card {
+      --card-padding: 0;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition:
+        box-shadow var(--transition-normal),
+        border-color var(--transition-normal);
+    }
+
+    .b-card:hover {
+      border-color: color-mix(in oklab, var(--color-primary) 40%, var(--color-border));
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-media {
+      --media-radius: calc(var(--card-radius) - var(--border-width))
+        calc(var(--card-radius) - var(--border-width)) 0 0;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-3);
+      flex: 1;
+      align-items: flex-start;
+      padding: var(--space-6);
+    }
+
+    .b-title {
+      font-size: var(--text-xl);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--card-radius);
+    }
+
+    .b-link:focus-visible {
+      outline: none;
+    }
+
+    .b-link:focus-visible::after {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    .b-card:hover .b-link {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+
+    .b-excerpt {
+      color: var(--color-text-muted);
+    }
+
+    .b-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1) var(--space-3);
+      margin-top: auto;
+      padding-top: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-author {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .b-card {
+        transition: none;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
+}

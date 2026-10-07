@@ -1,0 +1,20 @@
+<section class="b-app-badges section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <ul class="cluster b-badges" role="list">
+        {{#each badges}}
+        <li><a class="b-badge" href="{{href link}}" {{linkAttrs link}} data-field="badges.{{@index}}">{{svgIcon icon}}<span class="b-badge-text"><span class="b-badge-small">{{smallLabel}}</span> <span class="b-badge-label">{{label}}</span></span></a></li>
+        {{/each}}
+      </ul>
+      {{#if rating}}<p class="b-rating" data-field="rating">{{svgIcon "star"}}<span>{{rating}}</span></p>{{/if}}
+    </div>
+    <div class="b-device" data-field="screenshot">
+      <div class="device b-phone">
+        <div class="media device-screen">{{img screenshot}}</div>
+      </div>
+    </div>
+  </div>
+</section>

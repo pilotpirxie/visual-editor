@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" fill="none">
+  <rect width="640" height="400" fill="#ffffff"/>
+  <rect x="40" y="36" width="70" height="10" rx="4" fill="#4f46e5"/>
+  <rect x="40" y="56" width="320" height="22" rx="4" fill="#111827"/>
+  <rect x="40" y="88" width="260" height="8" rx="4" fill="#9ca3af"/>
+  <g fill="#e5e7eb">
+    <rect x="40" y="124" width="264" height="2"/>
+    <rect x="40" y="214" width="264" height="2"/>
+    <rect x="40" y="304" width="264" height="2"/>
+    <rect x="336" y="124" width="264" height="2"/>
+    <rect x="336" y="214" width="264" height="2"/>
+    <rect x="336" y="304" width="264" height="2"/>
+    <circle cx="60" cy="160" r="20"/>
+    <circle cx="60" cy="250" r="20"/>
+    <circle cx="60" cy="340" r="20"/>
+    <circle cx="356" cy="160" r="20"/>
+    <circle cx="356" cy="250" r="20"/>
+    <circle cx="356" cy="340" r="20"/>
+  </g>
+  <g fill="#111827">
+    <rect x="94" y="144" width="96" height="10" rx="4"/>
+    <rect x="94" y="234" width="84" height="10" rx="4"/>
+    <rect x="94" y="324" width="104" height="10" rx="4"/>
+    <rect x="390" y="144" width="90" height="10" rx="4"/>
+    <rect x="390" y="234" width="100" height="10" rx="4"/>
+    <rect x="390" y="324" width="80" height="10" rx="4"/>
+  </g>
+  <g fill="#4f46e5">
+    <rect x="94" y="162" width="120" height="7" rx="3"/>
+    <rect x="94" y="252" width="100" height="7" rx="3"/>
+    <rect x="94" y="342" width="110" height="7" rx="3"/>
+    <rect x="390" y="162" width="130" height="7" rx="3"/>
+    <rect x="390" y="252" width="90" height="7" rx="3"/>
+    <rect x="390" y="342" width="116" height="7" rx="3"/>
+  </g>
+  <g fill="#9ca3af">
+    <rect x="94" y="180" width="200" height="7" rx="3"/>
+    <rect x="94" y="270" width="190" height="7" rx="3"/>
+    <rect x="94" y="360" width="200" height="7" rx="3"/>
+    <rect x="390" y="180" width="196" height="7" rx="3"/>
+    <rect x="390" y="270" width="200" height="7" rx="3"/>
+    <rect x="390" y="360" width="180" height="7" rx="3"/>
+  </g>
+</svg>

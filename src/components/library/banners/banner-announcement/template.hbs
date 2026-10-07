@@ -1,0 +1,11 @@
+<aside class="b-banner-announcement" aria-label="Announcement">
+  <div class="container b-bar">
+    <p class="b-message">
+      {{#if showIcon}}<span class="b-icon" data-field="icon">{{svgIcon icon}}</span>{{/if}}
+      <span data-field="text">{{text}}</span>
+    </p>
+    {{#if linkLabel}}
+    <a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>
+    {{/if}}
+  </div>
+</aside>

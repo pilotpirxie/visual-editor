@@ -1,0 +1,64 @@
+@layer components {
+  @scope (.b-gallery-grid) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      display: grid;
+      gap: var(--space-8) var(--space-6);
+    }
+
+    .b-media {
+      --media-ratio: 4 / 3;
+      --media-radius: var(--radius-lg);
+    }
+
+    :scope[data-ratio='square'] .b-media {
+      --media-ratio: 1;
+    }
+
+    :scope[data-ratio='portrait'] .b-media {
+      --media-ratio: 3 / 4;
+    }
+
+    .b-caption {
+      margin-block-start: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        --stack-gap: var(--space-12);
+      }
+
+      :scope[data-columns='3'] .b-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      :scope[data-columns='4'] .b-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: var(--space-6) var(--space-4);
+      }
+    }
+  }
+}

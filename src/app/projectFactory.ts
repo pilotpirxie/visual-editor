@@ -1,7 +1,14 @@
 import { createBlock, registry } from '../components/registry';
 import { CLEAN_PRESET, presetDesignSystem } from '../presets/presets';
 import { DEFAULT_TITLE_TEMPLATE } from '../render/pageHead';
-import type { Block, DesignSystemPreset, Page, Project, TokenGenerators } from './types';
+import {
+  SCHEMA_VERSION,
+  type Block,
+  type DesignSystemPreset,
+  type Page,
+  type Project,
+  type TokenGenerators,
+} from './types';
 
 export const UNTITLED_PROJECT_TITLE = 'Untitled site';
 
@@ -31,7 +38,7 @@ export function createBlankProject(
 ): Project {
   const home = createPage(crypto.randomUUID(), 'Home', 'home');
   return {
-    schemaVersion: 2,
+    schemaVersion: SCHEMA_VERSION,
     id: crypto.randomUUID(),
     settings: { title, description: '', language: 'en', titleTemplate: DEFAULT_TITLE_TEMPLATE },
     designSystem: presetDesignSystem(preset),

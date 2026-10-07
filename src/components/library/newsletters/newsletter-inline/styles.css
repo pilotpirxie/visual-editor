@@ -1,0 +1,64 @@
+@layer components {
+  @scope (.b-newsletter-inline) {
+    .b-panel {
+      display: grid;
+      gap: var(--space-6);
+      padding: var(--space-8) var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-copy h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      max-width: 36rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-signup {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .b-field {
+      flex: 1;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        padding: var(--space-12);
+      }
+
+      .b-form {
+        flex-direction: row;
+        align-items: stretch;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-panel {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: var(--space-12);
+      }
+    }
+  }
+}

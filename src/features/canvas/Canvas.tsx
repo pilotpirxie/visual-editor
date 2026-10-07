@@ -100,6 +100,11 @@ function followCanvasLink(doc: Document, href: string | null): void {
   }
 }
 
+function isCloseCommand(event: Event): boolean {
+  if (!isElementTarget(event.target)) return false;
+  return event.target.closest('button[command="close"]') !== null;
+}
+
 function linkFromEvent(event: Event): Element | null {
   if (!isElementTarget(event.target)) return null;
   return event.target.closest('a[href]');
@@ -128,6 +133,7 @@ function useCanvasPointer(doc: Document | null, isPreview: boolean): string | nu
         }
       }
       if (isPreview) return;
+      if (isCloseCommand(event)) event.preventDefault();
       const blockId = blockIdFromEvent(event);
       const path = fieldPathFromEvent(event);
       if (blockId !== null && path !== null) {

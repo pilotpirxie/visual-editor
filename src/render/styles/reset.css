@@ -45,6 +45,10 @@
     overflow-wrap: break-word;
   }
 
+  [hidden]:not([hidden='until-found']) {
+    display: none !important;
+  }
+
   ul[class],
   ol[class] {
     list-style: none;

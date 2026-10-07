@@ -1,0 +1,105 @@
+@layer components {
+  @scope (.b-app-badges) {
+    .b-phone {
+      --device-width: 13rem;
+    }
+
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+    }
+
+    .b-text {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-badges {
+      --cluster-gap: var(--space-3);
+      margin-block-start: var(--space-4);
+    }
+
+    .b-badge {
+      --icon-size: 1.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: 3.5rem;
+      padding: var(--space-2) var(--space-6) var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      background: var(--color-text);
+      color: var(--color-background);
+      text-decoration: none;
+      transition: background-color var(--transition-fast);
+    }
+
+    .b-badge:hover {
+      background: color-mix(in oklab, var(--color-text) 82%, var(--color-background));
+    }
+
+    .b-badge-text {
+      display: grid;
+      line-height: var(--line-height-tight);
+    }
+
+    .b-badge-small {
+      font-size: var(--text-xs);
+    }
+
+    .b-badge-label {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-rating {
+      --icon-size: 1.125rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-muted);
+    }
+
+    .b-rating .icon {
+      color: var(--color-primary);
+    }
+
+    .b-device {
+      display: grid;
+      place-items: center;
+      padding: var(--space-8) var(--space-4);
+      border-radius: var(--radius-lg);
+      background: color-mix(in oklab, var(--color-primary) 10%, transparent);
+    }
+
+    @media (min-width: 768px) {
+      .b-device {
+        padding: var(--space-12);
+      }
+
+      .b-phone {
+        --device-width: 15rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1.1fr 1fr;
+        gap: var(--space-16);
+      }
+
+      .b-phone {
+        --device-width: 17rem;
+      }
+    }
+  }
+}

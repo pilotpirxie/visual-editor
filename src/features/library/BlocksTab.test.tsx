@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { blockSelected, compactTabSelected } from '../../app/editorSlice';
 import { dispatch, store } from '../../app/store';
 import { registry } from '../../components/registry';
+import { CATEGORIES } from '../../components/types';
 import { changeValue, click, firePointer, getButton, render, runInAct } from '../../test/dom';
 import { componentBlockOf, homePage, loadIntoAppStore } from '../../test/fixtures';
 import { dragController } from '../canvas/dragController';
@@ -43,23 +44,14 @@ describe('groupByCategory', () => {
     const groups = groupByCategory([...registry.values()]);
     const ids: string[] = [];
     for (const group of groups) ids.push(group.id);
-    expect(ids).toEqual([
-      'navigations',
-      'headers',
-      'features',
-      'how-it-works',
-      'pricing',
-      'testimonials',
-      'logo-clouds',
-      'numbers',
-      'content',
-      'faq',
-      'contacts',
-      'call-to-action',
-      'footers',
-    ]);
+    const notYetFilled = ['modals', 'cookies', 'http-codes'];
+    const filled: string[] = [];
+    for (const { id } of CATEGORIES) {
+      if (!notYetFilled.includes(id)) filled.push(id);
+    }
+    expect(ids).toEqual(filled);
     const navigationIds = groups[0]?.components.map((component) => component.definition.id);
-    expect(navigationIds).toEqual(['nav-centered', 'nav-cta', 'nav-simple']);
+    expect(navigationIds).toEqual(['nav-centered', 'nav-cta', 'nav-dropdown', 'nav-simple']);
   });
 
   it('returns no groups for no components', () => {
@@ -70,16 +62,14 @@ describe('groupByCategory', () => {
 describe('BlocksTab', () => {
   it('lists categories with how many blocks each has', () => {
     const { container } = render(<BlocksTab />);
-    expect(categoryButton(container, 'Headers').textContent).toBe('Headers4');
+    expect(categoryButton(container, 'Headers').textContent).toBe('Headers6');
   });
 
   it('opens a category and goes back to the list', () => {
     const { container } = render(<BlocksTab />);
     click(categoryButton(container, 'Content'));
     expect(container.querySelector('h2')?.textContent).toBe('Content');
-    expect(container.querySelector('.ve-component-card')?.textContent).toBe(
-      'Content, text and image',
-    );
+    expect(container.querySelector('.ve-component-card')?.textContent).toBe('Content, agenda');
     click(getButton(container, 'All categories'));
     expect(container.querySelector('.ve-categories')).not.toBeNull();
   });
@@ -87,9 +77,9 @@ describe('BlocksTab', () => {
   it('searches by name and says when nothing matches', () => {
     const { container } = render(<BlocksTab />);
     searchFor(container, 'footer');
-    expect(container.querySelectorAll('.ve-component-card')).toHaveLength(3);
-    searchFor(container, 'carousel');
-    expect(container.textContent).toContain('No blocks match “carousel”.');
+    expect(container.querySelectorAll('.ve-component-card')).toHaveLength(4);
+    searchFor(container, 'hologram');
+    expect(container.textContent).toContain('No blocks match “hologram”.');
   });
 
   it('inserts a clicked block after the selected one and shows it on the canvas', () => {
@@ -124,8 +114,8 @@ describe('BlocksTab', () => {
     firePointer(window, 'pointermove', { clientX: 10, clientY: 200, buttons: 1 });
     expect(dragController.getSnapshot()?.payload).toEqual({
       kind: 'new',
-      componentId: 'content-text-image',
-      label: 'Content, text and image',
+      componentId: 'content-agenda',
+      label: 'Content, agenda',
     });
     dragController.cancel();
   });

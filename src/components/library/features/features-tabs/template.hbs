@@ -1,0 +1,25 @@
+<section class="b-features-tabs section" data-behavior="tabs">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-tablist" role="tablist" aria-label="{{title}}" hidden>
+      {{#each items}}
+      <button type="button" class="b-tab" id="{{../block.id}}-tab-{{@index}}" aria-controls="{{../block.id}}-panel-{{@index}}" data-field="items.{{@index}}">{{svgIcon icon}}<span>{{label}}</span></button>
+      {{/each}}
+    </div>
+    <div class="b-panels">
+      {{#each items}}
+      <div class="b-panel" id="{{../block.id}}-panel-{{@index}}" data-field="items.{{@index}}">
+        <div class="stack b-copy">
+          <h3>{{title}}</h3>
+          <div class="prose b-text">{{richText text}}</div>
+        </div>
+        <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}">{{img image}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

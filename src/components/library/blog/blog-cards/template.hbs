@@ -1,0 +1,31 @@
+<section class="b-blog-cards section">
+  <div class="container stack b-inner">
+    <div class="b-head">
+      <header class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      {{#if showButton}}
+      <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      {{/if}}
+    </div>
+    <div class="grid b-grid">
+      {{#each posts}}
+      <article class="card b-card" data-field="posts.{{@index}}">
+        <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}">{{img image}}</div>
+        <div class="stack b-body">
+          {{#if category}}<p class="badge b-category">{{category}}</p>{{/if}}
+          <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          {{#if excerpt}}<p class="b-excerpt">{{nl2br excerpt}}</p>{{/if}}
+          {{#if (or author date)}}
+          <p class="b-meta">
+            {{#if author}}<span class="b-author">{{author}}</span>{{/if}}
+            {{#if date}}<time datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+          </p>
+          {{/if}}
+        </div>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

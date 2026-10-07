@@ -1,0 +1,91 @@
+@layer components {
+  @scope (.b-banner-promo) {
+    .b-bar {
+      position: static;
+      inset: auto;
+      width: 100%;
+      max-width: none;
+      height: auto;
+      max-height: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: color-mix(in oklab, var(--color-primary) 6%, var(--color-background));
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      padding-block: var(--space-2);
+    }
+
+    .b-content {
+      display: flex;
+      flex: 1;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2) var(--space-4);
+      min-width: 0;
+      padding-block: var(--space-1);
+    }
+
+    .b-message {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+      padding-block: var(--space-2);
+    }
+
+    .b-button {
+      --button-padding-y: var(--space-2);
+      --button-padding-x: var(--space-4);
+    }
+
+    .b-close {
+      --icon-size: 1.125rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 0;
+      border-radius: var(--radius-full);
+      background: none;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .b-close:hover {
+      background: color-mix(in oklab, var(--color-text) 8%, transparent);
+      color: var(--color-text);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .b-close {
+        transition: none;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .b-inner {
+        align-items: center;
+        padding-block: var(--space-1);
+      }
+
+      .b-content {
+        justify-content: center;
+        padding-inline-start: 2.75rem;
+        text-align: center;
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<section class="b-pricing-toggle section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <fieldset class="b-switch">
+      <legend class="visually-hidden">Billing period</legend>
+      <label class="b-option" data-field="monthlyLabel"><input type="radio" class="b-monthly" name="{{block.id}}-billing" value="monthly" checked><span>{{monthlyLabel}}</span></label>
+      <label class="b-option" data-field="yearlyLabel"><input type="radio" class="b-yearly" name="{{block.id}}-billing" value="yearly"><span>{{yearlyLabel}}</span>{{#if yearlyNote}}<span class="badge b-note">{{yearlyNote}}</span>{{/if}}</label>
+    </fieldset>
+    <div class="grid b-plans">
+      {{#each plans}}
+      <article class="card stack b-plan" {{#if featured}}data-featured{{/if}} data-field="plans.{{@index}}">
+        <div class="b-plan-head">
+          <h3>{{name}}</h3>
+          {{#if featured}}<p class="badge">{{../featuredLabel}}</p>{{/if}}
+        </div>
+        <div class="b-prices">
+          <p class="b-price b-price-monthly"><span class="b-amount">{{monthlyPrice}}</span> <span class="b-period">{{monthlyPeriod}}</span></p>
+          <p class="b-price b-price-yearly"><span class="b-amount">{{yearlyPrice}}</span> <span class="b-period">{{yearlyPeriod}}</span></p>
+        </div>
+        {{#if description}}<p class="b-description">{{nl2br description}}</p>{{/if}}
+        <div class="prose b-features">{{richText features}}</div>
+        <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

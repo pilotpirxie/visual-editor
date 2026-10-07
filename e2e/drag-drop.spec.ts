@@ -7,7 +7,9 @@ const DRAG_STEPS = 12;
 async function startDraggingCard(page: Page, category: string, blockName: string): Promise<void> {
   const library = page.locator('.ve-library');
   await library.locator('.ve-categories button', { hasText: category }).click();
-  const card = await boxOf(library.getByRole('button', { name: blockName }));
+  const cardButton = library.getByRole('button', { name: blockName });
+  await cardButton.scrollIntoViewIfNeeded();
+  const card = await boxOf(cardButton);
   await page.mouse.move((card.left + card.right) / 2, (card.top + card.bottom) / 2);
   await page.mouse.down();
 }

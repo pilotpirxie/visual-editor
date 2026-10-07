@@ -1,0 +1,54 @@
+<footer class="b-footer-newsletter section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <div class="stack b-brand">
+        <a class="b-logo" href="index.html" data-field="logoIcon">{{#if logoIcon}}{{svgIcon logoIcon}}{{/if}}<span>{{site.title}}</span></a>
+        {{#if description}}<p class="b-muted" data-field="description">{{nl2br description}}</p>{{/if}}
+      </div>
+      <nav class="b-columns" aria-label="Footer">
+        <div class="stack b-column">
+          <h2 class="b-heading" data-field="firstTitle">{{firstTitle}}</h2>
+          <ul class="stack b-links" role="list">
+            {{#each firstLinks}}
+            <li><a href="{{href link}}" {{linkAttrs link}} data-field="firstLinks.{{@index}}">{{label}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+        <div class="stack b-column">
+          <h2 class="b-heading" data-field="secondTitle">{{secondTitle}}</h2>
+          <ul class="stack b-links" role="list">
+            {{#each secondLinks}}
+            <li><a href="{{href link}}" {{linkAttrs link}} data-field="secondLinks.{{@index}}">{{label}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+      </nav>
+      <div class="stack b-newsletter">
+        {{#if newsletterTitle}}<h2 class="b-heading" data-field="newsletterTitle">{{newsletterTitle}}</h2>{{/if}}
+        {{#if newsletterText}}<p class="b-muted" data-field="newsletterText">{{nl2br newsletterText}}</p>{{/if}}
+        <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+          <div class="field b-field">
+            <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+            <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+          </div>
+          <button type="submit" class="btn btn-primary b-submit" data-field="buttonLabel">{{buttonLabel}}</button>
+        </form>
+      </div>
+    </div>
+    <div class="b-bottom">
+      <div class="b-legal">
+        <p class="b-muted" data-field="copyright">{{copyright}}</p>
+        <ul class="cluster b-legal-links" role="list">
+          {{#each legalLinks}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="legalLinks.{{@index}}">{{label}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+      <ul class="cluster b-socials" role="list">
+        {{#each socials}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}</span></a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</footer>

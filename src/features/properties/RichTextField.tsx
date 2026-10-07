@@ -13,13 +13,19 @@ import { Icon } from '../../../packages/ui/src';
 
 const DEFAULT_LINK_URL = 'https://';
 
-type FormatCommand = 'bold' | 'italic' | 'insertUnorderedList' | 'insertOrderedList';
+type FormatButton = { command: string; argument?: string; label: string; icon: string };
 
-const FORMAT_BUTTONS: { command: FormatCommand; label: string; icon: string }[] = [
+const FORMAT_BUTTONS: FormatButton[] = [
   { command: 'bold', label: 'Bold', icon: 'bold' },
   { command: 'italic', label: 'Italic', icon: 'italic' },
   { command: 'insertUnorderedList', label: 'Bulleted list', icon: 'list' },
   { command: 'insertOrderedList', label: 'Numbered list', icon: 'list-ordered' },
+];
+
+const HEADING_BUTTONS: FormatButton[] = [
+  { command: 'formatBlock', argument: 'h2', label: 'Heading', icon: 'heading-2' },
+  { command: 'formatBlock', argument: 'h3', label: 'Subheading', icon: 'heading-3' },
+  { command: 'formatBlock', argument: 'p', label: 'Paragraph', icon: 'pilcrow' },
 ];
 
 function selectionRangeIn(editor: HTMLElement): Range | null {
@@ -59,18 +65,20 @@ export function RichTextField({
   const [linkUrl, setLinkUrl] = useState<string | null>(null);
   const html = typeof value === 'string' ? value : '';
   const labelId = `${id}-label`;
+  const allowHeadings = field.allowHeadings === true;
+  const buttons = allowHeadings ? [...HEADING_BUTTONS, ...FORMAT_BUTTONS] : FORMAT_BUTTONS;
 
   useLayoutEffect(() => {
     const editor = editorRef.current;
     if (editor === null || html === lastEmittedRef.current) return;
-    editor.innerHTML = normalizeRichText(html);
+    editor.innerHTML = normalizeRichText(html, { allowHeadings });
     lastEmittedRef.current = html;
-  }, [html]);
+  }, [html, allowHeadings]);
 
   function emit(kind: EditKind): void {
     const editor = editorRef.current;
     if (editor === null) return;
-    const next = normalizeRichText(editor.innerHTML);
+    const next = normalizeRichText(editor.innerHTML, { allowHeadings });
     if (next === lastEmittedRef.current) return;
     lastEmittedRef.current = next;
     onChange(next, kind);
@@ -91,11 +99,11 @@ export function RichTextField({
     emit('continuous');
   }
 
-  function format(command: FormatCommand): void {
+  function format({ command, argument }: FormatButton): void {
     const editor = editorRef.current;
     if (editor === null) return;
     editor.focus();
-    runCommand(command);
+    runCommand(command, argument);
   }
 
   function paste(event: ClipboardEvent<HTMLDivElement>): void {
@@ -103,7 +111,7 @@ export function RichTextField({
     const pastedHtml = event.clipboardData.getData('text/html');
     const pasted =
       pastedHtml === '' ? plainTextToHtml(event.clipboardData.getData('text/plain')) : pastedHtml;
-    runCommand('insertHTML', normalizeRichText(pasted));
+    runCommand('insertHTML', normalizeRichText(pasted, { allowHeadings }));
   }
 
   function openLinkRow(): void {
@@ -154,17 +162,17 @@ export function RichTextField({
           role="toolbar"
           aria-label={`${field.label} formatting`}
         >
-          {FORMAT_BUTTONS.map(({ command, label, icon }) => (
+          {buttons.map((button) => (
             <button
-              key={command}
+              key={button.label}
               type="button"
               className="ui-icon-button"
-              aria-label={label}
-              title={label}
+              aria-label={button.label}
+              title={button.label}
               onMouseDown={(event) => event.preventDefault()}
-              onClick={() => format(command)}
+              onClick={() => format(button)}
             >
-              <Icon name={icon} />
+              <Icon name={button.icon} />
             </button>
           ))}
           <button

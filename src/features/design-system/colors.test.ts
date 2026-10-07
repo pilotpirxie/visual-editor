@@ -31,6 +31,19 @@ describe('resolveColor', () => {
     expect(resolveColor('var(--color-primary)', cleanTokens())).toBe('#4f46e5');
   });
 
+  it('follows chains of references and resolves references inside a color function', () => {
+    const tokens = cleanTokens();
+    expect(resolveColor('var(--theme-primary-accent)', tokens)).toBe('#ffffff');
+    expect(resolveColor('var(--theme-primary-border)', tokens)).toBe(
+      'color-mix(in oklab, #ffffff 30%, transparent)',
+    );
+  });
+
+  it('stops at a reference cycle', () => {
+    const tokens = withColor(cleanTokens(), '--color-primary', 'var(--color-primary)');
+    expect(resolveColor('var(--color-primary)', tokens)).toBe('#000000');
+  });
+
   it('returns plain colors unchanged and black for unknown tokens', () => {
     expect(resolveColor('#123456', cleanTokens())).toBe('#123456');
     expect(resolveColor('var(--color-missing)', cleanTokens())).toBe('#000000');
@@ -69,8 +82,22 @@ describe('contrastWarnings', () => {
     expect(warnings[0].ratio).toBeLessThan(4.5);
   });
 
-  it('resolves token references before measuring', () => {
+  it('resolves token references, so primary sections inherit a broken primary pair', () => {
     const tokens = withColor(cleanTokens(), '--color-primary-contrast', 'var(--color-primary)');
-    expect(contrastWarnings(tokens)).toHaveLength(1);
+    const pairs = contrastWarnings(tokens).map(
+      ({ foreground, background }) => `${foreground.name} on ${background.name}`,
+    );
+    expect(pairs).toContain('--color-primary-contrast on --color-primary');
+    expect(pairs).toContain('--theme-primary-text on --theme-primary-background');
+  });
+
+  it('checks dark section colors', () => {
+    const tokens = withColor(cleanTokens(), '--theme-dark-text-muted', '#374151');
+    expect(contrastWarnings(tokens)).toEqual([
+      expect.objectContaining({
+        foreground: expect.objectContaining({ name: '--theme-dark-text-muted' }),
+        background: expect.objectContaining({ name: '--theme-dark-background' }),
+      }),
+    ]);
   });
 });

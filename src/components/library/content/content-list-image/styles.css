@@ -1,0 +1,68 @@
+@layer components {
+  @scope (.b-content-list-image) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-media {
+      --media-radius: var(--radius-lg);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-list {
+      display: grid;
+      gap: var(--space-3);
+      margin-top: var(--space-2);
+    }
+
+    .b-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+
+    .b-check {
+      --icon-size: 0.875rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-actions {
+      margin-top: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-12);
+      }
+
+      :scope[data-image-side='left'] .b-media {
+        order: -1;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        gap: var(--space-16);
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import type { JSX, KeyboardEvent, ReactNode } from 'react';
 import { designSheetToggled } from '../../app/editorSlice';
 import { tokenSet, tokensSet, type EditKind } from '../../app/projectSlice';
+import { isThemeToken, themeFamilyTokenNames, type ThemeFamily } from '../../app/sectionThemes';
 import { dispatch, useStore } from '../../app/store';
 import type { Token, TokenGenerators, TokenGroup } from '../../app/types';
 import {
@@ -44,6 +45,23 @@ function spacingSplit(tokens: Record<string, Token>): { steps: Token[]; layout: 
     }
   }
   return { steps, layout };
+}
+
+function baseColorTokens(tokens: Record<string, Token>): Token[] {
+  const base: Token[] = [];
+  for (const token of tokensInGroup(tokens, 'color')) {
+    if (!isThemeToken(token.name)) base.push(token);
+  }
+  return base;
+}
+
+function themeColorTokens(tokens: Record<string, Token>, family: ThemeFamily): Token[] {
+  const familyTokens: Token[] = [];
+  for (const name of themeFamilyTokenNames(family)) {
+    const token = tokens[name];
+    if (token !== undefined) familyTokens.push(token);
+  }
+  return familyTokens;
 }
 
 function setToken(name: string, value: string, kind: EditKind): void {
@@ -186,7 +204,13 @@ export function DesignSystemSheet(): JSX.Element {
         <PresetsSection />
         <DesignSection id="colors" title="Colors">
           <ContrastNotes tokens={tokens} />
-          <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'color')} />
+          <TokenList tokens={tokens} shown={baseColorTokens(tokens)} />
+        </DesignSection>
+        <DesignSection id="theme-dark" title="Dark sections" defaultOpen={false}>
+          <TokenList tokens={tokens} shown={themeColorTokens(tokens, 'dark')} />
+        </DesignSection>
+        <DesignSection id="theme-primary" title="Primary sections" defaultOpen={false}>
+          <TokenList tokens={tokens} shown={themeColorTokens(tokens, 'primary')} />
         </DesignSection>
         <TypographySection />
         <DesignSection id="spacing" title="Spacing">

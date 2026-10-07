@@ -1,7 +1,8 @@
 import { slugify } from '../../app/slugs';
 import type { Project } from '../../app/types';
 import type { ProjectSummary } from '../../persistence/db';
-import { parseProjectDocument, ProjectFormatError } from '../../persistence/validateProject';
+import { openProjectDocument } from '../../persistence/migrations';
+import { ProjectFormatError } from '../../persistence/validateProject';
 
 export const PROJECT_FILE_EXTENSION = '.json';
 
@@ -24,7 +25,7 @@ export function parseProjectFile(text: string): Project {
   } catch (error) {
     throw new ProjectFormatError('This file is not a project file', { cause: error });
   }
-  return parseProjectDocument(data);
+  return openProjectDocument(data);
 }
 
 export function openDecision(

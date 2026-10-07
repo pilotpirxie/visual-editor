@@ -1,0 +1,38 @@
+<section class="b-careers-departments section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-departments">
+      {{#each departments}}
+      <div class="b-department" data-field="departments.{{@index}}">
+        <div class="stack b-about">
+          <div class="b-department-head">
+            <h3 class="b-department-name">{{name}}</h3>
+            <p class="badge b-count">{{positions.length}} {{#if (eq positions.length 1)}}{{../roleLabel}}{{else}}{{../rolesLabel}}{{/if}}</p>
+          </div>
+          {{#if description}}<p class="b-description">{{nl2br description}}</p>{{/if}}
+        </div>
+        {{#if positions.length}}
+        <ul class="stack b-positions" role="list">
+          {{#each positions}}
+          <li class="b-position">
+            <h4 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h4>
+            {{#if (or location type)}}
+            <ul class="b-meta" role="list">
+              {{#if location}}<li>{{svgIcon "map-pin"}}<span>{{location}}</span></li>{{/if}}
+              {{#if type}}<li>{{svgIcon "clock"}}<span>{{type}}</span></li>{{/if}}
+            </ul>
+            {{/if}}
+            <span class="b-arrow">{{svgIcon "arrow-right"}}</span>
+          </li>
+          {{/each}}
+        </ul>
+        {{/if}}
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

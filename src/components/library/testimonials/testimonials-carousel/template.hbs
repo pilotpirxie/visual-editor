@@ -1,0 +1,27 @@
+<section class="b-testimonials-carousel section" data-behavior="carousel">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-track" data-carousel-track role="region" aria-label="{{title}}" tabindex="0">
+      {{#each items}}
+      <figure class="card stack b-slide" data-carousel-slide data-field="items.{{@index}}">
+        <blockquote class="b-quote"><p>{{nl2br quote}}</p></blockquote>
+        <figcaption class="b-person">
+          <div class="media b-photo">{{img photo}}</div>
+          <div>
+            <p class="b-name">{{name}}</p>
+            {{#if role}}<p class="b-role">{{role}}</p>{{/if}}
+          </div>
+        </figcaption>
+      </figure>
+      {{/each}}
+    </div>
+    <div class="b-controls" data-carousel-controls hidden>
+      <button type="button" class="btn btn-secondary b-arrow" data-carousel-previous>{{svgIcon "arrow-left"}}<span class="visually-hidden">Previous quote</span></button>
+      <div class="b-dots" data-carousel-dots="Quote"></div>
+      <button type="button" class="btn btn-secondary b-arrow" data-carousel-next>{{svgIcon "arrow-right"}}<span class="visually-hidden">Next quote</span></button>
+    </div>
+  </div>
+</section>

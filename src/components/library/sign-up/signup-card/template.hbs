@@ -1,0 +1,31 @@
+<section class="b-signup-card section">
+  <div class="container">
+    <div class="card stack b-card">
+      <header class="stack b-head">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field">
+          <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+          <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-password" data-field="passwordLabel">{{passwordLabel}}</label>
+          <input id="{{block.id}}-password" type="password" name="password" autocomplete="new-password" required{{#if passwordHint}} aria-describedby="{{block.id}}-password-hint"{{/if}}>
+          {{#if passwordHint}}<p class="field-hint" id="{{block.id}}-password-hint" data-field="passwordHint">{{passwordHint}}</p>{{/if}}
+        </div>
+        <div class="field-check b-check">
+          <input id="{{block.id}}-terms" type="checkbox" name="terms" value="accepted" required>
+          <label for="{{block.id}}-terms" data-field="termsText">{{termsText}} <a href="{{href termsLink}}" {{linkAttrs termsLink}} data-field="termsLink">{{termsLabel}}</a></label>
+        </div>
+        <button type="submit" class="btn btn-primary b-submit" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if signInLabel}}<p class="b-switch" data-field="signInLink">{{signInText}} <a href="{{href signInLink}}" {{linkAttrs signInLink}}>{{signInLabel}}</a></p>{{/if}}
+    </div>
+  </div>
+</section>

@@ -1,6 +1,8 @@
 import { expect, test, type Page } from '@playwright/test';
 import { openLibraryTab } from './editor';
 
+const STARTERS_LOAD_TIMEOUT_MS = 15_000;
+
 function previewBackground(page: Page): Promise<string> {
   return page
     .frameLocator('.ve-starter-frame')
@@ -13,7 +15,19 @@ test('a starter previews every page on every device and starts a new project', a
   await page.getByRole('button', { name: 'New project' }).click();
   const newProject = page.getByRole('dialog', { name: 'New project' });
   await newProject.getByRole('tab', { name: 'Starters' }).click();
-  await expect(newProject.locator('.ve-starter-card')).toHaveCount(3);
+  await expect(newProject.locator('.ve-starter-card')).toHaveCount(8, {
+    timeout: STARTERS_LOAD_TIMEOUT_MS,
+  });
+  await newProject.getByRole('group', { name: 'Use case' }).getByText('Local and events').click();
+  await expect(newProject.locator('.ve-starter-name')).toHaveText([
+    'Event or conference',
+    'Restaurant or cafe',
+  ]);
+  await newProject
+    .getByRole('group', { name: 'Use case' })
+    .getByText('All', { exact: true })
+    .click();
+  await expect(newProject.locator('.ve-starter-card')).toHaveCount(8);
   await newProject.getByRole('button', { name: 'Preview SaaS product' }).click();
 
   const preview = page.getByRole('dialog', { name: 'SaaS product' });

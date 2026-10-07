@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" fill="none">
+  <rect width="640" height="400" fill="#ffffff"/>
+  <rect x="40" y="80" width="90" height="10" rx="4" fill="#4f46e5"/>
+  <rect x="40" y="102" width="190" height="22" rx="4" fill="#111827"/>
+  <rect x="40" y="132" width="150" height="22" rx="4" fill="#111827"/>
+  <rect x="40" y="172" width="190" height="8" rx="4" fill="#9ca3af"/>
+  <rect x="40" y="188" width="160" height="8" rx="4" fill="#9ca3af"/>
+  <rect x="40" y="214" width="110" height="36" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="2"/>
+  <g fill="#e0e7ff">
+    <rect x="290" y="80" width="28" height="28" rx="6"/>
+    <rect x="460" y="80" width="28" height="28" rx="6"/>
+    <rect x="290" y="172" width="28" height="28" rx="6"/>
+    <rect x="460" y="172" width="28" height="28" rx="6"/>
+    <rect x="290" y="264" width="28" height="28" rx="6"/>
+    <rect x="460" y="264" width="28" height="28" rx="6"/>
+  </g>
+  <g fill="#111827">
+    <rect x="330" y="84" width="96" height="10" rx="4"/>
+    <rect x="500" y="84" width="96" height="10" rx="4"/>
+    <rect x="330" y="176" width="96" height="10" rx="4"/>
+    <rect x="500" y="176" width="96" height="10" rx="4"/>
+    <rect x="330" y="268" width="96" height="10" rx="4"/>
+    <rect x="500" y="268" width="96" height="10" rx="4"/>
+  </g>
+  <g fill="#9ca3af">
+    <rect x="330" y="104" width="110" height="6" rx="3"/>
+    <rect x="330" y="116" width="86" height="6" rx="3"/>
+    <rect x="500" y="104" width="110" height="6" rx="3"/>
+    <rect x="500" y="116" width="86" height="6" rx="3"/>
+    <rect x="330" y="196" width="110" height="6" rx="3"/>
+    <rect x="330" y="208" width="86" height="6" rx="3"/>
+    <rect x="500" y="196" width="110" height="6" rx="3"/>
+    <rect x="500" y="208" width="86" height="6" rx="3"/>
+    <rect x="330" y="288" width="110" height="6" rx="3"/>
+    <rect x="330" y="300" width="86" height="6" rx="3"/>
+    <rect x="500" y="288" width="110" height="6" rx="3"/>
+    <rect x="500" y="300" width="86" height="6" rx="3"/>
+  </g>
+</svg>

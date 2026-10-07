@@ -1,0 +1,20 @@
+@layer components {
+  @scope (.b-spacer) {
+    :scope {
+      block-size: var(--space-12);
+      background: var(--color-background);
+    }
+
+    :scope[data-size='small'] {
+      block-size: var(--space-8);
+    }
+
+    :scope[data-size='large'] {
+      block-size: var(--space-16);
+    }
+
+    :scope[data-size='section'] {
+      block-size: var(--section-padding-y);
+    }
+  }
+}

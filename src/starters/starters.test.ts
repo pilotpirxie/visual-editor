@@ -15,6 +15,11 @@ const EXPECTED_SLUGS: Record<string, string[]> = {
   saas: ['home', 'features', 'pricing', 'about', 'contact', '404'],
   'mobile-app': ['home', 'features', 'download', '404'],
   waitlist: ['home'],
+  agency: ['home', 'services', 'work', 'team', 'contact'],
+  portfolio: ['home', 'projects', 'about', 'contact'],
+  event: ['home', 'schedule', 'speakers', 'tickets'],
+  restaurant: ['home', 'menu', 'about', 'booking'],
+  consultant: ['home', 'services', 'testimonials', 'contact'],
 };
 
 const loaded = new Map<string, Project>();
@@ -43,6 +48,15 @@ function pageNamesOf(project: Project): string[] {
   const names: string[] = [];
   for (const id of project.pages.ids) names.push(project.pages.entities[id]?.name ?? '');
   return names;
+}
+
+function categoriesOf(project: Project, blockIds: string[]): string[] {
+  const categories: string[] = [];
+  for (const id of blockIds) {
+    const componentId = componentBlockOf(project, id).componentId;
+    categories.push(registry.get(componentId)?.definition.category ?? '');
+  }
+  return categories;
 }
 
 function linkedPageIds(value: unknown): string[] {
@@ -93,6 +107,16 @@ describe.each(STARTERS)('the $name starter', (starter) => {
     const { files } = buildExportFiles(project, registry, runtime);
     expect(Object.keys(files)).toContain('index.html');
     expect(Object.keys(files)).toContain('assets/css/site.css');
+  });
+
+  it('shares a navigation in the header and a footer on every page', () => {
+    const project = projectOf(starter);
+    expect(categoriesOf(project, project.sharedSlots.header)).toContain('navigations');
+    expect(categoriesOf(project, project.sharedSlots.footer)).toEqual(['footers']);
+    for (const pageId of project.pages.ids) {
+      expect(project.pages.entities[pageId]?.showSharedHeader, pageId).toBe(true);
+      expect(project.pages.entities[pageId]?.showSharedFooter, pageId).toBe(true);
+    }
   });
 
   it('uses realistic copy with no placeholder Latin', () => {

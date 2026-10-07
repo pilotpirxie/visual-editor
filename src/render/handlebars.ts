@@ -26,6 +26,7 @@ export type RenderData = {
   currentPageId?: string | null;
   eagerImages?: boolean;
   iconSet?: string;
+  language?: string;
   collector?: RenderCollector;
 };
 
@@ -157,13 +158,36 @@ function imgHelper(image: unknown, options: HelperOptions): Handlebars.SafeStrin
   return new Handlebars.SafeString(`<img ${attributes.join(' ')}>`);
 }
 
-function richTextHelper(html: unknown): Handlebars.SafeString {
-  return new Handlebars.SafeString(normalizeRichText(textOrEmpty(html)));
+function richTextHelper(html: unknown, options: HelperOptions): Handlebars.SafeString {
+  const allowHeadings = options.hash.headings === true;
+  return new Handlebars.SafeString(normalizeRichText(textOrEmpty(html), { allowHeadings }));
 }
 
 function safeUrlHelper(url: unknown): string {
   const text = textOrEmpty(url).trim();
   return text !== '' && isSafeUrl(text) ? text : '';
+}
+
+const DEFAULT_LANGUAGE = 'en';
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+function dateFormatter(language: string): Intl.DateTimeFormat {
+  const options: Intl.DateTimeFormatOptions = { dateStyle: 'long', timeZone: 'UTC' };
+  try {
+    return new Intl.DateTimeFormat(language, options);
+  } catch (error) {
+    console.warn(`formatDate: unknown language "${language}", using ${DEFAULT_LANGUAGE}`, error);
+    return new Intl.DateTimeFormat(DEFAULT_LANGUAGE, options);
+  }
+}
+
+function formatDateHelper(date: unknown, options: HelperOptions): string {
+  const text = textOrEmpty(date);
+  if (!ISO_DATE.test(text)) return text;
+  const parsed = new Date(`${text}T00:00:00Z`);
+  if (Number.isNaN(parsed.getTime())) return text;
+  const language = renderDataOf(options).language ?? DEFAULT_LANGUAGE;
+  return dateFormatter(language).format(parsed);
 }
 
 function nl2brHelper(text: unknown): Handlebars.SafeString {
@@ -183,4 +207,5 @@ Handlebars.registerHelper({
   richText: richTextHelper,
   nl2br: nl2brHelper,
   safeUrl: safeUrlHelper,
+  formatDate: formatDateHelper,
 });

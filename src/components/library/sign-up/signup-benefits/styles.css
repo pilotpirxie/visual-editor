@@ -1,0 +1,116 @@
+@layer components {
+  @scope (.b-signup-benefits) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-benefits {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-benefit {
+      display: flex;
+      gap: var(--space-4);
+    }
+
+    .b-check-icon {
+      --icon-size: 1rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-benefit-copy {
+      --stack-gap: var(--space-1);
+    }
+
+    .b-benefit-copy h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-benefit-copy p {
+      color: var(--color-text-muted);
+    }
+
+    .b-card {
+      --card-padding: var(--space-6);
+      --card-shadow: var(--shadow-lg);
+      --stack-gap: var(--space-6);
+      width: 100%;
+      max-width: 30rem;
+    }
+
+    .b-form-title {
+      font-size: var(--text-2xl);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-check a {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-submit {
+      width: 100%;
+    }
+
+    .b-switch {
+      padding-top: var(--space-6);
+      border-top: var(--border-width) solid var(--color-border);
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    .b-switch a {
+      font-weight: var(--font-weight-bold);
+      white-space: nowrap;
+    }
+
+    :is(.b-switch a, .b-check a) {
+      text-decoration: none;
+    }
+
+    :is(.b-switch a, .b-check a):hover {
+      text-decoration: underline;
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        --card-padding: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+
+      .b-card {
+        margin-inline: auto 0;
+      }
+    }
+  }
+}

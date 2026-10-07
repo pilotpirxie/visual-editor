@@ -1,0 +1,86 @@
+@layer components {
+  @scope (.b-hero-background) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      position: relative;
+      display: grid;
+      align-items: center;
+      min-height: 30rem;
+      overflow: hidden;
+      isolation: isolate;
+      color: var(--color-text);
+    }
+
+    .b-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: var(--color-background);
+    }
+
+    .b-backdrop img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .b-backdrop::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: color-mix(in oklab, var(--color-background) 74%, transparent);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+      max-width: 46rem;
+    }
+
+    .b-eyebrow {
+      --badge-bg: color-mix(in oklab, var(--color-text) 16%, transparent);
+      --badge-color: var(--color-text);
+    }
+
+    .b-lead {
+      max-width: 36rem;
+      font-size: var(--text-lg);
+      color: color-mix(in oklab, var(--color-text) 92%, transparent);
+    }
+
+    .b-button {
+      box-shadow: var(--shadow-md);
+    }
+
+    :scope[data-align='center'] .b-copy {
+      align-items: center;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    :scope[data-align='center'] .b-actions {
+      --cluster-justify: center;
+    }
+
+    @media (min-width: 1024px) {
+      :scope {
+        min-height: 38rem;
+      }
+
+      :scope[data-align='left'] .b-backdrop::after {
+        background: linear-gradient(
+          to right,
+          color-mix(in oklab, var(--color-background) 82%, transparent),
+          color-mix(in oklab, var(--color-background) 66%, transparent) 50%,
+          color-mix(in oklab, var(--color-background) 36%, transparent)
+        );
+      }
+    }
+  }
+}

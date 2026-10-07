@@ -1,0 +1,1806 @@
+{
+  "schemaVersion": 3,
+  "id": "starter-consultant",
+  "settings": {
+    "title": "Calloway Leadership",
+    "description": "Leadership coaching for first-time engineering managers, from Minneapolis and online.",
+    "language": "en",
+    "titleTemplate": "{{page.title}} | {{site.title}}"
+  },
+  "designSystem": {
+    "presetId": "corporate",
+    "tokens": {
+      "--color-primary": {
+        "name": "--color-primary",
+        "label": "Primary",
+        "group": "color",
+        "value": "#1e3a8a"
+      },
+      "--color-primary-contrast": {
+        "name": "--color-primary-contrast",
+        "label": "Primary contrast",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--color-background": {
+        "name": "--color-background",
+        "label": "Background",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--color-surface": {
+        "name": "--color-surface",
+        "label": "Surface",
+        "group": "color",
+        "value": "#f3f5f8"
+      },
+      "--color-text": {
+        "name": "--color-text",
+        "label": "Text",
+        "group": "color",
+        "value": "#0f172a"
+      },
+      "--color-text-muted": {
+        "name": "--color-text-muted",
+        "label": "Muted text",
+        "group": "color",
+        "value": "#475569"
+      },
+      "--color-border": {
+        "name": "--color-border",
+        "label": "Border",
+        "group": "color",
+        "value": "#d6dce5"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#0f172a"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#1e293b"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#f8fafc"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#94a3b8"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#334155"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#93c5fd"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#0f172a"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--font-heading": {
+        "name": "--font-heading",
+        "label": "Heading font",
+        "group": "typography",
+        "value": "\"IBM Plex Sans\", system-ui, sans-serif"
+      },
+      "--font-body": {
+        "name": "--font-body",
+        "label": "Body font",
+        "group": "typography",
+        "value": "\"IBM Plex Sans\", system-ui, sans-serif"
+      },
+      "--font-mono": {
+        "name": "--font-mono",
+        "label": "Mono font",
+        "group": "typography",
+        "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+      },
+      "--font-weight-heading": {
+        "name": "--font-weight-heading",
+        "label": "Heading weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--font-weight-regular": {
+        "name": "--font-weight-regular",
+        "label": "Body weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-bold": {
+        "name": "--font-weight-bold",
+        "label": "Bold weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--text-xs": {
+        "name": "--text-xs",
+        "label": "Extra small",
+        "group": "typography",
+        "value": "0.6944rem"
+      },
+      "--text-sm": {
+        "name": "--text-sm",
+        "label": "Small",
+        "group": "typography",
+        "value": "0.8333rem"
+      },
+      "--text-base": {
+        "name": "--text-base",
+        "label": "Base",
+        "group": "typography",
+        "value": "1rem"
+      },
+      "--text-lg": {
+        "name": "--text-lg",
+        "label": "Large",
+        "group": "typography",
+        "value": "1.2rem"
+      },
+      "--text-xl": {
+        "name": "--text-xl",
+        "label": "XL",
+        "group": "typography",
+        "value": "1.44rem"
+      },
+      "--text-2xl": {
+        "name": "--text-2xl",
+        "label": "2XL",
+        "group": "typography",
+        "value": "1.728rem"
+      },
+      "--text-3xl": {
+        "name": "--text-3xl",
+        "label": "3XL",
+        "group": "typography",
+        "value": "clamp(1.4641rem, 1.2609rem + 1.0158vw, 2.0736rem)"
+      },
+      "--text-4xl": {
+        "name": "--text-4xl",
+        "label": "4XL",
+        "group": "typography",
+        "value": "clamp(1.6105rem, 1.3179rem + 1.463vw, 2.4883rem)"
+      },
+      "--text-5xl": {
+        "name": "--text-5xl",
+        "label": "5XL",
+        "group": "typography",
+        "value": "clamp(1.7716rem, 1.3668rem + 2.024vw, 2.986rem)"
+      },
+      "--line-height-tight": {
+        "name": "--line-height-tight",
+        "label": "Heading line height",
+        "group": "typography",
+        "value": "1.15"
+      },
+      "--line-height-normal": {
+        "name": "--line-height-normal",
+        "label": "Body line height",
+        "group": "typography",
+        "value": "1.6"
+      },
+      "--space-1": {
+        "name": "--space-1",
+        "label": "Space 1",
+        "group": "spacing",
+        "value": "0.25rem"
+      },
+      "--space-2": {
+        "name": "--space-2",
+        "label": "Space 2",
+        "group": "spacing",
+        "value": "0.5rem"
+      },
+      "--space-3": {
+        "name": "--space-3",
+        "label": "Space 3",
+        "group": "spacing",
+        "value": "0.75rem"
+      },
+      "--space-4": {
+        "name": "--space-4",
+        "label": "Space 4",
+        "group": "spacing",
+        "value": "1rem"
+      },
+      "--space-6": {
+        "name": "--space-6",
+        "label": "Space 6",
+        "group": "spacing",
+        "value": "1.5rem"
+      },
+      "--space-8": {
+        "name": "--space-8",
+        "label": "Space 8",
+        "group": "spacing",
+        "value": "2rem"
+      },
+      "--space-12": {
+        "name": "--space-12",
+        "label": "Space 12",
+        "group": "spacing",
+        "value": "3rem"
+      },
+      "--space-16": {
+        "name": "--space-16",
+        "label": "Space 16",
+        "group": "spacing",
+        "value": "4rem"
+      },
+      "--section-padding-y": {
+        "name": "--section-padding-y",
+        "label": "Section padding",
+        "group": "spacing",
+        "value": "clamp(3rem, 2rem + 4vw, 6rem)"
+      },
+      "--container-max-width": {
+        "name": "--container-max-width",
+        "label": "Container width",
+        "group": "spacing",
+        "value": "72rem"
+      },
+      "--container-padding-x": {
+        "name": "--container-padding-x",
+        "label": "Container padding",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--radius-sm": {
+        "name": "--radius-sm",
+        "label": "Small radius",
+        "group": "shape",
+        "value": "0.125rem"
+      },
+      "--radius-md": {
+        "name": "--radius-md",
+        "label": "Medium radius",
+        "group": "shape",
+        "value": "0.25rem"
+      },
+      "--radius-lg": {
+        "name": "--radius-lg",
+        "label": "Large radius",
+        "group": "shape",
+        "value": "0.5rem"
+      },
+      "--radius-full": {
+        "name": "--radius-full",
+        "label": "Full radius",
+        "group": "shape",
+        "value": "9999px"
+      },
+      "--border-width": {
+        "name": "--border-width",
+        "label": "Border width",
+        "group": "shape",
+        "value": "1px"
+      },
+      "--shadow-sm": {
+        "name": "--shadow-sm",
+        "label": "Small shadow",
+        "group": "elevation",
+        "value": "0 1px 2px rgb(17 24 39 / 0.04)"
+      },
+      "--shadow-md": {
+        "name": "--shadow-md",
+        "label": "Medium shadow",
+        "group": "elevation",
+        "value": "0 2px 8px rgb(17 24 39 / 0.05)"
+      },
+      "--shadow-lg": {
+        "name": "--shadow-lg",
+        "label": "Large shadow",
+        "group": "elevation",
+        "value": "0 8px 24px rgb(17 24 39 / 0.08)"
+      },
+      "--button-radius": {
+        "name": "--button-radius",
+        "label": "Button radius",
+        "group": "component",
+        "value": "var(--radius-sm)"
+      },
+      "--button-padding-y": {
+        "name": "--button-padding-y",
+        "label": "Button padding Y",
+        "group": "component",
+        "value": "0.75rem"
+      },
+      "--button-padding-x": {
+        "name": "--button-padding-x",
+        "label": "Button padding X",
+        "group": "component",
+        "value": "1.25rem"
+      },
+      "--card-radius": {
+        "name": "--card-radius",
+        "label": "Card radius",
+        "group": "component",
+        "value": "var(--radius-md)"
+      },
+      "--card-shadow": {
+        "name": "--card-shadow",
+        "label": "Card shadow",
+        "group": "component",
+        "value": "var(--shadow-sm)"
+      },
+      "--transition-fast": {
+        "name": "--transition-fast",
+        "label": "Fast",
+        "group": "motion",
+        "value": "120ms"
+      },
+      "--transition-normal": {
+        "name": "--transition-normal",
+        "label": "Normal",
+        "group": "motion",
+        "value": "200ms"
+      }
+    },
+    "fonts": [
+      {
+        "role": "heading",
+        "family": "IBM Plex Sans",
+        "weights": [700]
+      },
+      {
+        "role": "body",
+        "family": "IBM Plex Sans",
+        "weights": [400, 700]
+      }
+    ],
+    "generators": {
+      "typeBasePx": 16,
+      "typeRatio": 1.2,
+      "spaceUnitPx": 4
+    },
+    "iconSet": "material-symbols"
+  },
+  "pages": {
+    "ids": ["home", "services", "testimonials", "contact"],
+    "entities": {
+      "home": {
+        "id": "home",
+        "name": "Home",
+        "slug": "home",
+        "blockIds": [
+          "home-hero",
+          "home-clients",
+          "home-benefits",
+          "home-about",
+          "home-approach",
+          "home-results",
+          "home-cta"
+        ],
+        "seo": {
+          "description": "Ruth Calloway coaches first-time engineering managers in Minneapolis and online: better one-on-ones, clearer feedback, calmer first years.",
+          "title": "Leadership coaching for new engineering managers"
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "services": {
+        "id": "services",
+        "name": "Services",
+        "slug": "services",
+        "blockIds": [
+          "services-hero",
+          "services-programs",
+          "services-sessions",
+          "services-included",
+          "services-cta"
+        ],
+        "seo": {
+          "description": "Coaching programs from $3,600 and single sessions from $350 for new engineering managers, with fixed, published prices.",
+          "title": "Coaching programs and prices"
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "testimonials": {
+        "id": "testimonials",
+        "name": "Testimonials",
+        "slug": "testimonials",
+        "blockIds": [
+          "testimonials-hero",
+          "testimonials-quotes",
+          "testimonials-sponsor",
+          "testimonials-numbers",
+          "testimonials-story",
+          "testimonials-cta"
+        ],
+        "seo": {
+          "description": "Engineering managers, and the leaders who hired Ruth Calloway, describe what changed for them and their teams after coaching.",
+          "title": "Client stories"
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "contact": {
+        "id": "contact",
+        "name": "Contact",
+        "slug": "contact",
+        "blockIds": ["contact-hero", "contact-form", "contact-faq", "contact-newsletter"],
+        "seo": {
+          "description": "Book a free 30-minute intro call with leadership coach Ruth Calloway, or ask a question about programs and prices.",
+          "title": "Book a free intro call"
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      }
+    },
+    "homePageId": "home"
+  },
+  "blocks": {
+    "ids": [
+      "header-banner",
+      "header-nav",
+      "footer-footer",
+      "home-hero",
+      "home-clients",
+      "home-benefits",
+      "home-about",
+      "home-approach",
+      "home-results",
+      "home-cta",
+      "services-hero",
+      "services-programs",
+      "services-sessions",
+      "services-included",
+      "services-cta",
+      "testimonials-hero",
+      "testimonials-quotes",
+      "testimonials-sponsor",
+      "testimonials-numbers",
+      "testimonials-story",
+      "testimonials-cta",
+      "contact-hero",
+      "contact-form",
+      "contact-faq",
+      "contact-newsletter"
+    ],
+    "entities": {
+      "header-banner": {
+        "id": "header-banner",
+        "kind": "component",
+        "componentId": "banner-announcement",
+        "componentVersion": 1,
+        "values": {
+          "showIcon": true,
+          "icon": "calendar",
+          "text": "The autumn manager cohort starts on November 4, 2026. Two places are left.",
+          "linkLabel": "See the cohort",
+          "link": {
+            "type": "section",
+            "pageId": "services",
+            "anchor": "programs",
+            "newTab": false
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "header-nav": {
+        "id": "header-nav",
+        "kind": "component",
+        "componentId": "nav-simple",
+        "componentVersion": 1,
+        "values": {
+          "links": [
+            {
+              "label": "Home",
+              "link": {
+                "type": "page",
+                "pageId": "home",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Services",
+              "link": {
+                "type": "page",
+                "pageId": "services",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Client stories",
+              "link": {
+                "type": "page",
+                "pageId": "testimonials",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "page",
+                "pageId": "contact",
+                "newTab": false
+              }
+            }
+          ],
+          "showCta": true,
+          "cta": {
+            "label": "Book an intro call",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "menuIcon": "menu"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "footer-footer": {
+        "id": "footer-footer",
+        "kind": "component",
+        "componentId": "footer-columns",
+        "componentVersion": 1,
+        "values": {
+          "tagline": "Leadership coaching for engineers in their first two years of managing people. Based in Minneapolis, working with managers across North America.",
+          "productTitle": "Coaching",
+          "productLinks": [
+            {
+              "label": "Programs",
+              "link": {
+                "type": "section",
+                "pageId": "services",
+                "anchor": "programs",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Single sessions",
+              "link": {
+                "type": "section",
+                "pageId": "services",
+                "anchor": "sessions",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Manager cohorts",
+              "link": {
+                "type": "section",
+                "pageId": "services",
+                "anchor": "programs",
+                "newTab": false
+              }
+            }
+          ],
+          "companyTitle": "Practice",
+          "companyLinks": [
+            {
+              "label": "How coaching works",
+              "link": {
+                "type": "section",
+                "pageId": "home",
+                "anchor": "approach",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Client stories",
+              "link": {
+                "type": "page",
+                "pageId": "testimonials",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Questions",
+              "link": {
+                "type": "section",
+                "pageId": "contact",
+                "anchor": "faq",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Newsletter",
+              "link": {
+                "type": "section",
+                "pageId": "contact",
+                "anchor": "newsletter",
+                "newTab": false
+              }
+            }
+          ],
+          "resourcesTitle": "Contact",
+          "resourcesLinks": [
+            {
+              "label": "Book an intro call",
+              "link": {
+                "type": "section",
+                "pageId": "contact",
+                "anchor": "book",
+                "newTab": false
+              }
+            },
+            {
+              "label": "ruth@calloway.example",
+              "link": {
+                "type": "email",
+                "url": "ruth@calloway.example",
+                "newTab": false
+              }
+            },
+            {
+              "label": "+1 612 555 0187",
+              "link": {
+                "type": "phone",
+                "url": "+16125550187",
+                "newTab": false
+              }
+            }
+          ],
+          "socials": [
+            {
+              "label": "LinkedIn",
+              "icon": "simple-icons:linkedin",
+              "link": {
+                "type": "url",
+                "url": "https://www.linkedin.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "YouTube",
+              "icon": "simple-icons:youtube",
+              "link": {
+                "type": "url",
+                "url": "https://www.youtube.com",
+                "newTab": true
+              }
+            }
+          ],
+          "copyright": "© 2026 Calloway Leadership LLC. All rights reserved."
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-hero": {
+        "id": "home-hero",
+        "kind": "component",
+        "componentId": "hero-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Coaching for first-time engineering managers",
+          "title": "Become the manager you needed in your first year",
+          "text": "I’m Ruth Calloway, a former director of engineering and ICF-certified coach. I help engineers who just became managers run better one-on-ones, give hard feedback and lead without working every weekend.",
+          "primaryButton": {
+            "label": "Book a free intro call",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "See programs and prices",
+            "link": {
+              "type": "page",
+              "pageId": "services",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ruth Calloway talking with an engineering manager at a table by a sunny window",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "right"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-clients": {
+        "id": "home-clients",
+        "kind": "component",
+        "componentId": "logos-row",
+        "componentVersion": 1,
+        "values": {
+          "title": "Managers I have coached lead teams at",
+          "logos": [
+            {
+              "company": "Northloop Software",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Northloop Software logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Kestrel Payments",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Kestrel Payments logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Prairie Freight",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Prairie Freight logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Ostrander Health",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ostrander Health logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Riverbend Insurance",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Riverbend Insurance logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Tallgrass Analytics",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tallgrass Analytics logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-benefits": {
+        "id": "home-benefits",
+        "kind": "component",
+        "componentId": "features-icon-list",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "What you get",
+          "title": "Practical help with the parts of managing nobody taught you",
+          "intro": "Coaching is built around your real week: the one-on-one that went sideways, the promotion case due on Friday, the engineer who went quiet in stand-up.",
+          "showButton": true,
+          "button": {
+            "label": "See what each program includes",
+            "link": {
+              "type": "section",
+              "pageId": "services",
+              "anchor": "programs",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "items": [
+            {
+              "icon": "users",
+              "title": "Better one-on-ones",
+              "text": "A simple structure for weekly one-on-ones that surface problems early, and questions that get quiet engineers talking."
+            },
+            {
+              "icon": "message",
+              "title": "Feedback you can actually give",
+              "text": "Rehearse the hard conversation with me first, so you walk in with your opening sentences ready."
+            },
+            {
+              "icon": "target",
+              "title": "Clear priorities",
+              "text": "Decide which engineering work you hand off, and turn down requests that do not need you."
+            },
+            {
+              "icon": "trending-up",
+              "title": "Fair reviews and promotions",
+              "text": "Write performance reviews and promotion cases that hold up in calibration."
+            },
+            {
+              "icon": "shield",
+              "title": "A confidential sounding board",
+              "text": "Nothing you share reaches your employer, even when they pay. They see attendance and invoices only."
+            },
+            {
+              "icon": "clock",
+              "title": "Help between sessions",
+              "text": "Send a message before a tough meeting and get a reply within one working day."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-about": {
+        "id": "home-about",
+        "kind": "component",
+        "componentId": "content-list-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "About Ruth",
+          "title": "I have sat in the chair you are sitting in",
+          "text": "I wrote software for six years before I was handed a team of five and no training. Nine years later I was leading 60 engineers across eight teams. Since 2019 I have coached engineers through the same move, one manager at a time.",
+          "checkIcon": "check",
+          "items": [
+            {
+              "text": "Professional Certified Coach (PCC), International Coaching Federation"
+            },
+            {
+              "text": "Former director of engineering at a Minneapolis healthcare software company"
+            },
+            {
+              "text": "210 engineering managers coached across 40 companies"
+            },
+            {
+              "text": "Guest lecturer on technical leadership at the University of Minnesota"
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "Read client stories",
+            "link": {
+              "type": "page",
+              "pageId": "testimonials",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ruth Calloway smiling in her office in the North Loop, with bookshelves behind her",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "person"
+            }
+          },
+          "imageSide": "left"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-approach": {
+        "id": "home-approach",
+        "kind": "component",
+        "componentId": "steps-row",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "How coaching works",
+          "title": "What working together looks like",
+          "steps": [
+            {
+              "title": "Free intro call",
+              "text": "Thirty minutes to talk through your situation and whether coaching with me is the right fit. No pitch and no obligation."
+            },
+            {
+              "title": "Listening tour",
+              "text": "With your permission, I interview your manager and two or three of your reports, then share what I heard."
+            },
+            {
+              "title": "Sessions every other week",
+              "text": "Sixty-minute video calls built around what is happening on your team right now, with notes after each one."
+            },
+            {
+              "title": "Closing review",
+              "text": "We look back at your goals, write down what changed and agree what you keep practicing on your own."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "approach"
+      },
+      "home-results": {
+        "id": "home-results",
+        "kind": "component",
+        "componentId": "stats-described",
+        "componentVersion": 2,
+        "values": {
+          "eyebrow": "Results",
+          "title": "What changes for the managers I coach",
+          "intro": "From a survey of 164 past clients in January 2026, twelve months or more after their last session.",
+          "stats": [
+            {
+              "value": "91%",
+              "label": "Still managing",
+              "text": "Chose to stay in management after the hard first two years. Many now lead other managers."
+            },
+            {
+              "value": "7 in 10",
+              "label": "Given more scope",
+              "text": "Were promoted or took on a larger team within 18 months of finishing their program."
+            },
+            {
+              "value": "34%",
+              "label": "Fewer regretted exits",
+              "text": "Average drop in regretted departures on their teams in the year after coaching."
+            }
+          ],
+          "countUp": true
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-cta": {
+        "id": "home-cta",
+        "kind": "component",
+        "componentId": "cta-centered",
+        "componentVersion": 1,
+        "values": {
+          "title": "Start with a free intro call",
+          "text": "Tell me what is going on with your team. If coaching with me is not the right fit, I will point you to something that is.",
+          "button": {
+            "label": "Book a free intro call",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-primary-background)",
+          "--color-surface": "var(--theme-primary-surface)",
+          "--color-text": "var(--theme-primary-text)",
+          "--color-text-muted": "var(--theme-primary-text-muted)",
+          "--color-border": "var(--theme-primary-border)",
+          "--color-primary": "var(--theme-primary-accent)",
+          "--color-primary-contrast": "var(--theme-primary-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "services-hero": {
+        "id": "services-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Services and prices",
+          "title": "Coaching programs for new engineering managers",
+          "text": "Three- and six-month programs for individual managers, a cohort for companies promoting several at once, and single sessions for one decision. Every price is fixed and published.",
+          "primaryButton": {
+            "label": "Book a free intro call",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Compare programs",
+            "link": {
+              "type": "section",
+              "pageId": "services",
+              "anchor": "programs",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "services-programs": {
+        "id": "services-programs",
+        "kind": "component",
+        "componentId": "pricing-3-plans",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Programs",
+          "title": "Choose the support that fits your first years",
+          "intro": "Every program starts with a free intro call. Most clients’ employers pay from their learning budget, and I invoice the company directly.",
+          "featuredLabel": "Most chosen",
+          "plans": [
+            {
+              "name": "First 90 days",
+              "price": "$3,600",
+              "period": "for three months",
+              "description": "For managers in their first quarter who want a steady hand through the move.",
+              "features": "<ul><li>Six 60-minute sessions, every other week</li><li>A 90-day onboarding plan in week one</li><li>Message support between sessions</li><li>Written notes after every session</li></ul>",
+              "featured": false,
+              "button": {
+                "label": "Book an intro call",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "book",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            },
+            {
+              "name": "Foundations",
+              "price": "$6,900",
+              "period": "for six months",
+              "description": "For managers in their first two years who want habits that last.",
+              "features": "<ul><li>Twelve 60-minute sessions</li><li>Listening tour with your manager and reports</li><li>Midpoint and closing review with your manager</li><li>Message support between sessions</li></ul>",
+              "featured": true,
+              "button": {
+                "label": "Book an intro call",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "book",
+                  "newTab": false
+                },
+                "variant": "primary"
+              }
+            },
+            {
+              "name": "Manager cohort",
+              "price": "$14,500",
+              "period": "per cohort",
+              "description": "For companies promoting up to six engineers into management at once.",
+              "features": "<ul><li>Six 90-minute group workshops</li><li>Two private sessions for each manager</li><li>Peer practice on real situations</li><li>A summary for the sponsor, with no private details</li></ul>",
+              "featured": false,
+              "button": {
+                "label": "Plan a cohort",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "book",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "programs"
+      },
+      "services-sessions": {
+        "id": "services-sessions",
+        "kind": "component",
+        "componentId": "pricing-list",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Single sessions",
+          "title": "Help with one decision or one conversation",
+          "intro": "No program needed. Book a single session when something specific is coming up, or add one to a program at the same price.",
+          "groups": [
+            {
+              "name": "For managers",
+              "note": "Per session, by video call",
+              "items": [
+                {
+                  "name": "Coaching session",
+                  "description": "Sixty minutes on whatever is on your mind this week: a hard conversation, a reorg or a decision you keep putting off.",
+                  "price": "$450",
+                  "tag": ""
+                },
+                {
+                  "name": "Conversation rehearsal",
+                  "description": "Practice a feedback or performance conversation with me playing the other person, then try it again.",
+                  "price": "$350",
+                  "tag": "Popular"
+                },
+                {
+                  "name": "Promotion case review",
+                  "description": "Written comments on a promotion case or performance review within three working days, plus a 30-minute call.",
+                  "price": "$600",
+                  "tag": ""
+                }
+              ]
+            },
+            {
+              "name": "For teams",
+              "note": "Per engagement",
+              "items": [
+                {
+                  "name": "360° feedback report",
+                  "description": "I interview up to eight colleagues and write a clear, anonymous summary with three things to work on.",
+                  "price": "$1,800",
+                  "tag": ""
+                },
+                {
+                  "name": "Manager onboarding plan",
+                  "description": "A 90-day plan for a newly promoted manager, built with them and their own manager in two sessions.",
+                  "price": "$900",
+                  "tag": ""
+                },
+                {
+                  "name": "Leadership offsite",
+                  "description": "A half-day session for an engineering leadership team, planned with you and followed by a written summary.",
+                  "price": "$2,400",
+                  "tag": ""
+                }
+              ]
+            }
+          ],
+          "footnote": "Prices in US dollars, excluding sales tax. Companies can pay by card or bank transfer within 30 days."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "sessions"
+      },
+      "services-included": {
+        "id": "services-included",
+        "kind": "component",
+        "componentId": "features-checklist",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Included every time",
+          "title": "The details that make coaching work",
+          "intro": "These commitments apply to every program and every single session.",
+          "showButton": true,
+          "button": {
+            "label": "Read the questions clients ask",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "faq",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "checkIcon": "check-circle",
+          "items": [
+            {
+              "title": "Confidential by default",
+              "text": "Employers get attendance and invoices, never notes."
+            },
+            {
+              "title": "Flexible hours",
+              "text": "Monday to Friday, 7 a.m. to 6 p.m. Central time, by video or in person."
+            },
+            {
+              "title": "Free rescheduling",
+              "text": "Move any session with 24 hours’ notice, or pause a program for leave."
+            },
+            {
+              "title": "Notes the same day",
+              "text": "A short summary with the actions you chose, after every session."
+            },
+            {
+              "title": "Money-back first session",
+              "text": "If your first paid session is not useful, I refund it in full."
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "services-cta": {
+        "id": "services-cta",
+        "kind": "component",
+        "componentId": "cta-banner",
+        "componentVersion": 1,
+        "values": {
+          "title": "Not sure which program fits?",
+          "text": "A free 30-minute intro call is the quickest way to find out.",
+          "button": {
+            "label": "Book an intro call",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "testimonials-hero": {
+        "id": "testimonials-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Client stories",
+          "title": "What managers say a year after coaching",
+          "text": "Stories from engineering managers and the leaders who brought me in, shared with their permission and in their own words.",
+          "primaryButton": {
+            "label": "Book a free intro call",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "See programs and prices",
+            "link": {
+              "type": "page",
+              "pageId": "services",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "testimonials-quotes": {
+        "id": "testimonials-quotes",
+        "kind": "component",
+        "componentId": "testimonials-grid",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "From managers",
+          "title": "In their own words",
+          "items": [
+            {
+              "quote": "I went from dreading one-on-ones to looking forward to them. Ruth gave me a structure in week one and kept me honest about using it.",
+              "name": "Daniel Reyes",
+              "role": "Engineering Manager, Kestrel Payments",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Portrait of Daniel Reyes",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "The rehearsal sessions were worth the whole program. My first performance conversation went almost exactly the way we practiced it.",
+              "name": "Mei Tanaka",
+              "role": "Engineering Manager, Ostrander Health",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Portrait of Mei Tanaka",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "Ruth never told me what to do. She asked the question I was avoiding, and then she waited.",
+              "name": "Samuel Okonkwo",
+              "role": "Team Lead, Prairie Freight",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Portrait of Samuel Okonkwo",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "I stopped reviewing every pull request, and my team started shipping faster. That was the hardest habit to break.",
+              "name": "Laura Bergstrom",
+              "role": "Engineering Manager, Northloop Software",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Portrait of Laura Bergstrom",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "My director noticed the change before I did. Three months in, she asked who I was working with.",
+              "name": "Jordan Whitfield",
+              "role": "Engineering Manager, Tallgrass Analytics",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Portrait of Jordan Whitfield",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "Having someone outside the company to think out loud with is what got me through our reorg.",
+              "name": "Aisha Rahman",
+              "role": "Senior Engineering Manager, Kestrel Payments",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Portrait of Aisha Rahman",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "testimonials-sponsor": {
+        "id": "testimonials-sponsor",
+        "kind": "component",
+        "componentId": "testimonial-logo",
+        "componentVersion": 1,
+        "values": {
+          "logo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Riverbend Insurance logo",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "quote": "We promoted six engineers into management in one quarter. Ruth coached them as a cohort, and a year later all six still lead their teams.",
+          "result": "Regretted departures on their teams down 34% in a year",
+          "resultIcon": "trending-up",
+          "name": "Denise Holloway",
+          "role": "VP of Engineering, Riverbend Insurance",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait of Denise Holloway",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "testimonials-numbers": {
+        "id": "testimonials-numbers",
+        "kind": "component",
+        "componentId": "stats-row",
+        "componentVersion": 2,
+        "values": {
+          "stats": [
+            {
+              "value": "210",
+              "label": "Managers coached since 2019"
+            },
+            {
+              "value": "2,400+",
+              "label": "Coaching sessions"
+            },
+            {
+              "value": "4.9/5",
+              "label": "Average session rating"
+            },
+            {
+              "value": "40",
+              "label": "Client companies"
+            }
+          ],
+          "countUp": true
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "testimonials-story": {
+        "id": "testimonials-story",
+        "kind": "component",
+        "componentId": "content-quote",
+        "componentVersion": 1,
+        "values": {
+          "showIcon": true,
+          "quoteIcon": "quote",
+          "quote": "A year ago I was ready to go back to writing code. Today I run two teams, and I am training our next manager the way Ruth trained me.",
+          "name": "Carlos Mendoza",
+          "role": "Senior Engineering Manager, Northloop Software",
+          "showPhoto": true,
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait of Carlos Mendoza",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "testimonials-cta": {
+        "id": "testimonials-cta",
+        "kind": "component",
+        "componentId": "cta-two-buttons",
+        "componentVersion": 1,
+        "values": {
+          "title": "Want to hear it from a past client?",
+          "text": "After your intro call, I can introduce you to two managers I have coached, so you can ask them anything before you decide.",
+          "primaryButton": {
+            "label": "Book a free intro call",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "secondaryButton": {
+            "label": "See programs and prices",
+            "link": {
+              "type": "page",
+              "pageId": "services",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-primary-background)",
+          "--color-surface": "var(--theme-primary-surface)",
+          "--color-text": "var(--theme-primary-text)",
+          "--color-text-muted": "var(--theme-primary-text-muted)",
+          "--color-border": "var(--theme-primary-border)",
+          "--color-primary": "var(--theme-primary-accent)",
+          "--color-primary-contrast": "var(--theme-primary-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-hero": {
+        "id": "contact-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Contact",
+          "title": "Book a free intro call",
+          "text": "Thirty minutes by video to talk about your team and what feels hard right now. I reply within one working day with a few times that suit you.",
+          "primaryButton": {
+            "label": "Request a call",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Email Ruth",
+            "link": {
+              "type": "email",
+              "url": "ruth@calloway.example",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-form": {
+        "id": "contact-form",
+        "kind": "component",
+        "componentId": "contact-form",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Free intro call",
+          "title": "Tell me about your team",
+          "text": "Share your role, how long you have been managing and what you would like to change. Calls are by video, Monday to Friday, 8 a.m. to 5 p.m. Central time.",
+          "email": "ruth@calloway.example",
+          "phone": "+1 612 555 0187",
+          "address": "Suite 410, 212 North 2nd Street\nMinneapolis, MN 55401",
+          "nameLabel": "Your name",
+          "emailLabel": "Email",
+          "messageLabel": "What would you like help with?",
+          "buttonLabel": "Request an intro call",
+          "formAction": "",
+          "formMethod": "post"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "book"
+      },
+      "contact-faq": {
+        "id": "contact-faq",
+        "kind": "component",
+        "componentId": "faq-side-heading",
+        "componentVersion": 1,
+        "values": {
+          "title": "Questions before you book",
+          "text": "Something else on your mind? Write to me and I will answer within one working day.",
+          "showButton": true,
+          "button": {
+            "label": "Ask a question",
+            "link": {
+              "type": "email",
+              "url": "ruth@calloway.example",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "expandIcon": "plus",
+          "items": [
+            {
+              "question": "Can my employer pay for coaching?",
+              "answer": "<p>Yes. Most clients are funded from a learning and development budget. I send your company a short proposal, sign vendor paperwork and invoice them directly.</p>"
+            },
+            {
+              "question": "Will my manager see what we discuss?",
+              "answer": "<p>No. Sessions are confidential. When an employer pays, they receive invoices and attendance only. If you want your manager involved, we invite them to a three-way review together.</p>"
+            },
+            {
+              "question": "Do you only coach engineering managers?",
+              "answer": "<p>Mostly. About nine in ten clients lead software, data or infrastructure teams. I also coach product and design managers who work closely with engineering.</p>"
+            },
+            {
+              "question": "Can we meet in person?",
+              "answer": "<p>Sessions are by video by default. Clients in the Twin Cities can meet at my office in the North Loop at no extra cost.</p>"
+            },
+            {
+              "question": "What if coaching is not working for me?",
+              "answer": "<p>Tell me. If your first paid session is not useful, I refund it in full, and you can end any program with a month’s notice and a pro-rated refund.</p>"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "faq"
+      },
+      "contact-newsletter": {
+        "id": "contact-newsletter",
+        "kind": "component",
+        "componentId": "newsletter-inline",
+        "componentVersion": 1,
+        "values": {
+          "title": "The first-year manager letter",
+          "text": "One short email every other Tuesday: a question to bring to your next one-on-one and a lesson from my coaching practice, shared without names.",
+          "emailLabel": "Email address",
+          "emailPlaceholder": "you@company.com",
+          "buttonLabel": "Subscribe",
+          "note": "Read by 3,200 engineering managers. Unsubscribe with one click.",
+          "formAction": "",
+          "formMethod": "post"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "newsletter"
+      }
+    }
+  },
+  "sharedSlots": {
+    "header": ["header-banner", "header-nav"],
+    "footer": ["footer-footer"]
+  },
+  "assets": {}
+}

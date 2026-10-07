@@ -26,15 +26,23 @@ export function pageSlugsOf(pages: Project['pages']): Record<string, string> {
   return pageSlugs;
 }
 
-export type SiteContext = { siteTitle: string; iconSet: string };
+export type SiteContext = { siteTitle: string; iconSet: string; language: string };
+
+export function siteContextOf(project: Pick<Project, 'settings' | 'designSystem'>): SiteContext {
+  return {
+    siteTitle: project.settings.title,
+    iconSet: project.designSystem.iconSet,
+    language: project.settings.language,
+  };
+}
 
 export function renderContextFor(
-  { siteTitle, iconSet }: SiteContext,
+  { siteTitle, iconSet, language }: SiteContext,
   pageSlugs: Record<string, string>,
   mode: RenderContext['mode'],
   currentPageId: string | null,
 ): RenderContext {
-  return { mode, site: { title: siteTitle }, pageSlugs, currentPageId, iconSet };
+  return { mode, site: { title: siteTitle }, pageSlugs, currentPageId, iconSet, language };
 }
 
 export function createRenderContext(
@@ -42,8 +50,7 @@ export function createRenderContext(
   mode: RenderContext['mode'],
   currentPageId: string | null = null,
 ): RenderContext {
-  const site = { siteTitle: project.settings.title, iconSet: project.designSystem.iconSet };
-  return renderContextFor(site, pageSlugsOf(project.pages), mode, currentPageId);
+  return renderContextFor(siteContextOf(project), pageSlugsOf(project.pages), mode, currentPageId);
 }
 
 function stripEditorAttributes(html: string): string {
@@ -103,6 +110,7 @@ export function renderBlock(
     currentPageId: ctx.currentPageId,
     eagerImages: component.definition.category === 'headers',
     iconSet: ctx.iconSet,
+    language: ctx.language,
     collector: ctx.collector,
   };
   const html = component.template(templateValues, { data: renderData }).trim();

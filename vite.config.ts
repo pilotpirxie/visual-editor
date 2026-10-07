@@ -21,6 +21,7 @@ const KNOWN_HELPERS = {
   nl2br: true,
   richText: true,
   safeUrl: true,
+  formatDate: true,
 };
 
 function handlebarsPrecompile(): Plugin {
@@ -61,8 +62,8 @@ function siteRuntime(): Plugin {
       };
 
       const core = await compile(resolve(RUNTIME_DIR, 'core.ts'));
-      const behaviorFiles = (await readdir(resolve(RUNTIME_DIR, 'behaviors'))).filter((file) =>
-        file.endsWith('.ts'),
+      const behaviorFiles = (await readdir(resolve(RUNTIME_DIR, 'behaviors'))).filter(
+        (file) => file.endsWith('.ts') && !file.endsWith('.test.ts'),
       );
       const behaviors = Object.fromEntries(
         await Promise.all(

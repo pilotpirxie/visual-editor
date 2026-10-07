@@ -1,0 +1,78 @@
+@layer components {
+  @scope (.b-newsletter-card) {
+    .b-card {
+      --card-padding: 0;
+      display: grid;
+      overflow: hidden;
+    }
+
+    .b-media {
+      --media-radius: 0;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      justify-content: center;
+      padding: var(--space-8) var(--space-6);
+    }
+
+    .b-copy h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-top: var(--space-2);
+    }
+
+    .b-field {
+      flex: 999 1 14rem;
+    }
+
+    .b-submit {
+      flex: 1 0 auto;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-media {
+        aspect-ratio: 16 / 9;
+      }
+
+      .b-copy {
+        padding: var(--space-12);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-card {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .b-media {
+        position: relative;
+        aspect-ratio: auto;
+        min-height: 24rem;
+      }
+
+      .b-media > img {
+        position: absolute;
+        inset: 0;
+      }
+
+      :scope[data-image-side='right'] .b-media {
+        order: 1;
+      }
+    }
+  }
+}

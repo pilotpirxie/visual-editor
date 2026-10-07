@@ -1,5 +1,7 @@
 import type { EntityState } from '@reduxjs/toolkit';
 
+export const SCHEMA_VERSION = 3;
+
 export const TOKEN_GROUPS = [
   'color',
   'typography',
@@ -107,7 +109,7 @@ export type ProjectSettings = {
 export type Asset = { id: string; name: string; mimeType: string; dataUrl: string };
 
 export type Project = {
-  schemaVersion: 2;
+  schemaVersion: typeof SCHEMA_VERSION;
   id: string;
   starterId?: string;
   settings: ProjectSettings;

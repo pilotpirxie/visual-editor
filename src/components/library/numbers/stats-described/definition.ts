@@ -2,13 +2,18 @@ import type { ComponentDefinition } from '../../../types';
 
 export const definition: ComponentDefinition = {
   id: 'stats-described',
-  version: 1,
+  version: 2,
   name: 'Numbers, with descriptions',
   category: 'numbers',
   description: 'A heading and intro, then numbers with a sentence about each.',
   tags: ['numbers', 'stats', 'results', 'impact', 'case study'],
   fieldGroups: ['Heading', 'Numbers'],
   styleOverrides: ['--color-background', '--color-text', '--section-padding-y'],
+  behaviors: ['counter'],
+  migrate(values, fromVersion) {
+    if (fromVersion < 2) return { ...values, countUp: false };
+    return values;
+  },
   fields: [
     { name: 'eyebrow', label: 'Eyebrow', type: 'text', default: 'Results', group: 'Heading' },
     {
@@ -56,6 +61,13 @@ export const definition: ComponentDefinition = {
           text: 'Short clips get watched, so more decisions start from evidence.',
         },
       ],
+    },
+    {
+      name: 'countUp',
+      label: 'Count up when visible',
+      type: 'boolean',
+      default: true,
+      group: 'Numbers',
     },
   ],
 };

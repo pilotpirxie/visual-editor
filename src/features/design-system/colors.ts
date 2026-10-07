@@ -1,9 +1,10 @@
+import { themeTokenName, THEME_FAMILIES, type ThemedToken } from '../../app/sectionThemes';
 import type { Token } from '../../app/types';
-import { referencedTokenName } from '../../render/css';
 
 const SHORT_HEX = /^#(?<r>[0-9a-f])(?<g>[0-9a-f])(?<b>[0-9a-f])$/i;
 const LONG_HEX = /^#[0-9a-f]{6}/i;
 const FALLBACK_HEX = '#000000';
+const VAR_REFERENCE = /var\(\s*(?<name>--[a-z0-9-]+)\s*\)/g;
 
 export function toPickerHex(color: string): string {
   const short = SHORT_HEX.exec(color);
@@ -16,12 +17,16 @@ export function toPickerHex(color: string): string {
   return long[0];
 }
 
-export function resolveColor(value: string, tokens: Record<string, Token>): string {
-  const name = referencedTokenName(value);
-  if (name === null) return value;
-  const token = tokens[name];
-  if (token === undefined) return FALLBACK_HEX;
-  return token.value;
+export function resolveColor(
+  value: string,
+  tokens: Record<string, Token>,
+  seen: ReadonlySet<string> = new Set(),
+): string {
+  return value.replace(VAR_REFERENCE, (_reference, name: string) => {
+    const token = tokens[name];
+    if (token === undefined || seen.has(name)) return FALLBACK_HEX;
+    return resolveColor(token.value, tokens, new Set([...seen, name]));
+  });
 }
 
 export type ContrastWarning = { foreground: Token; background: Token; ratio: number };
@@ -30,12 +35,36 @@ export const MIN_TEXT_CONTRAST = 4.5;
 
 const HEX_COLOR = /^#(?<digits>[0-9a-f]{3}|[0-9a-f]{6})$/i;
 
-const CONTRAST_PAIRS = [
+type ContrastPair = { foreground: string; background: string };
+
+type ThemedPair = { foreground: ThemedToken; background: ThemedToken };
+
+const BASE_PAIRS: ThemedPair[] = [
   { foreground: '--color-text', background: '--color-background' },
   { foreground: '--color-text-muted', background: '--color-background' },
   { foreground: '--color-text', background: '--color-surface' },
   { foreground: '--color-primary-contrast', background: '--color-primary' },
 ];
+
+const THEME_PAIRS: ThemedPair[] = [
+  ...BASE_PAIRS,
+  { foreground: '--color-primary', background: '--color-background' },
+];
+
+function contrastPairs(): ContrastPair[] {
+  const pairs: ContrastPair[] = [...BASE_PAIRS];
+  for (const family of THEME_FAMILIES) {
+    for (const { foreground, background } of THEME_PAIRS) {
+      pairs.push({
+        foreground: themeTokenName(family, foreground),
+        background: themeTokenName(family, background),
+      });
+    }
+  }
+  return pairs;
+}
+
+const CONTRAST_PAIRS = contrastPairs();
 
 function channelLuminance(channel: number): number {
   const srgb = channel / 255;

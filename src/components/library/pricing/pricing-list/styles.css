@@ -1,0 +1,108 @@
+@layer components {
+  @scope (.b-pricing-list) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-groups {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-group-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-1) var(--space-4);
+      padding-bottom: var(--space-3);
+      margin-bottom: var(--space-6);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .b-group-head h3 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-items {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-line {
+      display: flex;
+      align-items: baseline;
+      align-items: last baseline;
+      gap: var(--space-2);
+    }
+
+    .b-name {
+      min-width: 0;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-tag {
+      margin-inline-start: var(--space-1);
+      vertical-align: 0.1em;
+    }
+
+    .b-leader {
+      flex: 1 1 1.5rem;
+      min-width: 1.5rem;
+      border-bottom: calc(var(--border-width) * 2) dotted
+        color-mix(in oklab, var(--color-text-muted) 55%, transparent);
+    }
+
+    .b-price {
+      flex: none;
+      font-weight: var(--font-weight-bold);
+      white-space: nowrap;
+    }
+
+    .b-description {
+      max-width: 34rem;
+      margin-top: var(--space-1);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-footnote {
+      max-width: 40rem;
+      margin-inline: auto;
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    @media (min-width: 1024px) {
+      .b-groups {
+        display: block;
+        margin-bottom: calc(-1 * var(--space-12));
+        columns: 2;
+        column-gap: var(--space-16);
+      }
+
+      .b-group {
+        padding-bottom: var(--space-12);
+        break-inside: avoid;
+      }
+    }
+  }
+}

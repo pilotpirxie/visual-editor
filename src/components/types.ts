@@ -70,6 +70,7 @@ export type Field = {
   maxItems?: number;
   itemLabel?: string;
   iconPurpose?: 'logo' | 'brand';
+  allowHeadings?: boolean;
 };
 
 export type ComponentDefinition = {
@@ -83,6 +84,7 @@ export type ComponentDefinition = {
   fields: Field[];
   styleOverrides: string[];
   behaviors?: string[];
+  migrate?: (values: Record<string, unknown>, fromVersion: number) => Record<string, unknown>;
 };
 
 export const LINK_TYPES = ['page', 'section', 'url', 'email', 'phone'] as const;

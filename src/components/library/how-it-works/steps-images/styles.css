@@ -1,0 +1,81 @@
+@layer components {
+  @scope (.b-steps-images) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-steps {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-12);
+      counter-reset: step;
+    }
+
+    .b-step {
+      display: flex;
+      flex-direction: column;
+      counter-increment: step;
+    }
+
+    .b-media {
+      --media-radius: var(--radius-lg);
+      border: var(--border-width) solid var(--color-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-body::before {
+      content: counter(step);
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-block-start: -1.25rem;
+      margin-inline-start: var(--space-4);
+      margin-block-end: var(--space-1);
+      border-radius: var(--radius-full);
+      outline: var(--space-1) solid var(--color-background);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-body p {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-steps {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-8);
+      }
+
+      .b-steps:has(> :nth-child(4)),
+      .b-steps:not(:has(> :nth-child(3))) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-steps:has(> :nth-child(4)) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+}

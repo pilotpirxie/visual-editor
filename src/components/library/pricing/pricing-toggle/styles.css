@@ -1,0 +1,132 @@
+@layer components {
+  @scope (.b-pricing-toggle) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-switch {
+      display: flex;
+      gap: var(--space-1);
+      width: fit-content;
+      min-inline-size: 0;
+      max-width: 100%;
+      margin-inline: auto;
+      padding: var(--space-1);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+    }
+
+    .b-option {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-bold);
+      cursor: pointer;
+      transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .b-option input {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .b-option:has(input:checked) {
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .b-option:has(input:focus-visible) {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    .b-plans {
+      --grid-min: 16rem;
+      --grid-gap: var(--space-6);
+      align-items: stretch;
+    }
+
+    .b-plan {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-plan[data-featured] {
+      --card-shadow: var(--shadow-lg);
+      border-color: var(--color-primary);
+      outline: 1px solid var(--color-primary);
+    }
+
+    .b-plan-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+
+    .b-prices {
+      display: grid;
+    }
+
+    .b-price {
+      grid-area: 1 / 1;
+    }
+
+    .b-price-yearly,
+    :scope:has(.b-yearly:checked) .b-price-monthly {
+      visibility: hidden;
+    }
+
+    :scope:has(.b-yearly:checked) .b-price-yearly {
+      visibility: visible;
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-period,
+    .b-description {
+      color: var(--color-text-muted);
+    }
+
+    .b-period {
+      display: block;
+    }
+
+    .b-features {
+      flex: 1;
+    }
+
+    .b-button {
+      width: 100%;
+    }
+  }
+}

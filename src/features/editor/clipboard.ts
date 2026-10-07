@@ -6,6 +6,7 @@ import { mapFieldValues } from '../../components/fieldValues';
 import { isButtonValue, isLinkValue } from '../../components/fields';
 import { blockCategory, registry } from '../../components/registry';
 import type { LinkValue } from '../../components/types';
+import { upgradeComponentBlock } from '../../persistence/migrations';
 import { isRecord, parseBlock } from '../../persistence/parseBlock';
 import { referencedTokenName } from '../../render/css';
 import { createRenderContext, renderAnyBlock } from '../../render/renderBlock';
@@ -124,12 +125,12 @@ export function prepareForPaste(
   project: Project,
   newBlockId: string,
 ): PastePreparation | null {
-  const { block } = envelope;
-  if (block.kind === 'html') {
-    return { block: { ...block, id: newBlockId }, clearedLinkCount: 0 };
+  if (envelope.block.kind === 'html') {
+    return { block: { ...envelope.block, id: newBlockId }, clearedLinkCount: 0 };
   }
-  const component = registry.get(block.componentId);
+  const component = registry.get(envelope.block.componentId);
   if (component === undefined) return null;
+  const block = upgradeComponentBlock(envelope.block, component.definition);
   const pageIds = new Set(project.pages.ids);
   let clearedLinkCount = 0;
   const values = mapFieldValues(component.definition.fields, block.values, (field, value) => {

@@ -109,14 +109,15 @@ export const selectCanvasRenderContext = createSelector(
   [
     (state: RootState) => state.project.settings.title,
     (state: RootState) => state.project.designSystem.iconSet,
+    (state: RootState) => state.project.settings.language,
     selectPageSlugs,
     (state: RootState) => state.editor.isPreview,
     (state: RootState) => selectCurrentPage(state).id,
     (state: RootState) => state.editor.iconSetsVersion,
   ],
-  (siteTitle, iconSet, pageSlugs, isPreview, currentPageId) =>
+  (siteTitle, iconSet, language, pageSlugs, isPreview, currentPageId) =>
     renderContextFor(
-      { siteTitle, iconSet },
+      { siteTitle, iconSet, language },
       pageSlugs,
       isPreview ? 'preview' : 'canvas',
       currentPageId,

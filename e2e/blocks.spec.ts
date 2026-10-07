@@ -26,10 +26,10 @@ async function insertEveryBlock(page: Page): Promise<number> {
 test('every block fits from 320 to 1440 pixels wide in the exported site', async ({
   page,
 }, testInfo) => {
-  test.setTimeout(120_000);
+  test.setTimeout(300_000);
   await createProject(page);
   const count = await insertEveryBlock(page);
-  expect(count).toBeGreaterThanOrEqual(30);
+  expect(count).toBeGreaterThanOrEqual(75);
   await expect(page.frameLocator('.ve-canvas-frame').locator('[data-block-id]')).toHaveCount(count);
 
   await page.getByRole('button', { name: 'Export', exact: true }).click();

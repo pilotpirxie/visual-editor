@@ -1,0 +1,30 @@
+<nav class="b-nav-dropdown" data-behavior="menu dropdown" aria-label="Main">
+  <div class="container b-bar">
+    <a class="b-logo" href="index.html">{{site.title}}</a>
+    <button type="button" class="btn btn-ghost b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+      {{svgIcon menuIcon}}<span class="visually-hidden">Menu</span>
+    </button>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li class="b-item" data-field="links.{{@index}}">
+          {{#if children.length}}
+          <span class="b-group-label">{{label}}</span>
+          <button type="button" class="b-parent" popovertarget="{{../block.id}}-sub-{{@index}}" aria-expanded="false" style="anchor-name: --{{../block.id}}-sub-{{@index}}">{{label}}{{svgIcon "chevron-down"}}</button>
+          <ul id="{{../block.id}}-sub-{{@index}}" class="b-sub" role="list" popover data-dropdown-menu style="position-anchor: --{{../block.id}}-sub-{{@index}}">
+            {{#each children}}
+            <li><a href="{{href link}}" {{linkAttrs link}}>{{label}}</a></li>
+            {{/each}}
+          </ul>
+          {{else}}
+          <a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{label}}</a>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ul>
+      {{#if showCta}}
+      <a class="btn btn-{{cta.variant}}" href="{{href cta.link}}" {{linkAttrs cta.link}} data-field="cta">{{cta.label}}</a>
+      {{/if}}
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,46 @@
+<section class="b-signup-benefits section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <ul class="stack b-benefits" role="list">
+        {{#each benefits}}
+        <li class="b-benefit" data-field="benefits.{{@index}}">
+          <span class="b-check-icon" data-field="checkIcon">{{svgIcon ../checkIcon}}</span>
+          <div class="stack b-benefit-copy">
+            <h3>{{title}}</h3>
+            {{#if text}}<p>{{nl2br text}}</p>{{/if}}
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="card stack b-card">
+      <h3 class="b-form-title" data-field="formTitle">{{formTitle}}</h3>
+      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field">
+          <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+          <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-password" data-field="passwordLabel">{{passwordLabel}}</label>
+          <input id="{{block.id}}-password" type="password" name="password" autocomplete="new-password" required{{#if passwordHint}} aria-describedby="{{block.id}}-password-hint"{{/if}}>
+          {{#if passwordHint}}<p class="field-hint" id="{{block.id}}-password-hint" data-field="passwordHint">{{passwordHint}}</p>{{/if}}
+        </div>
+        <div class="field-check b-check">
+          <input id="{{block.id}}-terms" type="checkbox" name="terms" value="accepted" required>
+          <label for="{{block.id}}-terms" data-field="termsText">{{termsText}} <a href="{{href termsLink}}" {{linkAttrs termsLink}} data-field="termsLink">{{termsLabel}}</a></label>
+        </div>
+        <button type="submit" class="btn btn-primary b-submit" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if signInLabel}}<p class="b-switch" data-field="signInLink">{{signInText}} <a href="{{href signInLink}}" {{linkAttrs signInLink}}>{{signInLabel}}</a></p>{{/if}}
+    </div>
+  </div>
+</section>

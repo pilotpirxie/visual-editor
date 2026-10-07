@@ -4,7 +4,19 @@
   }
 
   .prose > * + * {
-    margin-block-start: var(--space-4);
+    margin-block-start: var(--prose-gap, var(--space-4));
+  }
+
+  .prose > * + :is(h2, h3) {
+    margin-block-start: calc(var(--prose-gap, var(--space-4)) * 2);
+  }
+
+  .prose > :is(h2, h3) + * {
+    margin-block-start: var(--space-3);
+  }
+
+  .prose h2 {
+    font-size: min(var(--text-2xl), var(--text-3xl));
   }
 
   .prose :is(ul, ol) {
@@ -12,6 +24,14 @@
   }
 
   .prose li + li {
-    margin-block-start: var(--space-2);
+    margin-block-start: var(--prose-item-gap, var(--space-2));
+  }
+
+  .prose li::marker {
+    color: var(--prose-marker-color, inherit);
+  }
+
+  .prose strong {
+    font-weight: var(--font-weight-bold);
   }
 }

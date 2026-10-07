@@ -1,0 +1,16 @@
+<section class="b-testimonial-logo section">
+  <div class="container">
+    <figure class="stack b-figure">
+      <div class="b-logo" data-field="logo">{{img logo}}</div>
+      <blockquote class="b-quote" data-field="quote"><p>{{nl2br quote}}</p></blockquote>
+      {{#if result}}<p class="b-result" data-field="result">{{#if resultIcon}}<span class="b-result-icon">{{svgIcon resultIcon}}</span>{{/if}}<span>{{result}}</span></p>{{/if}}
+      <figcaption class="b-person">
+        <div class="media b-photo" data-field="photo">{{img photo}}</div>
+        <div>
+          <p class="b-name" data-field="name">{{name}}</p>
+          {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</section>

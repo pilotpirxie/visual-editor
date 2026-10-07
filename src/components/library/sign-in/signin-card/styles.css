@@ -1,0 +1,73 @@
+@layer components {
+  @scope (.b-signin-card) {
+    .b-card {
+      --card-padding: var(--space-6);
+      --card-shadow: var(--shadow-lg);
+      --stack-gap: var(--space-6);
+      max-width: 28rem;
+      margin-inline: auto;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+      text-align: center;
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-options {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0 var(--space-4);
+    }
+
+    .b-forgot {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-submit {
+      width: 100%;
+    }
+
+    .b-switch {
+      padding-top: var(--space-6);
+      border-top: var(--border-width) solid var(--color-border);
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    .b-switch a {
+      font-weight: var(--font-weight-bold);
+      white-space: nowrap;
+    }
+
+    :is(.b-forgot, .b-switch a) {
+      text-decoration: none;
+    }
+
+    :is(.b-forgot, .b-switch a):hover {
+      text-decoration: underline;
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        --card-padding: var(--space-8);
+      }
+    }
+  }
+}

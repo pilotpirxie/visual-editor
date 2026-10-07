@@ -12,6 +12,8 @@ import {
 import { blur, changeValue, click, getButton, pressKey, render } from '../../test/dom';
 import { HomeScreen } from './HomeScreen';
 
+const STARTERS_LOAD_TIMEOUT_MS = 5000;
+
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
   getProject: vi.fn(async () => null),
@@ -103,7 +105,11 @@ describe('HomeScreen', () => {
     const container = await renderHome();
     click(getButton(container, 'New project'));
     click(getButton(container, 'Starters'));
-    click(await vi.waitFor(() => getButton(container, 'Use the Startup waitlist starter')));
+    click(
+      await vi.waitFor(() => getButton(container, 'Use the Startup waitlist starter'), {
+        timeout: STARTERS_LOAD_TIMEOUT_MS,
+      }),
+    );
     await vi.waitFor(() => expect(savedProjects()).toHaveLength(1));
     const created = savedProjects()[0];
     expect(created.starterId).toBe('waitlist');

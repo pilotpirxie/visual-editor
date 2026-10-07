@@ -1,0 +1,105 @@
+import type { ComponentDefinition, ImageValue, LinkValue } from '../../../types';
+
+const POST_LINK: LinkValue = { type: 'url', url: '#', newTab: false };
+
+function thumbnail(alt: string): ImageValue {
+  return {
+    source: 'placeholder',
+    src: '',
+    alt,
+    decorative: false,
+    width: 1200,
+    height: 900,
+    placeholder: { ratio: '4:3', subject: 'photo' },
+  };
+}
+
+export const definition: ComponentDefinition = {
+  id: 'blog-list',
+  version: 1,
+  name: 'Blog posts, list with thumbnails',
+  category: 'blog',
+  description: 'A heading and a list of posts, each with a thumbnail, category, date and excerpt.',
+  tags: ['blog', 'posts', 'articles', 'news', 'list', 'thumbnails'],
+  fieldGroups: ['Heading', 'Posts'],
+  styleOverrides: ['--color-background', '--color-text', '--section-padding-y'],
+  fields: [
+    { name: 'eyebrow', label: 'Eyebrow', type: 'text', default: 'Blog', group: 'Heading' },
+    {
+      name: 'title',
+      label: 'Title',
+      type: 'text',
+      default: 'Latest from the Fieldnote team',
+      required: true,
+      group: 'Heading',
+    },
+    {
+      name: 'intro',
+      label: 'Intro',
+      type: 'textarea',
+      default:
+        'Practical guides on interviewing, synthesis and research operations, every other week.',
+      group: 'Heading',
+    },
+    {
+      name: 'posts',
+      label: 'Posts',
+      type: 'list',
+      group: 'Posts',
+      minItems: 1,
+      maxItems: 10,
+      itemLabel: 'title',
+      itemFields: [
+        { name: 'image', label: 'Thumbnail', type: 'image', default: thumbnail('Cover image') },
+        { name: 'category', label: 'Category', type: 'text', default: 'Research' },
+        { name: 'date', label: 'Date', type: 'date', default: '2026-09-01' },
+        { name: 'title', label: 'Title', type: 'text', default: 'Post title' },
+        {
+          name: 'excerpt',
+          label: 'Excerpt',
+          type: 'textarea',
+          default: 'One or two sentences that make readers want the rest.',
+        },
+        { name: 'link', label: 'Link', type: 'link', default: POST_LINK },
+      ],
+      default: [
+        {
+          image: thumbnail('A product team watching interview clips together on a large screen'),
+          category: 'Research',
+          date: '2026-10-01',
+          title: 'What 1,200 hours of onboarding interviews taught us',
+          excerpt:
+            'Anonymized and shared with permission: the moments new customers get stuck, and the three questions that predict who stays.',
+          link: POST_LINK,
+        },
+        {
+          image: thumbnail('A laptop showing a video call grid with teammates in different cities'),
+          category: 'Inside Fieldnote',
+          date: '2026-09-22',
+          title: 'Running research with a remote team across 11 time zones',
+          excerpt:
+            'No shared office and no hallway debriefs. How we schedule interviews, share clips and still argue about findings in the same week.',
+          link: POST_LINK,
+        },
+        {
+          image: thumbnail('A consent form next to a phone recording a conversation'),
+          category: 'Privacy',
+          date: '2026-09-08',
+          title: 'Consent, recordings and GDPR: a plain-language checklist',
+          excerpt:
+            'What to tell participants before you press record, how long to keep recordings, and what to do when someone asks you to delete them.',
+          link: POST_LINK,
+        },
+        {
+          image: thumbnail('A transcript with speaker labels in two languages'),
+          category: 'Product update',
+          date: '2026-08-25',
+          title: 'Speaker labels now work in 32 languages',
+          excerpt:
+            'Transcripts label speakers in 32 languages, including calls that switch languages halfway, and you can fix a name everywhere in one click.',
+          link: POST_LINK,
+        },
+      ],
+    },
+  ],
+};

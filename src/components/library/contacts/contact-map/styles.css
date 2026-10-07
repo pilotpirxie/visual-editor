@@ -1,0 +1,91 @@
+@layer components {
+  @scope (.b-contact-map) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      max-width: 40rem;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+      --card-padding: var(--space-6);
+    }
+
+    .b-submit {
+      align-self: flex-start;
+    }
+
+    .b-location {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-map {
+      --media-radius: var(--card-radius);
+      border: var(--border-width) solid var(--color-border);
+    }
+
+    .b-details {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-detail {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      flex: none;
+      color: var(--color-primary);
+    }
+
+    .b-detail-copy {
+      --stack-gap: var(--space-1);
+    }
+
+    .b-detail-copy h3 {
+      font-size: var(--text-base);
+    }
+
+    .b-detail-copy :is(address, p) {
+      font-style: normal;
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-body {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .b-form {
+        --card-padding: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-body {
+        gap: var(--space-12);
+      }
+
+      .b-details {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+}

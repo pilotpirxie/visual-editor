@@ -1,0 +1,67 @@
+@layer components {
+  @scope (.b-app-screenshots) {
+    .b-phone {
+      --device-shadow: var(--shadow-md);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-track {
+      display: grid;
+      grid-auto-columns: min(68%, 13rem);
+      grid-auto-flow: column;
+      gap: var(--space-6);
+      justify-content: safe center;
+      margin-inline: calc(-1 * var(--container-padding-x));
+      padding: var(--space-4) var(--container-padding-x) var(--space-6);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-padding-inline: var(--container-padding-x);
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+    }
+
+    .b-track:focus-visible {
+      outline-offset: calc(-1 * var(--space-1));
+    }
+
+    .b-shot {
+      --stack-gap: var(--space-4);
+      scroll-snap-align: start;
+    }
+
+    .b-caption {
+      font-weight: var(--font-weight-bold);
+      text-align: center;
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        --stack-gap: var(--space-12);
+      }
+
+      .b-track {
+        grid-auto-columns: minmax(0, 14rem);
+        gap: var(--space-8);
+        margin-inline: 0;
+        padding-inline: 0;
+        overflow: visible;
+        scroll-snap-type: none;
+      }
+    }
+  }
+}

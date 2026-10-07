@@ -1,0 +1,30 @@
+@layer primitives {
+  .device {
+    --device-bezel: var(--space-2);
+    --device-radius: min(calc(var(--radius-lg) * 2.5), 3rem);
+    position: relative;
+    width: min(100%, var(--device-width, 100%));
+    padding: var(--device-bezel);
+    border-radius: var(--device-radius);
+    background: var(--color-text);
+    box-shadow: var(--device-shadow, var(--shadow-lg));
+  }
+
+  .device::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: calc(var(--device-bezel) + var(--space-2));
+    left: 50%;
+    width: 32%;
+    aspect-ratio: 7 / 2;
+    border-radius: var(--radius-full);
+    background: var(--color-text);
+    translate: -50% 0;
+  }
+
+  .device-screen {
+    --media-ratio: 9 / 19;
+    --media-radius: max(0rem, calc(var(--device-radius) - var(--device-bezel)));
+  }
+}

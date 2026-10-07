@@ -1,0 +1,96 @@
+import type { ComponentDefinition } from '../../../types';
+
+export const definition: ComponentDefinition = {
+  id: 'features-icon-list',
+  version: 1,
+  name: 'Features, side heading with icon list',
+  category: 'features',
+  description:
+    'A heading and button on one side, a two-column list of features with icons on the other.',
+  tags: ['features', 'list', 'icons', 'benefits', 'side heading', 'two columns'],
+  fieldGroups: ['Heading', 'Button', 'Items'],
+  styleOverrides: ['--color-background', '--color-text', '--section-padding-y'],
+  fields: [
+    { name: 'eyebrow', label: 'Eyebrow', type: 'text', default: 'Features', group: 'Heading' },
+    {
+      name: 'title',
+      label: 'Title',
+      type: 'text',
+      default: 'Everything a research team needs, in one place',
+      required: true,
+      group: 'Heading',
+    },
+    {
+      name: 'intro',
+      label: 'Intro',
+      type: 'textarea',
+      default:
+        'Fieldnote replaces the recorder, the transcription service and the spreadsheet of quotes your team stitched together.',
+      group: 'Heading',
+    },
+    { name: 'showButton', label: 'Show button', type: 'boolean', default: true, group: 'Button' },
+    {
+      name: 'button',
+      label: 'Button',
+      type: 'button',
+      default: {
+        label: 'See all features',
+        link: { type: 'url', url: '#', newTab: false },
+        variant: 'secondary',
+      },
+      visibleWhen: { field: 'showButton', equals: true },
+      group: 'Button',
+    },
+    {
+      name: 'items',
+      label: 'Features',
+      type: 'list',
+      group: 'Items',
+      minItems: 1,
+      maxItems: 12,
+      itemLabel: 'title',
+      itemFields: [
+        { name: 'icon', label: 'Icon', type: 'icon', default: 'check' },
+        { name: 'title', label: 'Title', type: 'text', default: 'Feature title' },
+        {
+          name: 'text',
+          label: 'Text',
+          type: 'textarea',
+          default: 'Describe the benefit in one or two sentences.',
+        },
+      ],
+      default: [
+        {
+          icon: 'mic',
+          title: 'Record anywhere',
+          text: 'Zoom, Meet, Teams or a phone on the table. Participants are asked for consent before recording starts.',
+        },
+        {
+          icon: 'transcript',
+          title: 'Accurate transcripts',
+          text: 'Speaker labels and timestamps in 30 languages, ready minutes after you hang up.',
+        },
+        {
+          icon: 'tag',
+          title: 'One shared tag list',
+          text: 'Tags mean the same thing in every project, so themes add up across studies.',
+        },
+        {
+          icon: 'search',
+          title: 'Search every call',
+          text: 'Find each time a customer mentioned a competitor, across years of interviews.',
+        },
+        {
+          icon: 'share',
+          title: 'Share clips, not decks',
+          text: 'Send a 30-second clip to Slack or Jira instead of a slide nobody opens.',
+        },
+        {
+          icon: 'shield',
+          title: 'Private by default',
+          text: 'Access per project, automatic redaction and EU data residency on Business.',
+        },
+      ],
+    },
+  ],
+};

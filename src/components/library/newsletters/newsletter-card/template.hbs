@@ -1,0 +1,22 @@
+<section class="b-newsletter-card section" data-image-side="{{imageSide}}">
+  <div class="container">
+    <div class="card b-card">
+      <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">
+        {{img image}}
+      </div>
+      <div class="stack b-copy">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+        <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+          <div class="field b-field">
+            <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+            <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+          </div>
+          <button type="submit" class="btn btn-primary b-submit" data-field="buttonLabel">{{buttonLabel}}</button>
+        </form>
+        {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+      </div>
+    </div>
+  </div>
+</section>

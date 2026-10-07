@@ -1,0 +1,1910 @@
+{
+  "schemaVersion": 3,
+  "id": "starter-restaurant",
+  "settings": {
+    "title": "Hazel",
+    "description": "Hazel is a seasonal Italian restaurant on North Clark Street in Andersonville, Chicago, with handmade pasta, a wood-fired hearth and a private dining room.",
+    "language": "en",
+    "titleTemplate": "{{page.title}} | {{site.title}}"
+  },
+  "designSystem": {
+    "presetId": "warm",
+    "tokens": {
+      "--color-primary": {
+        "name": "--color-primary",
+        "label": "Primary",
+        "group": "color",
+        "value": "#9a3412"
+      },
+      "--color-primary-contrast": {
+        "name": "--color-primary-contrast",
+        "label": "Primary contrast",
+        "group": "color",
+        "value": "#fff7ed"
+      },
+      "--color-background": {
+        "name": "--color-background",
+        "label": "Background",
+        "group": "color",
+        "value": "#fbf7f1"
+      },
+      "--color-surface": {
+        "name": "--color-surface",
+        "label": "Surface",
+        "group": "color",
+        "value": "#f3ebe0"
+      },
+      "--color-text": {
+        "name": "--color-text",
+        "label": "Text",
+        "group": "color",
+        "value": "#2b211b"
+      },
+      "--color-text-muted": {
+        "name": "--color-text-muted",
+        "label": "Muted text",
+        "group": "color",
+        "value": "#665548"
+      },
+      "--color-border": {
+        "name": "--color-border",
+        "label": "Border",
+        "group": "color",
+        "value": "#e6dacb"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#2b211b"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#3a2d25"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#fbf7f1"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#cbb8a6"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#4d3d32"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#fdba74"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#2b211b"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--font-heading": {
+        "name": "--font-heading",
+        "label": "Heading font",
+        "group": "typography",
+        "value": "\"DM Serif Display\", ui-serif, Georgia, serif"
+      },
+      "--font-body": {
+        "name": "--font-body",
+        "label": "Body font",
+        "group": "typography",
+        "value": "\"DM Sans\", system-ui, sans-serif"
+      },
+      "--font-mono": {
+        "name": "--font-mono",
+        "label": "Mono font",
+        "group": "typography",
+        "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+      },
+      "--font-weight-heading": {
+        "name": "--font-weight-heading",
+        "label": "Heading weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-regular": {
+        "name": "--font-weight-regular",
+        "label": "Body weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-bold": {
+        "name": "--font-weight-bold",
+        "label": "Bold weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--text-xs": {
+        "name": "--text-xs",
+        "label": "Extra small",
+        "group": "typography",
+        "value": "0.68rem"
+      },
+      "--text-sm": {
+        "name": "--text-sm",
+        "label": "Small",
+        "group": "typography",
+        "value": "0.85rem"
+      },
+      "--text-base": {
+        "name": "--text-base",
+        "label": "Base",
+        "group": "typography",
+        "value": "1.0625rem"
+      },
+      "--text-lg": {
+        "name": "--text-lg",
+        "label": "Large",
+        "group": "typography",
+        "value": "1.3281rem"
+      },
+      "--text-xl": {
+        "name": "--text-xl",
+        "label": "XL",
+        "group": "typography",
+        "value": "1.6602rem"
+      },
+      "--text-2xl": {
+        "name": "--text-2xl",
+        "label": "2XL",
+        "group": "typography",
+        "value": "2.0752rem"
+      },
+      "--text-3xl": {
+        "name": "--text-3xl",
+        "label": "3XL",
+        "group": "typography",
+        "value": "clamp(1.7019rem, 1.4046rem + 1.4868vw, 2.594rem)"
+      },
+      "--text-4xl": {
+        "name": "--text-4xl",
+        "label": "4XL",
+        "group": "typography",
+        "value": "clamp(1.9147rem, 1.472rem + 2.2131vw, 3.2425rem)"
+      },
+      "--text-5xl": {
+        "name": "--text-5xl",
+        "label": "5XL",
+        "group": "typography",
+        "value": "clamp(2.154rem, 1.521rem + 3.1652vw, 4.0531rem)"
+      },
+      "--line-height-tight": {
+        "name": "--line-height-tight",
+        "label": "Heading line height",
+        "group": "typography",
+        "value": "1.15"
+      },
+      "--line-height-normal": {
+        "name": "--line-height-normal",
+        "label": "Body line height",
+        "group": "typography",
+        "value": "1.65"
+      },
+      "--space-1": {
+        "name": "--space-1",
+        "label": "Space 1",
+        "group": "spacing",
+        "value": "0.25rem"
+      },
+      "--space-2": {
+        "name": "--space-2",
+        "label": "Space 2",
+        "group": "spacing",
+        "value": "0.5rem"
+      },
+      "--space-3": {
+        "name": "--space-3",
+        "label": "Space 3",
+        "group": "spacing",
+        "value": "0.75rem"
+      },
+      "--space-4": {
+        "name": "--space-4",
+        "label": "Space 4",
+        "group": "spacing",
+        "value": "1rem"
+      },
+      "--space-6": {
+        "name": "--space-6",
+        "label": "Space 6",
+        "group": "spacing",
+        "value": "1.5rem"
+      },
+      "--space-8": {
+        "name": "--space-8",
+        "label": "Space 8",
+        "group": "spacing",
+        "value": "2rem"
+      },
+      "--space-12": {
+        "name": "--space-12",
+        "label": "Space 12",
+        "group": "spacing",
+        "value": "3rem"
+      },
+      "--space-16": {
+        "name": "--space-16",
+        "label": "Space 16",
+        "group": "spacing",
+        "value": "4rem"
+      },
+      "--section-padding-y": {
+        "name": "--section-padding-y",
+        "label": "Section padding",
+        "group": "spacing",
+        "value": "clamp(3rem, 2rem + 4vw, 6rem)"
+      },
+      "--container-max-width": {
+        "name": "--container-max-width",
+        "label": "Container width",
+        "group": "spacing",
+        "value": "72rem"
+      },
+      "--container-padding-x": {
+        "name": "--container-padding-x",
+        "label": "Container padding",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--radius-sm": {
+        "name": "--radius-sm",
+        "label": "Small radius",
+        "group": "shape",
+        "value": "0.375rem"
+      },
+      "--radius-md": {
+        "name": "--radius-md",
+        "label": "Medium radius",
+        "group": "shape",
+        "value": "0.75rem"
+      },
+      "--radius-lg": {
+        "name": "--radius-lg",
+        "label": "Large radius",
+        "group": "shape",
+        "value": "1.25rem"
+      },
+      "--radius-full": {
+        "name": "--radius-full",
+        "label": "Full radius",
+        "group": "shape",
+        "value": "9999px"
+      },
+      "--border-width": {
+        "name": "--border-width",
+        "label": "Border width",
+        "group": "shape",
+        "value": "1px"
+      },
+      "--shadow-sm": {
+        "name": "--shadow-sm",
+        "label": "Small shadow",
+        "group": "elevation",
+        "value": "0 1px 3px rgb(67 42 25 / 0.08)"
+      },
+      "--shadow-md": {
+        "name": "--shadow-md",
+        "label": "Medium shadow",
+        "group": "elevation",
+        "value": "0 6px 18px rgb(67 42 25 / 0.1)"
+      },
+      "--shadow-lg": {
+        "name": "--shadow-lg",
+        "label": "Large shadow",
+        "group": "elevation",
+        "value": "0 16px 40px rgb(67 42 25 / 0.14)"
+      },
+      "--button-radius": {
+        "name": "--button-radius",
+        "label": "Button radius",
+        "group": "component",
+        "value": "var(--radius-md)"
+      },
+      "--button-padding-y": {
+        "name": "--button-padding-y",
+        "label": "Button padding Y",
+        "group": "component",
+        "value": "0.75rem"
+      },
+      "--button-padding-x": {
+        "name": "--button-padding-x",
+        "label": "Button padding X",
+        "group": "component",
+        "value": "1.25rem"
+      },
+      "--card-radius": {
+        "name": "--card-radius",
+        "label": "Card radius",
+        "group": "component",
+        "value": "var(--radius-lg)"
+      },
+      "--card-shadow": {
+        "name": "--card-shadow",
+        "label": "Card shadow",
+        "group": "component",
+        "value": "var(--shadow-sm)"
+      },
+      "--transition-fast": {
+        "name": "--transition-fast",
+        "label": "Fast",
+        "group": "motion",
+        "value": "120ms"
+      },
+      "--transition-normal": {
+        "name": "--transition-normal",
+        "label": "Normal",
+        "group": "motion",
+        "value": "200ms"
+      }
+    },
+    "fonts": [
+      {
+        "role": "heading",
+        "family": "DM Serif Display",
+        "weights": [400]
+      },
+      {
+        "role": "body",
+        "family": "DM Sans",
+        "weights": [400, 700]
+      }
+    ],
+    "generators": {
+      "typeBasePx": 17,
+      "typeRatio": 1.25,
+      "spaceUnitPx": 4
+    },
+    "iconSet": "phosphor"
+  },
+  "pages": {
+    "ids": ["home", "menu", "about", "booking"],
+    "entities": {
+      "home": {
+        "id": "home",
+        "name": "Home",
+        "slug": "home",
+        "blockIds": [
+          "home-hero",
+          "home-kitchen",
+          "home-gallery",
+          "home-ways",
+          "home-reviews",
+          "home-cta"
+        ],
+        "seo": {
+          "description": "Hazel is a seasonal Italian restaurant in Andersonville, Chicago: handmade pasta, a wood-fired hearth and dinner Tuesday to Sunday.",
+          "title": "Seasonal Italian restaurant in Andersonville"
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "menu": {
+        "id": "menu",
+        "name": "Menu",
+        "slug": "menu",
+        "blockIds": ["menu-hero", "menu-dinner", "menu-tasting", "menu-allergies", "menu-cta"],
+        "seo": {
+          "description": "The autumn menu at Hazel: handmade pasta, dishes from the wood-fired hearth, desserts and Italian wine, with prices and dietary tags.",
+          "title": "Autumn menu"
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "about": {
+        "id": "about",
+        "name": "About",
+        "slug": "about",
+        "blockIds": [
+          "about-hero",
+          "about-story",
+          "about-quote",
+          "about-team",
+          "about-farms",
+          "about-cta"
+        ],
+        "seo": {
+          "description": "How chef Marta Kowalczyk and Daniel Okafor turned an old Swedish bakery on Clark Street into Hazel, and the people who cook there today.",
+          "title": "Our story"
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "booking": {
+        "id": "booking",
+        "name": "Booking",
+        "slug": "booking",
+        "blockIds": [
+          "booking-hero",
+          "booking-request",
+          "booking-private",
+          "booking-quote",
+          "booking-faq"
+        ],
+        "seo": {
+          "description": "Book a table or the private Proofing Room at Hazel, 5226 North Clark Street, Chicago. Opening hours, directions and booking questions.",
+          "title": "Book a table"
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      }
+    },
+    "homePageId": "home"
+  },
+  "blocks": {
+    "ids": [
+      "header-banner",
+      "header-nav",
+      "footer-footer",
+      "home-hero",
+      "home-kitchen",
+      "home-gallery",
+      "home-ways",
+      "home-reviews",
+      "home-cta",
+      "menu-hero",
+      "menu-dinner",
+      "menu-tasting",
+      "menu-allergies",
+      "menu-cta",
+      "about-hero",
+      "about-story",
+      "about-quote",
+      "about-team",
+      "about-farms",
+      "about-cta",
+      "booking-hero",
+      "booking-request",
+      "booking-private",
+      "booking-quote",
+      "booking-faq"
+    ],
+    "entities": {
+      "header-banner": {
+        "id": "header-banner",
+        "kind": "component",
+        "componentId": "banner-announcement",
+        "componentVersion": 1,
+        "values": {
+          "showIcon": true,
+          "icon": "calendar",
+          "text": "Thanksgiving at Hazel: four courses on Thursday, November 26, for $95 per person.",
+          "linkLabel": "Reserve a seat",
+          "link": {
+            "type": "section",
+            "pageId": "booking",
+            "anchor": "request",
+            "newTab": false
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "header-nav": {
+        "id": "header-nav",
+        "kind": "component",
+        "componentId": "nav-cta",
+        "componentVersion": 1,
+        "values": {
+          "logoIcon": "phosphor:leaf",
+          "links": [
+            {
+              "label": "Menu",
+              "link": {
+                "type": "page",
+                "pageId": "menu",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Our story",
+              "link": {
+                "type": "page",
+                "pageId": "about",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Private dining",
+              "link": {
+                "type": "section",
+                "pageId": "booking",
+                "anchor": "private-dining",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Reservations",
+              "link": {
+                "type": "page",
+                "pageId": "booking",
+                "newTab": false
+              }
+            }
+          ],
+          "signIn": {
+            "label": "Call us",
+            "link": {
+              "type": "phone",
+              "url": "+17735550148",
+              "newTab": false
+            },
+            "variant": "ghost"
+          },
+          "cta": {
+            "label": "Book a table",
+            "link": {
+              "type": "section",
+              "pageId": "booking",
+              "anchor": "request",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "menuIcon": "menu"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "footer-footer": {
+        "id": "footer-footer",
+        "kind": "component",
+        "componentId": "footer-newsletter",
+        "componentVersion": 1,
+        "values": {
+          "logoIcon": "phosphor:leaf",
+          "description": "Seasonal Italian cooking in Andersonville since 2019.\n5226 North Clark Street, Chicago, IL 60640",
+          "newsletterTitle": "Letters from the kitchen",
+          "newsletterText": "One short email each time the menu changes, six times a year, with first word on wine dinners and holiday tables.",
+          "emailLabel": "Email address",
+          "emailPlaceholder": "you@example.com",
+          "buttonLabel": "Sign up",
+          "formAction": "",
+          "formMethod": "post",
+          "firstTitle": "Eat with us",
+          "firstLinks": [
+            {
+              "label": "Autumn menu",
+              "link": {
+                "type": "page",
+                "pageId": "menu",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Book a table",
+              "link": {
+                "type": "page",
+                "pageId": "booking",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Private dining",
+              "link": {
+                "type": "section",
+                "pageId": "booking",
+                "anchor": "private-dining",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Our story",
+              "link": {
+                "type": "page",
+                "pageId": "about",
+                "newTab": false
+              }
+            }
+          ],
+          "secondTitle": "Get in touch",
+          "secondLinks": [
+            {
+              "label": "773 555 0148",
+              "link": {
+                "type": "phone",
+                "url": "+17735550148",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Email us",
+              "link": {
+                "type": "email",
+                "url": "hello@hazelchicago.example",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Directions",
+              "link": {
+                "type": "url",
+                "url": "https://www.google.com/maps/search/?api=1&query=5226+North+Clark+Street+Chicago",
+                "newTab": true
+              }
+            },
+            {
+              "label": "Work with us",
+              "link": {
+                "type": "email",
+                "url": "jobs@hazelchicago.example",
+                "newTab": false
+              }
+            }
+          ],
+          "socials": [
+            {
+              "label": "Instagram",
+              "icon": "simple-icons:instagram",
+              "link": {
+                "type": "url",
+                "url": "https://www.instagram.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "Facebook",
+              "icon": "simple-icons:facebook",
+              "link": {
+                "type": "url",
+                "url": "https://www.facebook.com",
+                "newTab": true
+              }
+            }
+          ],
+          "copyright": "© 2026 Hazel Andersonville LLC. All rights reserved.",
+          "legalLinks": []
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-hero": {
+        "id": "home-hero",
+        "kind": "component",
+        "componentId": "hero-background",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Andersonville, Chicago, since 2019",
+          "title": "Seasonal Italian cooking on North Clark Street",
+          "text": "Handmade pasta, a wood-fired hearth and a menu that follows Midwest farms through the year. Dinner Tuesday to Sunday, and long lunches on Sundays.",
+          "primaryButton": {
+            "label": "Book a table",
+            "link": {
+              "type": "section",
+              "pageId": "booking",
+              "anchor": "request",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "See the autumn menu",
+            "link": {
+              "type": "page",
+              "pageId": "menu",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The candlelit dining room at Hazel on a busy evening, with the brick oven glowing behind the marble bar",
+            "decorative": false,
+            "width": 1600,
+            "height": 900,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "photo"
+            }
+          },
+          "align": "left"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-kitchen": {
+        "id": "home-kitchen",
+        "kind": "component",
+        "componentId": "content-text-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "The kitchen",
+          "title": "Pasta rolled every afternoon, vegetables we know by name",
+          "body": "<p>Chef Marta Kowalczyk cooks the food she learned in Bologna with whatever Illinois and Wisconsin farms bring to our back door that week. The menu changes six times a year.</p><ul><li>Bread, pasta and gelato made here every day</li><li>Meat and fish cooked over oak in the old bakery oven</li><li>120 wines, mostly from small Italian growers</li></ul>",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Chef Marta Kowalczyk cutting sheets of tagliatelle on a floured wooden table",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "right"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-gallery": {
+        "id": "home-gallery",
+        "kind": "component",
+        "componentId": "gallery-grid",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Autumn 2026",
+          "title": "A few plates from the new menu",
+          "intro": "The autumn menu runs until November 22: pumpkin, quince, Lake Superior whitefish and the first chicories of the season.",
+          "items": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Folded pumpkin pasta glossed with brown butter and topped with crisp sage leaves",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Pumpkin cappellacci, brown butter and sage"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A fillet of whitefish on celery root purée, spooned with brown butter and capers",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Lake Superior whitefish with celery root"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Braised short rib on a pool of yellow polenta, scattered with gremolata",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Short rib on soft polenta"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A tangle of red and white chicory leaves with sliced pear and shaved cheese",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Chicories, Seckel pear and walnuts"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A wedge of olive oil cake with blush-pink poached quince and a spoon of crème fraîche",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Olive oil cake with poached quince"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Guests at candlelit tables and a full marble bar on a Friday evening",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Friday night in the dining room"
+            }
+          ],
+          "ratio": "landscape",
+          "columns": "3"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-ways": {
+        "id": "home-ways",
+        "kind": "component",
+        "componentId": "features-icon-list",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Ways to eat with us",
+          "title": "Dinner six nights a week, and lunch on Sundays",
+          "intro": "Book a table, take a seat at the bar, or bring the whole family into the room where the bakery used to proof its dough.",
+          "showButton": true,
+          "button": {
+            "label": "Plan a private dinner",
+            "link": {
+              "type": "section",
+              "pageId": "booking",
+              "anchor": "private-dining",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "items": [
+            {
+              "icon": "phosphor:fork-knife",
+              "title": "Dinner, Tuesday to Sunday",
+              "text": "From 5 pm, with tables bookable 30 days ahead and the marble bar kept for walk-ins."
+            },
+            {
+              "icon": "sun",
+              "title": "Sunday lunch",
+              "text": "Long lunches from 11:30 am, with a three-course menu for $48 and a roast from the hearth."
+            },
+            {
+              "icon": "phosphor:chef-hat",
+              "title": "Chef’s tasting menu",
+              "text": "Seven courses chosen by Marta for the whole table, on Fridays and Saturdays, for $85."
+            },
+            {
+              "icon": "phosphor:users-three",
+              "title": "The Proofing Room",
+              "text": "Private lunches and dinners for 8 to 14 guests, with set menus from $75 per person."
+            },
+            {
+              "icon": "phosphor:cooking-pot",
+              "title": "Fresh pasta to take home",
+              "text": "Tagliatelle, ragù and focaccia from the counter, Wednesday to Saturday from 3 pm."
+            },
+            {
+              "icon": "gift",
+              "title": "Gift cards",
+              "text": "Sold at the bar in any amount, and good for dinner, wine and the tasting menu for three years."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-reviews": {
+        "id": "home-reviews",
+        "kind": "component",
+        "componentId": "testimonials-carousel",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Guests and critics",
+          "title": "What people say on the way home",
+          "items": [
+            {
+              "quote": "The pumpkin cappellacci are reason enough to cross the city on a Tuesday. Order a second plate, because nobody at the table will want to share.",
+              "name": "Nadia Brooks",
+              "role": "Food writer, The Northside Ledger",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Nadia Brooks",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "We came for our anniversary in 2021 and now we have a standing Thursday table. Daniel remembers what we drank last time, which is more than we do.",
+              "name": "Ellen Park",
+              "role": "Guest since 2021",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ellen Park",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "Hazel cooks as if the Midwest had always been part of Italy: whitefish in brown butter, quince in the olive oil cake and a short rib you can cut with a spoon.",
+              "name": "Marcus Hale",
+              "role": "Restaurant critic, Chicago Table Notes",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Marcus Hale",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "The bar is my favorite seat in the neighborhood. A glass of Lambrusco, a plate of cacio e pepe and the kitchen right in front of you.",
+              "name": "Tomás Rivera",
+              "role": "Andersonville neighbor",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tomás Rivera",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-cta": {
+        "id": "home-cta",
+        "kind": "component",
+        "componentId": "cta-centered",
+        "componentVersion": 1,
+        "values": {
+          "title": "Tables open 30 days ahead",
+          "text": "Send a request for up to ten guests, call us for anything bigger, or walk in for a seat at the bar. Dinner starts at 5 pm, Tuesday to Sunday.",
+          "button": {
+            "label": "Book a table",
+            "link": {
+              "type": "section",
+              "pageId": "booking",
+              "anchor": "request",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-primary-background)",
+          "--color-surface": "var(--theme-primary-surface)",
+          "--color-text": "var(--theme-primary-text)",
+          "--color-text-muted": "var(--theme-primary-text-muted)",
+          "--color-border": "var(--theme-primary-border)",
+          "--color-primary": "var(--theme-primary-accent)",
+          "--color-primary-contrast": "var(--theme-primary-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "menu-hero": {
+        "id": "menu-hero",
+        "kind": "component",
+        "componentId": "hero-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Served until November 22",
+          "title": "The autumn menu, cooked for sharing",
+          "text": "Marta changes the menu every six weeks, when the farms do. Everything is made here, from the focaccia to the gelato, and most plates are meant for the middle of the table.",
+          "primaryButton": {
+            "label": "Book a table",
+            "link": {
+              "type": "section",
+              "pageId": "booking",
+              "anchor": "request",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Allergies and dietary needs",
+            "link": {
+              "type": "section",
+              "pageId": "menu",
+              "anchor": "allergies",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Pumpkin cappellacci in brown butter and sage on a speckled ceramic plate, seen from above",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "right"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "menu-dinner": {
+        "id": "menu-dinner",
+        "kind": "component",
+        "componentId": "pricing-list",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Dinner, Tuesday to Sunday",
+          "title": "Autumn 2026",
+          "intro": "Two or three plates each is about right. The kitchen sends dishes out as they are ready, so the table always has something to share.",
+          "groups": [
+            {
+              "name": "To start",
+              "note": "Small plates",
+              "items": [
+                {
+                  "name": "Warm focaccia",
+                  "description": "Whipped ricotta, Wisconsin honey, rosemary salt",
+                  "price": "$9",
+                  "tag": "Vegetarian"
+                },
+                {
+                  "name": "Delicata squash",
+                  "description": "Brown butter, sage, toasted hazelnuts, aged balsamic",
+                  "price": "$14",
+                  "tag": "Gluten-free"
+                },
+                {
+                  "name": "Chicories and pear",
+                  "description": "Seckel pear, walnuts, Hollow Creek alpine cheese, honey vinaigrette",
+                  "price": "$15",
+                  "tag": "Vegetarian"
+                },
+                {
+                  "name": "Whitefish crudo",
+                  "description": "Lake Superior whitefish, green apple, horseradish, dill",
+                  "price": "$17",
+                  "tag": "Gluten-free"
+                },
+                {
+                  "name": "Beef tartare",
+                  "description": "Smoked egg yolk, capers, rye crisps",
+                  "price": "$18",
+                  "tag": ""
+                }
+              ]
+            },
+            {
+              "name": "Pasta",
+              "note": "Rolled every afternoon",
+              "items": [
+                {
+                  "name": "Tagliatelle al ragù",
+                  "description": "Pork and beef ragù cooked for six hours, Parmigiano Reggiano",
+                  "price": "$24",
+                  "tag": ""
+                },
+                {
+                  "name": "Pumpkin cappellacci",
+                  "description": "Brown butter, sage, crushed amaretti",
+                  "price": "$23",
+                  "tag": "Vegetarian"
+                },
+                {
+                  "name": "Cacio e pepe",
+                  "description": "Bucatini, Pecorino Romano, toasted black pepper",
+                  "price": "$19",
+                  "tag": "Vegetarian"
+                },
+                {
+                  "name": "Rigatoni with lamb sausage",
+                  "description": "Broccoli rabe, Calabrian chili, toasted breadcrumbs",
+                  "price": "$25",
+                  "tag": ""
+                }
+              ]
+            },
+            {
+              "name": "From the hearth",
+              "note": "Cooked over oak",
+              "items": [
+                {
+                  "name": "Half chicken",
+                  "description": "Salsa verde, roasted grapes, crisp potatoes",
+                  "price": "$29",
+                  "tag": "Gluten-free"
+                },
+                {
+                  "name": "Roast whitefish",
+                  "description": "Lake Superior whitefish, celery root, brown butter, capers",
+                  "price": "$32",
+                  "tag": "Gluten-free"
+                },
+                {
+                  "name": "Braised short rib",
+                  "description": "Soft polenta, gremolata",
+                  "price": "$36",
+                  "tag": "Gluten-free"
+                },
+                {
+                  "name": "Maitake mushrooms",
+                  "description": "Farro, roasted chestnuts, cured egg yolk",
+                  "price": "$26",
+                  "tag": "Vegetarian"
+                }
+              ]
+            },
+            {
+              "name": "Dessert",
+              "note": "By Ingrid Halvorsen",
+              "items": [
+                {
+                  "name": "Olive oil cake",
+                  "description": "Poached quince, crème fraîche",
+                  "price": "$11",
+                  "tag": "Vegetarian"
+                },
+                {
+                  "name": "Chocolate budino",
+                  "description": "Sea salt, whipped cream, cocoa nibs",
+                  "price": "$11",
+                  "tag": "Gluten-free"
+                },
+                {
+                  "name": "Apple crostata",
+                  "description": "Cider caramel, vanilla gelato, baked to order",
+                  "price": "$16",
+                  "tag": "For two"
+                },
+                {
+                  "name": "Affogato",
+                  "description": "Fior di latte gelato, a shot of espresso",
+                  "price": "$8",
+                  "tag": "Gluten-free"
+                }
+              ]
+            },
+            {
+              "name": "Wine and cocktails",
+              "note": "Ask Daniel about the bottle list",
+              "items": [
+                {
+                  "name": "Lambrusco di Sorbara",
+                  "description": "Dry, pale and lightly sparkling, Emilia-Romagna",
+                  "price": "$12",
+                  "tag": ""
+                },
+                {
+                  "name": "Etna Rosso 2022",
+                  "description": "Nerello Mascalese from the slopes of Etna, Sicily",
+                  "price": "$15",
+                  "tag": ""
+                },
+                {
+                  "name": "Hazel negroni",
+                  "description": "Gin, Campari and sweet vermouth, rested in oak for eight weeks",
+                  "price": "$14",
+                  "tag": ""
+                },
+                {
+                  "name": "Autumn spritz",
+                  "description": "Apple, amaro, prosecco",
+                  "price": "$13",
+                  "tag": ""
+                }
+              ]
+            },
+            {
+              "name": "Without alcohol",
+              "note": "Made in house",
+              "items": [
+                {
+                  "name": "Fennel and lemon soda",
+                  "description": "Fennel seed syrup, lemon, sparkling water",
+                  "price": "$6",
+                  "tag": ""
+                },
+                {
+                  "name": "Spiced apple shrub",
+                  "description": "Cider vinegar, cinnamon, clove, soda",
+                  "price": "$7",
+                  "tag": ""
+                },
+                {
+                  "name": "Espresso or cappuccino",
+                  "description": "Roasted for us in Ravenswood",
+                  "price": "$4",
+                  "tag": ""
+                }
+              ]
+            }
+          ],
+          "footnote": "Dishes change with what the farms bring in, so a plate may sell out on a busy night. Prices in US dollars, before tax and gratuity."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "dinner"
+      },
+      "menu-tasting": {
+        "id": "menu-tasting",
+        "kind": "component",
+        "componentId": "pricing-single",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Fridays and Saturdays",
+          "title": "Let the kitchen cook for your table",
+          "price": "$85",
+          "period": "per person, for the whole table",
+          "features": "<ul><li>Seven courses from the autumn menu, plus a few that are not on it</li><li>Wine pairing for $55, or a pairing without alcohol for $30</li><li>A vegetarian version on request</li><li>About two and a half hours, last seating at 8:30 pm</li></ul>",
+          "button": {
+            "label": "Book the tasting menu",
+            "link": {
+              "type": "section",
+              "pageId": "booking",
+              "anchor": "request",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "note": "Mention it when you book, for tables of two to six."
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "menu-allergies": {
+        "id": "menu-allergies",
+        "kind": "component",
+        "componentId": "content-list-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Allergies and dietary needs",
+          "title": "Tell us before you order, and the kitchen will adapt",
+          "text": "Most of the menu can be made without gluten, dairy or nuts. Add a note when you book and remind your server at the table, and the team will walk you through every dish.",
+          "checkIcon": "check",
+          "items": [
+            {
+              "text": "Gluten-free pasta, rolled fresh every afternoon"
+            },
+            {
+              "text": "A full vegetarian menu, and vegan dishes on request"
+            },
+            {
+              "text": "Separate boards and pans for guests with celiac disease"
+            },
+            {
+              "text": "A list of allergens for every dish, at the table"
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "Call 773 555 0148",
+            "link": {
+              "type": "phone",
+              "url": "+17735550148",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Chef de cuisine Luis Ortega plating chicories and pear at the pass",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "left"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "allergies"
+      },
+      "menu-cta": {
+        "id": "menu-cta",
+        "kind": "component",
+        "componentId": "cta-banner",
+        "componentVersion": 1,
+        "values": {
+          "title": "Tables for this weekend go quickly",
+          "text": "Book up to 30 days ahead, or walk in for a seat at the bar.",
+          "button": {
+            "label": "Book a table",
+            "link": {
+              "type": "section",
+              "pageId": "booking",
+              "anchor": "request",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-hero": {
+        "id": "about-hero",
+        "kind": "component",
+        "componentId": "hero-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Our story",
+          "title": "A neighborhood osteria in an old Swedish bakery",
+          "text": "Hazel opened on Clark Street in April 2019, in the room where Lindqvist’s Bakery sold cardamom buns for 65 years. We kept the brick oven, added a long marble bar and filled the place with pasta.",
+          "primaryButton": {
+            "label": "Book a table",
+            "link": {
+              "type": "section",
+              "pageId": "booking",
+              "anchor": "request",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Meet the team",
+            "link": {
+              "type": "section",
+              "pageId": "about",
+              "anchor": "team",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The front of Hazel at dusk, with the old Lindqvist’s Bakery lettering still painted above the window",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "left"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-story": {
+        "id": "about-story",
+        "kind": "component",
+        "componentId": "content-two-columns",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "How it started",
+          "title": "Named after the best cook either of us knew",
+          "left": "<p>Marta Kowalczyk grew up above her parents’ deli in Avondale and spent three years in a trattoria in Bologna, where she learned to roll pasta by hand before the lunch rush.</p><p>Back in Chicago she ran North Side kitchens for a decade and kept a notebook of the farmers whose vegetables she wanted to cook for herself.</p>",
+          "right": "<p>Daniel Okafor met Marta on the same Logan Square line in 2012. He moved to the dining room, then to wine, and never stopped talking about his grandmother Hazel, who fed half of her block in Bronzeville every Sunday.</p><p>When Lindqvist’s closed in 2016, they signed the lease, kept the oven and named the restaurant after her.</p>"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-quote": {
+        "id": "about-quote",
+        "kind": "component",
+        "componentId": "content-quote",
+        "componentVersion": 1,
+        "values": {
+          "showIcon": true,
+          "quoteIcon": "quote",
+          "quote": "We cook what the farms send us that week. If the squash is better than the recipe, the squash wins.",
+          "name": "Marta Kowalczyk",
+          "role": "Chef and co-owner",
+          "showPhoto": true,
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Marta Kowalczyk in kitchen whites, smiling at the pass",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-team": {
+        "id": "about-team",
+        "kind": "component",
+        "componentId": "team-grid",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "The team",
+          "title": "The people behind the pass and the bar",
+          "intro": "Twenty-two people run Hazel. These four are the ones you are most likely to meet.",
+          "people": [
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Marta Kowalczyk in a linen apron in the Hazel kitchen",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Marta Kowalczyk",
+              "role": "Chef and co-owner"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Daniel Okafor holding a bottle of red wine behind the marble bar",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Daniel Okafor",
+              "role": "Co-owner and wine director"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Luis Ortega tending the fire in the brick oven",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Luis Ortega",
+              "role": "Chef de cuisine"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ingrid Halvorsen dusting an olive oil cake with sugar",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Ingrid Halvorsen",
+              "role": "Pastry chef"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "team"
+      },
+      "about-farms": {
+        "id": "about-farms",
+        "kind": "component",
+        "componentId": "features-grid-3",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Who we buy from",
+          "title": "Thirty-one farms, most within 200 miles",
+          "intro": "<p>We buy whole animals, whole crates and whatever the weather allows. These six decide what is on the menu almost as much as Marta does.</p>",
+          "items": [
+            {
+              "icon": "phosphor:carrot",
+              "title": "Bur Oak Farm, Woodstock, Illinois",
+              "text": "Squash, chicories and eggs from a 40-acre farm, delivered every Tuesday and Friday."
+            },
+            {
+              "icon": "phosphor:tree",
+              "title": "Ellison Bay Orchard, Door County",
+              "text": "Apples, Seckel pears and the first quince of the year for the olive oil cake."
+            },
+            {
+              "icon": "phosphor:cheese",
+              "title": "Hollow Creek Dairy, Monroe, Wisconsin",
+              "text": "Ricotta, butter and an alpine-style cheese aged for fourteen months."
+            },
+            {
+              "icon": "phosphor:fish",
+              "title": "Bayfield Fish Company, Lake Superior",
+              "text": "Whitefish caught on Monday and on our pass by Wednesday afternoon."
+            },
+            {
+              "icon": "phosphor:grains",
+              "title": "Prairie Stone Mill, Champaign, Illinois",
+              "text": "Heritage wheat and polenta, stone-milled for our pasta, bread and focaccia."
+            },
+            {
+              "icon": "phosphor:barn",
+              "title": "Kettle Ridge Farm, Kewaunee, Wisconsin",
+              "text": "Two pasture-raised pigs a month, for the ragù, the sausage and the Sunday roast."
+            }
+          ],
+          "align": "center",
+          "columns": "3"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-cta": {
+        "id": "about-cta",
+        "kind": "component",
+        "componentId": "cta-two-buttons",
+        "componentVersion": 1,
+        "values": {
+          "title": "Come and eat with us",
+          "text": "Dinner Tuesday to Sunday from 5 pm, and lunch on Sundays from 11:30 am. Book a table, or see what is cooking this season.",
+          "primaryButton": {
+            "label": "Book a table",
+            "link": {
+              "type": "section",
+              "pageId": "booking",
+              "anchor": "request",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "secondaryButton": {
+            "label": "See the menu",
+            "link": {
+              "type": "page",
+              "pageId": "menu",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-primary-background)",
+          "--color-surface": "var(--theme-primary-surface)",
+          "--color-text": "var(--theme-primary-text)",
+          "--color-text-muted": "var(--theme-primary-text-muted)",
+          "--color-border": "var(--theme-primary-border)",
+          "--color-primary": "var(--theme-primary-accent)",
+          "--color-primary-contrast": "var(--theme-primary-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "booking-hero": {
+        "id": "booking-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Reservations",
+          "title": "Book a table at Hazel",
+          "text": "Send a request for up to ten guests and we confirm by email within two hours. Bookings open 30 days ahead, and the bar is always kept for walk-ins.",
+          "primaryButton": {
+            "label": "Request a table",
+            "link": {
+              "type": "section",
+              "pageId": "booking",
+              "anchor": "request",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Call 773 555 0148",
+            "link": {
+              "type": "phone",
+              "url": "+17735550148",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "booking-request": {
+        "id": "booking-request",
+        "kind": "component",
+        "componentId": "contact-map",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Request a table",
+          "title": "Tell us when you would like to come",
+          "text": "Send the date, time and number of guests, and any allergies we should know about. For a table tonight, please call us after 2 pm.",
+          "nameLabel": "Your name",
+          "emailLabel": "Email",
+          "messageLabel": "Date, time, number of guests and any allergies",
+          "buttonLabel": "Send request",
+          "formAction": "",
+          "formMethod": "post",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Map of North Clark Street in Andersonville, with Hazel marked between Foster and Farragut Avenues",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "addressTitle": "Find us",
+          "address": "5226 North Clark Street\nAndersonville\nChicago, IL 60640",
+          "hoursTitle": "Opening hours",
+          "hours": "Tue to Thu, 5 to 10 pm\nFri and Sat, 5 to 11 pm\nSunday, 11:30 am to 9 pm\nClosed on Mondays"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "request"
+      },
+      "booking-private": {
+        "id": "booking-private",
+        "kind": "component",
+        "componentId": "content-text-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Private dining",
+          "title": "The Proofing Room seats up to 14",
+          "body": "<p>Lindqvist’s Bakery left its dough to rise overnight in this room for 65 years. Today it holds one long oak table and a menu you plan with Marta.</p><ul><li>Set menus from $75 per person, wine pairings from $45</li><li>Minimum spend of $900 Tuesday to Thursday, $1,400 Friday to Sunday</li><li>Lunch or dinner, on any day we are open</li></ul><p>Write to <a href=\"mailto:events@hazelchicago.example\">events@hazelchicago.example</a> with your date and group size, and we reply within a day.</p>",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The Proofing Room set for twelve, with candles along a long oak table under exposed brick",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "imageSide": "left"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "private-dining"
+      },
+      "booking-quote": {
+        "id": "booking-quote",
+        "kind": "component",
+        "componentId": "testimonial-quote",
+        "componentVersion": 1,
+        "values": {
+          "quote": "We booked the Proofing Room for my father’s eightieth. Fourteen of us, three generations, and the kitchen sent out an apple crostata with candles we never asked for.",
+          "name": "Sofia Marchetti",
+          "role": "Birthday dinner in the Proofing Room, March 2026",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sofia Marchetti",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "booking-faq": {
+        "id": "booking-faq",
+        "kind": "component",
+        "componentId": "faq-accordion",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Before you book",
+          "title": "Questions about booking",
+          "expandIcon": "chevron-down",
+          "items": [
+            {
+              "question": "Do you take walk-ins?",
+              "answer": "<p>Yes. The eight seats at the marble bar and two window tables are kept for walk-ins every night. Fridays and Saturdays are busiest after 7 pm.</p>"
+            },
+            {
+              "question": "Is there a deposit?",
+              "answer": "<p>Not for a regular table. For the tasting menu and groups of seven or more we hold the booking with a card and charge $25 per guest only if you cancel with less than 24 hours’ notice. The Proofing Room takes a 25% deposit, refunded in full up to seven days before.</p>"
+            },
+            {
+              "question": "Can you seat a large group?",
+              "answer": "<p>We seat up to ten in the dining room. For 8 to 14 guests with a room of your own, book the Proofing Room.</p>"
+            },
+            {
+              "question": "Can the kitchen cook around allergies and diets?",
+              "answer": "<p>Yes. Add them to your request and remind your server. We make gluten-free pasta every afternoon and can adapt most dishes for vegetarian, vegan, dairy-free and nut-free guests.</p>"
+            },
+            {
+              "question": "Are children welcome?",
+              "answer": "<p>Always. We have two high chairs and a half portion of any pasta for $10. Mention children when you book so we can save a chair.</p>"
+            },
+            {
+              "question": "How do we get there?",
+              "answer": "<p>We are on Clark Street between Foster and Farragut. The Berwyn Red Line station is a ten-minute walk, the 22 Clark bus stops outside, and there is metered parking along Clark.</p>"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "faq"
+      }
+    }
+  },
+  "sharedSlots": {
+    "header": ["header-banner", "header-nav"],
+    "footer": ["footer-footer"]
+  },
+  "assets": {}
+}

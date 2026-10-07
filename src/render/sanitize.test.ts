@@ -75,6 +75,15 @@ describe('normalizeRichText', () => {
     expect(normalizeRichText(input)).toBe(expected);
   });
 
+  it.each([
+    ['<h2>Heading</h2><p>Body</p>', '<h2>Heading</h2><p>Body</p>'],
+    ['<h1>Top</h1><h4>Deep <b>bold</b></h4>', '<h2>Top</h2><h3>Deep <strong>bold</strong></h3>'],
+    ['<p>Intro <h3 class="x" onclick="y()">Inside</h3></p>', '<p>Intro </p><h3>Inside</h3>'],
+    ['<h2><br></h2><h3>Kept</h3>', '<h3>Kept</h3>'],
+  ])('keeps headings as h2 and h3 when they are allowed: %s', (input, expected) => {
+    expect(normalizeRichText(input, { allowHeadings: true })).toBe(expected);
+  });
+
   it('keeps real bold from Google Docs and drops its normal-weight wrapper', () => {
     const pasted =
       '<meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-1"><p dir="ltr"><span style="font-weight:700;">Bold</span><span style="font-weight:400;"> and plain</span></p><ul><li dir="ltr"><p dir="ltr"><span style="font-style:italic;">Item</span></p></li></ul></b>';

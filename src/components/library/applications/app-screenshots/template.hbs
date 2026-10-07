@@ -1,0 +1,19 @@
+<section class="b-app-screenshots section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-track" role="region" aria-label="{{title}}" tabindex="0">
+      {{#each items}}
+      <figure class="stack b-shot" data-field="items.{{@index}}">
+        <div class="device b-phone">
+          <div class="media device-screen">{{img image}}</div>
+        </div>
+        {{#if caption}}<figcaption class="b-caption">{{caption}}</figcaption>{{/if}}
+      </figure>
+      {{/each}}
+    </div>
+  </div>
+</section>

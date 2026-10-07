@@ -29,6 +29,7 @@ const PRIMITIVE_ORDER = [
   'eyebrow',
   'field',
   'media',
+  'device',
   'prose',
   'icon',
 ];

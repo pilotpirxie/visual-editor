@@ -1,8 +1,20 @@
 import type { JSX } from 'react';
+import { isThemeToken } from '../../app/sectionThemes';
 import { useStore } from '../../app/store';
+import type { Token } from '../../app/types';
 import { referencedTokenName, tokenReference } from '../../render/css';
 import { resolveColor, toPickerHex } from '../design-system/colors';
 import type { ControlProps } from './FieldControl';
+
+function swatchTokens(tokens: Record<string, Token>, current: string): Token[] {
+  const currentName = referencedTokenName(current);
+  const swatches: Token[] = [];
+  for (const token of Object.values(tokens)) {
+    if (token.group !== 'color') continue;
+    if (!isThemeToken(token.name) || token.name === currentName) swatches.push(token);
+  }
+  return swatches;
+}
 
 export function ColorField({
   field,
@@ -13,8 +25,8 @@ export function ColorField({
   onChange,
 }: ControlProps): JSX.Element {
   const tokens = useStore((state) => state.project.designSystem.tokens);
-  const colorTokens = Object.values(tokens).filter((token) => token.group === 'color');
   const current = typeof value === 'string' ? value : '';
+  const colorTokens = swatchTokens(tokens, current);
   const isCustom = referencedTokenName(current) === null;
 
   return (
@@ -29,7 +41,10 @@ export function ColorField({
               checked={current === tokenReference(token.name)}
               onChange={() => onChange(tokenReference(token.name), 'discrete')}
             />
-            <span className="ve-swatch-color" style={{ background: token.value }} />
+            <span
+              className="ve-swatch-color"
+              style={{ background: resolveColor(token.value, tokens) }}
+            />
             <span className="ve-visually-hidden">{token.label}</span>
           </label>
         ))}

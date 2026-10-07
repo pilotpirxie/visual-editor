@@ -1,6 +1,15 @@
 type InlineTag = 'strong' | 'em' | 'a';
 
-type BlockWriter = { doc: Document; root: Element; paragraph: Element | null };
+type HeadingTag = 'h2' | 'h3';
+
+type BlockWriter = {
+  doc: Document;
+  root: Element;
+  paragraph: Element | null;
+  allowHeadings: boolean;
+};
+
+export type RichTextOptions = { allowHeadings?: boolean };
 
 const UNSAFE_SCHEME = /^(?:javascript|vbscript|data):/i;
 const UNSAFE_CSS_VALUE = /[;{}<>\\]|\/\*|url\s*\(|expression\s*\(/i;
@@ -70,6 +79,15 @@ const BLOCK_TAGS = new Set([
 ]);
 
 const LIST_TAGS = new Set(['UL', 'OL']);
+
+const HEADING_TAGS: Record<string, HeadingTag> = {
+  H1: 'h2',
+  H2: 'h2',
+  H3: 'h3',
+  H4: 'h3',
+  H5: 'h3',
+  H6: 'h3',
+};
 
 function withoutSpacesAndControls(url: string): string {
   let kept = '';
@@ -216,6 +234,13 @@ function closeParagraph(writer: BlockWriter): void {
   if (hasText(paragraph)) writer.root.append(paragraph);
 }
 
+function appendHeading(source: Element, tag: HeadingTag, writer: BlockWriter): void {
+  const heading = writer.doc.createElement(tag);
+  appendInlineChildren(source, heading, writer.doc);
+  trimTrailingBreaks(heading);
+  if (hasText(heading)) writer.root.append(heading);
+}
+
 function appendBlocks(source: Node, writer: BlockWriter): void {
   for (const child of source.childNodes) {
     if (isText(child)) {
@@ -230,6 +255,12 @@ function appendBlocks(source: Node, writer: BlockWriter): void {
       closeParagraph(writer);
       const list = buildList(child, writer.doc);
       if (list !== null) writer.root.append(list);
+      continue;
+    }
+    const headingTag = writer.allowHeadings ? HEADING_TAGS[tag] : undefined;
+    if (headingTag !== undefined) {
+      closeParagraph(writer);
+      appendHeading(child, headingTag, writer);
       continue;
     }
     if (BLOCK_TAGS.has(tag)) {
@@ -250,9 +281,14 @@ function inertDocument(html: string): Document {
   return new DOMParser().parseFromString(html, 'text/html');
 }
 
-export function normalizeRichText(html: string): string {
+export function normalizeRichText(html: string, options: RichTextOptions = {}): string {
   const doc = inertDocument(html);
-  const writer: BlockWriter = { doc, root: doc.createElement('div'), paragraph: null };
+  const writer: BlockWriter = {
+    doc,
+    root: doc.createElement('div'),
+    paragraph: null,
+    allowHeadings: options.allowHeadings === true,
+  };
   appendBlocks(doc.body, writer);
   closeParagraph(writer);
   return writer.root.innerHTML;

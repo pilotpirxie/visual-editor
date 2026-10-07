@@ -2,13 +2,18 @@ import type { ComponentDefinition } from '../../../types';
 
 export const definition: ComponentDefinition = {
   id: 'stats-row',
-  version: 1,
+  version: 2,
   name: 'Numbers, stats row',
   category: 'numbers',
   description: 'A row of big numbers with short labels.',
   tags: ['numbers', 'stats', 'metrics', 'results', 'kpi'],
   fieldGroups: ['Numbers'],
   styleOverrides: ['--color-background', '--color-text', '--section-padding-y'],
+  behaviors: ['counter'],
+  migrate(values, fromVersion) {
+    if (fromVersion < 2) return { ...values, countUp: false };
+    return values;
+  },
   fields: [
     {
       name: 'stats',
@@ -28,6 +33,13 @@ export const definition: ComponentDefinition = {
         { value: '30', label: 'Languages transcribed' },
         { value: '4.8/5', label: 'Average review score' },
       ],
+    },
+    {
+      name: 'countUp',
+      label: 'Count up when visible',
+      type: 'boolean',
+      default: true,
+      group: 'Numbers',
     },
   ],
 };

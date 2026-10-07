@@ -1,0 +1,21 @@
+<section class="b-richtext-sidebar section">
+  <div class="container b-inner">
+    <article class="stack b-article">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if lead}}<p class="b-lead" data-field="lead">{{nl2br lead}}</p>{{/if}}
+      </header>
+      <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+    </article>
+    <aside class="stack b-sidebar" aria-labelledby="{{block.id}}-sidebar-title">
+      <h2 class="b-sidebar-title" id="{{block.id}}-sidebar-title" data-field="sidebarTitle">{{sidebarTitle}}</h2>
+      {{#if sidebarText}}<p class="b-sidebar-text" data-field="sidebarText">{{nl2br sidebarText}}</p>{{/if}}
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}"><span>{{label}}</span>{{svgIcon "arrow-right"}}</a></li>
+        {{/each}}
+      </ul>
+    </aside>
+  </div>
+</section>

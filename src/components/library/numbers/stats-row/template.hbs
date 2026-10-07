@@ -1,10 +1,10 @@
-<section class="b-stats-row section">
+<section class="b-stats-row section"{{#if countUp}} data-behavior="counter"{{/if}}>
   <div class="container">
     <dl class="b-stats">
       {{#each stats}}
       <div class="b-stat" data-field="stats.{{@index}}">
         <dt class="b-label">{{label}}</dt>
-        <dd class="b-value">{{value}}</dd>
+        <dd class="b-value"{{#if ../countUp}} data-count{{/if}}>{{value}}</dd>
       </div>
       {{/each}}
     </dl>

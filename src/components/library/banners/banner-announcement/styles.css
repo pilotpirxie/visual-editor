@@ -1,0 +1,80 @@
+@layer components {
+  @scope (.b-banner-announcement) {
+    :scope {
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: color-mix(in oklab, var(--color-primary) 6%, var(--color-background));
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0 var(--space-4);
+      padding-block: var(--space-2);
+    }
+
+    .b-message {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      padding-block: var(--space-2);
+    }
+
+    .b-icon {
+      --icon-size: 1.125rem;
+      display: inline-flex;
+      color: var(--color-primary);
+    }
+
+    .b-link {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      min-height: 2.75rem;
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-message:has(.b-icon) + .b-link {
+      margin-inline-start: calc(1.125rem + var(--space-2));
+    }
+
+    .b-link .icon {
+      transition: translate var(--transition-fast);
+    }
+
+    .b-link:hover {
+      text-decoration: underline;
+    }
+
+    .b-link:hover .icon {
+      translate: 0.125rem 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .b-link .icon {
+        transition: none;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .b-bar {
+        justify-content: center;
+        padding-block: var(--space-1);
+        text-align: center;
+      }
+
+      .b-message {
+        align-items: center;
+      }
+
+      .b-message:has(.b-icon) + .b-link {
+        margin-inline-start: 0;
+      }
+    }
+  }
+}

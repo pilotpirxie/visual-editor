@@ -53,11 +53,26 @@ describe('template helpers', () => {
 
   it('richText renders only the allowed rich text markup', () => {
     const html = '<p>Hi <b>there</b><img src="x" onerror="alert(1)"></p><script>alert(2)</script>';
-    expect(String(helpers.richText(html))).toBe('<p>Hi <strong>there</strong></p>');
+    expect(String(helpers.richText(html, { hash: {} }))).toBe('<p>Hi <strong>there</strong></p>');
   });
 
   it('richText renders nothing for a value that is not text', () => {
-    expect(String(helpers.richText(undefined))).toBe('');
+    expect(String(helpers.richText(undefined, { hash: {} }))).toBe('');
+  });
+
+  it('richText keeps h2 and h3 only when the template asks for headings', () => {
+    const html = '<h2>Section</h2><p>Body</p>';
+    expect(String(helpers.richText(html, { hash: {} }))).toBe('<p>Section</p><p>Body</p>');
+    expect(String(helpers.richText(html, { hash: { headings: true } }))).toBe(html);
+  });
+
+  it('formatDate writes an ISO date in the site language and leaves other text alone', () => {
+    const english = { hash: {}, data: { pageSlugs: {}, language: 'en' } };
+    const german = { hash: {}, data: { pageSlugs: {}, language: 'de' } };
+    expect(helpers.formatDate('2026-03-09', english)).toBe('March 9, 2026');
+    expect(helpers.formatDate('2026-03-09', german)).toBe('9. März 2026');
+    expect(helpers.formatDate('Spring 2026', english)).toBe('Spring 2026');
+    expect(helpers.formatDate(undefined, english)).toBe('');
   });
 
   it('nl2br escapes text before adding line breaks', () => {

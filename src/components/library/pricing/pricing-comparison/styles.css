@@ -1,0 +1,201 @@
+@layer components {
+  @scope (.b-pricing-comparison) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-scroller {
+      position: relative;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: thin;
+    }
+
+    .b-scroller:focus-visible {
+      outline-offset: var(--space-1);
+    }
+
+    .b-table {
+      width: 100%;
+      min-width: calc(8.5rem + var(--plan-count, 3) * 10rem);
+      border-collapse: separate;
+      border-spacing: 0;
+      text-align: center;
+    }
+
+    .b-table :is(th, td) {
+      padding: var(--space-4) var(--space-3);
+      border-bottom: var(--border-width) solid var(--color-border);
+      vertical-align: middle;
+    }
+
+    .b-first {
+      position: sticky;
+      inset-inline-start: 0;
+      z-index: 1;
+      width: 8.5rem;
+      background: var(--color-background);
+      box-shadow: inset calc(-1 * var(--border-width)) 0 0 var(--color-border);
+      text-align: start;
+    }
+
+    .b-table .b-first {
+      padding-inline: 0 var(--space-4);
+    }
+
+    .b-table .b-corner {
+      vertical-align: bottom;
+    }
+
+    .b-corner {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .b-table [data-featured] {
+      background: color-mix(in oklab, var(--color-primary) 7%, transparent);
+    }
+
+    .b-plan {
+      width: 10rem;
+    }
+
+    .b-names .b-plan {
+      padding-block: var(--space-6) var(--space-2);
+      border-bottom: 0;
+      vertical-align: bottom;
+    }
+
+    .b-names [data-featured] {
+      border-start-start-radius: var(--radius-lg);
+      border-start-end-radius: var(--radius-lg);
+    }
+
+    .b-badge {
+      margin-bottom: var(--space-2);
+    }
+
+    .b-name {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-offer {
+      vertical-align: top;
+    }
+
+    .b-table .b-offer {
+      padding-block: var(--space-2) var(--space-6);
+    }
+
+    .b-price {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-1);
+      margin-bottom: var(--space-4);
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-period {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-button {
+      --button-padding-x: var(--space-3);
+      width: 100%;
+    }
+
+    .b-table .b-group > * {
+      padding-top: var(--space-8);
+    }
+
+    .b-group th {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-row th {
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-mark {
+      --icon-size: 1rem;
+      display: inline-grid;
+      place-items: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: var(--radius-full);
+      vertical-align: middle;
+    }
+
+    .b-mark[data-mark='yes'] {
+      background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-mark[data-mark='no'] {
+      color: var(--color-text-muted);
+    }
+
+    tbody:last-child tr:last-child > * {
+      border-bottom: 0;
+    }
+
+    tbody:last-child tr:last-child > [data-featured] {
+      border-end-start-radius: var(--radius-lg);
+      border-end-end-radius: var(--radius-lg);
+    }
+
+    @media (min-width: 768px) {
+      .b-first {
+        width: 30%;
+      }
+
+      .b-plan {
+        width: calc(70% / var(--plan-count, 3));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-first {
+        box-shadow: none;
+      }
+
+      .b-table :is(th, td) {
+        padding-inline: var(--space-4);
+      }
+
+      .b-table .b-first {
+        padding-inline-start: 0;
+      }
+    }
+  }
+}

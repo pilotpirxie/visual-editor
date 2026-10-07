@@ -39,6 +39,10 @@
       line-height: var(--line-height-tight);
     }
 
+    .b-value[data-count] {
+      font-variant-numeric: tabular-nums;
+    }
+
     .b-label {
       font-weight: var(--font-weight-bold);
     }

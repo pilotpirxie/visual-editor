@@ -1,0 +1,14 @@
+<section class="b-cta-two-buttons section">
+  <div class="container">
+    <div class="b-panel">
+      <div class="stack b-copy">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      </div>
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+      </div>
+    </div>
+  </div>
+</section>

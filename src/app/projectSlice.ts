@@ -11,6 +11,7 @@ import { isValidAnchor, isValidClassName } from '../render/attributes';
 import { referencedTokenName } from '../render/css';
 import { isSafeCssValue } from '../render/sanitize';
 import { findBlockList, sharedSlotOf, slotForCategory } from './blockLists';
+import { sectionThemeById, supportsSectionThemes, THEMED_TOKENS } from './sectionThemes';
 import { createBlankProject, createPage, UNTITLED_PROJECT_TITLE } from './projectFactory';
 import { FAVICON_TYPES, settingError, SOCIAL_IMAGE_TYPES, type SettingKey } from './settingsRules';
 import { slugError } from './slugs';
@@ -536,6 +537,16 @@ export const projectSlice = createSlice({
         };
       },
     },
+    blockSectionThemeSet(state, action: PayloadAction<{ blockId: string; themeId: string }>) {
+      const { blockId, themeId } = action.payload;
+      const block = state.blocks.entities[blockId];
+      const theme = sectionThemeById(themeId);
+      if (block?.kind !== 'component' || theme === null) return;
+      const component = registry.get(block.componentId);
+      if (component === undefined || !supportsSectionThemes(component.definition)) return;
+      for (const token of THEMED_TOKENS) delete block.overrides[token];
+      Object.assign(block.overrides, theme.overrides);
+    },
     blockOverrideRemoved(state, action: PayloadAction<{ blockId: string; token: string }>) {
       const block = state.blocks.entities[action.payload.blockId];
       if (block?.kind === 'component') delete block.overrides[action.payload.token];
@@ -666,6 +677,7 @@ export const {
   blockValueSet,
   blockOverrideSet,
   blockOverrideRemoved,
+  blockSectionThemeSet,
   blockConvertedToHtml,
   blockHtmlSet,
   blockAdvancedSet,

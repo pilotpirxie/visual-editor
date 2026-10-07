@@ -1,0 +1,54 @@
+<section class="b-pricing-comparison section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-scroller" role="region" aria-label="{{title}}" tabindex="0">
+      <table class="b-table" style="--plan-count: {{plans.length}}">
+        <caption class="visually-hidden">{{title}}</caption>
+        <thead>
+          <tr class="b-names">
+            <th scope="col" rowspan="2" class="b-first b-corner" data-field="featureLabel">{{featureLabel}}</th>
+            {{#each plans}}
+            <th scope="col" class="b-plan" {{#if featured}}data-featured{{/if}} data-field="plans.{{@index}}">
+              {{#if featured}}<span class="badge b-badge">{{../featuredLabel}}</span>{{/if}}
+              <span class="b-name">{{name}}</span>
+            </th>
+            {{/each}}
+          </tr>
+          <tr class="b-offers">
+            {{#each plans}}
+            <td class="b-offer" {{#if featured}}data-featured{{/if}} data-field="plans.{{@index}}">
+              <p class="b-price"><span class="b-amount">{{price}}</span> <span class="b-period">{{period}}</span></p>
+              <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+            </td>
+            {{/each}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#each rows}}
+          {{#if group}}
+          {{#unless @first}}</tbody><tbody>{{/unless}}
+          <tr class="b-group" data-field="rows.{{@index}}">
+            <th scope="rowgroup" class="b-first">{{group}}</th>
+            {{#if ../plans.[0]}}<td {{#if ../plans.[0].featured}}data-featured{{/if}}></td>{{/if}}
+            {{#if ../plans.[1]}}<td {{#if ../plans.[1].featured}}data-featured{{/if}}></td>{{/if}}
+            {{#if ../plans.[2]}}<td {{#if ../plans.[2].featured}}data-featured{{/if}}></td>{{/if}}
+            {{#if ../plans.[3]}}<td {{#if ../plans.[3].featured}}data-featured{{/if}}></td>{{/if}}
+          </tr>
+          {{/if}}
+          <tr class="b-row" data-field="rows.{{@index}}">
+            <th scope="row" class="b-first">{{feature}}</th>
+            {{#if ../plans.[0]}}<td {{#if ../plans.[0].featured}}data-featured{{/if}}>{{#if (eq plan1 "yes")}}<span class="b-mark" data-mark="yes">{{svgIcon "check"}}<span class="visually-hidden">Included</span></span>{{else if (eq plan1 "no")}}<span class="b-mark" data-mark="no">{{svgIcon "minus"}}<span class="visually-hidden">Not included</span></span>{{else}}{{plan1}}{{/if}}</td>{{/if}}
+            {{#if ../plans.[1]}}<td {{#if ../plans.[1].featured}}data-featured{{/if}}>{{#if (eq plan2 "yes")}}<span class="b-mark" data-mark="yes">{{svgIcon "check"}}<span class="visually-hidden">Included</span></span>{{else if (eq plan2 "no")}}<span class="b-mark" data-mark="no">{{svgIcon "minus"}}<span class="visually-hidden">Not included</span></span>{{else}}{{plan2}}{{/if}}</td>{{/if}}
+            {{#if ../plans.[2]}}<td {{#if ../plans.[2].featured}}data-featured{{/if}}>{{#if (eq plan3 "yes")}}<span class="b-mark" data-mark="yes">{{svgIcon "check"}}<span class="visually-hidden">Included</span></span>{{else if (eq plan3 "no")}}<span class="b-mark" data-mark="no">{{svgIcon "minus"}}<span class="visually-hidden">Not included</span></span>{{else}}{{plan3}}{{/if}}</td>{{/if}}
+            {{#if ../plans.[3]}}<td {{#if ../plans.[3].featured}}data-featured{{/if}}>{{#if (eq plan4 "yes")}}<span class="b-mark" data-mark="yes">{{svgIcon "check"}}<span class="visually-hidden">Included</span></span>{{else if (eq plan4 "no")}}<span class="b-mark" data-mark="no">{{svgIcon "minus"}}<span class="visually-hidden">Not included</span></span>{{else}}{{plan4}}{{/if}}</td>{{/if}}
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

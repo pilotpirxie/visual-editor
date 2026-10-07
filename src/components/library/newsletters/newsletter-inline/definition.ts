@@ -1,0 +1,78 @@
+import type { ComponentDefinition } from '../../../types';
+
+export const definition: ComponentDefinition = {
+  id: 'newsletter-inline',
+  version: 1,
+  name: 'Newsletter, inline form',
+  category: 'newsletters',
+  description: 'A short pitch beside an email field and button on one line, with a privacy note.',
+  tags: ['newsletter', 'email', 'subscribe', 'signup', 'form', 'inline'],
+  fieldGroups: ['Heading', 'Form'],
+  styleOverrides: ['--color-background', '--color-text', '--section-padding-y'],
+  fields: [
+    {
+      name: 'title',
+      label: 'Title',
+      type: 'text',
+      default: 'Field notes, once a month',
+      required: true,
+      group: 'Heading',
+    },
+    {
+      name: 'text',
+      label: 'Text',
+      type: 'textarea',
+      default:
+        'Interview techniques, research ops tips and what we learn from 400 product teams, in one short email.',
+      group: 'Heading',
+    },
+    {
+      name: 'emailLabel',
+      label: 'Email field label',
+      type: 'text',
+      default: 'Email address',
+      required: true,
+      group: 'Form',
+    },
+    {
+      name: 'emailPlaceholder',
+      label: 'Email placeholder',
+      type: 'text',
+      default: 'you@company.com',
+      group: 'Form',
+    },
+    {
+      name: 'buttonLabel',
+      label: 'Button label',
+      type: 'text',
+      default: 'Subscribe',
+      required: true,
+      group: 'Form',
+    },
+    {
+      name: 'note',
+      label: 'Privacy note',
+      type: 'text',
+      default: 'One email a month. Unsubscribe any time.',
+      group: 'Form',
+    },
+    {
+      name: 'formAction',
+      label: 'Form action URL',
+      type: 'text',
+      default: '',
+      group: 'Form',
+    },
+    {
+      name: 'formMethod',
+      label: 'Method',
+      type: 'select',
+      default: 'post',
+      options: [
+        { value: 'post', label: 'POST' },
+        { value: 'get', label: 'GET' },
+      ],
+      group: 'Form',
+    },
+  ],
+};

@@ -1,0 +1,125 @@
+@layer components {
+  @scope (.b-testimonials-carousel) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-track {
+      display: grid;
+      grid-auto-columns: min(100%, 24rem);
+      grid-auto-flow: column;
+      gap: var(--space-6);
+      padding-block: var(--space-2) var(--space-4);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+    }
+
+    .b-track:focus-visible {
+      outline-offset: var(--space-1);
+    }
+
+    .b-slide {
+      --stack-gap: var(--space-6);
+      justify-content: space-between;
+      scroll-snap-align: start;
+    }
+
+    .b-quote {
+      font-size: var(--text-lg);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3rem;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+    }
+
+    .b-arrow {
+      --button-padding-x: var(--space-3);
+    }
+
+    .b-arrow:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .b-dots {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .b-dots button {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
+
+    .b-dots button::before {
+      content: '';
+      width: 0.625rem;
+      height: 0.625rem;
+      border-radius: var(--radius-full);
+      background: var(--color-border);
+      transition: background-color var(--transition-fast);
+    }
+
+    .b-dots button[aria-current='true']::before {
+      background: var(--color-primary);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .b-track {
+        scroll-behavior: auto;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .b-track {
+        grid-auto-columns: calc((100% - var(--space-6)) / 2);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-track {
+        grid-auto-columns: calc((100% - 2 * var(--space-6)) / 3);
+      }
+    }
+  }
+}
