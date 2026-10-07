@@ -21,7 +21,6 @@ function renderInput(asset?: Asset): Rendered {
     <ImageUploadInput
       id="project-favicon"
       label="Favicon"
-      help="PNG, at most 1 MB."
       asset={asset}
       accept={PNG_ONLY}
       typeError="Use a PNG image"
@@ -132,7 +131,7 @@ describe('ImageUploadInput', () => {
     vi.spyOn(FileReader.prototype, 'readAsDataURL').mockImplementation(function fail(
       this: FileReader,
     ) {
-      this.onerror?.(new ProgressEvent('error'));
+      this.dispatchEvent(new ProgressEvent('error'));
     });
     const { container, onChange } = renderInput();
     chooseFile(container, pngOfSize(16));

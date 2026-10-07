@@ -9,8 +9,15 @@ import { dropEdgeAt } from '../canvas/geometry';
 import { useListDropTarget } from '../canvas/useListDropTarget';
 import { dropBlock, isNoopDrop } from '../editor/blockActions';
 import { BlockContextMenu } from '../editor/BlockContextMenu';
-import { afterPointerRelease } from '../editor/Menu';
-import { Icon } from '../editor/Icon';
+import { useBlockMenuItems } from '../editor/blockMenu';
+import { useSection } from '../editor/useSection';
+import {
+  afterPointerRelease,
+  Icon,
+  IconButton,
+  MenuButton,
+  Section,
+} from '../../../packages/ui/src';
 
 const DROP_EDGE_MARGIN = 12;
 
@@ -33,6 +40,18 @@ function useLayerRows(blockIds: string[]): LayerRow[] {
     rows.push({ id, name: layerName(block, id), isDisabled: block?.disabled === true });
   }
   return rows;
+}
+
+function LayerMenuButton({ row }: { row: LayerRow }): JSX.Element {
+  const items = useBlockMenuItems(row.id);
+  return (
+    <MenuButton
+      label={`More actions for ${row.name}`}
+      icon="ellipsis"
+      items={items}
+      isLabelShown={false}
+    />
+  );
 }
 
 function LayerGroup({ label, blockIds }: LayerGroupProps): JSX.Element {
@@ -90,18 +109,16 @@ function LayerGroup({ label, blockIds }: LayerGroupProps): JSX.Element {
             >
               <span>{row.name}</span>
             </button>
-            <button
-              type="button"
-              className="ve-icon-button"
-              aria-label={row.isDisabled ? `Enable ${row.name}` : `Disable ${row.name}`}
-              title={row.isDisabled ? 'Enable block' : 'Disable block'}
-              onPointerDown={(event) => event.stopPropagation()}
-              onClick={() =>
-                dispatch(blockDisabledSet({ blockId: row.id, disabled: !row.isDisabled }))
-              }
-            >
-              <Icon name={row.isDisabled ? 'eye-off' : 'eye'} />
-            </button>
+            <span className="ve-layer-actions" onPointerDown={(event) => event.stopPropagation()}>
+              <IconButton
+                label={row.isDisabled ? `Enable ${row.name}` : `Disable ${row.name}`}
+                icon={row.isDisabled ? 'eye-off' : 'eye'}
+                onClick={() =>
+                  dispatch(blockDisabledSet({ blockId: row.id, disabled: !row.isDisabled }))
+                }
+              />
+              <LayerMenuButton row={row} />
+            </span>
           </li>
         ))}
       </ol>
@@ -112,13 +129,33 @@ function LayerGroup({ label, blockIds }: LayerGroupProps): JSX.Element {
   );
 }
 
-function SharedGroup({ label, blockIds }: LayerGroupProps): JSX.Element | null {
+function LayerSection({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: JSX.Element;
+}): JSX.Element {
+  const section = useSection(`layers:${id}`);
+  return (
+    <Section title={title} isOpen={section.isOpen} onToggle={section.onToggle}>
+      {children}
+    </Section>
+  );
+}
+
+function SharedGroup({
+  id,
+  label,
+  blockIds,
+}: LayerGroupProps & { id: string }): JSX.Element | null {
   if (blockIds.length === 0) return null;
   return (
-    <section className="ve-layer-group">
-      <h3 className="ve-group-title">{label}</h3>
+    <LayerSection id={id} title={label}>
       <LayerGroup label={label} blockIds={blockIds} />
-    </section>
+    </LayerSection>
   );
 }
 
@@ -129,7 +166,7 @@ export function LayersTab(): JSX.Element {
   const hasSharedBlocks = headerIds.length > 0 || footerIds.length > 0;
   const pageGroup =
     pageBlockIds.length === 0 ? (
-      <p className="ve-muted ve-layers-empty">This page has no blocks yet.</p>
+      <p className="ui-muted ve-layers-empty">This page has no blocks yet.</p>
     ) : (
       <LayerGroup label="Blocks on this page" blockIds={pageBlockIds} />
     );
@@ -138,12 +175,11 @@ export function LayersTab(): JSX.Element {
 
   return (
     <div className="ve-layer-groups">
-      <SharedGroup label="Shared header" blockIds={headerIds} />
-      <section className="ve-layer-group">
-        <h3 className="ve-group-title">This page</h3>
+      <SharedGroup id="header" label="Shared header" blockIds={headerIds} />
+      <LayerSection id="page" title="This page">
         {pageGroup}
-      </section>
-      <SharedGroup label="Shared footer" blockIds={footerIds} />
+      </LayerSection>
+      <SharedGroup id="footer" label="Shared footer" blockIds={footerIds} />
     </div>
   );
 }

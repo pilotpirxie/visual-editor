@@ -1,14 +1,13 @@
 import { useRef, useState, type ChangeEvent, type JSX } from 'react';
 import type { ImageUpload } from '../../app/projectSlice';
 import type { Asset } from '../../app/types';
-import { Icon } from '../editor/Icon';
+import { Button, FieldError } from '../../../packages/ui/src';
 
 export const MAX_IMAGE_UPLOAD_BYTES = 1024 * 1024;
 
 type ImageUploadInputProps = {
   id: string;
   label: string;
-  help: string;
   asset: Asset | undefined;
   accept: readonly string[];
   typeError: string;
@@ -36,7 +35,6 @@ function readAsDataUrl(file: File): Promise<string> {
 export function ImageUploadInput({
   id,
   label,
-  help,
   asset,
   accept,
   typeError,
@@ -70,8 +68,8 @@ export function ImageUploadInput({
   }
 
   return (
-    <div className="ve-control" data-field-path={id}>
-      <span className="ve-control-label" id={labelId}>
+    <div className="ui-field" data-field-path={id}>
+      <span className="ui-field-label" id={labelId}>
         {label}
       </span>
       {asset !== undefined && (
@@ -82,24 +80,13 @@ export function ImageUploadInput({
         />
       )}
       <div className="ve-upload-actions">
-        <button
-          type="button"
-          className="ve-button ve-button--outline"
-          aria-describedby={labelId}
-          onClick={() => inputRef.current?.click()}
-        >
-          <Icon name="image" />
+        <Button icon="image" aria-describedby={labelId} onClick={() => inputRef.current?.click()}>
           {asset === undefined ? 'Upload image' : 'Replace image'}
-        </button>
+        </Button>
         {asset !== undefined && (
-          <button
-            type="button"
-            className="ve-button"
-            aria-describedby={labelId}
-            onClick={() => onChange(null)}
-          >
+          <Button variant="ghost" aria-describedby={labelId} onClick={() => onChange(null)}>
             Remove
-          </button>
+          </Button>
         )}
       </div>
       <input
@@ -111,12 +98,7 @@ export function ImageUploadInput({
         aria-hidden="true"
         onChange={(event) => void upload(event)}
       />
-      <p className="ve-control-help">{help}</p>
-      {error !== null && (
-        <p className="ve-control-error" role="alert">
-          {error}
-        </p>
-      )}
+      <FieldError id={id} error={error} />
     </div>
   );
 }

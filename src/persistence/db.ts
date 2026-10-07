@@ -1,4 +1,4 @@
-import type { DesignSystemPreset, Project } from '../app/types';
+import type { Project } from '../app/types';
 import { parseProjectDocument } from './validateProject';
 
 export type ProjectSummary = { id: string; title: string; updatedAt: string };
@@ -17,8 +17,7 @@ const DB_VERSION = 2;
 const PROJECTS = 'projects';
 const DOCUMENTS = 'documents';
 const FILE_LINKS = 'fileHandles';
-const PRESETS = 'presets';
-const STORE_NAMES = [PROJECTS, DOCUMENTS, FILE_LINKS, PRESETS];
+const STORE_NAMES = [PROJECTS, DOCUMENTS, FILE_LINKS];
 
 let databasePromise: Promise<IDBDatabase> | null = null;
 
@@ -175,25 +174,5 @@ export async function deleteFileLink(projectId: string): Promise<void> {
   const db = await database();
   const transaction = db.transaction(FILE_LINKS, 'readwrite');
   transaction.objectStore(FILE_LINKS).delete(projectId);
-  await transactionDone(transaction);
-}
-
-export async function listUserPresets(): Promise<unknown[]> {
-  const db = await database();
-  const store = db.transaction(PRESETS).objectStore(PRESETS);
-  return requestResult(store.getAll());
-}
-
-export async function putUserPreset(preset: DesignSystemPreset): Promise<void> {
-  const db = await database();
-  const transaction = db.transaction(PRESETS, 'readwrite');
-  transaction.objectStore(PRESETS).put(preset);
-  await transactionDone(transaction);
-}
-
-export async function deleteUserPreset(presetId: string): Promise<void> {
-  const db = await database();
-  const transaction = db.transaction(PRESETS, 'readwrite');
-  transaction.objectStore(PRESETS).delete(presetId);
   await transactionDone(transaction);
 }

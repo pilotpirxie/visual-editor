@@ -17,7 +17,6 @@ const FALLBACK_STACKS: Record<FontCategory, string> = {
 export const SYSTEM_FONT_STACKS: Record<FontRole, string> = {
   heading: SYSTEM_SANS,
   body: SYSTEM_SANS,
-  mono: 'ui-monospace, "SF Mono", Menlo, Consolas, monospace',
 };
 
 function safeFamily(family: string): string {

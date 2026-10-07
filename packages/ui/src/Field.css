@@ -1,0 +1,36 @@
+@layer components {
+  .ui-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .ui-field[data-layout='inline'] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    align-items: center;
+    gap: 4px 12px;
+  }
+
+  .ui-field[data-layout='inline'] > .ui-field-error {
+    grid-column: 2;
+  }
+
+  .ui-field-label,
+  .ui-legend {
+    font-weight: 600;
+  }
+
+  .ui-field-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .ui-field-error {
+    color: var(--ve-danger);
+    font-size: 12px;
+  }
+}

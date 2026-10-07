@@ -49,19 +49,19 @@ describe('StyleTab', () => {
   it('overrides a color with a design swatch and resets it with one click', () => {
     const { container } = render(<PropertiesPanel />);
     const heroId = selectHeroStyle();
-    click(getButton(row(container, '--color-background'), 'Override'));
+    click(getButton(row(container, '--color-background'), 'Override Background'));
     const surface = row(container, '--color-background').querySelector('[title="Surface"] input');
     click(surface);
     expect(overridesOf(heroId)).toEqual({ '--color-background': 'var(--color-surface)' });
     click(getButton(container, 'Reset Background to the design value'));
     expect(overridesOf(heroId)).toEqual({});
-    expect(getButton(row(container, '--color-background'), 'Override')).toBeDefined();
+    expect(getButton(row(container, '--color-background'), 'Override Background')).toBeDefined();
   });
 
   it('overrides padding with a spacing token or a custom value', () => {
     const { container } = render(<PropertiesPanel />);
     const heroId = selectHeroStyle();
-    click(getButton(row(container, '--section-padding-y'), 'Override'));
+    click(getButton(row(container, '--section-padding-y'), 'Override Section padding'));
     const select = row(container, '--section-padding-y').querySelector('select');
     changeValue(select, '--space-8');
     expect(overridesOf(heroId)['--section-padding-y']).toBe('var(--space-8)');
@@ -75,7 +75,7 @@ describe('StyleTab', () => {
   it('keeps an unsafe custom value as a draft with a message instead of saving it', () => {
     const { container } = render(<PropertiesPanel />);
     const heroId = selectHeroStyle();
-    click(getButton(row(container, '--section-padding-y'), 'Override'));
+    click(getButton(row(container, '--section-padding-y'), 'Override Section padding'));
     const custom = row(container, '--section-padding-y').querySelector('input[type="text"]');
     expect(custom).toHaveProperty('value', 'clamp(3rem, 2rem + 4vw, 6rem)');
     changeValue(custom, '1rem; color: red');
@@ -88,7 +88,7 @@ describe('StyleTab', () => {
   it('shows an override restored by undo', () => {
     const { container } = render(<PropertiesPanel />);
     const heroId = selectHeroStyle();
-    click(getButton(row(container, '--color-text'), 'Override'));
+    click(getButton(row(container, '--color-text'), 'Override Text'));
     click(row(container, '--color-text').querySelector('[title="Primary"] input'));
     click(getButton(container, 'Reset Text to the design value'));
     runInAct(() => dispatch(undo()));

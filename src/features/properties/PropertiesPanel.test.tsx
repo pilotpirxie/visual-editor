@@ -40,11 +40,9 @@ describe('PropertiesPanel', () => {
   it('shows the selected block name, category and grouped fields', () => {
     const { container } = render(<PropertiesPanel />);
     select(1);
-    expect(container.querySelector('.ve-properties-title')?.textContent).toBe(
-      'Hero, centered text',
-    );
-    expect(container.querySelector('header .ve-muted')?.textContent).toBe('Headers');
-    expect(container.querySelectorAll('.ve-group-title').length).toBeGreaterThan(0);
+    expect(container.querySelector('.ui-title')?.textContent).toBe('Hero, centered text');
+    expect(container.querySelector('header .ui-muted')?.textContent).toBe('Headers');
+    expect(container.querySelectorAll('.ui-section-title').length).toBeGreaterThan(0);
   });
 
   it('switches between the Content, Style and Advanced tabs of the selected block', () => {
@@ -134,7 +132,6 @@ describe('PropertiesPanel', () => {
     click(container.querySelector('#ve-shared-switch'));
     expect(store.getState().project.sharedSlots.footer).toEqual([footerId]);
     expect(homePage(store.getState().project).blockIds).not.toContain(footerId);
-    expect(container.querySelector('#ve-shared-help')?.textContent).toContain('every page');
     click(container.querySelector('#ve-shared-switch'));
     expect(store.getState().project.sharedSlots.footer).toEqual([]);
     expect(homePage(store.getState().project).blockIds.at(-1)).toBe(footerId);
@@ -150,7 +147,7 @@ describe('PropertiesPanel with an HTML block', () => {
       dispatch(blockSelected(heroId));
     });
     const { container } = render(<PropertiesPanel />);
-    expect(container.querySelector('.ve-properties-title')?.textContent).toBe('HTML block');
+    expect(container.querySelector('.ui-title')?.textContent).toBe('HTML block');
     expect(container.textContent).toContain('Converted from Hero, centered text');
     const tabs = [...container.querySelectorAll('[role="tab"]')].map((tab) => tab.textContent);
     expect(tabs).toEqual(['Code', 'Advanced']);

@@ -370,40 +370,100 @@ describe('tokensSet', () => {
 });
 
 describe('fontSet', () => {
+  const LORA_WEIGHTS = [400, 500, 600, 700];
+
   it('sets the font of a role and its token in one undo step', () => {
     const store = createTestStore(withSystemFonts(createSampleProject()));
     store.dispatch(
       fontSet({
         role: 'heading',
-        selection: { family: 'Lora', weights: [700, 400, 700] },
+        family: 'Lora',
+        availableWeights: LORA_WEIGHTS,
         stack: '"Lora", ui-serif, Georgia, serif',
       }),
     );
     const { fonts, tokens } = store.getState().project.designSystem;
-    expect(fonts).toEqual([{ role: 'heading', family: 'Lora', weights: [400, 700] }]);
+    expect(fonts).toEqual([{ role: 'heading', family: 'Lora', weights: [700] }]);
     expect(tokens['--font-heading'].value).toBe('"Lora", ui-serif, Georgia, serif');
     expect(store.getState().history.past).toHaveLength(1);
   });
 
+  it('moves the heading weight to one the new font offers', () => {
+    const store = createTestStore(withSystemFonts(createSampleProject()));
+    store.dispatch(
+      fontSet({
+        role: 'heading',
+        family: 'DM Serif Display',
+        availableWeights: [400],
+        stack: '"DM Serif Display", serif',
+      }),
+    );
+    const { fonts, tokens } = store.getState().project.designSystem;
+    expect(tokens['--font-weight-heading'].value).toBe('400');
+    expect(fonts).toEqual([{ role: 'heading', family: 'DM Serif Display', weights: [400] }]);
+  });
+
+  it('moves both body weights to the closest ones the new font offers', () => {
+    const store = createTestStore(withSystemFonts(createSampleProject()));
+    store.dispatch(
+      fontSet({ role: 'body', family: 'Mono Two', availableWeights: [300, 500], stack: 'serif' }),
+    );
+    const { fonts, tokens } = store.getState().project.designSystem;
+    expect(tokens['--font-weight-regular'].value).toBe('300');
+    expect(tokens['--font-weight-bold'].value).toBe('500');
+    expect(fonts).toEqual([{ role: 'body', family: 'Mono Two', weights: [300, 500] }]);
+  });
+
   it('replaces the font of the same role and goes back to a system font', () => {
     const store = createTestStore(withSystemFonts(createSampleProject()));
-    const lora = { family: 'Lora', weights: [400] };
-    store.dispatch(fontSet({ role: 'body', selection: lora, stack: '"Lora", serif' }));
-    store.dispatch(fontSet({ role: 'body', selection: null, stack: 'system-ui, sans-serif' }));
+    store.dispatch(
+      fontSet({ role: 'body', family: 'Lora', availableWeights: LORA_WEIGHTS, stack: 'serif' }),
+    );
+    store.dispatch(fontSet({ role: 'body', family: null, stack: 'system-ui, sans-serif' }));
     const { fonts, tokens } = store.getState().project.designSystem;
     expect(fonts).toEqual([]);
     expect(tokens['--font-body'].value).toBe('system-ui, sans-serif');
   });
 
   it.each([
-    ['weights that are not font weights', { family: 'Lora', weights: [450, 0] }, '"Lora", serif'],
-    ['an empty family name', { family: ' ', weights: [400] }, 'serif'],
-    ['an unsafe font stack', { family: 'Lora', weights: [400] }, 'serif; color: red'],
-  ])('ignores %s', (_name, selection, stack) => {
+    ['weights that are not font weights', 'Lora', [450, 0], '"Lora", serif'],
+    ['an empty family name', ' ', [400], 'serif'],
+    ['an unsafe font stack', 'Lora', [400], 'serif; color: red'],
+  ])('ignores %s', (_name, family, availableWeights, stack) => {
     const store = createTestStore(withSystemFonts(createSampleProject()));
     const before = store.getState().project;
-    store.dispatch(fontSet({ role: 'body', selection, stack }));
+    store.dispatch(fontSet({ role: 'body', family, availableWeights, stack }));
     expect(store.getState().project).toBe(before);
+  });
+});
+
+describe('font weights', () => {
+  function storeWithLoraHeadings(): ReturnType<typeof createTestStore> {
+    const store = createTestStore(withSystemFonts(createSampleProject()));
+    store.dispatch(
+      fontSet({
+        role: 'heading',
+        family: 'Lora',
+        availableWeights: [400, 600, 700],
+        stack: 'serif',
+      }),
+    );
+    return store;
+  }
+
+  it('loads the new weight when a weight token changes', () => {
+    const store = storeWithLoraHeadings();
+    store.dispatch(tokenSet({ name: '--font-weight-heading', value: '600' }, 'discrete'));
+    expect(store.getState().project.designSystem.fonts).toEqual([
+      { role: 'heading', family: 'Lora', weights: [600] },
+    ]);
+  });
+
+  it('keeps the loaded fonts as they are when another token changes', () => {
+    const store = storeWithLoraHeadings();
+    const fonts = store.getState().project.designSystem.fonts;
+    store.dispatch(tokenSet({ name: '--color-primary', value: '#0f766e' }, 'discrete'));
+    expect(store.getState().project.designSystem.fonts).toBe(fonts);
   });
 });
 

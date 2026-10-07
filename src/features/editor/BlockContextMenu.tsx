@@ -2,7 +2,7 @@ import type { JSX } from 'react';
 import { blockLabel } from '../../components/registry';
 import { useStore } from '../../app/store';
 import { useBlockMenuItems } from './blockMenu';
-import { PointMenu, type MenuPoint } from './Menu';
+import { PointMenu, type MenuPoint } from '../../../packages/ui/src';
 
 type BlockContextMenuProps = { blockId: string; point: MenuPoint; onClose(): void };
 

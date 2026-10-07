@@ -7,13 +7,13 @@ import {
 } from '@reduxjs/toolkit';
 import { useSyncExternalStore } from 'react';
 import { pageSlugsOf, renderContextFor } from '../render/renderBlock';
-import { createAutosave } from '../persistence/autosave';
+import { createAutosave, type SaveStatus } from '../persistence/autosave';
 import { putProject } from '../persistence/db';
-import { editorSlice, linkedFileOutdated, saveStatusChanged } from './editorSlice';
+import { editorSlice, linkedFileOutdated, noticeShown, saveStatusChanged } from './editorSlice';
 import { createRootReducer, type RootState } from './history';
 import { projectLoaded, projectSlice } from './projectSlice';
 import { visibleBlockLists } from './blockLists';
-import type { DesignSystem, Page, Project, SharedSlot } from './types';
+import type { Page, Project, SharedSlot } from './types';
 
 export type { RootState };
 
@@ -61,10 +61,21 @@ export const store = createAppStore({
   onProjectEdited: (project) => autosave.schedule(project),
 });
 
+function reportSaveStatus(): (status: SaveStatus) => void {
+  let hasReportedFailure = false;
+  return (status) => {
+    store.dispatch(saveStatusChanged(status));
+    if (status === 'saved') hasReportedFailure = false;
+    if (status !== 'error' || hasReportedFailure) return;
+    hasReportedFailure = true;
+    store.dispatch(noticeShown('error', 'Your changes could not be saved in this browser.'));
+  };
+}
+
 export const autosave = createAutosave({
   save: putProject,
   delayMs: AUTOSAVE_DELAY_MS,
-  onStatus: (status) => store.dispatch(saveStatusChanged(status)),
+  onStatus: reportSaveStatus(),
 });
 
 export const dispatch = store.dispatch;
@@ -76,10 +87,6 @@ export function useStore<T>(selector: (state: RootState) => T): T {
 export function selectCurrentPage(state: RootState): Page {
   const pageId = state.editor.currentPageId ?? state.project.pages.homePageId;
   return state.project.pages.entities[pageId];
-}
-
-export function selectCanvasDesignSystem(state: RootState): DesignSystem {
-  return state.editor.previewDesignSystem ?? state.project.designSystem;
 }
 
 export function selectShownSlot(state: RootState, slot: SharedSlot): string[] {
@@ -101,8 +108,7 @@ const selectPageSlugs = createSelector(
 export const selectCanvasRenderContext = createSelector(
   [
     (state: RootState) => state.project.settings.title,
-    (state: RootState) =>
-      state.editor.previewDesignSystem?.iconSet ?? state.project.designSystem.iconSet,
+    (state: RootState) => state.project.designSystem.iconSet,
     selectPageSlugs,
     (state: RootState) => state.editor.isPreview,
     (state: RootState) => selectCurrentPage(state).id,

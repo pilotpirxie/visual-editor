@@ -17,6 +17,15 @@
   --ve-radius: 6px;
   --ve-shadow: 0 1px 2px rgb(16 24 40 / 0.08), 0 4px 12px rgb(16 24 40 / 0.08);
   --ve-toolbar-height: 48px;
+  --ve-control-height: 32px;
+  --ve-target: 32px;
+}
+
+@media (width < 1024px) {
+  :root {
+    --ve-control-height: 44px;
+    --ve-target: 44px;
+  }
 }
 
 @layer reset {

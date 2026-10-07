@@ -1,0 +1,36 @@
+@layer components {
+  .ui-search {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    min-height: var(--ve-control-height);
+    padding-inline: 8px;
+    border: 1px solid var(--ve-border-strong);
+    border-radius: var(--ve-radius);
+    background: var(--ve-bg);
+    color: var(--ve-muted);
+  }
+
+  .ui-search:focus-within {
+    border-color: var(--ve-accent);
+    outline: 1px solid var(--ve-accent);
+  }
+
+  .ui-search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: none;
+    color: var(--ve-text);
+    font: inherit;
+  }
+
+  @media (width < 1024px) {
+    .ui-search input {
+      font-size: 16px;
+    }
+  }
+}

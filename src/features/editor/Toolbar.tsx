@@ -1,8 +1,6 @@
 import { useState, type JSX } from 'react';
 import {
-  DEVICE_VIEWPORTS,
   designSheetToggled,
-  type LinkedFile,
   deviceChanged,
   panelToggled,
   previewToggled,
@@ -12,69 +10,20 @@ import {
 import { redo, undo } from '../../app/history';
 import { followLink, HOME_PATH } from '../../app/router';
 import { dispatch, useStore } from '../../app/store';
-import type { Device } from '../../app/types';
-import type { SaveStatus } from '../../persistence/autosave';
 import { ExportDialog } from '../export/ExportDialog';
 import { LicensesDialog } from '../licenses/LicensesDialog';
 import { FileMenu } from '../files/FileMenu';
-import { PageSwitcher } from '../pages/PageSwitcher';
 import { NewProjectDialog } from '../home/NewProjectDialog';
 import { ProjectSettingsDialog } from '../project/ProjectSettingsDialog';
 import { duplicateBlock, removeBlock } from './blockActions';
 import { clipboardItems } from './blockMenu';
-import { Icon } from './Icon';
-import { MenuButton, type MenuItem } from './Menu';
-
-const SAVE_STATUS_LABELS: Record<SaveStatus, string> = {
-  saving: 'Saving…',
-  saved: 'Saved in browser',
-  error: 'Not saved',
-};
-
-const TIME_FORMAT = new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit' });
-
-export function linkedFileStatus(linkedFile: LinkedFile, isStale: boolean): string {
-  const savedAt =
-    linkedFile.savedAt === null ? null : TIME_FORMAT.format(Date.parse(linkedFile.savedAt));
-  let status: string;
-  if (linkedFile.kind === 'download') {
-    status = `Downloaded ${linkedFile.name}`;
-  } else if (savedAt === null) {
-    status = linkedFile.name;
-  } else {
-    status = `${linkedFile.name} · saved ${savedAt}`;
-  }
-  return isStale ? `${status} · changes not saved to file` : status;
-}
-
-function FileStatus(): JSX.Element | null {
-  const linkedFile = useStore((state) => state.editor.linkedFile);
-  const isStale = useStore((state) => state.editor.isLinkedFileStale);
-  if (linkedFile === null) return null;
-  return (
-    <span className="ve-file-status ve-wide-only" data-stale={isStale || undefined}>
-      {linkedFileStatus(linkedFile, isStale)}
-    </span>
-  );
-}
-
-const DEVICE_MODES: { id: DeviceMode; label: string; icon: string }[] = [
-  { id: 'responsive', label: 'Responsive', icon: 'move-horizontal' },
-  { id: 'desktop', label: 'Desktop', icon: 'monitor' },
-  { id: 'tablet', label: 'Tablet', icon: 'tablet' },
-  { id: 'phone', label: 'Phone', icon: 'smartphone' },
-];
+import { Button, Icon, IconButton, MenuButton, type MenuItem } from '../../../packages/ui/src';
+import { DeviceSelect } from './DeviceSelect';
 
 const PANEL_TOGGLES: Record<PanelSide, { name: string; icon: string }> = {
   left: { name: 'library panel', icon: 'panel-left' },
   right: { name: 'properties panel', icon: 'panel-right' },
 };
-
-export function deviceReadout(device: Device): string {
-  const { width, height } = DEVICE_VIEWPORTS[device];
-  if (height === null) return `${width} px`;
-  return `${width} × ${height}`;
-}
 
 function EditMenu(): JSX.Element {
   const selectedBlockId = useStore((state) => state.editor.selectedBlockId);
@@ -124,25 +73,21 @@ function EditMenu(): JSX.Element {
 function PanelToggle({ side }: { side: PanelSide }): JSX.Element {
   const isOpen = useStore((state) => !state.editor.panels[side].collapsed);
   const { name, icon } = PANEL_TOGGLES[side];
-  const label = isOpen ? `Hide ${name}` : `Show ${name}`;
   return (
-    <button
-      type="button"
-      className="ve-icon-button ve-wide-only"
-      aria-label={label}
-      title={label}
-      aria-pressed={isOpen}
+    <IconButton
+      className="ve-wide-only"
+      label={isOpen ? `Hide ${name}` : `Show ${name}`}
+      icon={icon}
+      isPressed={isOpen}
       onClick={() => dispatch(panelToggled(side))}
-    >
-      <Icon name={icon} />
-    </button>
+    />
   );
 }
 
+const DEVICE_MODES: DeviceMode[] = ['responsive', 'desktop', 'tablet', 'phone'];
+
 export function Toolbar(): JSX.Element {
   const device = useStore((state) => state.editor.device);
-  const title = useStore((state) => state.project.settings.title);
-  const saveStatus = useStore((state) => state.editor.saveStatus);
   const canUndo = useStore((state) => state.history.past.length > 0);
   const canRedo = useStore((state) => state.history.future.length > 0);
   const isDesignSheetOpen = useStore((state) => state.editor.isDesignSheetOpen);
@@ -151,6 +96,7 @@ export function Toolbar(): JSX.Element {
   const [isExportOpen, setIsExportOpen] = useState(false);
   const [isLicensesOpen, setIsLicensesOpen] = useState(false);
   const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
+  const previewLabel = isPreview ? 'Exit preview' : 'Preview';
 
   return (
     <header className="ve-toolbar">
@@ -175,92 +121,57 @@ export function Toolbar(): JSX.Element {
           onLicenses={() => setIsLicensesOpen(true)}
         />
         <EditMenu />
-        <button
-          type="button"
-          className="ve-project-title"
-          aria-haspopup="dialog"
-          title="Project settings"
-          onClick={() => setIsSettingsOpen(true)}
-        >
-          {title}
-        </button>
-        <span className="ve-save-status" data-status={saveStatus} role="status">
-          {SAVE_STATUS_LABELS[saveStatus]}
-        </span>
-        <FileStatus />
       </div>
 
       <div className="ve-toolbar-group ve-toolbar-center">
-        <PageSwitcher />
-        <div className="ve-toolbar-group" role="group" aria-label="Device">
-          {DEVICE_MODES.map(({ id, label, icon }) => (
-            <button
-              key={id}
-              type="button"
-              className="ve-device-button"
-              aria-pressed={device === id}
-              title={label}
-              onClick={() => dispatch(deviceChanged(id))}
-            >
-              <Icon name={icon} />
-              <span className="ve-device-label">{label}</span>
-            </button>
-          ))}
-          {device !== 'responsive' && <span className="ve-readout">{deviceReadout(device)}</span>}
-        </div>
+        <DeviceSelect
+          id="ve-device"
+          className="ve-device-select"
+          value={device}
+          modes={DEVICE_MODES}
+          onChange={(mode) => dispatch(deviceChanged(mode))}
+        />
       </div>
 
       <div className="ve-toolbar-group">
-        <button
-          type="button"
-          className="ve-icon-button"
-          aria-label="Undo"
-          title="Undo"
+        <IconButton
+          className="ve-wide-only"
+          label="Undo"
+          icon="undo"
           disabled={!canUndo}
           onClick={() => dispatch(undo())}
-        >
-          <Icon name="undo" />
-        </button>
-        <button
-          type="button"
-          className="ve-icon-button"
-          aria-label="Redo"
-          title="Redo"
+        />
+        <IconButton
+          className="ve-wide-only"
+          label="Redo"
+          icon="redo"
           disabled={!canRedo}
           onClick={() => dispatch(redo())}
-        >
-          <Icon name="redo" />
-        </button>
-        <button
-          type="button"
-          className="ve-icon-button"
-          aria-label="Design system"
-          title="Design system"
-          aria-pressed={isDesignSheetOpen}
+        />
+        <IconButton
+          label="Design system"
+          icon="palette"
+          isPressed={isDesignSheetOpen}
           onClick={() => dispatch(designSheetToggled(!isDesignSheetOpen))}
-        >
-          <Icon name="palette" />
-        </button>
-        <button
-          type="button"
-          className="ve-button"
-          aria-label={isPreview ? 'Exit preview' : 'Preview'}
-          title={isPreview ? 'Exit preview (Esc)' : 'Preview'}
+        />
+        <Button
+          variant="ghost"
+          icon={isPreview ? 'eye-off' : 'eye'}
+          aria-label={previewLabel}
+          title={previewLabel}
           onClick={() => dispatch(previewToggled(!isPreview))}
         >
-          <Icon name={isPreview ? 'eye-off' : 'eye'} />
-          <span className="ve-wide-only">{isPreview ? 'Exit preview' : 'Preview'}</span>
-        </button>
-        <button
-          type="button"
-          className="ve-button ve-button--primary"
+          <span className="ve-wide-only">{previewLabel}</span>
+        </Button>
+        <Button
+          variant="primary"
+          icon="download"
           aria-label="Export"
           aria-haspopup="dialog"
           onClick={() => setIsExportOpen(true)}
         >
-          <Icon name="download" />
           <span className="ve-wide-only">Export</span>
-        </button>
+        </Button>
         <PanelToggle side="right" />
       </div>
       {isSettingsOpen && <ProjectSettingsDialog onClose={() => setIsSettingsOpen(false)} />}

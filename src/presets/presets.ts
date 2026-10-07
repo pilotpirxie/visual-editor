@@ -1,10 +1,18 @@
 import type { DesignSystem, DesignSystemPreset, TokenGroup } from '../app/types';
 import { isRecord } from '../persistence/parseBlock';
 import { parseDesignSystem, ProjectFormatError } from '../persistence/validateProject';
+import bold from './bold.json';
+import brutalist from './brutalist.json';
 import clean from './clean.json';
 import corporate from './corporate.json';
+import editorial from './editorial.json';
+import luxury from './luxury.json';
 import midnight from './midnight.json';
+import mono from './mono.json';
+import nature from './nature.json';
+import pastel from './pastel.json';
 import playful from './playful.json';
+import warm from './warm.json';
 
 export const PRESET_GROUPS = ['colors', 'typography', 'spacing', 'shape', 'icons'] as const;
 
@@ -67,6 +75,14 @@ export const BUILTIN_PRESETS: DesignSystemPreset[] = [
   parsePreset(midnight, 'builtin'),
   parsePreset(playful, 'builtin'),
   parsePreset(corporate, 'builtin'),
+  parsePreset(editorial, 'builtin'),
+  parsePreset(mono, 'builtin'),
+  parsePreset(warm, 'builtin'),
+  parsePreset(bold, 'builtin'),
+  parsePreset(nature, 'builtin'),
+  parsePreset(pastel, 'builtin'),
+  parsePreset(luxury, 'builtin'),
+  parsePreset(brutalist, 'builtin'),
 ];
 
 export function presetDesignSystem(preset: DesignSystemPreset): DesignSystem {

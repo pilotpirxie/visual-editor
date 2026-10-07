@@ -1,0 +1,14 @@
+@layer components {
+  .ve-icon {
+    flex: none;
+    width: 16px;
+    height: 16px;
+  }
+
+  @media (width < 1024px) {
+    .ve-icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

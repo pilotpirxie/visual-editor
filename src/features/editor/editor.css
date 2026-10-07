@@ -1,32 +1,4 @@
 @layer components {
-  .ve-tabs {
-    display: flex;
-    gap: 4px;
-    padding: 8px 8px 0;
-    border-bottom: 1px solid var(--ve-border);
-  }
-
-  .ve-tabs [role='tab'] {
-    padding: 8px 10px;
-    border: 0;
-    border-bottom: 2px solid transparent;
-    background: none;
-    color: var(--ve-muted);
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .ve-tabs [aria-selected='true'] {
-    border-bottom-color: var(--ve-accent);
-    color: var(--ve-text);
-  }
-
-  .ve-tab-panel {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-  }
-
   .ve-shell {
     display: grid;
     grid-template-areas:
@@ -39,90 +11,6 @@
 
   .ve-compact-tabs {
     display: none;
-  }
-
-  .ve-menu {
-    position-area: bottom span-left;
-    position-try-fallbacks: flip-block;
-    min-width: 180px;
-    margin: 4px 0;
-    padding: 4px;
-    border: 1px solid var(--ve-border);
-    border-radius: var(--ve-radius);
-    background: var(--ve-bg);
-    color: var(--ve-text);
-    box-shadow: var(--ve-shadow);
-  }
-
-  .ve-menu:popover-open {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .ve-menu button {
-    padding: 8px 10px;
-    border: 0;
-    border-radius: 4px;
-    background: none;
-    color: inherit;
-    font: inherit;
-    text-align: left;
-    cursor: pointer;
-  }
-
-  .ve-menu button:hover:enabled,
-  .ve-menu button:focus-visible {
-    background: var(--ve-surface);
-  }
-
-  .ve-menu button:disabled {
-    color: var(--ve-border-strong);
-    cursor: default;
-  }
-
-  .ve-menu .ve-menu-danger:enabled {
-    color: var(--ve-danger);
-  }
-
-  .ve-menu-separator {
-    height: 1px;
-    margin: 4px 0;
-    background: var(--ve-border);
-  }
-
-  .ve-menu > button {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .ve-menu[role='menu'] > button {
-    gap: 4px;
-    padding-left: 4px;
-  }
-
-  .ve-menu-check {
-    flex: none;
-    width: 16px;
-    text-align: center;
-  }
-
-  .ve-menu-label {
-    flex: 1;
-  }
-
-  .ve-menu-shortcut {
-    margin-left: 24px;
-    color: var(--ve-muted);
-    font: inherit;
-    font-size: 12px;
-  }
-
-  .ve-menu.ve-menu--at-point {
-    position: fixed;
-    inset: auto;
-    position-area: none;
-    margin: 0;
   }
 
   .ve-toasts {
@@ -183,6 +71,17 @@
     gap: 4px;
   }
 
+  .ve-toolbar-center {
+    flex: 0 1 auto;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .ve-device-select {
+    width: auto;
+    max-width: 100%;
+  }
+
   .ve-logo {
     display: inline-flex;
     align-items: center;
@@ -194,57 +93,6 @@
 
   .ve-logo:hover {
     color: var(--ve-accent);
-  }
-
-  .ve-save-status {
-    margin-left: 12px;
-    color: var(--ve-muted);
-    font-size: 12px;
-  }
-
-  .ve-file-status {
-    overflow: hidden;
-    max-width: 260px;
-    margin-left: 8px;
-    color: var(--ve-muted);
-    font-size: 12px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .ve-file-status[data-stale] {
-    color: #b45309;
-  }
-
-  .ve-save-status[data-status='error'] {
-    color: var(--ve-danger);
-    font-weight: 600;
-  }
-
-  .ve-project-title {
-    max-width: 240px;
-    overflow: hidden;
-    padding: 4px 8px 4px 12px;
-    border: 0;
-    border-left: 1px solid var(--ve-border);
-    background: none;
-    color: var(--ve-muted);
-    font: inherit;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    cursor: pointer;
-  }
-
-  .ve-project-title:hover {
-    color: var(--ve-text);
-    text-decoration: underline;
-  }
-
-  .ve-readout {
-    min-width: 64px;
-    margin-left: 8px;
-    color: var(--ve-muted);
-    font-variant-numeric: tabular-nums;
   }
 
   .ve-library {
@@ -298,52 +146,6 @@
     outline: none;
   }
 
-  .ve-icon {
-    width: 16px;
-    height: 16px;
-    flex: none;
-  }
-
-  .ve-icon-button,
-  .ve-device-button,
-  .ve-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    height: 32px;
-    padding-inline: 8px;
-    border: 1px solid transparent;
-    border-radius: var(--ve-radius);
-    background: transparent;
-    cursor: pointer;
-  }
-
-  .ve-icon-button:hover:enabled,
-  .ve-device-button:hover {
-    background: var(--ve-surface);
-  }
-
-  .ve-icon-button:disabled {
-    color: var(--ve-border-strong);
-    cursor: default;
-  }
-
-  .ve-device-button[aria-pressed='true'] {
-    background: var(--ve-accent-soft);
-    color: var(--ve-accent);
-  }
-
-  .ve-button--primary {
-    padding-inline: 12px;
-    background: var(--ve-accent);
-    color: #ffffff;
-    font-weight: 600;
-  }
-
-  .ve-button--primary:hover {
-    background: color-mix(in oklab, var(--ve-accent), black 12%);
-  }
-
   .ve-shell[data-preview] :is(.ve-library, .ve-properties, .ve-resize-handle, .ve-compact-tabs) {
     display: none;
   }
@@ -370,10 +172,7 @@
       border: 0;
     }
 
-    .ve-resize-handle,
-    .ve-project-title,
-    .ve-readout,
-    .ve-device-label {
+    .ve-resize-handle {
       display: none;
     }
 
@@ -391,52 +190,35 @@
     }
 
     .ve-toolbar {
-      flex-wrap: wrap;
-      gap: 0 4px;
+      gap: 4px;
       min-height: 52px;
       padding-inline: 4px;
     }
 
     .ve-toolbar-group {
+      flex: none;
       gap: 2px;
-      min-width: 0;
+    }
+
+    .ve-toolbar-center {
+      flex: 1 1 0;
     }
 
     .ve-logo {
       margin-inline: 0;
-    }
-
-    .ve-save-status {
-      margin-left: 4px;
-      white-space: nowrap;
-    }
-
-    .ve-icon-button,
-    .ve-device-button,
-    .ve-button,
-    .ve-logo {
       min-width: 44px;
       height: 44px;
       justify-content: center;
-    }
-
-    .ve-icon {
-      width: 20px;
-      height: 20px;
     }
 
     .ve-toasts {
       bottom: calc(72px + env(safe-area-inset-bottom));
     }
 
-    .ve-menu button {
-      min-height: 44px;
-    }
-
     .ve-compact-tabs {
       grid-area: tabs;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       padding-bottom: env(safe-area-inset-bottom);
       border-top: 1px solid var(--ve-border);
       background: var(--ve-bg);

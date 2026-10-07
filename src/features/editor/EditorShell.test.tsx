@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { compactTabSelected, panelToggled } from '../../app/editorSlice';
+import { settingSet } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
 import { click, getButton, render, runInAct } from '../../test/dom';
 import { loadIntoAppStore } from '../../test/fixtures';
@@ -27,11 +28,19 @@ beforeEach(() => {
 });
 
 describe('CompactTabs', () => {
-  it('offers the four editor views and marks the current one', () => {
+  it('offers the five editor views and marks the current one', () => {
     const { container } = render(<CompactTabs />);
     const labels = [...container.querySelectorAll('button')].map((button) => button.textContent);
-    expect(labels).toEqual(['Blocks', 'Layers', 'Canvas', 'Properties']);
+    expect(labels).toEqual(['Blocks', 'Pages', 'Layers', 'Canvas', 'Properties']);
     expect(getButton(container, 'Canvas').getAttribute('aria-current')).toBe('page');
+  });
+
+  it('opens the pages list from its own tab', () => {
+    const { container } = render(<CompactTabs />);
+    click(getButton(container, 'Pages'));
+    expect(store.getState().editor.compactView).toBe('library');
+    expect(store.getState().editor.libraryTab).toBe('pages');
+    expect(getButton(container, 'Pages').getAttribute('aria-current')).toBe('page');
   });
 
   it('opens the library on the chosen tab', () => {
@@ -60,6 +69,15 @@ describe('EditorShell', () => {
     expect(shell?.dataset.leftCollapsed).toBe('true');
     expect(shell?.style.getPropertyValue('--ve-left-width')).toBe('0px');
     expect(container.querySelector('.ve-library')).not.toBeNull();
+  });
+
+  it('shows the project name in the browser tab and restores the app name when closed', () => {
+    const { unmount } = render(<EditorShell />);
+    expect(document.title).toBe('Fieldnote – Visual Editor');
+    runInAct(() => dispatch(settingSet('title', 'Harbor Bakery', 'discrete')));
+    expect(document.title).toBe('Harbor Bakery – Visual Editor');
+    unmount();
+    expect(document.title).toBe('Visual Editor');
   });
 
   it('switches the compact view from the tab bar', () => {

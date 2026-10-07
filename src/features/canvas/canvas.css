@@ -169,25 +169,14 @@
     pointer-events: auto;
   }
 
-  .ve-block-toolbar > button {
-    display: grid;
-    place-items: center;
-    width: 28px;
-    height: 28px;
-    border: 0;
-    border-radius: 4px;
-    background: transparent;
+  .ve-block-toolbar {
     color: #ffffff;
-    cursor: pointer;
   }
 
-  .ve-block-toolbar > button:hover:not(:disabled) {
-    background: rgb(255 255 255 / 0.18);
-  }
-
-  .ve-block-toolbar > button:disabled {
-    opacity: 0.45;
-    cursor: default;
+  .ve-block-toolbar > .ui-icon-button {
+    min-width: 28px;
+    min-height: 28px;
+    border-radius: 4px;
   }
 
   .ve-block-toolbar .ve-block-handle {
@@ -261,9 +250,9 @@
       translate: -50% 0;
     }
 
-    .ve-block-toolbar > button {
-      width: 40px;
-      height: 40px;
+    .ve-block-toolbar > .ui-icon-button {
+      min-width: 40px;
+      min-height: 40px;
     }
   }
 }

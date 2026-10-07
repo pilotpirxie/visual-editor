@@ -23,7 +23,6 @@ import type { Device } from '../../app/types';
 import { dropBlock, isNoopDrop } from '../editor/blockActions';
 import { openPage } from '../pages/pageActions';
 import { BlockContextMenu } from '../editor/BlockContextMenu';
-import { closeOpenPopovers, type MenuPoint } from '../editor/Menu';
 import { useClipboard } from '../editor/useClipboard';
 import { useShortcuts } from '../editor/useShortcuts';
 import { CanvasFrame, type CanvasFrameHandle } from './CanvasFrame';
@@ -52,6 +51,7 @@ import { canvasLinkTarget } from './links';
 import { Overlay } from './Overlay';
 import { ResponsiveHandles } from './ResponsiveHandles';
 import './canvas.css';
+import { closeOpenPopovers, type MenuPoint } from '../../../packages/ui/src';
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 

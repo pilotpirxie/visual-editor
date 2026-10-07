@@ -27,13 +27,17 @@ export function useDiskAutosave(): void {
       onStatus() {},
     });
     let previousProject = store.getState().project;
+    let wasStale = store.getState().editor.isLinkedFileStale;
     const unsubscribe = store.subscribe(() => {
       const { project, editor } = store.getState();
-      if (project === previousProject) return;
+      const isStale = editor.isLinkedFileStale;
+      const hasChanged = project !== previousProject || isStale !== wasStale;
       const isSameProject = project.id === previousProject.id;
       previousProject = project;
+      wasStale = isStale;
+      if (!hasChanged || !isSameProject) return;
       const isAutoSaving = editor.linkedFile?.isAutoSaving === true;
-      if (isSameProject && isAutoSaving && editor.isLinkedFileStale) diskAutosave.schedule(project);
+      if (isAutoSaving && isStale) diskAutosave.schedule(project);
     });
     return () => {
       unsubscribe();

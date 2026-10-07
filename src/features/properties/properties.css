@@ -1,166 +1,26 @@
 @layer components {
-  .ve-properties-section {
+  .ve-properties-header {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     padding: 16px;
     border-bottom: 1px solid var(--ve-border);
   }
 
-  .ve-properties-title {
-    font-size: 15px;
-    font-weight: 700;
+  .ve-properties-empty {
+    padding: 16px;
+  }
+
+  .ve-field-control {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .ve-properties-body {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-  }
-
-  .ve-group-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ve-muted);
-  }
-
-  .ve-control {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .ve-control-label {
-    font-weight: 600;
-  }
-
-  .ve-control-help {
-    color: var(--ve-muted);
-    font-size: 12px;
-  }
-
-  .ve-input {
-    width: 100%;
-    min-height: 32px;
-    padding: 6px 8px;
-    border: 1px solid var(--ve-border);
-    border-radius: var(--ve-radius);
-    background: var(--ve-bg);
-  }
-
-  .ve-input:focus-visible {
-    border-color: var(--ve-accent);
-    outline: 1px solid var(--ve-accent);
-    outline-offset: 0;
-  }
-
-  textarea.ve-input {
-    resize: vertical;
-  }
-
-  .ve-input--number {
-    width: 88px;
-  }
-
-  .ve-control[data-invalid] .ve-input {
-    border-color: var(--ve-danger);
-  }
-
-  .ve-control-error {
-    color: var(--ve-danger);
-    font-size: 12px;
-  }
-
-  .ve-range {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .ve-range input[type='range'] {
-    flex: 1;
-    accent-color: var(--ve-accent);
-  }
-
-  .ve-switch {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    cursor: pointer;
-  }
-
-  .ve-switch input {
-    appearance: none;
-    position: relative;
-    order: 2;
-    flex: none;
-    width: 32px;
-    height: 18px;
-    margin: 0;
-    border-radius: 9px;
-    background: var(--ve-border-strong);
-    cursor: pointer;
-    transition: background-color 120ms;
-  }
-
-  .ve-switch input::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--ve-bg);
-    transition: translate 120ms;
-  }
-
-  .ve-switch input:checked {
-    background: var(--ve-accent);
-  }
-
-  .ve-switch input:checked::after {
-    translate: 14px 0;
-  }
-
-  .ve-segmented-options {
-    display: flex;
-    margin-top: 6px;
-    padding: 2px;
-    border-radius: var(--ve-radius);
-    background: var(--ve-surface);
-  }
-
-  .ve-segment {
-    position: relative;
-    display: inline-flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    min-height: 28px;
-    border-radius: calc(var(--ve-radius) - 2px);
-    color: var(--ve-muted);
-    cursor: pointer;
-  }
-
-  .ve-segment input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .ve-segment:has(input:checked) {
-    background: var(--ve-bg);
-    color: var(--ve-text);
-    box-shadow: var(--ve-shadow);
-  }
-
-  .ve-segment:has(input:focus-visible) {
-    outline: 2px solid var(--ve-accent);
   }
 
   .ve-list {
@@ -306,16 +166,8 @@
     align-items: center;
   }
 
-  .ve-override > .ve-control-label {
-    grid-column: 1 / -1;
-  }
-
   .ve-override--open {
     align-items: start;
-  }
-
-  .ve-override .ve-button {
-    border-color: var(--ve-border);
   }
 
   .ve-override-inherited {
@@ -338,23 +190,30 @@
 
   .ve-prefixed-input {
     display: flex;
+    flex: 1;
     flex-wrap: wrap;
     align-items: center;
     gap: 6px;
+    min-width: 0;
+  }
+
+  .ve-prefixed-input > .ui-input {
+    flex: 1;
+  }
+
+  .ve-prefixed-input > .ui-field-error {
+    flex-basis: 100%;
+  }
+
+  .ve-image-shape {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
   }
 
   .ve-prefixed-input > span {
     color: var(--ve-muted);
     font-weight: 600;
-  }
-
-  .ve-prefixed-input > .ve-input {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .ve-prefixed-input > .ve-control-error {
-    flex-basis: 100%;
   }
 
   .ve-hide-on {
@@ -367,13 +226,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px 16px;
-  }
-
-  .ve-check {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
   }
 
   .ve-page-settings {
@@ -456,34 +308,12 @@
     text-overflow: ellipsis;
   }
 
-  .ve-button--outline {
-    align-self: flex-start;
-    border-color: var(--ve-border);
-    background: var(--ve-bg);
-  }
-
-  .ve-button--outline:hover:enabled {
-    background: var(--ve-surface);
-  }
-
-  .ve-button:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-
   .ve-image-preview {
     width: 100%;
     max-height: 220px;
     border-radius: var(--ve-radius);
     object-fit: contain;
     background: var(--ve-surface);
-  }
-
-  .ve-check {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
   }
 
   .ve-richtext {
@@ -506,11 +336,6 @@
     gap: 2px;
     padding: 2px;
     border-bottom: 1px solid var(--ve-border);
-  }
-
-  .ve-richtext-toolbar .ve-icon-button {
-    height: 28px;
-    padding-inline: 6px;
   }
 
   .ve-richtext-link {
@@ -575,10 +400,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-
-  .ve-icon-field .ve-button--outline {
-    align-self: center;
   }
 
   .ve-icon-filters {

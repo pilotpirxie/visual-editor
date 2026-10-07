@@ -19,7 +19,7 @@ export function ColorField({
 
   return (
     <fieldset className="ve-color" aria-describedby={describedBy}>
-      <legend className="ve-control-label">{field.label}</legend>
+      <legend className="ui-field-label">{field.label}</legend>
       <div className="ve-swatches">
         {colorTokens.map((token) => (
           <label key={token.name} className="ve-swatch" title={token.label}>
@@ -53,7 +53,7 @@ export function ColorField({
             onChange={(event) => onChange(event.target.value, 'continuous')}
           />
           <input
-            className="ve-input"
+            className="ui-input"
             type="text"
             aria-label={`${field.label}: hex value`}
             spellCheck={false}

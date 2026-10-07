@@ -1,0 +1,70 @@
+@layer components {
+  .ui-button,
+  .ui-icon-button {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: var(--ve-target);
+    border: 1px solid transparent;
+    border-radius: var(--ve-radius);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .ui-button {
+    padding-inline: 12px;
+    font-weight: 600;
+  }
+
+  .ui-icon-button {
+    min-width: var(--ve-target);
+    padding: 0;
+  }
+
+  .ui-button:disabled,
+  .ui-icon-button:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+
+  .ui-button--primary {
+    background: var(--ve-accent);
+    color: #ffffff;
+  }
+
+  .ui-button--primary:hover:enabled {
+    background: color-mix(in oklab, var(--ve-accent), black 12%);
+  }
+
+  .ui-button--secondary {
+    border-color: var(--ve-border-strong);
+    background: var(--ve-bg);
+    color: var(--ve-text);
+  }
+
+  .ui-button--danger {
+    background: var(--ve-danger);
+    color: #ffffff;
+  }
+
+  .ui-button--danger:hover:enabled {
+    background: color-mix(in oklab, var(--ve-danger), black 12%);
+  }
+
+  :is(.ui-button--secondary, .ui-button--ghost, .ui-icon-button):is(
+    :hover:enabled,
+    [aria-expanded='true']
+  ) {
+    background: color-mix(in oklab, currentColor 9%, transparent);
+  }
+
+  .ui-icon-button[aria-pressed='true'] {
+    background: var(--ve-accent-soft);
+    color: var(--ve-accent);
+  }
+}

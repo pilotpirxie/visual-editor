@@ -1,5 +1,5 @@
 import { useRef, useState, type JSX, type SyntheticEvent } from 'react';
-import { DEVICE_VIEWPORTS, noticeShown } from '../../app/editorSlice';
+import { DEVICE_VIEWPORTS, noticeShown, type DeviceMode } from '../../app/editorSlice';
 import { dispatch } from '../../app/store';
 import type { Device, Project } from '../../app/types';
 import { registry } from '../../components/registry';
@@ -11,18 +11,14 @@ import { useElementSize } from '../canvas/Canvas';
 import { isElementTarget } from '../canvas/frameDom';
 import { fitDevice } from '../canvas/geometry';
 import { canvasLinkTarget } from '../canvas/links';
-import { closeDialogOf, Dialog } from '../editor/Dialog';
-import { Icon } from '../editor/Icon';
 import { ensureIconSets } from '../icons/ensureIconSets';
 import type { StarterInfo } from '../../starters/starters';
+import { Button, closeDialogOf, Dialog, Field, Select, Title } from '../../../packages/ui/src';
+import { DeviceSelect } from '../editor/DeviceSelect';
 
 const TITLE_ID = 've-starter-preview-title';
 
-const DEVICES: { id: Device; label: string; icon: string }[] = [
-  { id: 'desktop', label: 'Desktop', icon: 'monitor' },
-  { id: 'tablet', label: 'Tablet', icon: 'tablet' },
-  { id: 'phone', label: 'Phone', icon: 'smartphone' },
-];
+const STARTER_DEVICES: DeviceMode[] = ['desktop', 'tablet', 'phone'];
 
 type StarterPreviewProps = {
   starter: StarterInfo;
@@ -50,6 +46,7 @@ export function StarterPreview({
   const [presetId, setPresetId] = useState(starter.presetId);
   const viewportRef = useRef<HTMLDivElement>(null);
   const pendingAnchorRef = useRef<string | null>(null);
+  const requestedPresetIdRef = useRef(starter.presetId);
   const available = useElementSize(viewportRef);
   const shown = withPreset(project, presetId);
   const fit = fitDevice(DEVICE_VIEWPORTS[device], available);
@@ -59,6 +56,7 @@ export function StarterPreview({
   async function choosePreset(nextPresetId: string): Promise<void> {
     const preset = BUILTIN_PRESETS.find((item) => item.id === nextPresetId);
     if (preset === undefined) return;
+    requestedPresetIdRef.current = nextPresetId;
     try {
       await ensureIconSets([preset.designSystem.iconSet]);
     } catch (error) {
@@ -66,6 +64,7 @@ export function StarterPreview({
       dispatch(noticeShown('error', `The ${preset.name} design could not be loaded.`));
       return;
     }
+    if (requestedPresetIdRef.current !== nextPresetId) return;
     setPresetId(nextPresetId);
   }
 
@@ -99,72 +98,49 @@ export function StarterPreview({
     });
   }
 
+  const pageOptions = [];
+  for (const id of project.pages.ids) {
+    pageOptions.push({ value: id, label: project.pages.entities[id]?.name ?? id });
+  }
+  const presetOptions = [];
+  for (const preset of BUILTIN_PRESETS)
+    presetOptions.push({ value: preset.id, label: preset.name });
+
   return (
-    <Dialog labelId={TITLE_ID} className="ve-starter-preview" onClose={onClose}>
+    <Dialog labelId={TITLE_ID} size="full" className="ve-starter-preview" onClose={onClose}>
       <div className="ve-starter-preview-body">
         <header className="ve-starter-preview-bar">
-          <h2 id={TITLE_ID} className="ve-properties-title">
-            {starter.name}
-          </h2>
-          <label className="ve-starter-field">
-            <span>Page</span>
-            <select
-              className="ve-input"
+          <Title id={TITLE_ID}>{starter.name}</Title>
+          <Field id="ve-starter-page" label="Page" layout="inline" className="ve-starter-field">
+            <Select
+              id="ve-starter-page"
               value={pageId}
+              options={pageOptions}
               onChange={(event) => setPageId(event.target.value)}
-            >
-              {project.pages.ids.map((id) => (
-                <option key={id} value={id}>
-                  {project.pages.entities[id]?.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <div className="ve-toolbar-group" role="group" aria-label="Device">
-            {DEVICES.map((option) => (
-              <button
-                key={option.id}
-                type="button"
-                className="ve-device-button"
-                aria-pressed={device === option.id}
-                aria-label={option.label}
-                title={option.label}
-                onClick={() => setDevice(option.id)}
-              >
-                <Icon name={option.icon} />
-              </button>
-            ))}
-          </div>
-          <label className="ve-starter-field">
-            <span>Design</span>
-            <select
-              className="ve-input"
+            />
+          </Field>
+          <DeviceSelect
+            id="ve-starter-device"
+            className="ve-starter-device-select"
+            value={device}
+            modes={STARTER_DEVICES}
+            onChange={(mode) => {
+              if (mode !== 'responsive') setDevice(mode);
+            }}
+          />
+          <Field id="ve-starter-design" label="Design" layout="inline" className="ve-starter-field">
+            <Select
+              id="ve-starter-design"
               value={presetId}
+              options={presetOptions}
               onChange={(event) => void choosePreset(event.target.value)}
-            >
-              {BUILTIN_PRESETS.map((preset) => (
-                <option key={preset.id} value={preset.id}>
-                  {preset.name}
-                </option>
-              ))}
-            </select>
-          </label>
+            />
+          </Field>
           <div className="ve-starter-preview-actions">
-            <button
-              type="button"
-              className="ve-button ve-button--outline"
-              onClick={(event) => closeDialogOf(event.currentTarget)}
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              className="ve-button ve-button--primary"
-              disabled={isDisabled}
-              onClick={() => onUse(shown)}
-            >
+            <Button onClick={(event) => closeDialogOf(event.currentTarget)}>Close</Button>
+            <Button variant="primary" disabled={isDisabled} onClick={() => onUse(shown)}>
               Use this starter
-            </button>
+            </Button>
           </div>
         </header>
         <div className="ve-starter-viewport" ref={viewportRef}>

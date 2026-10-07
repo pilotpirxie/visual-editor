@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import type { JSX, ReactNode } from 'react';
 import {
   FAVICON_TYPES,
   projectImageSet,
@@ -9,56 +9,56 @@ import {
   type SettingKey,
 } from '../../app/projectSlice';
 import { dispatch, useStore } from '../../app/store';
-import type { Field } from '../../components/types';
-import { applyTitleTemplate } from '../../render/pageHead';
-import { closeDialogOf, Dialog } from '../editor/Dialog';
-import { DraftInput } from '../properties/DraftInput';
+import type { Field as FieldSchema } from '../../components/types';
 import { FieldControl } from '../properties/FieldControl';
 import { ImageUploadInput } from '../properties/ImageUploadInput';
 import { SOCIAL_IMAGE_TYPE_ERROR } from '../properties/PageSettingsPanel';
+import { useSection } from '../editor/useSection';
 import { languageOptions } from './languages';
+import {
+  Button,
+  closeDialogOf,
+  Dialog,
+  DialogActions,
+  DialogBody,
+  DraftInput,
+  Field,
+  Section,
+} from '../../../packages/ui/src';
 
 const TITLE_ID = 've-project-settings-title';
 const BASE_URL_ID = 've-project-base-url';
-const EXAMPLE_PAGE_TITLE = 'About';
 
-const TITLE_FIELD: Field = {
+const TITLE_FIELD: FieldSchema = {
   name: 'title',
   label: 'Site title',
   type: 'text',
   default: '',
   required: true,
-  help: 'Shown in the editor and used as the site name on every page.',
 };
 
-const DESCRIPTION_FIELD: Field = {
+const DESCRIPTION_FIELD: FieldSchema = {
   name: 'description',
   label: 'Description',
   type: 'textarea',
   default: '',
-  help: 'Used as the meta description of pages that have none of their own.',
 };
 
-function languageField(language: string): Field {
+const TITLE_TEMPLATE_FIELD: FieldSchema = {
+  name: 'titleTemplate',
+  label: 'Page title template',
+  type: 'text',
+  default: '',
+  required: true,
+};
+
+function languageField(language: string): FieldSchema {
   return {
     name: 'language',
     label: 'Language',
     type: 'select',
     default: 'en',
     options: languageOptions(language),
-    help: 'The language your pages are written in.',
-  };
-}
-
-function titleTemplateField(template: string, siteTitle: string): Field {
-  const example = applyTitleTemplate(template, EXAMPLE_PAGE_TITLE, siteTitle);
-  return {
-    name: 'titleTemplate',
-    label: 'Title template',
-    type: 'text',
-    default: '',
-    required: true,
-    help: `Use {{page.title}} and {{site.title}}. Example: “${example}”.`,
   };
 }
 
@@ -66,6 +66,23 @@ function changeSetting(key: SettingKey): (value: unknown, kind: EditKind) => voi
   return (value, kind) => {
     if (typeof value === 'string') dispatch(settingSet(key, value, kind));
   };
+}
+
+function SettingsSection({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: ReactNode;
+}): JSX.Element {
+  const section = useSection(`settings:${id}`);
+  return (
+    <Section title={title} isOpen={section.isOpen} onToggle={section.onToggle}>
+      {children}
+    </Section>
+  );
 }
 
 export function ProjectSettingsDialog({ onClose }: { onClose(): void }): JSX.Element {
@@ -77,81 +94,73 @@ export function ProjectSettingsDialog({ onClose }: { onClose(): void }): JSX.Ele
     settings.socialImageAssetId === undefined ? undefined : assets[settings.socialImageAssetId];
 
   return (
-    <Dialog labelId={TITLE_ID} className="ve-dialog--wide" onClose={onClose}>
-      <div className="ve-dialog-body">
-        <h2 id={TITLE_ID} className="ve-properties-title">
-          Project settings
-        </h2>
-        <FieldControl
-          field={TITLE_FIELD}
-          value={settings.title}
-          path="project-title"
-          onChange={changeSetting('title')}
-        />
-        <FieldControl
-          field={DESCRIPTION_FIELD}
-          value={settings.description}
-          path="project-description"
-          onChange={changeSetting('description')}
-        />
-        <FieldControl
-          field={languageField(settings.language)}
-          value={settings.language}
-          path="project-language"
-          onChange={changeSetting('language')}
-        />
-        <div className="ve-control" data-field-path="project-base-url">
-          <label className="ve-control-label" htmlFor={BASE_URL_ID}>
-            Base URL
-          </label>
-          <DraftInput
-            id={BASE_URL_ID}
-            label="Base URL"
-            value={settings.baseUrl ?? ''}
-            validate={(text) => settingError('baseUrl', text)}
-            onCommit={(text) => dispatch(settingSet('baseUrl', text, 'continuous'))}
-          />
-          <p className="ve-control-help">
-            Where the site will live, for example https://example.com. Needed for canonical links
-            and absolute social image addresses.
-          </p>
+    <Dialog labelId={TITLE_ID} size="wide" onClose={onClose}>
+      <DialogBody titleId={TITLE_ID} title="Project settings" className="ve-settings-body">
+        <div className="ve-settings-sections">
+          <SettingsSection id="site" title="Site">
+            <FieldControl
+              field={TITLE_FIELD}
+              value={settings.title}
+              path="project-title"
+              onChange={changeSetting('title')}
+            />
+            <FieldControl
+              field={DESCRIPTION_FIELD}
+              value={settings.description}
+              path="project-description"
+              onChange={changeSetting('description')}
+            />
+            <FieldControl
+              field={languageField(settings.language)}
+              value={settings.language}
+              path="project-language"
+              onChange={changeSetting('language')}
+            />
+            <div data-field-path="project-base-url">
+              <Field id={BASE_URL_ID} label="Base URL">
+                <DraftInput
+                  id={BASE_URL_ID}
+                  value={settings.baseUrl ?? ''}
+                  placeholder="https://example.com"
+                  validate={(text) => settingError('baseUrl', text)}
+                  onCommit={(text) => dispatch(settingSet('baseUrl', text, 'continuous'))}
+                />
+              </Field>
+            </div>
+          </SettingsSection>
+          <SettingsSection id="sharing" title="Search and sharing">
+            <FieldControl
+              field={TITLE_TEMPLATE_FIELD}
+              value={settings.titleTemplate}
+              path="project-title-template"
+              onChange={changeSetting('titleTemplate')}
+            />
+            <ImageUploadInput
+              id="ve-project-favicon"
+              label="Favicon"
+              asset={favicon}
+              accept={FAVICON_TYPES}
+              typeError="Use a PNG, SVG or ICO image"
+              shape="icon"
+              onChange={(upload) => dispatch(projectImageSet('favicon', upload))}
+            />
+            <ImageUploadInput
+              id="ve-project-social-image"
+              label="Default social image"
+              asset={socialImage}
+              accept={SOCIAL_IMAGE_TYPES}
+              typeError={SOCIAL_IMAGE_TYPE_ERROR}
+              shape="social"
+              onChange={(upload) => dispatch(projectImageSet('socialImage', upload))}
+            />
+          </SettingsSection>
         </div>
-        <FieldControl
-          field={titleTemplateField(settings.titleTemplate, settings.title)}
-          value={settings.titleTemplate}
-          path="project-title-template"
-          onChange={changeSetting('titleTemplate')}
-        />
-        <ImageUploadInput
-          id="ve-project-favicon"
-          label="Favicon"
-          help="A square PNG, SVG or ICO image shown in browser tabs."
-          asset={favicon}
-          accept={FAVICON_TYPES}
-          typeError="Use a PNG, SVG or ICO image"
-          shape="icon"
-          onChange={(upload) => dispatch(projectImageSet('favicon', upload))}
-        />
-        <ImageUploadInput
-          id="ve-project-social-image"
-          label="Default social image"
-          help="Shown when a page without its own social image is shared. 1200 × 630 px works best."
-          asset={socialImage}
-          accept={SOCIAL_IMAGE_TYPES}
-          typeError={SOCIAL_IMAGE_TYPE_ERROR}
-          shape="social"
-          onChange={(upload) => dispatch(projectImageSet('socialImage', upload))}
-        />
-        <div className="ve-dialog-actions">
-          <button
-            type="button"
-            className="ve-button ve-button--primary"
-            onClick={(event) => closeDialogOf(event.currentTarget)}
-          >
+        <DialogActions>
+          <Button variant="primary" onClick={(event) => closeDialogOf(event.currentTarget)}>
             Done
-          </button>
-        </div>
-      </div>
+          </Button>
+        </DialogActions>
+      </DialogBody>
     </Dialog>
   );
 }

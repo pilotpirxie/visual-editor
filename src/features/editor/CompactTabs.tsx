@@ -1,10 +1,11 @@
 import type { JSX } from 'react';
 import { compactTabSelected, selectCompactTab, type CompactTab } from '../../app/editorSlice';
 import { dispatch, useStore } from '../../app/store';
-import { Icon } from './Icon';
+import { Icon } from '../../../packages/ui/src';
 
 const TABS: { id: CompactTab; label: string; icon: string }[] = [
   { id: 'blocks', label: 'Blocks', icon: 'layout-grid' },
+  { id: 'pages', label: 'Pages', icon: 'file' },
   { id: 'layers', label: 'Layers', icon: 'layers' },
   { id: 'canvas', label: 'Canvas', icon: 'app-window' },
   { id: 'properties', label: 'Properties', icon: 'sliders-horizontal' },

@@ -124,49 +124,12 @@
     .ve-home-empty {
       padding: 32px 16px;
     }
-
-    .ve-home .ve-icon-button,
-    .ve-home .ve-button {
-      min-width: 44px;
-      height: 44px;
-      justify-content: center;
-    }
-
-    .ve-home-rename {
-      font-size: 16px;
-    }
-  }
-
-  .ve-new-project {
-    width: min(960px, calc(100% - 32px));
   }
 
   .ve-new-project-panel {
     display: flex;
     flex-direction: column;
     gap: 12px;
-  }
-
-  .ve-new-presets {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
-    gap: 12px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .ve-new-preset {
-    width: 100%;
-    min-height: 44px;
-    color: inherit;
-    font: inherit;
-    text-align: start;
-    cursor: pointer;
-  }
-
-  .ve-new-preset:hover {
-    border-color: var(--ve-accent);
   }
 
   .ve-starter-grid {
@@ -222,12 +185,6 @@
     margin-top: auto;
   }
 
-  .ve-starter-preview {
-    width: calc(100% - 32px);
-    height: calc(100% - 32px);
-    max-width: none;
-  }
-
   .ve-starter-preview-body {
     display: flex;
     flex-direction: column;
@@ -249,10 +206,12 @@
   }
 
   .ve-starter-field {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 600;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .ve-starter-device-select {
+    width: auto;
   }
 
   .ve-starter-viewport {

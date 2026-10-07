@@ -9,10 +9,10 @@ import {
   resolveIcon,
   searchIcons,
 } from '../../render/icons';
-import { Icon } from '../editor/Icon';
 import { allowedIconSets } from '../icons/iconSets';
 import { isIconSetLoaded, loadIconSet } from '../icons/loadIconSet';
 import type { ControlProps } from './FieldControl';
+import { Icon } from '../../../packages/ui/src';
 
 const MAX_RESULTS = 96;
 const DEFAULT_FILTER = 'default';
@@ -103,7 +103,7 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
 
   return (
     <>
-      <span className="ve-control-label" id={labelId}>
+      <span className="ui-field-label" id={labelId}>
         {field.label}
       </span>
       <div className="ve-icon-field">
@@ -116,7 +116,7 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
           ref={toggleRef}
           id={id}
           type="button"
-          className="ve-button ve-button--outline"
+          className="ui-button ui-button--secondary"
           aria-labelledby={`${labelId} ${id}`}
           aria-expanded={isPickerOpen}
           aria-describedby={describedBy}
@@ -134,7 +134,7 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
         {canUseDefault && typeof field.default === 'string' && (
           <button
             type="button"
-            className="ve-button"
+            className="ui-button ui-button--ghost"
             onClick={() => onChange(field.default, 'discrete')}
           >
             Use default
@@ -145,7 +145,7 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
         <div className="ve-icon-picker">
           <div className="ve-icon-filters">
             <select
-              className="ve-input"
+              className="ui-input ui-select"
               aria-label="Icon set"
               value={filter}
               onChange={(event) => {
@@ -168,7 +168,7 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
             </select>
             {styles.length > 0 && (
               <select
-                className="ve-input"
+                className="ui-input ui-select"
                 aria-label="Icon style"
                 value={style}
                 onChange={(event) => setStyle(event.target.value)}
@@ -182,7 +182,7 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
               </select>
             )}
           </div>
-          <label className="ve-search">
+          <label className="ui-search">
             <Icon name="search" />
             <input
               type="search"
@@ -199,7 +199,7 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
             />
           </label>
           {loadState.status === 'failed' && (
-            <p className="ve-control-error" role="alert">
+            <p className="ui-field-error" role="alert">
               {loadState.message}
             </p>
           )}
@@ -221,11 +221,11 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
               );
             })}
           </div>
-          <p className="ve-control-help" aria-live="polite">
+          <p className="ui-muted" aria-live="polite">
             {loadState.status === 'loading' && 'Loading icons…'}
             {loadState.status !== 'loading' &&
               (matches.length > shown.length
-                ? `Showing ${shown.length} of ${matches.length} icons. Type to narrow the list.`
+                ? `${shown.length} of ${matches.length} icons`
                 : `${matches.length} icons`)}
           </p>
         </div>

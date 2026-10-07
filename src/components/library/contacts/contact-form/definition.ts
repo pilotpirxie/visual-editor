@@ -79,7 +79,6 @@ export const definition: ComponentDefinition = {
       label: 'Form action URL',
       type: 'text',
       default: '',
-      help: 'Address that receives submissions. Leave empty to show the form without sending it.',
       group: 'Form',
     },
     {

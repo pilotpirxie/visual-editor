@@ -1,17 +1,8 @@
 import { expect, test, type Page } from '@playwright/test';
-import { createProject, insertBlock } from './editor';
+import { addPage, createProject, insertBlock } from './editor';
 
 function canvas(page: Page) {
   return page.frameLocator('.ve-canvas-frame');
-}
-
-async function addPage(page: Page, name: string): Promise<void> {
-  await page.locator('.ve-page-switcher').click();
-  await page.locator('.ve-page-switcher-menu').getByRole('button', { name: 'Add page' }).click();
-  const dialog = page.getByRole('dialog', { name: 'Add page' });
-  await dialog.getByLabel('Name').fill(name);
-  await dialog.getByRole('button', { name: 'Add page' }).click();
-  await expect(page.locator('.ve-page-switcher-name')).toHaveText(name);
 }
 
 async function selectHeroOnCanvas(page: Page): Promise<void> {

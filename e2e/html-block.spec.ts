@@ -20,7 +20,7 @@ async function convertHero(page: Page): Promise<void> {
   await page.getByRole('button', { name: 'Convert to HTML…' }).click();
   const dialog = page.getByRole('dialog', { name: 'Convert “Hero, centered text” to HTML?' });
   await dialog.getByRole('button', { name: 'Convert to HTML' }).click();
-  await expect(page.locator('.ve-properties-title')).toHaveText('HTML block');
+  await expect(page.locator('.ve-properties .ui-title')).toHaveText('HTML block');
 }
 
 test('a converted block looks the same and its code can be edited', async ({ page }) => {
@@ -47,5 +47,5 @@ test('undo right after converting brings the block back', async ({ page }) => {
   await insertBlock(page, 'Headers', 'Hero, centered text');
   await convertHero(page);
   await page.getByRole('button', { name: 'Undo', exact: true }).click();
-  await expect(page.locator('.ve-properties-title')).toHaveText('Hero, centered text');
+  await expect(page.locator('.ve-properties .ui-title')).toHaveText('Hero, centered text');
 });

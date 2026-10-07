@@ -97,12 +97,12 @@ function PagePicker({
 
   return (
     <>
-      <label className="ve-control-label" htmlFor={`${id}-page`}>
+      <label className="ui-field-label" htmlFor={`${id}-page`}>
         Page
       </label>
       <select
         id={`${id}-page`}
-        className="ve-input"
+        className="ui-input ui-select"
         value={link.pageId ?? THIS_PAGE}
         onChange={(event) => {
           const pageId = event.target.value === THIS_PAGE ? undefined : event.target.value;
@@ -139,12 +139,12 @@ function SectionPicker({
 
   return (
     <>
-      <label className="ve-control-label" htmlFor={`${id}-section`}>
+      <label className="ui-field-label" htmlFor={`${id}-section`}>
         Section
       </label>
       <select
         id={`${id}-section`}
-        className="ve-input"
+        className="ui-input ui-select"
         value={anchor}
         onChange={(event) => onChange({ ...link, anchor: event.target.value }, 'discrete')}
       >
@@ -156,11 +156,7 @@ function SectionPicker({
         ))}
         {isUnlisted && <option value={anchor}>#{anchor} (not on this page)</option>}
       </select>
-      {anchors.length === 0 && (
-        <p className="ve-control-help">
-          Give a block an anchor id on its Advanced tab to link to it.
-        </p>
-      )}
+      {anchors.length === 0 && <p className="ui-muted">No block on this page has an anchor id.</p>}
     </>
   );
 }
@@ -179,12 +175,12 @@ function AddressInput({
   const input = ADDRESS_INPUTS[type];
   return (
     <>
-      <label className="ve-control-label" htmlFor={`${id}-address`}>
+      <label className="ui-field-label" htmlFor={`${id}-address`}>
         {input.label}
       </label>
       <input
         id={`${id}-address`}
-        className="ve-input"
+        className="ui-input"
         type={input.type}
         placeholder={input.placeholder}
         spellCheck={false}
@@ -192,7 +188,7 @@ function AddressInput({
         onChange={(event) => onChange({ ...link, url: event.target.value }, 'continuous')}
       />
       {type === 'url' && (
-        <label className="ve-check">
+        <label className="ui-check">
           <input
             type="checkbox"
             checked={link.newTab}
@@ -210,13 +206,13 @@ function LinkEditor({ id, label, link, describedBy, onChange }: LinkEditorProps)
 
   return (
     <fieldset className="ve-link" aria-describedby={describedBy}>
-      <legend className="ve-control-label">{label}</legend>
+      <legend className="ui-field-label">{label}</legend>
       <label className="ve-visually-hidden" htmlFor={`${id}-type`}>
         {label}: link to
       </label>
       <select
         id={`${id}-type`}
-        className="ve-input"
+        className="ui-input ui-select"
         value={link.type}
         onChange={(event) => {
           const type = LINK_TYPE_ORDER.find((known) => known === event.target.value);
@@ -274,13 +270,13 @@ export function ButtonField({
 
   return (
     <fieldset className="ve-button-field" aria-describedby={describedBy}>
-      <legend className="ve-control-label">{field.label}</legend>
-      <label className="ve-control-label" htmlFor={`${id}-label`}>
+      <legend className="ui-field-label">{field.label}</legend>
+      <label className="ui-field-label" htmlFor={`${id}-label`}>
         Label
       </label>
       <input
         id={`${id}-label`}
-        className="ve-input"
+        className="ui-input"
         value={button.label}
         aria-invalid={isInvalid}
         onChange={(event) => onChange({ ...button, label: event.target.value }, 'continuous')}
@@ -292,12 +288,12 @@ export function ButtonField({
         describedBy={undefined}
         onChange={(link, kind) => onChange({ ...button, link }, kind)}
       />
-      <label className="ve-control-label" htmlFor={`${id}-variant`}>
+      <label className="ui-field-label" htmlFor={`${id}-variant`}>
         Style
       </label>
       <select
         id={`${id}-variant`}
-        className="ve-input"
+        className="ui-input ui-select"
         value={button.variant}
         onChange={(event) => {
           const variant = BUTTON_VARIANTS.find((known) => known === event.target.value);

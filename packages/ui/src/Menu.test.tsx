@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { pressKey, render } from '../../test/dom';
+import { pressKey, render } from '../../../src/test/dom';
 import { MenuButton, PointMenu, shortcutLabel, type MenuItem } from './Menu';
 
 function items(onSelect = vi.fn()): MenuItem[] {
@@ -29,7 +29,7 @@ describe('MenuButton', () => {
     const menu = container.querySelector('[role="menu"]');
     expect(button?.getAttribute('popovertarget')).toBe(menu?.id);
     expect(menuItems(container)).toHaveLength(3);
-    expect(container.querySelector('.ve-menu-separator')).not.toBeNull();
+    expect(container.querySelector('.ui-menu-separator')).not.toBeNull();
     expect(container.querySelector('[role="menuitemcheckbox"]')?.getAttribute('aria-checked')).toBe(
       'true',
     );

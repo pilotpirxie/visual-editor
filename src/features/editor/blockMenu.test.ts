@@ -3,7 +3,7 @@ import { blockSelected, clipboardTextStored } from '../../app/editorSlice';
 import { dispatch, store } from '../../app/store';
 import { homePage, loadIntoAppStore } from '../../test/fixtures';
 import { blockMenuItems, clipboardItems, type BlockMenuContext } from './blockMenu';
-import type { MenuAction, MenuItem } from './Menu';
+import { type MenuAction, type MenuItem } from '../../../packages/ui/src';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),

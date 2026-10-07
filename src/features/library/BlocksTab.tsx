@@ -4,8 +4,8 @@ import { registry } from '../../components/registry';
 import { CATEGORIES, type RegisteredComponent } from '../../components/types';
 import { dragController } from '../canvas/dragController';
 import { insertComponent } from '../editor/blockActions';
-import { Icon } from '../editor/Icon';
 import { filterComponents } from './search';
+import { Button, SearchInput, Title } from '../../../packages/ui/src';
 
 const THUMBNAIL_WIDTH = 640;
 const THUMBNAIL_HEIGHT = 400;
@@ -76,29 +76,29 @@ export function BlocksTab(): JSX.Element {
 
   return (
     <div className="ve-blocks">
-      <label className="ve-search">
-        <Icon name="search" />
-        <input
-          type="search"
-          placeholder="Search blocks"
-          aria-label="Search blocks"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-      </label>
+      <SearchInput
+        className="ve-blocks-search"
+        label="Search blocks"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+      />
 
       {isSearching && results.length > 0 && <ComponentGrid components={results} />}
       {isSearching && results.length === 0 && (
-        <p className="ve-muted">No blocks match “{query.trim()}”.</p>
+        <p className="ui-muted">No blocks match “{query.trim()}”.</p>
       )}
 
       {!isSearching && category && (
         <>
-          <button type="button" className="ve-back" onClick={() => setCategoryId(null)}>
-            <Icon name="chevron-left" />
+          <Button
+            variant="ghost"
+            icon="chevron-left"
+            className="ve-back"
+            onClick={() => setCategoryId(null)}
+          >
             All categories
-          </button>
-          <h2 className="ve-heading">{category.label}</h2>
+          </Button>
+          <Title>{category.label}</Title>
           <ComponentGrid components={category.components} />
         </>
       )}

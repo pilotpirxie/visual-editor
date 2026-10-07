@@ -6,11 +6,10 @@ import type { Device } from '../../app/types';
 import { blockLabel } from '../../components/registry';
 import { duplicateBlock, moveBlockBy, removeBlock } from '../editor/blockActions';
 import { useBlockMenuItems } from '../editor/blockMenu';
-import { Icon } from '../editor/Icon';
-import { MenuButton } from '../editor/Menu';
 import { dragController } from './dragController';
 import { PAGE_ROOT_ID } from './frameDom';
 import { blockToolbarTop, clamp } from './geometry';
+import { IconButton, MenuButton } from '../../../packages/ui/src';
 
 type Rect = { top: number; left: number; width: number; height: number };
 
@@ -151,53 +150,30 @@ function BlockToolbar({ blockId, rect, name, overlayHeight }: BlockToolbarProps)
   return (
     <div className="ve-block-toolbar" role="toolbar" aria-label={`${name} actions`} style={style}>
       {!isShared && (
-        <button
-          type="button"
+        <IconButton
           className="ve-block-handle"
-          aria-label="Drag to move"
-          title="Drag to move"
+          label="Drag to move"
+          icon="grip"
           onPointerDown={(event) => {
             event.currentTarget.setPointerCapture(event.pointerId);
             dragController.start({ kind: 'move', blockId, label: name }, event);
           }}
-        >
-          <Icon name="grip" />
-        </button>
+        />
       )}
-      <button
-        type="button"
-        aria-label="Move up"
-        title="Move up (Alt+↑)"
+      <IconButton
+        label="Move up"
+        icon="arrow-up"
         disabled={index <= 0}
         onClick={() => dispatch(moveBlockBy(blockId, -1))}
-      >
-        <Icon name="arrow-up" />
-      </button>
-      <button
-        type="button"
-        aria-label="Move down"
-        title="Move down (Alt+↓)"
+      />
+      <IconButton
+        label="Move down"
+        icon="arrow-down"
         disabled={index === -1 || index >= count - 1}
         onClick={() => dispatch(moveBlockBy(blockId, 1))}
-      >
-        <Icon name="arrow-down" />
-      </button>
-      <button
-        type="button"
-        aria-label="Duplicate"
-        title="Duplicate (⌘D)"
-        onClick={() => dispatch(duplicateBlock(blockId))}
-      >
-        <Icon name="copy" />
-      </button>
-      <button
-        type="button"
-        aria-label="Delete"
-        title="Delete (Del)"
-        onClick={() => dispatch(removeBlock(blockId))}
-      >
-        <Icon name="trash" />
-      </button>
+      />
+      <IconButton label="Duplicate" icon="copy" onClick={() => dispatch(duplicateBlock(blockId))} />
+      <IconButton label="Delete" icon="trash" onClick={() => dispatch(removeBlock(blockId))} />
       <MenuButton
         label="More actions"
         icon="ellipsis"
@@ -205,15 +181,12 @@ function BlockToolbar({ blockId, rect, name, overlayHeight }: BlockToolbarProps)
         isLabelShown={false}
         items={moreItems}
       />
-      <button
-        type="button"
+      <IconButton
         className="ve-compact-only"
-        aria-label={`Edit ${name}`}
-        title="Edit"
+        label={`Edit ${name}`}
+        icon="pencil"
         onClick={() => dispatch(compactTabSelected('properties'))}
-      >
-        <Icon name="pencil" />
-      </button>
+      />
     </div>
   );
 }

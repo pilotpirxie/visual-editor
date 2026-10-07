@@ -3,27 +3,27 @@ import { designSheetToggled } from '../../app/editorSlice';
 import { tokenSet, tokensSet, type EditKind } from '../../app/projectSlice';
 import { dispatch, useStore } from '../../app/store';
 import type { Token, TokenGenerators, TokenGroup } from '../../app/types';
-import { Icon } from '../editor/Icon';
-import { DraftInput } from '../properties/DraftInput';
-import { contrastWarnings, MIN_TEXT_CONTRAST } from './colors';
 import {
-  activeShadowPreset,
-  SHADOW_PRESETS,
-  spacingTokens,
-  TYPE_RATIOS,
-  typeScaleTokens,
-} from './generators';
-import { FontPicker } from './FontPicker';
+  DraftInput,
+  Field,
+  Icon,
+  IconButton,
+  Section,
+  SegmentedControl,
+  Title,
+} from '../../../packages/ui/src';
+import { useSection } from '../editor/useSection';
+import { contrastWarnings, MIN_TEXT_CONTRAST } from './colors';
+import { activeShadowPreset, SHADOW_PRESETS, spacingTokens } from './generators';
 import { IconSetPicker } from './IconSetPicker';
-import { PresetGallery } from './PresetGallery';
+import { PresetsSection } from './PresetList';
 import { TokenControl } from './TokenControls';
+import { TypographySection } from './TypographySection';
 import './designSystem.css';
 
-const FONT_FAMILY_TOKENS = ['--font-heading', '--font-body', '--font-mono'];
-const TYPE_BASE_LIMITS = { min: 12, max: 24 };
 const SPACE_UNIT_LIMITS = { min: 2, max: 12 };
-const SIZE_TOKEN = /^--text-/;
 const SPACE_STEP_TOKEN = /^--space-\d+$/;
+const TITLE_ID = 've-design-sheet-title';
 
 function tokensInGroup(tokens: Record<string, Token>, group: TokenGroup): Token[] {
   const inGroup: Token[] = [];
@@ -33,22 +33,39 @@ function tokensInGroup(tokens: Record<string, Token>, group: TokenGroup): Token[
   return inGroup;
 }
 
-function rangeError(text: string, limits: { min: number; max: number }): string | null {
-  const value = Number(text);
-  if (text.trim() !== '' && value >= limits.min && value <= limits.max) return null;
-  return `Use ${limits.min} to ${limits.max} px`;
+function spacingSplit(tokens: Record<string, Token>): { steps: Token[]; layout: Token[] } {
+  const steps: Token[] = [];
+  const layout: Token[] = [];
+  for (const token of tokensInGroup(tokens, 'spacing')) {
+    if (SPACE_STEP_TOKEN.test(token.name)) {
+      steps.push(token);
+    } else {
+      layout.push(token);
+    }
+  }
+  return { steps, layout };
 }
 
 function setToken(name: string, value: string, kind: EditKind): void {
   dispatch(tokenSet({ name, value }, kind));
 }
 
-function DesignSection({ title, children }: { title: string; children: ReactNode }): JSX.Element {
+function DesignSection({
+  id,
+  title,
+  defaultOpen = true,
+  children,
+}: {
+  id: string;
+  title: string;
+  defaultOpen?: boolean;
+  children: ReactNode;
+}): JSX.Element {
+  const section = useSection(`design:${id}`, defaultOpen);
   return (
-    <section className="ve-design-section">
-      <h3 className="ve-group-title">{title}</h3>
+    <Section title={title} isOpen={section.isOpen} onToggle={section.onToggle}>
       {children}
-    </section>
+    </Section>
   );
 }
 
@@ -89,61 +106,6 @@ function ContrastNotes({ tokens }: { tokens: Record<string, Token> }): JSX.Eleme
   );
 }
 
-function TypeScaleControls({ generators }: { generators: TokenGenerators }): JSX.Element {
-  function apply(typeBasePx: number, typeRatio: number, kind: EditKind): void {
-    dispatch(
-      tokensSet(
-        { values: typeScaleTokens(typeBasePx, typeRatio), generators: { typeBasePx, typeRatio } },
-        kind,
-      ),
-    );
-  }
-
-  return (
-    <div className="ve-design-generator">
-      <div className="ve-token-row">
-        <label className="ve-control-label" htmlFor="ve-type-base">
-          Base text size
-        </label>
-        <div className="ve-token-inputs">
-          <DraftInput
-            id="ve-type-base"
-            label="Base text size"
-            type="number"
-            min={TYPE_BASE_LIMITS.min}
-            max={TYPE_BASE_LIMITS.max}
-            step={1}
-            value={String(generators.typeBasePx)}
-            validate={(text) => rangeError(text, TYPE_BASE_LIMITS)}
-            onCommit={(text) => apply(Number(text), generators.typeRatio, 'continuous')}
-          />
-          <span className="ve-token-unit">px</span>
-        </div>
-      </div>
-      <div className="ve-token-row">
-        <label className="ve-control-label" htmlFor="ve-type-ratio">
-          Scale ratio
-        </label>
-        <select
-          id="ve-type-ratio"
-          className="ve-input"
-          value={String(generators.typeRatio)}
-          onChange={(event) => apply(generators.typeBasePx, Number(event.target.value), 'discrete')}
-        >
-          {TYPE_RATIOS.map(({ value, label }) => (
-            <option key={value} value={String(value)}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </div>
-      <p className="ve-control-help">
-        Generates every text size. Headings shrink on small screens.
-      </p>
-    </div>
-  );
-}
-
 function SpacingUnitControl({
   generators,
   tokens,
@@ -161,51 +123,41 @@ function SpacingUnitControl({
   }
 
   return (
-    <div className="ve-design-generator">
-      <div className="ve-token-row">
-        <label className="ve-control-label" htmlFor="ve-space-unit">
-          Base spacing unit
-        </label>
-        <div className="ve-token-inputs">
-          <DraftInput
-            id="ve-space-unit"
-            label="Base spacing unit"
-            type="number"
-            min={SPACE_UNIT_LIMITS.min}
-            max={SPACE_UNIT_LIMITS.max}
-            step={1}
-            value={String(generators.spaceUnitPx)}
-            validate={(text) => rangeError(text, SPACE_UNIT_LIMITS)}
-            onCommit={(text) => apply(Number(text))}
-          />
-          <span className="ve-token-unit">px</span>
-        </div>
-      </div>
-      <p className="ve-control-help">Generates every numbered space step.</p>
-    </div>
+    <Field id="ve-space-unit" label="Base spacing unit" layout="inline">
+      <DraftInput
+        id="ve-space-unit"
+        type="number"
+        unit="px"
+        min={SPACE_UNIT_LIMITS.min}
+        max={SPACE_UNIT_LIMITS.max}
+        step={1}
+        value={String(generators.spaceUnitPx)}
+        validate={(text) => {
+          const value = Number(text);
+          const isInRange = value >= SPACE_UNIT_LIMITS.min && value <= SPACE_UNIT_LIMITS.max;
+          if (text.trim() !== '' && isInRange) return null;
+          return `Use ${SPACE_UNIT_LIMITS.min} to ${SPACE_UNIT_LIMITS.max} px`;
+        }}
+        onCommit={(text) => apply(Number(text))}
+      />
+    </Field>
   );
 }
 
 function ShadowPresetPicker({ tokens }: { tokens: Record<string, Token> }): JSX.Element {
-  const active = activeShadowPreset(tokens);
+  const options = [];
+  for (const preset of SHADOW_PRESETS) options.push({ value: preset.id, label: preset.label });
   return (
-    <fieldset className="ve-segmented">
-      <legend className="ve-control-label">Shadows</legend>
-      <div className="ve-segmented-options">
-        {SHADOW_PRESETS.map((preset) => (
-          <label key={preset.id} className="ve-segment">
-            <input
-              type="radio"
-              name="ve-shadow-preset"
-              value={preset.id}
-              checked={active === preset.id}
-              onChange={() => dispatch(tokensSet({ values: preset.values }, 'discrete'))}
-            />
-            {preset.label}
-          </label>
-        ))}
-      </div>
-    </fieldset>
+    <SegmentedControl
+      legend="Shadows"
+      name="ve-shadow-preset"
+      options={options}
+      value={activeShadowPreset(tokens) ?? ''}
+      onChange={(id) => {
+        const preset = SHADOW_PRESETS.find((item) => item.id === id);
+        if (preset !== undefined) dispatch(tokensSet({ values: preset.values }, 'discrete'));
+      }}
+    />
   );
 }
 
@@ -222,81 +174,39 @@ function closeOnEscape(event: KeyboardEvent<HTMLElement>): void {
 export function DesignSystemSheet(): JSX.Element {
   const tokens = useStore((state) => state.project.designSystem.tokens);
   const generators = useStore((state) => state.project.designSystem.generators);
-  const typography = tokensInGroup(tokens, 'typography').filter(
-    (token) => !FONT_FAMILY_TOKENS.includes(token.name),
-  );
+  const spacing = spacingSplit(tokens);
 
   return (
-    <aside className="ve-design-sheet" aria-label="Design system" onKeyDown={closeOnEscape}>
+    <aside className="ve-design-sheet" aria-labelledby={TITLE_ID} onKeyDown={closeOnEscape}>
       <header className="ve-design-sheet-header">
-        <div>
-          <h2 className="ve-properties-title">Design system</h2>
-          <p className="ve-muted">Applies to every block on every page.</p>
-        </div>
-        <button
-          type="button"
-          className="ve-icon-button"
-          aria-label="Close design system"
-          title="Close (Esc)"
-          onClick={closeSheet}
-        >
-          <Icon name="x" />
-        </button>
+        <Title id={TITLE_ID}>Design system</Title>
+        <IconButton label="Close design system" icon="x" onClick={closeSheet} />
       </header>
       <div className="ve-design-sheet-body">
-        <DesignSection title="Presets">
-          <PresetGallery />
-        </DesignSection>
-        <DesignSection title="Colors">
+        <PresetsSection />
+        <DesignSection id="colors" title="Colors">
           <ContrastNotes tokens={tokens} />
           <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'color')} />
         </DesignSection>
-        <DesignSection title="Typography">
-          <FontPicker role="heading" label="Heading font" />
-          <FontPicker role="body" label="Body font" />
-          <FontPicker role="mono" label="Mono font" />
-          <TypeScaleControls generators={generators} />
-          <TokenList
-            tokens={tokens}
-            shown={typography.filter((token) => !SIZE_TOKEN.test(token.name))}
-          />
-          <details className="ve-design-details">
-            <summary>Text sizes</summary>
-            <TokenList
-              tokens={tokens}
-              shown={typography.filter((token) => SIZE_TOKEN.test(token.name))}
-            />
-          </details>
-        </DesignSection>
-        <DesignSection title="Spacing">
+        <TypographySection />
+        <DesignSection id="spacing" title="Spacing">
           <SpacingUnitControl generators={generators} tokens={tokens} />
-          <TokenList
-            tokens={tokens}
-            shown={tokensInGroup(tokens, 'spacing').filter(
-              (token) => !SPACE_STEP_TOKEN.test(token.name),
-            )}
-          />
-          <details className="ve-design-details">
-            <summary>Space steps</summary>
-            <TokenList
-              tokens={tokens}
-              shown={tokensInGroup(tokens, 'spacing').filter((token) =>
-                SPACE_STEP_TOKEN.test(token.name),
-              )}
-            />
-          </details>
+          <TokenList tokens={tokens} shown={spacing.layout} />
         </DesignSection>
-        <DesignSection title="Shape and elevation">
+        <DesignSection id="space-steps" title="Space steps" defaultOpen={false}>
+          <TokenList tokens={tokens} shown={spacing.steps} />
+        </DesignSection>
+        <DesignSection id="shape" title="Shape and elevation">
           <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'shape')} />
           <ShadowPresetPicker tokens={tokens} />
         </DesignSection>
-        <DesignSection title="Components">
+        <DesignSection id="components" title="Components">
           <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'component')} />
         </DesignSection>
-        <DesignSection title="Motion">
+        <DesignSection id="motion" title="Motion">
           <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'motion')} />
         </DesignSection>
-        <DesignSection title="Icons">
+        <DesignSection id="icons" title="Icons">
           <IconSetPicker />
         </DesignSection>
       </div>

@@ -7,7 +7,10 @@ import {
   type KeyboardEvent,
   type RefObject,
 } from 'react';
+import { buttonClassName, type ButtonVariant } from './Button';
+import { classNames } from './classNames';
 import { Icon } from './Icon';
+import './Menu.css';
 
 export type MenuAction = {
   id: string;
@@ -129,14 +132,14 @@ function MenuList({ id, label, items, menuRef, className }: MenuListProps): JSX.
     <div
       ref={menuRef}
       id={id}
-      className={className === undefined ? 've-menu' : `ve-menu ${className}`}
+      className={classNames('ui-menu', className)}
       popover="auto"
       role="menu"
       aria-label={label}
       onKeyDown={moveFocus}
     >
       {items.map((item) => {
-        if (isSeparator(item)) return <div key={item.id} className="ve-menu-separator" />;
+        if (isSeparator(item)) return <div key={item.id} className="ui-menu-separator" />;
         const isCheckable = item.isChecked !== undefined;
         return (
           <button
@@ -145,7 +148,7 @@ function MenuList({ id, label, items, menuRef, className }: MenuListProps): JSX.
             role={isCheckable ? 'menuitemcheckbox' : 'menuitem'}
             aria-label={item.label}
             aria-checked={isCheckable ? item.isChecked : undefined}
-            className={item.isDanger === true ? 've-menu-danger' : undefined}
+            className={item.isDanger === true ? 'ui-menu-danger' : undefined}
             disabled={item.disabled}
             title={item.hint}
             onClick={(event) => {
@@ -153,12 +156,12 @@ function MenuList({ id, label, items, menuRef, className }: MenuListProps): JSX.
               item.onSelect();
             }}
           >
-            <span className="ve-menu-check" aria-hidden="true">
+            <span className="ui-menu-check" aria-hidden="true">
               {item.isChecked === true ? '✓' : ''}
             </span>
-            <span className="ve-menu-label">{item.label}</span>
+            <span className="ui-menu-label">{item.label}</span>
             {item.shortcut !== undefined && (
-              <kbd className="ve-menu-shortcut">{shortcutLabel(item.shortcut)}</kbd>
+              <kbd className="ui-menu-shortcut">{shortcutLabel(item.shortcut)}</kbd>
             )}
           </button>
         );
@@ -171,32 +174,40 @@ type MenuButtonProps = {
   label: string;
   items: MenuItem[];
   icon?: string;
+  variant?: ButtonVariant;
   className?: string;
   isLabelShown?: boolean;
+  status?: string;
 };
 
 export function MenuButton({
   label,
   items,
   icon,
-  className = 've-button',
+  variant = 'ghost',
+  className,
   isLabelShown = true,
+  status,
 }: MenuButtonProps): JSX.Element {
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
   useToggle(menuRef);
+  const buttonClass = isLabelShown
+    ? buttonClassName(variant, className)
+    : classNames('ui-icon-button', className);
   return (
     <>
       <button
         type="button"
-        className={className}
+        className={buttonClass}
         popoverTarget={menuId}
         aria-haspopup="menu"
-        aria-label={label}
-        title={label}
+        aria-label={status === undefined ? label : `${label}, ${status}`}
+        title={status === undefined ? label : `${label} (${status})`}
       >
         {icon !== undefined && <Icon name={icon} />}
         {isLabelShown && <span className="ve-wide-only">{label}</span>}
+        {status !== undefined && <span className="ui-menu-dot" aria-hidden="true" />}
       </button>
       <MenuList id={menuId} label={label} items={items} menuRef={menuRef} />
     </>
@@ -229,7 +240,7 @@ export function PointMenu({ label, items, point, onClose }: PointMenuProps): JSX
       label={label}
       items={items}
       menuRef={menuRef}
-      className="ve-menu--at-point"
+      className="ui-menu--at-point"
     />
   );
 }

@@ -77,14 +77,14 @@ describe('LinkField', () => {
     );
   });
 
-  it('explains how to get anchors when the page has none', () => {
+  it('says so when the page has no anchors to link to', () => {
     const { container } = renderLink({
       type: 'section',
       pageId: 'about',
       anchor: '',
       newTab: false,
     });
-    expect(container.textContent).toContain('Give a block an anchor id on its Advanced tab');
+    expect(container.textContent).toContain('No block on this page has an anchor id.');
   });
 
   it('types a web address and opens it in a new tab', () => {

@@ -6,12 +6,12 @@ import { slugify } from '../../app/slugs';
 import { dispatch, store } from '../../app/store';
 import { registry } from '../../components/registry';
 import { buildExportFiles, type ExportResult } from '../../render/exportSite';
-import { closeDialogOf, Dialog } from '../editor/Dialog';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import { downloadBlob } from './download';
 import { canExportToFolder, pickExportFolder, writeToFolder } from './exportFolder';
 import { collectExportWarnings, type ExportWarning } from './exportWarnings';
 import { createZip, zipEntriesOf } from './zip';
+import { closeDialogOf, Dialog } from '../../../packages/ui/src';
 
 const TITLE_ID = 've-export-title';
 const BYTES_PER_KILOBYTE = 1024;
@@ -91,11 +91,11 @@ function Summary({ result }: { result: ExportResult }): JSX.Element {
         {paths.map((path) => (
           <li key={path}>
             <span>{path}</span>
-            <span className="ve-muted">{formatBytes(sizes.get(path) ?? 0)}</span>
+            <span className="ui-muted">{formatBytes(sizes.get(path) ?? 0)}</span>
           </li>
         ))}
       </ul>
-      <p className="ve-muted">
+      <p className="ui-muted">
         Left out: {omitted.components} unused blocks, {omitted.tokens} unused design tokens
         {omitted.primitives.length > 0
           ? `, unused styles for ${omitted.primitives.join(', ')}`
@@ -141,19 +141,19 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
 
   const hasWarnings = preparation.kind === 'ready' && preparation.warnings.length > 0;
   return (
-    <Dialog labelId={TITLE_ID} className="ve-dialog--wide" onClose={onClose}>
-      <div className="ve-dialog-body">
-        <h2 id={TITLE_ID} className="ve-properties-title">
+    <Dialog labelId={TITLE_ID} size="wide" onClose={onClose}>
+      <div className="ui-dialog-body">
+        <h2 id={TITLE_ID} className="ui-title">
           Export site
         </h2>
-        {preparation.kind === 'preparing' && <p className="ve-muted">Preparing your files…</p>}
+        {preparation.kind === 'preparing' && <p className="ui-muted">Preparing your files…</p>}
         {preparation.kind === 'failed' && (
-          <p className="ve-control-error" role="alert">
+          <p className="ui-field-error" role="alert">
             The site could not be exported: {preparation.message}
           </p>
         )}
         {preparation.kind === 'ready' && hasWarnings && (
-          <div className="ve-dialog-warning" role="note">
+          <div className="ui-dialog-note" role="note">
             <strong>Check these before you publish</strong>
             <ul>
               {preparation.warnings.map((warning, index) => (
@@ -171,10 +171,10 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
           </p>
         )}
         {preparation.kind === 'ready' && <Summary result={preparation.result} />}
-        <div className="ve-dialog-actions">
+        <div className="ui-dialog-actions">
           <button
             type="button"
-            className="ve-button ve-button--outline"
+            className="ui-button ui-button--secondary"
             onClick={(event) => closeDialogOf(event.currentTarget)}
           >
             Cancel
@@ -182,7 +182,7 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
           {preparation.kind === 'ready' && canExportToFolder() && (
             <button
               type="button"
-              className="ve-button ve-button--outline"
+              className="ui-button ui-button--secondary"
               disabled={isBusy}
               onClick={(event) => void run(saveToFolder, event.currentTarget)}
             >
@@ -192,7 +192,7 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
           {preparation.kind === 'ready' && (
             <button
               type="button"
-              className="ve-button ve-button--primary"
+              className="ui-button ui-button--primary"
               disabled={isBusy}
               onClick={(event) => void run(downloadZip, event.currentTarget)}
             >

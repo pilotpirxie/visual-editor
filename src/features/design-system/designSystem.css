@@ -1,32 +1,30 @@
 @layer components {
   .ve-preset-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .ve-preset-card {
+  .ve-preset-row {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 10px;
-    border: 1px solid var(--ve-border);
-    border-radius: var(--ve-radius);
-    background: var(--ve-bg);
+    align-items: center;
+    gap: 12px;
+    min-height: calc(var(--ve-target) + 16px);
+    padding-block: 8px;
+    border-bottom: 1px solid var(--ve-border);
   }
 
-  .ve-preset-card[data-current] {
-    border-color: var(--ve-accent);
-    box-shadow: 0 0 0 1px var(--ve-accent);
+  .ve-preset-row:last-child {
+    border-bottom: 0;
   }
 
   .ve-preset-swatches {
     display: flex;
-    height: 28px;
-    margin-bottom: 4px;
+    flex: none;
+    width: 60px;
+    height: 24px;
     overflow: hidden;
     border: 1px solid var(--ve-border);
     border-radius: 4px;
@@ -36,35 +34,40 @@
     flex: 1;
   }
 
-  .ve-preset-actions {
+  .ve-preset-text {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 4px;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .ve-preset-text > span {
+    overflow: hidden;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ve-preset-current {
+    flex: none;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--ve-accent-soft);
+    color: var(--ve-accent);
+    font-size: 12px;
+    font-weight: 600;
   }
 
   .ve-preset-groups {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin: 0;
-    padding: 0;
-    border: 0;
-  }
-
-  .ve-specimen {
-    width: 100%;
-    height: 560px;
-    margin-top: 8px;
-    border: 1px solid var(--ve-border);
-    border-radius: var(--ve-radius);
+    gap: 4px;
   }
 
   .ve-icon-samples {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 8px 0;
     color: var(--ve-text);
   }
 
@@ -88,10 +91,10 @@
 
   .ve-design-sheet-header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 16px;
+    padding: 8px 8px 8px 16px;
     border-bottom: 1px solid var(--ve-border);
   }
 
@@ -101,48 +104,10 @@
     overflow-y: auto;
   }
 
-  .ve-design-section {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 16px;
-    border-bottom: 1px solid var(--ve-border);
-  }
-
-  .ve-design-generator {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 12px;
-    border-radius: var(--ve-radius);
-    background: var(--ve-surface);
-  }
-
-  .ve-design-details {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .ve-design-details > summary {
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .ve-design-details[open] > summary {
-    margin-bottom: 12px;
-  }
-
-  .ve-design-details .ve-token-row + .ve-token-row {
-    margin-top: 12px;
-  }
-
   .ve-design-warnings {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    padding: 0;
-    list-style: none;
   }
 
   .ve-design-warnings li {
@@ -152,99 +117,61 @@
     border-radius: var(--ve-radius);
     background: #fef3c7;
     color: #78350f;
-    font-size: 13px;
   }
 
-  .ve-token-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
-    gap: 4px 12px;
-    align-items: center;
-  }
-
-  .ve-token-row > .ve-control-error {
-    grid-column: 2;
-  }
-
-  .ve-token-inputs {
-    display: flex;
+  .ve-token-row .ui-field-control {
     flex-wrap: wrap;
-    align-items: center;
-    gap: 6px;
-    min-width: 0;
   }
 
-  .ve-token-inputs > .ve-input {
+  .ve-token-row .ui-field-control > .ui-input {
     flex: 1;
-    min-width: 0;
   }
 
-  .ve-token-inputs > .ve-control-error {
+  .ve-token-row .ui-field-control > .ui-field-error {
     flex-basis: 100%;
   }
 
-  .ve-token-inputs input[type='color'] {
+  .ve-color-input {
+    flex: none;
     width: 40px;
-    height: 32px;
+    height: var(--ve-control-height);
     padding: 2px;
-    border: 1px solid var(--ve-border);
+    border: 1px solid var(--ve-border-strong);
     border-radius: var(--ve-radius);
     background: var(--ve-bg);
   }
 
-  .ve-token-inputs input[type='range'] {
+  .ve-range-input {
     flex: 1;
     min-width: 80px;
-  }
-
-  .ve-token-unit {
-    color: var(--ve-muted);
-    font-size: 12px;
+    height: var(--ve-target);
+    accent-color: var(--ve-accent);
   }
 
   .ve-design-sheet .ve-token-select {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
-    gap: 4px 12px;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
-  .ve-design-sheet .ve-token-select > :nth-child(n + 3) {
-    grid-column: 2;
-  }
-
-  .ve-font-picker {
+  .ve-type-role {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
 
+  .ve-type-role + .ve-type-role {
+    padding-top: 12px;
+    border-top: 1px solid var(--ve-border);
+  }
+
   .ve-font-current {
-    flex: 1;
-    min-width: 0;
+    justify-content: flex-start;
+    width: 100%;
     overflow: hidden;
     font-size: 15px;
+    font-weight: 400;
     text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .ve-font-weights {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .ve-font-weight-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 12px;
-  }
-
-  .ve-font-weight {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-variant-numeric: tabular-nums;
   }
 
   .ve-font-browser {
@@ -264,14 +191,12 @@
 
   .ve-font-list {
     max-height: 320px;
-    margin: 0;
-    padding: 0;
     overflow-y: auto;
-    list-style: none;
   }
 
   .ve-font-option {
     width: 100%;
+    min-height: var(--ve-target);
     padding: 8px 10px;
     border: 0;
     border-radius: var(--ve-radius);
@@ -299,14 +224,16 @@
       box-shadow: none;
     }
 
-    .ve-token-row,
-    .ve-design-sheet .ve-token-select {
+    .ve-design-sheet .ui-field[data-layout='inline'] {
       grid-template-columns: minmax(0, 1fr);
     }
 
-    .ve-token-row > .ve-control-error,
-    .ve-design-sheet .ve-token-select > :nth-child(n + 3) {
+    .ve-design-sheet .ui-field[data-layout='inline'] > .ui-field-error {
       grid-column: 1;
+    }
+
+    .ve-font-filters {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 }

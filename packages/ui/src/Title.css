@@ -1,0 +1,10 @@
+@layer components {
+  .ui-title {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .ui-muted {
+    color: var(--ve-muted);
+  }
+}

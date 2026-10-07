@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent, type JSX } from 'react';
+import { useState, type FormEvent, type JSX } from 'react';
 import { isImageValue } from '../../components/fields';
 import {
   PLACEHOLDER_RATIOS,
@@ -8,9 +8,19 @@ import {
   type PlaceholderSubject,
 } from '../../components/types';
 import { placeholderDataUrl, placeholderImage } from '../../render/placeholder';
-import '../editor/dialog.css';
-import { Icon } from '../editor/Icon';
 import type { ControlProps } from './FieldControl';
+import {
+  Button,
+  Checkbox,
+  closeDialogOf,
+  Dialog,
+  DialogActions,
+  DialogBody,
+  Field,
+  fieldErrorId,
+  Select,
+  TextInput,
+} from '../../../packages/ui/src';
 
 const DEFAULT_PLACEHOLDER = { ratio: '4:3', subject: 'photo' } as const;
 
@@ -21,6 +31,15 @@ const SUBJECT_LABELS: Record<PlaceholderSubject, string> = {
   logo: 'Logo',
   screenshot: 'Screenshot',
 };
+
+const ALT_ERROR = 'Add alt text or mark the image as decorative';
+
+const RATIO_OPTIONS = PLACEHOLDER_RATIOS.map((ratio) => ({ value: ratio, label: ratio }));
+
+const SUBJECT_OPTIONS = PLACEHOLDER_SUBJECTS.map((subject) => ({
+  value: subject,
+  label: SUBJECT_LABELS[subject],
+}));
 
 function isRatio(value: string): value is PlaceholderRatio {
   return PLACEHOLDER_RATIOS.some((ratio) => ratio === value);
@@ -41,20 +60,11 @@ function hasAccessibleText(image: ImageValue): boolean {
 }
 
 export function ImageField({ field, value, id, describedBy, onChange }: ControlProps): JSX.Element {
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const [draft, setDraft] = useState<ImageValue | null>(null);
   const image = isImageValue(value) ? value : null;
   const labelId = `${id}-label`;
   const titleId = `${id}-dialog-title`;
   const altId = `${id}-alt`;
-  const altErrorId = `${id}-alt-error`;
-
-  const isEditing = draft !== null;
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (isEditing && dialog !== null && !dialog.open) dialog.showModal();
-  }, [isEditing]);
 
   function open(): void {
     setDraft(image ?? placeholderImage(DEFAULT_PLACEHOLDER, ''));
@@ -64,7 +74,7 @@ export function ImageField({ field, value, id, describedBy, onChange }: ControlP
     event.preventDefault();
     if (draft === null || !hasAccessibleText(draft)) return;
     onChange(draft, 'discrete');
-    dialogRef.current?.close();
+    closeDialogOf(event.currentTarget);
   }
 
   function changeShape(ratio: string, subject: string): void {
@@ -76,7 +86,7 @@ export function ImageField({ field, value, id, describedBy, onChange }: ControlP
 
   return (
     <>
-      <span className="ve-control-label" id={labelId}>
+      <span className="ui-field-label" id={labelId}>
         {field.label}
       </span>
       <div className="ve-image">
@@ -85,112 +95,64 @@ export function ImageField({ field, value, id, describedBy, onChange }: ControlP
         )}
         <div className="ve-image-meta">
           <p className="ve-image-alt">{image ? describeImage(image) : 'No image'}</p>
-          <button
+          <Button
             id={id}
-            type="button"
-            className="ve-button ve-button--outline"
+            icon="image"
             aria-labelledby={`${labelId} ${id}`}
             aria-describedby={describedBy}
             onClick={open}
           >
-            <Icon name="image" />
             Change image
-          </button>
+          </Button>
         </div>
       </div>
 
-      <dialog
-        ref={dialogRef}
-        className="ve-dialog"
-        aria-labelledby={titleId}
-        onClose={() => setDraft(null)}
-      >
-        {draft && (
-          <form className="ve-dialog-form" onSubmit={finish}>
-            <h2 id={titleId} className="ve-properties-title">
-              {field.label}
-            </h2>
+      {draft !== null && (
+        <Dialog labelId={titleId} onClose={() => setDraft(null)}>
+          <DialogBody titleId={titleId} title={field.label} onSubmit={finish}>
             <img className="ve-image-preview" src={placeholderDataUrl(draft.placeholder)} alt="" />
-            <div className="ve-dialog-row">
-              <label className="ve-control">
-                <span className="ve-control-label">Shape</span>
-                <select
-                  className="ve-input"
+            <div className="ve-image-shape">
+              <Field id={`${id}-ratio`} label="Shape">
+                <Select
+                  id={`${id}-ratio`}
                   value={draft.placeholder.ratio}
+                  options={RATIO_OPTIONS}
                   onChange={(event) => changeShape(event.target.value, draft.placeholder.subject)}
-                >
-                  {PLACEHOLDER_RATIOS.map((ratio) => (
-                    <option key={ratio} value={ratio}>
-                      {ratio}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="ve-control">
-                <span className="ve-control-label">Subject</span>
-                <select
-                  className="ve-input"
+                />
+              </Field>
+              <Field id={`${id}-subject`} label="Subject">
+                <Select
+                  id={`${id}-subject`}
                   value={draft.placeholder.subject}
+                  options={SUBJECT_OPTIONS}
                   onChange={(event) => changeShape(draft.placeholder.ratio, event.target.value)}
-                >
-                  {PLACEHOLDER_SUBJECTS.map((subject) => (
-                    <option key={subject} value={subject}>
-                      {SUBJECT_LABELS[subject]}
-                    </option>
-                  ))}
-                </select>
-              </label>
+                />
+              </Field>
             </div>
-            <div className="ve-control">
-              <label className="ve-control-label" htmlFor={altId}>
-                Alt text
-              </label>
-              <input
+            <Field id={altId} label="Alt text" error={isDraftValid ? null : ALT_ERROR}>
+              <TextInput
                 id={altId}
-                className="ve-input"
-                type="text"
                 value={draft.alt}
                 disabled={draft.decorative}
-                aria-invalid={!isDraftValid}
-                aria-describedby={isDraftValid ? undefined : altErrorId}
+                isInvalid={!isDraftValid}
+                aria-describedby={isDraftValid ? undefined : fieldErrorId(altId)}
                 onChange={(event) => setDraft({ ...draft, alt: event.target.value })}
               />
-              <p className="ve-control-help">
-                Describe what the image shows for people who can't see it.
-              </p>
-            </div>
-            <label className="ve-check">
-              <input
-                type="checkbox"
-                checked={draft.decorative}
-                onChange={(event) => setDraft({ ...draft, decorative: event.target.checked })}
-              />
-              Decorative image, screen readers skip it
-            </label>
-            {!isDraftValid && (
-              <p id={altErrorId} className="ve-control-error" role="alert">
-                Add alt text or mark the image as decorative
-              </p>
-            )}
-            <div className="ve-dialog-actions">
-              <button
-                type="button"
-                className="ve-button ve-button--outline"
-                onClick={() => dialogRef.current?.close()}
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="ve-button ve-button--primary"
-                disabled={!isDraftValid}
-              >
+            </Field>
+            <Checkbox
+              label="Decorative image, screen readers skip it"
+              checked={draft.decorative}
+              onChange={(event) => setDraft({ ...draft, decorative: event.target.checked })}
+            />
+            <DialogActions>
+              <Button onClick={(event) => closeDialogOf(event.currentTarget)}>Cancel</Button>
+              <Button type="submit" variant="primary" disabled={!isDraftValid}>
                 Done
-              </button>
-            </div>
-          </form>
-        )}
-      </dialog>
+              </Button>
+            </DialogActions>
+          </DialogBody>
+        </Dialog>
+      )}
     </>
   );
 }

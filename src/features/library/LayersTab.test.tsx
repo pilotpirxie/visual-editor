@@ -68,7 +68,7 @@ function layoutGroups(container: HTMLElement): void {
 
 function groupTitles(container: HTMLElement): string[] {
   const titles: string[] = [];
-  for (const title of container.querySelectorAll('.ve-group-title')) {
+  for (const title of container.querySelectorAll('.ui-section-title')) {
     titles.push(title.textContent ?? '');
   }
   return titles;
@@ -150,7 +150,7 @@ describe('LayersTab', () => {
     if (navRow === null) throw new Error('No layer rows');
     firePointer(navRow, 'pointerdown', { clientX: 10, clientY: 10, button: 0, buttons: 1 });
     firePointer(window, 'pointermove', { clientX: 10, clientY: 90, buttons: 1 });
-    expect(container.querySelector('[data-drop="before"]')?.textContent).toBe(
+    expect(container.querySelector('[data-drop="before"] .ve-layer-name')?.textContent).toBe(
       'Features grid, 3 columns',
     );
     firePointer(window, 'pointerup', { clientX: 10, clientY: 90, buttons: 0 });
@@ -263,11 +263,24 @@ describe('LayersTab context menu', () => {
       row.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, clientX: 20, clientY: 30 }));
     });
     expect(store.getState().editor.selectedBlockId).toBe(blockIds()[1]);
-    const menu = container.querySelector('[role="menu"]');
-    expect(menu?.getAttribute('aria-label')).toBe('Hero, centered text actions');
-    const duplicate = getButton(container, 'Duplicate');
+    const menu = container.querySelector('[role="menu"][aria-label="Hero, centered text actions"]');
+    if (menu === null) throw new Error('Expected the right-click menu');
+    const duplicate = getButton(menu, 'Duplicate');
     firePointer(duplicate, 'pointerdown', { button: 0 });
     click(duplicate);
+    expect(blockIds()).toHaveLength(5);
+  });
+
+  it('offers the same actions from a button on every row, for touch screens', () => {
+    const { container } = render(<LayersTab />);
+    const menu = container.querySelector(
+      '[role="menu"][aria-label="More actions for Hero, centered text"]',
+    );
+    if (menu === null) throw new Error('Expected a row menu');
+    expect(
+      getButton(container, 'More actions for Hero, centered text').getAttribute('aria-haspopup'),
+    ).toBe('menu');
+    click(getButton(menu, 'Duplicate'));
     expect(blockIds()).toHaveLength(5);
   });
 });

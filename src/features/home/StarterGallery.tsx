@@ -7,6 +7,7 @@ import { loadStarter, STARTERS, type StarterInfo } from '../../starters/starters
 import { useElementSize } from '../canvas/Canvas';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import { StarterPreview } from './StarterPreview';
+import { Button } from '../../../packages/ui/src';
 
 const THUMBNAIL_WIDTH = 1440;
 const THUMBNAIL_HEIGHT = 900;
@@ -83,12 +84,12 @@ export function StarterGallery({ isDisabled, onUse }: StarterGalleryProps): JSX.
 
   if (error !== null) {
     return (
-      <p className="ve-home-error" role="alert">
+      <p className="ui-field-error" role="alert">
         Could not load the starters: {error}
       </p>
     );
   }
-  if (starters === null) return <p className="ve-muted">Loading starters…</p>;
+  if (starters === null) return <p className="ui-muted">Loading starters…</p>;
 
   return (
     <>
@@ -99,26 +100,23 @@ export function StarterGallery({ isDisabled, onUse }: StarterGalleryProps): JSX.
             <li key={starter.id} className="ve-starter-card">
               <StarterThumbnail project={project} />
               <h3 className="ve-starter-name">{starter.name}</h3>
-              <p className="ve-muted">{starter.description}</p>
+              <p className="ui-muted">{starter.description}</p>
               <p className="ve-starter-pages">{pageNamesOf(project).join(' · ')}</p>
               <div className="ve-starter-actions">
-                <button
-                  type="button"
-                  className="ve-button ve-button--outline"
+                <Button
                   aria-label={`Preview ${starter.name}`}
                   onClick={() => setPreviewing(loaded)}
                 >
                   Preview
-                </button>
-                <button
-                  type="button"
-                  className="ve-button ve-button--primary"
+                </Button>
+                <Button
+                  variant="primary"
                   aria-label={`Use the ${starter.name} starter`}
                   disabled={isDisabled}
                   onClick={() => onUse(starter, project)}
                 >
                   Use this starter
-                </button>
+                </Button>
               </div>
             </li>
           );

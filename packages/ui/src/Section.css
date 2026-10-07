@@ -1,0 +1,56 @@
+@layer components {
+  .ui-section {
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ui-section-summary {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: var(--ve-target);
+    padding: 8px 16px;
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .ui-section-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .ui-section-summary > .ve-icon {
+    color: var(--ve-muted);
+    transition: rotate 120ms;
+  }
+
+  .ui-section:not([open]) > .ui-section-summary > .ve-icon {
+    rotate: -90deg;
+  }
+
+  .ui-section-title {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .ui-section-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 4px 16px 16px;
+  }
+
+  .ui-dialog .ui-section-summary,
+  .ui-dialog .ui-section-body {
+    padding-inline: 0;
+  }
+
+  .ui-dialog .ui-section:last-child {
+    border-bottom: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ui-section-summary > .ve-icon {
+      transition: none;
+    }
+  }
+}

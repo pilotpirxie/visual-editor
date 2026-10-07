@@ -9,7 +9,7 @@ import {
   projectLoaded,
 } from './projectSlice';
 import type { SaveStatus } from '../persistence/autosave';
-import type { DesignSystem, Device, Project } from './types';
+import type { Device, Project } from './types';
 
 export type DeviceMode = 'responsive' | Device;
 export type PanelSide = 'left' | 'right';
@@ -67,8 +67,8 @@ export type EditorState = {
   linkedFile: LinkedFile | null;
   isLinkedFileStale: boolean;
   conversionBlockId: string | null;
-  previewDesignSystem: DesignSystem | null;
   iconSetsVersion: number;
+  sectionStates: Record<string, boolean>;
 };
 
 const initialState: EditorState = {
@@ -94,8 +94,8 @@ const initialState: EditorState = {
   linkedFile: null,
   isLinkedFileStale: false,
   conversionBlockId: null,
-  previewDesignSystem: null,
   iconSetsVersion: 0,
+  sectionStates: {},
 };
 
 export const editorSlice = createSlice({
@@ -157,10 +157,9 @@ export const editorSlice = createSlice({
     },
     designSheetToggled(state, action: PayloadAction<boolean>) {
       state.isDesignSheetOpen = action.payload;
-      if (!action.payload) state.previewDesignSystem = null;
     },
-    designPreviewSet(state, action: PayloadAction<DesignSystem | null>) {
-      state.previewDesignSystem = action.payload;
+    sectionToggled(state, action: PayloadAction<{ id: string; isOpen: boolean }>) {
+      state.sectionStates[action.payload.id] = action.payload.isOpen;
     },
     iconSetsLoaded(state) {
       state.iconSetsVersion += 1;
@@ -237,7 +236,6 @@ export const editorSlice = createSlice({
         state.saveStatus = 'saved';
         state.linkedFile = null;
         state.isLinkedFileStale = false;
-        state.previewDesignSystem = null;
       });
   },
 });
@@ -265,7 +263,7 @@ export const {
   linkedFileChanged,
   linkedFileOutdated,
   conversionRequested,
-  designPreviewSet,
+  sectionToggled,
   iconSetsLoaded,
 } = editorSlice.actions;
 

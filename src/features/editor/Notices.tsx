@@ -1,7 +1,7 @@
 import { useEffect, type JSX } from 'react';
 import { noticeDismissed, type Notice } from '../../app/editorSlice';
 import { dispatch, useStore } from '../../app/store';
-import { Icon } from './Icon';
+import { Icon } from '../../../packages/ui/src';
 
 const NOTICE_TIMEOUT_MS = 6000;
 
@@ -16,7 +16,7 @@ function NoticeItem({ notice }: { notice: Notice }): JSX.Element {
       <span role={notice.tone === 'error' ? 'alert' : undefined}>{notice.text}</span>
       <button
         type="button"
-        className="ve-icon-button"
+        className="ui-icon-button"
         aria-label="Dismiss"
         onClick={() => dispatch(noticeDismissed(notice.id))}
       >

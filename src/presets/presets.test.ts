@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { DesignSystemPreset } from '../app/types';
+import { derivedFontWeights, WEIGHT_TOKENS } from '../app/typography';
 import { contrastRatio, contrastWarnings, resolveColor } from '../features/design-system/colors';
 import googleFonts from '../features/design-system/google-fonts.json';
 import { iconSetInfo } from '../../packages/icon-data/src/sets';
@@ -26,13 +27,36 @@ function preset(id: string): DesignSystemPreset {
 }
 
 describe('built-in presets', () => {
-  it('are Clean, Midnight, Playful and Corporate', () => {
+  it('are the twelve presets of the PRD, in its order', () => {
     expect(BUILTIN_PRESETS.map((item) => item.name)).toEqual([
       'Clean',
       'Midnight',
       'Playful',
       'Corporate',
+      'Editorial',
+      'Mono',
+      'Warm',
+      'Bold',
+      'Nature',
+      'Pastel',
+      'Luxury',
+      'Brutalist',
     ]);
+  });
+
+  it.each(BUILTIN_PRESETS)('$name loads exactly the weights its weight tokens use', (item) => {
+    const { fonts, tokens } = item.designSystem;
+    for (const font of fonts) expect(font.weights).toEqual(derivedFontWeights(font.role, tokens));
+  });
+
+  it.each(BUILTIN_PRESETS)('$name sets heading and body weights its fonts offer', (item) => {
+    const { fonts, tokens } = item.designSystem;
+    for (const font of fonts) {
+      const family = googleFonts.find((entry) => entry.family === font.family);
+      for (const name of WEIGHT_TOKENS[font.role]) {
+        expect(family?.weights, `${font.family} ${name}`).toContain(Number(tokens[name]?.value));
+      }
+    }
   });
 
   it.each(BUILTIN_PRESETS)('$name defines exactly the tokens Clean defines', (item) => {

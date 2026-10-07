@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { expect, test, type Page } from '@playwright/test';
-import { createProject, insertBlock, readZip } from './editor';
+import { addPage, createProject, insertBlock, openPage, readZip } from './editor';
 
 async function buildSite(page: Page): Promise<void> {
   await createProject(page);
@@ -60,21 +60,15 @@ test('the exported zip holds pages, one CSS file, one JS file and works from dis
 
 test('the export dialog lists warnings first and still lets the user export', async ({ page }) => {
   await createProject(page);
-  await page.locator('.ve-page-switcher').click();
-  await page.locator('.ve-page-switcher-menu').getByRole('button', { name: 'Add page' }).click();
-  const addDialog = page.getByRole('dialog', { name: 'Add page' });
-  await addDialog.getByLabel('Name').fill('About');
-  await addDialog.getByRole('button', { name: 'Add page' }).click();
+  await addPage(page, 'About');
   await insertBlock(page, 'Headers', 'Hero, centered text');
   await page.locator('[id="ve-field-primaryButton-link-type"]').selectOption({ label: 'Page' });
   await page.locator('[id="ve-field-primaryButton-link-page"]').selectOption({ label: 'Home' });
-  await page.locator('.ve-page-switcher').click();
-  await page.locator('.ve-page-switcher-list').getByRole('button', { name: 'Home' }).click();
-  await page.locator('.ve-library [role="tab"]', { hasText: 'Pages' }).click();
+  await openPage(page, 'Home');
   await page.getByRole('button', { name: 'More actions for About' }).click();
-  await page.getByRole('button', { name: 'Set as home page' }).click();
+  await page.getByRole('menuitem', { name: 'Set as home page' }).click();
   await page.getByRole('button', { name: 'More actions for Home' }).click();
-  await page.getByRole('button', { name: 'Delete…' }).click();
+  await page.getByRole('menuitem', { name: 'Delete…' }).click();
   await page.getByRole('button', { name: 'Delete page' }).click();
   await page.getByRole('button', { name: 'Export', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Export site' });

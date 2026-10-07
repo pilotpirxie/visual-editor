@@ -2,15 +2,17 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   blockSelected,
   deviceChanged,
+  linkedFileChanged,
+  linkedFileOutdated,
   panelToggled,
   previewToggled,
   saveStatusChanged,
 } from '../../app/editorSlice';
 import { blockValueSet } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
-import { click, getButton, render, runInAct } from '../../test/dom';
+import { changeValue, click, getButton, render, runInAct } from '../../test/dom';
 import { homePage, loadIntoAppStore } from '../../test/fixtures';
-import { deviceReadout, linkedFileStatus, Toolbar } from './Toolbar';
+import { Toolbar } from './Toolbar';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
@@ -26,50 +28,54 @@ beforeEach(() => {
   if (store.getState().editor.panels.left.collapsed) dispatch(panelToggled('left'));
 });
 
-describe('linkedFileStatus', () => {
-  it('says where the project file lives and whether it has unsaved changes', () => {
-    const file = { name: 'site.json', savedAt: null, kind: 'file' as const, isAutoSaving: false };
-    expect(linkedFileStatus(file, false)).toBe('site.json');
-    expect(linkedFileStatus({ ...file, kind: 'download' }, true)).toBe(
-      'Downloaded site.json · changes not saved to file',
-    );
-    expect(linkedFileStatus({ ...file, savedAt: '2026-10-07T10:42:00.000Z' }, false)).toMatch(
-      /^site\.json · saved /,
-    );
-  });
-});
-
-describe('deviceReadout', () => {
-  it('shows the desktop width and the full phone and tablet screens', () => {
-    expect(deviceReadout('desktop')).toBe('1440 px');
-    expect(deviceReadout('tablet')).toBe('768 × 1024');
-    expect(deviceReadout('phone')).toBe('375 × 812');
-  });
-});
-
 describe('Toolbar', () => {
-  it('switches the preview device and shows its size', () => {
+  it('lists the device modes with their widths in one select and switches between them', () => {
     const { container } = render(<Toolbar />);
-    click(getButton(container, 'Phone'));
+    const device = container.querySelector<HTMLSelectElement>('select[aria-label="Device"]');
+    const labels: string[] = [];
+    for (const option of device?.options ?? []) labels.push(option.textContent ?? '');
+    expect(labels).toEqual([
+      'Responsive',
+      'Desktop (1440 px)',
+      'Tablet (768 px)',
+      'Phone (375 px)',
+    ]);
+    expect(device?.value).toBe('desktop');
+    changeValue(device, 'phone');
     expect(store.getState().editor.device).toBe('phone');
-    expect(getButton(container, 'Phone').getAttribute('aria-pressed')).toBe('true');
-    expect(container.querySelector('.ve-readout')?.textContent).toBe('375 × 812');
-  });
-
-  it('switches to responsive mode, which hides the fixed size readout', () => {
-    const { container } = render(<Toolbar />);
-    click(getButton(container, 'Responsive'));
+    changeValue(device, 'responsive');
     expect(store.getState().editor.device).toBe('responsive');
-    expect(container.querySelector('.ve-readout')).toBeNull();
   });
 
-  it('opens the project settings from the project title', () => {
+  it('shows neither the project name nor a save status', () => {
     const { container } = render(<Toolbar />);
-    click(getButton(container, 'Fieldnote'));
-    expect(container.querySelector('dialog')?.open).toBe(true);
+    runInAct(() => dispatch(saveStatusChanged('saved')));
+    expect(container.textContent).not.toContain('Fieldnote');
+    expect(container.textContent).not.toContain('Saved');
+    expect(container.querySelector('[role="status"]')).toBeNull();
+  });
+
+  it('opens the project settings from the File menu', () => {
+    const { container } = render(<Toolbar />);
+    const fileMenu = container.querySelector('[role="menu"][aria-label="File"]');
+    if (fileMenu === null) throw new Error('Expected the File menu');
+    click(getButton(fileMenu, 'Project settings…'));
     expect(container.querySelector('#ve-project-settings-title')?.textContent).toBe(
       'Project settings',
     );
+  });
+
+  it('marks the File menu when the linked file misses the latest changes', () => {
+    const { container } = render(<Toolbar />);
+    runInAct(() => {
+      dispatch(
+        linkedFileChanged({ name: 'site.json', savedAt: null, kind: 'file', isAutoSaving: false }),
+      );
+      dispatch(linkedFileOutdated());
+    });
+    const fileButton = container.querySelector('[aria-haspopup="menu"][aria-label^="File"]');
+    expect(fileButton?.getAttribute('aria-label')).toBe('File, changes not saved to file');
+    expect(fileButton?.querySelector('.ui-menu-dot')).not.toBeNull();
   });
 
   it('offers block actions in the Edit menu only when a block is selected', () => {
@@ -115,12 +121,6 @@ describe('Toolbar', () => {
     expect(getButton(container, 'Design system').getAttribute('aria-pressed')).toBe('true');
     click(getButton(container, 'Design system'));
     expect(store.getState().editor.isDesignSheetOpen).toBe(false);
-  });
-
-  it('shows the save status', () => {
-    const { container } = render(<Toolbar />);
-    runInAct(() => dispatch(saveStatusChanged('error')));
-    expect(container.querySelector('[role="status"]')?.textContent).toBe('Not saved');
   });
 
   it('opens the export dialog with the files the site needs', async () => {

@@ -1,0 +1,87 @@
+@layer components {
+  .ui-menu {
+    position-area: bottom span-left;
+    position-try-fallbacks: flip-block;
+    min-width: 180px;
+    margin: 4px 0;
+    padding: 4px;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    background: var(--ve-bg);
+    color: var(--ve-text);
+    box-shadow: var(--ve-shadow);
+  }
+
+  .ui-menu:popover-open {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ui-menu > button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: var(--ve-target);
+    padding: 6px 10px 6px 4px;
+    border: 0;
+    border-radius: 4px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .ui-menu > button:hover:enabled,
+  .ui-menu > button:focus-visible {
+    background: var(--ve-surface);
+  }
+
+  .ui-menu > button:disabled {
+    color: var(--ve-border-strong);
+    cursor: default;
+  }
+
+  .ui-menu > .ui-menu-danger:enabled {
+    color: var(--ve-danger);
+  }
+
+  .ui-menu-separator {
+    height: 1px;
+    margin: 4px 0;
+    background: var(--ve-border);
+  }
+
+  .ui-menu-check {
+    flex: none;
+    width: 16px;
+    text-align: center;
+  }
+
+  .ui-menu-label {
+    flex: 1;
+  }
+
+  .ui-menu-shortcut {
+    margin-left: 24px;
+    color: var(--ve-muted);
+    font: inherit;
+    font-size: 12px;
+  }
+
+  .ui-menu.ui-menu--at-point {
+    position: fixed;
+    inset: auto;
+    position-area: none;
+    margin: 0;
+  }
+
+  .ui-menu-dot {
+    width: 6px;
+    height: 6px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: var(--ve-accent);
+    align-self: flex-start;
+  }
+}

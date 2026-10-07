@@ -4,7 +4,7 @@ import { blockDisabledSet } from '../../app/projectSlice';
 import { dispatch, useStore } from '../../app/store';
 import { duplicateBlock, moveBlockBy, removeBlock } from './blockActions';
 import { copyBlockFromMenu, cutBlockFromMenu, pasteFromMenu } from './clipboard';
-import type { MenuItem } from './Menu';
+import { type MenuItem } from '../../../packages/ui/src';
 
 export type BlockMenuContext = {
   blockId: string;

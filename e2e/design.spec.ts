@@ -63,12 +63,15 @@ test('a block hidden on phones shows striped at phone width and stays selectable
   const shade = page.locator('.ve-outline--hidden');
   await expect(shade).toHaveCount(0);
 
-  await page.getByRole('group', { name: 'Device' }).getByRole('button', { name: 'Phone' }).click();
+  const device = page.getByRole('combobox', { name: 'Device' });
+  await device.focus();
+  await device.selectOption('phone');
   await expect(shade).toHaveCount(1);
   await expect(shade).toContainText('Hidden on phone');
 
+  await device.blur();
   await page.keyboard.press('Escape');
-  await expect(page.locator('.ve-properties-title')).toHaveText('Page settings');
+  await expect(page.locator('.ve-properties .ui-title')).toHaveText('Page settings');
   await page.frameLocator('.ve-canvas-frame').locator('[data-component="cta-centered"]').click();
-  await expect(page.locator('.ve-properties-title')).toHaveText('Call to action, centered');
+  await expect(page.locator('.ve-properties .ui-title')).toHaveText('Call to action, centered');
 });

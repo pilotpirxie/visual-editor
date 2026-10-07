@@ -5,6 +5,7 @@ import { dispatch, useStore } from '../../app/store';
 import { iconSvg, resolveIcon } from '../../render/icons';
 import { defaultIconSets } from '../icons/iconSets';
 import { loadIconSet } from '../icons/loadIconSet';
+import { Field, Select } from '../../../packages/ui/src';
 
 const SAMPLE_ICONS = ['zap', 'shield', 'smile', 'star', 'check', 'mail', 'arrow-right', 'menu'];
 
@@ -34,33 +35,25 @@ export function IconSetPicker(): JSX.Element {
     }
   }
 
+  const options = [];
+  for (const info of defaultIconSets()) options.push({ value: info.id, label: info.label });
+
   return (
-    <div className="ve-control">
-      <label className="ve-control-label" htmlFor="ve-icon-set">
-        Default icon set
-      </label>
-      <select
-        id="ve-icon-set"
-        className="ve-input"
-        value={loadingSet ?? iconSet}
-        disabled={loadingSet !== null}
-        aria-describedby="ve-icon-set-help"
-        onChange={(event) => void choose(event.target.value)}
-      >
-        {defaultIconSets().map((info) => (
-          <option key={info.id} value={info.id}>
-            {info.label}
-          </option>
-        ))}
-      </select>
+    <>
+      <Field id="ve-icon-set" label="Default icon set">
+        <Select
+          id="ve-icon-set"
+          value={loadingSet ?? iconSet}
+          disabled={loadingSet !== null}
+          options={options}
+          onChange={(event) => void choose(event.target.value)}
+        />
+      </Field>
       <div
         className="ve-icon-samples"
         aria-hidden="true"
         dangerouslySetInnerHTML={{ __html: sampleMarkup(iconSet) }}
       />
-      <p id="ve-icon-set-help" className="ve-control-help">
-        Icons that blocks start with follow this set. Icons you picked by hand stay as they are.
-      </p>
-    </div>
+    </>
   );
 }

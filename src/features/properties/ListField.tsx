@@ -17,8 +17,8 @@ import type { Field } from '../../components/types';
 import { dragController, type DragPayload } from '../canvas/dragController';
 import { dropEdgeAt, finalMoveIndex } from '../canvas/geometry';
 import { useListDropTarget } from '../canvas/useListDropTarget';
-import { Icon } from '../editor/Icon';
 import { FieldControl, type ControlProps } from './FieldControl';
+import { Icon } from '../../../packages/ui/src';
 
 const DROP_EDGE_MARGIN = 8;
 const ITEM_HANDLE = '.ve-list-handle';
@@ -139,7 +139,7 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
 
   return (
     <div className="ve-list">
-      <span className="ve-control-label" id={labelId}>
+      <span className="ui-field-label" id={labelId}>
         {field.label}
       </span>
       {items.length > 0 && (
@@ -173,7 +173,7 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
                 <div className="ve-list-item-actions">
                   <button
                     type="button"
-                    className="ve-icon-button ve-list-handle"
+                    className="ui-icon-button ve-list-handle"
                     aria-label={`Move ${title}`}
                     title="Drag to reorder, or press Alt with an arrow key"
                     onPointerDown={(event) =>
@@ -188,7 +188,7 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
                   </button>
                   <button
                     type="button"
-                    className="ve-icon-button"
+                    className="ui-icon-button"
                     aria-label={`Duplicate ${title}`}
                     title="Duplicate"
                     disabled={!canAdd}
@@ -198,7 +198,7 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
                   </button>
                   <button
                     type="button"
-                    className="ve-icon-button"
+                    className="ui-icon-button"
                     aria-label={`Remove ${title}`}
                     title="Remove"
                     disabled={!canRemove}
@@ -212,12 +212,17 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
           })}
         </ol>
       )}
-      <button type="button" className="ve-button ve-list-add" disabled={!canAdd} onClick={add}>
+      <button
+        type="button"
+        className="ui-button ui-button--ghost ve-list-add"
+        disabled={!canAdd}
+        onClick={add}
+      >
         <Icon name="plus" />
         Add item
       </button>
       {field.maxItems !== undefined && (
-        <p className="ve-control-help">
+        <p className="ui-muted">
           {items.length} of {field.maxItems} items
         </p>
       )}

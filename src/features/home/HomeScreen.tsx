@@ -12,13 +12,13 @@ import {
   type FileLink,
   type ProjectSummary,
 } from '../../persistence/db';
-import { Icon } from '../editor/Icon';
 import { canUseFileSystemAccess } from '../files/fileAccess';
 import { fileCommands } from '../files/fileCommands';
 import { LicensesDialog } from '../licenses/LicensesDialog';
 import { NewProjectDialog } from './NewProjectDialog';
 import { duplicateProject, formatLastEdit, withTitle } from './projects';
 import './home.css';
+import { Button, IconButton, TextInput, Title } from '../../../packages/ui/src';
 
 async function requireProject(id: string): Promise<Project> {
   const project = await getProject(id);
@@ -41,20 +41,13 @@ function RecentFiles({ links }: { links: FileLink[] }): JSX.Element | null {
   if (links.length === 0) return null;
   return (
     <section className="ve-home-recent" aria-labelledby="ve-home-recent-title">
-      <h2 id="ve-home-recent-title" className="ve-group-title">
-        Recent files
-      </h2>
+      <Title id="ve-home-recent-title">Recent files</Title>
       <ul className="ve-home-recent-list">
         {links.map((link) => (
           <li key={link.id}>
-            <button
-              type="button"
-              className="ve-button ve-button--outline"
-              onClick={() => fileCommands.openRecent(link)}
-            >
-              <Icon name="file" />
+            <Button icon="file" onClick={() => fileCommands.openRecent(link)}>
               {link.name}
-            </button>
+            </Button>
           </li>
         ))}
       </ul>
@@ -86,8 +79,8 @@ function RenameInput({
   }
 
   return (
-    <input
-      className="ve-input ve-home-rename"
+    <TextInput
+      className="ve-home-rename"
       aria-label="Project name"
       defaultValue={summary.title}
       autoFocus
@@ -163,23 +156,17 @@ export function HomeScreen(): JSX.Element {
       <header className="ve-home-header">
         <h1>My projects</h1>
         <div className="ve-home-actions">
-          <button
-            type="button"
-            className="ve-button ve-button--outline"
-            onClick={fileCommands.openFromDisk}
-          >
-            <Icon name="folder-open" />
+          <Button icon="folder-open" onClick={fileCommands.openFromDisk}>
             Open from disk
-          </button>
-          <button
-            type="button"
-            className="ve-button ve-button--primary"
+          </Button>
+          <Button
+            variant="primary"
+            icon="plus"
             aria-haspopup="dialog"
             onClick={() => setIsNewProjectOpen(true)}
           >
-            <Icon name="plus" />
             New project
-          </button>
+          </Button>
         </div>
       </header>
 
@@ -188,7 +175,7 @@ export function HomeScreen(): JSX.Element {
           {error}
         </p>
       )}
-      {projectList === null && error === null && <p className="ve-muted">Loading your projects…</p>}
+      {projectList === null && error === null && <p className="ui-muted">Loading your projects…</p>}
       {projectList !== null && projectList.summaries.length === 0 && (
         <p className="ve-home-empty">
           You have no projects yet. Create one to start building a site.
@@ -213,11 +200,11 @@ export function HomeScreen(): JSX.Element {
                   </a>
                 </h2>
               )}
-              <p className="ve-muted">
+              <p className="ui-muted">
                 Edited {formatLastEdit(summary.updatedAt, projectList.listedAt)}
               </p>
               <div className="ve-home-card-actions">
-                <button
+                <IconButton
                   ref={(button) => {
                     if (button === null) return;
                     renameButtonsRef.current.set(summary.id, button);
@@ -225,41 +212,29 @@ export function HomeScreen(): JSX.Element {
                       renameButtonsRef.current.delete(summary.id);
                     };
                   }}
-                  type="button"
-                  className="ve-icon-button"
-                  aria-label={`Rename ${summary.title}`}
-                  title="Rename"
+                  label={`Rename ${summary.title}`}
+                  icon="pencil"
                   onClick={() => setRenamingId(summary.id)}
-                >
-                  <Icon name="pencil" />
-                </button>
-                <button
-                  type="button"
-                  className="ve-icon-button"
-                  aria-label={`Duplicate ${summary.title}`}
-                  title="Duplicate"
+                />
+                <IconButton
+                  label={`Duplicate ${summary.title}`}
+                  icon="copy"
                   onClick={() => duplicate(summary)}
-                >
-                  <Icon name="copy" />
-                </button>
-                <button
-                  type="button"
-                  className="ve-icon-button"
-                  aria-label={`Delete ${summary.title}`}
-                  title="Delete"
+                />
+                <IconButton
+                  label={`Delete ${summary.title}`}
+                  icon="trash"
                   onClick={() => remove(summary)}
-                >
-                  <Icon name="trash" />
-                </button>
+                />
               </div>
             </li>
           ))}
         </ul>
       )}
       <footer className="ve-home-footer">
-        <button type="button" className="ve-button" onClick={() => setIsLicensesOpen(true)}>
+        <Button variant="ghost" onClick={() => setIsLicensesOpen(true)}>
           Open-source licenses
-        </button>
+        </Button>
       </footer>
       {isLicensesOpen && <LicensesDialog onClose={() => setIsLicensesOpen(false)} />}
       {isNewProjectOpen && <NewProjectDialog onClose={() => setIsNewProjectOpen(false)} />}

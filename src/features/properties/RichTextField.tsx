@@ -7,9 +7,9 @@ import {
   type JSX,
 } from 'react';
 import { isSafeUrl, normalizeRichText, plainTextToHtml } from '../../render/sanitize';
-import { Icon } from '../editor/Icon';
 import type { EditKind } from '../../app/projectSlice';
 import type { ControlProps } from './FieldControl';
+import { Icon } from '../../../packages/ui/src';
 
 const DEFAULT_LINK_URL = 'https://';
 
@@ -145,7 +145,7 @@ export function RichTextField({
 
   return (
     <>
-      <span className="ve-control-label" id={labelId}>
+      <span className="ui-field-label" id={labelId}>
         {field.label}
       </span>
       <div className="ve-richtext" data-invalid={isInvalid || undefined}>
@@ -158,7 +158,7 @@ export function RichTextField({
             <button
               key={command}
               type="button"
-              className="ve-icon-button"
+              className="ui-icon-button"
               aria-label={label}
               title={label}
               onMouseDown={(event) => event.preventDefault()}
@@ -169,7 +169,7 @@ export function RichTextField({
           ))}
           <button
             type="button"
-            className="ve-icon-button"
+            className="ui-icon-button"
             aria-label="Link"
             title="Link"
             aria-expanded={linkUrl !== null}
@@ -182,7 +182,7 @@ export function RichTextField({
         {linkUrl !== null && (
           <form className="ve-richtext-link" onSubmit={applyLink}>
             <input
-              className="ve-input"
+              className="ui-input"
               type="text"
               inputMode="url"
               aria-label="Link address"
@@ -196,10 +196,10 @@ export function RichTextField({
                 cancelLink();
               }}
             />
-            <button type="submit" className="ve-button ve-button--outline" disabled={!isLinkSafe}>
+            <button type="submit" className="ui-button ui-button--secondary" disabled={!isLinkSafe}>
               Apply
             </button>
-            <button type="button" className="ve-button ve-button--outline" onClick={removeLink}>
+            <button type="button" className="ui-button ui-button--secondary" onClick={removeLink}>
               Remove
             </button>
           </form>

@@ -1,26 +1,15 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Project } from '../../app/types';
-import { listUserPresets, putProject } from '../../persistence/db';
+import { putProject } from '../../persistence/db';
 import { BUILTIN_PRESETS } from '../../presets/presets';
 import { changeValue, click, getButton, render } from '../../test/dom';
 import { NewProjectDialog } from './NewProjectDialog';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
-  listUserPresets: vi.fn(async () => []),
-  putUserPreset: vi.fn(async () => {}),
-  deleteUserPreset: vi.fn(async () => {}),
 }));
 
 const MIDNIGHT = BUILTIN_PRESETS[1];
-
-const SAVED_PRESET = {
-  id: 'my-brand',
-  name: 'My brand',
-  description: '',
-  tags: [],
-  designSystem: MIDNIGHT.designSystem,
-};
 
 type Deferred = { promise: Promise<void>; resolve(): void };
 
@@ -34,7 +23,6 @@ function deferred(): Deferred {
 
 async function renderDialog(onClose: () => void = () => {}): Promise<HTMLDivElement> {
   const { container } = render(<NewProjectDialog onClose={onClose} />);
-  await vi.waitFor(() => expect(listUserPresets).toHaveBeenCalled());
   await Promise.resolve();
   return container;
 }
@@ -47,7 +35,7 @@ function savedProjects(): Project[] {
 
 function presetButtons(container: HTMLElement): HTMLButtonElement[] {
   const buttons: HTMLButtonElement[] = [];
-  for (const button of container.querySelectorAll<HTMLButtonElement>('.ve-new-preset')) {
+  for (const button of container.querySelectorAll<HTMLButtonElement>('.ve-preset-row button')) {
     buttons.push(button);
   }
   return buttons;
@@ -55,7 +43,8 @@ function presetButtons(container: HTMLElement): HTMLButtonElement[] {
 
 function presetLabels(container: HTMLElement): string[] {
   const labels: string[] = [];
-  for (const button of presetButtons(container)) labels.push(button.getAttribute('aria-label') ?? '');
+  for (const button of presetButtons(container))
+    labels.push(button.getAttribute('aria-label') ?? '');
   return labels;
 }
 
@@ -64,53 +53,29 @@ function nameInput(container: HTMLElement): HTMLInputElement | null {
 }
 
 beforeEach(() => {
-  vi.mocked(listUserPresets).mockResolvedValue([]);
   window.history.replaceState(null, '', '/');
 });
 
 describe('NewProjectDialog presets', () => {
-  it('lists the built-in presets and then the presets the user saved', async () => {
-    vi.mocked(listUserPresets).mockResolvedValue([SAVED_PRESET]);
+  it('lists every built-in preset as a row that starts a project', async () => {
     const container = await renderDialog();
-    await vi.waitFor(() => expect(presetLabels(container)).toContain('Start with My brand'));
     const expected: string[] = [];
     for (const preset of BUILTIN_PRESETS) expected.push(`Start with ${preset.name}`);
-    expected.push('Start with My brand');
     expect(presetLabels(container)).toEqual(expected);
-  });
-
-  it('skips a saved preset that cannot be read', async () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => {});
-    vi.mocked(listUserPresets).mockResolvedValue([{ id: 'broken' }, SAVED_PRESET]);
-    const container = await renderDialog();
-    await vi.waitFor(() => expect(presetLabels(container)).toContain('Start with My brand'));
-    expect(presetLabels(container)).toHaveLength(BUILTIN_PRESETS.length + 1);
-  });
-
-  it('explains when saved presets cannot be loaded and still offers the built-in ones', async () => {
-    vi.spyOn(console, 'error').mockImplementation(() => {});
-    vi.mocked(listUserPresets).mockRejectedValue(new Error('Storage is blocked'));
-    const container = await renderDialog();
-    await vi.waitFor(() =>
-      expect(container.querySelector('[role="alert"]')?.textContent).toBe(
-        'Could not load your presets: Storage is blocked',
-      ),
+    expect(container.querySelector('.ve-preset-list')?.getAttribute('aria-label')).toBe(
+      'Design presets',
     );
-    click(getButton(container, 'Start with Clean'));
-    await vi.waitFor(() => expect(savedProjects()).toHaveLength(1));
-    expect(savedProjects()[0].designSystem.presetId).toBe('clean');
   });
 });
 
 describe('NewProjectDialog blank projects', () => {
-  it('starts a blank project from a saved preset with its design system', async () => {
-    vi.mocked(listUserPresets).mockResolvedValue([SAVED_PRESET]);
+  it('starts a blank project with the design system of the chosen preset', async () => {
     const onClose = vi.fn();
     const container = await renderDialog(onClose);
-    click(await vi.waitFor(() => getButton(container, 'Start with My brand')));
+    click(getButton(container, 'Start with Midnight'));
     await vi.waitFor(() => expect(savedProjects()).toHaveLength(1));
     const created = savedProjects()[0];
-    expect(created.designSystem.presetId).toBe('my-brand');
+    expect(created.designSystem.presetId).toBe('midnight');
     expect(created.designSystem.iconSet).toBe(MIDNIGHT.designSystem.iconSet);
     expect(created.designSystem.tokens['--color-background']).toEqual(
       MIDNIGHT.designSystem.tokens['--color-background'],

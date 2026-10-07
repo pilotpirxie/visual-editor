@@ -20,7 +20,7 @@ export const SHARED_SLOTS = ['header', 'footer'] as const;
 
 export type SharedSlot = (typeof SHARED_SLOTS)[number];
 
-export const FONT_ROLES = ['heading', 'body', 'mono'] as const;
+export const FONT_ROLES = ['heading', 'body'] as const;
 
 export type FontRole = (typeof FONT_ROLES)[number];
 

@@ -1,7 +1,7 @@
 import { useEffect, useState, type JSX } from 'react';
 import { ICON_SET_INFO } from '../../../packages/icon-data/src/sets';
-import { closeDialogOf, Dialog } from '../editor/Dialog';
 import './licenses.css';
+import { closeDialogOf, Dialog } from '../../../packages/ui/src';
 
 const TITLE_ID = 've-licenses-title';
 const GOOGLE_FONTS_ATTRIBUTION = 'https://fonts.google.com/attribution';
@@ -37,17 +37,17 @@ function LicenseBody({ setId }: { setId: string }): JSX.Element {
     };
   }, [setId]);
 
-  if (license.status === 'loading') return <p className="ve-muted">Loading the license…</p>;
+  if (license.status === 'loading') return <p className="ui-muted">Loading the license…</p>;
   if (license.status === 'failed')
-    return <p className="ve-control-error">The license text could not be loaded.</p>;
+    return <p className="ui-field-error">The license text could not be loaded.</p>;
   return <pre className="ve-license-text">{license.text}</pre>;
 }
 
 export function LicensesDialog({ onClose }: { onClose(): void }): JSX.Element {
   return (
-    <Dialog labelId={TITLE_ID} className="ve-dialog--wide" onClose={onClose}>
-      <div className="ve-dialog-body">
-        <h2 id={TITLE_ID} className="ve-properties-title">
+    <Dialog labelId={TITLE_ID} size="wide" onClose={onClose}>
+      <div className="ui-dialog-body">
+        <h2 id={TITLE_ID} className="ui-title">
           Open-source licenses
         </h2>
         <p>
@@ -73,10 +73,10 @@ export function LicensesDialog({ onClose }: { onClose(): void }): JSX.Element {
             {GOOGLE_FONTS_ATTRIBUTION}
           </a>
         </p>
-        <div className="ve-dialog-actions">
+        <div className="ui-dialog-actions">
           <button
             type="button"
-            className="ve-button ve-button--primary"
+            className="ui-button ui-button--primary"
             onClick={(event) => closeDialogOf(event.currentTarget)}
           >
             Close

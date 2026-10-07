@@ -93,16 +93,14 @@ describe('AdvancedTab', () => {
     expect(classes.value).toBe('');
   });
 
-  it('hides the block on the chosen devices and warns when that is all of them', () => {
+  it('hides the block on the chosen devices', () => {
     const { container } = render(<PropertiesPanel />);
     openAdvanced(1);
     const boxes = [...container.querySelectorAll<HTMLInputElement>('.ve-hide-on input')];
     click(boxes[0]);
     click(boxes[2]);
     expect(blockAt(1).hideOn).toEqual(['phone', 'desktop']);
-    click(boxes[1]);
-    expect(container.querySelector('#ve-advanced-hide-help')?.textContent).toContain(
-      'Hidden on every screen size',
-    );
+    click(boxes[0]);
+    expect(blockAt(1).hideOn).toEqual(['desktop']);
   });
 });

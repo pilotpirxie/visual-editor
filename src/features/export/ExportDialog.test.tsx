@@ -5,7 +5,12 @@ import { dispatch, store } from '../../app/store';
 import type { ButtonValue } from '../../components/types';
 import type { Project } from '../../app/types';
 import { click, getButton, queryButton, render } from '../../test/dom';
-import { componentBlockOf, homePage, loadIntoAppStore, shareNavAndFooter } from '../../test/fixtures';
+import {
+  componentBlockOf,
+  homePage,
+  loadIntoAppStore,
+  shareNavAndFooter,
+} from '../../test/fixtures';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import { downloadBlob } from './download';
 import { ExportDialog, exportFileName, formatBytes } from './ExportDialog';

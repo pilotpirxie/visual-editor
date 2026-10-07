@@ -65,9 +65,15 @@
         "group": "typography",
         "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
       },
+      "--font-weight-heading": {
+        "name": "--font-weight-heading",
+        "label": "Heading weight",
+        "group": "typography",
+        "value": "700"
+      },
       "--font-weight-regular": {
         "name": "--font-weight-regular",
-        "label": "Regular weight",
+        "label": "Body weight",
         "group": "typography",
         "value": "400"
       },
@@ -133,13 +139,13 @@
       },
       "--line-height-tight": {
         "name": "--line-height-tight",
-        "label": "Tight line height",
+        "label": "Heading line height",
         "group": "typography",
         "value": "1.15"
       },
       "--line-height-normal": {
         "name": "--line-height-normal",
-        "label": "Normal line height",
+        "label": "Body line height",
         "group": "typography",
         "value": "1.6"
       },
@@ -304,7 +310,7 @@
       {
         "role": "heading",
         "family": "Inter",
-        "weights": [400, 700]
+        "weights": [700]
       },
       {
         "role": "body",

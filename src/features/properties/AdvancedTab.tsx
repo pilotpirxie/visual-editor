@@ -1,12 +1,20 @@
-import { useState, type JSX } from 'react';
+import { useState, type JSX, type ReactNode } from 'react';
 import { visibleBlockLists } from '../../app/blockLists';
 import { conversionRequested } from '../../app/editorSlice';
 import { blockAdvancedSet } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, useStore } from '../../app/store';
 import { DEVICES, type Block, type Device } from '../../app/types';
 import { isValidAnchor, isValidClassName, parseClassNames } from '../../render/attributes';
-import { Icon } from '../editor/Icon';
-import { DraftInput } from './DraftInput';
+import { useSection } from '../editor/useSection';
+import {
+  Button,
+  Checkbox,
+  DraftInput,
+  Field,
+  fieldErrorId,
+  Section,
+  TextInput,
+} from '../../../packages/ui/src';
 
 type ClassesDraft = { text: string; base: string; error: string | null };
 
@@ -51,23 +59,20 @@ function AnchorControl({ block }: { block: Block }): JSX.Element {
   }
 
   return (
-    <div className="ve-control" data-field-path="advanced.anchor">
-      <label className="ve-control-label" htmlFor={id}>
-        Anchor id
-      </label>
-      <div className="ve-prefixed-input">
-        <span aria-hidden="true">#</span>
-        <DraftInput
-          id={id}
-          label="Anchor id"
-          value={block.anchor ?? ''}
-          validate={validate}
-          onCommit={(text) =>
-            dispatch(blockAdvancedSet(block.id, { key: 'anchor', value: text }, 'continuous'))
-          }
-        />
-      </div>
-      <p className="ve-control-help">Links can jump to this block, for example #pricing.</p>
+    <div data-field-path="advanced.anchor">
+      <Field id={id} label="Anchor id">
+        <span className="ve-prefixed-input">
+          <span aria-hidden="true">#</span>
+          <DraftInput
+            id={id}
+            value={block.anchor ?? ''}
+            validate={validate}
+            onCommit={(text) =>
+              dispatch(blockAdvancedSet(block.id, { key: 'anchor', value: text }, 'continuous'))
+            }
+          />
+        </span>
+      </Field>
     </div>
   );
 }
@@ -77,7 +82,6 @@ function ClassesControl({ block }: { block: Block }): JSX.Element {
   const [draft, setDraft] = useState<ClassesDraft | null>(null);
   const activeDraft = draft !== null && draft.base === stored ? draft : null;
   const id = 've-advanced-classes';
-  const errorId = `${id}-error`;
 
   function change(text: string): void {
     const names = parseClassNames(text);
@@ -89,36 +93,25 @@ function ClassesControl({ block }: { block: Block }): JSX.Element {
     dispatch(blockAdvancedSet(block.id, { key: 'extraClasses', value: names }, 'continuous'));
   }
 
+  const error = activeDraft === null ? null : activeDraft.error;
+
   return (
-    <div className="ve-control" data-field-path="advanced.extraClasses">
-      <label className="ve-control-label" htmlFor={id}>
-        Extra CSS classes
-      </label>
-      <input
-        id={id}
-        className="ve-input"
-        type="text"
-        spellCheck={false}
-        value={activeDraft === null ? stored : activeDraft.text}
-        aria-invalid={activeDraft?.error != null}
-        aria-describedby={activeDraft?.error == null ? `${id}-help` : errorId}
-        onChange={(event) => change(event.target.value)}
-      />
-      <p id={`${id}-help`} className="ve-control-help">
-        Separate classes with spaces.
-      </p>
-      {activeDraft !== null && activeDraft.error !== null && (
-        <p id={errorId} className="ve-control-error" role="alert">
-          {activeDraft.error}
-        </p>
-      )}
+    <div data-field-path="advanced.extraClasses">
+      <Field id={id} label="Extra CSS classes" error={error}>
+        <TextInput
+          id={id}
+          spellCheck={false}
+          value={activeDraft === null ? stored : activeDraft.text}
+          isInvalid={error !== null}
+          aria-describedby={error === null ? undefined : fieldErrorId(id)}
+          onChange={(event) => change(event.target.value)}
+        />
+      </Field>
     </div>
   );
 }
 
 function HideOnControl({ block }: { block: Block }): JSX.Element {
-  const isHiddenEverywhere = block.hideOn.length === DEVICES.length;
-
   function toggle(device: Device, isChecked: boolean): void {
     const devices = isChecked
       ? [...block.hideOn, device]
@@ -127,58 +120,60 @@ function HideOnControl({ block }: { block: Block }): JSX.Element {
   }
 
   return (
-    <fieldset className="ve-hide-on" aria-describedby="ve-advanced-hide-help">
-      <legend className="ve-control-label">Hide on</legend>
+    <fieldset className="ve-hide-on">
+      <legend className="ui-legend">Hide on</legend>
       <div className="ve-hide-on-options">
         {DEVICES.map((device) => (
-          <label key={device} className="ve-check">
-            <input
-              type="checkbox"
-              checked={block.hideOn.includes(device)}
-              onChange={(event) => toggle(device, event.target.checked)}
-            />
-            {DEVICE_LABELS[device]}
-          </label>
+          <Checkbox
+            key={device}
+            label={DEVICE_LABELS[device]}
+            checked={block.hideOn.includes(device)}
+            onChange={(event) => toggle(device, event.target.checked)}
+          />
         ))}
       </div>
-      <p id="ve-advanced-hide-help" className="ve-control-help">
-        {isHiddenEverywhere
-          ? 'Hidden on every screen size. To leave it out of the export, disable it in Layers.'
-          : 'The block stays in the export and is hidden on these screen sizes.'}
-      </p>
     </fieldset>
   );
 }
 
-function ConvertControl({ blockId }: { blockId: string }): JSX.Element {
+function AdvancedSection({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: ReactNode;
+}): JSX.Element {
+  const section = useSection(`advanced:${id}`);
   return (
-    <div className="ve-control">
-      <span className="ve-control-label" id="ve-convert-label">
-        Convert to HTML
-      </span>
-      <button
-        type="button"
-        className="ve-button ve-button--outline"
-        aria-describedby="ve-convert-label ve-convert-help"
-        onClick={() => dispatch(conversionRequested(blockId))}
-      >
-        <Icon name="code" />
-        Convert to HTML…
-      </button>
-      <p id="ve-convert-help" className="ve-control-help">
-        Turns this block into editable code for changes its options cannot make.
-      </p>
-    </div>
+    <Section title={title} isOpen={section.isOpen} onToggle={section.onToggle}>
+      {children}
+    </Section>
   );
 }
 
 export function AdvancedTab({ block }: { block: Block }): JSX.Element {
   return (
-    <section className="ve-properties-section">
-      <AnchorControl block={block} />
-      <ClassesControl block={block} />
-      <HideOnControl block={block} />
-      {block.kind === 'component' && <ConvertControl blockId={block.id} />}
-    </section>
+    <>
+      <AdvancedSection id="attributes" title="Anchor and classes">
+        <AnchorControl block={block} />
+        <ClassesControl block={block} />
+      </AdvancedSection>
+      <AdvancedSection id="visibility" title="Visibility">
+        <HideOnControl block={block} />
+      </AdvancedSection>
+      {block.kind === 'component' && (
+        <AdvancedSection id="convert" title="Code">
+          <Button
+            icon="code"
+            className="ve-convert-button"
+            onClick={() => dispatch(conversionRequested(block.id))}
+          >
+            Convert to HTML…
+          </Button>
+        </AdvancedSection>
+      )}
+    </>
   );
 }

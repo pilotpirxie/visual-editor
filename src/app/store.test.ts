@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { blockSelected, previewToggled } from './editorSlice';
+import { describe, expect, it, vi } from 'vitest';
+import { blockSelected, noticeDismissed, previewToggled } from './editorSlice';
 import { createSampleProject } from './projectFactory';
 import {
   blockInserted,
@@ -9,9 +9,18 @@ import {
   projectLoaded,
   settingSet,
 } from './projectSlice';
-import { createAppStore, selectCanvasRenderContext, selectCurrentPage } from './store';
+import { putProject } from '../persistence/db';
+import {
+  autosave,
+  createAppStore,
+  selectCanvasRenderContext,
+  selectCurrentPage,
+  store as appStore,
+} from './store';
 import type { Project } from './types';
 import { componentBlockOf, homePage } from '../test/fixtures';
+
+vi.mock('../persistence/db', () => ({ putProject: vi.fn(async () => {}) }));
 
 function storeWithEditCapture(): { store: ReturnType<typeof createAppStore>; edited: Project[] } {
   const edited: Project[] = [];
@@ -106,5 +115,46 @@ describe('selectCanvasRenderContext', () => {
     expect(renamed.pageSlugs.about).toBe('company');
     store.dispatch(previewToggled(true));
     expect(selectCanvasRenderContext(store.getState()).mode).toBe('preview');
+  });
+});
+
+describe('the shared autosave', () => {
+  function errorNotices(): string[] {
+    const texts: string[] = [];
+    for (const notice of appStore.getState().editor.notices) {
+      if (notice.tone === 'error') texts.push(notice.text);
+    }
+    return texts;
+  }
+
+  it('tells the user once when changes cannot be saved in this browser', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.mocked(putProject).mockRejectedValue(new Error('Quota exceeded'));
+    const project = createSampleProject();
+    appStore.dispatch(projectLoaded({ project, pageId: null }));
+    const heroId = homePage(project).blockIds[1];
+    appStore.dispatch(blockValueSet(heroId, 'title', 'First try', 'discrete'));
+    await autosave.flush();
+    appStore.dispatch(blockValueSet(heroId, 'title', 'Second try', 'discrete'));
+    await autosave.flush();
+    expect(errorNotices()).toEqual(['Your changes could not be saved in this browser.']);
+    expect(appStore.getState().editor.saveStatus).toBe('error');
+  });
+
+  it('tells the user again only after a save worked in between', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const project = createSampleProject();
+    appStore.dispatch(projectLoaded({ project, pageId: null }));
+    for (const notice of appStore.getState().editor.notices) {
+      appStore.dispatch(noticeDismissed(notice.id));
+    }
+    const heroId = homePage(project).blockIds[1];
+    vi.mocked(putProject).mockResolvedValueOnce(undefined);
+    appStore.dispatch(blockValueSet(heroId, 'title', 'Saved', 'discrete'));
+    await autosave.flush();
+    vi.mocked(putProject).mockRejectedValueOnce(new Error('Quota exceeded'));
+    appStore.dispatch(blockValueSet(heroId, 'title', 'Not saved', 'discrete'));
+    await autosave.flush();
+    expect(errorNotices()).toEqual(['Your changes could not be saved in this browser.']);
   });
 });

@@ -30,43 +30,8 @@
     color: var(--ve-muted);
   }
 
-  .ve-page-switcher {
-    max-width: 220px;
-    border-color: var(--ve-border);
-  }
-
-  .ve-page-switcher-name {
-    overflow: hidden;
-    font-weight: 600;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .ve-page-switcher-menu {
-    position-area: bottom span-right;
-    width: 260px;
-    max-height: min(480px, 70vh);
-    overflow-y: auto;
-  }
-
-  .ve-page-switcher-menu .ve-search {
-    margin-bottom: 4px;
-  }
-
-  .ve-page-switcher-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .ve-page-switcher-list button {
+  .ve-page-actions {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  .ve-page-switcher-list [aria-current='page'] {
-    background: var(--ve-accent-soft);
+    flex: none;
   }
 }

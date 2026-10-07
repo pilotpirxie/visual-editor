@@ -93,6 +93,13 @@ afterEach(() => {
 });
 
 describe('useDiskAutosave', () => {
+  it('writes the first edit after a save to the linked file', async () => {
+    editDescription('Interview notes');
+    await waitForDiskAutosave();
+    expect(writeAutosavedFile).toHaveBeenCalledTimes(1);
+    expect(writeAutosavedFile).toHaveBeenCalledWith(store.getState().project);
+  });
+
   it('writes the edited project to the linked file five seconds after an edit', async () => {
     markFileStale();
     editDescription('Interview notes for product teams');
@@ -131,14 +138,25 @@ describe('useDiskAutosave', () => {
     expect(writeAutosavedFile).not.toHaveBeenCalled();
   });
 
-  it('does not write when another project is opened', async () => {
-    markFileStale();
+  it('does not write a project just because it was opened', async () => {
     const other = createSampleProject();
     runInAct(() => {
       dispatch(projectLoaded({ project: other, pageId: other.pages.homePageId }));
     });
     await waitForDiskAutosave();
     expect(writeAutosavedFile).not.toHaveBeenCalled();
+  });
+
+  it('still writes the pending edit of the previous project after another one opens', async () => {
+    editDescription('Interview notes');
+    const edited = store.getState().project;
+    const other = createSampleProject();
+    runInAct(() => {
+      dispatch(projectLoaded({ project: other, pageId: other.pages.homePageId }));
+    });
+    await waitForDiskAutosave();
+    expect(writeAutosavedFile).toHaveBeenCalledTimes(1);
+    expect(writeAutosavedFile).toHaveBeenCalledWith(edited);
   });
 
   it('shows the paused notice once while writes stay paused', async () => {

@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { openLibraryTab } from './editor';
 
 function previewBackground(page: Page): Promise<string> {
   return page
@@ -19,11 +20,12 @@ test('a starter previews every page on every device and starts a new project', a
   const frame = preview.locator('.ve-starter-frame');
   await expect(page.frameLocator('.ve-starter-frame').locator('h1')).toBeVisible();
   await expect(frame).toHaveCSS('width', '1440px');
-  await preview.getByRole('button', { name: 'Tablet' }).click();
+  const device = preview.getByRole('combobox', { name: 'Device' });
+  await device.selectOption('tablet');
   await expect(frame).toHaveCSS('width', '768px');
-  await preview.getByRole('button', { name: 'Phone' }).click();
+  await device.selectOption('phone');
   await expect(frame).toHaveCSS('width', '375px');
-  await preview.getByRole('button', { name: 'Desktop' }).click();
+  await device.selectOption('desktop');
 
   await page
     .frameLocator('.ve-starter-frame')
@@ -40,15 +42,15 @@ test('a starter previews every page on every device and starts a new project', a
 
   await preview.getByRole('button', { name: 'Use this starter' }).click();
   await expect(page.locator('.ve-toolbar')).toBeVisible();
-  await expect(page.locator('.ve-project-title')).toHaveText('Fieldnote');
+  await expect(page).toHaveTitle('Fieldnote – Visual Editor');
   const canvas = page.frameLocator('.ve-canvas-frame');
   await expect(canvas.locator('h1')).toBeVisible();
   await expect
     .poll(() => canvas.locator('body').evaluate((body) => getComputedStyle(body).backgroundColor))
     .toBe('rgb(11, 15, 26)');
 
-  await page.locator('.ve-page-switcher').click();
-  await expect(page.locator('.ve-page-switcher-menu').getByRole('button')).toContainText([
+  await openLibraryTab(page, 'Pages');
+  await expect(page.locator('.ve-page-name > span:first-child')).toHaveText([
     'Home',
     'Features',
     'Pricing',
@@ -63,7 +65,7 @@ test('a blank project starts from the chosen preset and site name', async ({ pag
   await page.getByRole('button', { name: 'New project' }).click();
   await page.getByLabel('Site name').fill('Harbor Bakery');
   await page.getByRole('button', { name: 'Start with Midnight' }).click();
-  await expect(page.locator('.ve-project-title')).toHaveText('Harbor Bakery');
+  await expect(page).toHaveTitle('Harbor Bakery – Visual Editor');
   await expect
     .poll(() =>
       page

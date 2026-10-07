@@ -1,0 +1,31 @@
+@layer components {
+  .ui-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 8px 8px 0;
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ui-tabs [role='tab'] {
+    min-height: var(--ve-target);
+    padding: 6px 10px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: var(--ve-muted);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .ui-tabs [aria-selected='true'] {
+    border-bottom-color: var(--ve-accent);
+    color: var(--ve-text);
+  }
+
+  .ui-tab-panel {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+}

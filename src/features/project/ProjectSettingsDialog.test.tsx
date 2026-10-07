@@ -47,9 +47,14 @@ describe('ProjectSettingsDialog', () => {
     );
   });
 
-  it('shows an example title built from the template', () => {
+  it('groups the settings into collapsible Site and Search and sharing sections', () => {
     const { container } = render(<ProjectSettingsDialog onClose={() => {}} />);
-    expect(container.ownerDocument.body.textContent).toContain('Example: “About | Fieldnote”');
+    const titles: string[] = [];
+    for (const title of container.querySelectorAll('.ui-section-title')) {
+      titles.push(title.textContent ?? '');
+    }
+    expect(titles).toEqual(['Site', 'Search and sharing']);
+    expect(container.querySelector('.ui-section')?.tagName.toLowerCase()).toBe('details');
   });
 
   it('stores a valid base URL and explains an invalid one', () => {

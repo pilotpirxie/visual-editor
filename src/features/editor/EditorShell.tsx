@@ -1,4 +1,4 @@
-import type { CSSProperties, JSX } from 'react';
+import { useEffect, type CSSProperties, type JSX } from 'react';
 import { useStore } from '../../app/store';
 import { Canvas } from '../canvas/Canvas';
 import { DragGhost } from '../canvas/DragGhost';
@@ -18,8 +18,20 @@ function ConversionHost(): JSX.Element | null {
   return <ConvertToHtmlDialog key={blockId} blockId={blockId} />;
 }
 
+const APP_NAME = 'Visual Editor';
+
+function useDocumentTitle(title: string): void {
+  useEffect(() => {
+    document.title = `${title} – ${APP_NAME}`;
+    return () => {
+      document.title = APP_NAME;
+    };
+  }, [title]);
+}
+
 export function EditorShell(): JSX.Element {
   useDiskAutosave();
+  useDocumentTitle(useStore((state) => state.project.settings.title));
   const { left, right } = useStore((state) => state.editor.panels);
   const compactView = useStore((state) => state.editor.compactView);
   const isDesignSheetOpen = useStore((state) => state.editor.isDesignSheetOpen);

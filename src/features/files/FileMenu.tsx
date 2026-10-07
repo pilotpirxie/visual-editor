@@ -1,9 +1,9 @@
 import type { JSX } from 'react';
 import { useStore } from '../../app/store';
-import { MenuButton, type MenuItem } from '../editor/Menu';
 import { canUseFileSystemAccess } from './fileAccess';
 import { setDiskAutosave } from './fileActions';
 import { fileCommands } from './fileCommands';
+import { MenuButton, type MenuItem } from '../../../packages/ui/src';
 
 type FileMenuProps = {
   onNewProject(): void;
@@ -19,6 +19,7 @@ export function FileMenu({
   onLicenses,
 }: FileMenuProps): JSX.Element {
   const linkedFile = useStore((state) => state.editor.linkedFile);
+  const isLinkedFileStale = useStore((state) => state.editor.isLinkedFileStale);
   const canAutoSave = canUseFileSystemAccess() && linkedFile?.kind === 'file';
   const items: MenuItem[] = [
     { id: 'new', label: 'New project…', onSelect: onNewProject },
@@ -63,5 +64,6 @@ export function FileMenu({
     { id: 'licenses-separator', isSeparator: true },
     { id: 'licenses', label: 'Open-source licenses', onSelect: onLicenses },
   );
-  return <MenuButton label="File" icon="file" items={items} />;
+  const status = linkedFile !== null && isLinkedFileStale ? 'changes not saved to file' : undefined;
+  return <MenuButton label="File" icon="file" items={items} status={status} />;
 }

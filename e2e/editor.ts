@@ -11,17 +11,83 @@ export async function createProject(page: Page): Promise<void> {
   await expect(page.frameLocator('.ve-canvas-frame').locator('#ve-page')).toBeAttached();
 }
 
+export type LibraryTab = 'Blocks' | 'Layers' | 'Pages';
+
+export type StoredProject = {
+  settings: { title: string; baseUrl?: string };
+  pages: { ids: string[]; entities: Record<string, { name: string; blockIds: string[] }> };
+  blocks: { entities: Record<string, { values?: Record<string, unknown> }> };
+};
+
+export async function openLibraryTab(page: Page, name: LibraryTab): Promise<void> {
+  await page.locator('.ve-library [role="tab"]', { hasText: name }).click();
+}
+
+function pageRowButton(page: Page, name: string): Locator {
+  return page
+    .locator('.ve-page-name')
+    .filter({ has: page.locator('span', { hasText: new RegExp(`^${name}$`) }) });
+}
+
+export async function expectCurrentPage(page: Page, name: string): Promise<void> {
+  await openLibraryTab(page, 'Pages');
+  await expect(pageRowButton(page, name)).toHaveAttribute('aria-current', 'page');
+}
+
+export async function addPage(page: Page, name: string): Promise<void> {
+  await openLibraryTab(page, 'Pages');
+  await page.locator('.ve-pages').getByRole('button', { name: 'Add page' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Add page' });
+  await dialog.getByLabel('Name').fill(name);
+  await dialog.getByRole('button', { name: 'Add page' }).click();
+  await expectCurrentPage(page, name);
+}
+
+export async function openPage(page: Page, name: string): Promise<void> {
+  await openLibraryTab(page, 'Pages');
+  await pageRowButton(page, name).click();
+  await expect(pageRowButton(page, name)).toHaveAttribute('aria-current', 'page');
+}
+
+export async function openProjectSettings(page: Page): Promise<Locator> {
+  await page.getByRole('button', { name: /^File/ }).click();
+  await page.getByRole('menuitem', { name: 'Project settings…' }).click();
+  return page.getByRole('dialog', { name: 'Project settings' });
+}
+
+export function storedProject(page: Page): Promise<StoredProject | null> {
+  return page.evaluate(async () => {
+    const projectId = window.location.pathname.split('/')[2] ?? '';
+    const db = await new Promise<IDBDatabase>((resolve, reject) => {
+      const request = indexedDB.open('visual-editor');
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+    try {
+      return await new Promise<StoredProject | null>((resolve, reject) => {
+        const request = db.transaction('documents').objectStore('documents').get(projectId);
+        request.onsuccess = () => resolve(request.result ?? null);
+        request.onerror = () => reject(request.error);
+      });
+    } finally {
+      db.close();
+    }
+  });
+}
+
 export async function insertBlock(page: Page, category: string, blockName: string): Promise<void> {
   const library = page.locator('.ve-library');
+  if (await library.locator('[role="tab"]').first().isVisible())
+    await openLibraryTab(page, 'Blocks');
   await library.locator('.ve-categories button', { hasText: category }).click();
   await library.getByRole('button', { name: blockName }).click();
   await library.getByRole('button', { name: 'All categories' }).click();
 }
 
 export async function layerNames(page: Page): Promise<string[]> {
-  await page.locator('.ve-library [role="tab"]', { hasText: 'Layers' }).click();
+  await openLibraryTab(page, 'Layers');
   const names = await page.locator('.ve-layer-name').allTextContents();
-  await page.locator('.ve-library [role="tab"]', { hasText: 'Blocks' }).click();
+  await openLibraryTab(page, 'Blocks');
   return names;
 }
 

@@ -17,6 +17,7 @@ import { ImageField } from './ImageField';
 import { ButtonField, LinkField } from './LinkField';
 import { ListField } from './ListField';
 import { RichTextField } from './RichTextField';
+import { FieldError, fieldErrorId } from '../../../packages/ui/src';
 
 export type ControlProps = {
   field: Field;
@@ -55,14 +56,6 @@ const CONTROLS: Record<FieldType, (props: ControlProps) => JSX.Element> = {
   button: ButtonField,
 };
 
-function describedByIds(helpId: string | null, errorId: string | null): string | undefined {
-  const ids: string[] = [];
-  if (helpId !== null) ids.push(helpId);
-  if (errorId !== null) ids.push(errorId);
-  if (ids.length === 0) return undefined;
-  return ids.join(' ');
-}
-
 export function FieldControl({ field, value, path, onChange }: FieldControlProps): JSX.Element {
   const [draft, setDraft] = useState<Draft | null>(null);
   const isDraftStale = draft !== null && !Object.is(draft.base, value);
@@ -74,8 +67,6 @@ export function FieldControl({ field, value, path, onChange }: FieldControlProps
   const shownValue = activeDraft === null ? value : activeDraft.value;
   const error = activeDraft === null ? null : validateField(field, activeDraft.value);
   const id = `ve-field-${path}`;
-  const helpId = field.help ? `${id}-help` : null;
-  const errorId = error !== null ? `${id}-error` : null;
 
   function change(next: unknown, kind: EditKind): void {
     if (validateField(field, next) === null) {
@@ -93,7 +84,7 @@ export function FieldControl({ field, value, path, onChange }: FieldControlProps
 
   return (
     <div
-      className="ve-control"
+      className="ve-field-control"
       data-field-path={path}
       data-invalid={error !== null || undefined}
       onBlur={dropDraftOnLeave}
@@ -103,20 +94,11 @@ export function FieldControl({ field, value, path, onChange }: FieldControlProps
         value={shownValue}
         id={id}
         path={path}
-        describedBy={describedByIds(helpId, errorId)}
+        describedBy={error === null ? undefined : fieldErrorId(id)}
         isInvalid={error !== null}
         onChange={change}
       />
-      {helpId !== null && (
-        <p id={helpId} className="ve-control-help">
-          {field.help}
-        </p>
-      )}
-      {errorId !== null && (
-        <p id={errorId} className="ve-control-error" role="alert">
-          {error}
-        </p>
-      )}
+      <FieldError id={id} error={error} />
     </div>
   );
 }

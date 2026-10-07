@@ -6,64 +6,28 @@
     padding: 12px;
   }
 
-  .ve-search {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    height: 32px;
-    padding-inline: 8px;
-    border: 1px solid var(--ve-border);
-    border-radius: var(--ve-radius);
-    color: var(--ve-muted);
-  }
-
-  .ve-search:focus-within {
-    border-color: var(--ve-accent);
-  }
-
-  .ve-search input {
-    flex: 1;
-    min-width: 0;
-    border: 0;
-    outline: 0;
-    background: none;
-    color: var(--ve-text);
-  }
-
-  .ve-categories button,
-  .ve-back {
+  .ve-categories button {
     display: flex;
     align-items: center;
     gap: 6px;
     width: 100%;
+    min-height: var(--ve-target);
     padding: 8px;
     border: 0;
     border-radius: var(--ve-radius);
     background: none;
+    color: inherit;
+    font: inherit;
     text-align: left;
     cursor: pointer;
   }
 
-  .ve-categories button:hover,
-  .ve-back:hover {
+  .ve-categories button:hover {
     background: var(--ve-surface);
-  }
-
-  .ve-back {
-    color: var(--ve-muted);
   }
 
   .ve-count {
     margin-left: auto;
-    color: var(--ve-muted);
-  }
-
-  .ve-heading {
-    font-size: 13px;
-    font-weight: 700;
-  }
-
-  .ve-muted {
     color: var(--ve-muted);
   }
 
@@ -105,19 +69,6 @@
 
   .ve-layers-empty {
     padding: 16px 12px;
-  }
-
-  .ve-layer-group {
-    padding-top: 12px;
-  }
-
-  .ve-layer-group > .ve-group-title {
-    padding-inline: 16px;
-  }
-
-  .ve-layer-group > .ve-layers-empty {
-    padding-block: 8px;
-    padding-inline: 16px;
   }
 
   .ve-layer {
@@ -168,6 +119,25 @@
     bottom: -1px;
   }
 
+  .ve-back {
+    align-self: flex-start;
+    color: var(--ve-muted);
+  }
+
+  .ve-layer-actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+  }
+
+  .ve-layer-groups .ui-section-body {
+    padding: 0 0 8px;
+  }
+
+  .ve-layer-groups .ve-layers {
+    padding-block: 0;
+  }
+
   .ve-layer-name {
     display: flex;
     flex: 1;
@@ -188,7 +158,7 @@
   }
 
   @media (width < 1024px) {
-    .ve-library .ve-tabs {
+    .ve-library-tabs {
       display: none;
     }
 
@@ -197,13 +167,8 @@
     }
 
     .ve-layer-name,
-    .ve-categories button,
-    .ve-back {
+    .ve-categories button {
       min-height: 44px;
-    }
-
-    .ve-search {
-      height: 44px;
     }
 
     .ve-component-grid {

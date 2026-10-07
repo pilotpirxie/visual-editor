@@ -15,6 +15,12 @@ import { createBlankProject, createPage, UNTITLED_PROJECT_TITLE } from './projec
 import { FAVICON_TYPES, settingError, SOCIAL_IMAGE_TYPES, type SettingKey } from './settingsRules';
 import { slugError } from './slugs';
 import {
+  derivedFontWeights,
+  nearestWeight,
+  SYSTEM_FONT_WEIGHTS,
+  WEIGHT_TOKENS,
+} from './typography';
+import {
   DEVICES,
   FONT_ROLES,
   type Block,
@@ -108,11 +114,9 @@ function isGeneratorKey(key: string): key is keyof TokenGenerators {
   return GENERATOR_KEYS.some((known) => known === key);
 }
 
-export type FontChange = {
-  role: FontRole;
-  selection: { family: string; weights: number[] } | null;
-  stack: string;
-};
+export type FontChange =
+  | { role: FontRole; family: string; availableWeights: number[]; stack: string }
+  | { role: FontRole; family: null; stack: string };
 
 const FONT_WEIGHT_STEP = 100;
 const MAX_FONT_WEIGHT = 1000;
@@ -135,8 +139,27 @@ export type AdvancedChange =
   | { key: 'extraClasses'; value: string[] }
   | { key: 'hideOn'; value: Device[] };
 
-function isSameList(left: readonly string[], right: readonly string[]): boolean {
+function isSameList<T>(left: readonly T[], right: readonly T[]): boolean {
   return left.length === right.length && left.every((item, index) => item === right[index]);
+}
+
+function syncFontWeights(designSystem: DesignSystem): void {
+  for (const font of designSystem.fonts) {
+    const weights = derivedFontWeights(font.role, designSystem.tokens);
+    if (!isSameList(weights, font.weights)) font.weights = weights;
+  }
+}
+
+function isWeightToken(name: string): boolean {
+  for (const role of FONT_ROLES) {
+    if (WEIGHT_TOKENS[role].includes(name)) return true;
+  }
+  return false;
+}
+
+function availableWeightsOf(change: FontChange): number[] {
+  if (change.family === null) return [...SYSTEM_FONT_WEIGHTS];
+  return change.availableWeights.filter(isFontWeight);
 }
 
 function applyAdvancedChange(block: Block, change: AdvancedChange): void {
@@ -566,25 +589,28 @@ export const projectSlice = createSlice({
         const token = state.designSystem.tokens[action.payload.name];
         if (token === undefined || !isSafeCssValue(action.payload.value)) return;
         token.value = action.payload.value.trim();
+        if (isWeightToken(token.name)) syncFontWeights(state.designSystem);
       },
       prepare(payload: { name: string; value: string }, kind: EditKind) {
         return { payload, meta: editMeta(kind, `token:${payload.name}`) };
       },
     },
     fontSet(state, action: PayloadAction<FontChange>) {
-      const { role, selection, stack } = action.payload;
-      const token = state.designSystem.tokens[`--font-${role}`];
-      if (!isFontRole(role) || token === undefined || !isSafeCssValue(stack)) return;
-      const weights =
-        selection === null ? [] : [...new Set(selection.weights)].filter(isFontWeight);
-      if (selection !== null && (selection.family.trim() === '' || weights.length === 0)) return;
-      token.value = stack;
-      const fonts = state.designSystem.fonts.filter((font) => font.role !== role);
-      if (selection !== null) {
-        weights.sort((left, right) => left - right);
-        fonts.push({ role, family: selection.family, weights });
+      const { role, family, stack } = action.payload;
+      const familyToken = state.designSystem.tokens[`--font-${role}`];
+      if (!isFontRole(role) || familyToken === undefined || !isSafeCssValue(stack)) return;
+      const available = availableWeightsOf(action.payload);
+      if (family !== null && (family.trim() === '' || available.length === 0)) return;
+      familyToken.value = stack;
+      for (const name of WEIGHT_TOKENS[role]) {
+        const token = state.designSystem.tokens[name];
+        if (token !== undefined)
+          token.value = String(nearestWeight(Number(token.value), available));
       }
+      const fonts = state.designSystem.fonts.filter((font) => font.role !== role);
+      if (family !== null) fonts.push({ role, family, weights: [] });
       state.designSystem.fonts = fonts;
+      syncFontWeights(state.designSystem);
     },
     designSystemApplied(state, action: PayloadAction<DesignSystem>) {
       state.designSystem = action.payload;
@@ -605,6 +631,7 @@ export const projectSlice = createSlice({
           if (!isGeneratorKey(key) || !Number.isFinite(value) || value <= 0) continue;
           state.designSystem.generators[key] = value;
         }
+        syncFontWeights(state.designSystem);
       },
       prepare(payload: TokensChange, kind: EditKind) {
         const names = Object.keys(payload.values);

@@ -1,6 +1,13 @@
 import type { ChangeEvent, JSX } from 'react';
-import type { Field } from '../../components/types';
-import { hasIcon, Icon } from '../editor/Icon';
+import {
+  Field,
+  NumberInput,
+  SegmentedControl as SegmentedInput,
+  Select,
+  Switch,
+  TextArea,
+  TextInput,
+} from '../../../packages/ui/src';
 import type { ControlProps } from './FieldControl';
 
 const TEXTAREA_ROWS = 3;
@@ -21,14 +28,6 @@ function numberFromInput(event: ChangeEvent<HTMLInputElement>): number | string 
   return valueAsNumber;
 }
 
-function ControlLabel({ id, field }: { id: string; field: Field }): JSX.Element {
-  return (
-    <label className="ve-control-label" htmlFor={id}>
-      {field.label}
-    </label>
-  );
-}
-
 export function TextControl({
   field,
   value,
@@ -39,20 +38,18 @@ export function TextControl({
 }: ControlProps): JSX.Element {
   const isDate = field.type === 'date';
   return (
-    <>
-      <ControlLabel id={id} field={field} />
-      <input
+    <Field id={id} label={field.label}>
+      <TextInput
         id={id}
-        className="ve-input"
         type={isDate ? 'date' : 'text'}
         value={asText(value)}
         maxLength={field.maxLength}
         aria-required={field.required}
-        aria-invalid={isInvalid}
+        isInvalid={isInvalid}
         aria-describedby={describedBy}
         onChange={(event) => onChange(event.target.value, isDate ? 'discrete' : 'continuous')}
       />
-    </>
+    </Field>
   );
 }
 
@@ -65,20 +62,18 @@ export function TextareaControl({
   onChange,
 }: ControlProps): JSX.Element {
   return (
-    <>
-      <ControlLabel id={id} field={field} />
-      <textarea
+    <Field id={id} label={field.label}>
+      <TextArea
         id={id}
-        className="ve-input"
         rows={TEXTAREA_ROWS}
         value={asText(value)}
         maxLength={field.maxLength}
         aria-required={field.required}
-        aria-invalid={isInvalid}
+        isInvalid={isInvalid}
         aria-describedby={describedBy}
         onChange={(event) => onChange(event.target.value, 'continuous')}
       />
-    </>
+    </Field>
   );
 }
 
@@ -91,22 +86,19 @@ export function NumberControl({
   onChange,
 }: ControlProps): JSX.Element {
   return (
-    <>
-      <ControlLabel id={id} field={field} />
-      <input
+    <Field id={id} label={field.label}>
+      <NumberInput
         id={id}
-        className="ve-input ve-input--number"
-        type="number"
         value={asNumberText(value)}
         min={field.min}
         max={field.max}
         step={field.step}
         aria-required={field.required}
-        aria-invalid={isInvalid}
+        isInvalid={isInvalid}
         aria-describedby={describedBy}
         onChange={(event) => onChange(numberFromInput(event), 'continuous')}
       />
-    </>
+    </Field>
   );
 }
 
@@ -119,33 +111,29 @@ export function RangeControl({
   onChange,
 }: ControlProps): JSX.Element {
   return (
-    <>
-      <ControlLabel id={id} field={field} />
-      <div className="ve-range">
-        <input
-          id={id}
-          type="range"
-          value={asNumberText(value)}
-          min={field.min}
-          max={field.max}
-          step={field.step}
-          aria-describedby={describedBy}
-          onChange={(event) => onChange(numberFromInput(event), 'continuous')}
-        />
-        <input
-          className="ve-input ve-input--number"
-          type="number"
-          value={asNumberText(value)}
-          min={field.min}
-          max={field.max}
-          step={field.step}
-          aria-label={`${field.label} value`}
-          aria-invalid={isInvalid}
-          aria-describedby={describedBy}
-          onChange={(event) => onChange(numberFromInput(event), 'continuous')}
-        />
-      </div>
-    </>
+    <Field id={id} label={field.label}>
+      <input
+        id={id}
+        type="range"
+        className="ve-range-input"
+        value={asNumberText(value)}
+        min={field.min}
+        max={field.max}
+        step={field.step}
+        aria-describedby={describedBy}
+        onChange={(event) => onChange(numberFromInput(event), 'continuous')}
+      />
+      <NumberInput
+        value={asNumberText(value)}
+        min={field.min}
+        max={field.max}
+        step={field.step}
+        aria-label={`${field.label} value`}
+        isInvalid={isInvalid}
+        aria-describedby={describedBy}
+        onChange={(event) => onChange(numberFromInput(event), 'continuous')}
+      />
+    </Field>
   );
 }
 
@@ -157,17 +145,13 @@ export function BooleanControl({
   onChange,
 }: ControlProps): JSX.Element {
   return (
-    <label className="ve-switch" htmlFor={id}>
-      <input
-        id={id}
-        type="checkbox"
-        role="switch"
-        checked={value === true}
-        aria-describedby={describedBy}
-        onChange={(event) => onChange(event.target.checked, 'discrete')}
-      />
-      <span className="ve-control-label">{field.label}</span>
-    </label>
+    <Switch
+      id={id}
+      label={field.label}
+      checked={value === true}
+      aria-describedby={describedBy}
+      onChange={(event) => onChange(event.target.checked, 'discrete')}
+    />
   );
 }
 
@@ -180,33 +164,16 @@ export function SelectControl({
   onChange,
 }: ControlProps): JSX.Element {
   return (
-    <>
-      <ControlLabel id={id} field={field} />
-      <select
+    <Field id={id} label={field.label}>
+      <Select
         id={id}
-        className="ve-input"
         value={asText(value)}
-        aria-invalid={isInvalid}
+        options={field.options ?? []}
+        isInvalid={isInvalid}
         aria-describedby={describedBy}
         onChange={(event) => onChange(event.target.value, 'discrete')}
-      >
-        {field.options?.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </>
-  );
-}
-
-function SegmentLabel({ label, icon }: { label: string; icon: string | undefined }): JSX.Element {
-  if (icon === undefined || !hasIcon(icon)) return <>{label}</>;
-  return (
-    <>
-      <Icon name={icon} />
-      <span className="ve-visually-hidden">{label}</span>
-    </>
+      />
+    </Field>
   );
 }
 
@@ -218,22 +185,13 @@ export function SegmentedControl({
   onChange,
 }: ControlProps): JSX.Element {
   return (
-    <fieldset className="ve-segmented" aria-describedby={describedBy}>
-      <legend className="ve-control-label">{field.label}</legend>
-      <div className="ve-segmented-options">
-        {field.options?.map((option) => (
-          <label key={option.value} className="ve-segment" title={option.label}>
-            <input
-              type="radio"
-              name={id}
-              value={option.value}
-              checked={value === option.value}
-              onChange={() => onChange(option.value, 'discrete')}
-            />
-            <SegmentLabel label={option.label} icon={option.icon} />
-          </label>
-        ))}
-      </div>
-    </fieldset>
+    <SegmentedInput
+      legend={field.label}
+      name={id}
+      options={field.options ?? []}
+      value={asText(value)}
+      describedBy={describedBy}
+      onChange={(next) => onChange(next, 'discrete')}
+    />
   );
 }

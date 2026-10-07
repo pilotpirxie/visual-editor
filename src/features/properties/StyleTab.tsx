@@ -5,9 +5,10 @@ import type { ComponentBlock, Token } from '../../app/types';
 import type { ComponentDefinition, Field } from '../../components/types';
 import { tokenReference } from '../../render/css';
 import { resolveColor } from '../design-system/colors';
-import { Icon } from '../editor/Icon';
 import { FieldControl } from './FieldControl';
 import { TokenSelect } from './TokenSelect';
+import { Button, IconButton, Section } from '../../../packages/ui/src';
+import { useSection } from '../editor/useSection';
 
 type OverrideRowProps = {
   block: ComponentBlock;
@@ -103,11 +104,11 @@ function OverrideRow({
   if (!isOverridden && !isOpen) {
     return (
       <div className="ve-override" data-token={name}>
-        <span className="ve-control-label">{label}</span>
+        <span className="ui-field-label">{label}</span>
         <InheritedValue token={token} tokens={tokens} />
-        <button type="button" className="ve-button" onClick={onOpen}>
+        <Button variant="ghost" aria-label={`Override ${label}`} onClick={onOpen}>
           Override
-        </button>
+        </Button>
       </div>
     );
   }
@@ -115,15 +116,12 @@ function OverrideRow({
   return (
     <div className="ve-override ve-override--open" data-token={name}>
       <OverrideControl block={block} name={name} token={token} tokens={tokens} />
-      <button
-        type="button"
-        className="ve-icon-button ve-override-reset"
-        aria-label={`Reset ${label} to the design value`}
-        title="Reset to the design value"
+      <IconButton
+        className="ve-override-reset"
+        label={`Reset ${label} to the design value`}
+        icon="rotate-ccw"
         onClick={reset}
-      >
-        <Icon name="rotate-ccw" />
-      </button>
+      />
     </div>
   );
 }
@@ -137,18 +135,14 @@ export function StyleTab({
 }): JSX.Element {
   const tokens = useStore((state) => state.project.designSystem.tokens);
   const [openTokens, setOpenTokens] = useState<string[]>([]);
+  const section = useSection('style:overrides');
 
   if (definition.styleOverrides.length === 0) {
-    return (
-      <section className="ve-properties-section">
-        <p className="ve-muted">This block has no style options.</p>
-      </section>
-    );
+    return <p className="ui-muted ve-properties-empty">This block has no style options.</p>;
   }
 
   return (
-    <section className="ve-properties-section">
-      <p className="ve-muted">Overrides apply to this block only.</p>
+    <Section title="Overrides" isOpen={section.isOpen} onToggle={section.onToggle}>
       {definition.styleOverrides.map((name) => (
         <OverrideRow
           key={name}
@@ -160,6 +154,6 @@ export function StyleTab({
           onClose={() => setOpenTokens(openTokens.filter((open) => open !== name))}
         />
       ))}
-    </section>
+    </Section>
   );
 }

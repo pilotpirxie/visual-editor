@@ -15,7 +15,10 @@ import { CodeField } from './CodeField';
 import { ContentTab } from './ContentTab';
 import { PageSettingsPanel } from './PageSettingsPanel';
 import { StyleTab } from './StyleTab';
+import { Switch, Tabs, Title } from '../../../packages/ui/src';
 import './properties.css';
+
+const TABS_ID = 've-properties';
 
 const TEXT_ENTRY_TARGETS = 'input, textarea, select, [contenteditable="true"]';
 const BUTTON_TARGETS = 'button, summary';
@@ -41,6 +44,11 @@ function shownTab(block: Block, activeTab: PropertiesTab): PropertiesTab {
 function focusField(container: HTMLElement, path: string): boolean {
   const field = container.querySelector(`[data-field-path="${CSS.escape(path)}"]`);
   if (field === null) return false;
+  let section = field.closest('details');
+  while (section !== null) {
+    section.open = true;
+    section = section.parentElement?.closest('details') ?? null;
+  }
   const details = field.querySelector('details');
   if (details !== null) details.open = true;
   const target =
@@ -80,24 +88,12 @@ function SharedSwitch({
   }
 
   return (
-    <div className="ve-control">
-      <label className="ve-switch" htmlFor="ve-shared-switch">
-        <input
-          id="ve-shared-switch"
-          type="checkbox"
-          role="switch"
-          checked={isShared}
-          aria-describedby="ve-shared-help"
-          onChange={(event) => toggle(event.target.checked)}
-        />
-        <span className="ve-control-label">Shared on all pages</span>
-      </label>
-      <p id="ve-shared-help" className="ve-control-help">
-        {isShared
-          ? `Shown in the shared ${slot} of every page. Edits here change every page.`
-          : `Moves this block into the shared ${slot}, so every page shows it.`}
-      </p>
-    </div>
+    <Switch
+      id="ve-shared-switch"
+      label="Shared on all pages"
+      checked={isShared}
+      onChange={(event) => toggle(event.target.checked)}
+    />
   );
 }
 
@@ -109,21 +105,16 @@ function PropertiesTabs({
   activeTab: PropertiesTab;
 }): JSX.Element {
   return (
-    <div className="ve-tabs" role="tablist" aria-label="Block settings">
-      {tabs.map(({ id, label }) => (
-        <button
-          key={id}
-          type="button"
-          role="tab"
-          id={`ve-properties-tab-${id}`}
-          aria-selected={activeTab === id}
-          aria-controls="ve-properties-panel"
-          onClick={() => dispatch(propertiesTabChanged(id))}
-        >
-          {label}
-        </button>
-      ))}
-    </div>
+    <Tabs
+      label="Block settings"
+      idPrefix={TABS_ID}
+      tabs={tabs}
+      activeId={activeTab}
+      onChange={(id) => {
+        const picked = tabs.find((tab) => tab.id === id);
+        if (picked !== undefined) dispatch(propertiesTabChanged(picked.id));
+      }}
+    />
   );
 }
 
@@ -162,9 +153,9 @@ export function PropertiesPanel(): JSX.Element {
   if (block.kind === 'html') {
     return (
       <aside className="ve-panel ve-properties" aria-label="Properties">
-        <header className="ve-properties-section">
-          <h2 className="ve-properties-title">HTML block</h2>
-          {definition !== null && <p className="ve-muted">Converted from {definition.name}</p>}
+        <header className="ve-properties-header">
+          <Title>HTML block</Title>
+          {definition !== null && <p className="ui-muted">Converted from {definition.name}</p>}
           {definition !== null && <SharedSwitch blockId={block.id} definition={definition} />}
         </header>
         <PropertiesTabs tabs={HTML_TABS} activeTab={tab} />
@@ -186,9 +177,9 @@ export function PropertiesPanel(): JSX.Element {
 
   return (
     <aside className="ve-panel ve-properties" aria-label="Properties">
-      <header className="ve-properties-section">
-        <h2 className="ve-properties-title">{title}</h2>
-        {categoryLabel !== null && <p className="ve-muted">{categoryLabel}</p>}
+      <header className="ve-properties-header">
+        <Title>{title}</Title>
+        {categoryLabel !== null && <p className="ui-muted">{categoryLabel}</p>}
         {definition !== null && <SharedSwitch blockId={block.id} definition={definition} />}
       </header>
       {definition !== null && <PropertiesTabs tabs={COMPONENT_TABS} activeTab={tab} />}

@@ -2,9 +2,9 @@ import type { JSX } from 'react';
 import type { EditKind } from '../../app/projectSlice';
 import type { Token, TokenGroup } from '../../app/types';
 import { isSafeCssValue } from '../../render/sanitize';
-import { DraftInput } from '../properties/DraftInput';
 import { TokenSelect } from '../properties/TokenSelect';
 import { resolveColor, toPickerHex } from './colors';
+import { DraftInput, Field } from '../../../packages/ui/src';
 
 type TokenControlProps = {
   token: Token;
@@ -68,26 +68,21 @@ export function componentTokenOptions(token: Token, tokens: Record<string, Token
 function ColorTokenControl({ token, tokens, onChange }: TokenControlProps): JSX.Element {
   const id = `ve-token-${token.name}`;
   return (
-    <div className="ve-token-row">
-      <label className="ve-control-label" htmlFor={id}>
-        {token.label}
-      </label>
-      <div className="ve-token-inputs">
-        <input
-          type="color"
-          aria-label={`${token.label}: pick a color`}
-          value={toPickerHex(resolveColor(token.value, tokens))}
-          onChange={(event) => onChange(event.target.value, 'continuous')}
-        />
-        <DraftInput
-          id={id}
-          label={token.label}
-          value={token.value}
-          validate={cssValueError}
-          onCommit={(text) => onChange(text, 'continuous')}
-        />
-      </div>
-    </div>
+    <Field id={id} label={token.label} layout="inline" className="ve-token-row">
+      <input
+        type="color"
+        className="ve-color-input"
+        aria-label={`${token.label}: pick a color`}
+        value={toPickerHex(resolveColor(token.value, tokens))}
+        onChange={(event) => onChange(event.target.value, 'continuous')}
+      />
+      <DraftInput
+        id={id}
+        value={token.value}
+        validate={cssValueError}
+        onCommit={(text) => onChange(text, 'continuous')}
+      />
+    </Field>
   );
 }
 
@@ -112,54 +107,45 @@ function NumberTokenControl({
   }
 
   return (
-    <div className="ve-token-row">
-      <label className="ve-control-label" htmlFor={id}>
-        {token.label}
-      </label>
-      <div className="ve-token-inputs">
-        {hasSlider && (
-          <input
-            type="range"
-            aria-label={`${token.label}: slider`}
-            min={slider.min}
-            max={slider.max}
-            step={slider.step}
-            value={amount}
-            onChange={(event) => commit(event.target.value)}
-          />
-        )}
-        <DraftInput
-          id={id}
-          label={token.label}
-          type="number"
-          min={range.min}
-          max={range.max}
-          step={range.step}
+    <Field id={id} label={token.label} layout="inline" className="ve-token-row">
+      {hasSlider && (
+        <input
+          type="range"
+          className="ve-range-input"
+          aria-label={`${token.label}: slider`}
+          min={slider.min}
+          max={slider.max}
+          step={slider.step}
           value={amount}
-          validate={numberError}
-          onCommit={commit}
+          onChange={(event) => commit(event.target.value)}
         />
-        {unit !== '' && <span className="ve-token-unit">{unit}</span>}
-      </div>
-    </div>
+      )}
+      <DraftInput
+        id={id}
+        type="number"
+        unit={unit === '' ? undefined : unit}
+        min={range.min}
+        max={range.max}
+        step={range.step}
+        value={amount}
+        validate={numberError}
+        onCommit={commit}
+      />
+    </Field>
   );
 }
 
 function TextTokenControl({ token, onChange }: Omit<TokenControlProps, 'tokens'>): JSX.Element {
   const id = `ve-token-${token.name}`;
   return (
-    <div className="ve-token-row">
-      <label className="ve-control-label" htmlFor={id}>
-        {token.label}
-      </label>
+    <Field id={id} label={token.label} layout="inline" className="ve-token-row">
       <DraftInput
         id={id}
-        label={token.label}
         value={token.value}
         validate={cssValueError}
         onCommit={(text) => onChange(text, 'continuous')}
       />
-    </div>
+    </Field>
   );
 }
 
@@ -172,6 +158,7 @@ export function TokenControl({ token, tokens, onChange }: TokenControlProps): JS
       <TokenSelect
         id={`ve-token-${token.name}`}
         label={token.label}
+        layout="inline"
         value={token.value}
         options={componentTokenOptions(token, tokens)}
         onChange={onChange}

@@ -1,4 +1,4 @@
-import { useRef, useState, type JSX, type MouseEvent, type PointerEvent } from 'react';
+import { useRef, useState, type JSX, type PointerEvent } from 'react';
 import { blockSelected, compactTabSelected, pageSelectionForgotten } from '../../app/editorSlice';
 import { homePageSet, pageMoved } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, useStore } from '../../app/store';
@@ -6,12 +6,11 @@ import type { Page } from '../../app/types';
 import { dragController, type DragPayload } from '../canvas/dragController';
 import { dropEdgeAt, finalMoveIndex } from '../canvas/geometry';
 import { useListDropTarget } from '../canvas/useListDropTarget';
-import { Icon } from '../editor/Icon';
-import { closeOwningPopover } from '../editor/Menu';
 import { DeletePageDialog } from './DeletePageDialog';
 import { duplicatePage, openPage } from './pageActions';
 import { PageDialog } from './PageDialog';
 import './pages.css';
+import { Button, Icon, MenuButton, type MenuItem } from '../../../packages/ui/src';
 
 type DialogState =
   { kind: 'add' } | { kind: 'rename'; pageId: string } | { kind: 'delete'; pageId: string } | null;
@@ -50,7 +49,6 @@ function PageMenu({
   onDialog(dialog: DialogState): void;
 }): JSX.Element {
   const { page, index, isHome, isCurrent } = row;
-  const menuId = `ve-page-menu-${page.id}`;
   const isLastPage = pageCount <= 1;
   let deleteHint: string | undefined;
   if (isHome) {
@@ -59,78 +57,55 @@ function PageMenu({
     deleteHint = 'A site needs at least one page';
   }
 
-  function act(event: MouseEvent<HTMLButtonElement>, action: () => void): void {
-    closeOwningPopover(event.currentTarget);
-    action();
-  }
+  const items: MenuItem[] = [
+    {
+      id: 'rename',
+      label: 'Rename…',
+      onSelect: () => onDialog({ kind: 'rename', pageId: page.id }),
+    },
+    { id: 'duplicate', label: 'Duplicate', onSelect: () => dispatch(duplicatePage(page.id)) },
+    {
+      id: 'home',
+      label: 'Set as home page',
+      disabled: isHome,
+      onSelect: () => dispatch(homePageSet({ pageId: page.id })),
+    },
+    {
+      id: 'settings',
+      label: 'Page settings',
+      onSelect: () => openPageSettings(page.id, isCurrent),
+    },
+    {
+      id: 'up',
+      label: 'Move up',
+      disabled: index === 0,
+      onSelect: () => dispatch(pageMoved({ pageId: page.id, toIndex: index - 1 })),
+    },
+    {
+      id: 'down',
+      label: 'Move down',
+      disabled: index === pageCount - 1,
+      onSelect: () => dispatch(pageMoved({ pageId: page.id, toIndex: index + 1 })),
+    },
+    {
+      id: 'delete',
+      label: 'Delete…',
+      isDanger: true,
+      disabled: deleteHint !== undefined,
+      hint: deleteHint,
+      onSelect: () => onDialog({ kind: 'delete', pageId: page.id }),
+    },
+  ];
 
   return (
-    <>
-      <button
-        type="button"
-        className="ve-icon-button"
-        popoverTarget={menuId}
-        aria-label={`More actions for ${page.name}`}
-        title="More actions"
-        onPointerDown={(event) => event.stopPropagation()}
-      >
-        <Icon name="ellipsis" />
-      </button>
-      <div id={menuId} className="ve-menu" popover="auto">
-        <button
-          type="button"
-          onClick={(event) => act(event, () => onDialog({ kind: 'rename', pageId: page.id }))}
-        >
-          Rename…
-        </button>
-        <button
-          type="button"
-          onClick={(event) => act(event, () => dispatch(duplicatePage(page.id)))}
-        >
-          Duplicate
-        </button>
-        <button
-          type="button"
-          disabled={isHome}
-          onClick={(event) => act(event, () => dispatch(homePageSet({ pageId: page.id })))}
-        >
-          Set as home page
-        </button>
-        <button
-          type="button"
-          onClick={(event) => act(event, () => openPageSettings(page.id, isCurrent))}
-        >
-          Page settings
-        </button>
-        <button
-          type="button"
-          disabled={index === 0}
-          onClick={(event) =>
-            act(event, () => dispatch(pageMoved({ pageId: page.id, toIndex: index - 1 })))
-          }
-        >
-          Move up
-        </button>
-        <button
-          type="button"
-          disabled={index === pageCount - 1}
-          onClick={(event) =>
-            act(event, () => dispatch(pageMoved({ pageId: page.id, toIndex: index + 1 })))
-          }
-        >
-          Move down
-        </button>
-        <button
-          type="button"
-          className="ve-menu-danger"
-          disabled={deleteHint !== undefined}
-          title={deleteHint}
-          onClick={(event) => act(event, () => onDialog({ kind: 'delete', pageId: page.id }))}
-        >
-          Delete…
-        </button>
-      </div>
-    </>
+    <span className="ve-page-actions" onPointerDown={(event) => event.stopPropagation()}>
+      <MenuButton
+        label={`More actions for ${page.name}`}
+        icon="ellipsis"
+        items={items}
+        isLabelShown={false}
+      />
+    </span>
   );
 }
 
@@ -179,14 +154,9 @@ export function PagesTab(): JSX.Element {
 
   return (
     <div className="ve-pages">
-      <button
-        type="button"
-        className="ve-button ve-button--outline ve-pages-add"
-        onClick={() => setDialog({ kind: 'add' })}
-      >
-        <Icon name="plus" />
+      <Button icon="plus" className="ve-pages-add" onClick={() => setDialog({ kind: 'add' })}>
         Add page
-      </button>
+      </Button>
       <ol className="ve-layers" ref={listRef} aria-label="Pages">
         {rows.map((row) => (
           <li

@@ -20,6 +20,7 @@ import {
   reconcileEditor,
   responsiveWidthChanged,
   saveStatusChanged,
+  sectionToggled,
   selectCompactTab,
   type EditorState,
 } from './editorSlice';
@@ -280,5 +281,24 @@ describe('reconcileEditor', () => {
     const reconciled = reconcileEditor(editor, project);
     expect(reconciled.selectedBlockId).toBeNull();
     expect(reconciled.focusRequest).toBeNull();
+  });
+});
+
+describe('sectionToggled', () => {
+  it('remembers whether each section is open, starting with none remembered', () => {
+    const store = createTestStore(createSampleProject());
+    expect(store.getState().editor.sectionStates).toEqual({});
+    store.dispatch(sectionToggled({ id: 'design:presets', isOpen: true }));
+    store.dispatch(sectionToggled({ id: 'page:seo', isOpen: false }));
+    expect(store.getState().editor.sectionStates).toEqual({
+      'design:presets': true,
+      'page:seo': false,
+    });
+  });
+
+  it('is not an undo step', () => {
+    const store = createTestStore(createSampleProject());
+    store.dispatch(sectionToggled({ id: 'page:seo', isOpen: false }));
+    expect(store.getState().history.past).toHaveLength(0);
   });
 });

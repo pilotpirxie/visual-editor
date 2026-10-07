@@ -47,9 +47,9 @@ test('arrow keys move the selection on the canvas and Cmd+P toggles Preview', as
     .locator('[data-component="cta-centered"]')
     .click({ position: { x: 20, y: 20 } });
   await page.keyboard.press('ArrowUp');
-  await expect(page.locator('.ve-properties-title')).toHaveText('Hero, centered text');
+  await expect(page.locator('.ve-properties .ui-title')).toHaveText('Hero, centered text');
   await page.keyboard.press('ArrowDown');
-  await expect(page.locator('.ve-properties-title')).toHaveText('Call to action, centered');
+  await expect(page.locator('.ve-properties .ui-title')).toHaveText('Call to action, centered');
   await page.keyboard.press('ControlOrMeta+P');
   await expect(page.locator('.ve-shell')).toHaveAttribute('data-preview', /.*/);
   await page.keyboard.press('ControlOrMeta+P');

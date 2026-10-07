@@ -207,22 +207,22 @@ export function CodeField({ id, blockId, html }: CodeFieldProps): JSX.Element {
         onBlur={flush}
         onKeyDown={onKeyDown}
       />
-      <p id={`${id}-help`} className="ve-control-help">
-        Changes show on the canvas as you type. Press Esc, then Tab, to leave the editor.
+      <p id={`${id}-help`} className="ui-muted ve-code-hint">
+        Press Esc, then Tab, to leave the editor.
       </p>
       <div className="ve-code-actions">
-        <button type="button" className="ve-button ve-button--outline" onClick={format}>
+        <button type="button" className="ui-button ui-button--secondary" onClick={format}>
           Format
         </button>
       </div>
       {unclosed.length > 0 && (
-        <p className="ve-control-error" role="status">
+        <p className="ui-field-error" role="status">
           Unclosed {unclosed.map((name) => `<${name}>`).join(', ')}. The markup is saved, but the
           browser may close these tags in other places.
         </p>
       )}
       {removed.length > 0 && (
-        <p className="ve-dialog-warning" role="status">
+        <p className="ui-dialog-note" role="status">
           Removed for safety: {removed.join(', ')}.
         </p>
       )}
