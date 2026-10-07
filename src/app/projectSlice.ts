@@ -5,7 +5,8 @@ import {
   current,
   type PayloadAction,
 } from '@reduxjs/toolkit';
-import { blockCategory, createBlock, registry } from '../components/registry';
+import { blockCategory, createBlock, definitionOf, registry } from '../components/registry';
+import type { CustomDefinition } from '../components/types';
 import { iconSetInfo } from '../../packages/icon-data/src/sets';
 import { isValidAnchor, isValidClassName } from '../render/attributes';
 import { referencedTokenName } from '../render/css';
@@ -14,7 +15,7 @@ import { findBlockList, sharedSlotOf, slotForCategory } from './blockLists';
 import { sectionThemeById, supportsSectionThemes, THEMED_TOKENS } from './sectionThemes';
 import { createBlankProject, createPage, UNTITLED_PROJECT_TITLE } from './projectFactory';
 import { FAVICON_TYPES, settingError, SOCIAL_IMAGE_TYPES, type SettingKey } from './settingsRules';
-import { slugError } from './slugs';
+import { slugError, uniqueSlug } from './slugs';
 import {
   derivedFontWeights,
   nearestWeight,
@@ -45,7 +46,7 @@ export type NewPage = { id: string; name: string; slug: string };
 
 export type BlockListTarget = { kind: 'page'; pageId: string } | { kind: 'slot'; slot: SharedSlot };
 
-export type SeoTextKey = Exclude<keyof PageSeo, 'socialImageAssetId'>;
+export type SeoTextKey = Exclude<keyof PageSeo, 'socialImageAssetId' | 'noindex'>;
 
 export type ImageUpload = Omit<Asset, 'id'>;
 
@@ -203,17 +204,48 @@ function isValidNewPage(state: Project, page: NewPage): boolean {
   return slugError(page.slug, slugsExcept(state, null)) === null;
 }
 
-function targetList(state: Project, target: BlockListTarget, block: Block): string[] | null {
+function targetList(
+  state: Project,
+  target: BlockListTarget,
+  block: Block,
+  custom?: CustomDefinition,
+): string[] | null {
   if (target.kind === 'page') return state.pages.entities[target.pageId]?.blockIds ?? null;
-  const category = blockCategory(block);
+  const category = blockCategory(block, state) ?? custom?.definition.category ?? null;
   if (category === null || slotForCategory(category) !== target.slot) return null;
   return state.sharedSlots[target.slot];
 }
 
-function isOverridable(block: ComponentBlock, token: string): boolean {
-  const component = registry.get(block.componentId);
-  if (component === undefined) return false;
-  return component.definition.styleOverrides.includes(token);
+const MODAL_ANCHOR = 'modal';
+
+function anchorsInUse(state: Project, pageId: string): string[] {
+  const pageBlockIds = state.pages.entities[pageId]?.blockIds ?? [];
+  const anchors: string[] = [];
+  for (const blockId of [
+    ...pageBlockIds,
+    ...state.sharedSlots.header,
+    ...state.sharedSlots.footer,
+  ]) {
+    const anchor = state.blocks.entities[blockId]?.anchor;
+    if (anchor !== undefined) anchors.push(anchor);
+  }
+  return anchors;
+}
+
+function embedDefinition(state: Project, custom: CustomDefinition | undefined): void {
+  if (custom === undefined || state.customDefinitions[custom.definition.id] !== undefined) return;
+  state.customDefinitions[custom.definition.id] = custom;
+}
+
+function withModalAnchor(state: Project, pageId: string, block: Block): Block {
+  if (block.anchor !== undefined || blockCategory(block, state) !== 'modals') return block;
+  return { ...block, anchor: uniqueSlug(MODAL_ANCHOR, anchorsInUse(state, pageId)) };
+}
+
+function isOverridable(state: Project, block: ComponentBlock, token: string): boolean {
+  const definition = definitionOf(state, block.componentId);
+  if (definition === undefined) return false;
+  return definition.styleOverrides.includes(token);
 }
 
 function createsOverrideCycle(
@@ -236,31 +268,56 @@ export const projectSlice = createSlice({
   initialState: () => createBlankProject(UNTITLED_PROJECT_TITLE),
   reducers: {
     blockInserted: {
-      reducer(state, action: PayloadAction<{ pageId: string; index: number; block: Block }>) {
-        const { pageId, index, block } = action.payload;
+      reducer(
+        state,
+        action: PayloadAction<{
+          pageId: string;
+          index: number;
+          block: Block;
+          custom?: CustomDefinition;
+        }>,
+      ) {
+        const { pageId, index, custom } = action.payload;
         const page = state.pages.entities[pageId];
         if (page === undefined) return;
+        embedDefinition(state, custom);
+        const block = withModalAnchor(state, pageId, action.payload.block);
         blocksAdapter.addOne(state.blocks, block);
         page.blockIds.splice(clamp(index, 0, page.blockIds.length), 0, block.id);
       },
-      prepare(pageId: string, index: number, componentId: string) {
-        const component = registry.get(componentId);
-        if (component === undefined) {
+      prepare(pageId: string, index: number, componentId: string, custom?: CustomDefinition) {
+        const definition = registry.get(componentId)?.definition ?? custom?.definition;
+        if (definition === undefined || definition.id !== componentId) {
           throw new Error(`Cannot insert unknown component "${componentId}"`);
         }
-        return { payload: { pageId, index, block: createBlock(component.definition) } };
+        return { payload: { pageId, index, block: createBlock(definition), custom } };
       },
     },
     blockPasted(
       state,
-      action: PayloadAction<{ target: BlockListTarget; index: number; block: Block }>,
+      action: PayloadAction<{
+        target: BlockListTarget;
+        index: number;
+        block: Block;
+        custom?: CustomDefinition;
+      }>,
     ) {
-      const { target, index, block } = action.payload;
+      const { target, index, block, custom } = action.payload;
       if (state.blocks.entities[block.id] !== undefined) return;
-      const list = targetList(state, target, block);
+      const list = targetList(state, target, block, custom);
       if (list === null) return;
+      embedDefinition(state, custom);
       blocksAdapter.addOne(state.blocks, block);
       list.splice(clamp(index, 0, list.length), 0, block.id);
+    },
+    customBlocksUpgraded(
+      state,
+      action: PayloadAction<{ definitions: Record<string, CustomDefinition>; blocks: Block[] }>,
+    ) {
+      Object.assign(state.customDefinitions, action.payload.definitions);
+      for (const block of action.payload.blocks) {
+        if (state.blocks.entities[block.id] !== undefined) state.blocks.entities[block.id] = block;
+      }
     },
     pageAdded(state, action: PayloadAction<NewPage>) {
       const { id, name, slug } = action.payload;
@@ -456,7 +513,7 @@ export const projectSlice = createSlice({
       const { blockId, slot, pageId } = action.payload;
       const page = state.pages.entities[pageId];
       const block = state.blocks.entities[blockId];
-      const category = block === undefined ? null : blockCategory(block);
+      const category = block === undefined ? null : blockCategory(block, state);
       if (page === undefined || category === null) return;
       const index = page.blockIds.indexOf(blockId);
       if (index === -1 || slotForCategory(category) !== slot) return;
@@ -494,6 +551,13 @@ export const projectSlice = createSlice({
         page.showSharedFooter = isShown;
       }
     },
+    pageNoindexSet(state, action: PayloadAction<{ pageId: string; noindex: boolean }>) {
+      const page = state.pages.entities[action.payload.pageId];
+      if (page !== undefined) page.seo.noindex = action.payload.noindex;
+    },
+    siteIndexingSet(state, action: PayloadAction<boolean>) {
+      state.settings.indexable = action.payload;
+    },
     blockDisabledSet(state, action: PayloadAction<{ blockId: string; disabled: boolean }>) {
       const block = state.blocks.entities[action.payload.blockId];
       if (block !== undefined) block.disabled = action.payload.disabled;
@@ -522,7 +586,7 @@ export const projectSlice = createSlice({
       ) {
         const { blockId, token, value } = action.payload;
         const block = state.blocks.entities[blockId];
-        if (block?.kind !== 'component' || !isOverridable(block, token)) return;
+        if (block?.kind !== 'component' || !isOverridable(state, block, token)) return;
         if (referencedTokenName(value) === token) {
           delete block.overrides[token];
           return;
@@ -542,8 +606,8 @@ export const projectSlice = createSlice({
       const block = state.blocks.entities[blockId];
       const theme = sectionThemeById(themeId);
       if (block?.kind !== 'component' || theme === null) return;
-      const component = registry.get(block.componentId);
-      if (component === undefined || !supportsSectionThemes(component.definition)) return;
+      const definition = definitionOf(state, block.componentId);
+      if (definition === undefined || !supportsSectionThemes(definition)) return;
       for (const token of THEMED_TOKENS) delete block.overrides[token];
       Object.assign(block.overrides, theme.overrides);
     },
@@ -667,12 +731,15 @@ export const {
   homePageSet,
   blockInserted,
   blockPasted,
+  customBlocksUpgraded,
   blockMoved,
   blockDuplicated,
   blockRemoved,
   blockShared,
   blockUnshared,
   pageSharedSlotShown,
+  pageNoindexSet,
+  siteIndexingSet,
   blockDisabledSet,
   blockValueSet,
   blockOverrideSet,

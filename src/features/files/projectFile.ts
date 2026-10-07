@@ -3,6 +3,7 @@ import type { Project } from '../../app/types';
 import type { ProjectSummary } from '../../persistence/db';
 import { openProjectDocument } from '../../persistence/migrations';
 import { ProjectFormatError } from '../../persistence/validateProject';
+import { withoutUnusedDefinitions } from '../block-packs/packUpdates';
 
 export const PROJECT_FILE_EXTENSION = '.json';
 
@@ -15,7 +16,7 @@ export function projectFileName(project: Project): string {
 }
 
 export function serializeProject(project: Project): string {
-  return `${JSON.stringify(project, null, 2)}\n`;
+  return `${JSON.stringify(withoutUnusedDefinitions(project), null, 2)}\n`;
 }
 
 export function parseProjectFile(text: string): Project {

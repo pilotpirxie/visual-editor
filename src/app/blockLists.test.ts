@@ -92,6 +92,8 @@ describe('slotForCategory', () => {
     ['navigations', 'header'],
     ['banners', 'header'],
     ['footers', 'footer'],
+    ['cookies', 'footer'],
+    ['modals', 'footer'],
     ['headers', null],
     ['features', null],
   ] as const)('puts %s blocks in %s', (category, slot) => {

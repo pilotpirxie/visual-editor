@@ -1,0 +1,13 @@
+<aside class="b-cookie-card" data-behavior="consent" aria-label="Cookie consent">
+  <dialog class="b-panel">
+    <div class="stack b-body">
+      {{#if title}}<p class="b-title" data-field="title">{{title}}</p>{{/if}}
+      <p class="b-text" data-field="text">{{text}}</p>
+      {{#if showPolicyLink}}<a class="b-policy" href="{{href policyLink}}" {{linkAttrs policyLink}} data-field="policyLink">{{policyLabel}}</a>{{/if}}
+      <div class="cluster b-actions">
+        <button type="button" class="btn btn-primary" data-consent="accepted" data-field="acceptLabel">{{acceptLabel}}</button>
+        {{#if showDecline}}<button type="button" class="btn btn-ghost" data-consent="declined" data-field="declineLabel">{{declineLabel}}</button>{{/if}}
+      </div>
+    </div>
+  </dialog>
+</aside>

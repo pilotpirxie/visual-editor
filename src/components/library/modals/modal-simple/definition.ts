@@ -1,0 +1,59 @@
+import type { ComponentDefinition } from '../../../types';
+
+export const definition: ComponentDefinition = {
+  id: 'modal-simple',
+  version: 1,
+  name: 'Modal, simple dialog',
+  category: 'modals',
+  description: 'A dialog with a heading, text and a button. Opens from any link to its anchor.',
+  tags: ['modal', 'dialog', 'popup', 'overlay', 'announcement'],
+  fieldGroups: ['Content', 'Button'],
+  behaviors: ['modal'],
+  styleOverrides: ['--color-background', '--color-text'],
+  fields: [
+    {
+      name: 'eyebrow',
+      label: 'Eyebrow',
+      type: 'text',
+      default: 'New in Fieldnote',
+      group: 'Content',
+    },
+    {
+      name: 'title',
+      label: 'Title',
+      type: 'text',
+      default: 'Highlight reels are here',
+      required: true,
+      group: 'Content',
+    },
+    {
+      name: 'text',
+      label: 'Text',
+      type: 'textarea',
+      default:
+        'Pick the best moments from your interviews and share them as a two-minute reel your whole team will actually watch.',
+      group: 'Content',
+    },
+    {
+      name: 'closeLabel',
+      label: 'Close button label (for screen readers)',
+      type: 'text',
+      default: 'Close',
+      required: true,
+      group: 'Content',
+    },
+    { name: 'showButton', label: 'Show button', type: 'boolean', default: true, group: 'Button' },
+    {
+      name: 'button',
+      label: 'Button',
+      type: 'button',
+      default: {
+        label: 'See how it works',
+        link: { type: 'section', anchor: 'features', newTab: false },
+        variant: 'primary',
+      },
+      visibleWhen: { field: 'showButton', equals: true },
+      group: 'Button',
+    },
+  ],
+};

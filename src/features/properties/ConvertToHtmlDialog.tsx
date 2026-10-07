@@ -9,13 +9,14 @@ const TITLE_ID = 've-convert-title';
 
 export function ConvertToHtmlDialog({ blockId }: { blockId: string }): JSX.Element | null {
   const block = useStore((state) => state.project.blocks.entities[blockId]);
+  const customDefinitions = useStore((state) => state.project.customDefinitions);
   if (block?.kind !== 'component') return null;
 
   return (
     <Dialog labelId={TITLE_ID} onClose={() => dispatch(conversionRequested(null))}>
       <div className="ui-dialog-body">
         <h2 id={TITLE_ID} className="ui-title">
-          Convert “{blockLabel(block)}” to HTML?
+          Convert “{blockLabel(block, { customDefinitions })}” to HTML?
         </h2>
         <div className="ui-dialog-note" role="note">
           <ul>

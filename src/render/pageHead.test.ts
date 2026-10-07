@@ -10,7 +10,7 @@ function setup(
   const project = createSampleProject();
   if (baseUrl !== undefined) project.settings.baseUrl = baseUrl;
   const page = { ...project.pages.entities[project.pages.homePageId], name: 'About' };
-  page.seo = { ...changes };
+  page.seo = { noindex: false, ...changes };
   return { project, page };
 }
 

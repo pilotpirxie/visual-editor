@@ -19,7 +19,8 @@ import {
   useStore,
   type RootState,
 } from '../../app/store';
-import type { Device } from '../../app/types';
+import type { Block } from '../../app/types';
+import { blockCategory } from '../../components/registry';
 import { dropBlock, isNoopDrop } from '../editor/blockActions';
 import { openPage } from '../pages/pageActions';
 import { BlockContextMenu } from '../editor/BlockContextMenu';
@@ -123,16 +124,16 @@ function useCanvasPointer(doc: Document | null, isPreview: boolean): string | nu
       setHoveredId(null);
     }
     function onClick(event: MouseEvent): void {
+      if (isPreview) return;
       const link = linkFromEvent(event);
       if (link !== null) {
         event.preventDefault();
-        const isFollowing = isPreview || event.metaKey || event.ctrlKey;
+        const isFollowing = event.metaKey || event.ctrlKey;
         if (isFollowing && doc !== null) {
           followCanvasLink(doc, link.getAttribute('href'));
           return;
         }
       }
-      if (isPreview) return;
       if (isCloseCommand(event)) event.preventDefault();
       const blockId = blockIdFromEvent(event);
       const path = fieldPathFromEvent(event);
@@ -142,17 +143,26 @@ function useCanvasPointer(doc: Document | null, isPreview: boolean): string | nu
       }
       dispatch(blockSelected(blockId));
     }
+    function onPreviewClick(event: MouseEvent): void {
+      const link = linkFromEvent(event);
+      if (!isPreview || event.defaultPrevented || link === null || doc === null) return;
+      event.preventDefault();
+      followCanvasLink(doc, link.getAttribute('href'));
+    }
     function onSubmit(event: SubmitEvent): void {
       event.preventDefault();
     }
+    const view = doc.defaultView;
     doc.addEventListener('pointermove', onPointerMove);
     doc.documentElement.addEventListener('pointerleave', onPointerLeave);
     doc.addEventListener('click', onClick, true);
+    view?.addEventListener('click', onPreviewClick);
     doc.addEventListener('submit', onSubmit, true);
     return () => {
       doc.removeEventListener('pointermove', onPointerMove);
       doc.documentElement.removeEventListener('pointerleave', onPointerLeave);
       doc.removeEventListener('click', onClick, true);
+      view?.removeEventListener('click', onPreviewClick);
       doc.removeEventListener('submit', onSubmit, true);
     };
   }, [doc, isPreview]);
@@ -273,20 +283,18 @@ function useScrollSelectedIntoView(
   }, [frame, selectedId, blockIds, pageId]);
 }
 
-function hiddenBlockIdsText(state: RootState, device: Device): string {
+function shownBlockIdsText(state: RootState, isWanted: (block: Block) => boolean): string {
   const { header, page, footer } = visibleBlockLists(state.project, selectCurrentPage(state));
-  const hiddenIds: string[] = [];
+  const wantedIds: string[] = [];
   for (const blockId of [...header, ...page, ...footer]) {
     const block = state.project.blocks.entities[blockId];
-    if (block !== undefined && !block.disabled && block.hideOn.includes(device)) {
-      hiddenIds.push(blockId);
-    }
+    if (block !== undefined && !block.disabled && isWanted(block)) wantedIds.push(blockId);
   }
-  return hiddenIds.join(' ');
+  return wantedIds.join(' ');
 }
 
-function useHiddenBlockIds(device: Device): string[] {
-  const idsText = useStore((state) => hiddenBlockIdsText(state, device));
+function useShownBlockIds(isWanted: (block: Block) => boolean): string[] {
+  const idsText = useStore((state) => shownBlockIdsText(state, isWanted));
   return useMemo(() => (idsText === '' ? [] : idsText.split(' ')), [idsText]);
 }
 
@@ -312,7 +320,11 @@ export function Canvas(): JSX.Element {
   const viewport = canvasViewport(device, responsiveWidth, available);
   const fit = fitDevice(viewport, available);
   const pageDevice = deviceForWidth(fit.frame.width);
-  const hiddenIds = useHiddenBlockIds(pageDevice);
+  const hiddenIds = useShownBlockIds((block) => block.hideOn.includes(pageDevice));
+  const customDefinitions = useStore((state) => state.project.customDefinitions);
+  const modalIds = useShownBlockIds(
+    (block) => blockCategory(block, { customDefinitions }) === 'modals',
+  );
   const dropY = useCanvasDropTarget(frame, viewportRef, fit.scale);
   useScrollSelectedIntoView(frame, selectedId);
   const [contextMenu, closeContextMenu] = useCanvasContextMenu(frame, isPreview, fit.scale);
@@ -343,6 +355,7 @@ export function Canvas(): JSX.Element {
             dropY={dropY}
             isEmpty={isEmpty}
             hiddenIds={hiddenIds}
+            modalIds={modalIds}
             pageDevice={pageDevice}
           />
         )}

@@ -55,4 +55,24 @@ function start(doc: Document): void {
   attach(doc.body);
 }
 
-window.siteRuntime = { register, attach, start };
+function browserStorage(): SiteStorage {
+  return {
+    getItem(key) {
+      try {
+        return window.localStorage.getItem(key);
+      } catch (error) {
+        console.warn(`siteRuntime: could not read "${key}" from storage`, error);
+        return null;
+      }
+    },
+    setItem(key, value) {
+      try {
+        window.localStorage.setItem(key, value);
+      } catch (error) {
+        console.warn(`siteRuntime: could not save "${key}" to storage`, error);
+      }
+    },
+  };
+}
+
+window.siteRuntime = { register, attach, start, storage: browserStorage() };

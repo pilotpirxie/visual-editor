@@ -1,8 +1,10 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { blockSelected } from '../../app/editorSlice';
 import { undo } from '../../app/history';
 import { createSampleProject } from '../../app/projectFactory';
 import type { Block, ComponentBlock, Project } from '../../app/types';
+import { createBlock } from '../../components/registry';
+import { quoteCardDefinition } from '../../test/packFixtures';
 import {
   componentBlockOf,
   createTestStore,
@@ -277,5 +279,52 @@ describe('copy, cut and paste thunks', () => {
     await store.dispatch(pasteEnvelope(unknown));
     expect(store.getState().editor.notices[0]?.tone).toBe('error');
     expect(homePage(store.getState().project).blockIds).toHaveLength(4);
+  });
+});
+
+describe('custom blocks on the clipboard', () => {
+  function projectWithCustomBlock(): { project: Project; blockId: string } {
+    const project = createSampleProject();
+    const custom = quoteCardDefinition();
+    project.customDefinitions[custom.definition.id] = custom;
+    const block = createBlock(custom.definition);
+    block.values.quote = 'Pasted with its definition';
+    project.blocks.ids.push(block.id);
+    project.blocks.entities[block.id] = block;
+    homePage(project).blockIds.push(block.id);
+    return { project, blockId: block.id };
+  }
+
+  it('carries the definition so the block can be pasted into a project without the pack', async () => {
+    const { project, blockId } = projectWithCustomBlock();
+    const text = JSON.stringify(envelopeOf(project, blockId));
+    const envelope = parseEnvelope(text);
+    if (envelope === null) throw new Error('Expected an envelope');
+    expect(Object.keys(envelope.customDefinitions)).toEqual(['acme/quote-card']);
+    const store = createTestStore();
+    await store.dispatch(pasteEnvelope(envelope));
+    const target = store.getState().project;
+    expect(target.customDefinitions['acme/quote-card']).toBeDefined();
+    const pasted = target.blocks.entities[homePage(target).blockIds.at(-1) ?? ''];
+    expect(asComponent(pasted).values.quote).toBe('Pasted with its definition');
+    expect(store.getState().editor.notices[0]?.text).toContain('not in your library');
+    store.dispatch(undo());
+    expect(store.getState().project.customDefinitions).toEqual({});
+  });
+
+  it('refuses a pasted definition that does not pass validation', async () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { project, blockId } = projectWithCustomBlock();
+    const envelope = envelopeOf(project, blockId);
+    const custom = envelope.customDefinitions['acme/quote-card'];
+    if (custom === undefined) throw new Error('Expected the definition');
+    envelope.customDefinitions['acme/quote-card'] = {
+      ...custom,
+      template: '<section class="b-acme-quote-card" onclick="steal()">x</section>',
+    };
+    const store = createTestStore();
+    await store.dispatch(pasteEnvelope(envelope));
+    expect(store.getState().project.customDefinitions).toEqual({});
+    expect(store.getState().editor.notices[0]?.text).toContain('custom block is not valid');
   });
 });

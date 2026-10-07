@@ -4,7 +4,7 @@ import { noticeShown } from '../../app/editorSlice';
 import { describeError } from '../../app/errors';
 import { slugify } from '../../app/slugs';
 import { dispatch, store } from '../../app/store';
-import { registry } from '../../components/registry';
+import { ensureProjectComponents, projectRegistry } from '../block-packs/customComponents';
 import { buildExportFiles, type ExportResult } from '../../render/exportSite';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import { downloadBlob } from './download';
@@ -25,8 +25,10 @@ async function prepareExport(): Promise<Preparation> {
   const { project } = store.getState();
   try {
     await ensureProjectIconSets(project);
-    const result = buildExportFiles(project, registry, { core, behaviors });
-    return { kind: 'ready', result, warnings: collectExportWarnings(project, registry) };
+    await ensureProjectComponents(project);
+    const components = projectRegistry(project);
+    const result = buildExportFiles(project, components, { core, behaviors });
+    return { kind: 'ready', result, warnings: collectExportWarnings(project, components) };
   } catch (error) {
     console.error('Preparing the export failed', error);
     return { kind: 'failed', message: describeError(error) };
@@ -51,6 +53,7 @@ export function exportFileName(title: string, date: Date): string {
 
 function warningPlace(warning: ExportWarning): string {
   const { project } = store.getState();
+  if (warning.pageId === null && warning.blockId === null) return 'Site';
   if (warning.pageId === null) return 'Shared blocks';
   return project.pages.entities[warning.pageId]?.name ?? 'A page';
 }

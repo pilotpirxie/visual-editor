@@ -1,0 +1,91 @@
+@layer components {
+  .ve-pack-previews {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  .ve-pack-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+  }
+
+  .ve-pack-preview-box {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    background: var(--ve-bg);
+  }
+
+  .ve-pack-preview-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    transform-origin: top left;
+    pointer-events: none;
+  }
+
+  .ve-pack-list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ve-pack-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    padding-block: 10px;
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-pack-info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 8px;
+  }
+
+  .ve-pack-info .ui-muted {
+    flex-basis: 100%;
+  }
+
+  .ve-pack-actions {
+    display: flex;
+    gap: 4px;
+  }
+
+  .ve-pack-badge {
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: var(--ve-surface);
+    color: var(--ve-muted);
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .ve-pack-missing {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ve-pack-footer {
+    align-items: center;
+  }
+
+  .ve-pack-example {
+    margin-right: auto;
+    color: var(--ve-accent);
+  }
+}

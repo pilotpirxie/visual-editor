@@ -3,7 +3,7 @@ import { blockSelected } from '../../app/editorSlice';
 import { blockDisabledSet } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, selectShownSlot, useStore } from '../../app/store';
 import type { Block } from '../../app/types';
-import { blockLabel } from '../../components/registry';
+import { blockLabel, type DefinitionSource } from '../../components/registry';
 import { dragController } from '../canvas/dragController';
 import { dropEdgeAt } from '../canvas/geometry';
 import { useListDropTarget } from '../canvas/useListDropTarget';
@@ -27,17 +27,19 @@ type LayerGroupProps = { label: string; blockIds: string[] };
 
 type LayerMenu = { blockId: string; point: { x: number; y: number } };
 
-function layerName(block: Block | undefined, blockId: string): string {
+function layerName(block: Block | undefined, blockId: string, project: DefinitionSource): string {
   if (block === undefined) return `Missing block: ${blockId}`;
-  return blockLabel(block);
+  return blockLabel(block, project);
 }
 
 function useLayerRows(blockIds: string[]): LayerRow[] {
   const blocks = useStore((state) => state.project.blocks.entities);
+  const customDefinitions = useStore((state) => state.project.customDefinitions);
   const rows: LayerRow[] = [];
   for (const id of blockIds) {
     const block = blocks[id];
-    rows.push({ id, name: layerName(block, id), isDisabled: block?.disabled === true });
+    const name = layerName(block, id, { customDefinitions });
+    rows.push({ id, name, isDisabled: block?.disabled === true });
   }
   return rows;
 }

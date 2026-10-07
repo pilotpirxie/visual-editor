@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from './projectFactory';
+import { quoteCardDefinition } from '../test/packFixtures';
 import {
   componentBlockOf,
   createTestStore,
@@ -9,7 +10,7 @@ import {
   type TestStore,
 } from '../test/fixtures';
 import { blockSelected, pageOpened } from './editorSlice';
-import { undo } from './history';
+import { redo, undo } from './history';
 import {
   blockAdvancedSet,
   blockDisabledSet,
@@ -27,6 +28,9 @@ import {
   iconSetChanged,
   pageAdded,
   pageSharedSlotShown,
+  pageNoindexSet,
+  siteIndexingSet,
+  customBlocksUpgraded,
   tokenSet,
   tokensSet,
 } from './projectSlice';
@@ -55,6 +59,20 @@ describe('blockInserted', () => {
     expect(componentIds(store)[2]).toBe('cta-centered');
     expect(inserted.values.title).toBe('Your next customer call could be your best roadmap input');
     expect(store.getState().editor.selectedBlockId).toBe(inserted.id);
+  });
+
+  it('gives each new modal its own anchor so links can open it', () => {
+    const store = createTestStore();
+    store.dispatch(blockInserted(homePageId(store), 0, 'modal-simple'));
+    store.dispatch(blockInserted(homePageId(store), 0, 'modal-form'));
+    const [second, first] = pageBlockIds(store);
+    const { project } = store.getState();
+    expect(project.blocks.entities[first ?? '']?.anchor).toBe('modal');
+    expect(project.blocks.entities[second ?? '']?.anchor).toBe('modal-2');
+    store.dispatch(blockInserted(homePageId(store), 0, 'cta-centered'));
+    expect(store.getState().project.blocks.entities[pageBlockIds(store)[0] ?? '']?.anchor).toBe(
+      undefined,
+    );
   });
 
   it('clamps an index past the end to the end of the page', () => {
@@ -603,5 +621,68 @@ describe('iconSetChanged', () => {
     expect(store.getState().project.designSystem.iconSet).toBe('phosphor');
     store.dispatch(undo());
     expect(store.getState().project.designSystem.iconSet).toBe('lucide');
+  });
+});
+
+describe('search engine indexing', () => {
+  it('hides a page from search engines and lets the whole site be indexed or not, undoably', () => {
+    const store = createTestStore();
+    const pageId = store.getState().project.pages.homePageId;
+    store.dispatch(pageNoindexSet({ pageId, noindex: true }));
+    store.dispatch(siteIndexingSet(false));
+    const { project } = store.getState();
+    expect(project.pages.entities[pageId]?.seo.noindex).toBe(true);
+    expect(project.settings.indexable).toBe(false);
+    store.dispatch(undo());
+    expect(store.getState().project.settings.indexable).toBe(true);
+  });
+});
+
+describe('custom blocks', () => {
+  it('embeds the definition with the first inserted block, in the same undo step', () => {
+    const store = createTestStore();
+    const custom = quoteCardDefinition();
+    store.dispatch(blockInserted(homePageId(store), 0, custom.definition.id, custom));
+    const inserted = componentBlockOf(store.getState().project, pageBlockIds(store)[0] ?? '');
+    expect(inserted.componentId).toBe('acme/quote-card');
+    expect(inserted.values.quote).toBe('It changed how our team works.');
+    expect(store.getState().project.customDefinitions['acme/quote-card']).toEqual(custom);
+    store.dispatch(undo());
+    expect(store.getState().project.customDefinitions).toEqual({});
+    store.dispatch(redo());
+    expect(store.getState().project.customDefinitions['acme/quote-card']).toEqual(custom);
+  });
+
+  it('keeps the project copy when the block is inserted again', () => {
+    const store = createTestStore();
+    const custom = quoteCardDefinition();
+    store.dispatch(blockInserted(homePageId(store), 0, custom.definition.id, custom));
+    const other = quoteCardDefinition({ name: 'Renamed' });
+    store.dispatch(blockInserted(homePageId(store), 0, other.definition.id, other));
+    expect(store.getState().project.customDefinitions['acme/quote-card']?.definition.name).toBe(
+      'Quote card',
+    );
+  });
+
+  it('upgrades definitions and blocks together in one undo step', () => {
+    const store = createTestStore();
+    const custom = quoteCardDefinition();
+    store.dispatch(blockInserted(homePageId(store), 0, custom.definition.id, custom));
+    const block = componentBlockOf(store.getState().project, pageBlockIds(store)[0] ?? '');
+    const newer = quoteCardDefinition({ version: 2 }, '1.1.0');
+    store.dispatch(
+      customBlocksUpgraded({
+        definitions: { [newer.definition.id]: newer },
+        blocks: [{ ...block, componentVersion: 2 }],
+      }),
+    );
+    expect(store.getState().project.customDefinitions['acme/quote-card']?.pack.version).toBe(
+      '1.1.0',
+    );
+    store.dispatch(undo());
+    expect(store.getState().project.customDefinitions['acme/quote-card']?.pack.version).toBe(
+      '1.0.0',
+    );
+    expect(componentBlockOf(store.getState().project, block.id).componentVersion).toBe(1);
   });
 });

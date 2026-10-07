@@ -7,7 +7,7 @@ import {
 import { sharedSlotOf, slotForCategory } from '../../app/blockLists';
 import { blockShared, blockUnshared } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, useStore } from '../../app/store';
-import { blockComponentId, blockLabel, registry } from '../../components/registry';
+import { blockComponentId, blockLabel, definitionOf } from '../../components/registry';
 import type { Block } from '../../app/types';
 import { CATEGORIES, type ComponentDefinition } from '../../components/types';
 import { AdvancedTab } from './AdvancedTab';
@@ -128,6 +128,7 @@ export function PropertiesPanel(): JSX.Element {
   const compactView = useStore((state) => state.editor.compactView);
   const isCollapsed = useStore((state) => state.editor.panels.right.collapsed);
   const activeTab = useStore((state) => state.editor.propertiesTab);
+  const customDefinitions = useStore((state) => state.project.customDefinitions);
   const bodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -146,8 +147,8 @@ export function PropertiesPanel(): JSX.Element {
   }
 
   const componentId = blockComponentId(block);
-  const component = componentId === null ? undefined : registry.get(componentId);
-  const definition = component === undefined ? null : component.definition;
+  const definition =
+    componentId === null ? null : (definitionOf({ customDefinitions }, componentId) ?? null);
   const categoryLabel = definition === null ? null : categoryLabelOf(definition);
   const tab = shownTab(block, activeTab);
   if (block.kind === 'html') {
@@ -173,7 +174,7 @@ export function PropertiesPanel(): JSX.Element {
       </aside>
     );
   }
-  const title = definition === null ? blockLabel(block) : definition.name;
+  const title = definition === null ? blockLabel(block, { customDefinitions }) : definition.name;
 
   return (
     <aside className="ve-panel ve-properties" aria-label="Properties">

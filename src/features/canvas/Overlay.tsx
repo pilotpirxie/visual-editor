@@ -23,6 +23,7 @@ type OverlayProps = {
   dropY: number | null;
   isEmpty: boolean;
   hiddenIds: string[];
+  modalIds: string[];
   pageDevice: Device;
 };
 
@@ -109,8 +110,9 @@ function useBlockName(blockId: string | null): string | null {
   const block = useStore((state) =>
     blockId === null ? undefined : state.project.blocks.entities[blockId],
   );
+  const customDefinitions = useStore((state) => state.project.customDefinitions);
   if (block === undefined) return null;
-  return blockLabel(block);
+  return blockLabel(block, { customDefinitions });
 }
 
 function HiddenShade({
@@ -129,6 +131,24 @@ function HiddenShade({
   return (
     <div className="ve-outline ve-outline--hidden" style={boxStyle(rect)}>
       <span className="ve-outline-note">Hidden on {device}</span>
+    </div>
+  );
+}
+
+function ModalNote({
+  doc,
+  blockId,
+  scale,
+}: {
+  doc: Document;
+  blockId: string;
+  scale: number;
+}): JSX.Element | null {
+  const rect = useBlockRect(doc, blockId, scale);
+  if (rect === null) return null;
+  return (
+    <div className="ve-outline" style={boxStyle(rect)}>
+      <span className="ve-outline-note">Modal</span>
     </div>
   );
 }
@@ -201,6 +221,7 @@ export function Overlay({
   dropY,
   isEmpty,
   hiddenIds,
+  modalIds,
   pageDevice,
 }: OverlayProps): JSX.Element {
   const visibleHoverId = hoveredId === selectedId ? null : hoveredId;
@@ -225,6 +246,9 @@ export function Overlay({
       )}
       {hiddenIds.map((blockId) => (
         <HiddenShade key={blockId} doc={doc} blockId={blockId} scale={scale} device={pageDevice} />
+      ))}
+      {modalIds.map((blockId) => (
+        <ModalNote key={blockId} doc={doc} blockId={blockId} scale={scale} />
       ))}
       {visibleHoverId !== null && hoverRect !== null && (
         <div className="ve-outline ve-outline--hover" style={boxStyle(hoverRect)}>

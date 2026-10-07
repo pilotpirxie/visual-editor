@@ -23,7 +23,7 @@ describe('createPage', () => {
       name: 'About',
       slug: 'about',
       blockIds: [],
-      seo: {},
+      seo: { noindex: false },
       showSharedHeader: true,
       showSharedFooter: true,
     });
@@ -46,6 +46,7 @@ describe('createBlankProject', () => {
       description: '',
       language: 'en',
       titleTemplate: DEFAULT_TITLE_TEMPLATE,
+      indexable: true,
     });
   });
 
@@ -58,6 +59,7 @@ describe('createBlankProject', () => {
     expect(project.pages.entities[homePageId]?.blockIds).toEqual([]);
     expect(project.blocks).toEqual({ ids: [], entities: {} });
     expect(project.sharedSlots).toEqual({ header: [], footer: [] });
+    expect(project.customDefinitions).toEqual({});
     expect(project.assets).toEqual({});
   });
 

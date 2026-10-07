@@ -82,6 +82,9 @@ defineIfMissing(
     this.setAttribute('open', '');
   },
 );
+defineIfMissing(HTMLDialogElement.prototype, 'show', function show(this: HTMLDialogElement) {
+  this.setAttribute('open', '');
+});
 defineIfMissing(HTMLDialogElement.prototype, 'close', function close(this: HTMLDialogElement) {
   if (!this.hasAttribute('open')) return;
   this.removeAttribute('open');

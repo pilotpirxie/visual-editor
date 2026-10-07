@@ -114,7 +114,27 @@ export type RegisteredComponent = {
   template: TemplateDelegate;
   styles: string;
   thumbnail: string;
+  isCustom: boolean;
 };
+
+export type PackInfo = {
+  id: string;
+  name: string;
+  version: string;
+  author: string;
+  license: string;
+};
+
+export type CustomDefinition = {
+  pack: PackInfo;
+  definition: ComponentDefinition;
+  template: string;
+  styles: string;
+  thumbnail: string;
+  fieldRenames: Record<string, string>;
+};
+
+export type BlockPack = PackInfo & { blocks: CustomDefinition[]; isPartial: boolean };
 
 export const PLACEHOLDER_RATIOS = ['1:1', '4:3', '3:2', '16:9', '3:4', '21:9'] as const;
 

@@ -9,7 +9,7 @@ import { googleFontsHref } from './fonts';
 import { formatHtml } from './formatHtml';
 import { createRenderCollector, PLACEHOLDER_FOLDER, type RenderCollector } from './handlebars';
 import { buildIconSprite } from './icons';
-import { buildPageHead, SITE_CSS_PATH } from './pageHead';
+import { absoluteUrl, buildPageHead, isPageIndexed, SITE_CSS_PATH } from './pageHead';
 import { placeholderSvg } from './placeholder';
 import {
   pageSlugsOf,
@@ -43,6 +43,8 @@ type UsedComponents = Map<string, RegisteredComponent>;
 export const SITE_JS_PATH = 'assets/js/site.js';
 
 const LICENSES_PATH = 'licenses.txt';
+const SITEMAP_PATH = 'sitemap.xml';
+const ROBOTS_PATH = 'robots.txt';
 const GOOGLE_FONTS_ATTRIBUTION = 'https://fonts.google.com/attribution';
 const BLOCK_INDENT = 1;
 const MAIN_INDENT = 2;
@@ -212,6 +214,36 @@ export function buildLicensesText(iconSetIds: Iterable<string>, fonts: FontSelec
   return `${lines.join('\n')}\n`;
 }
 
+export function buildSitemap(project: Project, renderedPages: RenderedPage[]): string | null {
+  const locations: string[] = [];
+  for (const { page, fileName } of renderedPages) {
+    const location = absoluteUrl(project.settings.baseUrl, fileName);
+    if (location !== null && isPageIndexed(project, page)) locations.push(location);
+  }
+  if (locations.length === 0) return null;
+  const lines = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  ];
+  for (const location of locations) lines.push(`  <url><loc>${escapeHtml(location)}</loc></url>`);
+  lines.push('</urlset>', '');
+  return lines.join('\n');
+}
+
+export function buildRobotsTxt(sitemapUrl: string | null): string {
+  const lines = ['User-agent: *', 'Allow: /'];
+  if (sitemapUrl !== null) lines.push('', `Sitemap: ${sitemapUrl}`);
+  return `${lines.join('\n')}\n`;
+}
+
+function addSearchEngineFiles(files: ExportFiles, project: Project, pages: RenderedPage[]): void {
+  if (absoluteUrl(project.settings.baseUrl, SITEMAP_PATH) === null) return;
+  const sitemap = buildSitemap(project, pages);
+  if (sitemap !== null) files[SITEMAP_PATH] = sitemap;
+  const sitemapUrl = sitemap === null ? null : absoluteUrl(project.settings.baseUrl, SITEMAP_PATH);
+  files[ROBOTS_PATH] = buildRobotsTxt(sitemapUrl);
+}
+
 type PageDocument = {
   lang: string;
   head: string[];
@@ -314,6 +346,7 @@ export function buildExportFiles(
   }
   for (const [path, svg] of placeholders) files[path] = svg;
   files[LICENSES_PATH] = buildLicensesText(iconSets, fonts);
+  addSearchEngineFiles(files, project, renderedPages);
 
   return {
     files,

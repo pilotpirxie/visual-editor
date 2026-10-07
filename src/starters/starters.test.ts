@@ -99,10 +99,10 @@ describe.each(STARTERS)('the $name starter', (starter) => {
     }
   });
 
-  it('exports with no warnings other than missing form action URLs', () => {
+  it('exports with no warnings other than missing form action URLs and the social image', () => {
     const project = projectOf(starter);
     for (const warning of collectExportWarnings(project, registry)) {
-      expect(warning.text).toContain('the form has no action URL');
+      expect(warning.text).toMatch(/the form has no action URL|^No social image on /);
     }
     const { files } = buildExportFiles(project, registry, runtime);
     expect(Object.keys(files)).toContain('index.html');

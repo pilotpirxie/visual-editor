@@ -1,4 +1,8 @@
+import { behaviors } from 'virtual:site-runtime';
 import type { Project } from '../app/types';
+import { parseEmbeddedDefinitions, parsePackInfo } from '../components/packFormat';
+import type { BlockPack } from '../components/types';
+import { isRecord } from './parseBlock';
 import { openProjectDocument } from './migrations';
 
 export type ProjectSummary = { id: string; title: string; updatedAt: string };
@@ -13,11 +17,12 @@ export type FileLink = {
 };
 
 const DB_NAME = 'visual-editor';
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 const PROJECTS = 'projects';
 const DOCUMENTS = 'documents';
 const FILE_LINKS = 'fileHandles';
-const STORE_NAMES = [PROJECTS, DOCUMENTS, FILE_LINKS];
+const BLOCK_PACKS = 'blockPacks';
+const STORE_NAMES = [PROJECTS, DOCUMENTS, FILE_LINKS, BLOCK_PACKS];
 
 let databasePromise: Promise<IDBDatabase> | null = null;
 
@@ -174,5 +179,51 @@ export async function deleteFileLink(projectId: string): Promise<void> {
   const db = await database();
   const transaction = db.transaction(FILE_LINKS, 'readwrite');
   transaction.objectStore(FILE_LINKS).delete(projectId);
+  await transactionDone(transaction);
+}
+
+function parseStoredPack(value: unknown): BlockPack | null {
+  if (!isRecord(value) || !Array.isArray(value.blocks)) return null;
+  const { info } = parsePackInfo(value);
+  if (info === null) return null;
+  const rawBlocks: Record<string, unknown> = {};
+  for (const block of value.blocks) {
+    if (isRecord(block) && isRecord(block.definition) && typeof block.definition.id === 'string') {
+      rawBlocks[block.definition.id] = block;
+    }
+  }
+  const blocks = Object.values(parseEmbeddedDefinitions(rawBlocks, Object.keys(behaviors)));
+  if (blocks.length === 0) return null;
+  return { ...info, blocks, isPartial: value.isPartial === true };
+}
+
+export async function listBlockPacks(): Promise<BlockPack[]> {
+  const db = await database();
+  const store = db.transaction(BLOCK_PACKS).objectStore(BLOCK_PACKS);
+  const stored: unknown[] = await requestResult(store.getAll());
+  const packs: BlockPack[] = [];
+  for (const value of stored) {
+    const pack = parseStoredPack(value);
+    if (pack === null) {
+      console.warn('Skipped a stored block pack with an unknown shape', value);
+      continue;
+    }
+    packs.push(pack);
+  }
+  packs.sort((left, right) => left.name.localeCompare(right.name));
+  return packs;
+}
+
+export async function putBlockPack(pack: BlockPack): Promise<void> {
+  const db = await database();
+  const transaction = db.transaction(BLOCK_PACKS, 'readwrite');
+  transaction.objectStore(BLOCK_PACKS).put(pack);
+  await transactionDone(transaction);
+}
+
+export async function deleteBlockPack(packId: string): Promise<void> {
+  const db = await database();
+  const transaction = db.transaction(BLOCK_PACKS, 'readwrite');
+  transaction.objectStore(BLOCK_PACKS).delete(packId);
   await transactionDone(transaction);
 }

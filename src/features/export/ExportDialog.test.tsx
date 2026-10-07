@@ -10,6 +10,7 @@ import {
   homePage,
   loadIntoAppStore,
   shareNavAndFooter,
+  withSearchDetails,
 } from '../../test/fixtures';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import { downloadBlob } from './download';
@@ -95,7 +96,7 @@ function noticeTexts(): string[] {
 
 beforeEach(() => {
   for (const notice of store.getState().editor.notices) dispatch(noticeDismissed(notice.id));
-  loadIntoAppStore(createSampleProject());
+  loadIntoAppStore(withSearchDetails(createSampleProject()));
   setDirectoryPicker(undefined);
 });
 

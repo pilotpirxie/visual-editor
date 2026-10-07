@@ -23,7 +23,11 @@ export function applyTitleTemplate(template: string, pageTitle: string, siteTitl
     .replaceAll(SITE_TITLE_PLACEHOLDER, siteTitle);
 }
 
-function absoluteUrl(baseUrl: string | undefined, path: string): string | null {
+export function isPageIndexed(project: Pick<Project, 'settings'>, page: Page): boolean {
+  return project.settings.indexable && !page.seo.noindex;
+}
+
+export function absoluteUrl(baseUrl: string | undefined, path: string): string | null {
   const base = baseUrl?.trim().replace(TRAILING_SLASHES, '') ?? '';
   if (base === '') return null;
   return path === HOME_FILE ? `${base}/` : `${base}/${path}`;
@@ -59,6 +63,7 @@ export function buildPageHead({
     `  <title>${escapeHtml(title)}</title>`,
   ];
   if (description !== '') lines.push(meta('name', 'description', description));
+  if (!isPageIndexed(project, page)) lines.push(meta('name', 'robots', 'noindex'));
   if (canonical !== null) lines.push(`  <link rel="canonical" href="${escapeHtml(canonical)}">`);
   lines.push(meta('property', 'og:title', socialTitle));
   if (socialDescription !== '') lines.push(meta('property', 'og:description', socialDescription));

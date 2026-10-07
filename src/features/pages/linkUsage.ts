@@ -1,6 +1,6 @@
 import type { Project } from '../../app/types';
 import { asListItems, isButtonValue, isLinkValue, itemTitle } from '../../components/fields';
-import { registry } from '../../components/registry';
+import { definitionOf } from '../../components/registry';
 import type { Field } from '../../components/types';
 
 export type LinkUsage = { blockId: string; place: string; blockName: string; fieldLabel: string };
@@ -49,7 +49,7 @@ export function linksToPage(project: Project, pageId: string): LinkUsage[] {
   for (const { blockId, place } of blockPlaces(project, pageId)) {
     const block = project.blocks.entities[blockId];
     if (block?.kind !== 'component') continue;
-    const definition = registry.get(block.componentId)?.definition;
+    const definition = definitionOf(project, block.componentId);
     if (definition === undefined) continue;
     for (const field of definition.fields) {
       for (const fieldLabel of linkingFieldLabels(field, block.values[field.name], pageId)) {

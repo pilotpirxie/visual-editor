@@ -36,7 +36,7 @@ describe('pageAdded', () => {
       name: 'About',
       slug: 'about',
       blockIds: [],
-      seo: {},
+      seo: { noindex: false },
       showSharedHeader: true,
       showSharedFooter: true,
     });
@@ -188,10 +188,11 @@ describe('pageSeoSet', () => {
     addAbout(store);
     store.dispatch(pageSeoSet('about', 'description', 'Who we are', 'continuous'));
     expect(store.getState().project.pages.entities.about?.seo).toEqual({
+      noindex: false,
       description: 'Who we are',
     });
     store.dispatch(pageSeoSet('about', 'description', '  ', 'continuous'));
-    expect(store.getState().project.pages.entities.about?.seo).toEqual({});
+    expect(store.getState().project.pages.entities.about?.seo).toEqual({ noindex: false });
   });
 });
 

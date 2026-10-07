@@ -19,3 +19,7 @@ declare module 'virtual:icon-set/*' {
   const iconSet: IconSetData;
   export default iconSet;
 }
+
+declare module 'handlebars/dist/cjs/handlebars/compiler/base' {
+  export function parse(input: string): hbs.AST.Program;
+}

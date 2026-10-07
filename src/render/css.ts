@@ -30,6 +30,7 @@ const PRIMITIVE_ORDER = [
   'field',
   'media',
   'device',
+  'modal',
   'prose',
   'icon',
 ];

@@ -43,6 +43,7 @@ describe('PageSettingsPanel', () => {
     changeValue(fieldInput(container, 'page-description'), 'Interviews, tagged.');
     changeValue(fieldInput(container, 'page-socialTitle'), 'Fieldnote');
     expect(seo()).toEqual({
+      noindex: false,
       title: 'Customer research',
       description: 'Interviews, tagged.',
       socialTitle: 'Fieldnote',
@@ -95,7 +96,7 @@ describe('PageSettingsPanel', () => {
 
   it('shows the shared slot switches only once the project has shared blocks', () => {
     const { container } = render(<PageSettingsPanel />);
-    expect(container.querySelector('[role="switch"]')).toBeNull();
+    expect(container.querySelector('#ve-page-shared-header')).toBeNull();
     runInAct(() => {
       shareNavAndFooter();
     });

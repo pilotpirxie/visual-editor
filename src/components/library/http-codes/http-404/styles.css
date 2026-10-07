@@ -1,0 +1,27 @@
+@layer components {
+  @scope (.b-http-404) {
+    .b-inner {
+      --container-max-width: 44rem;
+      --stack-gap: var(--space-4);
+      text-align: center;
+    }
+
+    .b-code {
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      color: var(--color-primary);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+      margin-top: var(--space-4);
+    }
+  }
+}

@@ -1,8 +1,9 @@
 import Handlebars from 'handlebars/runtime';
 import { memo, useLayoutEffect, useMemo, useRef, type JSX } from 'react';
-import { selectCanvasRenderContext, useStore } from '../../app/store';
+import { selectCanvasRenderContext, selectComponents, useStore } from '../../app/store';
 import type { Block, HtmlBlock } from '../../app/types';
-import { registry } from '../../components/registry';
+import type { CustomDefinition, RegisteredComponent } from '../../components/types';
+import { customComponentProblems } from '../block-packs/customComponents';
 import { renderBlock, renderHtmlBlock, type RenderContext } from '../../render/renderBlock';
 import { morphChildren } from './morph';
 import type { ScrollAnchor } from './scrollAnchor';
@@ -36,13 +37,35 @@ function renderHtmlForCanvas(block: HtmlBlock, ctx: RenderContext): string {
   }
 }
 
-function renderForCanvas(block: Block | undefined, ctx: RenderContext): string {
+function unavailableNotice(
+  blockId: string,
+  componentId: string,
+  custom: CustomDefinition | undefined,
+): string {
+  if (custom === undefined) {
+    console.error(`Canvas: block ${blockId} uses unknown component "${componentId}"`);
+    return notice(blockId, `Missing component: ${componentId}`);
+  }
+  if (customComponentProblems(custom) !== undefined) {
+    return notice(
+      blockId,
+      `This custom block is not valid and can’t be shown: ${custom.definition.name}`,
+    );
+  }
+  return notice(blockId, `Loading custom block: ${custom.definition.name}`);
+}
+
+function renderForCanvas(
+  block: Block | undefined,
+  ctx: RenderContext,
+  components: ReadonlyMap<string, RegisteredComponent>,
+  customDefinitions: Record<string, CustomDefinition>,
+): string {
   if (block === undefined) return '';
   if (block.kind === 'html') return renderHtmlForCanvas(block, ctx);
-  const component = registry.get(block.componentId);
+  const component = components.get(block.componentId);
   if (component === undefined) {
-    console.error(`Canvas: block ${block.id} uses unknown component "${block.componentId}"`);
-    return notice(block.id, `Missing component: ${block.componentId}`);
+    return unavailableNotice(block.id, block.componentId, customDefinitions[block.componentId]);
   }
   if (block.disabled) return notice(block.id, `Disabled: ${component.definition.name}`);
   try {
@@ -60,7 +83,12 @@ export const BlockHost = memo(function BlockHost({
 }: BlockHostProps): JSX.Element {
   const block = useStore((state) => state.project.blocks.entities[blockId]);
   const ctx = useStore(selectCanvasRenderContext);
-  const html = useMemo(() => renderForCanvas(block, ctx), [block, ctx]);
+  const components = useStore(selectComponents);
+  const customDefinitions = useStore((state) => state.project.customDefinitions);
+  const html = useMemo(
+    () => renderForCanvas(block, ctx, components, customDefinitions),
+    [block, ctx, components, customDefinitions],
+  );
   const hostRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {

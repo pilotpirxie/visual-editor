@@ -2,10 +2,20 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { expect, test, type Page } from '@playwright/test';
-import { addPage, createProject, insertBlock, openPage, readZip } from './editor';
+import {
+  addPage,
+  createProject,
+  insertBlock,
+  openPage,
+  openProjectSettings,
+  readZip,
+} from './editor';
 
 async function buildSite(page: Page): Promise<void> {
   await createProject(page);
+  const settings = await openProjectSettings(page);
+  await settings.getByLabel('Description').fill('Customer interviews, tagged and searchable.');
+  await settings.getByRole('button', { name: 'Done' }).click();
   await insertBlock(page, 'Navigations', 'Navigation, logo left');
   await insertBlock(page, 'Headers', 'Hero, centered text');
   await insertBlock(page, 'Features', 'Features grid, 3 columns');
@@ -15,9 +25,11 @@ async function buildSite(page: Page): Promise<void> {
 async function downloadExport(page: Page): Promise<Map<string, Buffer>> {
   await page.getByRole('button', { name: 'Export', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Export site' });
-  await expect(dialog).toContainText('Everything looks ready');
+  await expect(dialog.getByRole('note')).toHaveText(
+    /^Check these before you publishSite: No social image on Home\. .*$/,
+  );
   const downloadPromise = page.waitForEvent('download');
-  await dialog.getByRole('button', { name: 'Download zip' }).click();
+  await dialog.getByRole('button', { name: 'Export anyway' }).click();
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toMatch(/^untitled-site-\d{4}-\d{2}-\d{2}\.zip$/);
   return readZip(await readFile(await download.path()));

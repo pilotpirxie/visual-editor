@@ -47,7 +47,7 @@ export function isBlockShown(
 export function slotForCategory(category: Category): SharedSlot | null {
   if (category === 'navigations' || category === 'banners') {
     return 'header';
-  } else if (category === 'footers') {
+  } else if (category === 'footers' || category === 'cookies' || category === 'modals') {
     return 'footer';
   } else {
     return null;

@@ -1,6 +1,6 @@
 import { blockConvertedToHtml, blockHtmlSet } from '../../app/projectSlice';
 import type { AppThunk } from '../../app/store';
-import { registry } from '../../components/registry';
+import { projectRegistry } from '../block-packs/customComponents';
 import { stripUnsafeHtml } from '../../render/htmlSafety';
 import { convertBlockToHtml } from '../../render/renderBlock';
 
@@ -20,7 +20,7 @@ export function convertToHtml(blockId: string): AppThunk<boolean> {
     const { project } = getState();
     const block = project.blocks.entities[blockId];
     if (block?.kind !== 'component') return false;
-    const component = registry.get(block.componentId);
+    const component = projectRegistry(project).get(block.componentId);
     if (component === undefined) return false;
     const html = convertBlockToHtml(block, component, project);
     dispatch(blockConvertedToHtml({ blockId, html, sourceComponentId: block.componentId }));

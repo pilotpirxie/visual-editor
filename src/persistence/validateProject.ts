@@ -16,7 +16,9 @@ import {
   type Token,
   type TokenGenerators,
 } from '../app/types';
+import { behaviors } from 'virtual:site-runtime';
 import { iconSetInfo } from '../../packages/icon-data/src/sets';
+import { parseEmbeddedDefinitions } from '../components/packFormat';
 import { isSafeCssValue } from '../render/sanitize';
 import { isRecord, parseBlock } from './parseBlock';
 
@@ -114,6 +116,7 @@ function parseSettings(value: unknown, assets: Record<string, Asset>): ProjectSe
     description: stringAt(raw.description, 'settings.description'),
     language,
     titleTemplate: stringAt(raw.titleTemplate, 'settings.titleTemplate'),
+    indexable: booleanAt(raw.indexable, 'settings.indexable'),
   };
   if (baseUrl !== undefined && baseUrl !== '') settings.baseUrl = baseUrl;
   const faviconAssetId = assetIdAt(raw.faviconAssetId, 'settings.faviconAssetId', assets);
@@ -205,7 +208,7 @@ function parseBlocks(value: unknown): Project['blocks'] {
 
 function parseSeo(value: unknown, path: string, assets: Record<string, Asset>): PageSeo {
   const raw = recordAt(value, path);
-  const seo: PageSeo = {};
+  const seo: PageSeo = { noindex: booleanAt(raw.noindex, `${path}.noindex`) };
   for (const key of SEO_TEXT_KEYS) {
     const text = optionalStringAt(raw[key], `${path}.${key}`);
     if (text !== undefined) seo[key] = text;
@@ -280,6 +283,7 @@ export function parseProjectDocument(value: unknown): Project {
     pages: parsePages(raw.pages, blocks, assets),
     blocks,
     sharedSlots,
+    customDefinitions: parseEmbeddedDefinitions(raw.customDefinitions, Object.keys(behaviors)),
     assets,
   };
 }

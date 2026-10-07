@@ -1,0 +1,72 @@
+import type { ComponentDefinition } from '../../../types';
+
+export const definition: ComponentDefinition = {
+  id: 'cookie-bar',
+  version: 1,
+  name: 'Cookies, bottom bar',
+  category: 'cookies',
+  description:
+    'A consent bar fixed to the bottom of the screen. It remembers the visitor’s choice and stays hidden afterwards.',
+  tags: ['cookies', 'consent', 'privacy', 'gdpr', 'banner', 'bar'],
+  fieldGroups: ['Message', 'Buttons'],
+  behaviors: ['consent'],
+  styleOverrides: ['--color-background', '--color-text'],
+  fields: [
+    {
+      name: 'text',
+      label: 'Text',
+      type: 'textarea',
+      default:
+        'We use cookies to remember your settings and to see which pages help people most. You choose what we keep.',
+      required: true,
+      maxLength: 280,
+      group: 'Message',
+    },
+    {
+      name: 'showPolicyLink',
+      label: 'Show policy link',
+      type: 'boolean',
+      default: true,
+      group: 'Message',
+    },
+    {
+      name: 'policyLabel',
+      label: 'Policy link label',
+      type: 'text',
+      default: 'Cookie policy',
+      visibleWhen: { field: 'showPolicyLink', equals: true },
+      group: 'Message',
+    },
+    {
+      name: 'policyLink',
+      label: 'Policy link',
+      type: 'link',
+      default: { type: 'page', newTab: false },
+      visibleWhen: { field: 'showPolicyLink', equals: true },
+      group: 'Message',
+    },
+    {
+      name: 'acceptLabel',
+      label: 'Accept button',
+      type: 'text',
+      default: 'Accept',
+      required: true,
+      group: 'Buttons',
+    },
+    {
+      name: 'showDecline',
+      label: 'Show decline button',
+      type: 'boolean',
+      default: true,
+      group: 'Buttons',
+    },
+    {
+      name: 'declineLabel',
+      label: 'Decline button',
+      type: 'text',
+      default: 'Decline',
+      visibleWhen: { field: 'showDecline', equals: true },
+      group: 'Buttons',
+    },
+  ],
+};

@@ -1,18 +1,26 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { blockSelected, compactTabSelected } from '../../app/editorSlice';
+import { blockPacksLoaded, blockSelected, compactTabSelected } from '../../app/editorSlice';
 import { dispatch, store } from '../../app/store';
 import { registry } from '../../components/registry';
 import { CATEGORIES } from '../../components/types';
 import { changeValue, click, firePointer, getButton, render, runInAct } from '../../test/dom';
 import { componentBlockOf, homePage, loadIntoAppStore } from '../../test/fixtures';
+import { packOf, quoteCardDefinition } from '../../test/packFixtures';
 import { dragController } from '../canvas/dragController';
 import { BlocksTab, groupByCategory } from './BlocksTab';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
+  listBlockPacks: vi.fn(async () => []),
   getProject: vi.fn(async () => null),
   listProjects: vi.fn(async () => []),
   deleteProject: vi.fn(async () => {}),
+}));
+
+const ENTRIES = [...registry.values()].map(({ definition, thumbnail }) => ({
+  definition,
+  thumbnail,
+  pack: null,
 }));
 
 function componentIds(): string[] {
@@ -40,18 +48,18 @@ beforeEach(() => {
 });
 
 describe('groupByCategory', () => {
-  it('groups components in library order and leaves out empty categories', () => {
-    const groups = groupByCategory([...registry.values()]);
+  it('groups components in library order and fills every category', () => {
+    const groups = groupByCategory(ENTRIES);
     const ids: string[] = [];
     for (const group of groups) ids.push(group.id);
-    const notYetFilled = ['modals', 'cookies', 'http-codes'];
-    const filled: string[] = [];
-    for (const { id } of CATEGORIES) {
-      if (!notYetFilled.includes(id)) filled.push(id);
-    }
-    expect(ids).toEqual(filled);
+    expect(ids).toEqual(CATEGORIES.map(({ id }) => id));
     const navigationIds = groups[0]?.components.map((component) => component.definition.id);
     expect(navigationIds).toEqual(['nav-centered', 'nav-cta', 'nav-dropdown', 'nav-simple']);
+  });
+
+  it('leaves out empty categories', () => {
+    const navigations = ENTRIES.filter(({ definition }) => definition.category === 'navigations');
+    expect(groupByCategory(navigations).map(({ id }) => id)).toEqual(['navigations']);
   });
 
   it('returns no groups for no components', () => {
@@ -118,5 +126,38 @@ describe('BlocksTab', () => {
       label: 'Content, agenda',
     });
     dragController.cancel();
+    firePointer(window, 'pointerdown', { button: 0 });
+  });
+});
+
+describe('BlocksTab with block packs', () => {
+  beforeEach(() => {
+    runInAct(() => dispatch(blockPacksLoaded([packOf([quoteCardDefinition()])])));
+  });
+
+  it('lists packs under My blocks and marks their blocks as custom in their category', () => {
+    const { container } = render(<BlocksTab />);
+    expect(container.querySelector('.ve-my-blocks')?.textContent).toBe('My blocksAcme blocks1');
+    click(categoryButton(container, 'Testimonials'));
+    const texts = [...container.querySelectorAll('.ve-component-card')].map(
+      (card) => card.textContent,
+    );
+    expect(texts).toContain('Quote card Custom');
+  });
+
+  it('inserts a pack block and embeds its definition in the project', () => {
+    const { container } = render(<BlocksTab />);
+    click(categoryButton(container, 'Acme blocks'));
+    runInAct(() => {
+      container.querySelector<HTMLButtonElement>('.ve-component-card')?.click();
+    });
+    expect(componentIds()).toContain('acme/quote-card');
+    expect(store.getState().project.customDefinitions['acme/quote-card']).toBeDefined();
+  });
+
+  it('finds pack blocks by search', () => {
+    const { container } = render(<BlocksTab />);
+    searchFor(container, 'author and a few points');
+    expect(container.querySelector('.ve-component-card')?.textContent).toBe('Quote card Custom');
   });
 });

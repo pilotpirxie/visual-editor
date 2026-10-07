@@ -1,6 +1,6 @@
 import { THEME_TOKEN_NAMES } from '../app/sectionThemes';
 import { SCHEMA_VERSION, type Block, type ComponentBlock, type Project } from '../app/types';
-import { registry } from '../components/registry';
+import { definitionOf } from '../components/registry';
 import type { ComponentDefinition, Field } from '../components/types';
 import { BUILTIN_PRESETS, CLEAN_PRESET } from '../presets/presets';
 import { isRecord } from './parseBlock';
@@ -25,8 +25,34 @@ function addSectionThemeTokens(document: RawDocument): RawDocument {
   return { ...document, designSystem: { ...designSystem, tokens } };
 }
 
+function pagesWithNoindex(pages: unknown): unknown {
+  if (!isRecord(pages) || !isRecord(pages.entities)) return pages;
+  const entities: Record<string, unknown> = {};
+  for (const [id, page] of Object.entries(pages.entities)) {
+    const seo = isRecord(page) && isRecord(page.seo) ? page.seo : null;
+    entities[id] =
+      isRecord(page) && seo !== null
+        ? { ...page, seo: { ...seo, noindex: seo.noindex === true } }
+        : page;
+  }
+  return { ...pages, entities };
+}
+
+function addCustomBlocksAndIndexing(document: RawDocument): RawDocument {
+  const settings = isRecord(document.settings)
+    ? { ...document.settings, indexable: document.settings.indexable !== false }
+    : document.settings;
+  return {
+    ...document,
+    settings,
+    pages: pagesWithNoindex(document.pages),
+    customDefinitions: isRecord(document.customDefinitions) ? document.customDefinitions : {},
+  };
+}
+
 const PROJECT_MIGRATIONS: Record<number, DocumentMigration> = {
   2: addSectionThemeTokens,
+  3: addCustomBlocksAndIndexing,
 };
 
 export function migrateProjectDocument(value: unknown): unknown {
@@ -103,11 +129,11 @@ export function upgradeComponentBlock(
   return { ...block, componentVersion: definition.version, values };
 }
 
-export function upgradeBlock(block: Block): Block {
+function upgradeBlock(block: Block, project: Project): Block {
   if (block.kind !== 'component') return block;
-  const component = registry.get(block.componentId);
-  if (component === undefined) return block;
-  return upgradeComponentBlock(block, component.definition);
+  const definition = definitionOf(project, block.componentId);
+  if (definition === undefined) return block;
+  return upgradeComponentBlock(block, definition);
 }
 
 function upgradeProjectBlocks(project: Project): Project {
@@ -115,7 +141,7 @@ function upgradeProjectBlocks(project: Project): Project {
   for (const id of project.blocks.ids) {
     const block = project.blocks.entities[id];
     if (block === undefined) continue;
-    const upgraded = upgradeBlock(block);
+    const upgraded = upgradeBlock(block, project);
     if (upgraded === block) continue;
     entities ??= { ...project.blocks.entities };
     entities[id] = upgraded;

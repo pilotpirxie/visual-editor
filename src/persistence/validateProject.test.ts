@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from '../app/projectFactory';
 import type { Project } from '../app/types';
+import { parsePackFile } from '../components/packFormat';
 import { componentBlockOf, homePage } from '../test/fixtures';
+import { testPackJson } from '../test/packFixtures';
 import { parseProjectDocument, ProjectFormatError } from './validateProject';
 
 function sample(): Project {
@@ -23,6 +25,16 @@ describe('parseProjectDocument', () => {
     const parsed = parseProjectDocument(asJson(project));
     expect(parsed).toEqual(project);
     expect(parsed).not.toBe(project);
+  });
+
+  it('keeps the custom block definitions a project embeds', () => {
+    const project = sample();
+    const [definition] = parsePackFile(testPackJson(), ['menu']).blocks;
+    if (definition === undefined) throw new Error('fixture pack did not parse');
+    project.customDefinitions = { [definition.definition.id]: definition };
+    expect(parseProjectDocument(asJson(project)).customDefinitions).toEqual(
+      project.customDefinitions,
+    );
   });
 
   it('keeps blocks whose component is unknown so they can show a missing card', () => {

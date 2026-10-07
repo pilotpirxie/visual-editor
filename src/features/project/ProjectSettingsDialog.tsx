@@ -4,6 +4,7 @@ import {
   projectImageSet,
   settingError,
   settingSet,
+  siteIndexingSet,
   SOCIAL_IMAGE_TYPES,
   type EditKind,
   type SettingKey,
@@ -24,6 +25,7 @@ import {
   DraftInput,
   Field,
   Section,
+  Switch,
 } from '../../../packages/ui/src';
 
 const TITLE_ID = 've-project-settings-title';
@@ -134,6 +136,12 @@ export function ProjectSettingsDialog({ onClose }: { onClose(): void }): JSX.Ele
               value={settings.titleTemplate}
               path="project-title-template"
               onChange={changeSetting('titleTemplate')}
+            />
+            <Switch
+              id="ve-project-indexable"
+              label="Let search engines index this site"
+              checked={settings.indexable}
+              onChange={(event) => dispatch(siteIndexingSet(event.target.checked))}
             />
             <ImageUploadInput
               id="ve-project-favicon"

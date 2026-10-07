@@ -1,6 +1,7 @@
 import type { EntityState } from '@reduxjs/toolkit';
+import type { CustomDefinition } from '../components/types';
 
-export const SCHEMA_VERSION = 3;
+export const SCHEMA_VERSION = 4;
 
 export const TOKEN_GROUPS = [
   'color',
@@ -60,6 +61,7 @@ export type PageSeo = {
   socialTitle?: string;
   socialDescription?: string;
   socialImageAssetId?: string;
+  noindex: boolean;
 };
 
 export type Page = {
@@ -102,6 +104,7 @@ export type ProjectSettings = {
   language: string;
   baseUrl?: string;
   titleTemplate: string;
+  indexable: boolean;
   faviconAssetId?: string;
   socialImageAssetId?: string;
 };
@@ -117,5 +120,6 @@ export type Project = {
   pages: EntityState<Page, string> & { homePageId: string };
   blocks: EntityState<Block, string>;
   sharedSlots: Record<SharedSlot, string[]>;
+  customDefinitions: Record<string, CustomDefinition>;
   assets: Record<string, Asset>;
 };

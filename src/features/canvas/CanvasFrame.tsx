@@ -11,8 +11,15 @@ import {
 import { createPortal } from 'react-dom';
 import { behaviors, core } from 'virtual:site-runtime';
 import { pageAnchorRequested } from '../../app/editorSlice';
-import { dispatch, selectCurrentPage, selectShownSlot, store, useStore } from '../../app/store';
-import { blockComponentId, registry } from '../../components/registry';
+import {
+  dispatch,
+  selectComponents,
+  selectCurrentPage,
+  selectShownSlot,
+  store,
+  useStore,
+} from '../../app/store';
+import { blockComponentId } from '../../components/registry';
 import { CANVAS_BASE_CSS, buildTokensCss } from '../../render/css';
 import { BlockHost } from './BlockHost';
 import { syncFontLink } from './fontLink';
@@ -33,11 +40,23 @@ const SRC_DOC = [
   '</html>',
 ].join('');
 
+const LIVE_ONLY_DIALOGS = ':is([data-behavior~="modal"], [data-behavior~="consent"]) dialog';
+
 const EDITOR_CSS = [
   'html { overflow-anchor: none; }',
   '#ve-header, #ve-footer { display: contents; }',
   '#ve-page:empty { min-height: 100vh; }',
+  `html[data-ve-editing] ${LIVE_ONLY_DIALOGS} { display: block; position: relative; inset: auto; opacity: 1; }`,
+  'html[data-ve-editing] [data-behavior~="modal"] { display: block; padding-block: 2rem; }',
 ].join('\n');
+
+const NO_STORAGE: SiteStorage = { getItem: () => null, setItem: () => {} };
+
+function closeOpenModals(doc: Document): void {
+  for (const dialog of doc.querySelectorAll<HTMLDialogElement>('dialog[open]')) {
+    if (dialog.matches(':modal')) dialog.close();
+  }
+}
 
 export type CanvasFrameHandle = { iframe: HTMLIFrameElement; doc: Document };
 
@@ -105,6 +124,8 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
   const tokens = useStore((state) => state.project.designSystem.tokens);
   const fonts = useStore((state) => state.project.designSystem.fonts);
   const language = useStore((state) => state.project.settings.language);
+  const isPreview = useStore((state) => state.editor.isPreview);
+  const components = useStore(selectComponents);
 
   const anchor = useMemo(
     () =>
@@ -127,6 +148,8 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
     const script = frameDoc.createElement('script');
     script.textContent = [core, ...Object.values(behaviors)].join('\n');
     frameDoc.head.append(script);
+    const runtime = frameDoc.defaultView?.siteRuntime;
+    if (runtime !== undefined) runtime.storage = NO_STORAGE;
     setDoc(frameDoc);
     onReady({ iframe, doc: frameDoc });
   }
@@ -135,6 +158,12 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
     if (doc === null) return;
     doc.documentElement.setAttribute('lang', language);
   }, [doc, language]);
+
+  useLayoutEffect(() => {
+    if (doc === null) return;
+    doc.documentElement.toggleAttribute('data-ve-editing', !isPreview);
+    if (!isPreview) closeOpenModals(doc);
+  }, [doc, isPreview]);
 
   useLayoutEffect(() => {
     if (doc === null) return;
@@ -154,16 +183,20 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
     for (const blockId of [...headerBlockIds, ...page.blockIds, ...footerBlockIds]) {
       const block = blocks[blockId];
       const componentId = block === undefined ? null : blockComponentId(block);
-      const component = componentId === null ? undefined : registry.get(componentId);
+      const component = componentId === null ? undefined : components.get(componentId);
       if (component === undefined) continue;
       const styleSelector = `style[data-component-css="${CSS.escape(component.definition.id)}"]`;
-      if (doc.head.querySelector(styleSelector) !== null) continue;
+      const existing = doc.head.querySelector(styleSelector);
+      if (existing !== null) {
+        if (existing.textContent !== component.styles) existing.textContent = component.styles;
+        continue;
+      }
       const style = doc.createElement('style');
       style.dataset.componentCss = component.definition.id;
       style.textContent = component.styles;
       doc.head.append(style);
     }
-  }, [doc, page, headerBlockIds, footerBlockIds, blocks]);
+  }, [doc, page, headerBlockIds, footerBlockIds, blocks, components]);
 
   usePageScrollMemory(doc, page.id, anchor);
 

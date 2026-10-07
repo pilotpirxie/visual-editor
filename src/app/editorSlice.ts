@@ -9,6 +9,7 @@ import {
   projectLoaded,
 } from './projectSlice';
 import type { SaveStatus } from '../persistence/autosave';
+import type { BlockPack } from '../components/types';
 import type { Device, Project } from './types';
 
 export type DeviceMode = 'responsive' | Device;
@@ -68,6 +69,8 @@ export type EditorState = {
   isLinkedFileStale: boolean;
   conversionBlockId: string | null;
   iconSetsVersion: number;
+  customComponentsVersion: number;
+  blockPacks: BlockPack[];
   sectionStates: Record<string, boolean>;
 };
 
@@ -95,6 +98,8 @@ const initialState: EditorState = {
   isLinkedFileStale: false,
   conversionBlockId: null,
   iconSetsVersion: 0,
+  customComponentsVersion: 0,
+  blockPacks: [],
   sectionStates: {},
 };
 
@@ -163,6 +168,12 @@ export const editorSlice = createSlice({
     },
     iconSetsLoaded(state) {
       state.iconSetsVersion += 1;
+    },
+    customComponentsLoaded(state) {
+      state.customComponentsVersion += 1;
+    },
+    blockPacksLoaded(state, action: PayloadAction<BlockPack[]>) {
+      state.blockPacks = action.payload;
     },
     compactTabSelected(state, action: PayloadAction<CompactTab>) {
       const tab = action.payload;
@@ -265,6 +276,8 @@ export const {
   conversionRequested,
   sectionToggled,
   iconSetsLoaded,
+  customComponentsLoaded,
+  blockPacksLoaded,
 } = editorSlice.actions;
 
 export function selectCompactTab(editor: EditorState): CompactTab {

@@ -218,6 +218,46 @@ describe('buildExportFiles', () => {
     );
   });
 
+  it('writes a sitemap of indexed pages and a robots file only when a base URL is set', () => {
+    const project = createSampleProject();
+    const about = createPage('about', 'About', 'about');
+    const hidden = createPage('thanks', 'Thanks', 'thanks');
+    hidden.seo.noindex = true;
+    for (const page of [about, hidden]) {
+      project.pages.ids.push(page.id);
+      project.pages.entities[page.id] = page;
+    }
+    expect(Object.keys(filesOf(project))).not.toContain('sitemap.xml');
+    expect(Object.keys(filesOf(project))).not.toContain('robots.txt');
+    project.settings.baseUrl = 'https://fieldnote.app/';
+    const files = filesOf(project);
+    expect(text(files, 'sitemap.xml')).toBe(
+      [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        '  <url><loc>https://fieldnote.app/</loc></url>',
+        '  <url><loc>https://fieldnote.app/about.html</loc></url>',
+        '</urlset>',
+        '',
+      ].join('\n'),
+    );
+    expect(text(files, 'robots.txt')).toBe(
+      'User-agent: *\nAllow: /\n\nSitemap: https://fieldnote.app/sitemap.xml\n',
+    );
+    expect(text(files, 'thanks.html')).toContain('<meta name="robots" content="noindex">');
+    expect(text(files, 'about.html')).not.toContain('name="robots"');
+  });
+
+  it('writes no sitemap when search engines may not index the site', () => {
+    const project = createSampleProject();
+    project.settings.baseUrl = 'https://fieldnote.app';
+    project.settings.indexable = false;
+    const files = filesOf(project);
+    expect(Object.keys(files)).not.toContain('sitemap.xml');
+    expect(text(files, 'robots.txt')).toBe('User-agent: *\nAllow: /\n');
+    expect(text(files, 'index.html')).toContain('<meta name="robots" content="noindex">');
+  });
+
   it('ships no site.js and no script tag when no behavior is used', () => {
     const project = createSampleProject();
     const page = homePage(project);

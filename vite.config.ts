@@ -8,21 +8,9 @@ import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import { convertIconifySet } from './packages/icon-data/src/convert.ts';
 import { iconSetInfo } from './packages/icon-data/src/sets.ts';
+import { TEMPLATE_HELPERS } from './src/render/helperNames.ts';
 
-const KNOWN_HELPERS = {
-  href: true,
-  linkAttrs: true,
-  svgIcon: true,
-  img: true,
-  eq: true,
-  not: true,
-  and: true,
-  or: true,
-  nl2br: true,
-  richText: true,
-  safeUrl: true,
-  formatDate: true,
-};
+const KNOWN_HELPERS = Object.fromEntries(TEMPLATE_HELPERS.map((name) => [name, true]));
 
 function handlebarsPrecompile(): Plugin {
   return {

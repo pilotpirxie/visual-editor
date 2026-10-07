@@ -10,6 +10,7 @@ import type { Project } from './types';
 
 vi.mock('../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
+  listBlockPacks: vi.fn(async () => []),
   getProject: vi.fn(async () => null),
   listProjects: vi.fn(async () => []),
   deleteProject: vi.fn(async () => {}),

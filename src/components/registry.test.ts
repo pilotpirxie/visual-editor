@@ -5,10 +5,10 @@ import { ensureIconSets } from '../features/icons/ensureIconSets';
 import { isSemanticIcon, parseIconRef, resolveIcon } from '../render/icons';
 import { createRenderContext, renderBlock } from '../render/renderBlock';
 import { createBlock, registry } from './registry';
+import { formFieldsProblem, rootElementProblem } from './definitionRules';
 import { asListItems } from './fields';
 import { CATEGORIES, type ComponentDefinition, type Field } from './types';
 
-const ROOT_TAGS = ['section', 'header', 'nav', 'footer', 'aside', 'div'];
 const CATEGORY_IDS: string[] = CATEGORIES.map(({ id }) => id);
 const ctx = createRenderContext(createSampleProject(), 'canvas');
 
@@ -47,19 +47,18 @@ describe.each([...registry.values()])(
     });
 
     it('renders its defaults into exactly one root element with class b-<id>', () => {
-      const block = createBlock(definition);
-      const html = renderBlock(block, { definition, template, styles, thumbnail: '' }, ctx);
-      const container = document.createElement('template');
-      container.innerHTML = html;
-      const roots = container.content.children;
-      expect(roots).toHaveLength(1);
-      expect(ROOT_TAGS).toContain(roots[0].localName);
-      expect(roots[0].classList).toContain(`b-${definition.id}`);
+      const component = { definition, template, styles, thumbnail: '', isCustom: false };
+      const html = renderBlock(createBlock(definition), component, ctx);
+      expect(rootElementProblem(html, `b-${definition.id}`)).toBeNull();
     });
 
     it('renders only icons that exist in the default icon set', () => {
       const warn = vi.spyOn(console, 'warn');
-      renderBlock(createBlock(definition), { definition, template, styles, thumbnail: '' }, ctx);
+      renderBlock(
+        createBlock(definition),
+        { definition, template, styles, thumbnail: '', isCustom: false },
+        ctx,
+      );
       expect(warn).not.toHaveBeenCalled();
       warn.mockRestore();
     });
@@ -98,8 +97,7 @@ describe.each([...registry.values()])(
     });
 
     it('pairs a form action URL with a method', () => {
-      const names = definition.fields.map(({ name }) => name);
-      expect(names.includes('formAction')).toBe(names.includes('formMethod'));
+      expect(formFieldsProblem(definition)).toBeNull();
     });
 
     it('only uses behaviors the site runtime provides', () => {

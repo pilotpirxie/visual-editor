@@ -378,7 +378,9 @@
         "name": "Page not found",
         "slug": "404",
         "blockIds": ["not-found-hero"],
-        "seo": {},
+        "seo": {
+          "noindex": true
+        },
         "showSharedHeader": true,
         "showSharedFooter": true
       }
@@ -987,13 +989,13 @@
       "not-found-hero": {
         "id": "not-found-hero",
         "kind": "component",
-        "componentId": "hero-centered",
+        "componentId": "http-404",
         "componentVersion": 1,
         "values": {
-          "eyebrow": "Error 404",
+          "eyebrow": "404",
           "title": "This page is not on the list",
           "text": "It may have moved or never existed. Let us get you back home.",
-          "primaryButton": {
+          "button": {
             "label": "Back to the home page",
             "link": {
               "type": "page",
@@ -1002,7 +1004,7 @@
             },
             "variant": "primary"
           },
-          "showSecondary": false,
+          "showSecondaryButton": false,
           "secondaryButton": {
             "label": "Watch the 2-minute demo",
             "link": {

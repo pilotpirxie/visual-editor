@@ -1,6 +1,6 @@
 import { mapFieldValues } from '../components/fieldValues';
 import { isButtonValue, isLinkValue } from '../components/fields';
-import { registry } from '../components/registry';
+import { definitionOf } from '../components/registry';
 import type { LinkValue } from '../components/types';
 import type { Asset, Block, Page, Project } from './types';
 
@@ -35,13 +35,13 @@ function remappedLink(link: LinkValue, pageIds: IdMap): LinkValue {
   return { ...link, pageId };
 }
 
-function copyBlock(block: Block, blockIds: IdMap, pageIds: IdMap): Block {
+function copyBlock(block: Block, project: Project, blockIds: IdMap, pageIds: IdMap): Block {
   const copy = structuredClone(block);
   copy.id = mapped(blockIds, block.id);
   if (copy.kind !== 'component') return copy;
-  const component = registry.get(copy.componentId);
-  if (component === undefined) return copy;
-  copy.values = mapFieldValues(component.definition.fields, copy.values, (field, value) => {
+  const definition = definitionOf(project, copy.componentId);
+  if (definition === undefined) return copy;
+  copy.values = mapFieldValues(definition.fields, copy.values, (field, value) => {
     if (field.type === 'link' && isLinkValue(value)) return remappedLink(value, pageIds);
     if (field.type === 'button' && isButtonValue(value)) {
       return { ...value, link: remappedLink(value.link, pageIds) };
@@ -73,7 +73,7 @@ export function copyProjectWithNewIds(project: Project, title: string): Project 
   }
   const blockEntities: Record<string, Block> = {};
   for (const block of Object.values(project.blocks.entities)) {
-    const copy = copyBlock(block, ids.blocks, ids.pages);
+    const copy = copyBlock(block, project, ids.blocks, ids.pages);
     blockEntities[copy.id] = copy;
   }
   const assets: Record<string, Asset> = {};

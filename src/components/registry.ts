@@ -1,5 +1,5 @@
 import type { TemplateDelegate } from 'handlebars';
-import type { Block, ComponentBlock } from '../app/types';
+import type { Block, ComponentBlock, Project } from '../app/types';
 import { defaultValues } from './fields';
 import type { Category, ComponentDefinition, RegisteredComponent } from './types';
 
@@ -46,6 +46,7 @@ function buildRegistry(): ReadonlyMap<string, RegisteredComponent> {
       template: requireFile(templates, folder, 'template.hbs'),
       styles: requireFile(styles, folder, 'styles.css'),
       thumbnail: requireFile(thumbnails, folder, 'thumbnail.svg'),
+      isCustom: false,
     });
   }
   return registry;
@@ -72,15 +73,26 @@ export function blockComponentId(block: Block): string | null {
   return block.sourceComponentId ?? null;
 }
 
-export function blockCategory(block: Block): Category | null {
-  const componentId = blockComponentId(block);
-  if (componentId === null) return null;
-  return registry.get(componentId)?.definition.category ?? null;
+export type DefinitionSource = Pick<Project, 'customDefinitions'>;
+
+export function definitionOf(
+  project: DefinitionSource,
+  componentId: string,
+): ComponentDefinition | undefined {
+  const builtIn = registry.get(componentId);
+  if (builtIn !== undefined) return builtIn.definition;
+  return project.customDefinitions[componentId]?.definition;
 }
 
-export function blockLabel(block: Block): string {
+export function blockCategory(block: Block, project: DefinitionSource): Category | null {
+  const componentId = blockComponentId(block);
+  if (componentId === null) return null;
+  return definitionOf(project, componentId)?.category ?? null;
+}
+
+export function blockLabel(block: Block, project: DefinitionSource): string {
   if (block.kind === 'html') return 'HTML block';
-  const component = registry.get(block.componentId);
-  if (component === undefined) return `Missing component: ${block.componentId}`;
-  return component.definition.name;
+  const definition = definitionOf(project, block.componentId);
+  if (definition === undefined) return `Missing component: ${block.componentId}`;
+  return definition.name;
 }

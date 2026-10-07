@@ -12,6 +12,8 @@ import {
   type FileLink,
 } from '../../persistence/db';
 import { downloadBlob } from '../export/download';
+import { ensureProjectComponents } from '../block-packs/customComponents';
+import { syncProjectWithLibrary } from '../block-packs/packLibrary';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import {
   canUseFileSystemAccess,
@@ -60,6 +62,9 @@ function openInEditor(project: Project): void {
   const isAlreadyOpen = store.getState().project.id === project.id;
   if (isAlreadyOpen) {
     dispatch(projectLoaded({ project, pageId: project.pages.homePageId }));
+    dispatch(syncProjectWithLibrary()).catch((error: unknown) => {
+      console.warn('Could not compare the project with your block packs', error);
+    });
   }
   navigate(editorPath(project.id, project.pages.homePageId));
 }
@@ -81,6 +86,7 @@ async function linkFile(project: Project, picked: PickedFile): Promise<void> {
 async function storeAndOpen(project: Project, picked: PickedFile): Promise<void> {
   await autosave.flush();
   await ensureProjectIconSets(project);
+  await ensureProjectComponents(project);
   await putProject(project);
   openInEditor(project);
   await linkFile(project, picked);

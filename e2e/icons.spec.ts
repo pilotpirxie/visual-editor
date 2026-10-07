@@ -38,7 +38,7 @@ test('icons come from any set, and switching the default set swaps only default 
   const downloadPromise = page.waitForEvent('download');
   await page
     .getByRole('dialog', { name: 'Export site' })
-    .getByRole('button', { name: 'Download zip' })
+    .getByRole('button', { name: /Download zip|Export anyway/ })
     .click();
   const files = readZip(await readFile(await (await downloadPromise).path()));
   const html = files.get('index.html')?.toString('utf8') ?? '';

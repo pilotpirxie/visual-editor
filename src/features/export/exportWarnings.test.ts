@@ -3,8 +3,13 @@ import { createSampleProject } from '../../app/projectFactory';
 import type { Project } from '../../app/types';
 import { registry } from '../../components/registry';
 import { placeholderImage } from '../../render/placeholder';
-import { componentBlockOf, homePage } from '../../test/fixtures';
-import { collectExportWarnings } from './exportWarnings';
+import { componentBlockOf, homePage, withSearchDetails } from '../../test/fixtures';
+import { createPage } from '../../app/projectFactory';
+import { collectExportWarnings, searchEngineWarnings } from './exportWarnings';
+
+function sampleProject(): Project {
+  return withSearchDetails(createSampleProject());
+}
 
 function warningTexts(project: Project): string[] {
   const texts: string[] = [];
@@ -18,11 +23,11 @@ function blockOf(project: Project, index: number) {
 
 describe('collectExportWarnings', () => {
   it('finds nothing to warn about on the sample page', () => {
-    expect(warningTexts(createSampleProject())).toEqual([]);
+    expect(warningTexts(sampleProject())).toEqual([]);
   });
 
   it('warns about images without alt text, but not decorative ones', () => {
-    const project = createSampleProject();
+    const project = sampleProject();
     const hero = blockOf(project, 1);
     hero.componentId = 'content-text-image';
     hero.values.image = placeholderImage({ ratio: '3:2', subject: 'photo' }, '');
@@ -34,7 +39,7 @@ describe('collectExportWarnings', () => {
   });
 
   it('warns about links to deleted pages, empty required fields and repeated anchors', () => {
-    const project = createSampleProject();
+    const project = sampleProject();
     const hero = blockOf(project, 1);
     hero.values.title = '';
     hero.values.primaryButton = {
@@ -52,10 +57,60 @@ describe('collectExportWarnings', () => {
   });
 
   it('skips disabled blocks', () => {
-    const project = createSampleProject();
+    const project = sampleProject();
     const hero = blockOf(project, 1);
     hero.values.title = '';
     hero.disabled = true;
     expect(warningTexts(project)).toEqual([]);
+  });
+});
+
+describe('modal warnings', () => {
+  it('warns about a modal with no anchor, because no link can open it', () => {
+    const project = sampleProject();
+    const modal = blockOf(project, 2);
+    modal.componentId = 'modal-simple';
+    modal.values = { title: 'Hello', closeLabel: 'Close', showButton: false };
+    expect(warningTexts(project)).toEqual([
+      'Modal, simple dialog: nothing can open this modal. Give it an anchor id in the Advanced tab.',
+    ]);
+    modal.anchor = 'modal';
+    expect(warningTexts(project)).toEqual([]);
+  });
+});
+
+describe('searchEngineWarnings', () => {
+  it('lists the indexed pages that have no description or social image', () => {
+    const project = createSampleProject();
+    const about = createPage('about', 'About', 'about');
+    about.seo.description = 'Who we are';
+    const thanks = createPage('thanks', 'Thanks', 'thanks');
+    thanks.seo.noindex = true;
+    for (const page of [about, thanks]) {
+      project.pages.ids.push(page.id);
+      project.pages.entities[page.id] = page;
+    }
+    expect(searchEngineWarnings(project)).toEqual([
+      {
+        pageId: null,
+        blockId: null,
+        text: 'No meta description on Home. Add one in Project settings or in each page’s settings.',
+      },
+      {
+        pageId: null,
+        blockId: null,
+        text: 'No social image on Home and About. Add a default one in Project settings or one per page.',
+      },
+    ]);
+  });
+
+  it('checks nothing when search engines may not index the site', () => {
+    const project = createSampleProject();
+    project.settings.indexable = false;
+    expect(searchEngineWarnings(project)).toEqual([]);
+  });
+
+  it('is satisfied by the project description and default social image', () => {
+    expect(searchEngineWarnings(sampleProject())).toEqual([]);
   });
 });

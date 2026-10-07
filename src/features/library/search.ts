@@ -1,4 +1,6 @@
-import { CATEGORIES, type RegisteredComponent } from '../../components/types';
+import { CATEGORIES, type ComponentDefinition } from '../../components/types';
+
+type Searchable = { definition: ComponentDefinition };
 
 const WHITESPACE = /\s+/;
 
@@ -9,7 +11,7 @@ function categoryLabel(categoryId: string): string {
   return '';
 }
 
-function searchableText(component: RegisteredComponent): string {
+function searchableText(component: Searchable): string {
   const { definition } = component;
   const parts = [
     definition.name,
@@ -28,13 +30,13 @@ function searchWords(query: string): string[] {
   return words;
 }
 
-export function filterComponents(
-  components: RegisteredComponent[],
+export function filterComponents<Entry extends Searchable>(
+  components: Entry[],
   query: string,
-): RegisteredComponent[] {
+): Entry[] {
   const words = searchWords(query);
   if (words.length === 0) return components;
-  const matches: RegisteredComponent[] = [];
+  const matches: Entry[] = [];
   for (const component of components) {
     const text = searchableText(component);
     if (words.every((word) => text.includes(word))) matches.push(component);

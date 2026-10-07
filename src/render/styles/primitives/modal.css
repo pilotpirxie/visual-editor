@@ -1,0 +1,65 @@
+@layer primitives {
+  .modal {
+    width: min(100% - 2 * var(--space-4), var(--modal-width, 32rem));
+    max-height: calc(100dvh - 2 * var(--space-4));
+    margin: auto;
+    padding: var(--space-12) var(--space-6) var(--space-6);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--card-radius);
+    background: var(--color-background);
+    color: var(--color-text);
+    box-shadow: var(--shadow-lg);
+    overflow: auto;
+  }
+
+  .modal[open] {
+    opacity: 1;
+    transition: opacity var(--transition-normal);
+  }
+
+  @starting-style {
+    .modal[open] {
+      opacity: 0;
+    }
+  }
+
+  .modal::backdrop {
+    background: color-mix(in oklab, var(--color-text) 55%, transparent);
+  }
+
+  .modal-close {
+    --icon-size: 1.25rem;
+    position: absolute;
+    inset-block-start: var(--space-2);
+    inset-inline-end: var(--space-2);
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-full);
+    background: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+  }
+
+  .modal-close:hover {
+    background: color-mix(in oklab, var(--color-text) 8%, transparent);
+    color: var(--color-text);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .modal[open] {
+      transition: none;
+    }
+  }
+
+  @media (scripting: none) {
+    .modal {
+      position: relative;
+      display: block;
+      margin-block: var(--space-8);
+    }
+  }
+}

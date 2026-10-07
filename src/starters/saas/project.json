@@ -401,7 +401,9 @@
         "name": "Page not found",
         "slug": "404",
         "blockIds": ["not-found-hero"],
-        "seo": {},
+        "seo": {
+          "noindex": true
+        },
         "showSharedHeader": true,
         "showSharedFooter": true
       }
@@ -1441,13 +1443,13 @@
       "not-found-hero": {
         "id": "not-found-hero",
         "kind": "component",
-        "componentId": "hero-centered",
+        "componentId": "http-404",
         "componentVersion": 1,
         "values": {
-          "eyebrow": "Error 404",
+          "eyebrow": "404",
           "title": "We could not find that page",
           "text": "The link may be old, or the page may have moved. Head back home and try again.",
-          "primaryButton": {
+          "button": {
             "label": "Back to the home page",
             "link": {
               "type": "page",
@@ -1456,7 +1458,7 @@
             },
             "variant": "primary"
           },
-          "showSecondary": true,
+          "showSecondaryButton": true,
           "secondaryButton": {
             "label": "Contact us",
             "link": {

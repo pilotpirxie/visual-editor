@@ -1,5 +1,6 @@
 import type { JSX, ReactNode } from 'react';
 import {
+  pageNoindexSet,
   pageSeoSet,
   pageSharedSlotShown,
   pageSlugSet,
@@ -138,6 +139,14 @@ export function PageSettingsPanel(): JSX.Element {
         {renderSeoField('title')}
         <SlugControl page={page} />
         {renderSeoField('description')}
+        <Switch
+          id="ve-page-noindex"
+          label="Hide from search engines"
+          checked={page.seo.noindex}
+          onChange={(event) =>
+            dispatch(pageNoindexSet({ pageId: page.id, noindex: event.target.checked }))
+          }
+        />
       </PageSection>
       <PageSection id="social" title="Social sharing">
         {renderSeoField('socialTitle')}

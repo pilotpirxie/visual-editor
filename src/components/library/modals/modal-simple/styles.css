@@ -1,0 +1,19 @@
+@layer components {
+  @scope (.b-modal-simple) {
+    .b-body {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-body h2 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      margin-top: var(--space-2);
+    }
+  }
+}

@@ -10,7 +10,8 @@ describe('iconSetsUsedBy', () => {
     const project = createSampleProject();
     const features = componentBlockOf(project, homePage(project).blockIds[2] ?? '');
     features.values.items = [{ icon: 'tabler:rocket', title: 'A', text: 'B' }];
-    const sets = iconSetsUsedBy(Object.values(project.blocks.entities), 'phosphor');
+    project.designSystem.iconSet = 'phosphor';
+    const sets = iconSetsUsedBy(Object.values(project.blocks.entities), project);
     expect([...sets].sort()).toEqual(['lucide', 'phosphor', 'tabler']);
   });
 });

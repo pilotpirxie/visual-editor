@@ -26,7 +26,7 @@ export function createPage(id: string, name: string, slug: string): Page {
     name,
     slug,
     blockIds: [],
-    seo: {},
+    seo: { noindex: false },
     showSharedHeader: true,
     showSharedFooter: true,
   };
@@ -40,11 +40,18 @@ export function createBlankProject(
   return {
     schemaVersion: SCHEMA_VERSION,
     id: crypto.randomUUID(),
-    settings: { title, description: '', language: 'en', titleTemplate: DEFAULT_TITLE_TEMPLATE },
+    settings: {
+      title,
+      description: '',
+      language: 'en',
+      titleTemplate: DEFAULT_TITLE_TEMPLATE,
+      indexable: true,
+    },
     designSystem: presetDesignSystem(preset),
     pages: { ids: [home.id], entities: { [home.id]: home }, homePageId: home.id },
     blocks: { ids: [], entities: {} },
     sharedSlots: { header: [], footer: [] },
+    customDefinitions: {},
     assets: {},
   };
 }

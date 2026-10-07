@@ -13,6 +13,7 @@ import { editorSlice, linkedFileOutdated, noticeShown, saveStatusChanged } from 
 import { createRootReducer, type RootState } from './history';
 import { projectLoaded, projectSlice } from './projectSlice';
 import { visibleBlockLists } from './blockLists';
+import { projectRegistry } from '../features/block-packs/customComponents';
 import type { Page, Project, SharedSlot } from './types';
 
 export type { RootState };
@@ -103,6 +104,14 @@ const selectPageSlugs = createSelector(
   [(state: RootState) => state.project.pages],
   (pages) => pageSlugsOf(pages),
   { memoizeOptions: { resultEqualityCheck: hasSameSlugs } },
+);
+
+export const selectComponents = createSelector(
+  [
+    (state: RootState) => state.project.customDefinitions,
+    (state: RootState) => state.editor.customComponentsVersion,
+  ],
+  (customDefinitions) => projectRegistry({ customDefinitions }),
 );
 
 export const selectCanvasRenderContext = createSelector(

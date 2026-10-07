@@ -1,0 +1,31 @@
+@layer components {
+  @scope (.b-http-500) {
+    .b-inner {
+      --container-max-width: 44rem;
+      --stack-gap: var(--space-4);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-icon {
+      --icon-size: 2.5rem;
+      display: inline-grid;
+      place-items: center;
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
+      color: var(--color-primary);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+      margin-top: var(--space-4);
+    }
+  }
+}

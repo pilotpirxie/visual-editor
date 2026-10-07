@@ -3,8 +3,11 @@ import { EditorShell } from '../features/editor/EditorShell';
 import { Notices } from '../features/editor/Notices';
 import { showStoredLink } from '../features/files/fileActions';
 import { FileDialogs } from '../features/files/FileDialogs';
+import { PackDialogs } from '../features/block-packs/PackDialogs';
 import { describeError } from './errors';
 import { HomeScreen } from '../features/home/HomeScreen';
+import { ensureProjectComponents } from '../features/block-packs/customComponents';
+import { loadPackLibrary, syncProjectWithLibrary } from '../features/block-packs/packLibrary';
 import { ensureProjectIconSets } from '../features/icons/ensureIconSets';
 import { getProject } from '../persistence/db';
 import { pageOpened } from './editorSlice';
@@ -48,6 +51,12 @@ function useRoutedPage(projectId: string, routePageId: string | null, isReady: b
   }, [isSynced, projectId, routePageId, hasRoutePage, shownPageId]);
 }
 
+function syncWithLibrary(): void {
+  dispatch(syncProjectWithLibrary()).catch((error: unknown) => {
+    console.warn('Could not compare the project with your block packs', error);
+  });
+}
+
 function ProjectEditor({
   projectId,
   pageId,
@@ -66,6 +75,7 @@ function ProjectEditor({
     const hasPage = pageId !== null && project.pages.entities[pageId] !== undefined;
     const openPageId = hasPage ? pageId : project.pages.homePageId;
     dispatch(projectLoaded({ project, pageId: openPageId }));
+    syncWithLibrary();
     if (openPageId !== pageId) navigate(editorPath(project.id, openPageId), { replace: true });
     setOpenState({ status: 'ready', projectId: project.id });
     showStoredLink(project.id).catch((error: unknown) => {
@@ -81,7 +91,10 @@ function ProjectEditor({
       try {
         await autosave.flush();
         project = await getProject(projectId);
-        if (project !== null) await ensureProjectIconSets(project);
+        if (project !== null) {
+          await ensureProjectIconSets(project);
+          await ensureProjectComponents(project);
+        }
       } catch (error) {
         console.error(`Could not open project ${projectId}`, error);
         if (isCancelled) return;
@@ -130,11 +143,27 @@ function RoutedScreen(): JSX.Element {
   }
 }
 
+function refreshLibrary(): void {
+  dispatch(loadPackLibrary()).catch((error: unknown) => {
+    console.warn('Could not read the block packs in this browser', error);
+  });
+}
+
+function useBlockPackLibrary(): void {
+  useEffect(() => {
+    refreshLibrary();
+    window.addEventListener('focus', refreshLibrary);
+    return () => window.removeEventListener('focus', refreshLibrary);
+  }, []);
+}
+
 export function App(): JSX.Element {
+  useBlockPackLibrary();
   return (
     <>
       <RoutedScreen />
       <FileDialogs />
+      <PackDialogs />
       <Notices />
     </>
   );

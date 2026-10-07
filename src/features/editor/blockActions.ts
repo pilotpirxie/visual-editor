@@ -17,6 +17,9 @@ import type { Category } from '../../components/types';
 import type { DragPayload } from '../canvas/dragController';
 import { finalMoveIndex } from '../canvas/geometry';
 import { loadBlockIconSets } from '../icons/ensureIconSets';
+import { loadCustomComponents } from '../block-packs/customComponents';
+import { customEntryFor } from '../block-packs/packLibrary';
+import { noticeShown } from '../../app/editorSlice';
 
 export type MoveOffset = -1 | 1;
 
@@ -54,14 +57,26 @@ function loadIconsOf(blockId: string): AppThunk {
   };
 }
 
+function insertAt(pageId: string, index: number, componentId: string): AppThunk {
+  return (dispatch, getState) => {
+    const custom = customEntryFor(getState(), componentId);
+    const inserted = dispatch(blockInserted(pageId, index, componentId, custom));
+    dispatch(loadIconsOf(inserted.payload.block.id));
+    if (custom === undefined) return;
+    dispatch(loadCustomComponents([custom])).catch((error: unknown) => {
+      console.error(`Could not prepare the custom block ${componentId}`, error);
+      dispatch(
+        noticeShown('error', `The custom block “${custom.definition.name}” could not be prepared.`),
+      );
+    });
+  };
+}
+
 export function insertComponent(componentId: string): AppThunk {
   return (dispatch, getState) => {
     const state = getState();
     const page = selectCurrentPage(state);
-    const inserted = dispatch(
-      blockInserted(page.id, insertionIndex(state, page.blockIds), componentId),
-    );
-    dispatch(loadIconsOf(inserted.payload.block.id));
+    dispatch(insertAt(page.id, insertionIndex(state, page.blockIds), componentId));
   };
 }
 
@@ -121,8 +136,7 @@ export function dropBlock(payload: DragPayload, dropIndex: number): AppThunk {
   return (dispatch, getState) => {
     const page = selectCurrentPage(getState());
     if (payload.kind === 'new') {
-      const inserted = dispatch(blockInserted(page.id, dropIndex, payload.componentId));
-      dispatch(loadIconsOf(inserted.payload.block.id));
+      dispatch(insertAt(page.id, dropIndex, payload.componentId));
     } else if (payload.kind === 'move') {
       const list = findBlockList(getState().project, payload.blockId);
       if (list === null || isNoopDrop(list, payload, dropIndex)) return;

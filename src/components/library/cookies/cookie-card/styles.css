@@ -1,0 +1,55 @@
+@layer components {
+  @scope (.b-cookie-card) {
+    .b-panel {
+      z-index: 10;
+      width: auto;
+      max-width: none;
+      margin: 0;
+      padding: var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-panel[open] {
+      position: fixed;
+      inset: auto var(--space-4) var(--space-4);
+    }
+
+    .b-title {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-heading);
+    }
+
+    .b-text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-policy {
+      font-size: var(--text-sm);
+    }
+
+    .b-actions {
+      --cluster-gap: var(--space-2);
+      margin-top: var(--space-1);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        width: 24rem;
+      }
+
+      .b-panel[open] {
+        inset-inline-start: auto;
+      }
+    }
+  }
+}

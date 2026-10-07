@@ -117,6 +117,33 @@ describe('migrateProjectDocument', () => {
     expect(saved).toEqual(before);
   });
 
+  it('adds indexing defaults and an empty custom block list when moving to version 4', () => {
+    const migrated = migrateProjectDocument(savedV2());
+    if (!isRecord(migrated) || !isRecord(migrated.settings) || !isRecord(migrated.pages)) {
+      throw new Error('Migration lost the document shape');
+    }
+    expect(migrated.schemaVersion).toBe(4);
+    expect(migrated.settings.indexable).toBe(true);
+    expect(migrated.customDefinitions).toEqual({});
+    const pages = isRecord(migrated.pages.entities) ? Object.values(migrated.pages.entities) : [];
+    expect(pages.length).toBeGreaterThan(0);
+    for (const page of pages) {
+      expect(isRecord(page) && isRecord(page.seo) ? page.seo.noindex : null).toBe(false);
+    }
+  });
+
+  it('keeps a page hidden from search engines and a site that is not indexed', () => {
+    const version3 = {
+      ...savedV2(),
+      schemaVersion: 3,
+      settings: { ...(isRecord(projectV2.settings) ? projectV2.settings : {}), indexable: false },
+    };
+    const migrated = migrateProjectDocument(version3);
+    expect(isRecord(migrated) && isRecord(migrated.settings) && migrated.settings.indexable).toBe(
+      false,
+    );
+  });
+
   it('refuses documents from a newer or a retired format', () => {
     expect(() =>
       migrateProjectDocument({ ...savedV2(), schemaVersion: SCHEMA_VERSION + 1 }),

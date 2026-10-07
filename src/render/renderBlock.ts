@@ -113,7 +113,8 @@ export function renderBlock(
     language: ctx.language,
     collector: ctx.collector,
   };
-  const html = component.template(templateValues, { data: renderData }).trim();
+  const rendered = component.template(templateValues, { data: renderData }).trim();
+  const html = component.isCustom ? stripUnsafeHtml(rendered).html.trim() : rendered;
   const root = ROOT_OPEN_TAG.exec(html)?.groups;
   if (root?.tag === undefined || root.attributes === undefined) {
     throw new Error(

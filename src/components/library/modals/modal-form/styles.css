@@ -1,0 +1,29 @@
+@layer components {
+  @scope (.b-modal-form) {
+    .b-dialog {
+      --modal-width: 28rem;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-body h2 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-3);
+      margin-top: var(--space-2);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+  }
+}

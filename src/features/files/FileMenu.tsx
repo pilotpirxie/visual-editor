@@ -3,6 +3,7 @@ import { useStore } from '../../app/store';
 import { canUseFileSystemAccess } from './fileAccess';
 import { setDiskAutosave } from './fileActions';
 import { fileCommands } from './fileCommands';
+import { packCommands } from '../block-packs/packCommands';
 import { MenuButton, type MenuItem } from '../../../packages/ui/src';
 
 type FileMenuProps = {
@@ -44,6 +45,7 @@ export function FileMenu({
     { id: 'project-separator', isSeparator: true },
     { id: 'settings', label: 'Project settings…', onSelect: onProjectSettings },
     { id: 'export', label: 'Export site…', onSelect: onExport },
+    { id: 'load-pack', label: 'Load block pack…', onSelect: packCommands.loadFromDisk },
   ];
   if (canAutoSave) {
     items.push(

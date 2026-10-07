@@ -11,6 +11,7 @@ import { serializeProject } from './projectFile';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
+  listBlockPacks: vi.fn(async () => []),
   getProject: vi.fn(async () => null),
   listProjects: vi.fn(async () => []),
   deleteProject: vi.fn(async () => {}),

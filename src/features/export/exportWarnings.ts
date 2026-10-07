@@ -1,12 +1,15 @@
 import { visibleBlockLists } from '../../app/blockLists';
-import type { Project } from '../../app/types';
+import type { Page, Project } from '../../app/types';
 import { forEachFieldValue } from '../../components/fieldValues';
 import { isButtonValue, isImageValue, isLinkValue, validateField } from '../../components/fields';
 import type { LinkValue, RegisteredComponent } from '../../components/types';
+import { isPageIndexed } from '../../render/pageHead';
 
 export type ExportWarning = { pageId: string | null; blockId: string | null; text: string };
 
 const FORM_ACTION_FIELD = 'formAction';
+
+const pageNameList = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
 
 function isMissingPageLink(link: LinkValue, project: Project): boolean {
   const isPageLink = link.type === 'page' || link.type === 'section';
@@ -56,6 +59,9 @@ function blockWarnings(
   function warn(text: string): void {
     warnings.push({ pageId, blockId, text: `${name}: ${text}` });
   }
+  if (component.definition.category === 'modals' && block.anchor === undefined) {
+    warn('nothing can open this modal. Give it an anchor id in the Advanced tab.');
+  }
   forEachFieldValue(component.definition.fields, block.values, (field, value) => {
     if (
       field.type === 'image' &&
@@ -98,11 +104,54 @@ function duplicateAnchorWarnings(
   return warnings;
 }
 
+function hasDescription(project: Project, page: Page): boolean {
+  const description = page.seo.description?.trim() || project.settings.description.trim();
+  return description !== '';
+}
+
+function hasSocialImage(project: Project, page: Page): boolean {
+  const assetId = page.seo.socialImageAssetId ?? project.settings.socialImageAssetId;
+  return assetId !== undefined && project.assets[assetId] !== undefined;
+}
+
+function siteWarning(text: string): ExportWarning {
+  return { pageId: null, blockId: null, text };
+}
+
+export function searchEngineWarnings(project: Project): ExportWarning[] {
+  const withoutDescription: string[] = [];
+  const withoutSocialImage: string[] = [];
+  for (const pageId of project.pages.ids) {
+    const page = project.pages.entities[pageId];
+    if (page === undefined || !isPageIndexed(project, page)) continue;
+    if (!hasDescription(project, page)) withoutDescription.push(page.name);
+    if (!hasSocialImage(project, page)) withoutSocialImage.push(page.name);
+  }
+  const warnings: ExportWarning[] = [];
+  if (withoutDescription.length > 0) {
+    const pages = pageNameList.format(withoutDescription);
+    warnings.push(
+      siteWarning(
+        `No meta description on ${pages}. Add one in Project settings or in each page’s settings.`,
+      ),
+    );
+  }
+  if (withoutSocialImage.length > 0) {
+    const pages = pageNameList.format(withoutSocialImage);
+    warnings.push(
+      siteWarning(
+        `No social image on ${pages}. Add a default one in Project settings or one per page.`,
+      ),
+    );
+  }
+  return warnings;
+}
+
 export function collectExportWarnings(
   project: Project,
   registry: ReadonlyMap<string, RegisteredComponent>,
 ): ExportWarning[] {
-  const warnings: ExportWarning[] = [];
+  const warnings = searchEngineWarnings(project);
   for (const blockId of [...project.sharedSlots.header, ...project.sharedSlots.footer]) {
     warnings.push(...blockWarnings(project, blockId, null, registry));
   }

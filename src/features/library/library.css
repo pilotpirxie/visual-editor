@@ -176,3 +176,31 @@
     }
   }
 }
+
+@layer components {
+  .ve-custom-badge {
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: var(--ve-accent-soft);
+    color: var(--ve-accent);
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .ve-my-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-pack-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-top: 8px;
+    border-top: 1px solid var(--ve-border);
+  }
+}

@@ -7,11 +7,15 @@ export type PickedFile = {
   handle: FileSystemFileHandle | null;
 };
 
-const PICKER_ID = 'visual-editor-projects';
+export type JsonPicker = { id: string; description: string };
 
-const PICKER_TYPES = [
-  { description: 'Project file', accept: { [PROJECT_FILE_TYPE]: [PROJECT_FILE_EXTENSION] } },
-];
+const PROJECT_PICKER: JsonPicker = { id: 'visual-editor-projects', description: 'Project file' };
+
+function pickerTypes(picker: JsonPicker): FilePickerAcceptType[] {
+  return [
+    { description: picker.description, accept: { [PROJECT_FILE_TYPE]: [PROJECT_FILE_EXTENSION] } },
+  ];
+}
 
 export function canUseFileSystemAccess(): boolean {
   return (
@@ -32,8 +36,16 @@ export async function readHandle(handle: FileSystemFileHandle): Promise<PickedFi
 async function readChosenFile(input: HTMLInputElement): Promise<PickedFile | null> {
   const file = input.files?.[0];
   if (file === undefined) return null;
-  const text = await file.text();
-  return { text, name: file.name, lastModified: file.lastModified, handle: null };
+  return readFile(file);
+}
+
+export async function readFile(file: File): Promise<PickedFile> {
+  return {
+    text: await file.text(),
+    name: file.name,
+    lastModified: file.lastModified,
+    handle: null,
+  };
 }
 
 function pickWithInput(): Promise<PickedFile | null> {
@@ -54,11 +66,11 @@ function pickWithInput(): Promise<PickedFile | null> {
   });
 }
 
-export async function pickProjectFile(): Promise<PickedFile | null> {
+export async function pickJsonFile(picker: JsonPicker): Promise<PickedFile | null> {
   if (window.showOpenFilePicker === undefined) return pickWithInput();
   let handles: FileSystemFileHandle[];
   try {
-    handles = await window.showOpenFilePicker({ id: PICKER_ID, types: PICKER_TYPES });
+    handles = await window.showOpenFilePicker({ id: picker.id, types: pickerTypes(picker) });
   } catch (error) {
     if (isAbortError(error)) return null;
     throw error;
@@ -68,12 +80,20 @@ export async function pickProjectFile(): Promise<PickedFile | null> {
   return readHandle(handle);
 }
 
+export function pickProjectFile(): Promise<PickedFile | null> {
+  return pickJsonFile(PROJECT_PICKER);
+}
+
 export async function pickSaveHandle(suggestedName: string): Promise<FileSystemFileHandle | null> {
   if (window.showSaveFilePicker === undefined) {
     throw new Error('This browser cannot save to a chosen file');
   }
   try {
-    return await window.showSaveFilePicker({ id: PICKER_ID, suggestedName, types: PICKER_TYPES });
+    return await window.showSaveFilePicker({
+      id: PROJECT_PICKER.id,
+      suggestedName,
+      types: pickerTypes(PROJECT_PICKER),
+    });
   } catch (error) {
     if (isAbortError(error)) return null;
     throw error;

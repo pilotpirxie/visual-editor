@@ -16,6 +16,22 @@ export function withSystemFonts(project: Project): Project {
   return project;
 }
 
+const SOCIAL_IMAGE_ID = 'social-image';
+const PNG_PIXEL =
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+
+export function withSearchDetails(project: Project): Project {
+  project.settings.description = 'Notes from customer interviews, tagged and searchable.';
+  project.assets[SOCIAL_IMAGE_ID] = {
+    id: SOCIAL_IMAGE_ID,
+    name: 'social.png',
+    mimeType: 'image/png',
+    dataUrl: `data:image/png;base64,${PNG_PIXEL}`,
+  };
+  project.settings.socialImageAssetId = SOCIAL_IMAGE_ID;
+  return project;
+}
+
 export function createTestStore(project: Project = createSampleProject()): TestStore {
   const store = createAppStore();
   store.dispatch(projectLoaded({ project, pageId: project.pages.homePageId }));
