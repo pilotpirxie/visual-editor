@@ -1,13 +1,15 @@
-import { useEffect, type CSSProperties, type JSX } from 'react';
+import { Suspense, useEffect, type CSSProperties, type JSX, type MouseEvent } from 'react';
+import { ConvertToHtmlDialog, DesignSystemSheet } from '../../app/lazyDialogs';
 import { useStore } from '../../app/store';
 import { Canvas } from '../canvas/Canvas';
 import { DragGhost } from '../canvas/DragGhost';
-import { DesignSystemSheet } from '../design-system/DesignSystemSheet';
 import { useDiskAutosave } from '../files/diskAutosave';
 import { LibraryPanel } from '../library/LibraryPanel';
-import { ConvertToHtmlDialog } from '../properties/ConvertToHtmlDialog';
 import { PropertiesPanel } from '../properties/PropertiesPanel';
 import { CompactTabs } from './CompactTabs';
+import { EditorDialogs } from './EditorDialogs';
+import { LiveAnnouncer } from './LiveAnnouncer';
+import { PanelBoundary } from './PanelBoundary';
 import { ResizeHandle } from './ResizeHandle';
 import { Toolbar } from './Toolbar';
 import './editor.css';
@@ -15,10 +17,20 @@ import './editor.css';
 function ConversionHost(): JSX.Element | null {
   const blockId = useStore((state) => state.editor.conversionBlockId);
   if (blockId === null) return null;
-  return <ConvertToHtmlDialog key={blockId} blockId={blockId} />;
+  return (
+    <Suspense fallback={null}>
+      <ConvertToHtmlDialog key={blockId} blockId={blockId} />
+    </Suspense>
+  );
 }
 
 const APP_NAME = 'Visual Editor';
+const CANVAS_ID = 've-canvas';
+
+function skipToCanvas(event: MouseEvent<HTMLAnchorElement>): void {
+  event.preventDefault();
+  document.getElementById(CANVAS_ID)?.focus();
+}
 
 function useDocumentTitle(title: string): void {
   useEffect(() => {
@@ -52,16 +64,35 @@ export function EditorShell(): JSX.Element {
       data-right-collapsed={isRightHidden || undefined}
       data-preview={isPreview || undefined}
     >
+      <a className="ve-skip-link" href={`#${CANVAS_ID}`} onClick={skipToCanvas}>
+        Skip to canvas
+      </a>
       <Toolbar />
-      <LibraryPanel />
+      <PanelBoundary name="library panel" className="ve-panel ve-library">
+        <LibraryPanel />
+      </PanelBoundary>
       <ResizeHandle side="left" />
-      <Canvas />
+      <PanelBoundary name="canvas" className="ve-canvas">
+        <Canvas />
+      </PanelBoundary>
       <ResizeHandle side="right" />
-      <PropertiesPanel />
-      {isDesignSheetOpen && <DesignSystemSheet />}
+      <PanelBoundary name="properties panel" className="ve-panel ve-properties">
+        <PropertiesPanel />
+      </PanelBoundary>
+      {isDesignSheetOpen && (
+        <PanelBoundary name="design system panel" className="ve-design-sheet">
+          <Suspense fallback={null}>
+            <DesignSystemSheet />
+          </Suspense>
+        </PanelBoundary>
+      )}
       <CompactTabs />
       <DragGhost />
-      <ConversionHost />
+      <LiveAnnouncer />
+      <PanelBoundary name="dialog">
+        <ConversionHost />
+        <EditorDialogs />
+      </PanelBoundary>
     </div>
   );
 }

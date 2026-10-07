@@ -191,7 +191,7 @@ function createScanner(): Scanner {
 function finishTagName(walk: Walk): void {
   const { scanner } = walk;
   if (FORBIDDEN_TAGS.has(scanner.tagName)) {
-    walk.report(scanner.line, `can't use <${scanner.tagName}>`);
+    walk.report(scanner.line, `can’t use <${scanner.tagName}>`);
   }
   scanner.isRootTag = !scanner.hasSeenRoot;
   scanner.hasSeenRoot = true;
@@ -217,12 +217,12 @@ function finishAttrName(walk: Walk): void {
   if (name.startsWith('on')) {
     report(
       scanner.line,
-      `can't use the ${name} attribute: blocks get behavior from the site runtime`,
+      `can’t use the ${name} attribute: blocks get behavior from the site runtime`,
     );
   } else if (EDITOR_ATTRIBUTES.has(name)) {
-    report(scanner.line, `can't set ${name}: the editor manages it`);
+    report(scanner.line, `can’t set ${name}: the editor manages it`);
   } else if (scanner.isRootTag && (name === 'id' || name === 'style')) {
-    report(scanner.line, `can't set ${name} on the root element: the editor sets it`);
+    report(scanner.line, `can’t set ${name} on the root element: the editor sets it`);
   }
 }
 

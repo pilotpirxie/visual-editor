@@ -1,6 +1,7 @@
 import type { TemplateDelegate } from 'handlebars';
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from '../app/projectFactory';
+import { sectionThemeById } from '../app/sectionThemes';
 import type { ComponentBlock, HtmlBlock } from '../app/types';
 import { createBlock, registry } from '../components/registry';
 import type { RegisteredComponent } from '../components/types';
@@ -51,8 +52,15 @@ describe('renderBlock', () => {
       overrides: { '--color-background': 'var(--color-surface)', '--color-text': '#0f172a' },
     });
     expect(renderBlock(block, hero, canvas)).toContain(
-      'style="--color-background: var(--color-surface); --color-text: #0f172a"',
+      'style="--color-background: var(--color-surface); --color-text: #0f172a; --section-bg: var(--color-surface)"',
     );
+  });
+
+  it('leaves the section background alone when a section theme is applied', () => {
+    const dark = sectionThemeById('dark');
+    if (dark === null) throw new Error('No dark section theme');
+    const block = heroBlock({ overrides: { ...dark.overrides } });
+    expect(renderBlock(block, hero, canvas)).not.toContain('--section-bg');
   });
 
   it('puts the anchor id and extra classes on the root element', () => {

@@ -11,6 +11,9 @@ import {
 } from './fileActions';
 import type { FileLink } from '../../persistence/db';
 
+const DOWNLOAD_NOTICE =
+  'Downloaded a copy of the project file. This browser can’t save back to the same file, so each save downloads a new copy.';
+
 export type FileDialog =
   { kind: 'conflict'; conflict: OpenConflict } | { kind: 'outside-change' } | null;
 
@@ -55,6 +58,7 @@ export function createFileCommands(): FileCommands {
   async function saveWith(isSaveAs: boolean, isOverwriteAllowed: boolean): Promise<void> {
     const result = await saveToDisk(isSaveAs, isOverwriteAllowed);
     if (result.kind === 'outside-change') setDialog({ kind: 'outside-change' });
+    if (result.kind === 'downloaded') dispatch(noticeShown('info', DOWNLOAD_NOTICE));
   }
 
   function run(action: string, task: Promise<void>): void {

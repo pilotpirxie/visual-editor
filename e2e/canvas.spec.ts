@@ -68,10 +68,14 @@ test('phone and tablet previews keep the real screen proportions and fit the can
   ];
   for (const screen of screens) {
     await page.getByRole('combobox', { name: 'Device' }).selectOption(screen.device);
+    await expect
+      .poll(async () => {
+        const box = await boxOf(page.locator('.ve-canvas-device'));
+        return Math.round(((box.right - box.left) / (box.bottom - box.top)) * 100) / 100;
+      })
+      .toBeCloseTo(screen.ratio, 2);
     const canvas = await boxOf(page.locator('.ve-canvas'));
     const device = await boxOf(page.locator('.ve-canvas-device'));
-    const ratio = (device.right - device.left) / (device.bottom - device.top);
-    expect(ratio).toBeCloseTo(screen.ratio, 2);
     expect(device.bottom).toBeLessThanOrEqual(canvas.bottom);
     expect(device.right).toBeLessThanOrEqual(canvas.right);
   }

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Project } from '../../app/types';
 import { putProject } from '../../persistence/db';
 import { BUILTIN_PRESETS } from '../../presets/presets';
-import { changeValue, click, getButton, render } from '../../test/dom';
+import { changeValue, choiceInput, click, getButton, render } from '../../test/dom';
 import { NewProjectDialog } from './NewProjectDialog';
 
 const STARTERS_LOAD_TIMEOUT_MS = 5000;
@@ -65,6 +65,12 @@ function nameInput(container: HTMLElement): HTMLInputElement | null {
 beforeEach(() => {
   window.history.replaceState(null, '', '/');
 });
+
+function filterOf(container: HTMLElement): Element {
+  const filter = container.querySelector('.ve-starter-filter');
+  if (filter === null) throw new Error('No starter filter');
+  return filter;
+}
 
 describe('NewProjectDialog presets', () => {
   it('lists every built-in preset as a row that starts a project', async () => {
@@ -185,11 +191,11 @@ describe('NewProjectDialog tabs', () => {
     await vi.waitFor(() => expect(starterNames(container)).toHaveLength(8), {
       timeout: STARTERS_LOAD_TIMEOUT_MS,
     });
-    click(container.querySelector('.ve-starter-filter [title="Personal"] input'));
+    click(choiceInput(filterOf(container), 'Personal'));
     expect(starterNames(container)).toEqual(['Portfolio']);
-    click(container.querySelector('.ve-starter-filter [title="Local and events"] input'));
+    click(choiceInput(filterOf(container), 'Local and events'));
     expect(starterNames(container)).toEqual(['Event or conference', 'Restaurant or cafe']);
-    click(container.querySelector('.ve-starter-filter [title="All"] input'));
+    click(choiceInput(filterOf(container), 'All'));
     expect(starterNames(container)).toHaveLength(8);
   });
 

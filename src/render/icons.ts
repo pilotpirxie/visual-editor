@@ -85,8 +85,15 @@ export function resolveIcon(
   );
 }
 
+const DIRECTIONAL_ICON_NAME =
+  /(?:^|-)(?:arrow|chevron|caret)(?:-[a-z]+)*-(?:left|right|forward|back)(?:-|$)/;
+
+function iconClassName(icon: ResolvedIcon): string {
+  return DIRECTIONAL_ICON_NAME.test(icon.name) ? 'icon icon-mirror' : 'icon';
+}
+
 export function iconSvg(icon: ResolvedIcon): string {
-  return `<svg class="icon" aria-hidden="true" viewBox="0 0 ${icon.width} ${icon.height}">${icon.body}</svg>`;
+  return `<svg class="${iconClassName(icon)}" aria-hidden="true" viewBox="0 0 ${icon.width} ${icon.height}">${icon.body}</svg>`;
 }
 
 export function iconSymbolId(icon: ResolvedIcon): string {
@@ -94,7 +101,7 @@ export function iconSymbolId(icon: ResolvedIcon): string {
 }
 
 export function iconUse(symbolId: string, icon: ResolvedIcon): string {
-  return `<svg class="icon" aria-hidden="true" viewBox="0 0 ${icon.width} ${icon.height}"><use href="#${symbolId}"></use></svg>`;
+  return `<svg class="${iconClassName(icon)}" aria-hidden="true" viewBox="0 0 ${icon.width} ${icon.height}"><use href="#${symbolId}"></use></svg>`;
 }
 
 export function buildIconSprite(icons: Iterable<SpriteIcon>): string | null {

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { blockSelected, propertiesTabChanged } from '../../app/editorSlice';
 import { undo } from '../../app/history';
 import { dispatch, store } from '../../app/store';
-import { changeValue, click, getButton, render, runInAct } from '../../test/dom';
+import { changeValue, choiceInput, click, getButton, render, runInAct } from '../../test/dom';
 import { componentBlockOf, homePage, loadIntoAppStore } from '../../test/fixtures';
 import { PropertiesPanel } from './PropertiesPanel';
 
@@ -33,7 +33,9 @@ function row(container: HTMLElement, token: string): HTMLElement {
 }
 
 function themeInput(container: HTMLElement, label: string): HTMLInputElement | null {
-  return container.querySelector(`fieldset.ui-segmented [title="${label}"] input`);
+  const themes = container.querySelector('fieldset.ui-segmented');
+  if (themes === null) throw new Error('No section theme control');
+  return choiceInput(themes, label);
 }
 
 beforeEach(() => {
@@ -54,7 +56,7 @@ describe('StyleTab', () => {
     const { container } = render(<PropertiesPanel />);
     const heroId = selectHeroStyle();
     click(getButton(row(container, '--color-background'), 'Override Background'));
-    const surface = row(container, '--color-background').querySelector('[title="Surface"] input');
+    const surface = choiceInput(row(container, '--color-background'), 'Surface');
     click(surface);
     expect(overridesOf(heroId)).toEqual({ '--color-background': 'var(--color-surface)' });
     click(getButton(container, 'Reset Background to the design value'));
@@ -93,13 +95,11 @@ describe('StyleTab', () => {
     const { container } = render(<PropertiesPanel />);
     const heroId = selectHeroStyle();
     click(getButton(row(container, '--color-text'), 'Override Text'));
-    click(row(container, '--color-text').querySelector('[title="Primary"] input'));
+    click(choiceInput(row(container, '--color-text'), 'Primary'));
     click(getButton(container, 'Reset Text to the design value'));
     runInAct(() => dispatch(undo()));
     expect(overridesOf(heroId)).toEqual({ '--color-text': 'var(--color-primary)' });
-    expect(
-      row(container, '--color-text').querySelector('[title="Primary"] input:checked'),
-    ).not.toBeNull();
+    expect(choiceInput(row(container, '--color-text'), 'Primary')?.checked).toBe(true);
   });
 
   it('switches the section theme in one undo step and shows a custom mix as no theme', () => {
@@ -109,7 +109,7 @@ describe('StyleTab', () => {
       return themeInput(container, label);
     }
     click(getButton(row(container, '--color-text'), 'Override Text'));
-    click(row(container, '--color-text').querySelector('[title="Primary"] input'));
+    click(choiceInput(row(container, '--color-text'), 'Primary'));
     click(theme('Dark'));
     expect(overridesOf(heroId)).toMatchObject({
       '--color-background': 'var(--theme-dark-background)',

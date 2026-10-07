@@ -124,3 +124,20 @@ export function readZip(buffer: Buffer): Map<string, Buffer> {
   }
   return files;
 }
+
+export async function insertEveryBlock(page: Page): Promise<number> {
+  const library = page.locator('.ve-library');
+  const categories = await library.locator('.ve-categories button').allTextContents();
+  let count = 0;
+  for (const index of categories.keys()) {
+    await library.locator('.ve-categories button').nth(index).click();
+    const cards = library.locator('.ve-component-card');
+    const total = await cards.count();
+    for (let card = 0; card < total; card += 1) {
+      await cards.nth(card).click();
+      count += 1;
+    }
+    await library.getByRole('button', { name: 'All categories' }).click();
+  }
+  return count;
+}

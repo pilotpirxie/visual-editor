@@ -10,10 +10,12 @@ import { pageSlugsOf, renderContextFor } from '../render/renderBlock';
 import { createAutosave, type SaveStatus } from '../persistence/autosave';
 import { putProject } from '../persistence/db';
 import { editorSlice, linkedFileOutdated, noticeShown, saveStatusChanged } from './editorSlice';
-import { createRootReducer, type RootState } from './history';
+import { createRootReducer, projectRefreshed, type RootState } from './history';
 import { projectLoaded, projectSlice } from './projectSlice';
 import { visibleBlockLists } from './blockLists';
 import { projectRegistry } from '../features/block-packs/customComponents';
+import { announcementFor } from '../features/editor/announcements';
+import { announce } from '../features/editor/LiveAnnouncer';
 import type { Page, Project, SharedSlot } from './types';
 
 export type { RootState };
@@ -23,17 +25,26 @@ export type AppThunk<Result = void> = ThunkAction<Result, RootState, unknown, Un
 type AppStoreOptions = {
   preloadedState?: Partial<RootState>;
   onProjectEdited?(project: Project): void;
+  onAnnouncement?(text: string): void;
 };
 
 const UNCHECKED_PATHS = ['history'];
 const AUTOSAVE_DELAY_MS = 1000;
 
-export function createAppStore({ preloadedState, onProjectEdited }: AppStoreOptions = {}) {
+function isProjectReplacement(action: UnknownAction): boolean {
+  return projectLoaded.match(action) || projectRefreshed.match(action);
+}
+
+export function createAppStore({
+  preloadedState,
+  onProjectEdited,
+  onAnnouncement,
+}: AppStoreOptions = {}) {
   const listener = createListenerMiddleware<RootState>();
   listener.startListening({
     predicate: (action, current, previous) => {
       const { linkedFile, isLinkedFileStale } = current.editor;
-      const isEdit = current.project !== previous.project && !projectLoaded.match(action);
+      const isEdit = current.project !== previous.project && !isProjectReplacement(action);
       return isEdit && linkedFile !== null && !isLinkedFileStale;
     },
     effect: (_action, api) => {
@@ -43,8 +54,17 @@ export function createAppStore({ preloadedState, onProjectEdited }: AppStoreOpti
   if (onProjectEdited !== undefined) {
     listener.startListening({
       predicate: (action, current, previous) =>
-        current.project !== previous.project && !projectLoaded.match(action),
+        current.project !== previous.project && !isProjectReplacement(action),
       effect: (_action, api) => onProjectEdited(api.getState().project),
+    });
+  }
+  if (onAnnouncement !== undefined) {
+    listener.startListening({
+      predicate: () => true,
+      effect: (action, api) => {
+        const text = announcementFor(action, api.getOriginalState(), api.getState());
+        if (text !== null) onAnnouncement(text);
+      },
     });
   }
   return configureStore({
@@ -60,12 +80,13 @@ export function createAppStore({ preloadedState, onProjectEdited }: AppStoreOpti
 
 export const store = createAppStore({
   onProjectEdited: (project) => autosave.schedule(project),
+  onAnnouncement: announce,
 });
 
 function reportSaveStatus(): (status: SaveStatus) => void {
   let hasReportedFailure = false;
   return (status) => {
-    store.dispatch(saveStatusChanged(status));
+    if (store.getState().editor.saveStatus !== status) store.dispatch(saveStatusChanged(status));
     if (status === 'saved') hasReportedFailure = false;
     if (status !== 'error' || hasReportedFailure) return;
     hasReportedFailure = true;

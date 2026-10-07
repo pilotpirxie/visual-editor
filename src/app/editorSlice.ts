@@ -9,6 +9,7 @@ import {
   projectLoaded,
 } from './projectSlice';
 import type { SaveStatus } from '../persistence/autosave';
+import type { SavedBlockRecord } from '../persistence/db';
 import type { BlockPack } from '../components/types';
 import type { Device, Project } from './types';
 
@@ -46,6 +47,17 @@ export type LinkedFile = {
   isAutoSaving: boolean;
 };
 
+export type EditorDialog =
+  | { kind: 'export' }
+  | { kind: 'settings' }
+  | { kind: 'licenses' }
+  | { kind: 'new-project' }
+  | { kind: 'snapshots' }
+  | { kind: 'find' }
+  | { kind: 'palette' }
+  | { kind: 'help' }
+  | { kind: 'save-block'; blockId: string };
+
 const MAX_NOTICES = 3;
 
 export type EditorState = {
@@ -71,7 +83,10 @@ export type EditorState = {
   iconSetsVersion: number;
   customComponentsVersion: number;
   blockPacks: BlockPack[];
+  savedBlocks: SavedBlockRecord[];
   sectionStates: Record<string, boolean>;
+  openDialog: EditorDialog | null;
+  isReadOnly: boolean;
 };
 
 const initialState: EditorState = {
@@ -100,7 +115,10 @@ const initialState: EditorState = {
   iconSetsVersion: 0,
   customComponentsVersion: 0,
   blockPacks: [],
+  savedBlocks: [],
   sectionStates: {},
+  openDialog: null,
+  isReadOnly: false,
 };
 
 export const editorSlice = createSlice({
@@ -143,6 +161,7 @@ export const editorSlice = createSlice({
         width === null ? null : Math.max(MIN_RESPONSIVE_WIDTH, Math.round(width));
     },
     previewToggled(state, action: PayloadAction<boolean>) {
+      if (state.isReadOnly && !action.payload) return;
       state.isPreview = action.payload;
       if (action.payload) state.isDesignSheetOpen = false;
     },
@@ -175,6 +194,20 @@ export const editorSlice = createSlice({
     blockPacksLoaded(state, action: PayloadAction<BlockPack[]>) {
       state.blockPacks = action.payload;
     },
+    savedBlocksLoaded(state, action: PayloadAction<SavedBlockRecord[]>) {
+      state.savedBlocks = action.payload;
+    },
+    dialogOpened(state, action: PayloadAction<EditorDialog>) {
+      state.openDialog = action.payload;
+    },
+    dialogClosed(state) {
+      state.openDialog = null;
+    },
+    readOnlyChanged(state, action: PayloadAction<boolean>) {
+      state.isReadOnly = action.payload;
+      state.isPreview = action.payload;
+      if (action.payload) state.isDesignSheetOpen = false;
+    },
     compactTabSelected(state, action: PayloadAction<CompactTab>) {
       const tab = action.payload;
       if (tab === 'blocks' || tab === 'layers' || tab === 'pages') {
@@ -190,7 +223,9 @@ export const editorSlice = createSlice({
     noticeShown: {
       reducer(state, action: PayloadAction<Notice>) {
         state.notices.push(action.payload);
-        if (state.notices.length > MAX_NOTICES) state.notices.shift();
+        if (state.notices.length <= MAX_NOTICES) return;
+        const oldestUpdate = state.notices.findIndex((notice) => notice.tone !== 'error');
+        state.notices.splice(oldestUpdate === -1 ? 0 : oldestUpdate, 1);
       },
       prepare(tone: NoticeTone, text: string) {
         return { payload: { id: crypto.randomUUID(), tone, text } };
@@ -247,6 +282,8 @@ export const editorSlice = createSlice({
         state.saveStatus = 'saved';
         state.linkedFile = null;
         state.isLinkedFileStale = false;
+        state.openDialog = null;
+        state.isReadOnly = false;
       });
   },
 });
@@ -278,6 +315,10 @@ export const {
   iconSetsLoaded,
   customComponentsLoaded,
   blockPacksLoaded,
+  savedBlocksLoaded,
+  dialogOpened,
+  dialogClosed,
+  readOnlyChanged,
 } = editorSlice.actions;
 
 export function selectCompactTab(editor: EditorState): CompactTab {

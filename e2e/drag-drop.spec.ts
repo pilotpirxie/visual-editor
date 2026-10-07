@@ -60,7 +60,7 @@ test('a selected block can be dragged by its handle to a new position', async ({
     .click({
       position: { x: 10, y: 10 },
     });
-  const handle = await boxOf(page.getByRole('button', { name: 'Drag to move' }));
+  const handle = await boxOf(page.locator('.ve-block-handle'));
   const device = await boxOf(page.locator('.ve-canvas-device'));
   const belowFooter = (await blockBoundaryOnScreen(page, 1)) - 2;
 

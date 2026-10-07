@@ -1,5 +1,6 @@
 import type { JSX, KeyboardEvent, ReactNode } from 'react';
 import { classNames } from './classNames';
+import { rovingIndex } from './roving';
 import './Tabs.css';
 
 export type TabItem = { id: string; label: string };
@@ -21,14 +22,6 @@ export function tabPanelId(idPrefix: string): string {
   return `${idPrefix}-panel`;
 }
 
-function neighbourIndex(key: string, current: number, count: number): number | null {
-  if (key === 'ArrowRight') return (current + 1) % count;
-  if (key === 'ArrowLeft') return (current - 1 + count) % count;
-  if (key === 'Home') return 0;
-  if (key === 'End') return count - 1;
-  return null;
-}
-
 export function Tabs({
   label,
   idPrefix,
@@ -39,7 +32,7 @@ export function Tabs({
 }: TabsProps): JSX.Element {
   function moveFocus(event: KeyboardEvent<HTMLDivElement>): void {
     const current = tabs.findIndex((tab) => tab.id === activeId);
-    const next = neighbourIndex(event.key, current, tabs.length);
+    const next = rovingIndex(event.key, current, tabs.length, 'horizontal');
     const nextTab = next === null ? undefined : tabs[next];
     if (nextTab === undefined) return;
     event.preventDefault();

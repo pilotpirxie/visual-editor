@@ -55,6 +55,10 @@
       translate: 0.125rem 0;
     }
 
+    .b-link:hover .icon:dir(rtl) {
+      translate: -0.125rem 0;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .b-link .icon {
         transition: none;

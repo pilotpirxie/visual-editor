@@ -5,6 +5,7 @@ export type SaveStatus = 'saved' | 'saving' | 'error';
 export type Autosave = {
   schedule(project: Project): void;
   flush(): Promise<void>;
+  discard(projectId: string): void;
 };
 
 type AutosaveOptions = {
@@ -58,5 +59,15 @@ export function createAutosave({ save, delayMs, onStatus }: AutosaveOptions): Au
     timer = setTimeout(() => void flush(), delayMs);
   }
 
-  return { schedule, flush };
+  function discard(projectId: string): void {
+    if (pending?.id !== projectId) return;
+    pending = null;
+    if (timer !== null) {
+      clearTimeout(timer);
+      timer = null;
+    }
+    onStatus('saved');
+  }
+
+  return { schedule, flush, discard };
 }

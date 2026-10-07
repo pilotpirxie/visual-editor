@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from './projectFactory';
 import { componentBlockOf, createTestStore, homePage, type TestStore } from '../test/fixtures';
-import { blockSelected } from './editorSlice';
-import { MAX_HISTORY_STEPS, redo, undo } from './history';
+import { blockSelected, readOnlyChanged } from './editorSlice';
+import { MAX_HISTORY_STEPS, projectRefreshed, redo, undo } from './history';
 import {
   blockInserted,
   blockRemoved,
   blockValueSet,
   projectLoaded,
+  projectRestored,
   type EditKind,
 } from './projectSlice';
 
@@ -51,6 +52,7 @@ describe('undo', () => {
     edit('Sh', 1400);
     edit('Shi', 1800);
     expect(steps()).toBe(1);
+    expect(store.getState().history.past[0]?.patches).toHaveLength(1);
     store.dispatch(undo());
     expect(title()).toBe(original);
   });
@@ -158,5 +160,56 @@ describe('createRootReducer', () => {
     const { store } = setup();
     store.dispatch(blockInserted('missing-page', 0, 'cta-centered'));
     expect(store.getState().editor.selectedBlockId).toBeNull();
+  });
+});
+
+describe('read-only tabs', () => {
+  it('ignores project edits, undo and redo while the project is open in another tab', () => {
+    const { store, title, steps, edit } = setup();
+    edit('Before', 1000);
+    store.dispatch(readOnlyChanged(true));
+    const project = store.getState().project;
+    edit('Ignored', 5000);
+    store.dispatch(undo());
+    expect(store.getState().project).toBe(project);
+    expect(title()).toBe('Before');
+    expect(steps()).toBe(1);
+  });
+
+  it('replaces the project with the saved copy from another tab and clears history', () => {
+    const { store, steps, edit } = setup();
+    edit('Local', 1000);
+    const saved = createSampleProject();
+    saved.settings.title = 'Saved in the other tab';
+    store.dispatch(readOnlyChanged(true));
+    store.dispatch(projectRefreshed(saved));
+    expect(store.getState().project.settings.title).toBe('Saved in the other tab');
+    expect(steps()).toBe(0);
+  });
+
+  it('accepts edits again once the tab can edit', () => {
+    const { store, title, edit } = setup();
+    store.dispatch(readOnlyChanged(true));
+    store.dispatch(readOnlyChanged(false));
+    edit('Editable', 1000);
+    expect(title()).toBe('Editable');
+    expect(store.getState().editor.isPreview).toBe(false);
+  });
+});
+
+describe('restoring a snapshot', () => {
+  it('replaces the whole project in one step, keeps its id, and undoes back', () => {
+    const { store, steps } = setup();
+    const current = store.getState().project;
+    const snapshot = createSampleProject();
+    snapshot.settings.title = 'From the snapshot';
+    store.dispatch(projectRestored(snapshot));
+    expect(store.getState().project.settings.title).toBe('From the snapshot');
+    expect(store.getState().project.id).toBe(current.id);
+    expect(steps()).toBe(1);
+    store.dispatch(undo());
+    expect(store.getState().project).toEqual(current);
+    store.dispatch(redo());
+    expect(store.getState().project.settings.title).toBe('From the snapshot');
   });
 });

@@ -7,8 +7,10 @@ import { packCommands } from '../block-packs/packCommands';
 import { packEntries, type LibraryEntry } from '../block-packs/packLibrary';
 import { dragController } from '../canvas/dragController';
 import { insertComponent } from '../editor/blockActions';
-import { filterComponents } from './search';
-import { Button, SearchInput, Title } from '../../../packages/ui/src';
+import { SavedBlockCard } from '../saved-blocks/SavedBlockCard';
+import type { SavedBlockRecord } from '../../persistence/db';
+import { filterComponents, matchesWords, searchWords } from './search';
+import { Button, Icon, SearchInput, Title, useTooltip } from '../../../packages/ui/src';
 
 const THUMBNAIL_WIDTH = 640;
 const THUMBNAIL_HEIGHT = 400;
@@ -16,6 +18,7 @@ const THUMBNAIL_HEIGHT = 400;
 type CategoryGroup = { id: string; label: string; components: LibraryEntry[] };
 
 const PACK_GROUP_PREFIX = 'pack:';
+const SAVED_GROUP_ID = 'saved';
 
 export function groupByCategory(components: LibraryEntry[]): CategoryGroup[] {
   const groups: CategoryGroup[] = [];
@@ -65,6 +68,10 @@ function allowFileDrop(event: DragEvent): void {
 
 function ComponentCard({ component }: { component: LibraryEntry }): JSX.Element {
   const { definition, thumbnail, pack } = component;
+  const { triggerProps, tooltip } = useTooltip({
+    text: definition.description ?? '',
+    isDescription: true,
+  });
 
   function startDrag(event: PointerEvent<HTMLButtonElement>): void {
     if (event.pointerType === 'touch') return;
@@ -79,17 +86,28 @@ function ComponentCard({ component }: { component: LibraryEntry }): JSX.Element 
       <button
         type="button"
         className="ve-component-card"
-        title={definition.description}
+        {...triggerProps}
         onClick={() => dispatch(insertComponent(definition.id))}
-        onPointerDown={startDrag}
+        onPointerDown={(event) => {
+          triggerProps.onPointerDown();
+          startDrag(event);
+        }}
       >
-        <img
-          src={thumbnail}
-          alt=""
-          width={THUMBNAIL_WIDTH}
-          height={THUMBNAIL_HEIGHT}
-          draggable={false}
-        />
+        {thumbnail === '' ? (
+          <span className="ve-thumbnail-placeholder" aria-hidden="true">
+            <Icon name="layout-grid" />
+          </span>
+        ) : (
+          <img
+            src={thumbnail}
+            alt=""
+            width={THUMBNAIL_WIDTH}
+            height={THUMBNAIL_HEIGHT}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+          />
+        )}
         <span>
           {definition.name}
           {pack !== null && (
@@ -100,8 +118,28 @@ function ComponentCard({ component }: { component: LibraryEntry }): JSX.Element 
           )}
         </span>
       </button>
+      {tooltip}
     </li>
   );
+}
+
+function SavedBlockGrid({ records }: { records: SavedBlockRecord[] }): JSX.Element {
+  return (
+    <ul className="ve-component-grid">
+      {records.map((record) => (
+        <SavedBlockCard key={record.id} record={record} />
+      ))}
+    </ul>
+  );
+}
+
+function filterSavedBlocks(records: SavedBlockRecord[], query: string): SavedBlockRecord[] {
+  const words = searchWords(query);
+  const matches: SavedBlockRecord[] = [];
+  for (const record of records) {
+    if (matchesWords(record.name, words)) matches.push(record);
+  }
+  return matches;
 }
 
 function ComponentGrid({ components }: { components: LibraryEntry[] }): JSX.Element {
@@ -114,20 +152,26 @@ function ComponentGrid({ components }: { components: LibraryEntry[] }): JSX.Elem
   );
 }
 
+type GroupLink = { id: string; label: string; count: number };
+
+function groupLinks(groups: CategoryGroup[]): GroupLink[] {
+  return groups.map(({ id, label, components }) => ({ id, label, count: components.length }));
+}
+
 function CategoryList({
   groups,
   onOpen,
 }: {
-  groups: CategoryGroup[];
+  groups: GroupLink[];
   onOpen(id: string): void;
 }): JSX.Element {
   return (
     <ul className="ve-categories">
-      {groups.map(({ id, label, components }) => (
+      {groups.map(({ id, label, count }) => (
         <li key={id}>
           <button type="button" onClick={() => onOpen(id)}>
             {label}
-            <span className="ve-count">{components.length}</span>
+            <span className="ve-count">{count}</span>
           </button>
         </li>
       ))}
@@ -139,12 +183,21 @@ export function BlocksTab(): JSX.Element {
   const [query, setQuery] = useState('');
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const packs = useStore((state) => state.editor.blockPacks);
+  const savedBlocks = useStore((state) => state.editor.savedBlocks);
   const entries = useMemo(() => [...BUILT_IN_ENTRIES, ...packEntries(packs)], [packs]);
   const categoryGroups = useMemo(() => groupByCategory(entries), [entries]);
   const packGroups = useMemo(() => groupByPack(packs), [packs]);
   const isSearching = query.trim() !== '';
   const results = isSearching ? filterComponents(entries, query) : [];
+  const savedResults = isSearching ? filterSavedBlocks(savedBlocks, query) : [];
+  const hasResults = results.length > 0 || savedResults.length > 0;
+  const isSavedOpen = categoryId === SAVED_GROUP_ID && savedBlocks.length > 0;
   const category = [...packGroups, ...categoryGroups].find(({ id }) => id === categoryId);
+  const myBlockLinks = groupLinks(packGroups);
+  if (savedBlocks.length > 0) {
+    myBlockLinks.unshift({ id: SAVED_GROUP_ID, label: 'Saved blocks', count: savedBlocks.length });
+  }
+  const isListShown = !isSearching && !category && !isSavedOpen;
 
   return (
     <div className="ve-blocks" onDragOver={allowFileDrop} onDrop={loadDroppedPack}>
@@ -155,9 +208,23 @@ export function BlocksTab(): JSX.Element {
         onChange={(event) => setQuery(event.target.value)}
       />
 
+      {isSearching && savedResults.length > 0 && <SavedBlockGrid records={savedResults} />}
       {isSearching && results.length > 0 && <ComponentGrid components={results} />}
-      {isSearching && results.length === 0 && (
-        <p className="ui-muted">No blocks match “{query.trim()}”.</p>
+      {isSearching && !hasResults && <p className="ui-muted">No blocks match “{query.trim()}”.</p>}
+
+      {!isSearching && isSavedOpen && (
+        <>
+          <Button
+            variant="ghost"
+            icon="chevron-left"
+            className="ve-back"
+            onClick={() => setCategoryId(null)}
+          >
+            All categories
+          </Button>
+          <Title>Saved blocks</Title>
+          <SavedBlockGrid records={savedBlocks} />
+        </>
       )}
 
       {!isSearching && category && (
@@ -175,16 +242,16 @@ export function BlocksTab(): JSX.Element {
         </>
       )}
 
-      {!isSearching && !category && packGroups.length > 0 && (
+      {isListShown && myBlockLinks.length > 0 && (
         <section className="ve-my-blocks" aria-label="My blocks">
           <Title>My blocks</Title>
-          <CategoryList groups={packGroups} onOpen={setCategoryId} />
+          <CategoryList groups={myBlockLinks} onOpen={setCategoryId} />
         </section>
       )}
 
-      {!isSearching && !category && <CategoryList groups={categoryGroups} onOpen={setCategoryId} />}
+      {isListShown && <CategoryList groups={groupLinks(categoryGroups)} onOpen={setCategoryId} />}
 
-      {!isSearching && !category && (
+      {isListShown && (
         <div className="ve-pack-buttons">
           <Button variant="ghost" icon="upload" onClick={packCommands.loadFromDisk}>
             Load block pack

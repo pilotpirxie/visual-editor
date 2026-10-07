@@ -1,3 +1,5 @@
+import { statSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { behaviors } from 'virtual:site-runtime';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { createSampleProject } from '../app/projectFactory';
@@ -105,3 +107,27 @@ describe.each([...registry.values()])(
     });
   },
 );
+
+describe('block thumbnails', () => {
+  const MAX_THUMBNAIL_BYTES = 80 * 1024;
+  const definitionFiles = Object.keys(import.meta.glob('./library/*/*/definition.ts'));
+  const thumbnailFiles = Object.keys(import.meta.glob('./library/*/*/thumbnail.webp'));
+
+  it('has a generated thumbnail for every block (run yarn thumbnails:update)', () => {
+    const missing: string[] = [];
+    for (const file of definitionFiles) {
+      const thumbnail = file.replace('definition.ts', 'thumbnail.webp');
+      if (!thumbnailFiles.includes(thumbnail)) missing.push(thumbnail);
+    }
+    expect(missing).toEqual([]);
+  });
+
+  it('keeps every thumbnail small', () => {
+    const tooLarge: string[] = [];
+    for (const file of thumbnailFiles) {
+      const bytes = statSync(fileURLToPath(new URL(file, import.meta.url))).size;
+      if (bytes > MAX_THUMBNAIL_BYTES) tooLarge.push(`${file}: ${bytes} bytes`);
+    }
+    expect(tooLarge).toEqual([]);
+  });
+});

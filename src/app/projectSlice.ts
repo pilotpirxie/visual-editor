@@ -48,6 +48,13 @@ export type BlockListTarget = { kind: 'page'; pageId: string } | { kind: 'slot';
 
 export type SeoTextKey = Exclude<keyof PageSeo, 'socialImageAssetId' | 'noindex'>;
 
+export type SiteTextKey = 'title' | 'description';
+
+export type TextEdit =
+  | { kind: 'block-value'; blockId: string; name: string; value: unknown }
+  | { kind: 'page-seo'; pageId: string; key: SeoTextKey; value: string }
+  | { kind: 'setting'; key: SiteTextKey; value: string };
+
 export type ImageUpload = Omit<Asset, 'id'>;
 
 export { FAVICON_TYPES, settingError, SOCIAL_IMAGE_TYPES, type SettingKey };
@@ -690,6 +697,29 @@ export const projectSlice = createSlice({
     designSystemApplied(state, action: PayloadAction<DesignSystem>) {
       state.designSystem = action.payload;
     },
+    textReplaced(state, action: PayloadAction<TextEdit[]>) {
+      for (const edit of action.payload) {
+        if (edit.kind === 'block-value') {
+          const block = state.blocks.entities[edit.blockId];
+          if (block?.kind === 'component' && edit.name in block.values) {
+            block.values[edit.name] = edit.value;
+          }
+        } else if (edit.kind === 'page-seo') {
+          const page = state.pages.entities[edit.pageId];
+          if (page === undefined || !isSeoTextKey(edit.key)) continue;
+          if (edit.value.trim() === '') {
+            delete page.seo[edit.key];
+          } else {
+            page.seo[edit.key] = edit.value;
+          }
+        } else if (settingError(edit.key, edit.value) === null) {
+          state.settings[edit.key] = edit.key === 'title' ? edit.value.trim() : edit.value;
+        }
+      }
+    },
+    projectRestored(state, action: PayloadAction<Project>) {
+      return { ...action.payload, id: state.id };
+    },
     iconSetChanged(state, action: PayloadAction<string>) {
       const info = iconSetInfo(action.payload);
       if (info === undefined || info.isBrandOnly) return;
@@ -753,4 +783,6 @@ export const {
   fontSet,
   iconSetChanged,
   designSystemApplied,
+  projectRestored,
+  textReplaced,
 } = projectSlice.actions;

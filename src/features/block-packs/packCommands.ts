@@ -14,7 +14,6 @@ import {
   removePackFromLibrary,
   takenClasses,
 } from './packLibrary';
-import { readBlockPack } from './validatePack';
 
 export type PackDialog =
   { kind: 'load'; fileName: string; reading: ParsedPackFile } | { kind: 'manage' } | null;
@@ -53,6 +52,7 @@ export function createPackCommands(): PackCommands {
   }
 
   async function readPack(text: string, fileName: string): Promise<void> {
+    const { readBlockPack } = await import('./validatePack');
     const reading = await readBlockPack(text, {
       behaviorNames: Object.keys(behaviors),
       takenClasses: takenClasses(store.getState().editor.blockPacks, ''),

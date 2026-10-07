@@ -35,7 +35,7 @@ const PRIMITIVE_ORDER = [
   'icon',
 ];
 
-const UTILITY_ORDER = ['visually-hidden', 'hide'];
+const UTILITY_ORDER = ['visually-hidden', 'hide', 'skip-link'];
 
 const primitiveFiles = import.meta.glob<string>('./styles/primitives/*.css', {
   eager: true,

@@ -118,7 +118,13 @@ export function StarterGallery({ isDisabled, onUse }: StarterGalleryProps): JSX.
       </p>
     );
   }
-  if (starters === null) return <p className="ui-muted">Loading starters…</p>;
+  if (starters === null) {
+    return (
+      <p className="ui-muted" role="status">
+        Loading starters…
+      </p>
+    );
+  }
 
   return (
     <>

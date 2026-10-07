@@ -9,7 +9,7 @@ const DEVICE_LABELS: Record<DeviceMode, string> = {
   phone: 'Phone',
 };
 
-function deviceOptionLabel(mode: DeviceMode): string {
+export function deviceOptionLabel(mode: DeviceMode): string {
   if (mode === 'responsive') return DEVICE_LABELS[mode];
   return `${DEVICE_LABELS[mode]} (${DEVICE_VIEWPORTS[mode].width} px)`;
 }

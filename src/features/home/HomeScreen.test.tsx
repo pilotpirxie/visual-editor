@@ -71,13 +71,15 @@ describe('HomeScreen', () => {
     expect(container.textContent).toContain('You have no projects yet.');
   });
 
-  it('explains when the projects cannot be read', async () => {
+  it('explains when the projects cannot be read and lets the user try again', async () => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
-    vi.mocked(listProjects).mockRejectedValue(new Error('Could not open browser storage'));
+    vi.mocked(listProjects).mockRejectedValueOnce(new Error('Could not open browser storage'));
     const container = await renderHome();
-    expect(container.querySelector('[role="alert"]')?.textContent).toBe(
+    expect(container.querySelector('[role="alert"] p')?.textContent).toBe(
       'Could not open browser storage',
     );
+    click(getButton(container, 'Try again'));
+    await vi.waitFor(() => expect(container.querySelector('[role="alert"]')).toBeNull());
   });
 
   it('creates a blank project with the chosen preset and opens it', async () => {

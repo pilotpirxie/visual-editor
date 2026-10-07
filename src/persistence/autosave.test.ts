@@ -38,6 +38,26 @@ describe('createAutosave', () => {
     expect(statuses.at(-1)).toBe('saved');
   });
 
+  it('drops a pending save for a project that was deleted elsewhere', async () => {
+    const { autosave, saved, statuses } = setup();
+    const project = createSampleProject();
+    autosave.schedule(project);
+    autosave.discard(project.id);
+    await vi.advanceTimersByTimeAsync(1000);
+    await autosave.flush();
+    expect(saved).toHaveLength(0);
+    expect(statuses.at(-1)).toBe('saved');
+  });
+
+  it('keeps a pending save for another project when discarding', async () => {
+    const { autosave, saved } = setup();
+    const project = createSampleProject();
+    autosave.schedule(project);
+    autosave.discard('another-project');
+    await autosave.flush();
+    expect(saved).toHaveLength(1);
+  });
+
   it('saves immediately on flush', async () => {
     const { autosave, saved } = setup();
     autosave.schedule(createSampleProject());

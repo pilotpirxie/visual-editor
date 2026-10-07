@@ -63,6 +63,35 @@
     border-color: var(--ve-accent);
   }
 
+  .ve-saved-block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .ve-saved-block-menu {
+    position: absolute;
+    inset-block-start: 6px;
+    inset-inline-end: 6px;
+    background: var(--ve-bg);
+  }
+
+  .ve-thumbnail-placeholder {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    background: var(--ve-surface);
+    color: var(--ve-muted);
+  }
+
+  .ve-saved-block-confirm {
+    display: flex;
+    gap: 6px;
+  }
+
   .ve-layers {
     padding: 8px;
   }

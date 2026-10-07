@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
+    "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
@@ -13,8 +14,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test:e2e": "playwright test",
+    "test:perf": "playwright test -c playwright.perf.config.ts",
     "test:e2e:install": "playwright install chromium firefox webkit",
-    "fonts:update": "node packages/font-data/src/update.ts"
+    "fonts:update": "node packages/font-data/src/update.ts",
+    "thumbnails:update": "node packages/block-thumbnails/src/generate.ts"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.13.0",

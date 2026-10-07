@@ -15,7 +15,8 @@ import { CodeField } from './CodeField';
 import { ContentTab } from './ContentTab';
 import { PageSettingsPanel } from './PageSettingsPanel';
 import { StyleTab } from './StyleTab';
-import { Switch, Tabs, Title } from '../../../packages/ui/src';
+import { removeBlock } from '../editor/blockActions';
+import { Button, Switch, Tabs, Title } from '../../../packages/ui/src';
 import './properties.css';
 
 const TABS_ID = 've-properties';
@@ -199,6 +200,17 @@ export function PropertiesPanel(): JSX.Element {
           <StyleTab block={block} definition={definition} />
         )}
         {definition !== null && tab === 'advanced' && <AdvancedTab block={block} />}
+        {definition === null && (
+          <div className="ve-missing-component">
+            <p>
+              This block’s component isn’t available, so it can’t be edited or shown. Its content is
+              kept in case the component comes back.
+            </p>
+            <Button variant="danger" icon="trash" onClick={() => dispatch(removeBlock(block.id))}>
+              Delete block
+            </Button>
+          </div>
+        )}
       </div>
     </aside>
   );

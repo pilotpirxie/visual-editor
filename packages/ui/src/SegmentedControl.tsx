@@ -1,6 +1,7 @@
 import type { JSX } from 'react';
 import { classNames } from './classNames';
 import { hasIcon, Icon } from './Icon';
+import { TooltipLabel } from './Tooltip';
 import './Choice.css';
 
 export type SegmentOption = { value: string; label: string; icon?: string };
@@ -41,7 +42,7 @@ export function SegmentedControl({
       <legend className={isLegendHidden ? 've-visually-hidden' : 'ui-legend'}>{legend}</legend>
       <div className="ui-segmented-options">
         {options.map((option) => (
-          <label key={option.value} className="ui-segment" title={option.label}>
+          <TooltipLabel key={option.value} className="ui-segment" text={option.label}>
             <input
               type="radio"
               name={name}
@@ -50,7 +51,7 @@ export function SegmentedControl({
               onChange={() => onChange(option.value)}
             />
             <SegmentLabel label={option.label} icon={option.icon} />
-          </label>
+          </TooltipLabel>
         ))}
       </div>
     </fieldset>

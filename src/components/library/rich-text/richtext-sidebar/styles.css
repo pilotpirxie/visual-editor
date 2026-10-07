@@ -82,6 +82,10 @@
       translate: var(--space-1) 0;
     }
 
+    .b-links a:hover .icon:dir(rtl) {
+      translate: calc(-1 * var(--space-1)) 0;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .b-links .icon {
         transition: none;

@@ -5,7 +5,6 @@ import type { PackError } from '../../components/packFormat';
 import { registry } from '../../components/registry';
 import type { CustomDefinition, RegisteredComponent } from '../../components/types';
 import { loadTemplateParser } from '../../render/templateParser';
-import { checkCustomDefinition } from './validatePack';
 
 type ComponentCache = { generation: number; components: ReadonlyMap<string, RegisteredComponent> };
 
@@ -50,7 +49,10 @@ export async function ensureCustomComponents(
     if (!compiled.has(key) && !rejected.has(key)) pending.push(custom);
   }
   if (pending.length === 0) return { hasCompiled: false, problems: [] };
-  const parse = await loadTemplateParser();
+  const [parse, { checkCustomDefinition }] = await Promise.all([
+    loadTemplateParser(),
+    import('./validatePack'),
+  ]);
   const problems: PackError[] = [];
   for (const custom of pending) {
     const key = contentKeyOf(custom);

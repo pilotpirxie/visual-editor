@@ -6,4 +6,8 @@
     height: var(--icon-size, 1.25em);
     vertical-align: middle;
   }
+
+  .icon-mirror:dir(rtl) {
+    scale: -1 1;
+  }
 }

@@ -24,7 +24,33 @@ describe('Notices', () => {
     });
     expect(container.querySelectorAll('.ve-toast')).toHaveLength(2);
     expect(container.querySelector('[role="alert"]')?.textContent).toBe('Could not open the file');
+    expect(container.querySelector('[role="status"]')?.textContent).toContain('Saved a copy');
     click(getButton(container, 'Dismiss'));
+    expect(container.querySelectorAll('.ve-toast')).toHaveLength(1);
+  });
+
+  it('keeps errors until they are dismissed and drops older updates first', () => {
+    const { container } = render(<Notices />);
+    runInAct(() => {
+      dispatch(noticeShown('error', 'Could not save'));
+      for (const text of ['one', 'two', 'three']) dispatch(noticeShown('info', text));
+    });
+    expect(container.textContent).toContain('Could not save');
+    expect(container.textContent).not.toContain('one');
+    runInAct(() => {
+      vi.advanceTimersByTime(6000);
+    });
+    expect(container.querySelectorAll('.ve-toast')).toHaveLength(1);
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain('Could not save');
+  });
+
+  it('waits while keyboard focus is on a notice', () => {
+    const { container } = render(<Notices />);
+    runInAct(() => dispatch(noticeShown('info', 'Saved a copy')));
+    runInAct(() => getButton(container, 'Dismiss').focus());
+    runInAct(() => {
+      vi.advanceTimersByTime(10000);
+    });
     expect(container.querySelectorAll('.ve-toast')).toHaveLength(1);
   });
 

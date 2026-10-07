@@ -1,4 +1,4 @@
-import { useEffect, useRef, type FormEvent, type JSX, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type FormEvent, type JSX, type ReactNode } from 'react';
 import { classNames } from './classNames';
 import { Title } from './Title';
 import './Dialog.css';
@@ -16,6 +16,23 @@ export function closeDialogOf(element: Element): void {
   element.closest('dialog')?.close();
 }
 
+export function focusReturnTarget(element: Element | null): HTMLElement | null {
+  if (!(element instanceof HTMLElement) || element === element.ownerDocument.body) return null;
+  const popover = element.closest<HTMLElement>('[popover]');
+  if (popover === null || popover.id === '') return element;
+  const invoker = element.ownerDocument.querySelector<HTMLElement>(
+    `[popovertarget="${CSS.escape(popover.id)}"]`,
+  );
+  return invoker ?? element;
+}
+
+export function restoreFocus(target: HTMLElement | null): void {
+  if (target === null || !target.isConnected) return;
+  const active = target.ownerDocument.activeElement;
+  const isFocusLost = active === null || active === target.ownerDocument.body;
+  if (isFocusLost) target.focus();
+}
+
 export function Dialog({
   labelId,
   describedBy,
@@ -25,11 +42,14 @@ export function Dialog({
   children,
 }: DialogProps): JSX.Element {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const [returnTarget] = useState(() => focusReturnTarget(document.activeElement));
 
   useEffect(() => {
     const dialog = dialogRef.current;
     if (dialog !== null && !dialog.open) dialog.showModal();
   }, []);
+
+  useEffect(() => () => restoreFocus(returnTarget), [returnTarget]);
 
   return (
     <dialog

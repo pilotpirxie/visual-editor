@@ -1,4 +1,4 @@
-import { iconSetsLoaded } from '../../app/editorSlice';
+import { iconSetsLoaded, noticeShown } from '../../app/editorSlice';
 import type { AppThunk } from '../../app/store';
 import type { Block, Project } from '../../app/types';
 import { forEachFieldValue } from '../../components/fieldValues';
@@ -51,5 +51,22 @@ export function loadBlockIconSets(blockIds: readonly string[]): AppThunk<Promise
     if (missing.length === 0) return;
     await ensureIconSets(missing);
     dispatch(iconSetsLoaded());
+  };
+}
+
+export function loadProjectIconSets(): AppThunk<Promise<void>> {
+  return async (dispatch, getState) => {
+    try {
+      await dispatch(loadBlockIconSets(getState().project.blocks.ids));
+    } catch (error) {
+      console.error('Some icon sets of the project could not be loaded', error);
+      dispatch(iconSetsLoaded());
+      dispatch(
+        noticeShown(
+          'warning',
+          'Some icons couldn’t load. Check your connection, then reload the page.',
+        ),
+      );
+    }
   };
 }

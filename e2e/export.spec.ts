@@ -89,3 +89,17 @@ test('the export dialog lists warnings first and still lets the user export', as
   await dialog.getByRole('button', { name: 'Export anyway' }).click();
   expect((await downloadPromise).suggestedFilename()).toMatch(/\.zip$/);
 });
+
+test('exporting the same project twice gives byte-identical zips', async ({ page }) => {
+  await buildSite(page);
+  const zips: Buffer[] = [];
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    await page.getByRole('button', { name: 'Export', exact: true }).click();
+    const dialog = page.getByRole('dialog', { name: 'Export site' });
+    const downloadPromise = page.waitForEvent('download');
+    await dialog.getByRole('button', { name: 'Export anyway' }).click();
+    const download = await downloadPromise;
+    zips.push(await readFile(await download.path()));
+  }
+  expect(zips[0]?.equals(zips[1] ?? Buffer.alloc(0))).toBe(true);
+});

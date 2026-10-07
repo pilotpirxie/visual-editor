@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { blockSelected, previewToggled } from '../../app/editorSlice';
+import { blockSelected, dialogOpened, previewToggled } from '../../app/editorSlice';
 import { redo, undo } from '../../app/history';
 import { dispatch, type AppThunk } from '../../app/store';
 import { dragController } from '../canvas/dragController';
@@ -26,7 +26,9 @@ export type Shortcut =
   | { kind: 'select-sibling'; offset: MoveOffset }
   | { kind: 'toggle-preview' }
   | { kind: 'open' }
-  | { kind: 'save'; isSaveAs: boolean };
+  | { kind: 'save'; isSaveAs: boolean }
+  | { kind: 'command-palette' }
+  | { kind: 'help' };
 
 export type ShortcutKeyEvent = Pick<
   KeyboardEvent,
@@ -85,6 +87,11 @@ function isPreviewKey(event: ShortcutKeyEvent): boolean {
   return hasCommandKey && !event.altKey && !event.shiftKey && event.key.toLowerCase() === 'p';
 }
 
+function isPaletteKey(event: ShortcutKeyEvent): boolean {
+  const hasCommandKey = event.metaKey || event.ctrlKey;
+  return hasCommandKey && !event.altKey && !event.shiftKey && event.key.toLowerCase() === 'k';
+}
+
 function fileShortcut(event: ShortcutKeyEvent): Shortcut | null {
   const hasCommandKey = event.metaKey || event.ctrlKey;
   if (!hasCommandKey || event.altKey || event.isComposing) return null;
@@ -99,10 +106,16 @@ export function shortcutFor(event: ShortcutKeyEvent, isFromCanvas = false): Shor
   if (history !== null) return history;
   const file = fileShortcut(event);
   if (file?.kind === 'save') return file;
+  if (isPaletteKey(event) && !event.isComposing && !isInside(event.target, 'dialog')) {
+    return { kind: 'command-palette' };
+  }
 
   const isTyping = isElementTarget(event.target) && event.target.matches(TEXT_ENTRY);
   if (event.defaultPrevented || isTyping || isInside(event.target, 'dialog')) return null;
   if (event.key === 'Escape') return { kind: 'clear-selection' };
+  if (event.key === '?' && !event.metaKey && !event.ctrlKey && !event.altKey) {
+    return { kind: 'help' };
+  }
   if (isPreviewKey(event)) return { kind: 'toggle-preview' };
   if (file !== null) return file;
   if (isInside(event.target, EDITING_PANELS)) return null;
@@ -132,6 +145,12 @@ export function applyShortcut(shortcut: Shortcut): AppThunk<boolean> {
       return true;
     } else if (shortcut.kind === 'toggle-preview') {
       dispatchAction(previewToggled(!isPreview));
+      return true;
+    } else if (shortcut.kind === 'command-palette') {
+      dispatchAction(dialogOpened({ kind: 'palette' }));
+      return true;
+    } else if (shortcut.kind === 'help') {
+      dispatchAction(dialogOpened({ kind: 'help' }));
       return true;
     }
     if (isPreview) {
@@ -174,7 +193,8 @@ function handleKeyDown(event: KeyboardEvent, isFromCanvas: boolean): void {
 }
 
 function handleEditorKeyDown(event: KeyboardEvent): void {
-  handleKeyDown(event, false);
+  const isOnCanvas = isElementTarget(event.target) && event.target.matches('.ve-canvas');
+  handleKeyDown(event, isOnCanvas);
 }
 
 function handleCanvasKeyDown(event: KeyboardEvent): void {

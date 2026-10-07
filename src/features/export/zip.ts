@@ -10,12 +10,8 @@ const VERSION_NEEDED = 20;
 const UTF8_NAMES_FLAG = 0x0800;
 const METHOD_STORED = 0;
 const METHOD_DEFLATED = 8;
-const DOS_EPOCH_YEAR = 1980;
-const DOS_HOUR_SHIFT = 11;
-const DOS_MINUTE_SHIFT = 5;
-const DOS_SECONDS_PER_STEP = 2;
-const DOS_YEAR_SHIFT = 9;
-const DOS_MONTH_SHIFT = 5;
+const DOS_TIME_MIDNIGHT = 0;
+const DOS_DATE_1980_01_01 = 0b0000000_0001_00001;
 const CRC_POLYNOMIAL = 0xedb88320;
 const CRC_TABLE_SIZE = 256;
 const BITS_PER_BYTE = 8;
@@ -49,19 +45,6 @@ async function deflateRaw(bytes: Uint8Array<ArrayBuffer>): Promise<Uint8Array<Ar
   return new Uint8Array(await new Response(compressed).arrayBuffer());
 }
 
-function dosTime(date: Date): number {
-  const hours = date.getHours() << DOS_HOUR_SHIFT;
-  const minutes = date.getMinutes() << DOS_MINUTE_SHIFT;
-  const seconds = Math.floor(date.getSeconds() / DOS_SECONDS_PER_STEP);
-  return hours | minutes | seconds;
-}
-
-function dosDate(date: Date): number {
-  const year = Math.max(date.getFullYear(), DOS_EPOCH_YEAR) - DOS_EPOCH_YEAR;
-  const month = date.getMonth() + 1;
-  return (year << DOS_YEAR_SHIFT) | (month << DOS_MONTH_SHIFT) | date.getDate();
-}
-
 type PreparedEntry = {
   name: Uint8Array<ArrayBuffer>;
   body: Uint8Array<ArrayBuffer>;
@@ -71,33 +54,33 @@ type PreparedEntry = {
   offset: number;
 };
 
-function writeCommonFields(view: DataView, at: number, entry: PreparedEntry, date: Date): void {
+function writeCommonFields(view: DataView, at: number, entry: PreparedEntry): void {
   view.setUint16(at, VERSION_NEEDED, true);
   view.setUint16(at + 2, UTF8_NAMES_FLAG, true);
   view.setUint16(at + 4, entry.method, true);
-  view.setUint16(at + 6, dosTime(date), true);
-  view.setUint16(at + 8, dosDate(date), true);
+  view.setUint16(at + 6, DOS_TIME_MIDNIGHT, true);
+  view.setUint16(at + 8, DOS_DATE_1980_01_01, true);
   view.setUint32(at + 10, entry.crc, true);
   view.setUint32(at + 14, entry.body.length, true);
   view.setUint32(at + 18, entry.size, true);
   view.setUint16(at + 22, entry.name.length, true);
 }
 
-function localHeader(entry: PreparedEntry, date: Date): Uint8Array<ArrayBuffer> {
+function localHeader(entry: PreparedEntry): Uint8Array<ArrayBuffer> {
   const header = new Uint8Array(LOCAL_HEADER_SIZE + entry.name.length);
   const view = new DataView(header.buffer);
   view.setUint32(0, LOCAL_HEADER_SIGNATURE, true);
-  writeCommonFields(view, 4, entry, date);
+  writeCommonFields(view, 4, entry);
   header.set(entry.name, LOCAL_HEADER_SIZE);
   return header;
 }
 
-function centralHeader(entry: PreparedEntry, date: Date): Uint8Array<ArrayBuffer> {
+function centralHeader(entry: PreparedEntry): Uint8Array<ArrayBuffer> {
   const header = new Uint8Array(CENTRAL_HEADER_SIZE + entry.name.length);
   const view = new DataView(header.buffer);
   view.setUint32(0, CENTRAL_HEADER_SIGNATURE, true);
   view.setUint16(4, VERSION_NEEDED, true);
-  writeCommonFields(view, 6, entry, date);
+  writeCommonFields(view, 6, entry);
   view.setUint32(42, entry.offset, true);
   header.set(entry.name, CENTRAL_HEADER_SIZE);
   return header;
@@ -118,7 +101,7 @@ function endOfCentralDirectory(
   return record;
 }
 
-export async function createZip(entries: ZipEntry[], modifiedAt: Date): Promise<Blob> {
+export async function createZip(entries: ZipEntry[]): Promise<Blob> {
   const encoder = new TextEncoder();
   const parts: Uint8Array<ArrayBuffer>[] = [];
   const prepared: PreparedEntry[] = [];
@@ -134,14 +117,14 @@ export async function createZip(entries: ZipEntry[], modifiedAt: Date): Promise<
       size: data.length,
       offset,
     };
-    const header = localHeader(entry, modifiedAt);
+    const header = localHeader(entry);
     parts.push(header, entry.body);
     offset += header.length + entry.body.length;
     prepared.push(entry);
   }
   let centralSize = 0;
   for (const entry of prepared) {
-    const header = centralHeader(entry, modifiedAt);
+    const header = centralHeader(entry);
     parts.push(header);
     centralSize += header.length;
   }

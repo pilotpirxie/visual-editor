@@ -341,7 +341,7 @@ function parseFields(value: unknown, parentPath: string, depth: number, report: 
     if (!FIELD_NAME.test(rawName)) {
       report(path, 'needs a camelCase name');
     } else if (RESERVED_FIELD_NAMES.has(rawName)) {
-      report(path, `can't be named "${rawName}": templates use that name`);
+      report(path, `can’t be named "${rawName}": templates use that name`);
     } else if (names.has(rawName)) {
       report(path, 'repeats a field name');
     }
@@ -373,7 +373,7 @@ function parseFieldRenames(
   const names = new Set(fields.map(({ name }) => name));
   for (const [from, to] of Object.entries(value)) {
     if (typeof to !== 'string' || !names.has(to)) {
-      report(`fieldRenames.${from}`, `must name one of this block's fields`);
+      report(`fieldRenames.${from}`, `must name one of this block’s fields`);
       continue;
     }
     if (names.has(from)) {
@@ -493,7 +493,7 @@ export function parsePackFile(raw: unknown, behaviorNames: readonly string[]): P
     errors.push({ block: null, field: 'format', line: null, message: `must be "${PACK_FORMAT}"` });
   }
   if (raw.formatVersion !== PACK_FORMAT_VERSION) {
-    const message = `must be ${PACK_FORMAT_VERSION}; this editor can't read other versions`;
+    const message = `must be ${PACK_FORMAT_VERSION}; this editor can’t read other versions`;
     errors.push({ block: null, field: 'formatVersion', line: null, message });
   }
   if (!Array.isArray(raw.blocks) || raw.blocks.length === 0) {

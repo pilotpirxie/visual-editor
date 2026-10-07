@@ -4,10 +4,20 @@ import { forEachFieldValue } from '../../components/fieldValues';
 import { isButtonValue, isImageValue, isLinkValue, validateField } from '../../components/fields';
 import type { LinkValue, RegisteredComponent } from '../../components/types';
 import { isPageIndexed } from '../../render/pageHead';
+import { activeSectionTheme } from '../../app/sectionThemes';
+import {
+  contrastRatio,
+  contrastWarnings,
+  MIN_TEXT_CONTRAST,
+  resolveColor,
+} from '../design-system/colors';
 
 export type ExportWarning = { pageId: string | null; blockId: string | null; text: string };
 
 const FORM_ACTION_FIELD = 'formAction';
+const RESERVED_ANCHOR = 'main';
+const TEXT_TOKEN = '--color-text';
+const BACKGROUND_TOKEN = '--color-background';
 
 const pageNameList = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
 
@@ -62,6 +72,12 @@ function blockWarnings(
   if (component.definition.category === 'modals' && block.anchor === undefined) {
     warn('nothing can open this modal. Give it an anchor id in the Advanced tab.');
   }
+  const overrideRatio = overrideContrast(project, block.overrides);
+  if (overrideRatio !== null && overrideRatio < MIN_TEXT_CONTRAST) {
+    warn(
+      `text on its custom background has a contrast of ${formatRatio(overrideRatio)}. ${CONTRAST_ADVICE}`,
+    );
+  }
   forEachFieldValue(component.definition.fields, block.values, (field, value) => {
     if (
       field.type === 'image' &&
@@ -96,6 +112,13 @@ function duplicateAnchorWarnings(
   for (const blockId of blockIds) {
     const block = project.blocks.entities[blockId];
     if (block === undefined || block.disabled || block.anchor === undefined) continue;
+    if (block.anchor === RESERVED_ANCHOR) {
+      warnings.push({
+        pageId,
+        blockId,
+        text: `The anchor id “${RESERVED_ANCHOR}” is kept for the page’s main content. Pick another one.`,
+      });
+    }
     if (seen.has(block.anchor)) {
       warnings.push({ pageId, blockId, text: `The anchor id “${block.anchor}” is used twice.` });
     }
@@ -116,6 +139,35 @@ function hasSocialImage(project: Project, page: Page): boolean {
 
 function siteWarning(text: string): ExportWarning {
   return { pageId: null, blockId: null, text };
+}
+
+const CONTRAST_ADVICE = `Aim for at least ${MIN_TEXT_CONTRAST}:1.`;
+
+function formatRatio(ratio: number): string {
+  return `${ratio.toFixed(1)}:1`;
+}
+
+function overrideContrast(project: Project, overrides: Record<string, string>): number | null {
+  const hasColorOverride =
+    overrides[TEXT_TOKEN] !== undefined || overrides[BACKGROUND_TOKEN] !== undefined;
+  if (!hasColorOverride || activeSectionTheme(overrides) !== null) return null;
+  const { tokens } = project.designSystem;
+  const text = overrides[TEXT_TOKEN] ?? tokens[TEXT_TOKEN]?.value;
+  const background = overrides[BACKGROUND_TOKEN] ?? tokens[BACKGROUND_TOKEN]?.value;
+  if (text === undefined || background === undefined) return null;
+  return contrastRatio(resolveColor(text, tokens), resolveColor(background, tokens));
+}
+
+export function designContrastWarnings(project: Project): ExportWarning[] {
+  const warnings: ExportWarning[] = [];
+  for (const { foreground, background, ratio } of contrastWarnings(project.designSystem.tokens)) {
+    warnings.push(
+      siteWarning(
+        `${foreground.label} on ${background.label} has a contrast of ${formatRatio(ratio)}. ${CONTRAST_ADVICE}`,
+      ),
+    );
+  }
+  return warnings;
 }
 
 export function searchEngineWarnings(project: Project): ExportWarning[] {
@@ -151,7 +203,7 @@ export function collectExportWarnings(
   project: Project,
   registry: ReadonlyMap<string, RegisteredComponent>,
 ): ExportWarning[] {
-  const warnings = searchEngineWarnings(project);
+  const warnings = [...searchEngineWarnings(project), ...designContrastWarnings(project)];
   for (const blockId of [...project.sharedSlots.header, ...project.sharedSlots.footer]) {
     warnings.push(...blockWarnings(project, blockId, null, registry));
   }

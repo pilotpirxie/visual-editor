@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   blockSelected,
   deviceChanged,
+  dialogClosed,
   linkedFileChanged,
   linkedFileOutdated,
   panelToggled,
@@ -12,6 +13,7 @@ import { blockValueSet } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
 import { changeValue, click, getButton, render, runInAct } from '../../test/dom';
 import { homePage, loadIntoAppStore } from '../../test/fixtures';
+import { EditorDialogs } from './EditorDialogs';
 import { Toolbar } from './Toolbar';
 
 vi.mock('../../persistence/db', () => ({
@@ -23,6 +25,7 @@ vi.mock('../../persistence/db', () => ({
 
 beforeEach(() => {
   loadIntoAppStore();
+  dispatch(dialogClosed());
   dispatch(deviceChanged('desktop'));
   dispatch(previewToggled(false));
   if (store.getState().editor.panels.left.collapsed) dispatch(panelToggled('left'));
@@ -55,13 +58,20 @@ describe('Toolbar', () => {
     expect(container.querySelector('[role="status"]')).toBeNull();
   });
 
-  it('opens the project settings from the File menu', () => {
-    const { container } = render(<Toolbar />);
+  it('opens the project settings from the File menu', async () => {
+    const { container } = render(
+      <>
+        <Toolbar />
+        <EditorDialogs />
+      </>,
+    );
     const fileMenu = container.querySelector('[role="menu"][aria-label="File"]');
     if (fileMenu === null) throw new Error('Expected the File menu');
     click(getButton(fileMenu, 'Project settings…'));
-    expect(container.querySelector('#ve-project-settings-title')?.textContent).toBe(
-      'Project settings',
+    await vi.waitFor(() =>
+      expect(container.querySelector('#ve-project-settings-title')?.textContent).toBe(
+        'Project settings',
+      ),
     );
   });
 
@@ -124,9 +134,16 @@ describe('Toolbar', () => {
   });
 
   it('opens the export dialog with the files the site needs', async () => {
-    const { container } = render(<Toolbar />);
+    const { container } = render(
+      <>
+        <Toolbar />
+        <EditorDialogs />
+      </>,
+    );
     click(getButton(container, 'Export'));
-    expect(container.querySelector('#ve-export-title')?.textContent).toBe('Export site');
+    await vi.waitFor(() =>
+      expect(container.querySelector('#ve-export-title')?.textContent).toBe('Export site'),
+    );
     await vi.waitFor(() => expect(container.textContent).toContain('files,'));
   });
 });

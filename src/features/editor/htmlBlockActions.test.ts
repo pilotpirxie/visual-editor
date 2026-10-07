@@ -27,7 +27,7 @@ describe('convertToHtml', () => {
     expect(block.sourceComponentId).toBe('hero-centered');
     expect(block.html).toContain('class="b-hero-centered section"');
     expect(block.html).toContain('data-component="hero-centered"');
-    expect(block.html).toContain('style="--color-background: #101828"');
+    expect(block.html).toContain('style="--color-background: #101828; --section-bg: #101828"');
     expect(block.html).toContain('Converted hero');
     expect(block.html).not.toMatch(/data-block-id|data-field/);
     expect(store.getState().editor.propertiesTab).toBe('code');

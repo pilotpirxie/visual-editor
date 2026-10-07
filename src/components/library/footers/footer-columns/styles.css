@@ -16,11 +16,14 @@
     }
 
     .b-brand {
+      min-width: 0;
       --stack-gap: var(--space-3);
       max-width: 20rem;
     }
 
     .b-logo {
+      max-width: 100%;
+      overflow-wrap: anywhere;
       font-family: var(--font-heading);
       font-size: var(--text-xl);
       font-weight: var(--font-weight-heading);
@@ -53,7 +56,7 @@
 
     .b-columns {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--space-8);
     }
 
@@ -72,6 +75,7 @@
     }
 
     .b-links a {
+      overflow-wrap: anywhere;
       display: inline-block;
       padding-block: var(--space-2);
       color: var(--color-text-muted);
@@ -90,13 +94,13 @@
 
     @media (min-width: 768px) {
       .b-columns {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
     @media (min-width: 1024px) {
       .b-top {
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
       }
     }
   }

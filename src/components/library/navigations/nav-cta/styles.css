@@ -16,6 +16,8 @@
 
     .b-logo {
       --icon-size: 1.5rem;
+      min-width: 0;
+      overflow-wrap: anywhere;
       display: inline-flex;
       align-items: center;
       gap: var(--space-2);
@@ -26,12 +28,17 @@
       text-decoration: none;
     }
 
+    .b-logo > span {
+      min-width: 0;
+    }
+
     .b-logo .icon {
       color: var(--color-primary);
     }
 
     .b-toggle {
       --icon-size: 1.5rem;
+      flex: none;
     }
 
     .b-menu {

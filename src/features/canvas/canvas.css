@@ -30,6 +30,21 @@
     background: #ffffff;
   }
 
+  .ve-read-only {
+    position: absolute;
+    inset-block-start: 8px;
+    inset-inline: 24px;
+    z-index: 2;
+    max-inline-size: 40rem;
+    margin-inline: auto;
+    padding: 8px 12px;
+    border: 1px solid var(--ve-border-strong);
+    border-radius: var(--ve-radius);
+    background: var(--ve-bg);
+    box-shadow: var(--ve-shadow);
+    text-align: center;
+  }
+
   .ve-canvas-zoom {
     position: absolute;
     right: 12px;

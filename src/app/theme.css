@@ -72,6 +72,17 @@
 }
 
 @layer base {
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+
   html,
   body,
   #root {
@@ -98,6 +109,27 @@
 }
 
 @layer utilities {
+  .ve-boot,
+  .ve-unsupported {
+    padding: 48px 24px;
+    color: var(--ve-muted);
+  }
+
+  .ve-unsupported h1 {
+    margin-bottom: 8px;
+    color: var(--ve-text);
+    font-size: 24px;
+  }
+
+  .ve-panel-error {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background: var(--ve-bg);
+  }
+
   .ve-visually-hidden {
     position: absolute;
     width: 1px;

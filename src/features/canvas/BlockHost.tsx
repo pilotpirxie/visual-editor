@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars/runtime';
-import { memo, useLayoutEffect, useMemo, useRef, type JSX } from 'react';
+import { memo, useLayoutEffect, useMemo, useRef, type ErrorInfo, type JSX } from 'react';
 import { selectCanvasRenderContext, selectComponents, useStore } from '../../app/store';
 import type { Block, HtmlBlock } from '../../app/types';
 import type { CustomDefinition, RegisteredComponent } from '../../components/types';
@@ -7,6 +7,7 @@ import { customComponentProblems } from '../block-packs/customComponents';
 import { renderBlock, renderHtmlBlock, type RenderContext } from '../../render/renderBlock';
 import { morphChildren } from './morph';
 import type { ScrollAnchor } from './scrollAnchor';
+import { ErrorBoundary } from '../../../packages/ui/src';
 
 type BlockHostProps = {
   blockId: string;
@@ -76,7 +77,33 @@ function renderForCanvas(
   }
 }
 
-export const BlockHost = memo(function BlockHost({
+function attachBehaviors(
+  doc: Document,
+  host: HTMLElement,
+  blockId: string,
+): (() => void) | undefined {
+  const runtime = doc.defaultView?.siteRuntime;
+  if (runtime === undefined) {
+    console.error('Canvas: the site runtime is not loaded in the canvas iframe');
+    return undefined;
+  }
+  let detach: () => void;
+  try {
+    detach = runtime.attach(host);
+  } catch (error) {
+    console.error(`Canvas: behaviors of block ${blockId} failed to start`, error);
+    return undefined;
+  }
+  return () => {
+    try {
+      detach();
+    } catch (error) {
+      console.error(`Canvas: behaviors of block ${blockId} failed to stop`, error);
+    }
+  };
+}
+
+const BlockContent = memo(function BlockContent({
   blockId,
   doc,
   anchor,
@@ -96,13 +123,32 @@ export const BlockHost = memo(function BlockHost({
     if (host === null) return;
     anchor.capture();
     morphChildren(host, html);
-    const runtime = doc.defaultView?.siteRuntime;
-    if (runtime === undefined) {
-      console.error('Canvas: the site runtime is not loaded in the canvas iframe');
-      return;
-    }
-    return runtime.attach(host);
-  }, [html, doc, anchor]);
+    return attachBehaviors(doc, host, blockId);
+  }, [html, doc, anchor, blockId]);
 
   return <div ref={hostRef} data-block-host="" style={{ display: 'contents' }} />;
+});
+
+function reportBlockCrash(blockId: string, error: Error, info: ErrorInfo): void {
+  console.error(`Canvas: block ${blockId} crashed`, error, info.componentStack);
+}
+
+export const BlockHost = memo(function BlockHost(props: BlockHostProps): JSX.Element {
+  const block = useStore((state) => state.project.blocks.entities[props.blockId]);
+  const crashNotice = notice(props.blockId, 'This block ran into a problem. Its content is kept.');
+  return (
+    <ErrorBoundary
+      resetKey={block}
+      onError={(error, info) => reportBlockCrash(props.blockId, error, info)}
+      fallback={() => (
+        <div
+          data-block-host=""
+          style={{ display: 'contents' }}
+          dangerouslySetInnerHTML={{ __html: crashNotice }}
+        />
+      )}
+    >
+      <BlockContent {...props} />
+    </ErrorBoundary>
+  );
 });

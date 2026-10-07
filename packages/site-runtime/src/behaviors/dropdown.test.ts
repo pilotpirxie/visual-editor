@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import '../core';
 import './dropdown';
 
@@ -57,6 +57,32 @@ afterEach(() => {
 });
 
 describe('dropdown behavior', () => {
+  it('does not reopen from a hover that started before a click and an Escape', () => {
+    vi.useFakeTimers();
+    const matchMedia = vi.spyOn(window, 'matchMedia').mockImplementation(
+      (media) =>
+        ({
+          matches: true,
+          media,
+          onchange: null,
+          addListener() {},
+          removeListener() {},
+          addEventListener() {},
+          removeEventListener() {},
+          dispatchEvent: () => false,
+        }) satisfies MediaQueryList,
+    );
+    const { trigger, menu, detach } = setup();
+    trigger.parentElement?.dispatchEvent(new Event('pointerenter'));
+    menu.showPopover();
+    press(menu, 'Escape');
+    vi.advanceTimersByTime(500);
+    expect(trigger.getAttribute('aria-expanded')).toBe('false');
+    detach();
+    matchMedia.mockRestore();
+    vi.useRealTimers();
+  });
+
   it('opens with the down arrow, focuses the first link and syncs aria-expanded', () => {
     const { trigger } = setup();
     press(trigger, 'ArrowDown');

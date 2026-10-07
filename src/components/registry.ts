@@ -16,7 +16,7 @@ const styles = import.meta.glob<string>('./library/*/*/styles.css', {
   query: '?raw',
   import: 'default',
 });
-const thumbnails = import.meta.glob<string>('./library/*/*/thumbnail.svg', {
+const thumbnails = import.meta.glob<string>('./library/*/*/thumbnail.webp', {
   eager: true,
   query: '?url',
   import: 'default',
@@ -45,7 +45,7 @@ function buildRegistry(): ReadonlyMap<string, RegisteredComponent> {
       definition,
       template: requireFile(templates, folder, 'template.hbs'),
       styles: requireFile(styles, folder, 'styles.css'),
-      thumbnail: requireFile(thumbnails, folder, 'thumbnail.svg'),
+      thumbnail: thumbnails[`${folder}/thumbnail.webp`] ?? '',
       isCustom: false,
     });
   }

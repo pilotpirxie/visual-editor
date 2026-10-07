@@ -22,12 +22,17 @@ function searchableText(component: Searchable): string {
   return parts.join(' ').toLowerCase();
 }
 
-function searchWords(query: string): string[] {
+export function searchWords(query: string): string[] {
   const words: string[] = [];
   for (const word of query.toLowerCase().split(WHITESPACE)) {
     if (word !== '') words.push(word);
   }
   return words;
+}
+
+export function matchesWords(text: string, words: readonly string[]): boolean {
+  const lowerCase = text.toLowerCase();
+  return words.every((word) => lowerCase.includes(word));
 }
 
 export function filterComponents<Entry extends Searchable>(
@@ -38,8 +43,7 @@ export function filterComponents<Entry extends Searchable>(
   if (words.length === 0) return components;
   const matches: Entry[] = [];
   for (const component of components) {
-    const text = searchableText(component);
-    if (words.every((word) => text.includes(word))) matches.push(component);
+    if (matchesWords(searchableText(component), words)) matches.push(component);
   }
   return matches;
 }

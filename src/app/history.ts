@@ -29,6 +29,7 @@ const EMPTY_HISTORY: HistoryState = {
 
 export const undo = createAction('history/undo');
 export const redo = createAction('history/redo');
+export const projectRefreshed = createAction<Project>('session/projectRefreshed');
 
 const PROJECT_ACTION_PREFIX = 'project/';
 
@@ -43,6 +44,30 @@ function editMetaOf(action: UnknownAction): EditMeta | null {
   return null;
 }
 
+function isSingleReplace(patches: Patch[]): boolean {
+  return patches.length === 1 && patches[0]?.op === 'replace';
+}
+
+function hasSamePath(left: Patch | undefined, right: Patch | undefined): boolean {
+  if (left === undefined || right === undefined) return false;
+  if (left.path.length !== right.path.length) return false;
+  return left.path.every((part, index) => part === right.path[index]);
+}
+
+function mergeSteps(earlier: HistoryStep, later: HistoryStep): HistoryStep {
+  const isSameFieldEdit =
+    isSingleReplace(earlier.patches) &&
+    isSingleReplace(later.patches) &&
+    hasSamePath(earlier.patches[0], later.patches[0]);
+  if (isSameFieldEdit) {
+    return { patches: later.patches, inversePatches: earlier.inversePatches };
+  }
+  return {
+    patches: [...earlier.patches, ...later.patches],
+    inversePatches: [...later.inversePatches, ...earlier.inversePatches],
+  };
+}
+
 function recordStep(history: HistoryState, step: HistoryStep, meta: EditMeta | null): HistoryState {
   const last = history.past.at(-1);
   const canMerge =
@@ -53,10 +78,7 @@ function recordStep(history: HistoryState, step: HistoryStep, meta: EditMeta | n
     meta.at - history.lastEditAt <= MERGE_WINDOW_MS;
 
   if (canMerge) {
-    const merged: HistoryStep = {
-      patches: [...last.patches, ...step.patches],
-      inversePatches: [...step.inversePatches, ...last.inversePatches],
-    };
+    const merged: HistoryStep = mergeSteps(last, step);
     return {
       past: [...history.past.slice(0, -1), merged],
       future: [],
@@ -130,6 +152,13 @@ export function createRootReducer(
         history: EMPTY_HISTORY,
       };
     }
+    if (projectRefreshed.match(action)) {
+      const project = action.payload;
+      return { project, editor: reconcileEditor(state.editor, project), history: EMPTY_HISTORY };
+    }
+    const isProjectChange =
+      undo.match(action) || redo.match(action) || action.type.startsWith(PROJECT_ACTION_PREFIX);
+    if (state.editor.isReadOnly && isProjectChange) return state;
     if (undo.match(action)) return undoStep(state);
     if (redo.match(action)) return redoStep(state);
 

@@ -1,4 +1,4 @@
-import type { ExportFiles } from '../../render/exportSite';
+import type { ExportFiles } from '../../render/assembleSite';
 
 type WritableFile = { write(data: string | Blob): Promise<void>; close(): Promise<void> };
 

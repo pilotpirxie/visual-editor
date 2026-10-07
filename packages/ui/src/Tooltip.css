@@ -1,0 +1,22 @@
+@layer components {
+  .ui-tooltip {
+    position: fixed;
+    inset: auto;
+    max-width: 240px;
+    margin: 0;
+    padding: 4px 8px;
+    border: 0;
+    border-radius: 4px;
+    background: var(--ve-text);
+    color: var(--ve-bg);
+    font-size: 12px;
+    line-height: 1.4;
+    pointer-events: auto;
+  }
+
+  .ui-tooltip kbd {
+    margin-inline-start: 8px;
+    color: var(--ve-border-strong);
+    font: inherit;
+  }
+}

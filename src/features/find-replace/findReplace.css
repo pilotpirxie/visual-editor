@@ -1,0 +1,60 @@
+@layer components {
+  .ve-find-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 12px;
+  }
+
+  .ve-find-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+
+  .ve-find-results {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  .ve-find-list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ve-find-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-block: 6px;
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-find-match {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .ve-find-place {
+    color: var(--ve-muted);
+    font-size: 12px;
+  }
+
+  .ve-find-preview {
+    overflow-wrap: anywhere;
+  }
+
+  .ve-find-preview mark {
+    border-radius: 2px;
+    background: var(--ve-accent-soft);
+    color: inherit;
+  }
+}

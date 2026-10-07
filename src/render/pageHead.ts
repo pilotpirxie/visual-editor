@@ -1,6 +1,7 @@
 import type { Page, Project } from '../app/types';
 import { escapeHtml } from './attributes';
 export const SITE_CSS_PATH = 'assets/css/site.css';
+export const IMAGES_FOLDER = 'assets/images';
 
 export const DEFAULT_TITLE_TEMPLATE = '{{page.title}} | {{site.title}}';
 
@@ -10,7 +11,7 @@ const TRAILING_SLASHES = /\/+$/;
 const HOME_FILE = 'index.html';
 
 export type PageHeadInput = {
-  project: Project;
+  project: Pick<Project, 'settings' | 'assets'>;
   page: Page;
   fileName: string;
   assetFiles: Record<string, string>;

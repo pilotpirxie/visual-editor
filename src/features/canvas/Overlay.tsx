@@ -9,7 +9,7 @@ import { useBlockMenuItems } from '../editor/blockMenu';
 import { dragController } from './dragController';
 import { PAGE_ROOT_ID } from './frameDom';
 import { blockToolbarTop, clamp } from './geometry';
-import { IconButton, MenuButton } from '../../../packages/ui/src';
+import { focusNeighbour, Icon, IconButton, MenuButton } from '../../../packages/ui/src';
 
 type Rect = { top: number; left: number; width: number; height: number };
 
@@ -168,17 +168,26 @@ function BlockToolbar({ blockId, rect, name, overlayHeight }: BlockToolbarProps)
   };
 
   return (
-    <div className="ve-block-toolbar" role="toolbar" aria-label={`${name} actions`} style={style}>
+    <div
+      className="ve-block-toolbar"
+      role="toolbar"
+      aria-label={`${name} actions`}
+      style={style}
+      onKeyDown={(event) => focusNeighbour(event, 'button:enabled', 'horizontal')}
+    >
       {!isShared && (
-        <IconButton
-          className="ve-block-handle"
-          label="Drag to move"
-          icon="grip"
+        <span
+          className="ui-icon-button ve-block-handle"
+          aria-hidden="true"
+          title="Drag to move"
           onPointerDown={(event) => {
+            event.preventDefault();
             event.currentTarget.setPointerCapture(event.pointerId);
             dragController.start({ kind: 'move', blockId, label: name }, event);
           }}
-        />
+        >
+          <Icon name="grip" />
+        </span>
       )}
       <IconButton
         label="Move up"

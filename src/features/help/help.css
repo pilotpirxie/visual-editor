@@ -1,0 +1,47 @@
+@layer components {
+  .ve-help-heading {
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  .ve-help-basics {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-inline-start: 18px;
+    list-style: disc;
+  }
+
+  .ve-help-shortcuts {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .ve-help-shortcut {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 16px;
+    padding-block: 6px;
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-help-shortcut dd {
+    margin: 0;
+  }
+
+  .ve-help-keys kbd {
+    padding: 1px 6px;
+    border: 1px solid var(--ve-border-strong);
+    border-radius: 4px;
+    background: var(--ve-surface);
+    font: inherit;
+    font-size: 12px;
+  }
+
+  .ve-help-licenses {
+    margin-inline-end: auto;
+  }
+}

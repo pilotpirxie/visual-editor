@@ -134,7 +134,31 @@ describe('shortcutFor with canvas and preview keys', () => {
   });
 });
 
+describe('shortcutFor with the command palette key', () => {
+  it('opens the palette with Cmd or Ctrl and K, even while typing in a field', () => {
+    expect(shortcutFor(keyEvent('k', { metaKey: true }))).toEqual({ kind: 'command-palette' });
+    expect(shortcutFor(keyEvent('K', { ctrlKey: true }))).toEqual({ kind: 'command-palette' });
+    const input = placeInside(document.createElement('div'), 'input');
+    expect(shortcutFor(keyEvent('k', { metaKey: true, target: input }))?.kind).toBe(
+      'command-palette',
+    );
+  });
+
+  it('leaves the key alone inside dialogs and with extra modifiers', () => {
+    const inDialog = placeInside(document.createElement('dialog'), 'input');
+    expect(shortcutFor(keyEvent('k', { metaKey: true, target: inDialog }))).toBeNull();
+    expect(shortcutFor(keyEvent('k', { metaKey: true, shiftKey: true }))).toBeNull();
+  });
+});
+
 describe('applyShortcut', () => {
+  it('opens the command palette, also while previewing', () => {
+    const store = createTestStore();
+    store.dispatch(previewToggled(true));
+    expect(store.dispatch(applyShortcut({ kind: 'command-palette' }))).toBe(true);
+    expect(store.getState().editor.openDialog).toEqual({ kind: 'palette' });
+  });
+
   it('starts and leaves Preview with the preview key', () => {
     const store = createTestStore();
     expect(store.dispatch(applyShortcut({ kind: 'toggle-preview' }))).toBe(true);

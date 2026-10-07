@@ -1,0 +1,18 @@
+@layer utilities {
+  .skip-link {
+    position: absolute;
+    inset-block-start: var(--space-2);
+    inset-inline-start: var(--space-2);
+    z-index: 100;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--color-background);
+    color: var(--color-text);
+    font-weight: var(--font-weight-bold);
+    translate: 0 -200%;
+  }
+
+  .skip-link:focus-visible {
+    translate: none;
+  }
+}

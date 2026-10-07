@@ -8,11 +8,14 @@ import {
   type ReactPortal,
   type SyntheticEvent,
 } from 'react';
+import { textDirection } from '../../render/direction';
 import { createPortal } from 'react-dom';
 import { behaviors, core } from 'virtual:site-runtime';
 import { pageAnchorRequested } from '../../app/editorSlice';
+import { visibleBlockLists } from '../../app/blockLists';
 import {
   dispatch,
+  type RootState,
   selectComponents,
   selectCurrentPage,
   selectShownSlot,
@@ -42,7 +45,7 @@ const SRC_DOC = [
 
 const LIVE_ONLY_DIALOGS = ':is([data-behavior~="modal"], [data-behavior~="consent"]) dialog';
 
-const EDITOR_CSS = [
+export const EDITOR_CSS = [
   'html { overflow-anchor: none; }',
   '#ve-header, #ve-footer { display: contents; }',
   '#ve-page:empty { min-height: 100vh; }',
@@ -66,6 +69,17 @@ type CanvasFrameProps = {
   scale: number;
   onReady: (frame: CanvasFrameHandle) => void;
 };
+
+function shownComponentIdsKey(state: RootState): string {
+  const { header, page, footer } = visibleBlockLists(state.project, selectCurrentPage(state));
+  const componentIds = new Set<string>();
+  for (const blockId of [...header, ...page, ...footer]) {
+    const block = state.project.blocks.entities[blockId];
+    const componentId = block === undefined ? null : blockComponentId(block);
+    if (componentId !== null) componentIds.add(componentId);
+  }
+  return [...componentIds].sort().join(' ');
+}
 
 function findScrollAnchor(doc: Document): Element | null {
   const view = doc.defaultView;
@@ -120,7 +134,7 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
   const page = useStore(selectCurrentPage);
   const headerBlockIds = useStore((state) => selectShownSlot(state, 'header'));
   const footerBlockIds = useStore((state) => selectShownSlot(state, 'footer'));
-  const blocks = useStore((state) => state.project.blocks.entities);
+  const componentIdsKey = useStore(shownComponentIdsKey);
   const tokens = useStore((state) => state.project.designSystem.tokens);
   const fonts = useStore((state) => state.project.designSystem.fonts);
   const language = useStore((state) => state.project.settings.language);
@@ -157,6 +171,7 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
   useLayoutEffect(() => {
     if (doc === null) return;
     doc.documentElement.setAttribute('lang', language);
+    doc.documentElement.setAttribute('dir', textDirection(language));
   }, [doc, language]);
 
   useLayoutEffect(() => {
@@ -179,11 +194,9 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
   }, [doc, anchor, tokens]);
 
   useLayoutEffect(() => {
-    if (doc === null) return;
-    for (const blockId of [...headerBlockIds, ...page.blockIds, ...footerBlockIds]) {
-      const block = blocks[blockId];
-      const componentId = block === undefined ? null : blockComponentId(block);
-      const component = componentId === null ? undefined : components.get(componentId);
+    if (doc === null || componentIdsKey === '') return;
+    for (const componentId of componentIdsKey.split(' ')) {
+      const component = components.get(componentId);
       if (component === undefined) continue;
       const styleSelector = `style[data-component-css="${CSS.escape(component.definition.id)}"]`;
       const existing = doc.head.querySelector(styleSelector);
@@ -196,7 +209,7 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
       style.textContent = component.styles;
       doc.head.append(style);
     }
-  }, [doc, page, headerBlockIds, footerBlockIds, blocks, components]);
+  }, [doc, componentIdsKey, components]);
 
   usePageScrollMemory(doc, page.id, anchor);
 

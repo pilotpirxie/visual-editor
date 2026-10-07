@@ -70,7 +70,7 @@ test('the exported modal opens from its link and closes on the backdrop', async 
   expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
   await page.mouse.click(5, 5);
   await expect(dialog).toBeHidden();
-  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('');
+  await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('');
   expect(problems).toEqual([]);
 });
 

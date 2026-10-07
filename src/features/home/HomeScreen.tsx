@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type JSX, type KeyboardEvent } from 'react';
+import { Suspense, useEffect, useRef, useState, type JSX, type KeyboardEvent } from 'react';
 import { describeError } from '../../app/errors';
 import { followLink, projectPath } from '../../app/router';
 import { autosave } from '../../app/store';
@@ -12,10 +12,11 @@ import {
   type FileLink,
   type ProjectSummary,
 } from '../../persistence/db';
+import { isProjectOpenElsewhere } from '../../persistence/projectLocks';
+import { subscribeTabMessages } from '../../persistence/tabChannel';
 import { canUseFileSystemAccess } from '../files/fileAccess';
 import { fileCommands } from '../files/fileCommands';
-import { LicensesDialog } from '../licenses/LicensesDialog';
-import { NewProjectDialog } from './NewProjectDialog';
+import { LicensesDialog, NewProjectDialog } from '../../app/lazyDialogs';
 import { duplicateProject, formatLastEdit, withTitle } from './projects';
 import './home.css';
 import { Button, IconButton, TextInput, Title } from '../../../packages/ui/src';
@@ -97,6 +98,7 @@ export function HomeScreen(): JSX.Element {
   const [isLicensesOpen, setIsLicensesOpen] = useState(false);
   const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
   const renameButtonsRef = useRef(new Map<string, HTMLButtonElement>());
+  const [listAttempt, setListAttempt] = useState(0);
 
   useEffect(() => {
     let isCancelled = false;
@@ -110,10 +112,14 @@ export function HomeScreen(): JSX.Element {
       }
     }
     void load();
+    const unsubscribe = subscribeTabMessages((message) => {
+      if (message.kind !== 'saved-blocks-changed') void load();
+    });
     return () => {
       isCancelled = true;
+      unsubscribe();
     };
-  }, []);
+  }, [listAttempt]);
 
   async function runProjectAction(description: string, action: () => Promise<void>): Promise<void> {
     setError(null);
@@ -133,6 +139,9 @@ export function HomeScreen(): JSX.Element {
     const trimmed = title?.trim() ?? '';
     if (trimmed === '' || trimmed === summary.title) return;
     void runProjectAction('rename the project', async () => {
+      if (await isProjectOpenElsewhere(summary.id)) {
+        throw new Error(`close “${summary.title}” in your other tab first, or rename it there`);
+      }
       const project = await requireProject(summary.id);
       await putProject(withTitle(project, trimmed));
     });
@@ -145,10 +154,13 @@ export function HomeScreen(): JSX.Element {
     });
   }
 
-  function remove(summary: ProjectSummary): void {
-    const isConfirmed = window.confirm(`Delete “${summary.title}”? This cannot be undone.`);
-    if (!isConfirmed) return;
-    void runProjectAction('delete the project', () => deleteProject(summary.id));
+  async function remove(summary: ProjectSummary): Promise<void> {
+    const isOpenElsewhere = await isProjectOpenElsewhere(summary.id);
+    const question = isOpenElsewhere
+      ? `“${summary.title}” is open in another tab. Delete it anyway? That tab will close it.`
+      : `Delete “${summary.title}”? This cannot be undone.`;
+    if (!window.confirm(question)) return;
+    await runProjectAction('delete the project', () => deleteProject(summary.id));
   }
 
   return (
@@ -171,11 +183,25 @@ export function HomeScreen(): JSX.Element {
       </header>
 
       {error !== null && (
-        <p className="ve-home-error" role="alert">
-          {error}
+        <div className="ve-home-error" role="alert">
+          <p>{error}</p>
+          {projectList === null && (
+            <Button
+              onClick={() => {
+                setError(null);
+                setListAttempt((current) => current + 1);
+              }}
+            >
+              Try again
+            </Button>
+          )}
+        </div>
+      )}
+      {projectList === null && error === null && (
+        <p className="ui-muted" role="status">
+          Loading your projects…
         </p>
       )}
-      {projectList === null && error === null && <p className="ui-muted">Loading your projects…</p>}
       {projectList !== null && projectList.summaries.length === 0 && (
         <p className="ve-home-empty">
           You have no projects yet. Create one to start building a site.
@@ -224,7 +250,7 @@ export function HomeScreen(): JSX.Element {
                 <IconButton
                   label={`Delete ${summary.title}`}
                   icon="trash"
-                  onClick={() => remove(summary)}
+                  onClick={() => void remove(summary)}
                 />
               </div>
             </li>
@@ -236,8 +262,10 @@ export function HomeScreen(): JSX.Element {
           Open-source licenses
         </Button>
       </footer>
-      {isLicensesOpen && <LicensesDialog onClose={() => setIsLicensesOpen(false)} />}
-      {isNewProjectOpen && <NewProjectDialog onClose={() => setIsNewProjectOpen(false)} />}
+      <Suspense fallback={null}>
+        {isLicensesOpen && <LicensesDialog onClose={() => setIsLicensesOpen(false)} />}
+        {isNewProjectOpen && <NewProjectDialog onClose={() => setIsNewProjectOpen(false)} />}
+      </Suspense>
     </main>
   );
 }

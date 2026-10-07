@@ -308,12 +308,13 @@ export function Canvas(): JSX.Element {
   const device = useStore((state) => state.editor.device);
   const responsiveWidth = useStore((state) => state.editor.responsiveWidth);
   const isPreview = useStore((state) => state.editor.isPreview);
+  const isReadOnly = useStore((state) => state.editor.isReadOnly);
   const selectedId = useStore((state) => state.editor.selectedBlockId);
   const isEmpty = useStore((state) => selectCurrentPage(state).blockIds.length === 0);
   const isDragging = useSyncExternalStore(dragController.subscribe, dragController.isActive);
   const movingId = useSyncExternalStore(dragController.subscribe, movingBlockId);
 
-  const viewportRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLElement>(null);
   const available = useElementSize(viewportRef);
   const [frame, setFrame] = useState<CanvasFrameHandle | null>(null);
   const hoveredId = useCanvasPointer(frame?.doc ?? null, isPreview);
@@ -332,7 +333,12 @@ export function Canvas(): JSX.Element {
   useClipboard(frame?.doc ?? null);
 
   return (
-    <div className="ve-canvas" ref={viewportRef}>
+    <main id="ve-canvas" className="ve-canvas" ref={viewportRef} tabIndex={-1} aria-label="Canvas">
+      {isReadOnly && (
+        <p className="ve-read-only" role="status">
+          This project is open in another tab. Editing is paused here until you close it there.
+        </p>
+      )}
       <div
         className="ve-canvas-device"
         data-device={device}
@@ -381,6 +387,6 @@ export function Canvas(): JSX.Element {
           onClose={closeContextMenu}
         />
       )}
-    </div>
+    </main>
   );
 }

@@ -12,6 +12,8 @@
     }
 
     .b-logo {
+      max-width: 100%;
+      overflow-wrap: anywhere;
       font-family: var(--font-heading);
       font-size: var(--text-lg);
       font-weight: var(--font-weight-heading);

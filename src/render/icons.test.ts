@@ -1,6 +1,6 @@
 import lucide from 'virtual:icon-set/lucide';
 import { describe, expect, it } from 'vitest';
-import { parseIconRef, registerIconSet, resolveIcon, searchIcons } from './icons';
+import { iconSvg, iconUse, parseIconRef, registerIconSet, resolveIcon, searchIcons } from './icons';
 
 registerIconSet('demo', {
   width: 24,
@@ -65,5 +65,19 @@ describe('semantic icon names', () => {
     expect(resolveIcon('zap', 'lucide')).toMatchObject({ set: 'lucide', name: 'zap' });
     expect(resolveIcon('zap', 'unloaded-set')).toMatchObject({ set: 'lucide', name: 'zap' });
     expect(resolveIcon('lucide:zap', 'demo')).toMatchObject({ set: 'lucide' });
+  });
+});
+
+describe('icon markup', () => {
+  const arrow = { set: 'demo', name: 'arrow-right-line', body: '<path/>', width: 24, height: 24 };
+  const rocket = { set: 'demo', name: 'rocket', body: '<path/>', width: 24, height: 24 };
+
+  it('marks arrows and chevrons so right-to-left pages can mirror them', () => {
+    expect(iconSvg(arrow)).toContain('class="icon icon-mirror"');
+    expect(iconUse('icon-demo-arrow', arrow)).toContain('class="icon icon-mirror"');
+  });
+
+  it('leaves icons without a direction alone', () => {
+    expect(iconSvg(rocket)).toContain('class="icon"');
   });
 });

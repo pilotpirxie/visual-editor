@@ -1,10 +1,11 @@
 import { findBlockList } from '../../app/blockLists';
-import { conversionRequested } from '../../app/editorSlice';
+import { conversionRequested, dialogOpened } from '../../app/editorSlice';
 import { blockDisabledSet } from '../../app/projectSlice';
 import { dispatch, useStore } from '../../app/store';
 import { duplicateBlock, moveBlockBy, removeBlock } from './blockActions';
 import { copyBlockFromMenu, cutBlockFromMenu, pasteFromMenu } from './clipboard';
 import { type MenuItem } from '../../../packages/ui/src';
+import { SHORTCUT_KEYS } from './shortcutList';
 
 export type BlockMenuContext = {
   blockId: string;
@@ -28,7 +29,7 @@ export function clipboardItems(blockId: string | null, hasClipboard: boolean): M
     {
       id: 'cut',
       label: 'Cut',
-      shortcut: 'Mod+X',
+      shortcut: SHORTCUT_KEYS.cut,
       disabled: blockId === null,
       onSelect: () => {
         if (blockId !== null) dispatch(cutBlockFromMenu(blockId));
@@ -37,7 +38,7 @@ export function clipboardItems(blockId: string | null, hasClipboard: boolean): M
     {
       id: 'copy',
       label: 'Copy',
-      shortcut: 'Mod+C',
+      shortcut: SHORTCUT_KEYS.copy,
       disabled: blockId === null,
       onSelect: () => {
         if (blockId !== null) dispatch(copyBlockFromMenu(blockId));
@@ -46,7 +47,7 @@ export function clipboardItems(blockId: string | null, hasClipboard: boolean): M
     {
       id: 'paste',
       label: blockId === null ? 'Paste' : 'Paste after',
-      shortcut: 'Mod+V',
+      shortcut: SHORTCUT_KEYS.paste,
       disabled: !hasClipboard,
       hint: hasClipboard ? undefined : PASTE_HINT,
       onSelect: pasteAfterSelection,
@@ -60,7 +61,7 @@ export function blockMenuItems(context: BlockMenuContext): MenuItem[] {
     {
       id: 'duplicate',
       label: 'Duplicate',
-      shortcut: 'Mod+D',
+      shortcut: SHORTCUT_KEYS.duplicate,
       onSelect: () => dispatch(duplicateBlock(blockId)),
     },
     { id: 'clipboard-separator', isSeparator: true },
@@ -69,14 +70,14 @@ export function blockMenuItems(context: BlockMenuContext): MenuItem[] {
     {
       id: 'move-up',
       label: 'Move up',
-      shortcut: 'Alt+↑',
+      shortcut: SHORTCUT_KEYS.moveUp,
       disabled: index <= 0,
       onSelect: () => dispatch(moveBlockBy(blockId, -1)),
     },
     {
       id: 'move-down',
       label: 'Move down',
-      shortcut: 'Alt+↓',
+      shortcut: SHORTCUT_KEYS.moveDown,
       disabled: index === -1 || index >= count - 1,
       onSelect: () => dispatch(moveBlockBy(blockId, 1)),
     },
@@ -84,6 +85,11 @@ export function blockMenuItems(context: BlockMenuContext): MenuItem[] {
       id: 'disable',
       label: isDisabled ? 'Enable' : 'Disable',
       onSelect: () => dispatch(blockDisabledSet({ blockId, disabled: !isDisabled })),
+    },
+    {
+      id: 'save-block',
+      label: 'Save block…',
+      onSelect: () => dispatch(dialogOpened({ kind: 'save-block', blockId })),
     },
     {
       id: 'convert',
@@ -96,7 +102,7 @@ export function blockMenuItems(context: BlockMenuContext): MenuItem[] {
     {
       id: 'delete',
       label: 'Delete',
-      shortcut: 'Delete',
+      shortcut: SHORTCUT_KEYS.remove,
       isDanger: true,
       onSelect: () => dispatch(removeBlock(blockId)),
     },

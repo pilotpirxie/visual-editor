@@ -1,4 +1,5 @@
 import Handlebars from 'handlebars/runtime';
+import { activeSectionTheme } from '../app/sectionThemes';
 import type { Block, ComponentBlock, HtmlBlock, Project } from '../app/types';
 import type { RegisteredComponent } from '../components/types';
 import { formatHtml } from './formatHtml';
@@ -64,6 +65,15 @@ function stripEditorAttributes(html: string): string {
   return template.innerHTML;
 }
 
+const BACKGROUND_TOKEN = '--color-background';
+const SECTION_BACKGROUND_TOKEN = '--section-bg';
+
+function customBackgroundOf(overrides: Record<string, string>): string | null {
+  const background = overrides[BACKGROUND_TOKEN];
+  if (background === undefined || overrides[SECTION_BACKGROUND_TOKEN] !== undefined) return null;
+  return activeSectionTheme(overrides) === null ? background : null;
+}
+
 function rootAttributes(block: ComponentBlock, ctx: RenderContext): string[] {
   const escape = Handlebars.escapeExpression;
   const attributes = [`data-component="${escape(block.componentId)}"`];
@@ -72,6 +82,10 @@ function rootAttributes(block: ComponentBlock, ctx: RenderContext): string[] {
   const overrideDeclarations: string[] = [];
   for (const [token, value] of Object.entries(block.overrides)) {
     overrideDeclarations.push(`${token}: ${value}`);
+  }
+  const customBackground = customBackgroundOf(block.overrides);
+  if (customBackground !== null) {
+    overrideDeclarations.push(`${SECTION_BACKGROUND_TOKEN}: ${customBackground}`);
   }
   if (overrideDeclarations.length > 0) {
     attributes.push(`style="${escape(overrideDeclarations.join('; '))}"`);

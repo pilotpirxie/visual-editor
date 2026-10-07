@@ -4,7 +4,8 @@ import type { Project } from '../app/types';
 import { registry } from '../components/registry';
 import { loadIconSet } from '../features/icons/loadIconSet';
 import { placeholderImage } from './placeholder';
-import { buildExportFiles, buildLicensesText, buildSiteJs, dataUrlToBlob } from './exportSite';
+import { buildLicensesText, buildSiteJs, dataUrlToBlob } from './assembleSite';
+import { buildExportFiles } from './exportSite';
 import { componentBlockOf, withSystemFonts } from '../test/fixtures';
 
 const runtime = { core: '/* core */', behaviors: { menu: '/* menu */' } };
@@ -54,14 +55,16 @@ describe('buildExportFiles', () => {
 
   it('pretty-prints the page with blocks indented inside the body', () => {
     const html = text(filesOf(createSampleProject()), 'index.html');
-    expect(html).toContain('\n<body>\n  <svg hidden');
-    expect(html).toContain('\n  <main>\n    <nav data-component="nav-simple"');
+    expect(html).toContain(
+      '\n<body>\n  <a class="skip-link" href="#main">Skip to content</a>\n  <svg hidden',
+    );
+    expect(html).toContain('\n  <main id="main">\n    <nav data-component="nav-simple"');
     expect(html).toContain('\n  </main>\n');
   });
 
   it('puts the icons of each page in one sprite and refers to them with use', () => {
     const html = text(filesOf(createSampleProject()), 'index.html');
-    expect(html).toMatch(/<body>\n {2}<svg hidden aria-hidden="true"><symbol id="icon-lucide-/);
+    expect(html).toMatch(/<\/a>\n {2}<svg hidden aria-hidden="true"><symbol id="icon-lucide-/);
     expect(html).toContain('<use href="#icon-lucide-zap"></use>');
     expect(html.match(/<symbol id="icon-lucide-zap"/g)).toHaveLength(1);
   });
@@ -133,7 +136,7 @@ describe('buildExportFiles', () => {
     project.pages.entities[about.id] = about;
     const files = filesOf(project);
     const home = text(files, 'index.html');
-    expect(home.indexOf('b-nav-simple')).toBeLessThan(home.indexOf('<main>'));
+    expect(home.indexOf('b-nav-simple')).toBeLessThan(home.indexOf('<main id="main">'));
     expect(home.indexOf('b-footer-simple')).toBeGreaterThan(home.indexOf('</main>'));
     expect(text(files, 'about.html')).toContain('b-nav-simple');
     expect(text(files, 'about.html')).not.toContain('b-footer-simple');
@@ -162,6 +165,27 @@ describe('buildExportFiles', () => {
     const html = text(files, 'index.html');
     expect(html).toContain('content="assets/images/launch-card-abcdef12.png"');
     expect(html).toContain('<link rel="icon" href="assets/images/icon-fav12345.svg"');
+  });
+
+  it('writes the same files every time for the same project', () => {
+    const project = createSampleProject();
+    expect(filesOf(project)).toEqual(filesOf(project));
+  });
+
+  it('sets the text direction from the site language', () => {
+    const project = createSampleProject();
+    project.settings.language = 'ar';
+    expect(text(filesOf(project), 'index.html')).toContain('<html lang="ar" dir="rtl">');
+  });
+
+  it('starts every page with a skip link and ships its styles', () => {
+    const project = createSampleProject();
+    project.settings.language = 'pl';
+    const files = filesOf(project);
+    expect(text(files, 'index.html')).toContain(
+      '<a class="skip-link" href="#main" lang="en">Skip to content</a>',
+    );
+    expect(text(files, 'assets/css/site.css')).toContain('.skip-link:focus-visible');
   });
 
   it('leaves editor attributes out of the HTML', () => {

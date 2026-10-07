@@ -2,7 +2,7 @@ import { useState, type JSX } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import type { EditKind } from '../../app/projectSlice';
 import type { Field } from '../../components/types';
-import { blur, changeValue, click, render } from '../../test/dom';
+import { blur, changeValue, choiceInput, click, render } from '../../test/dom';
 import { FieldControl } from './FieldControl';
 
 const fields = {
@@ -130,11 +130,11 @@ describe('FieldControl', () => {
 
   it('picks a design color as a token reference and a custom color as hex', () => {
     const { element, onChange } = renderField(fields.accent);
-    const primary = element.querySelector('label[title="Primary"] input');
+    const primary = choiceInput(element, 'Primary');
     expect(primary instanceof HTMLInputElement && primary.checked).toBe(true);
-    click(element.querySelector('label[title="Surface"] input'));
+    click(choiceInput(element, 'Surface'));
     expect(onChange).toHaveBeenLastCalledWith('var(--color-surface)', 'discrete');
-    click(element.querySelector('label[title="Custom color"] input'));
+    click(choiceInput(element, 'Custom color'));
     expect(onChange).toHaveBeenLastCalledWith('#f5f6fb', 'discrete');
     changeValue(element.querySelector('input[type="text"]'), 'red; display: none');
     expect(element.querySelector('[role="alert"]')).not.toBeNull();

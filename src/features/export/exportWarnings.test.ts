@@ -26,6 +26,37 @@ describe('collectExportWarnings', () => {
     expect(warningTexts(sampleProject())).toEqual([]);
   });
 
+  it('warns when design system colors are too close to read', () => {
+    const project = sampleProject();
+    const muted = project.designSystem.tokens['--color-text-muted'];
+    if (muted === undefined) throw new Error('No muted text token');
+    muted.value = '#eeeeee';
+    expect(warningTexts(project)).toContainEqual(
+      expect.stringMatching(
+        /^Muted text on Background has a contrast of 1\.\d:1\. Aim for at least 4\.5:1\.$/,
+      ),
+    );
+  });
+
+  it('warns about a custom block background that makes its text hard to read', () => {
+    const project = sampleProject();
+    const hero = blockOf(project, 1);
+    hero.overrides = { '--color-background': '#111111' };
+    expect(warningTexts(project)).toContainEqual(
+      expect.stringContaining('text on its custom background has a contrast of'),
+    );
+    hero.overrides = { '--color-background': '#111111', '--color-text': '#ffffff' };
+    expect(warningTexts(project)).toEqual([]);
+  });
+
+  it('keeps the anchor id main for the page content', () => {
+    const project = sampleProject();
+    blockOf(project, 1).anchor = 'main';
+    expect(warningTexts(project)).toEqual([
+      'The anchor id “main” is kept for the page’s main content. Pick another one.',
+    ]);
+  });
+
   it('warns about images without alt text, but not decorative ones', () => {
     const project = sampleProject();
     const hero = blockOf(project, 1);

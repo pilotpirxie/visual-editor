@@ -503,4 +503,11 @@
   ::highlight(ve-code-comment) {
     color: #6b7280;
   }
+
+  .ve-missing-component {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
 }

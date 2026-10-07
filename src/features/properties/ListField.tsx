@@ -18,7 +18,7 @@ import { dragController, type DragPayload } from '../canvas/dragController';
 import { dropEdgeAt, finalMoveIndex } from '../canvas/geometry';
 import { useListDropTarget } from '../canvas/useListDropTarget';
 import { FieldControl, type ControlProps } from './FieldControl';
-import { Icon } from '../../../packages/ui/src';
+import { Icon, IconButton } from '../../../packages/ui/src';
 
 const DROP_EDGE_MARGIN = 8;
 const ITEM_HANDLE = '.ve-list-handle';
@@ -171,11 +171,11 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
                   </div>
                 </details>
                 <div className="ve-list-item-actions">
-                  <button
-                    type="button"
-                    className="ui-icon-button ve-list-handle"
-                    aria-label={`Move ${title}`}
-                    title="Drag to reorder, or press Alt with an arrow key"
+                  <IconButton
+                    className="ve-list-handle"
+                    label={`Move ${title}`}
+                    icon="grip"
+                    hint="Drag to reorder, or press Alt with an arrow key"
                     onPointerDown={(event) =>
                       dragController.start(
                         { kind: 'list-item', ownerKey: path, index, label: title },
@@ -183,29 +183,19 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
                       )
                     }
                     onKeyDown={(event) => moveWithKeyboard(event, index)}
-                  >
-                    <Icon name="grip" />
-                  </button>
-                  <button
-                    type="button"
-                    className="ui-icon-button"
-                    aria-label={`Duplicate ${title}`}
-                    title="Duplicate"
+                  />
+                  <IconButton
+                    label={`Duplicate ${title}`}
+                    icon="copy"
                     disabled={!canAdd}
                     onClick={() => onChange(duplicateItem(field, items, index), 'discrete')}
-                  >
-                    <Icon name="copy" />
-                  </button>
-                  <button
-                    type="button"
-                    className="ui-icon-button"
-                    aria-label={`Remove ${title}`}
-                    title="Remove"
+                  />
+                  <IconButton
+                    label={`Remove ${title}`}
+                    icon="trash"
                     disabled={!canRemove}
                     onClick={() => onChange(removeItem(field, items, index), 'discrete')}
-                  >
-                    <Icon name="trash" />
-                  </button>
+                  />
                 </div>
               </li>
             );

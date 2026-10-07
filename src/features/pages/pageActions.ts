@@ -1,8 +1,9 @@
 import { pageAnchorRequested } from '../../app/editorSlice';
-import { pageAdded, pageDuplicated } from '../../app/projectSlice';
+import { pageAdded, pageDuplicated, pageRemoved } from '../../app/projectSlice';
 import { editorPath, navigate } from '../../app/router';
 import { uniqueSlug } from '../../app/slugs';
 import { selectCurrentPage, type AppThunk, type RootState } from '../../app/store';
+import { takeSnapshot } from '../snapshots/snapshots';
 
 export type PageDraft = { name: string; slug: string; sourcePageId: string | null };
 
@@ -56,5 +57,14 @@ export function duplicatePage(sourcePageId: string): AppThunk<string | null> {
         sourcePageId,
       }),
     );
+  };
+}
+
+export function deletePage(pageId: string): AppThunk {
+  return (dispatch, getState) => {
+    const page = getState().project.pages.entities[pageId];
+    if (page === undefined) return;
+    void dispatch(takeSnapshot(`Before deleting ${page.name}`, 'auto'));
+    dispatch(pageRemoved({ pageId }));
   };
 }

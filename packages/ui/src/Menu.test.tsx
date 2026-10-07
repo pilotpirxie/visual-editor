@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
-import { pressKey, render } from '../../../src/test/dom';
-import { MenuButton, PointMenu, shortcutLabel, type MenuItem } from './Menu';
+import { pressKey, render, runInAct } from '../../../src/test/dom';
+import { MenuButton, PointMenu, type MenuItem } from './Menu';
+import { shortcutLabel } from './shortcuts';
 
 function items(onSelect = vi.fn()): MenuItem[] {
   return [
@@ -54,6 +55,18 @@ describe('MenuButton', () => {
     expect(document.activeElement).toBe(one);
     pressKey(menu, 'End');
     expect(document.activeElement).toBe(three);
+  });
+});
+
+describe('MenuButton without anchor positioning', () => {
+  it('places the opened menu next to its button instead of the middle of the screen', () => {
+    const { container } = render(<MenuButton label="Edit" items={items()} />);
+    const menu = container.querySelector<HTMLElement>('[role="menu"]');
+    if (menu === null) throw new Error('Expected a menu');
+    runInAct(() => menu.showPopover());
+    expect(menu.style.inset).toBe('auto');
+    expect(menu.style.top).toMatch(/px$/);
+    expect(menu.style.left).toMatch(/px$/);
   });
 });
 

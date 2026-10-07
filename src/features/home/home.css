@@ -54,6 +54,10 @@
     color: #a12020;
   }
 
+  .ve-home-error .ui-button {
+    margin-top: 8px;
+  }
+
   .ve-home-empty {
     padding: 48px;
     border: 1px dashed var(--ve-border-strong);
@@ -108,6 +112,13 @@
 
   .ve-notice a {
     color: var(--ve-accent);
+  }
+
+  .ve-notice-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
   }
 
   .ve-loading {

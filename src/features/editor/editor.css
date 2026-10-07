@@ -13,6 +13,27 @@
     display: none;
   }
 
+  .ve-skip-link {
+    position: fixed;
+    inset-block-start: 8px;
+    inset-inline-start: 8px;
+    z-index: 40;
+    padding: 8px 12px;
+    border-radius: var(--ve-radius);
+    background: var(--ve-accent);
+    color: #ffffff;
+    font-weight: 600;
+    translate: 0 -200%;
+  }
+
+  .ve-skip-link:focus-visible {
+    translate: none;
+  }
+
+  .ve-canvas:focus-visible {
+    outline-offset: -4px;
+  }
+
   .ve-toasts {
     position: fixed;
     right: 16px;
@@ -22,10 +43,16 @@
     flex-direction: column;
     gap: 8px;
     width: min(380px, calc(100% - 32px));
+    pointer-events: none;
+  }
+
+  .ve-toast-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     margin: 0;
     padding: 0;
     list-style: none;
-    pointer-events: none;
   }
 
   .ve-toast {

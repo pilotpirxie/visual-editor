@@ -1,4 +1,4 @@
-import { linkedFileChanged } from '../../app/editorSlice';
+import { linkedFileChanged, noticeShown } from '../../app/editorSlice';
 import { copyProjectWithNewIds } from '../../app/projectCopy';
 import { projectLoaded } from '../../app/projectSlice';
 import { editorPath, navigate } from '../../app/router';
@@ -11,10 +11,10 @@ import {
   putProject,
   type FileLink,
 } from '../../persistence/db';
+import { isProjectOpenElsewhere } from '../../persistence/projectLocks';
 import { downloadBlob } from '../export/download';
-import { ensureProjectComponents } from '../block-packs/customComponents';
 import { syncProjectWithLibrary } from '../block-packs/packLibrary';
-import { ensureProjectIconSets } from '../icons/ensureIconSets';
+import { loadProjectAssets } from '../../app/projectAssets';
 import {
   canUseFileSystemAccess,
   hasPermission,
@@ -62,6 +62,7 @@ function openInEditor(project: Project): void {
   const isAlreadyOpen = store.getState().project.id === project.id;
   if (isAlreadyOpen) {
     dispatch(projectLoaded({ project, pageId: project.pages.homePageId }));
+    void dispatch(loadProjectAssets());
     dispatch(syncProjectWithLibrary()).catch((error: unknown) => {
       console.warn('Could not compare the project with your block packs', error);
     });
@@ -85,15 +86,25 @@ async function linkFile(project: Project, picked: PickedFile): Promise<void> {
 
 async function storeAndOpen(project: Project, picked: PickedFile): Promise<void> {
   await autosave.flush();
-  await ensureProjectIconSets(project);
-  await ensureProjectComponents(project);
   await putProject(project);
   openInEditor(project);
   await linkFile(project, picked);
 }
 
+async function openCopy(project: Project): Promise<void> {
+  const copy = copyProjectWithNewIds(project, `Copy of ${project.settings.title}`);
+  await putProject(copy);
+  openInEditor(copy);
+}
+
 export async function openPickedFile(picked: PickedFile): Promise<OpenResult> {
   const project = parseProjectFile(picked.text);
+  if (await isProjectOpenElsewhere(project.id)) {
+    await openCopy(project);
+    const message = `“${project.settings.title}” is open in another tab, so it opened as a copy.`;
+    dispatch(noticeShown('info', message));
+    return { kind: 'opened' };
+  }
   const existing = await getProjectSummary(project.id);
   const decision = openDecision(existing, picked.lastModified);
   if (decision !== 'open') return { kind: 'conflict', conflict: { picked, project, decision } };
@@ -109,9 +120,7 @@ export async function resolveOpenConflict(
     await storeAndOpen(project, picked);
     return;
   }
-  const copy = copyProjectWithNewIds(project, `Copy of ${project.settings.title}`);
-  await putProject(copy);
-  openInEditor(copy);
+  await openCopy(project);
 }
 
 async function writeLinkedFile(

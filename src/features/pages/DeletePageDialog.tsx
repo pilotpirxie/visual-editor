@@ -1,7 +1,7 @@
 import { useState, type JSX } from 'react';
-import { pageRemoved } from '../../app/projectSlice';
 import { dispatch, store, useStore } from '../../app/store';
 import { linksToPage } from './linkUsage';
+import { deletePage } from './pageActions';
 import { Button, closeDialogOf, Dialog, DialogActions, DialogBody } from '../../../packages/ui/src';
 
 const TITLE_ID = 've-delete-page-title';
@@ -15,7 +15,7 @@ export function DeletePageDialog({ pageId, onClose }: DeletePageDialogProps): JS
   const [usages] = useState(() => linksToPage(store.getState().project, pageId));
 
   function remove(element: Element): void {
-    dispatch(pageRemoved({ pageId }));
+    dispatch(deletePage(pageId));
     closeDialogOf(element);
   }
 

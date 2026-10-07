@@ -22,16 +22,23 @@ function carouselParts(root: HTMLElement): CarouselParts | null {
   return { track, slides, controls, previous, next, dots };
 }
 
-function slideOffset(track: HTMLElement, slide: HTMLElement): number {
-  const trackLeft = track.getBoundingClientRect().left;
-  return slide.getBoundingClientRect().left - trackLeft + track.scrollLeft;
+function isRightToLeft(track: HTMLElement): boolean {
+  return getComputedStyle(track).direction === 'rtl';
+}
+
+function slideOffset(track: HTMLElement, slide: HTMLElement, isRtl: boolean): number {
+  const trackBox = track.getBoundingClientRect();
+  const slideBox = slide.getBoundingClientRect();
+  if (isRtl) return slideBox.right - trackBox.right + track.scrollLeft;
+  return slideBox.left - trackBox.left + track.scrollLeft;
 }
 
 function nearestSlideIndex(track: HTMLElement, slides: HTMLElement[]): number {
+  const isRtl = isRightToLeft(track);
   let nearest = 0;
   let nearestDistance = Number.POSITIVE_INFINITY;
   for (const [index, slide] of slides.entries()) {
-    const distance = Math.abs(slideOffset(track, slide) - track.scrollLeft);
+    const distance = Math.abs(slideOffset(track, slide, isRtl) - track.scrollLeft);
     if (distance < nearestDistance) {
       nearest = index;
       nearestDistance = distance;
@@ -40,8 +47,12 @@ function nearestSlideIndex(track: HTMLElement, slides: HTMLElement[]): number {
   return nearest;
 }
 
+function scrolledDistance(track: HTMLElement): number {
+  return Math.abs(track.scrollLeft);
+}
+
 function isAtEnd(track: HTMLElement): boolean {
-  return track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+  return scrolledDistance(track) + track.clientWidth >= track.scrollWidth - 1;
 }
 
 function createDots(parts: CarouselParts, label: string): HTMLButtonElement[] {
@@ -69,7 +80,7 @@ function connectCarousel(root: HTMLElement, parts: CarouselParts): () => void {
     const slide = slides[Math.max(0, Math.min(index, slides.length - 1))];
     if (slide === undefined) return;
     const behavior = reducedMotion?.matches === true ? 'auto' : 'smooth';
-    track.scrollTo({ left: slideOffset(track, slide), behavior });
+    track.scrollTo({ left: slideOffset(track, slide, isRightToLeft(track)), behavior });
   }
 
   function update(): void {
@@ -78,7 +89,7 @@ function connectCarousel(root: HTMLElement, parts: CarouselParts): () => void {
     for (const [index, button] of dotButtons.entries()) {
       button.setAttribute('aria-current', String(index === current));
     }
-    previous.disabled = track.scrollLeft <= 1;
+    previous.disabled = scrolledDistance(track) <= 1;
     next.disabled = isAtEnd(track);
   }
 

@@ -30,8 +30,8 @@ async function readZip(blob: Blob): Promise<ReadEntry[]> {
   return entries;
 }
 
-async function firstHeader(modifiedAt: Date): Promise<DataView> {
-  const zip = await createZip(await zipEntriesOf({ 'a.txt': 'a' }), modifiedAt);
+async function firstHeader(): Promise<DataView> {
+  const zip = await createZip(await zipEntriesOf({ 'a.txt': 'a' }));
   return new DataView(await zip.arrayBuffer());
 }
 
@@ -53,7 +53,7 @@ describe('createZip', () => {
       'assets/images/é.svg': '<svg/>',
       'assets/images/icon.png': new Blob([new Uint8Array([1, 2, 3])]),
     });
-    const zip = await createZip(entries, new Date(2026, 9, 7, 12, 30));
+    const zip = await createZip(entries);
     expect(zip.type).toBe('application/zip');
     const read = await readZip(zip);
     expect(read.map((entry) => entry.name)).toEqual([
@@ -68,32 +68,33 @@ describe('createZip', () => {
     expect(read[0]?.method).toBe(0);
   });
 
-  it('stamps every file with the export time in the zip date format', async () => {
-    const header = await firstHeader(new Date(2026, 9, 7, 12, 30, 41));
-    const time = header.getUint16(10, true);
+  it('stamps every file with the same fixed date, 1980-01-01 00:00', async () => {
+    const header = await firstHeader();
     const date = header.getUint16(12, true);
-    expect(time >> 11).toBe(12);
-    expect((time >> 5) & 0b111111).toBe(30);
-    expect((time & 0b11111) * 2).toBe(40);
-    expect((date >> 9) + 1980).toBe(2026);
-    expect((date >> 5) & 0b1111).toBe(10);
-    expect(date & 0b11111).toBe(7);
+    expect(header.getUint16(10, true)).toBe(0);
+    expect((date >> 9) + 1980).toBe(1980);
+    expect((date >> 5) & 0b1111).toBe(1);
+    expect(date & 0b11111).toBe(1);
   });
 
-  it('clamps dates before 1980 to the first year the zip format can hold', async () => {
-    const header = await firstHeader(new Date(1970, 0, 1));
-    expect(header.getUint16(12, true) >> 9).toBe(0);
+  it('writes byte-identical archives for the same files', async () => {
+    const files = { 'index.html': '<p>Same</p>'.repeat(50), 'a.txt': 'a' };
+    const first = await createZip(await zipEntriesOf(files));
+    const second = await createZip(await zipEntriesOf(files));
+    expect(new Uint8Array(await first.arrayBuffer())).toEqual(
+      new Uint8Array(await second.arrayBuffer()),
+    );
   });
 
   it('writes an empty archive with only the closing record', async () => {
-    const zip = await createZip([], new Date(2026, 0, 1));
+    const zip = await createZip([]);
     const bytes = new Uint8Array(await zip.arrayBuffer());
     expect(bytes.length).toBe(22);
     expect(new DataView(bytes.buffer).getUint16(10, true)).toBe(0);
   });
 
   it('ends with a central directory that counts every file', async () => {
-    const zip = await createZip(await zipEntriesOf({ a: 'one', b: 'two' }), new Date(2026, 0, 1));
+    const zip = await createZip(await zipEntriesOf({ a: 'one', b: 'two' }));
     const bytes = new Uint8Array(await zip.arrayBuffer());
     const end = new DataView(bytes.buffer, bytes.length - 22);
     expect(end.getUint32(0, true)).toBe(0x06054b50);

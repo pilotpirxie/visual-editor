@@ -5,6 +5,7 @@ import type { Token } from '../../app/types';
 import { referencedTokenName, tokenReference } from '../../render/css';
 import { resolveColor, toPickerHex } from '../design-system/colors';
 import type { ControlProps } from './FieldControl';
+import { TooltipLabel } from '../../../packages/ui/src';
 
 function swatchTokens(tokens: Record<string, Token>, current: string): Token[] {
   const currentName = referencedTokenName(current);
@@ -34,7 +35,7 @@ export function ColorField({
       <legend className="ui-field-label">{field.label}</legend>
       <div className="ve-swatches">
         {colorTokens.map((token) => (
-          <label key={token.name} className="ve-swatch" title={token.label}>
+          <TooltipLabel key={token.name} className="ve-swatch" text={token.label}>
             <input
               type="radio"
               name={id}
@@ -46,9 +47,9 @@ export function ColorField({
               style={{ background: resolveColor(token.value, tokens) }}
             />
             <span className="ve-visually-hidden">{token.label}</span>
-          </label>
+          </TooltipLabel>
         ))}
-        <label className="ve-swatch ve-swatch--custom" title="Custom color">
+        <TooltipLabel className="ve-swatch ve-swatch--custom" text="Custom color">
           <input
             type="radio"
             name={id}
@@ -57,7 +58,7 @@ export function ColorField({
           />
           <span className="ve-swatch-color" />
           <span className="ve-visually-hidden">Custom color</span>
-        </label>
+        </TooltipLabel>
       </div>
       {isCustom && (
         <div className="ve-color-custom">

@@ -36,6 +36,12 @@ function placeBelow(trigger: HTMLElement, menu: HTMLElement, view: Window): void
   const box = trigger.getBoundingClientRect();
   menu.style.position = 'absolute';
   menu.style.top = `${box.bottom + view.scrollY}px`;
+  if (view.getComputedStyle(trigger).direction === 'rtl') {
+    menu.style.left = 'auto';
+    menu.style.right = `${view.document.documentElement.clientWidth - box.right - view.scrollX}px`;
+    return;
+  }
+  menu.style.right = 'auto';
   menu.style.left = `${box.left + view.scrollX}px`;
 }
 
@@ -73,6 +79,7 @@ function connectDropdown({ item, trigger, menu }: Dropdown, view: Window): () =>
 
   function syncOpenState(): void {
     const isMenuOpen = isOpen(menu);
+    if (isMenuOpen) view.clearTimeout(timer);
     trigger.setAttribute('aria-expanded', String(isMenuOpen));
     if (isMenuOpen && !supportsAnchors()) placeBelow(trigger, menu, view);
   }
@@ -87,6 +94,7 @@ function connectDropdown({ item, trigger, menu }: Dropdown, view: Window): () =>
   function moveWithKeys(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
       event.preventDefault();
+      view.clearTimeout(timer);
       close();
       trigger.focus();
       return;

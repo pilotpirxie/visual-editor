@@ -12,6 +12,7 @@ import {
   resolveIcon,
   type SpriteIcon,
 } from './icons';
+import { IMAGES_FOLDER } from './pageHead';
 import { placeholderDataUrl, placeholderFileName, type Placeholder } from './placeholder';
 import { isSafeImageSrc, isSafeUrl, normalizeRichText } from './sanitize';
 
@@ -36,7 +37,6 @@ export function createRenderCollector(): RenderCollector {
 
 const NEW_TAB_ATTRIBUTES = 'target="_blank" rel="noopener"';
 
-export const PLACEHOLDER_FOLDER = 'assets/images';
 const LINE_BREAK = /\r?\n/g;
 
 function pageFileOf(link: LinkValue, data: RenderData): string {
@@ -132,7 +132,7 @@ function imgHelper(image: unknown, options: HelperOptions): Handlebars.SafeStrin
   if (image.source === 'placeholder' && collector === undefined) {
     src = placeholderDataUrl(image.placeholder);
   } else if (image.source === 'placeholder' && collector !== undefined) {
-    src = `${PLACEHOLDER_FOLDER}/${placeholderFileName(image.placeholder)}`;
+    src = `${IMAGES_FOLDER}/${placeholderFileName(image.placeholder)}`;
     collector.images.set(src, image.placeholder);
   }
   if (!isSafeImageSrc(src)) {

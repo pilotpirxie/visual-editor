@@ -1,0 +1,36 @@
+@layer components {
+  .ve-palette {
+    align-self: start;
+    margin-block-start: 12vh;
+  }
+
+  .ve-palette .ui-dialog-body {
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .ve-palette-list {
+    display: flex;
+    flex-direction: column;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  .ve-palette-group {
+    padding: 8px 8px 4px;
+    color: var(--ve-muted);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .ve-palette-option {
+    padding: 6px 8px;
+    border-radius: var(--ve-radius);
+    cursor: pointer;
+  }
+
+  .ve-palette-option[aria-selected='true'] {
+    background: var(--ve-accent-soft);
+    color: var(--ve-accent);
+  }
+}

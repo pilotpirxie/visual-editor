@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { click, render } from '../../../src/test/dom';
+import { click, render, runInAct } from '../../../src/test/dom';
 import { Button } from './Button';
 import { IconButton } from './IconButton';
 
@@ -49,12 +49,26 @@ describe('Button', () => {
 });
 
 describe('IconButton', () => {
-  it('names the button with its label for screen readers and as a tooltip', () => {
-    const { container } = render(<IconButton label="Delete block" icon="trash" />);
+  it('names the button with its label for screen readers and shows it as a tooltip on focus', () => {
+    const { container } = render(
+      <IconButton label="Delete block" icon="trash" shortcut="Delete" />,
+    );
     const button = container.querySelector('button');
-    expect(button?.getAttribute('aria-label')).toBe('Delete block');
-    expect(button?.title).toBe('Delete block');
-    expect(button?.textContent).toBe('');
+    if (button === null) throw new Error('No button');
+    expect(button.getAttribute('aria-label')).toBe('Delete block');
+    expect(button.hasAttribute('title')).toBe(false);
+    expect(button.getAttribute('aria-keyshortcuts')).toBe('Delete');
+    runInAct(() => {
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }));
+      button.focus();
+    });
+    const tooltip = container.querySelector('[role="tooltip"]');
+    expect(tooltip?.textContent).toBe('Delete blockDelete');
+    expect(tooltip?.getAttribute('aria-hidden')).toBe('true');
+    runInAct(() => {
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    });
+    expect(container.querySelector('[role="tooltip"]')).toBeNull();
   });
 
   it('reports a pressed state only when one is given', () => {

@@ -122,3 +122,12 @@ export function getButton(scope: ParentNode, name: string): HTMLButtonElement {
   if (button === null) throw new Error(`No button named "${name}"`);
   return button;
 }
+
+export function choiceInput(scope: ParentNode, label: string): HTMLInputElement | null {
+  for (const element of scope.querySelectorAll('label')) {
+    if (element.textContent?.trim() !== label) continue;
+    const input = element.querySelector('input');
+    if (input !== null) return input;
+  }
+  return null;
+}

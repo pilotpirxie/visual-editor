@@ -45,7 +45,7 @@ test('a block override applies to that block only and resets to the design value
   await openPropertiesTab(page, 'style');
   const row = page.locator('.ve-override[data-token="--color-background"]');
   await row.getByRole('button', { name: 'Override' }).click();
-  await row.getByTitle('Custom color').click();
+  await row.locator('label', { hasText: 'Custom color' }).click();
   await row.getByLabel('Background: hex value').fill('#ff0000');
   await expect(cta).toHaveCSS('background-color', RED);
   await expect(hero).not.toHaveCSS('background-color', RED);
@@ -74,4 +74,15 @@ test('a block hidden on phones shows striped at phone width and stays selectable
   await expect(page.locator('.ve-properties .ui-title')).toHaveText('Page settings');
   await page.frameLocator('.ve-canvas-frame').locator('[data-component="cta-centered"]').click();
   await expect(page.locator('.ve-properties .ui-title')).toHaveText('Call to action, centered');
+});
+
+test('a custom background also colors blocks that sit on the surface color', async ({ page }) => {
+  await insertBlock(page, 'Numbers', 'Numbers, with descriptions');
+  const stats = page.frameLocator('.ve-canvas-frame').locator('[data-component="stats-described"]');
+  await openPropertiesTab(page, 'style');
+  const row = page.locator('.ve-override[data-token="--color-background"]');
+  await row.getByRole('button', { name: 'Override' }).click();
+  await row.locator('label', { hasText: 'Custom color' }).click();
+  await row.getByLabel('Background: hex value').fill('#ff0000');
+  await expect(stats).toHaveCSS('background-color', RED);
 });

@@ -9,7 +9,7 @@ import {
 import { isSafeUrl, normalizeRichText, plainTextToHtml } from '../../render/sanitize';
 import type { EditKind } from '../../app/projectSlice';
 import type { ControlProps } from './FieldControl';
-import { Icon } from '../../../packages/ui/src';
+import { IconButton } from '../../../packages/ui/src';
 
 const DEFAULT_LINK_URL = 'https://';
 
@@ -163,29 +163,21 @@ export function RichTextField({
           aria-label={`${field.label} formatting`}
         >
           {buttons.map((button) => (
-            <button
+            <IconButton
               key={button.label}
-              type="button"
-              className="ui-icon-button"
-              aria-label={button.label}
-              title={button.label}
+              label={button.label}
+              icon={button.icon}
               onMouseDown={(event) => event.preventDefault()}
               onClick={() => format(button)}
-            >
-              <Icon name={button.icon} />
-            </button>
+            />
           ))}
-          <button
-            type="button"
-            className="ui-icon-button"
-            aria-label="Link"
-            title="Link"
+          <IconButton
+            label="Link"
+            icon="link"
             aria-expanded={linkUrl !== null}
             onMouseDown={(event) => event.preventDefault()}
             onClick={openLinkRow}
-          >
-            <Icon name="link" />
-          </button>
+          />
         </div>
         {linkUrl !== null && (
           <form className="ve-richtext-link" onSubmit={applyLink}>

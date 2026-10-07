@@ -74,6 +74,10 @@
       translate: var(--space-1) 0;
     }
 
+    .b-read:hover .icon:dir(rtl) {
+      translate: calc(-1 * var(--space-1)) 0;
+    }
+
     .b-more {
       align-self: start;
       padding: var(--space-6);

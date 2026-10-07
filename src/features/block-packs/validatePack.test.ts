@@ -169,13 +169,13 @@ describe('template rules', () => {
 
   it('refuses scripts, event handlers and editor attributes', async () => {
     expect(await templateErrors(quoteCardWith('<script>alert(1)</script>'))).toEqual([
-      "template@9: can't use <script>",
+      'template@9: can’t use <script>',
     ]);
     expect(await templateErrors(quoteCardWith('<p onclick="x()">Hi</p>'))).toEqual([
-      "template@9: can't use the onclick attribute: blocks get behavior from the site runtime",
+      'template@9: can’t use the onclick attribute: blocks get behavior from the site runtime',
     ]);
     expect(await templateErrors(quoteCardWith('<p data-block-id="x">Hi</p>'))).toEqual([
-      "template@9: can't set data-block-id: the editor manages it",
+      'template@9: can’t set data-block-id: the editor manages it',
     ]);
     expect(await templateErrors(quoteCardWith('<p id="ve-page">Hi</p>'))).toEqual([
       'template@9: ids starting with ve- belong to the editor',
@@ -222,7 +222,7 @@ describe('template rules', () => {
       'template@1: needs the class b-acme-quote-card on its root',
     ]);
     expect(await templateErrors('<section id="x" class="b-acme-quote-card">x</section>')).toEqual([
-      "template@1: can't set id on the root element: the editor sets it",
+      'template@1: can’t set id on the root element: the editor sets it',
     ]);
   });
 });

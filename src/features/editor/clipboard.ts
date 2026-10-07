@@ -220,7 +220,7 @@ export function pasteEnvelope(envelope: BlockEnvelope): AppThunk<Promise<void>> 
     const prepared = prepareForPaste(envelope, getState().project, crypto.randomUUID());
     if (prepared === null) {
       dispatch(
-        noticeShown('error', 'This block can’t be pasted: its component is not in the library.'),
+        noticeShown('error', 'This block can’t be added: its component is not in the library.'),
       );
       return;
     }
@@ -229,9 +229,7 @@ export function pasteEnvelope(envelope: BlockEnvelope): AppThunk<Promise<void>> 
       const { hasCompiled, problems } = await ensureCustomComponents([custom]);
       if (hasCompiled) dispatch(customComponentsLoaded());
       if (problems.length > 0) {
-        dispatch(
-          noticeShown('error', 'This block can’t be pasted: its custom block is not valid.'),
-        );
+        dispatch(noticeShown('error', 'This block can’t be added: its custom block is not valid.'));
         return;
       }
     }

@@ -5,12 +5,14 @@ import { describeError } from '../../app/errors';
 import { slugify } from '../../app/slugs';
 import { dispatch, store } from '../../app/store';
 import { ensureProjectComponents, projectRegistry } from '../block-packs/customComponents';
-import { buildExportFiles, type ExportResult } from '../../render/exportSite';
+import type { ExportResult } from '../../render/assembleSite';
+import { prepareExportInput } from '../../render/exportSite';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import { downloadBlob } from './download';
-import { canExportToFolder, pickExportFolder, writeToFolder } from './exportFolder';
+import { assembleExport, writeExportFolder } from './exportClient';
+import { canExportToFolder, pickExportFolder } from './exportFolder';
+import type { AssembledExport } from './exportJob';
 import { collectExportWarnings, type ExportWarning } from './exportWarnings';
-import { createZip, zipEntriesOf } from './zip';
 import { closeDialogOf, Dialog } from '../../../packages/ui/src';
 
 const TITLE_ID = 've-export-title';
@@ -18,7 +20,7 @@ const BYTES_PER_KILOBYTE = 1024;
 
 type Preparation =
   | { kind: 'preparing' }
-  | { kind: 'ready'; result: ExportResult; warnings: ExportWarning[] }
+  | { kind: 'ready'; assembled: AssembledExport; warnings: ExportWarning[] }
   | { kind: 'failed'; message: string };
 
 async function prepareExport(): Promise<Preparation> {
@@ -27,8 +29,9 @@ async function prepareExport(): Promise<Preparation> {
     await ensureProjectIconSets(project);
     await ensureProjectComponents(project);
     const components = projectRegistry(project);
-    const result = buildExportFiles(project, components, { core, behaviors });
-    return { kind: 'ready', result, warnings: collectExportWarnings(project, components) };
+    const input = prepareExportInput(project, components);
+    const assembled = await assembleExport(input, { core, behaviors });
+    return { kind: 'ready', assembled, warnings: collectExportWarnings(project, components) };
   } catch (error) {
     console.error('Preparing the export failed', error);
     return { kind: 'failed', message: describeError(error) };
@@ -58,16 +61,14 @@ function warningPlace(warning: ExportWarning): string {
   return project.pages.entities[warning.pageId]?.name ?? 'A page';
 }
 
-async function downloadZip(result: ExportResult): Promise<void> {
-  const now = new Date();
-  const zip = await createZip(await zipEntriesOf(result.files), now);
-  downloadBlob(zip, exportFileName(store.getState().project.settings.title, now));
+async function downloadZip({ zip }: AssembledExport): Promise<void> {
+  downloadBlob(zip, exportFileName(store.getState().project.settings.title, new Date()));
 }
 
-async function saveToFolder(result: ExportResult): Promise<boolean> {
+async function saveToFolder({ result }: AssembledExport): Promise<boolean> {
   const folder = await pickExportFolder();
   if (folder === null) return false;
-  await writeToFolder(folder, result.files);
+  await writeExportFolder(folder, result.files);
   dispatch(
     noticeShown('info', `Exported ${Object.keys(result.files).length} files to ${folder.name}.`),
   );
@@ -126,13 +127,13 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
   }, []);
 
   async function run(
-    action: (result: ExportResult) => Promise<boolean | void>,
+    action: (assembled: AssembledExport) => Promise<boolean | void>,
     element: Element,
   ): Promise<void> {
     if (preparation.kind !== 'ready') return;
     setIsBusy(true);
     try {
-      const isDone = await action(preparation.result);
+      const isDone = await action(preparation.assembled);
       if (isDone !== false) closeDialogOf(element);
     } catch (error) {
       console.error('Export failed', error);
@@ -149,7 +150,11 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
         <h2 id={TITLE_ID} className="ui-title">
           Export site
         </h2>
-        {preparation.kind === 'preparing' && <p className="ui-muted">Preparing your files…</p>}
+        {preparation.kind === 'preparing' && (
+          <p className="ui-muted" role="status">
+            Preparing your files…
+          </p>
+        )}
         {preparation.kind === 'failed' && (
           <p className="ui-field-error" role="alert">
             The site could not be exported: {preparation.message}
@@ -173,7 +178,7 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
             images your pages use.
           </p>
         )}
-        {preparation.kind === 'ready' && <Summary result={preparation.result} />}
+        {preparation.kind === 'ready' && <Summary result={preparation.assembled.result} />}
         <div className="ui-dialog-actions">
           <button
             type="button"

@@ -37,7 +37,13 @@ function attach(root: Element): () => void {
       }
     }
     cleanups.set(element, () => {
-      for (const dispose of disposers) dispose();
+      for (const dispose of disposers) {
+        try {
+          dispose();
+        } catch (error) {
+          console.error('siteRuntime: a behavior failed to stop', element, error);
+        }
+      }
     });
     attached.push(element);
   }

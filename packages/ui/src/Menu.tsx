@@ -10,6 +10,10 @@ import {
 import { buttonClassName, type ButtonVariant } from './Button';
 import { classNames } from './classNames';
 import { Icon } from './Icon';
+import { placeAtPoint, placeNear } from './placement';
+import { rovingIndex } from './roving';
+import { shortcutLabel } from './shortcuts';
+import { useTooltip } from './Tooltip';
 import './Menu.css';
 
 export type MenuAction = {
@@ -28,19 +32,6 @@ export type MenuSeparator = { id: string; isSeparator: true };
 export type MenuItem = MenuAction | MenuSeparator;
 
 export type MenuPoint = { x: number; y: number };
-
-const IS_MAC = /Mac|iPhone|iPad/.test(globalThis.navigator?.platform ?? '');
-const VIEWPORT_MARGIN = 8;
-
-const MAC_KEYS: Record<string, string> = { Mod: '⌘', Shift: '⇧', Alt: '⌥' };
-const OTHER_KEYS: Record<string, string> = { Mod: 'Ctrl', Shift: 'Shift', Alt: 'Alt' };
-
-export function shortcutLabel(keys: string): string {
-  const names = IS_MAC ? MAC_KEYS : OTHER_KEYS;
-  const parts: string[] = [];
-  for (const part of keys.split('+')) parts.push(names[part] ?? part);
-  return parts.join(IS_MAC ? '' : '+');
-}
 
 function isSeparator(item: MenuItem): item is MenuSeparator {
   return 'isSeparator' in item;
@@ -78,28 +69,43 @@ function menuButtons(menu: HTMLElement): HTMLButtonElement[] {
   return [...menu.querySelectorAll<HTMLButtonElement>('[role^="menuitem"]:enabled')];
 }
 
+function supportsAnchorPositioning(): boolean {
+  return (
+    typeof CSS !== 'undefined' &&
+    typeof CSS.supports === 'function' &&
+    CSS.supports('anchor-name: --a')
+  );
+}
+
+function viewportSize(): { width: number; height: number } {
+  return { width: window.innerWidth, height: window.innerHeight };
+}
+
+function placeBelowInvoker(menu: HTMLElement): void {
+  const invoker = menu.ownerDocument.querySelector<HTMLElement>(
+    `[popovertarget="${CSS.escape(menu.id)}"]`,
+  );
+  if (invoker === null) return;
+  const size = { width: menu.offsetWidth, height: menu.offsetHeight };
+  const position = placeNear(invoker.getBoundingClientRect(), size, viewportSize());
+  menu.style.inset = 'auto';
+  menu.style.margin = '0';
+  menu.style.top = `${position.top}px`;
+  menu.style.left = `${position.left}px`;
+}
+
 function focusFirstItem(menu: HTMLElement): void {
   menuButtons(menu)[0]?.focus();
 }
 
 function moveFocus(event: KeyboardEvent<HTMLDivElement>): void {
   const buttons = menuButtons(event.currentTarget);
-  if (buttons.length === 0) return;
   const current = buttons.findIndex((button) => button === document.activeElement);
-  let next: number;
-  if (event.key === 'ArrowDown') {
-    next = (current + 1) % buttons.length;
-  } else if (event.key === 'ArrowUp') {
-    next = current <= 0 ? buttons.length - 1 : current - 1;
-  } else if (event.key === 'Home') {
-    next = 0;
-  } else if (event.key === 'End') {
-    next = buttons.length - 1;
-  } else {
-    return;
-  }
+  const next = rovingIndex(event.key, current, buttons.length, 'vertical');
+  const target = next === null ? undefined : buttons[next];
+  if (target === undefined) return;
   event.preventDefault();
-  buttons[next]?.focus();
+  target.focus();
 }
 
 function useToggle(menuRef: RefObject<HTMLDivElement | null>, onClosed?: () => void): void {
@@ -109,6 +115,8 @@ function useToggle(menuRef: RefObject<HTMLDivElement | null>, onClosed?: () => v
     function handleToggle(event: Event): void {
       const isOpening = 'newState' in event && event.newState === 'open';
       if (isOpening && menu !== null) {
+        const isAtPoint = menu.classList.contains('ui-menu--at-point');
+        if (!isAtPoint && !supportsAnchorPositioning()) placeBelowInvoker(menu);
         focusFirstItem(menu);
       } else if (!isOpening) {
         onClosed?.();
@@ -178,6 +186,8 @@ type MenuButtonProps = {
   className?: string;
   isLabelShown?: boolean;
   status?: string;
+  disabled?: boolean;
+  tabIndex?: number;
 };
 
 export function MenuButton({
@@ -188,6 +198,8 @@ export function MenuButton({
   className,
   isLabelShown = true,
   status,
+  disabled,
+  tabIndex,
 }: MenuButtonProps): JSX.Element {
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
@@ -195,20 +207,26 @@ export function MenuButton({
   const buttonClass = isLabelShown
     ? buttonClassName(variant, className)
     : classNames('ui-icon-button', className);
+  const { triggerProps, tooltip } = useTooltip({
+    text: status === undefined ? label : `${label} (${status})`,
+  });
   return (
     <>
       <button
         type="button"
         className={buttonClass}
         popoverTarget={menuId}
+        disabled={disabled}
+        tabIndex={tabIndex}
         aria-haspopup="menu"
         aria-label={status === undefined ? label : `${label}, ${status}`}
-        title={status === undefined ? label : `${label} (${status})`}
+        {...triggerProps}
       >
         {icon !== undefined && <Icon name={icon} />}
         {isLabelShown && <span className="ve-wide-only">{label}</span>}
         {status !== undefined && <span className="ui-menu-dot" aria-hidden="true" />}
       </button>
+      {tooltip}
       <MenuList id={menuId} label={label} items={items} menuRef={menuRef} />
     </>
   );
@@ -228,10 +246,10 @@ export function PointMenu({ label, items, point, onClose }: PointMenuProps): JSX
     menu.style.top = `${point.y}px`;
     if (!isPopoverOpen(menu)) menu.showPopover();
     const box = menu.getBoundingClientRect();
-    const maxLeft = window.innerWidth - box.width - VIEWPORT_MARGIN;
-    const maxTop = window.innerHeight - box.height - VIEWPORT_MARGIN;
-    menu.style.left = `${Math.max(VIEWPORT_MARGIN, Math.min(point.x, maxLeft))}px`;
-    menu.style.top = `${Math.max(VIEWPORT_MARGIN, Math.min(point.y, maxTop))}px`;
+    const size = { width: box.width, height: box.height };
+    const position = placeAtPoint({ top: point.y, left: point.x }, size, viewportSize());
+    menu.style.left = `${position.left}px`;
+    menu.style.top = `${position.top}px`;
   }, [point]);
 
   return (

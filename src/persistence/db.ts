@@ -4,8 +4,29 @@ import { parseEmbeddedDefinitions, parsePackInfo } from '../components/packForma
 import type { BlockPack } from '../components/types';
 import { isRecord } from './parseBlock';
 import { openProjectDocument } from './migrations';
+import { postTabMessage } from './tabChannel';
 
 export type ProjectSummary = { id: string; title: string; updatedAt: string };
+
+export type SnapshotKind = 'manual' | 'auto';
+
+export type SnapshotSummary = {
+  id: string;
+  projectId: string;
+  name: string;
+  kind: SnapshotKind;
+  createdAt: string;
+};
+
+export type SnapshotRecord = SnapshotSummary & { document: string };
+
+export type SavedBlockRecord = {
+  id: string;
+  name: string;
+  componentId: string | null;
+  savedAt: string;
+  envelope: string;
+};
 
 export type FileLink = {
   id: string;
@@ -17,12 +38,16 @@ export type FileLink = {
 };
 
 const DB_NAME = 'visual-editor';
-const DB_VERSION = 3;
+const DB_VERSION = 4;
 const PROJECTS = 'projects';
 const DOCUMENTS = 'documents';
 const FILE_LINKS = 'fileHandles';
 const BLOCK_PACKS = 'blockPacks';
-const STORE_NAMES = [PROJECTS, DOCUMENTS, FILE_LINKS, BLOCK_PACKS];
+const SNAPSHOTS = 'snapshots';
+const SAVED_BLOCKS = 'savedBlocks';
+const STORE_NAMES = [PROJECTS, DOCUMENTS, FILE_LINKS, BLOCK_PACKS, SNAPSHOTS, SAVED_BLOCKS];
+const SNAPSHOT_ID_SEPARATOR = '|';
+const LAST_KEY_CHARACTER = '\uffff';
 
 let databasePromise: Promise<IDBDatabase> | null = null;
 
@@ -76,7 +101,10 @@ async function database(): Promise<IDBDatabase> {
     return await databasePromise;
   } catch (error) {
     databasePromise = null;
-    throw new Error('Could not open browser storage', { cause: error });
+    throw new Error(
+      'Could not open browser storage. A private window or the site settings may block it.',
+      { cause: error },
+    );
   }
 }
 
@@ -132,15 +160,18 @@ export async function putProject(project: Project): Promise<void> {
   transaction.objectStore(PROJECTS).put(summary);
   transaction.objectStore(DOCUMENTS).put(project);
   await transactionDone(transaction);
+  postTabMessage({ kind: 'project-saved', projectId: project.id });
 }
 
 export async function deleteProject(id: string): Promise<void> {
   const db = await database();
-  const transaction = db.transaction([PROJECTS, DOCUMENTS, FILE_LINKS], 'readwrite');
+  const transaction = db.transaction([PROJECTS, DOCUMENTS, FILE_LINKS, SNAPSHOTS], 'readwrite');
   transaction.objectStore(PROJECTS).delete(id);
   transaction.objectStore(DOCUMENTS).delete(id);
   transaction.objectStore(FILE_LINKS).delete(id);
+  transaction.objectStore(SNAPSHOTS).delete(snapshotRange(id));
   await transactionDone(transaction);
+  postTabMessage({ kind: 'project-deleted', projectId: id });
 }
 
 function isFileLink(value: unknown): value is FileLink {
@@ -226,4 +257,132 @@ export async function deleteBlockPack(packId: string): Promise<void> {
   const transaction = db.transaction(BLOCK_PACKS, 'readwrite');
   transaction.objectStore(BLOCK_PACKS).delete(packId);
   await transactionDone(transaction);
+}
+
+export function snapshotId(projectId: string, createdAt: string, suffix: string): string {
+  return [projectId, createdAt, suffix].join(SNAPSHOT_ID_SEPARATOR);
+}
+
+function snapshotRange(projectId: string): IDBKeyRange {
+  const prefix = `${projectId}${SNAPSHOT_ID_SEPARATOR}`;
+  return IDBKeyRange.bound(prefix, `${prefix}${LAST_KEY_CHARACTER}`);
+}
+
+function isSnapshotRecord(value: unknown): value is SnapshotRecord {
+  if (!isRecord(value)) return false;
+  const hasText =
+    typeof value.id === 'string' &&
+    typeof value.projectId === 'string' &&
+    typeof value.name === 'string' &&
+    typeof value.createdAt === 'string';
+  const hasKind = value.kind === 'manual' || value.kind === 'auto';
+  return hasText && hasKind && typeof value.document === 'string';
+}
+
+export async function listSnapshots(projectId: string): Promise<SnapshotSummary[]> {
+  const db = await database();
+  const store = db.transaction(SNAPSHOTS).objectStore(SNAPSHOTS);
+  const stored: unknown[] = await requestResult(store.getAll(snapshotRange(projectId)));
+  const summaries: SnapshotSummary[] = [];
+  for (const value of stored) {
+    if (!isSnapshotRecord(value)) {
+      console.warn('Skipped a stored snapshot with an unknown shape', value);
+      continue;
+    }
+    const { id, name, kind, createdAt } = value;
+    summaries.push({ id, projectId: value.projectId, name, kind, createdAt });
+  }
+  summaries.reverse();
+  return summaries;
+}
+
+async function getSnapshotRecord(id: string): Promise<SnapshotRecord | null> {
+  const db = await database();
+  const store = db.transaction(SNAPSHOTS).objectStore(SNAPSHOTS);
+  const stored: unknown = await requestResult(store.get(id));
+  return isSnapshotRecord(stored) ? stored : null;
+}
+
+export async function getSnapshotProject(id: string): Promise<Project | null> {
+  const record = await getSnapshotRecord(id);
+  if (record === null) return null;
+  let document: unknown;
+  try {
+    document = JSON.parse(record.document);
+  } catch (error) {
+    throw new Error(`Snapshot ${id} is not valid JSON`, { cause: error });
+  }
+  return openProjectDocument(document);
+}
+
+export async function latestSnapshotText(projectId: string): Promise<string | null> {
+  const db = await database();
+  const store = db.transaction(SNAPSHOTS).objectStore(SNAPSHOTS);
+  const cursor = await requestResult(store.openCursor(snapshotRange(projectId), 'prev'));
+  if (cursor === null || !isSnapshotRecord(cursor.value)) return null;
+  return cursor.value.document;
+}
+
+export async function putSnapshot(record: SnapshotRecord, keep: number): Promise<void> {
+  const db = await database();
+  const transaction = db.transaction(SNAPSHOTS, 'readwrite');
+  const store = transaction.objectStore(SNAPSHOTS);
+  store.put(record);
+  const keys = await requestResult(store.getAllKeys(snapshotRange(record.projectId)));
+  const extraCount = keys.length - keep;
+  for (let index = 0; index < extraCount; index += 1) {
+    const key = keys[index];
+    if (key !== undefined) store.delete(key);
+  }
+  await transactionDone(transaction);
+}
+
+export async function deleteSnapshot(id: string): Promise<void> {
+  const db = await database();
+  const transaction = db.transaction(SNAPSHOTS, 'readwrite');
+  transaction.objectStore(SNAPSHOTS).delete(id);
+  await transactionDone(transaction);
+}
+
+function isSavedBlockRecord(value: unknown): value is SavedBlockRecord {
+  if (!isRecord(value)) return false;
+  const hasText =
+    typeof value.id === 'string' &&
+    typeof value.name === 'string' &&
+    typeof value.savedAt === 'string' &&
+    typeof value.envelope === 'string';
+  const hasComponentId = typeof value.componentId === 'string' || value.componentId === null;
+  return hasText && hasComponentId;
+}
+
+export async function listSavedBlocks(): Promise<SavedBlockRecord[]> {
+  const db = await database();
+  const store = db.transaction(SAVED_BLOCKS).objectStore(SAVED_BLOCKS);
+  const stored: unknown[] = await requestResult(store.getAll());
+  const records: SavedBlockRecord[] = [];
+  for (const value of stored) {
+    if (!isSavedBlockRecord(value)) {
+      console.warn('Skipped a stored saved block with an unknown shape', value);
+      continue;
+    }
+    records.push(value);
+  }
+  records.sort((left, right) => left.name.localeCompare(right.name));
+  return records;
+}
+
+export async function putSavedBlock(record: SavedBlockRecord): Promise<void> {
+  const db = await database();
+  const transaction = db.transaction(SAVED_BLOCKS, 'readwrite');
+  transaction.objectStore(SAVED_BLOCKS).put(record);
+  await transactionDone(transaction);
+  postTabMessage({ kind: 'saved-blocks-changed' });
+}
+
+export async function deleteSavedBlock(id: string): Promise<void> {
+  const db = await database();
+  const transaction = db.transaction(SAVED_BLOCKS, 'readwrite');
+  transaction.objectStore(SAVED_BLOCKS).delete(id);
+  await transactionDone(transaction);
+  postTabMessage({ kind: 'saved-blocks-changed' });
 }

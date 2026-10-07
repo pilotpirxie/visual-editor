@@ -39,7 +39,7 @@ beforeEach(() => {
 });
 
 describe('blockMenuItems', () => {
-  it('lists every block action in the PRD order', () => {
+  it('lists every block action in the PRD order, plus saving the block', () => {
     const labels: string[] = [];
     for (const item of blockMenuItems(context())) {
       if (!('isSeparator' in item)) labels.push(item.label);
@@ -52,6 +52,7 @@ describe('blockMenuItems', () => {
       'Move up',
       'Move down',
       'Disable',
+      'Save block…',
       'Convert to HTML…',
       'Delete',
     ]);
