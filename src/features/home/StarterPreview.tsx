@@ -1,5 +1,6 @@
 import { useRef, useState, type JSX, type SyntheticEvent } from 'react';
-import { DEVICE_VIEWPORTS } from '../../app/editorSlice';
+import { DEVICE_VIEWPORTS, noticeShown } from '../../app/editorSlice';
+import { dispatch } from '../../app/store';
 import type { Device, Project } from '../../app/types';
 import { registry } from '../../components/registry';
 import { applyPreset, BUILTIN_PRESETS, PRESET_GROUPS } from '../../presets/presets';
@@ -55,12 +56,17 @@ export function StarterPreview({
   const html = renderStandalonePage(shown, pageId, registry, { shouldLinkFonts: false });
   const pageSlugs = pageSlugsOf(project.pages);
 
-  function choosePreset(nextPresetId: string): void {
+  async function choosePreset(nextPresetId: string): Promise<void> {
     const preset = BUILTIN_PRESETS.find((item) => item.id === nextPresetId);
     if (preset === undefined) return;
-    ensureIconSets([preset.designSystem.iconSet])
-      .then(() => setPresetId(nextPresetId))
-      .catch((error: unknown) => console.error('Could not load the icons of a preset', error));
+    try {
+      await ensureIconSets([preset.designSystem.iconSet]);
+    } catch (error) {
+      console.error(`Could not load the icons of the ${preset.name} preset`, error);
+      dispatch(noticeShown('error', `The ${preset.name} design could not be loaded.`));
+      return;
+    }
+    setPresetId(nextPresetId);
   }
 
   function handleFrameLoad(event: SyntheticEvent<HTMLIFrameElement>): void {
@@ -134,7 +140,7 @@ export function StarterPreview({
             <select
               className="ve-input"
               value={presetId}
-              onChange={(event) => choosePreset(event.target.value)}
+              onChange={(event) => void choosePreset(event.target.value)}
             >
               {BUILTIN_PRESETS.map((preset) => (
                 <option key={preset.id} value={preset.id}>

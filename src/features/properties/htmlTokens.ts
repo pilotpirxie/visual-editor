@@ -3,8 +3,8 @@ export type HtmlTokenKind = 'tag' | 'attribute' | 'value' | 'comment';
 export type HtmlToken = { kind: HtmlTokenKind; start: number; end: number };
 
 const COMMENT = /<!--[\s\S]*?-->/g;
-const TAG = /<(\/?)([a-zA-Z][\w:-]*)([^<>]*?)(\/?)>/g;
-const ATTRIBUTE = /([^\s=/"'<>]+)(\s*=\s*("[^"]*"|'[^']*'|[^\s"'<>=`]+))?/g;
+const TAG = /<(?<slash>\/?)(?<name>[a-zA-Z][\w:-]*)(?<attributes>[^<>]*?)(?<selfClose>\/?)>/g;
+const ATTRIBUTE = /(?<name>[^\s=/"'<>]+)(?:\s*=\s*(?<value>"[^"]*"|'[^']*'|[^\s"'<>=`]+))?/g;
 
 const VOID_ELEMENTS = new Set([
   'area',
@@ -33,9 +33,9 @@ function attributeTokens(text: string, offset: number): HtmlToken[] {
   const tokens: HtmlToken[] = [];
   for (const match of text.matchAll(ATTRIBUTE)) {
     const start = offset + match.index;
-    const name = match[1] ?? '';
+    const name = match.groups?.name ?? '';
     tokens.push({ kind: 'attribute', start, end: start + name.length });
-    const value = match[3];
+    const value = match.groups?.value;
     if (value === undefined) continue;
     const valueStart = start + match[0].length - value.length;
     tokens.push({ kind: 'value', start: valueStart, end: valueStart + value.length });
@@ -51,12 +51,15 @@ export function tokenizeHtml(text: string): HtmlToken[] {
   const tokens: HtmlToken[] = [...comments];
   for (const match of text.matchAll(TAG)) {
     if (isInside(match.index, comments)) continue;
-    const [whole, slash = '', name = '', attributes = ''] = match;
+    const slash = match.groups?.slash ?? '';
+    const name = match.groups?.name ?? '';
+    const attributes = match.groups?.attributes ?? '';
+    const isSelfClosing = match.groups?.selfClose === '/';
     const nameEnd = match.index + 1 + slash.length + name.length;
     tokens.push({ kind: 'tag', start: match.index, end: nameEnd });
     tokens.push(...attributeTokens(attributes, nameEnd));
-    const closeLength = match[4] === '/' ? 2 : 1;
-    const end = match.index + whole.length;
+    const closeLength = isSelfClosing ? 2 : 1;
+    const end = match.index + match[0].length;
     tokens.push({ kind: 'tag', start: end - closeLength, end });
   }
   tokens.sort((left, right) => left.start - right.start);

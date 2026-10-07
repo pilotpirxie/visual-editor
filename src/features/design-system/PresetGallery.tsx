@@ -58,10 +58,14 @@ function ApplyPresetDialog({
     );
   }
 
-  function apply(element: Element): void {
-    dispatch(applyPresetGroups(preset, groups))
-      .then(() => closeDialogOf(element))
-      .catch((error: unknown) => reportFailure('Applying the preset', error));
+  async function apply(element: Element): Promise<void> {
+    try {
+      await dispatch(applyPresetGroups(preset, groups));
+    } catch (error) {
+      reportFailure('Applying the preset', error);
+      return;
+    }
+    closeDialogOf(element);
   }
 
   return (
@@ -96,7 +100,7 @@ function ApplyPresetDialog({
             type="button"
             className="ve-button ve-button--primary"
             disabled={groups.length === 0}
-            onClick={(event) => apply(event.currentTarget)}
+            onClick={(event) => void apply(event.currentTarget)}
           >
             Apply
           </button>
@@ -116,13 +120,16 @@ function SavePresetDialog({
   const [name, setName] = useState('');
   const titleId = 've-save-preset-title';
 
-  function save(element: Element): void {
-    saveUserPreset(name, store.getState().project.designSystem)
-      .then((preset) => {
-        onSaved(preset);
-        closeDialogOf(element);
-      })
-      .catch((error: unknown) => reportFailure('Saving the preset', error));
+  async function save(element: Element): Promise<void> {
+    let preset: DesignSystemPreset;
+    try {
+      preset = await saveUserPreset(name, store.getState().project.designSystem);
+    } catch (error) {
+      reportFailure('Saving the preset', error);
+      return;
+    }
+    onSaved(preset);
+    closeDialogOf(element);
   }
 
   return (
@@ -131,7 +138,7 @@ function SavePresetDialog({
         className="ve-dialog-body"
         onSubmit={(event) => {
           event.preventDefault();
-          if (name.trim() !== '') save(event.currentTarget);
+          if (name.trim() !== '') void save(event.currentTarget);
         }}
       >
         <h2 id={titleId} className="ve-properties-title">
@@ -272,11 +279,15 @@ export function PresetGallery(): JSX.Element {
 
   useEffect(() => {
     let isCancelled = false;
-    loadUserPresets()
-      .then((presets) => {
+    async function load(): Promise<void> {
+      try {
+        const presets = await loadUserPresets();
         if (!isCancelled) setUserPresets(presets);
-      })
-      .catch((error: unknown) => reportFailure('Loading your presets', error));
+      } catch (error) {
+        reportFailure('Loading your presets', error);
+      }
+    }
+    void load();
     return () => {
       isCancelled = true;
     };
@@ -291,10 +302,14 @@ export function PresetGallery(): JSX.Element {
     );
   }
 
-  function remove(preset: DesignSystemPreset): void {
-    removeUserPreset(preset.id)
-      .then(() => setUserPresets((current) => current.filter((item) => item.id !== preset.id)))
-      .catch((error: unknown) => reportFailure('Deleting the preset', error));
+  async function remove(preset: DesignSystemPreset): Promise<void> {
+    try {
+      await removeUserPreset(preset.id);
+    } catch (error) {
+      reportFailure('Deleting the preset', error);
+      return;
+    }
+    setUserPresets((current) => current.filter((item) => item.id !== preset.id));
   }
 
   async function importFile(event: ChangeEvent<HTMLInputElement>): Promise<void> {
@@ -318,7 +333,7 @@ export function PresetGallery(): JSX.Element {
         isPreviewing={previewId === preset.id}
         onPreview={preview}
         onApply={setApplying}
-        onDelete={canDelete ? remove : undefined}
+        onDelete={canDelete ? (deleted) => void remove(deleted) : undefined}
       />
     );
   }

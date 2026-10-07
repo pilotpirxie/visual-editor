@@ -30,9 +30,18 @@ async function readZip(blob: Blob): Promise<ReadEntry[]> {
   return entries;
 }
 
+async function firstHeader(modifiedAt: Date): Promise<DataView> {
+  const zip = await createZip(await zipEntriesOf({ 'a.txt': 'a' }), modifiedAt);
+  return new DataView(await zip.arrayBuffer());
+}
+
 describe('crc32', () => {
   it('matches the standard check value', () => {
     expect(crc32(new TextEncoder().encode('123456789'))).toBe(0xcbf43926);
+  });
+
+  it('is zero for no bytes', () => {
+    expect(crc32(new Uint8Array())).toBe(0);
   });
 });
 
@@ -57,6 +66,30 @@ describe('createZip', () => {
     expect(read[2]?.method).toBe(8);
     expect([...(read[0]?.data ?? [])]).toEqual([1, 2, 3]);
     expect(read[0]?.method).toBe(0);
+  });
+
+  it('stamps every file with the export time in the zip date format', async () => {
+    const header = await firstHeader(new Date(2026, 9, 7, 12, 30, 41));
+    const time = header.getUint16(10, true);
+    const date = header.getUint16(12, true);
+    expect(time >> 11).toBe(12);
+    expect((time >> 5) & 0b111111).toBe(30);
+    expect((time & 0b11111) * 2).toBe(40);
+    expect((date >> 9) + 1980).toBe(2026);
+    expect((date >> 5) & 0b1111).toBe(10);
+    expect(date & 0b11111).toBe(7);
+  });
+
+  it('clamps dates before 1980 to the first year the zip format can hold', async () => {
+    const header = await firstHeader(new Date(1970, 0, 1));
+    expect(header.getUint16(12, true) >> 9).toBe(0);
+  });
+
+  it('writes an empty archive with only the closing record', async () => {
+    const zip = await createZip([], new Date(2026, 0, 1));
+    const bytes = new Uint8Array(await zip.arrayBuffer());
+    expect(bytes.length).toBe(22);
+    expect(new DataView(bytes.buffer).getUint16(10, true)).toBe(0);
   });
 
   it('ends with a central directory that counts every file', async () => {

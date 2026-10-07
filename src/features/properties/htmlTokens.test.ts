@@ -24,6 +24,23 @@ describe('tokenizeHtml', () => {
     ]);
   });
 
+  it('reads single-quoted and unquoted values and spaces around the equals sign', () => {
+    const text = "<input type = 'email' size=20>";
+    expect(pieces(text, tokenizeHtml(text))).toEqual([
+      'tag:<input',
+      'attribute:type',
+      "value:'email'",
+      'attribute:size',
+      'value:20',
+      'tag:>',
+    ]);
+  });
+
+  it('returns no tokens for empty or plain text', () => {
+    expect(tokenizeHtml('')).toEqual([]);
+    expect(tokenizeHtml('Just words')).toEqual([]);
+  });
+
   it('ignores tags written inside comments', () => {
     const text = '<!-- <div> -->';
     expect(pieces(text, tokenizeHtml(text))).toEqual(['comment:<!-- <div> -->']);

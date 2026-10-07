@@ -14,8 +14,8 @@ export type SiteCssInput = {
 export type SiteCss = { css: string; usedTokens: Set<string>; omittedPrimitives: string[] };
 
 const TOKEN_REFERENCE = /^var\((?<name>--[a-z0-9-]+)\)$/;
-const VAR_REFERENCE = /var\(\s*(--[a-zA-Z0-9-]+)/g;
-const CLASS_SELECTOR = /\.(-?[_a-zA-Z][\w-]*)/g;
+const VAR_REFERENCE = /var\(\s*(?<name>--[a-zA-Z0-9-]+)/g;
+const CLASS_SELECTOR = /\.(?<name>-?[_a-zA-Z][\w-]*)/g;
 
 const PRIMITIVE_ORDER = [
   'container',
@@ -52,7 +52,7 @@ export const LAYER_ORDER = '@layer reset, base, primitives, components, utilitie
 export function chunkClasses(css: string): string[] {
   const classes = new Set<string>();
   for (const match of css.matchAll(CLASS_SELECTOR)) {
-    const name = match[1];
+    const name = match.groups?.name;
     if (name !== undefined) classes.add(name);
   }
   return [...classes];
@@ -108,7 +108,7 @@ export function buildTokensCss(tokens: Record<string, Token>): string {
 function referencedNames(text: string): string[] {
   const names: string[] = [];
   for (const match of text.matchAll(VAR_REFERENCE)) {
-    const name = match[1];
+    const name = match.groups?.name;
     if (name !== undefined) names.push(name);
   }
   return names;

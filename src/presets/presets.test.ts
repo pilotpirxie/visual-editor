@@ -3,7 +3,15 @@ import type { DesignSystemPreset } from '../app/types';
 import { contrastRatio, contrastWarnings, resolveColor } from '../features/design-system/colors';
 import googleFonts from '../features/design-system/google-fonts.json';
 import { iconSetInfo } from '../../packages/icon-data/src/sets';
-import { applyPreset, BUILTIN_PRESETS, CLEAN_PRESET, parsePreset, PRESET_GROUPS } from './presets';
+import {
+  applyPreset,
+  BUILTIN_PRESETS,
+  CLEAN_PRESET,
+  parsePreset,
+  PRESET_GROUPS,
+  presetDesignSystem,
+  withoutPresetId,
+} from './presets';
 
 const MIN_TEXT_CONTRAST = 4.5;
 
@@ -78,6 +86,41 @@ describe('applyPreset', () => {
     expect(applied.tokens['--button-radius']?.value).toBe('var(--radius-full)');
     expect(applied.presetId).toBe('playful');
   });
+
+  it('forgets the previous preset when only some groups are taken', () => {
+    const current = presetDesignSystem(CLEAN_PRESET);
+    const applied = applyPreset(current, preset('midnight'), ['shape']);
+    expect(current.presetId).toBe('clean');
+    expect(applied.presetId).toBeUndefined();
+  });
+
+  it('changes nothing but the preset id when no group is taken', () => {
+    const current = presetDesignSystem(CLEAN_PRESET);
+    const applied = applyPreset(current, preset('midnight'), []);
+    expect(applied).toEqual(withoutPresetId(current));
+  });
+
+  it('leaves the current design system untouched', () => {
+    const current = presetDesignSystem(CLEAN_PRESET);
+    const before = structuredClone(current);
+    applyPreset(current, preset('midnight'), PRESET_GROUPS);
+    expect(current).toEqual(before);
+  });
+});
+
+describe('withoutPresetId', () => {
+  it('keeps tokens, fonts, generators and the icon set but drops the preset id', () => {
+    const designSystem = presetDesignSystem(preset('corporate'));
+    const plain = withoutPresetId(designSystem);
+    expect(plain).toEqual({
+      tokens: designSystem.tokens,
+      fonts: designSystem.fonts,
+      generators: designSystem.generators,
+      iconSet: 'material-symbols',
+    });
+    expect('presetId' in plain).toBe(false);
+    expect(designSystem.presetId).toBe('corporate');
+  });
 });
 
 describe('parsePreset', () => {
@@ -89,5 +132,24 @@ describe('parsePreset', () => {
     const primary = unsafe.designSystem.tokens['--color-primary'];
     if (primary !== undefined) primary.value = 'red; } * { display: none';
     expect(() => parsePreset(unsafe, 'user')).toThrow('designSystem.tokens.--color-primary.value');
+  });
+
+  it('trims the name, defaults the description and tags, and ignores a stored preset id', () => {
+    const file = {
+      id: 'mine',
+      name: '  Mine  ',
+      designSystem: { ...presetDesignSystem(CLEAN_PRESET), presetId: 'clean' },
+    };
+    const parsed = parsePreset(JSON.parse(JSON.stringify(file)), 'user');
+    expect(parsed.name).toBe('Mine');
+    expect(parsed.description).toBe('');
+    expect(parsed.tags).toEqual([]);
+    expect(parsed.source).toBe('user');
+    expect('presetId' in parsed.designSystem).toBe(false);
+  });
+
+  it('rejects something that is not a preset object', () => {
+    expect(() => parsePreset(null, 'user')).toThrow('not a design system preset');
+    expect(() => parsePreset(['clean'], 'user')).toThrow('not a design system preset');
   });
 });

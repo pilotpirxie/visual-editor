@@ -11,15 +11,22 @@ const UTF8_NAMES_FLAG = 0x0800;
 const METHOD_STORED = 0;
 const METHOD_DEFLATED = 8;
 const DOS_EPOCH_YEAR = 1980;
+const DOS_HOUR_SHIFT = 11;
+const DOS_MINUTE_SHIFT = 5;
+const DOS_SECONDS_PER_STEP = 2;
+const DOS_YEAR_SHIFT = 9;
+const DOS_MONTH_SHIFT = 5;
 const CRC_POLYNOMIAL = 0xedb88320;
+const CRC_TABLE_SIZE = 256;
+const BITS_PER_BYTE = 8;
 
 const CRC_TABLE = buildCrcTable();
 
 function buildCrcTable(): Uint32Array {
-  const table = new Uint32Array(256);
-  for (let index = 0; index < 256; index += 1) {
+  const table = new Uint32Array(CRC_TABLE_SIZE);
+  for (let index = 0; index < CRC_TABLE_SIZE; index += 1) {
     let value = index;
-    for (let bit = 0; bit < 8; bit += 1) {
+    for (let bit = 0; bit < BITS_PER_BYTE; bit += 1) {
       value = value & 1 ? CRC_POLYNOMIAL ^ (value >>> 1) : value >>> 1;
     }
     table[index] = value >>> 0;
@@ -43,12 +50,16 @@ async function deflateRaw(bytes: Uint8Array<ArrayBuffer>): Promise<Uint8Array<Ar
 }
 
 function dosTime(date: Date): number {
-  return (date.getHours() << 11) | (date.getMinutes() << 5) | Math.floor(date.getSeconds() / 2);
+  const hours = date.getHours() << DOS_HOUR_SHIFT;
+  const minutes = date.getMinutes() << DOS_MINUTE_SHIFT;
+  const seconds = Math.floor(date.getSeconds() / DOS_SECONDS_PER_STEP);
+  return hours | minutes | seconds;
 }
 
 function dosDate(date: Date): number {
   const year = Math.max(date.getFullYear(), DOS_EPOCH_YEAR) - DOS_EPOCH_YEAR;
-  return (year << 9) | ((date.getMonth() + 1) << 5) | date.getDate();
+  const month = date.getMonth() + 1;
+  return (year << DOS_YEAR_SHIFT) | (month << DOS_MONTH_SHIFT) | date.getDate();
 }
 
 type PreparedEntry = {

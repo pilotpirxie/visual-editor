@@ -74,18 +74,24 @@ async function saveToFolder(result: ExportResult): Promise<boolean> {
 function Summary({ result }: { result: ExportResult }): JSX.Element {
   const paths = Object.keys(result.files);
   paths.sort();
+  const sizes = new Map<string, number>();
+  let totalBytes = 0;
+  for (const path of paths) {
+    const size = fileSize(result.files[path] ?? '');
+    sizes.set(path, size);
+    totalBytes += size;
+  }
   const { omitted } = result;
   return (
     <details className="ve-export-files">
       <summary>
-        {paths.length} files,{' '}
-        {formatBytes(paths.reduce((sum, path) => sum + fileSize(result.files[path] ?? ''), 0))}
+        {paths.length} files, {formatBytes(totalBytes)}
       </summary>
       <ul>
         {paths.map((path) => (
           <li key={path}>
             <span>{path}</span>
-            <span className="ve-muted">{formatBytes(fileSize(result.files[path] ?? ''))}</span>
+            <span className="ve-muted">{formatBytes(sizes.get(path) ?? 0)}</span>
           </li>
         ))}
       </ul>
@@ -106,9 +112,11 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
 
   useEffect(() => {
     let isCancelled = false;
-    void prepareExport().then((next) => {
+    async function prepare(): Promise<void> {
+      const next = await prepareExport();
       if (!isCancelled) setPreparation(next);
-    });
+    }
+    void prepare();
     return () => {
       isCancelled = true;
     };

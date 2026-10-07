@@ -29,15 +29,11 @@ export async function readHandle(handle: FileSystemFileHandle): Promise<PickedFi
   return { text: await file.text(), name: file.name, lastModified: file.lastModified, handle };
 }
 
-function readChosenFile(input: HTMLInputElement): Promise<PickedFile | null> {
+async function readChosenFile(input: HTMLInputElement): Promise<PickedFile | null> {
   const file = input.files?.[0];
-  if (file === undefined) return Promise.resolve(null);
-  return file.text().then((text) => ({
-    text,
-    name: file.name,
-    lastModified: file.lastModified,
-    handle: null,
-  }));
+  if (file === undefined) return null;
+  const text = await file.text();
+  return { text, name: file.name, lastModified: file.lastModified, handle: null };
 }
 
 function pickWithInput(): Promise<PickedFile | null> {
@@ -45,9 +41,14 @@ function pickWithInput(): Promise<PickedFile | null> {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = `${PROJECT_FILE_EXTENSION},${PROJECT_FILE_TYPE}`;
-    input.addEventListener('change', () => readChosenFile(input).then(resolve, reject), {
-      once: true,
-    });
+    async function readSelection(): Promise<void> {
+      try {
+        resolve(await readChosenFile(input));
+      } catch (error) {
+        reject(error);
+      }
+    }
+    input.addEventListener('change', () => void readSelection(), { once: true });
     input.addEventListener('cancel', () => resolve(null), { once: true });
     input.click();
   });

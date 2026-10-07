@@ -35,6 +35,11 @@ function textList(value: unknown): string[] {
   return items;
 }
 
+export function withoutPresetId(designSystem: DesignSystem): DesignSystem {
+  const { tokens, fonts, generators, iconSet } = designSystem;
+  return { tokens, fonts, generators, iconSet };
+}
+
 export function parsePreset(
   value: unknown,
   source: DesignSystemPreset['source'],
@@ -44,8 +49,7 @@ export function parsePreset(
   if (typeof id !== 'string' || id === '' || typeof name !== 'string' || name.trim() === '') {
     throw new ProjectFormatError('This preset has no id or name');
   }
-  const designSystem = parseDesignSystem(value.designSystem);
-  delete designSystem.presetId;
+  const designSystem = withoutPresetId(parseDesignSystem(value.designSystem));
   return {
     id,
     name: name.trim(),
@@ -91,10 +95,6 @@ export function applyPreset(
   if (groups.includes('spacing')) next.generators.spaceUnitPx = from.generators.spaceUnitPx;
   if (groups.includes('icons')) next.iconSet = from.iconSet;
   const isWholePreset = PRESET_GROUPS.every((group) => groups.includes(group));
-  if (isWholePreset) {
-    next.presetId = preset.id;
-  } else {
-    delete next.presetId;
-  }
-  return next;
+  if (isWholePreset) return { ...next, presetId: preset.id };
+  return withoutPresetId(next);
 }

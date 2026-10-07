@@ -45,8 +45,8 @@ const LICENSES_PATH = 'licenses.txt';
 const GOOGLE_FONTS_ATTRIBUTION = 'https://fonts.google.com/attribution';
 const BLOCK_INDENT = 1;
 const MAIN_INDENT = 2;
-const BEHAVIOR_ATTRIBUTE = /\sdata-behavior="([^"]*)"/g;
-const CLASS_ATTRIBUTE = /\sclass="([^"]*)"/g;
+const BEHAVIOR_ATTRIBUTE = /\sdata-behavior="(?<names>[^"]*)"/g;
+const CLASS_ATTRIBUTE = /\sclass="(?<names>[^"]*)"/g;
 const WHITESPACE = /\s+/;
 
 const IMAGE_EXTENSIONS: Record<string, string> = {
@@ -167,7 +167,8 @@ export function renderProjectPage(
 function namesIn(html: string, pattern: RegExp): Set<string> {
   const names = new Set<string>();
   for (const match of html.matchAll(pattern)) {
-    for (const name of (match[1] ?? '').split(WHITESPACE)) {
+    const attributeValue = match.groups?.names ?? '';
+    for (const name of attributeValue.split(WHITESPACE)) {
       if (name !== '') names.add(name);
     }
   }

@@ -146,7 +146,16 @@ export function convertBlockToHtml(
   component: RegisteredComponent,
   project: Pick<Project, 'settings' | 'pages' | 'designSystem'>,
 ): string {
-  const plain: ComponentBlock = { ...block, extraClasses: [], hideOn: [] };
-  delete plain.anchor;
+  const plain: ComponentBlock = {
+    id: block.id,
+    kind: 'component',
+    componentId: block.componentId,
+    componentVersion: block.componentVersion,
+    values: block.values,
+    overrides: block.overrides,
+    disabled: block.disabled,
+    extraClasses: [],
+    hideOn: [],
+  };
   return formatHtml(renderBlock(plain, component, createRenderContext(project, 'export')));
 }

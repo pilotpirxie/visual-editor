@@ -4,7 +4,12 @@ import { createSampleProject } from '../app/projectFactory';
 import type { ComponentBlock, HtmlBlock } from '../app/types';
 import { createBlock, registry } from '../components/registry';
 import type { RegisteredComponent } from '../components/types';
-import { createRenderContext, renderBlock, renderHtmlBlock } from './renderBlock';
+import {
+  convertBlockToHtml,
+  createRenderContext,
+  renderBlock,
+  renderHtmlBlock,
+} from './renderBlock';
 
 function registered(componentId: string): RegisteredComponent {
   const component = registry.get(componentId);
@@ -161,5 +166,35 @@ describe('renderHtmlBlock', () => {
     expect(renderHtmlBlock(htmlBlock, exported)).toBe(
       '<section class="b-x wide hide-phone" id="story"><p>Hi</p></section>',
     );
+  });
+});
+
+describe('convertBlockToHtml', () => {
+  const project = createSampleProject();
+
+  it('keeps the component class, the component id and the overrides', () => {
+    const block = heroBlock({ overrides: { '--color-background': 'var(--color-surface)' } });
+    const html = convertBlockToHtml(block, hero, project);
+    expect(html).toContain('data-component="hero-centered"');
+    expect(html).toContain('class="b-hero-centered section"');
+    expect(html).toContain('--color-background: var(--color-surface)');
+  });
+
+  it('leaves out the anchor, extra classes, hide classes and editor attributes', () => {
+    const block = heroBlock({ anchor: 'top', extraClasses: ['promo'], hideOn: ['phone'] });
+    const html = convertBlockToHtml(block, hero, project);
+    expect(html).not.toContain('id="top"');
+    expect(html).not.toContain('promo');
+    expect(html).not.toContain('hide-phone');
+    expect(html).not.toContain('data-block-id');
+    expect(html).not.toContain('data-field');
+  });
+
+  it('writes the current field values and leaves the block itself unchanged', () => {
+    const block = heroBlock({ anchor: 'top' });
+    block.values.title = 'Ship faster';
+    const html = convertBlockToHtml(block, hero, project);
+    expect(html).toContain('Ship faster');
+    expect(block.anchor).toBe('top');
   });
 });

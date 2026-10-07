@@ -4,7 +4,13 @@ import type { AppThunk } from '../../app/store';
 import type { DesignSystem, DesignSystemPreset } from '../../app/types';
 import { deleteUserPreset, listUserPresets, putUserPreset } from '../../persistence/db';
 import { ProjectFormatError } from '../../persistence/validateProject';
-import { applyPreset, parsePreset, PRESET_GROUPS, type PresetGroup } from '../../presets/presets';
+import {
+  applyPreset,
+  parsePreset,
+  PRESET_GROUPS,
+  withoutPresetId,
+  type PresetGroup,
+} from '../../presets/presets';
 import { ensureIconSets } from '../icons/ensureIconSets';
 
 export function previewPreset(
@@ -48,12 +54,6 @@ export async function loadUserPresets(): Promise<DesignSystemPreset[]> {
   return presets;
 }
 
-function withoutPresetId(designSystem: DesignSystem): DesignSystem {
-  const copy = structuredClone(designSystem);
-  delete copy.presetId;
-  return copy;
-}
-
 export async function saveUserPreset(
   name: string,
   designSystem: DesignSystem,
@@ -64,7 +64,7 @@ export async function saveUserPreset(
     description: '',
     tags: [],
     source: 'user',
-    designSystem: withoutPresetId(designSystem),
+    designSystem: withoutPresetId(structuredClone(designSystem)),
   };
   await putUserPreset(preset);
   return preset;

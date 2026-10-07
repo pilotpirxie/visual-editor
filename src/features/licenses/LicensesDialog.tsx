@@ -20,14 +20,18 @@ function LicenseBody({ setId }: { setId: string }): JSX.Element {
     const load = licenseTexts[`./texts/${setId}.txt`];
     if (load === undefined) return;
     let isCancelled = false;
-    load()
-      .then((text) => {
-        if (!isCancelled) setLicense({ status: 'ready', text });
-      })
-      .catch((error: unknown) => {
+    async function loadLicense(): Promise<void> {
+      let text: string;
+      try {
+        text = await load();
+      } catch (error) {
         console.error(`Could not load the license of ${setId}`, error);
         if (!isCancelled) setLicense({ status: 'failed' });
-      });
+        return;
+      }
+      if (!isCancelled) setLicense({ status: 'ready', text });
+    }
+    void loadLicense();
     return () => {
       isCancelled = true;
     };

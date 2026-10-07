@@ -71,22 +71,24 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
   const labelId = `${id}-label`;
   const singleSet = sets.length === 1 ? sets[0] : undefined;
   const styles = singleSet === undefined ? [] : (iconSetData(singleSet)?.styles ?? []);
-  const matches =
-    query === null ? [] : searchSets(sets, query, styles.length > 0 ? style : ANY_STYLE);
+  const searchStyle = styles.length > 0 ? style : ANY_STYLE;
+  const matches = query === null ? [] : searchSets(sets, query, searchStyle);
   const shown = matches.slice(0, MAX_RESULTS);
   const canUseDefault =
     typeof field.default === 'string' && isSemanticIcon(field.default) && ref !== field.default;
 
-  function requestSets(nextFilter: string): void {
+  async function requestSets(nextFilter: string): Promise<void> {
     const missing = setsToLoad(nextFilter, defaultSet, allowedIds);
     if (missing.length === 0) return;
     setLoadState({ status: 'loading' });
-    Promise.all(missing.map((set) => loadIconSet(set)))
-      .then(() => setLoadState({ status: 'idle' }))
-      .catch((error: unknown) => {
-        console.error('Could not load an icon set', error);
-        setLoadState({ status: 'failed', message: 'This icon set could not be loaded.' });
-      });
+    try {
+      await Promise.all(missing.map((set) => loadIconSet(set)));
+    } catch (error) {
+      console.error(`Could not load the icon sets ${missing.join(', ')}`, error);
+      setLoadState({ status: 'failed', message: 'This icon set could not be loaded.' });
+      return;
+    }
+    setLoadState({ status: 'idle' });
   }
 
   function closePicker(): void {
@@ -124,7 +126,7 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
               return;
             }
             setQuery('');
-            requestSets(filter);
+            void requestSets(filter);
           }}
         >
           {isPickerOpen ? 'Close' : 'Change'}
@@ -149,7 +151,7 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
               onChange={(event) => {
                 setFilter(event.target.value);
                 setStyle(ANY_STYLE);
-                requestSets(event.target.value);
+                void requestSets(event.target.value);
               }}
             >
               {allowedIds.includes(defaultSet) && (
