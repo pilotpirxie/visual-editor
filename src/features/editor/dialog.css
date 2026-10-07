@@ -1,0 +1,69 @@
+@layer components {
+  .ve-dialog {
+    width: min(440px, calc(100% - 32px));
+    max-height: calc(100% - 32px);
+    padding: 0;
+    border: 1px solid var(--ve-border);
+    border-radius: 10px;
+    background: var(--ve-bg);
+    color: var(--ve-text);
+    box-shadow: var(--ve-shadow);
+  }
+
+  .ve-dialog--wide {
+    width: min(720px, calc(100% - 32px));
+  }
+
+  .ve-dialog::backdrop {
+    background: rgb(16 24 40 / 0.4);
+  }
+
+  .ve-dialog-body,
+  .ve-dialog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .ve-dialog-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .ve-dialog-warning {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 12px;
+    border-radius: var(--ve-radius);
+    background: #fef3c7;
+    color: #78350f;
+  }
+
+  .ve-dialog-warning ul {
+    max-height: 160px;
+    margin: 0;
+    padding-left: 18px;
+    overflow-y: auto;
+  }
+
+  .ve-dialog-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .ve-button--danger {
+    padding-inline: 12px;
+    background: var(--ve-danger);
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .ve-button--danger:hover {
+    background: color-mix(in oklab, var(--ve-danger), black 12%);
+  }
+}

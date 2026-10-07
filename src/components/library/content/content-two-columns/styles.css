@@ -1,0 +1,30 @@
+@layer components {
+  @scope (.b-content-two-columns) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 44rem;
+    }
+
+    .b-columns {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-column {
+      --prose-measure: none;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-columns {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-12);
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+@layer components {
+  @scope (.b-steps-timeline) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      align-content: start;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-timeline {
+      display: grid;
+      gap: var(--space-8);
+      padding-inline-start: var(--space-8);
+      border-inline-start: 2px solid var(--color-border);
+    }
+
+    .b-step {
+      --stack-gap: var(--space-2);
+      position: relative;
+    }
+
+    .b-step::before {
+      content: '';
+      position: absolute;
+      inset-block-start: 0.25rem;
+      inset-inline-start: calc(-1 * var(--space-8) - 0.5rem - 1px);
+      width: 1rem;
+      height: 1rem;
+      border: 3px solid var(--color-background);
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 2fr 3fr;
+        gap: var(--space-16);
+      }
+
+      .b-head {
+        position: sticky;
+        top: var(--space-8);
+      }
+    }
+  }
+}

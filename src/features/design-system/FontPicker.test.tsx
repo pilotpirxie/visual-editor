@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fontSet } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
 import { changeValue, click, getButton, render, runInAct } from '../../test/dom';
-import { loadIntoAppStore } from '../../test/fixtures';
+import { createSampleProject } from '../../app/projectFactory';
+import { loadIntoAppStore, withSystemFonts } from '../../test/fixtures';
 import { FontPicker } from './FontPicker';
 
 vi.mock('../../persistence/db', () => ({
@@ -37,7 +38,7 @@ async function renderPicker() {
 }
 
 beforeEach(() => {
-  loadIntoAppStore();
+  loadIntoAppStore(withSystemFonts(createSampleProject()));
   document.head.querySelectorAll('link[data-font-preview]').forEach((link) => link.remove());
 });
 

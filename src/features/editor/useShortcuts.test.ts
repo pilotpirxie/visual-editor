@@ -98,7 +98,65 @@ describe('shortcutFor', () => {
   });
 });
 
+describe('shortcutFor with file keys', () => {
+  it('maps Cmd or Ctrl with S, Shift+S and O to the file commands', () => {
+    expect(shortcutFor(keyEvent('s', { metaKey: true }))).toEqual({
+      kind: 'save',
+      isSaveAs: false,
+    });
+    expect(shortcutFor(keyEvent('S', { ctrlKey: true, shiftKey: true }))).toEqual({
+      kind: 'save',
+      isSaveAs: true,
+    });
+    expect(shortcutFor(keyEvent('o', { metaKey: true }))).toEqual({ kind: 'open' });
+  });
+
+  it('keeps Save working while typing but leaves Open to the field', () => {
+    const input = placeInside(document.createElement('div'), 'input');
+    expect(shortcutFor(keyEvent('s', { metaKey: true, target: input }))?.kind).toBe('save');
+    expect(shortcutFor(keyEvent('o', { metaKey: true, target: input }))).toBeNull();
+  });
+});
+
+describe('shortcutFor with canvas and preview keys', () => {
+  it('maps the bare arrow keys to selecting blocks only when the canvas has focus', () => {
+    expect(shortcutFor(keyEvent('ArrowDown'), true)).toEqual({ kind: 'select-sibling', offset: 1 });
+    expect(shortcutFor(keyEvent('ArrowUp'), true)).toEqual({ kind: 'select-sibling', offset: -1 });
+    expect(shortcutFor(keyEvent('ArrowDown'), false)).toBeNull();
+    expect(shortcutFor(keyEvent('ArrowDown', { shiftKey: true }), true)).toBeNull();
+  });
+
+  it('maps Cmd or Ctrl with P to Preview but not while typing', () => {
+    expect(shortcutFor(keyEvent('p', { metaKey: true }))).toEqual({ kind: 'toggle-preview' });
+    expect(shortcutFor(keyEvent('P', { ctrlKey: true }))).toEqual({ kind: 'toggle-preview' });
+    const input = placeInside(document.createElement('div'), 'input');
+    expect(shortcutFor(keyEvent('p', { metaKey: true, target: input }))).toBeNull();
+  });
+});
+
 describe('applyShortcut', () => {
+  it('starts and leaves Preview with the preview key', () => {
+    const store = createTestStore();
+    expect(store.dispatch(applyShortcut({ kind: 'toggle-preview' }))).toBe(true);
+    expect(store.getState().editor.isPreview).toBe(true);
+    store.dispatch(applyShortcut({ kind: 'toggle-preview' }));
+    expect(store.getState().editor.isPreview).toBe(false);
+  });
+
+  it('selects the next and previous block and stops at the ends', () => {
+    const store = createTestStore();
+    const [nav, hero, , footer] = blockIds(store);
+    store.dispatch(applyShortcut({ kind: 'select-sibling', offset: 1 }));
+    expect(store.getState().editor.selectedBlockId).toBe(nav);
+    store.dispatch(applyShortcut({ kind: 'select-sibling', offset: 1 }));
+    expect(store.getState().editor.selectedBlockId).toBe(hero);
+    store.dispatch(blockSelected(null));
+    store.dispatch(applyShortcut({ kind: 'select-sibling', offset: -1 }));
+    expect(store.getState().editor.selectedBlockId).toBe(footer);
+    store.dispatch(applyShortcut({ kind: 'select-sibling', offset: 1 }));
+    expect(store.getState().editor.selectedBlockId).toBe(footer);
+  });
+
   it('leaves Preview with Escape and ignores every other shortcut while previewing', () => {
     const store = createTestStore();
     const hero = blockIds(store)[1];

@@ -1,0 +1,67 @@
+@layer components {
+  @scope (.b-pricing-3-plans) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-plans {
+      --grid-min: 16rem;
+      --grid-gap: var(--space-6);
+      align-items: stretch;
+    }
+
+    .b-plan {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-plan[data-featured] {
+      --card-shadow: var(--shadow-lg);
+      border-color: var(--color-primary);
+      outline: 1px solid var(--color-primary);
+    }
+
+    .b-plan-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-period,
+    .b-description {
+      color: var(--color-text-muted);
+    }
+
+    .b-features {
+      flex: 1;
+    }
+
+    .b-button {
+      width: 100%;
+    }
+  }
+}

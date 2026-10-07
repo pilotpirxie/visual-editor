@@ -7,6 +7,7 @@ import { dragController, type DragPayload } from '../canvas/dragController';
 import { dropEdgeAt, finalMoveIndex } from '../canvas/geometry';
 import { useListDropTarget } from '../canvas/useListDropTarget';
 import { Icon } from '../editor/Icon';
+import { closeOwningPopover } from '../editor/Menu';
 import { DeletePageDialog } from './DeletePageDialog';
 import { duplicatePage, openPage } from './pageActions';
 import { PageDialog } from './PageDialog';
@@ -23,13 +24,6 @@ const DROP_EDGE_MARGIN = 12;
 
 export function pageFileName(page: Page, homePageId: string): string {
   return page.id === homePageId ? 'index.html' : `${page.slug}.html`;
-}
-
-function hidePopoverOf(event: MouseEvent<HTMLElement>): void {
-  const popover = event.currentTarget.closest<HTMLElement>('[popover]');
-  if (popover !== null && 'hidePopover' in popover && popover.matches(':popover-open')) {
-    popover.hidePopover();
-  }
 }
 
 function openPageSettings(pageId: string, isCurrent: boolean): void {
@@ -66,7 +60,7 @@ function PageMenu({
   }
 
   function act(event: MouseEvent<HTMLButtonElement>, action: () => void): void {
-    hidePopoverOf(event);
+    closeOwningPopover(event.currentTarget);
     action();
   }
 

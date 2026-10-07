@@ -23,6 +23,7 @@ async function isCanvasDocumentKept(page: Page): Promise<boolean> {
 test('a site can be built on a phone, one view at a time', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'New project' }).tap();
+  await page.getByRole('button', { name: 'Start with Clean' }).tap();
   const tabs = page.locator('.ve-compact-tabs');
   await expect(tabs).toBeVisible();
   await expect(tabs.getByRole('button')).toHaveText(['Blocks', 'Layers', 'Canvas', 'Properties']);

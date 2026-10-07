@@ -2,17 +2,40 @@ import Handlebars from 'handlebars/runtime';
 import type { HelperOptions } from 'handlebars';
 import { isImageValue } from '../components/fields';
 import type { LinkValue } from '../components/types';
-import { iconSvg, resolveIcon } from './icons';
-import { placeholderDataUrl } from './placeholder';
+import {
+  DEFAULT_ICON_SET,
+  iconSetData,
+  iconSvg,
+  iconSymbolId,
+  iconUse,
+  parseIconRef,
+  resolveIcon,
+  type SpriteIcon,
+} from './icons';
+import { placeholderDataUrl, placeholderFileName, type Placeholder } from './placeholder';
 import { isSafeImageSrc, isSafeUrl, normalizeRichText } from './sanitize';
+
+export type RenderCollector = {
+  icons: Map<string, SpriteIcon>;
+  iconSets: Set<string>;
+  images: Map<string, Placeholder>;
+};
 
 export type RenderData = {
   pageSlugs: Record<string, string>;
   currentPageId?: string | null;
   eagerImages?: boolean;
+  iconSet?: string;
+  collector?: RenderCollector;
 };
 
+export function createRenderCollector(): RenderCollector {
+  return { icons: new Map(), iconSets: new Set(), images: new Map() };
+}
+
 const NEW_TAB_ATTRIBUTES = 'target="_blank" rel="noopener"';
+
+export const PLACEHOLDER_FOLDER = 'assets/images';
 const LINE_BREAK = /\r?\n/g;
 
 function pageFileOf(link: LinkValue, data: RenderData): string {
@@ -76,13 +99,25 @@ function linkAttrsHelper(link: LinkValue | undefined): Handlebars.SafeString {
   return new Handlebars.SafeString('');
 }
 
-function svgIconHelper(ref: unknown): Handlebars.SafeString | string {
-  const icon = typeof ref === 'string' ? resolveIcon(ref) : null;
+function svgIconHelper(ref: unknown, options: HelperOptions): Handlebars.SafeString | string {
+  const data = renderDataOf(options);
+  const icon = typeof ref === 'string' ? resolveIcon(ref, data.iconSet) : null;
   if (icon === null) {
+    if (typeof ref === 'string' && !isIconSetReady(ref, data.iconSet)) return '';
     console.warn(`svgIcon: unknown icon "${String(ref)}"`);
     return '';
   }
-  return new Handlebars.SafeString(iconSvg(icon));
+  const { collector } = data;
+  if (collector === undefined) return new Handlebars.SafeString(iconSvg(icon));
+  const symbolId = iconSymbolId(icon);
+  collector.icons.set(symbolId, { ...icon, symbolId });
+  collector.iconSets.add(icon.set);
+  return new Handlebars.SafeString(iconUse(symbolId, icon));
+}
+
+function isIconSetReady(ref: string, defaultSet: string | undefined): boolean {
+  const set = parseIconRef(ref).set ?? defaultSet ?? DEFAULT_ICON_SET;
+  return iconSetData(set) !== undefined;
 }
 
 function imgHelper(image: unknown, options: HelperOptions): Handlebars.SafeString | string {
@@ -91,7 +126,14 @@ function imgHelper(image: unknown, options: HelperOptions): Handlebars.SafeStrin
     return '';
   }
   const escape = Handlebars.escapeExpression;
-  const src = image.source === 'placeholder' ? placeholderDataUrl(image.placeholder) : image.src;
+  const { collector } = renderDataOf(options);
+  let src = image.src;
+  if (image.source === 'placeholder' && collector === undefined) {
+    src = placeholderDataUrl(image.placeholder);
+  } else if (image.source === 'placeholder' && collector !== undefined) {
+    src = `${PLACEHOLDER_FOLDER}/${placeholderFileName(image.placeholder)}`;
+    collector.images.set(src, image.placeholder);
+  }
   if (!isSafeImageSrc(src)) {
     console.warn(`img: blocked an unsafe image source "${src}"`);
     return '';
@@ -119,6 +161,11 @@ function richTextHelper(html: unknown): Handlebars.SafeString {
   return new Handlebars.SafeString(normalizeRichText(textOrEmpty(html)));
 }
 
+function safeUrlHelper(url: unknown): string {
+  const text = textOrEmpty(url).trim();
+  return text !== '' && isSafeUrl(text) ? text : '';
+}
+
 function nl2brHelper(text: unknown): Handlebars.SafeString {
   const escaped = Handlebars.escapeExpression(textOrEmpty(text));
   return new Handlebars.SafeString(escaped.replace(LINE_BREAK, '<br>'));
@@ -135,4 +182,5 @@ Handlebars.registerHelper({
   or: (left: unknown, right: unknown) => Boolean(left) || Boolean(right),
   richText: richTextHelper,
   nl2br: nl2brHelper,
+  safeUrl: safeUrlHelper,
 });

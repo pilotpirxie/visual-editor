@@ -1,0 +1,39 @@
+import type { ComponentDefinition } from '../../../types';
+
+export const definition: ComponentDefinition = {
+  id: 'content-two-columns',
+  version: 1,
+  name: 'Content, two columns',
+  category: 'content',
+  description: 'A heading over two columns of formatted text.',
+  tags: ['content', 'text', 'columns', 'about', 'story'],
+  fieldGroups: ['Heading', 'Columns'],
+  styleOverrides: ['--color-background', '--color-text', '--section-padding-y'],
+  fields: [
+    { name: 'eyebrow', label: 'Eyebrow', type: 'text', default: 'Our story', group: 'Heading' },
+    {
+      name: 'title',
+      label: 'Title',
+      type: 'text',
+      default: 'We started Fieldnote after losing one interview too many',
+      required: true,
+      group: 'Heading',
+    },
+    {
+      name: 'left',
+      label: 'Left column',
+      type: 'richtext',
+      default:
+        '<p>In 2021 we were three product managers drowning in recordings. The insights were in there somewhere, but nobody had time to find them.</p><p>So we built a tool for ourselves: something that listened, took notes and remembered what every customer said.</p>',
+      group: 'Columns',
+    },
+    {
+      name: 'right',
+      label: 'Right column',
+      type: 'richtext',
+      default:
+        '<p>Today Fieldnote helps more than 900 teams hear their customers. We are a remote team of 28 across Lisbon, Toronto and Singapore.</p><p>We still run every product decision past real customers, and we use Fieldnote to do it.</p>',
+      group: 'Columns',
+    },
+  ],
+};

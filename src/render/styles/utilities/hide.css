@@ -1,0 +1,19 @@
+@layer utilities {
+  @media (width < 768px) {
+    .hide-phone {
+      display: none;
+    }
+  }
+
+  @media (768px <= width < 1024px) {
+    .hide-tablet {
+      display: none;
+    }
+  }
+
+  @media (width >= 1024px) {
+    .hide-desktop {
+      display: none;
+    }
+  }
+}

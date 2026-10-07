@@ -1,0 +1,50 @@
+@layer primitives {
+  .btn {
+    --btn-radius: var(--button-radius);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+    padding: var(--button-padding-y) var(--button-padding-x);
+    border: var(--border-width) solid var(--btn-border, transparent);
+    border-radius: var(--btn-radius);
+    background: var(--btn-bg, transparent);
+    color: var(--btn-color, currentColor);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+
+  .btn-primary {
+    --btn-bg: var(--color-primary);
+    --btn-color: var(--color-primary-contrast);
+    --btn-border: var(--color-primary);
+  }
+
+  .btn-primary:hover {
+    --btn-bg: color-mix(in oklab, var(--color-primary), black 12%);
+  }
+
+  .btn-secondary {
+    --btn-bg: var(--color-background);
+    --btn-color: var(--color-text);
+    --btn-border: var(--color-border);
+  }
+
+  .btn-secondary:hover {
+    --btn-bg: var(--color-surface);
+  }
+
+  .btn-ghost {
+    --btn-color: var(--color-text);
+  }
+
+  .btn-ghost:hover {
+    --btn-bg: color-mix(in oklab, currentColor 8%, transparent);
+  }
+}

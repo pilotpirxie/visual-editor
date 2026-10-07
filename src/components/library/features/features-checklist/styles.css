@@ -1,0 +1,58 @@
+@layer components {
+  @scope (.b-features-checklist) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      align-content: start;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-list {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-item {
+      display: flex;
+      gap: var(--space-4);
+    }
+
+    .b-check {
+      --icon-size: 1.5rem;
+      flex: none;
+      color: var(--color-primary);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-1);
+    }
+
+    .b-copy h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-copy p {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 2fr 3fr;
+        gap: var(--space-16);
+      }
+
+      .b-list {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-8) var(--space-6);
+      }
+    }
+  }
+}

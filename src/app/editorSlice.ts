@@ -1,13 +1,20 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { isBlockShown } from './blockLists';
-import { blockDuplicated, blockInserted, blockRemoved, projectLoaded } from './projectSlice';
+import {
+  blockConvertedToHtml,
+  blockDuplicated,
+  blockInserted,
+  blockPasted,
+  blockRemoved,
+  projectLoaded,
+} from './projectSlice';
 import type { SaveStatus } from '../persistence/autosave';
-import type { Device, Project } from './types';
+import type { DesignSystem, Device, Project } from './types';
 
 export type DeviceMode = 'responsive' | Device;
 export type PanelSide = 'left' | 'right';
 export type LibraryTab = 'blocks' | 'layers' | 'pages';
-export type PropertiesTab = 'content' | 'style' | 'advanced';
+export type PropertiesTab = 'content' | 'style' | 'advanced' | 'code';
 export type CompactView = 'library' | 'canvas' | 'properties';
 export type CompactTab = LibraryTab | 'canvas' | 'properties';
 export type DeviceViewport = { width: number; height: number | null };
@@ -27,6 +34,19 @@ export const PANEL_LIMITS: Record<PanelSide, { min: number; max: number; initial
 
 export type FocusRequest = { blockId: string; path: string };
 
+export type NoticeTone = 'info' | 'warning' | 'error';
+
+export type Notice = { id: string; tone: NoticeTone; text: string };
+
+export type LinkedFile = {
+  name: string;
+  savedAt: string | null;
+  kind: 'file' | 'download';
+  isAutoSaving: boolean;
+};
+
+const MAX_NOTICES = 3;
+
 export type EditorState = {
   currentPageId: string | null;
   selectedBlockId: string | null;
@@ -42,6 +62,13 @@ export type EditorState = {
   isDesignSheetOpen: boolean;
   compactView: CompactView;
   saveStatus: SaveStatus;
+  notices: Notice[];
+  clipboardText: string | null;
+  linkedFile: LinkedFile | null;
+  isLinkedFileStale: boolean;
+  conversionBlockId: string | null;
+  previewDesignSystem: DesignSystem | null;
+  iconSetsVersion: number;
 };
 
 const initialState: EditorState = {
@@ -62,6 +89,13 @@ const initialState: EditorState = {
   isDesignSheetOpen: false,
   compactView: 'canvas',
   saveStatus: 'saved',
+  notices: [],
+  clipboardText: null,
+  linkedFile: null,
+  isLinkedFileStale: false,
+  conversionBlockId: null,
+  previewDesignSystem: null,
+  iconSetsVersion: 0,
 };
 
 export const editorSlice = createSlice({
@@ -123,6 +157,13 @@ export const editorSlice = createSlice({
     },
     designSheetToggled(state, action: PayloadAction<boolean>) {
       state.isDesignSheetOpen = action.payload;
+      if (!action.payload) state.previewDesignSystem = null;
+    },
+    designPreviewSet(state, action: PayloadAction<DesignSystem | null>) {
+      state.previewDesignSystem = action.payload;
+    },
+    iconSetsLoaded(state) {
+      state.iconSetsVersion += 1;
     },
     compactTabSelected(state, action: PayloadAction<CompactTab>) {
       const tab = action.payload;
@@ -136,6 +177,31 @@ export const editorSlice = createSlice({
     saveStatusChanged(state, action: PayloadAction<SaveStatus>) {
       state.saveStatus = action.payload;
     },
+    noticeShown: {
+      reducer(state, action: PayloadAction<Notice>) {
+        state.notices.push(action.payload);
+        if (state.notices.length > MAX_NOTICES) state.notices.shift();
+      },
+      prepare(tone: NoticeTone, text: string) {
+        return { payload: { id: crypto.randomUUID(), tone, text } };
+      },
+    },
+    noticeDismissed(state, action: PayloadAction<string>) {
+      state.notices = state.notices.filter((notice) => notice.id !== action.payload);
+    },
+    clipboardTextStored(state, action: PayloadAction<string>) {
+      state.clipboardText = action.payload;
+    },
+    linkedFileChanged(state, action: PayloadAction<LinkedFile | null>) {
+      state.linkedFile = action.payload;
+      state.isLinkedFileStale = false;
+    },
+    linkedFileOutdated(state) {
+      state.isLinkedFileStale = true;
+    },
+    conversionRequested(state, action: PayloadAction<string | null>) {
+      state.conversionBlockId = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -143,6 +209,15 @@ export const editorSlice = createSlice({
         state.selectedBlockId = action.payload.block.id;
         state.propertiesTab = 'content';
         if (state.compactView === 'library') state.compactView = 'canvas';
+      })
+      .addCase(blockPasted, (state, action) => {
+        state.selectedBlockId = action.payload.block.id;
+        state.propertiesTab = 'content';
+        if (state.compactView === 'library') state.compactView = 'canvas';
+      })
+      .addCase(blockConvertedToHtml, (state) => {
+        state.propertiesTab = 'code';
+        state.conversionBlockId = null;
       })
       .addCase(blockDuplicated, (state, action) => {
         state.selectedBlockId = action.payload.newBlockId;
@@ -160,6 +235,9 @@ export const editorSlice = createSlice({
         state.isPreview = false;
         state.isDesignSheetOpen = false;
         state.saveStatus = 'saved';
+        state.linkedFile = null;
+        state.isLinkedFileStale = false;
+        state.previewDesignSystem = null;
       });
   },
 });
@@ -181,6 +259,14 @@ export const {
   designSheetToggled,
   compactTabSelected,
   saveStatusChanged,
+  noticeShown,
+  noticeDismissed,
+  clipboardTextStored,
+  linkedFileChanged,
+  linkedFileOutdated,
+  conversionRequested,
+  designPreviewSet,
+  iconSetsLoaded,
 } = editorSlice.actions;
 
 export function selectCompactTab(editor: EditorState): CompactTab {

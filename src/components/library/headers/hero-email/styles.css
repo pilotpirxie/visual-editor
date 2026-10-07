@@ -1,0 +1,39 @@
+@layer components {
+  @scope (.b-hero-email) {
+    .b-inner {
+      --container-max-width: 46rem;
+      --stack-gap: var(--space-6);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-lead {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      width: 100%;
+      max-width: 32rem;
+    }
+
+    .b-field {
+      flex: 1;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-form {
+        flex-direction: row;
+        align-items: stretch;
+      }
+    }
+  }
+}

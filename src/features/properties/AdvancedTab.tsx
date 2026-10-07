@@ -1,9 +1,11 @@
 import { useState, type JSX } from 'react';
 import { visibleBlockLists } from '../../app/blockLists';
+import { conversionRequested } from '../../app/editorSlice';
 import { blockAdvancedSet } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, useStore } from '../../app/store';
 import { DEVICES, type Block, type Device } from '../../app/types';
 import { isValidAnchor, isValidClassName, parseClassNames } from '../../render/attributes';
+import { Icon } from '../editor/Icon';
 import { DraftInput } from './DraftInput';
 
 type ClassesDraft = { text: string; base: string; error: string | null };
@@ -148,12 +150,35 @@ function HideOnControl({ block }: { block: Block }): JSX.Element {
   );
 }
 
+function ConvertControl({ blockId }: { blockId: string }): JSX.Element {
+  return (
+    <div className="ve-control">
+      <span className="ve-control-label" id="ve-convert-label">
+        Convert to HTML
+      </span>
+      <button
+        type="button"
+        className="ve-button ve-button--outline"
+        aria-describedby="ve-convert-label ve-convert-help"
+        onClick={() => dispatch(conversionRequested(blockId))}
+      >
+        <Icon name="code" />
+        Convert to HTML…
+      </button>
+      <p id="ve-convert-help" className="ve-control-help">
+        Turns this block into editable code for changes its options cannot make.
+      </p>
+    </div>
+  );
+}
+
 export function AdvancedTab({ block }: { block: Block }): JSX.Element {
   return (
     <section className="ve-properties-section">
       <AnchorControl block={block} />
       <ClassesControl block={block} />
       <HideOnControl block={block} />
+      {block.kind === 'component' && <ConvertControl blockId={block.id} />}
     </section>
   );
 }

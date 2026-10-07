@@ -1,0 +1,35 @@
+@layer components {
+  @scope (.b-hero-image) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    .b-lead {
+      max-width: 36rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-media {
+      --media-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1.1fr 1fr;
+      }
+
+      :scope[data-image-side='left'] .b-media {
+        order: -1;
+      }
+    }
+  }
+}

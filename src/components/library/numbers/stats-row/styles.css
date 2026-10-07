@@ -1,0 +1,45 @@
+@layer components {
+  @scope (.b-stats-row) {
+    :scope {
+      --section-padding-y: var(--space-12);
+    }
+
+    .b-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-8) var(--space-6);
+      margin: 0;
+    }
+
+    .b-stat {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: var(--space-1);
+      text-align: center;
+    }
+
+    .b-value {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      color: var(--color-primary);
+      overflow-wrap: anywhere;
+    }
+
+    .b-label {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-stats {
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      }
+
+      .b-value {
+        font-size: var(--text-4xl);
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import type { TemplateDelegate } from 'handlebars';
-import type { ComponentBlock } from '../app/types';
+import type { Block, ComponentBlock } from '../app/types';
 import { defaultValues } from './fields';
-import type { ComponentDefinition, RegisteredComponent } from './types';
+import type { Category, ComponentDefinition, RegisteredComponent } from './types';
 
 const definitions = import.meta.glob<ComponentDefinition>('./library/*/*/definition.ts', {
   eager: true,
@@ -65,4 +65,22 @@ export function createBlock(definition: ComponentDefinition): ComponentBlock {
     extraClasses: [],
     hideOn: [],
   };
+}
+
+export function blockComponentId(block: Block): string | null {
+  if (block.kind === 'component') return block.componentId;
+  return block.sourceComponentId ?? null;
+}
+
+export function blockCategory(block: Block): Category | null {
+  const componentId = blockComponentId(block);
+  if (componentId === null) return null;
+  return registry.get(componentId)?.definition.category ?? null;
+}
+
+export function blockLabel(block: Block): string {
+  if (block.kind === 'html') return 'HTML block';
+  const component = registry.get(block.componentId);
+  if (component === undefined) return `Missing component: ${block.componentId}`;
+  return component.definition.name;
 }

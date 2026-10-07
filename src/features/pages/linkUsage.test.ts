@@ -13,7 +13,7 @@ function projectWithAbout(): { project: Project; homeId: string } {
 
 function blockOf(project: Project, componentId: string) {
   for (const block of Object.values(project.blocks.entities)) {
-    if (block.componentId === componentId) return block;
+    if (block.kind === 'component' && block.componentId === componentId) return block;
   }
   throw new Error(`No ${componentId} block`);
 }

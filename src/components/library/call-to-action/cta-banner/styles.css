@@ -1,0 +1,40 @@
+@layer components {
+  @scope (.b-cta-banner) {
+    :scope {
+      --section-bg: var(--color-primary);
+      --section-padding-y: var(--space-12);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-6);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-copy h2 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-text {
+      opacity: 0.85;
+    }
+
+    .b-button {
+      flex: none;
+    }
+
+    @media (min-width: 768px) {
+      .b-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { blockSelected, compactTabSelected } from '../../app/editorSlice';
 import { dispatch, store } from '../../app/store';
 import { registry } from '../../components/registry';
 import { changeValue, click, firePointer, getButton, render, runInAct } from '../../test/dom';
-import { homePage, loadIntoAppStore } from '../../test/fixtures';
+import { componentBlockOf, homePage, loadIntoAppStore } from '../../test/fixtures';
 import { dragController } from '../canvas/dragController';
 import { BlocksTab, groupByCategory } from './BlocksTab';
 
@@ -18,7 +18,7 @@ function componentIds(): string[] {
   const { project } = store.getState();
   const ids: string[] = [];
   for (const blockId of homePage(project).blockIds) {
-    ids.push(project.blocks.entities[blockId].componentId);
+    ids.push(componentBlockOf(project, blockId).componentId);
   }
   return ids;
 }
@@ -47,11 +47,19 @@ describe('groupByCategory', () => {
       'navigations',
       'headers',
       'features',
+      'how-it-works',
+      'pricing',
+      'testimonials',
+      'logo-clouds',
+      'numbers',
       'content',
+      'faq',
+      'contacts',
       'call-to-action',
       'footers',
     ]);
-    expect(groups[0].components[0].definition.id).toBe('nav-simple');
+    const navigationIds = groups[0]?.components.map((component) => component.definition.id);
+    expect(navigationIds).toEqual(['nav-centered', 'nav-cta', 'nav-simple']);
   });
 
   it('returns no groups for no components', () => {
@@ -62,7 +70,7 @@ describe('groupByCategory', () => {
 describe('BlocksTab', () => {
   it('lists categories with how many blocks each has', () => {
     const { container } = render(<BlocksTab />);
-    expect(categoryButton(container, 'Headers').textContent).toBe('Headers1');
+    expect(categoryButton(container, 'Headers').textContent).toBe('Headers4');
   });
 
   it('opens a category and goes back to the list', () => {
@@ -79,7 +87,7 @@ describe('BlocksTab', () => {
   it('searches by name and says when nothing matches', () => {
     const { container } = render(<BlocksTab />);
     searchFor(container, 'footer');
-    expect(container.querySelectorAll('.ve-component-card')).toHaveLength(1);
+    expect(container.querySelectorAll('.ve-component-card')).toHaveLength(3);
     searchFor(container, 'carousel');
     expect(container.textContent).toContain('No blocks match “carousel”.');
   });
@@ -92,7 +100,7 @@ describe('BlocksTab', () => {
     const { container } = render(<BlocksTab />);
     click(categoryButton(container, 'Call to action'));
     click(container.querySelector('.ve-component-card'));
-    expect(componentIds()[1]).toBe('cta-centered');
+    expect(componentIds()[1]).toBe('cta-banner');
     expect(store.getState().editor.compactView).toBe('canvas');
   });
 

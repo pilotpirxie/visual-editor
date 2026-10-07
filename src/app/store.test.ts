@@ -7,10 +7,11 @@ import {
   pageAdded,
   pageSlugSet,
   projectLoaded,
+  settingSet,
 } from './projectSlice';
 import { createAppStore, selectCanvasRenderContext, selectCurrentPage } from './store';
 import type { Project } from './types';
-import { homePage } from '../test/fixtures';
+import { componentBlockOf, homePage } from '../test/fixtures';
 
 function storeWithEditCapture(): { store: ReturnType<typeof createAppStore>; edited: Project[] } {
   const edited: Project[] = [];
@@ -26,7 +27,7 @@ describe('createAppStore', () => {
     const heroId = homePage(project).blockIds[1];
     store.dispatch(blockValueSet(heroId, 'title', 'Saved title', 'continuous'));
     expect(edited).toHaveLength(1);
-    expect(edited[0].blocks.entities[heroId].values.title).toBe('Saved title');
+    expect(componentBlockOf(edited[0], heroId).values.title).toBe('Saved title');
   });
 
   it('does not report loading a project as an edit', () => {
@@ -81,6 +82,16 @@ describe('selectCanvasRenderContext', () => {
     const first = selectCanvasRenderContext(store.getState());
     store.dispatch(blockInserted(project.pages.homePageId, 0, 'cta-centered'));
     expect(selectCanvasRenderContext(store.getState())).toBe(first);
+  });
+
+  it('keeps the same context when settings other than the title change', () => {
+    const store = createAppStore();
+    store.dispatch(projectLoaded({ project: createSampleProject(), pageId: null }));
+    const first = selectCanvasRenderContext(store.getState());
+    store.dispatch(settingSet('description', 'Research, tagged.', 'continuous'));
+    expect(selectCanvasRenderContext(store.getState())).toBe(first);
+    store.dispatch(settingSet('title', 'Acme', 'continuous'));
+    expect(selectCanvasRenderContext(store.getState()).site.title).toBe('Acme');
   });
 
   it('builds a new context when a slug changes, the preview starts or another page opens', () => {

@@ -1,0 +1,44 @@
+@layer components {
+  @scope (.b-contact-cards) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      text-align: center;
+    }
+
+    .b-grid {
+      --grid-min: 15rem;
+      --grid-gap: var(--space-6);
+    }
+
+    .b-card {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: inline-grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+      overflow-wrap: anywhere;
+    }
+  }
+}

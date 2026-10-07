@@ -1,0 +1,10 @@
+<section class="b-logos-row section">
+  <div class="container stack b-inner">
+    {{#if title}}<p class="b-title" data-field="title">{{title}}</p>{{/if}}
+    <ul class="b-logos" role="list">
+      {{#each logos}}
+      <li class="b-logo" data-field="logos.{{@index}}">{{img image}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

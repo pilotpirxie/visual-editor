@@ -1,7 +1,7 @@
 import type { JSX } from 'react';
 import { blockValueSet } from '../../app/projectSlice';
 import { dispatch } from '../../app/store';
-import type { Block } from '../../app/types';
+import type { ComponentBlock } from '../../app/types';
 import { groupFields, isFieldVisible, type FieldGroup } from '../../components/fields';
 import type { ComponentDefinition } from '../../components/types';
 import { FieldControl } from './FieldControl';
@@ -22,7 +22,7 @@ export function ContentTab({
   block,
   definition,
 }: {
-  block: Block;
+  block: ComponentBlock;
   definition: ComponentDefinition;
 }): JSX.Element {
   return (

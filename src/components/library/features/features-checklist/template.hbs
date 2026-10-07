@@ -1,0 +1,25 @@
+<section class="b-features-checklist section">
+  <div class="container b-inner">
+    <div class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      {{#if showButton}}
+      <div class="cluster">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+      {{/if}}
+    </div>
+    <ul class="b-list" role="list">
+      {{#each items}}
+      <li class="b-item" data-field="items.{{@index}}">
+        <span class="b-check" data-field="checkIcon">{{svgIcon ../checkIcon}}</span>
+        <div class="stack b-copy">
+          <h3>{{title}}</h3>
+          {{#if text}}<p>{{nl2br text}}</p>{{/if}}
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

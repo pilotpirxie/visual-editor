@@ -1,13 +1,15 @@
-import { useRef, type JSX, type PointerEvent } from 'react';
+import { useRef, useState, type JSX, type PointerEvent } from 'react';
 import { blockSelected } from '../../app/editorSlice';
 import { blockDisabledSet } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, selectShownSlot, useStore } from '../../app/store';
 import type { Block } from '../../app/types';
-import { registry } from '../../components/registry';
+import { blockLabel } from '../../components/registry';
 import { dragController } from '../canvas/dragController';
 import { dropEdgeAt } from '../canvas/geometry';
 import { useListDropTarget } from '../canvas/useListDropTarget';
 import { dropBlock, isNoopDrop } from '../editor/blockActions';
+import { BlockContextMenu } from '../editor/BlockContextMenu';
+import { afterPointerRelease } from '../editor/Menu';
 import { Icon } from '../editor/Icon';
 
 const DROP_EDGE_MARGIN = 12;
@@ -16,11 +18,11 @@ type LayerRow = { id: string; name: string; isDisabled: boolean };
 
 type LayerGroupProps = { label: string; blockIds: string[] };
 
+type LayerMenu = { blockId: string; point: { x: number; y: number } };
+
 function layerName(block: Block | undefined, blockId: string): string {
   if (block === undefined) return `Missing block: ${blockId}`;
-  const component = registry.get(block.componentId);
-  if (component === undefined) return `Missing: ${block.componentId}`;
-  return component.definition.name;
+  return blockLabel(block);
 }
 
 function useLayerRows(blockIds: string[]): LayerRow[] {
@@ -36,6 +38,7 @@ function useLayerRows(blockIds: string[]): LayerRow[] {
 function LayerGroup({ label, blockIds }: LayerGroupProps): JSX.Element {
   const rows = useLayerRows(blockIds);
   const selectedId = useStore((state) => state.editor.selectedBlockId);
+  const [menu, setMenu] = useState<LayerMenu | null>(null);
   const listRef = useRef<HTMLOListElement>(null);
   const dropIndex = useListDropTarget({
     listRef,
@@ -55,46 +58,57 @@ function LayerGroup({ label, blockIds }: LayerGroupProps): JSX.Element {
   }
 
   return (
-    <ol className="ve-layers" ref={listRef} aria-label={label}>
-      {rows.map((row, index) => (
-        <li
-          key={row.id}
-          className="ve-layer"
-          data-selected={row.id === selectedId || undefined}
-          data-disabled={row.isDisabled || undefined}
-          data-drop={dropEdgeAt(dropIndex, index, rows.length) ?? undefined}
-          onPointerDown={(event) => startRowDrag(event, row)}
-        >
-          <span
-            className="ve-layer-grip"
-            aria-hidden="true"
-            onPointerDown={(event) => startGripDrag(event, row)}
+    <>
+      <ol className="ve-layers" ref={listRef} aria-label={label}>
+        {rows.map((row, index) => (
+          <li
+            key={row.id}
+            className="ve-layer"
+            data-selected={row.id === selectedId || undefined}
+            data-disabled={row.isDisabled || undefined}
+            data-drop={dropEdgeAt(dropIndex, index, rows.length) ?? undefined}
+            onPointerDown={(event) => startRowDrag(event, row)}
+            onContextMenu={(event) => {
+              event.preventDefault();
+              dispatch(blockSelected(row.id));
+              const point = { x: event.clientX, y: event.clientY };
+              afterPointerRelease(event, () => setMenu({ blockId: row.id, point }));
+            }}
           >
-            <Icon name="grip" />
-          </span>
-          <button
-            type="button"
-            className="ve-layer-name"
-            aria-current={row.id === selectedId ? 'true' : undefined}
-            onClick={() => dispatch(blockSelected(row.id))}
-          >
-            <span>{row.name}</span>
-          </button>
-          <button
-            type="button"
-            className="ve-icon-button"
-            aria-label={row.isDisabled ? `Enable ${row.name}` : `Disable ${row.name}`}
-            title={row.isDisabled ? 'Enable block' : 'Disable block'}
-            onPointerDown={(event) => event.stopPropagation()}
-            onClick={() =>
-              dispatch(blockDisabledSet({ blockId: row.id, disabled: !row.isDisabled }))
-            }
-          >
-            <Icon name={row.isDisabled ? 'eye-off' : 'eye'} />
-          </button>
-        </li>
-      ))}
-    </ol>
+            <span
+              className="ve-layer-grip"
+              aria-hidden="true"
+              onPointerDown={(event) => startGripDrag(event, row)}
+            >
+              <Icon name="grip" />
+            </span>
+            <button
+              type="button"
+              className="ve-layer-name"
+              aria-current={row.id === selectedId ? 'true' : undefined}
+              onClick={() => dispatch(blockSelected(row.id))}
+            >
+              <span>{row.name}</span>
+            </button>
+            <button
+              type="button"
+              className="ve-icon-button"
+              aria-label={row.isDisabled ? `Enable ${row.name}` : `Disable ${row.name}`}
+              title={row.isDisabled ? 'Enable block' : 'Disable block'}
+              onPointerDown={(event) => event.stopPropagation()}
+              onClick={() =>
+                dispatch(blockDisabledSet({ blockId: row.id, disabled: !row.isDisabled }))
+              }
+            >
+              <Icon name={row.isDisabled ? 'eye-off' : 'eye'} />
+            </button>
+          </li>
+        ))}
+      </ol>
+      {menu !== null && (
+        <BlockContextMenu blockId={menu.blockId} point={menu.point} onClose={() => setMenu(null)} />
+      )}
+    </>
   );
 }
 

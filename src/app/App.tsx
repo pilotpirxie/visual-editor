@@ -1,10 +1,12 @@
 import { useEffect, useEffectEvent, useState, type JSX } from 'react';
 import { EditorShell } from '../features/editor/EditorShell';
+import { Notices } from '../features/editor/Notices';
+import { showStoredLink } from '../features/files/fileActions';
+import { FileDialogs } from '../features/files/FileDialogs';
 import { describeError } from './errors';
 import { HomeScreen } from '../features/home/HomeScreen';
-import { loadIconSet } from '../features/icons/loadIconSet';
+import { ensureProjectIconSets } from '../features/icons/ensureIconSets';
 import { getProject } from '../persistence/db';
-import { DEFAULT_ICON_SET } from '../render/icons';
 import { pageOpened } from './editorSlice';
 import { projectLoaded } from './projectSlice';
 import { editorPath, followLink, HOME_PATH, navigate, useRoute } from './router';
@@ -66,6 +68,9 @@ function ProjectEditor({
     dispatch(projectLoaded({ project, pageId: openPageId }));
     if (openPageId !== pageId) navigate(editorPath(project.id, openPageId), { replace: true });
     setOpenState({ status: 'ready', projectId: project.id });
+    showStoredLink(project.id).catch((error: unknown) => {
+      console.warn(`Could not read the file linked to project ${project.id}`, error);
+    });
   });
 
   useEffect(() => {
@@ -75,11 +80,8 @@ function ProjectEditor({
       let project: Project | null;
       try {
         await autosave.flush();
-        const [storedProject] = await Promise.all([
-          getProject(projectId),
-          loadIconSet(DEFAULT_ICON_SET),
-        ]);
-        project = storedProject;
+        project = await getProject(projectId);
+        if (project !== null) await ensureProjectIconSets(project);
       } catch (error) {
         console.error(`Could not open project ${projectId}`, error);
         if (isCancelled) return;
@@ -117,7 +119,7 @@ function ProjectEditor({
   }
 }
 
-export function App(): JSX.Element {
+function RoutedScreen(): JSX.Element {
   const route = useRoute();
   if (route.name === 'home') {
     return <HomeScreen />;
@@ -126,4 +128,14 @@ export function App(): JSX.Element {
   } else {
     return <ProjectEditor projectId={route.projectId} pageId={route.pageId} />;
   }
+}
+
+export function App(): JSX.Element {
+  return (
+    <>
+      <RoutedScreen />
+      <FileDialogs />
+      <Notices />
+    </>
+  );
 }

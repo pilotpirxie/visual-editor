@@ -13,9 +13,9 @@ describe('filterComponents', () => {
   });
 
   it('matches names, tags and category labels, ignoring case', () => {
-    expect(ids('FOOTER')).toEqual(['footer-simple']);
-    expect(ids('navbar')).toEqual(['nav-simple']);
-    expect(ids('call to action')).toEqual(['cta-centered']);
+    expect(ids('FOOTER')).toEqual(['footer-centered', 'footer-columns', 'footer-simple']);
+    expect(ids('navbar')).toEqual(['nav-centered', 'nav-cta', 'nav-simple']);
+    expect(ids('call to action')).toEqual(['cta-banner', 'cta-centered', 'cta-image']);
   });
 
   it('requires every word to match', () => {

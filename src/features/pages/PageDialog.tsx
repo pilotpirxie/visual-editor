@@ -3,6 +3,7 @@ import { pageRenamed } from '../../app/projectSlice';
 import { slugError, uniqueSlug } from '../../app/slugs';
 import { dispatch, useStore } from '../../app/store';
 import { addPage } from './pageActions';
+import '../editor/dialog.css';
 import './pages.css';
 
 type PageDialogProps = { pageId: string | null; onClose(): void };

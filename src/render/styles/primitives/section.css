@@ -1,0 +1,7 @@
+@layer primitives {
+  .section {
+    padding-block: var(--section-padding-y);
+    background: var(--section-bg, var(--color-background));
+    color: var(--color-text);
+  }
+}

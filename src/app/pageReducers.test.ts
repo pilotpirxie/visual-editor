@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { createTestStore, homePage, type TestStore } from '../test/fixtures';
+import { describe, expect, it, vi } from 'vitest';
+import { componentBlockOf, createTestStore, homePage, type TestStore } from '../test/fixtures';
 import { pageOpened } from './editorSlice';
 import { undo } from './history';
 import {
@@ -12,6 +12,8 @@ import {
   pageSeoSet,
   pageSlugSet,
   pageSocialImageSet,
+  projectImageSet,
+  settingSet,
 } from './projectSlice';
 
 function pageNames(store: TestStore): string[] {
@@ -72,13 +74,15 @@ describe('pageDuplicated', () => {
         blockIds,
       }),
     );
-    const { pages, blocks } = store.getState().project;
+    const { pages } = store.getState().project;
     const copy = pages.entities['home-copy'];
     expect(pageNames(store)).toEqual(['Home', 'Home copy', 'About']);
     expect(copy?.blockIds).toEqual(home.blockIds.map((id) => `copy-${id}`));
-    const firstCopy = blocks.entities[`copy-${home.blockIds[0]}`];
-    expect(firstCopy?.values).toEqual(blocks.entities[home.blockIds[0]]?.values);
-    expect(firstCopy?.values).not.toBe(blocks.entities[home.blockIds[0]]?.values);
+    const project = store.getState().project;
+    const firstCopy = componentBlockOf(project, `copy-${home.blockIds[0]}`);
+    const original = componentBlockOf(project, home.blockIds[0] ?? '');
+    expect(firstCopy.values).toEqual(original.values);
+    expect(firstCopy.values).not.toBe(original.values);
   });
 });
 
@@ -244,5 +248,92 @@ describe('pageSocialImageSet', () => {
       pageSocialImageSet('about', { ...PNG_UPLOAD, dataUrl: 'https://example.com/a.png' }),
     );
     expect(store.getState().project.assets).toEqual({});
+  });
+});
+
+const SVG_UPLOAD = {
+  name: 'icon.svg',
+  mimeType: 'image/svg+xml',
+  dataUrl: 'data:image/svg+xml;base64,PHN2Zz4=',
+};
+
+describe('settingSet', () => {
+  it('changes the site settings and merges typing into one undo step per setting', () => {
+    const store = createTestStore();
+    store.dispatch(settingSet('description', 'Customer research', 'continuous'));
+    store.dispatch(settingSet('description', 'Customer research, tagged', 'continuous'));
+    store.dispatch(settingSet('titleTemplate', '{{site.title}}: {{page.title}}', 'continuous'));
+    const { settings } = store.getState().project;
+    expect(settings.description).toBe('Customer research, tagged');
+    expect(settings.titleTemplate).toBe('{{site.title}}: {{page.title}}');
+    store.dispatch(undo());
+    store.dispatch(undo());
+    expect(store.getState().project.settings.description).toBe('');
+  });
+
+  it('trims the title and the language and stores the base URL until it is cleared', () => {
+    const store = createTestStore();
+    store.dispatch(settingSet('title', '  Acme  ', 'continuous'));
+    store.dispatch(settingSet('language', 'pl', 'discrete'));
+    store.dispatch(settingSet('baseUrl', 'https://acme.example', 'continuous'));
+    expect(store.getState().project.settings).toMatchObject({
+      title: 'Acme',
+      language: 'pl',
+      baseUrl: 'https://acme.example',
+    });
+    store.dispatch(settingSet('baseUrl', ' ', 'continuous'));
+    expect(store.getState().project.settings).not.toHaveProperty('baseUrl');
+  });
+
+  it.each([
+    ['an empty title', 'title' as const, '   '],
+    ['a language that is not a language code', 'language' as const, 'Polish'],
+    ['a base URL without https', 'baseUrl' as const, 'acme.example'],
+    ['a javascript base URL', 'baseUrl' as const, 'javascript:alert(1)'],
+  ])('ignores %s', (_name, key, value) => {
+    const store = createTestStore();
+    const before = store.getState().project.settings;
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    store.dispatch(settingSet(key, value, 'continuous'));
+    expect(store.getState().project.settings).toBe(before);
+    expect(store.getState().history.past).toHaveLength(0);
+  });
+});
+
+describe('projectImageSet', () => {
+  it('stores the favicon and the default social image as project assets', () => {
+    const store = createTestStore();
+    store.dispatch(projectImageSet('favicon', SVG_UPLOAD));
+    store.dispatch(projectImageSet('socialImage', PNG_UPLOAD));
+    const { settings, assets } = store.getState().project;
+    expect(assets[settings.faviconAssetId ?? '']?.mimeType).toBe('image/svg+xml');
+    expect(assets[settings.socialImageAssetId ?? '']?.mimeType).toBe('image/png');
+  });
+
+  it('drops the old image when it is replaced or removed, in one undo step each', () => {
+    const store = createTestStore();
+    store.dispatch(projectImageSet('favicon', PNG_UPLOAD));
+    store.dispatch(projectImageSet('favicon', SVG_UPLOAD));
+    expect(Object.keys(store.getState().project.assets)).toHaveLength(1);
+    store.dispatch(projectImageSet('favicon', null));
+    expect(store.getState().project.assets).toEqual({});
+    expect(store.getState().project.settings).not.toHaveProperty('faviconAssetId');
+    store.dispatch(undo());
+    expect(Object.keys(store.getState().project.assets)).toHaveLength(1);
+  });
+
+  it('refuses a social image in a format only favicons may use', () => {
+    const store = createTestStore();
+    store.dispatch(projectImageSet('socialImage', SVG_UPLOAD));
+    expect(store.getState().project.assets).toEqual({});
+  });
+
+  it('keeps a page social image when a project image is removed', () => {
+    const store = createTestStore();
+    addAbout(store);
+    store.dispatch(pageSocialImageSet('about', PNG_UPLOAD));
+    store.dispatch(projectImageSet('socialImage', PNG_UPLOAD));
+    store.dispatch(projectImageSet('socialImage', null));
+    expect(Object.keys(store.getState().project.assets)).toHaveLength(1);
   });
 });

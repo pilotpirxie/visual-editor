@@ -1,17 +1,42 @@
-import lucide from 'virtual:icon-set/lucide';
 import { behaviors } from 'virtual:site-runtime';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { createSampleProject } from '../app/projectFactory';
-import { registerIconSet, resolveIcon } from '../render/icons';
+import { ensureIconSets } from '../features/icons/ensureIconSets';
+import { isSemanticIcon, parseIconRef, resolveIcon } from '../render/icons';
 import { createRenderContext, renderBlock } from '../render/renderBlock';
 import { createBlock, registry } from './registry';
-import { CATEGORIES } from './types';
+import { asListItems } from './fields';
+import { CATEGORIES, type ComponentDefinition, type Field } from './types';
 
 const ROOT_TAGS = ['section', 'header', 'nav', 'footer', 'aside', 'div'];
 const CATEGORY_IDS: string[] = CATEGORIES.map(({ id }) => id);
 const ctx = createRenderContext(createSampleProject(), 'canvas');
 
-beforeAll(() => registerIconSet('lucide', lucide));
+type IconDefault = { field: Field; ref: string };
+
+function iconDefaults(definition: ComponentDefinition): IconDefault[] {
+  const defaults: IconDefault[] = [];
+  for (const field of definition.fields) {
+    if (field.type === 'icon' && typeof field.default === 'string') {
+      defaults.push({ field, ref: field.default });
+    }
+    if (field.type !== 'list') continue;
+    for (const itemField of field.itemFields ?? []) {
+      if (itemField.type !== 'icon') continue;
+      if (typeof itemField.default === 'string')
+        defaults.push({ field: itemField, ref: itemField.default });
+      for (const item of asListItems(field.default)) {
+        const ref = item[itemField.name];
+        if (typeof ref === 'string' && ref !== '') defaults.push({ field: itemField, ref });
+      }
+    }
+  }
+  return defaults;
+}
+
+beforeAll(async () => {
+  await ensureIconSets(['lucide', 'simple-icons']);
+});
 
 describe.each([...registry.values()])(
   'component $definition.id',
@@ -36,11 +61,20 @@ describe.each([...registry.values()])(
       const warn = vi.spyOn(console, 'warn');
       renderBlock(createBlock(definition), { definition, template, styles, thumbnail: '' }, ctx);
       expect(warn).not.toHaveBeenCalled();
-      for (const field of definition.fields) {
-        if (field.type === 'icon')
-          expect(resolveIcon(String(field.default)), field.name).not.toBeNull();
-      }
       warn.mockRestore();
+    });
+
+    it('starts with semantic icons, logos from allowed sets and brands only in brand fields', () => {
+      for (const { field, ref } of iconDefaults(definition)) {
+        expect(resolveIcon(ref), `${field.name}: ${ref}`).not.toBeNull();
+        const { set } = parseIconRef(ref);
+        if (set === null) expect(isSemanticIcon(ref), `${field.name}: ${ref}`).toBe(true);
+        if (field.iconPurpose === 'logo') {
+          expect(set, field.name).not.toBeNull();
+          expect(['remix', 'simple-icons']).not.toContain(set);
+        }
+        if (set === 'simple-icons') expect(field.iconPurpose, field.name).toBe('brand');
+      }
     });
 
     it('has default values for required fields and valid visibleWhen references', () => {
@@ -61,6 +95,11 @@ describe.each([...registry.values()])(
       expect(styles).not.toMatch(/#[0-9a-f]{3,8}\b/i);
       expect(styles).not.toMatch(/\b(rgba?|hsla?)\(/);
       expect(styles).not.toContain('!important');
+    });
+
+    it('pairs a form action URL with a method', () => {
+      const names = definition.fields.map(({ name }) => name);
+      expect(names.includes('formAction')).toBe(names.includes('formMethod'));
     });
 
     it('only uses behaviors the site runtime provides', () => {

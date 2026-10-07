@@ -1,0 +1,49 @@
+@layer components {
+  @scope (.b-features-alternating) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-rows {
+      --stack-gap: var(--space-16);
+    }
+
+    .b-row {
+      display: grid;
+      gap: var(--space-6);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-copy p {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-row {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-12);
+      }
+
+      .b-row:nth-child(even) .b-media {
+        order: -1;
+      }
+    }
+  }
+}

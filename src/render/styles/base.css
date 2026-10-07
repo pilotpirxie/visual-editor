@@ -16,6 +16,7 @@
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-tight);
     text-wrap: balance;
+    overflow-wrap: anywhere;
   }
 
   h1 {

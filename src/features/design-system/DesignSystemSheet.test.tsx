@@ -10,6 +10,7 @@ vi.mock('../../persistence/db', () => ({
   getProject: vi.fn(async () => null),
   listProjects: vi.fn(async () => []),
   deleteProject: vi.fn(async () => {}),
+  listUserPresets: vi.fn(async () => []),
 }));
 
 function tokenValue(name: string): string | undefined {

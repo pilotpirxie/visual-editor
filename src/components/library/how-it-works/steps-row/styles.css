@@ -1,0 +1,41 @@
+@layer components {
+  @scope (.b-steps-row) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-steps {
+      --grid-min: 14rem;
+      --grid-gap: var(--space-8);
+      counter-reset: step;
+    }
+
+    .b-step {
+      --stack-gap: var(--space-3);
+      counter-increment: step;
+    }
+
+    .b-step::before {
+      content: counter(step);
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-step p {
+      color: var(--color-text-muted);
+    }
+  }
+}

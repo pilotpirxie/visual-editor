@@ -1,0 +1,18 @@
+<section class="b-stats-described section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <dl class="grid b-stats">
+      {{#each stats}}
+      <div class="stack b-stat" data-field="stats.{{@index}}">
+        <dt class="b-label">{{label}}</dt>
+        <dd class="b-value">{{value}}</dd>
+        {{#if text}}<dd class="b-text">{{nl2br text}}</dd>{{/if}}
+      </div>
+      {{/each}}
+    </dl>
+  </div>
+</section>

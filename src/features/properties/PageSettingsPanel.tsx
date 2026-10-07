@@ -1,4 +1,4 @@
-import { useRef, useState, type ChangeEvent, type JSX } from 'react';
+import type { JSX } from 'react';
 import {
   pageSeoSet,
   pageSharedSlotShown,
@@ -11,17 +11,21 @@ import { slugError } from '../../app/slugs';
 import { dispatch, selectCurrentPage, useStore } from '../../app/store';
 import type { Page, SharedSlot } from '../../app/types';
 import type { Field } from '../../components/types';
-import { Icon } from '../editor/Icon';
+import { applyTitleTemplate } from '../../render/pageHead';
 import { pageFileName } from '../pages/PagesTab';
 import { DraftInput } from './DraftInput';
 import { FieldControl } from './FieldControl';
+import { ImageUploadInput } from './ImageUploadInput';
 
-const MAX_SOCIAL_IMAGE_BYTES = 1024 * 1024;
-const SOCIAL_IMAGE_TYPE_ERROR = 'Use a PNG, JPEG, WebP or GIF image';
-const SOCIAL_IMAGE_SIZE_ERROR = 'Use an image smaller than 1 MB';
+export const SOCIAL_IMAGE_TYPE_ERROR = 'Use a PNG, JPEG, WebP or GIF image';
 
-function seoFields(page: Page, fullTitle: string): Record<SeoTextKey, Field> {
-  const hasDescription = (page.seo.description?.trim() ?? '') !== '';
+function seoFields(
+  page: Page,
+  fullTitle: string,
+  siteDescription: string,
+): Record<SeoTextKey, Field> {
+  const hasDescription = (page.seo.description?.trim() || siteDescription.trim()) !== '';
+  const descriptionHelp = 'One or two sentences shown under the title in search results.';
   return {
     title: {
       name: 'title',
@@ -35,7 +39,10 @@ function seoFields(page: Page, fullTitle: string): Record<SeoTextKey, Field> {
       label: 'Meta description',
       type: 'textarea',
       default: '',
-      help: 'One or two sentences shown under the title in search results.',
+      help:
+        siteDescription.trim() === ''
+          ? descriptionHelp
+          : `${descriptionHelp} Leave empty to use the site description.`,
     },
     socialTitle: {
       name: 'socialTitle',
@@ -56,95 +63,22 @@ function seoFields(page: Page, fullTitle: string): Record<SeoTextKey, Field> {
   };
 }
 
-function readAsDataUrl(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (typeof reader.result === 'string') {
-        resolve(reader.result);
-        return;
-      }
-      reject(new Error('The image could not be read as a data URL'));
-    };
-    reader.onerror = () => reject(reader.error ?? new Error('The image could not be read'));
-    reader.readAsDataURL(file);
-  });
-}
-
 function SocialImageInput({ page }: { page: Page }): JSX.Element {
   const assetId = page.seo.socialImageAssetId;
   const asset = useStore((state) =>
     assetId === undefined ? undefined : state.project.assets[assetId],
   );
-  const [error, setError] = useState<string | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  async function upload(event: ChangeEvent<HTMLInputElement>): Promise<void> {
-    const file = event.target.files?.[0];
-    event.target.value = '';
-    if (file === undefined) return;
-    if (!SOCIAL_IMAGE_TYPES.includes(file.type)) {
-      setError(SOCIAL_IMAGE_TYPE_ERROR);
-      return;
-    }
-    if (file.size > MAX_SOCIAL_IMAGE_BYTES) {
-      setError(SOCIAL_IMAGE_SIZE_ERROR);
-      return;
-    }
-    try {
-      const dataUrl = await readAsDataUrl(file);
-      setError(null);
-      dispatch(pageSocialImageSet(page.id, { name: file.name, mimeType: file.type, dataUrl }));
-    } catch (readError) {
-      console.error(`Could not read the social image ${file.name}`, readError);
-      setError('The image could not be read. Try another file.');
-    }
-  }
-
   return (
-    <div className="ve-control" data-field-path="page.socialImage">
-      <span className="ve-control-label" id="ve-social-image-label">
-        Social image
-      </span>
-      {asset !== undefined && (
-        <img className="ve-social-preview" src={asset.dataUrl} alt="" width={240} height={126} />
-      )}
-      <div className="ve-social-actions">
-        <button
-          type="button"
-          className="ve-button ve-button--outline"
-          aria-describedby="ve-social-image-label"
-          onClick={() => inputRef.current?.click()}
-        >
-          <Icon name="image" />
-          {asset === undefined ? 'Upload image' : 'Replace image'}
-        </button>
-        {asset !== undefined && (
-          <button
-            type="button"
-            className="ve-button"
-            onClick={() => dispatch(pageSocialImageSet(page.id, null))}
-          >
-            Remove
-          </button>
-        )}
-      </div>
-      <input
-        ref={inputRef}
-        className="ve-visually-hidden"
-        type="file"
-        accept={SOCIAL_IMAGE_TYPES.join(',')}
-        tabIndex={-1}
-        aria-hidden="true"
-        onChange={(event) => void upload(event)}
-      />
-      <p className="ve-control-help">A 1200 × 630 px image works best.</p>
-      {error !== null && (
-        <p className="ve-control-error" role="alert">
-          {error}
-        </p>
-      )}
-    </div>
+    <ImageUploadInput
+      id="ve-social-image"
+      label="Social image"
+      help="A 1200 × 630 px image works best."
+      asset={asset}
+      accept={SOCIAL_IMAGE_TYPES}
+      typeError={SOCIAL_IMAGE_TYPE_ERROR}
+      shape="social"
+      onChange={(upload) => dispatch(pageSocialImageSet(page.id, upload))}
+    />
   );
 }
 
@@ -192,9 +126,7 @@ function SharedSlotSwitch({ page, slot }: { page: Page; slot: SharedSlot }): JSX
           role="switch"
           checked={isShown}
           onChange={(event) =>
-            dispatch(
-              pageSharedSlotShown({ pageId: page.id, slot, isShown: event.target.checked }),
-            )
+            dispatch(pageSharedSlotShown({ pageId: page.id, slot, isShown: event.target.checked }))
           }
         />
         <span className="ve-control-label">Show shared {slot}</span>
@@ -207,12 +139,19 @@ export function PageSettingsPanel(): JSX.Element {
   const page = useStore(selectCurrentPage);
   const homePageId = useStore((state) => state.project.pages.homePageId);
   const siteTitle = useStore((state) => state.project.settings.title);
+  const siteDescription = useStore((state) => state.project.settings.description);
+  const titleTemplate = useStore((state) => state.project.settings.titleTemplate);
   const hasSharedBlocks = useStore(
-    (state) => state.project.sharedSlots.header.length + state.project.sharedSlots.footer.length > 0,
+    (state) =>
+      state.project.sharedSlots.header.length + state.project.sharedSlots.footer.length > 0,
   );
   const isHome = page.id === homePageId;
-  const fullTitle = `${page.seo.title?.trim() || page.name} | ${siteTitle}`;
-  const fields = seoFields(page, fullTitle);
+  const fullTitle = applyTitleTemplate(
+    titleTemplate,
+    page.seo.title?.trim() || page.name,
+    siteTitle,
+  );
+  const fields = seoFields(page, fullTitle, siteDescription);
 
   function renderSeoField(key: SeoTextKey): JSX.Element {
     return (

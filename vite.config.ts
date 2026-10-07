@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { readFile, readdir } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { basename, resolve } from 'node:path';
@@ -6,6 +7,7 @@ import { transformWithOxc, type Plugin } from 'vite';
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import { convertIconifySet } from './packages/icon-data/src/convert.ts';
+import { iconSetInfo } from './packages/icon-data/src/sets.ts';
 
 const KNOWN_HELPERS = {
   href: true,
@@ -18,6 +20,7 @@ const KNOWN_HELPERS = {
   or: true,
   nl2br: true,
   richText: true,
+  safeUrl: true,
 };
 
 function handlebarsPrecompile(): Plugin {
@@ -77,7 +80,6 @@ function siteRuntime(): Plugin {
 
 const ICON_SET_PREFIX = 'virtual:icon-set/';
 const RESOLVED_ICON_SET_PREFIX = `\0${ICON_SET_PREFIX}`;
-const ICON_SETS = ['lucide'];
 
 function iconSets(): Plugin {
   const require = createRequire(import.meta.url);
@@ -86,13 +88,16 @@ function iconSets(): Plugin {
     resolveId(source) {
       if (!source.startsWith(ICON_SET_PREFIX)) return null;
       const name = source.slice(ICON_SET_PREFIX.length);
-      if (!ICON_SETS.includes(name)) this.error(`Unknown icon set "${name}"`);
+      if (iconSetInfo(name) === undefined) this.error(`Unknown icon set "${name}"`);
       return `\0${source}`;
     },
     async load(id) {
       if (!id.startsWith(RESOLVED_ICON_SET_PREFIX)) return null;
       const name = id.slice(RESOLVED_ICON_SET_PREFIX.length);
-      const file = require.resolve(`@iconify-json/${name}/icons.json`);
+      const info = iconSetInfo(name);
+      if (info === undefined) this.error(`Unknown icon set "${name}"`);
+      const file = require.resolve(`${info.packageName}/icons.json`);
+      const metadataFile = file.replace(/icons\.json$/, 'metadata.json');
       this.addWatchFile(file);
       let source: unknown;
       try {
@@ -100,7 +105,13 @@ function iconSets(): Plugin {
       } catch (error) {
         this.error(`Could not read icon set "${name}" from ${file}: ${String(error)}`);
       }
-      return `export default ${JSON.stringify(convertIconifySet(source))};\n`;
+      let metadata: unknown = {};
+      if (existsSync(metadataFile)) {
+        this.addWatchFile(metadataFile);
+        metadata = JSON.parse(await readFile(metadataFile, 'utf8'));
+      }
+      const converted = convertIconifySet(source, metadata, info.fallbackStyles);
+      return `export default ${JSON.stringify(converted)};\n`;
     },
   };
 }

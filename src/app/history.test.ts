@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from './projectFactory';
-import { createTestStore, homePage, type TestStore } from '../test/fixtures';
+import { componentBlockOf, createTestStore, homePage, type TestStore } from '../test/fixtures';
 import { blockSelected } from './editorSlice';
 import { MAX_HISTORY_STEPS, redo, undo } from './history';
 import {
@@ -31,7 +31,7 @@ function setup(): HistoryFixture {
   return {
     store,
     heroId,
-    title: () => store.getState().project.blocks.entities[heroId].values.title,
+    title: () => componentBlockOf(store.getState().project, heroId).values.title,
     steps: () => store.getState().history.past.length,
     edit,
   };

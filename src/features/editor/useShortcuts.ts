@@ -3,8 +3,15 @@ import { blockSelected, previewToggled } from '../../app/editorSlice';
 import { redo, undo } from '../../app/history';
 import { dispatch, type AppThunk } from '../../app/store';
 import { dragController } from '../canvas/dragController';
+import { fileCommands } from '../files/fileCommands';
 import { isElementTarget } from '../canvas/frameDom';
-import { duplicateBlock, moveBlockBy, removeBlock, type MoveOffset } from './blockActions';
+import {
+  duplicateBlock,
+  moveBlockBy,
+  removeBlock,
+  selectSiblingBlock,
+  type MoveOffset,
+} from './blockActions';
 
 const TEXT_ENTRY = 'input, textarea, select, [contenteditable]:not([contenteditable="false"])';
 const EDITING_PANELS = '.ve-properties, .ve-design-sheet';
@@ -15,7 +22,11 @@ export type Shortcut =
   | { kind: 'clear-selection' }
   | { kind: 'remove' }
   | { kind: 'duplicate' }
-  | { kind: 'move'; offset: MoveOffset };
+  | { kind: 'move'; offset: MoveOffset }
+  | { kind: 'select-sibling'; offset: MoveOffset }
+  | { kind: 'toggle-preview' }
+  | { kind: 'open' }
+  | { kind: 'save'; isSaveAs: boolean };
 
 export type ShortcutKeyEvent = Pick<
   KeyboardEvent,
@@ -42,9 +53,16 @@ function historyShortcut(event: ShortcutKeyEvent): Shortcut | null {
   return { kind: 'undo' };
 }
 
-function blockShortcut(event: ShortcutKeyEvent): Shortcut | null {
+function isPlainKey(event: ShortcutKeyEvent): boolean {
+  return !event.metaKey && !event.ctrlKey && !event.altKey && !event.shiftKey;
+}
+
+function blockShortcut(event: ShortcutKeyEvent, isFromCanvas: boolean): Shortcut | null {
   const hasCommandKey = event.metaKey || event.ctrlKey;
-  if (event.key === 'Delete' || event.key === 'Backspace') {
+  const isArrow = event.key === 'ArrowUp' || event.key === 'ArrowDown';
+  if (isFromCanvas && isArrow && isPlainKey(event)) {
+    return { kind: 'select-sibling', offset: event.key === 'ArrowUp' ? -1 : 1 };
+  } else if (event.key === 'Delete' || event.key === 'Backspace') {
     return { kind: 'remove' };
   } else if (hasCommandKey && event.key.toLowerCase() === 'd') {
     return { kind: 'duplicate' };
@@ -57,15 +75,38 @@ function blockShortcut(event: ShortcutKeyEvent): Shortcut | null {
   }
 }
 
-export function shortcutFor(event: ShortcutKeyEvent): Shortcut | null {
+export function isEditingTarget(target: EventTarget | null): boolean {
+  const isTyping = isElementTarget(target) && target.matches(TEXT_ENTRY);
+  return isTyping || isInside(target, 'dialog') || isInside(target, EDITING_PANELS);
+}
+
+function isPreviewKey(event: ShortcutKeyEvent): boolean {
+  const hasCommandKey = event.metaKey || event.ctrlKey;
+  return hasCommandKey && !event.altKey && !event.shiftKey && event.key.toLowerCase() === 'p';
+}
+
+function fileShortcut(event: ShortcutKeyEvent): Shortcut | null {
+  const hasCommandKey = event.metaKey || event.ctrlKey;
+  if (!hasCommandKey || event.altKey || event.isComposing) return null;
+  const key = event.key.toLowerCase();
+  if (key === 's') return { kind: 'save', isSaveAs: event.shiftKey };
+  if (key === 'o' && !event.shiftKey) return { kind: 'open' };
+  return null;
+}
+
+export function shortcutFor(event: ShortcutKeyEvent, isFromCanvas = false): Shortcut | null {
   const history = historyShortcut(event);
   if (history !== null) return history;
+  const file = fileShortcut(event);
+  if (file?.kind === 'save') return file;
 
   const isTyping = isElementTarget(event.target) && event.target.matches(TEXT_ENTRY);
   if (event.defaultPrevented || isTyping || isInside(event.target, 'dialog')) return null;
   if (event.key === 'Escape') return { kind: 'clear-selection' };
+  if (isPreviewKey(event)) return { kind: 'toggle-preview' };
+  if (file !== null) return file;
   if (isInside(event.target, EDITING_PANELS)) return null;
-  return blockShortcut(event);
+  return blockShortcut(event, isFromCanvas);
 }
 
 function applyBlockShortcut(shortcut: Shortcut, blockId: string): AppThunk {
@@ -82,12 +123,26 @@ function applyBlockShortcut(shortcut: Shortcut, blockId: string): AppThunk {
 
 export function applyShortcut(shortcut: Shortcut): AppThunk<boolean> {
   return (dispatchAction, getState) => {
-    if (getState().editor.isPreview) {
+    const { isPreview } = getState().editor;
+    if (shortcut.kind === 'open') {
+      fileCommands.openFromDisk();
+      return true;
+    } else if (shortcut.kind === 'save') {
+      fileCommands.save(shortcut.isSaveAs);
+      return true;
+    } else if (shortcut.kind === 'toggle-preview') {
+      dispatchAction(previewToggled(!isPreview));
+      return true;
+    }
+    if (isPreview) {
       if (shortcut.kind !== 'clear-selection') return false;
       dispatchAction(previewToggled(false));
       return true;
     }
-    if (shortcut.kind === 'undo') {
+    if (shortcut.kind === 'select-sibling') {
+      dispatchAction(selectSiblingBlock(shortcut.offset));
+      return true;
+    } else if (shortcut.kind === 'undo') {
       dispatchAction(undo());
       return true;
     } else if (shortcut.kind === 'redo') {
@@ -105,26 +160,34 @@ export function applyShortcut(shortcut: Shortcut): AppThunk<boolean> {
   };
 }
 
-function handleKeyDown(event: KeyboardEvent): void {
+function handleKeyDown(event: KeyboardEvent, isFromCanvas: boolean): void {
   if (dragController.isActive()) {
     if (event.key !== 'Escape') return;
     event.preventDefault();
     dragController.cancel();
     return;
   }
-  const shortcut = shortcutFor(event);
+  const shortcut = shortcutFor(event, isFromCanvas);
   if (shortcut === null) return;
   const isConsumed = dispatch(applyShortcut(shortcut));
   if (isConsumed) event.preventDefault();
 }
 
+function handleEditorKeyDown(event: KeyboardEvent): void {
+  handleKeyDown(event, false);
+}
+
+function handleCanvasKeyDown(event: KeyboardEvent): void {
+  handleKeyDown(event, true);
+}
+
 export function useShortcuts(canvasDoc: Document | null): void {
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    canvasDoc?.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleEditorKeyDown);
+    canvasDoc?.addEventListener('keydown', handleCanvasKeyDown);
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      canvasDoc?.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', handleEditorKeyDown);
+      canvasDoc?.removeEventListener('keydown', handleCanvasKeyDown);
     };
   }, [canvasDoc]);
 }

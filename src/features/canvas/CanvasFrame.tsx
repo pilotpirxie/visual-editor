@@ -11,8 +11,15 @@ import {
 import { createPortal } from 'react-dom';
 import { behaviors, core } from 'virtual:site-runtime';
 import { pageAnchorRequested } from '../../app/editorSlice';
-import { dispatch, selectCurrentPage, selectShownSlot, store, useStore } from '../../app/store';
-import { registry } from '../../components/registry';
+import {
+  dispatch,
+  selectCanvasDesignSystem,
+  selectCurrentPage,
+  selectShownSlot,
+  store,
+  useStore,
+} from '../../app/store';
+import { blockComponentId, registry } from '../../components/registry';
 import { CANVAS_BASE_CSS, buildTokensCss } from '../../render/css';
 import { BlockHost } from './BlockHost';
 import { syncFontLink } from './fontLink';
@@ -102,8 +109,8 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
   const headerBlockIds = useStore((state) => selectShownSlot(state, 'header'));
   const footerBlockIds = useStore((state) => selectShownSlot(state, 'footer'));
   const blocks = useStore((state) => state.project.blocks.entities);
-  const tokens = useStore((state) => state.project.designSystem.tokens);
-  const fonts = useStore((state) => state.project.designSystem.fonts);
+  const tokens = useStore((state) => selectCanvasDesignSystem(state).tokens);
+  const fonts = useStore((state) => selectCanvasDesignSystem(state).fonts);
   const language = useStore((state) => state.project.settings.language);
 
   const anchor = useMemo(
@@ -153,8 +160,8 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
     if (doc === null) return;
     for (const blockId of [...headerBlockIds, ...page.blockIds, ...footerBlockIds]) {
       const block = blocks[blockId];
-      if (block === undefined) continue;
-      const component = registry.get(block.componentId);
+      const componentId = block === undefined ? null : blockComponentId(block);
+      const component = componentId === null ? undefined : registry.get(componentId);
       if (component === undefined) continue;
       const styleSelector = `style[data-component-css="${CSS.escape(component.definition.id)}"]`;
       if (doc.head.querySelector(styleSelector) !== null) continue;

@@ -1,0 +1,27 @@
+@layer components {
+  .ve-license {
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    padding: 8px 12px;
+  }
+
+  .ve-license summary {
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .ve-license-text {
+    max-height: 240px;
+    overflow: auto;
+    padding: 8px;
+    border-radius: var(--ve-radius);
+    background: var(--ve-surface);
+    font:
+      11px/1.5 ui-monospace,
+      'SF Mono',
+      Menlo,
+      Consolas,
+      monospace;
+    white-space: pre-wrap;
+  }
+}

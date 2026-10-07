@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type JSX } from 'react';
 import { pageRemoved } from '../../app/projectSlice';
 import { dispatch, store, useStore } from '../../app/store';
 import { linksToPage } from './linkUsage';
+import '../editor/dialog.css';
 import './pages.css';
 
 type DeletePageDialogProps = { pageId: string; onClose(): void };

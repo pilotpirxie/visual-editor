@@ -1,7 +1,7 @@
 import { useState, type JSX } from 'react';
 import { blockOverrideRemoved, blockOverrideSet, type EditKind } from '../../app/projectSlice';
 import { dispatch, useStore } from '../../app/store';
-import type { Block, Token } from '../../app/types';
+import type { ComponentBlock, Token } from '../../app/types';
 import type { ComponentDefinition, Field } from '../../components/types';
 import { tokenReference } from '../../render/css';
 import { resolveColor } from '../design-system/colors';
@@ -10,7 +10,7 @@ import { FieldControl } from './FieldControl';
 import { TokenSelect } from './TokenSelect';
 
 type OverrideRowProps = {
-  block: Block;
+  block: ComponentBlock;
   name: string;
   tokens: Record<string, Token>;
   isOpen: boolean;
@@ -54,7 +54,7 @@ function OverrideControl({
   token,
   tokens,
 }: {
-  block: Block;
+  block: ComponentBlock;
   name: string;
   token: Token | undefined;
   tokens: Record<string, Token>;
@@ -132,7 +132,7 @@ export function StyleTab({
   block,
   definition,
 }: {
-  block: Block;
+  block: ComponentBlock;
   definition: ComponentDefinition;
 }): JSX.Element {
   const tokens = useStore((state) => state.project.designSystem.tokens);

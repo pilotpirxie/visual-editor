@@ -1,13 +1,24 @@
-import type { Project } from '../app/types';
-import { migrateProject } from './migrate';
+import type { DesignSystemPreset, Project } from '../app/types';
+import { parseProjectDocument } from './validateProject';
 
 export type ProjectSummary = { id: string; title: string; updatedAt: string };
 
+export type FileLink = {
+  id: string;
+  handle: FileSystemFileHandle;
+  name: string;
+  lastModified: number;
+  openedAt: string;
+  isAutoSaving: boolean;
+};
+
 const DB_NAME = 'visual-editor';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const PROJECTS = 'projects';
 const DOCUMENTS = 'documents';
-const STORE_NAMES = [PROJECTS, DOCUMENTS];
+const FILE_LINKS = 'fileHandles';
+const PRESETS = 'presets';
+const STORE_NAMES = [PROJECTS, DOCUMENTS, FILE_LINKS, PRESETS];
 
 let databasePromise: Promise<IDBDatabase> | null = null;
 
@@ -96,7 +107,14 @@ export async function getProject(id: string): Promise<Project | null> {
   const documentsStore = db.transaction(DOCUMENTS).objectStore(DOCUMENTS);
   const stored: unknown = await requestResult(documentsStore.get(id));
   if (stored === undefined) return null;
-  return migrateProject(stored);
+  return parseProjectDocument(stored);
+}
+
+export async function getProjectSummary(id: string): Promise<ProjectSummary | null> {
+  const db = await database();
+  const projectsStore = db.transaction(PROJECTS).objectStore(PROJECTS);
+  const stored: unknown = await requestResult(projectsStore.get(id));
+  return isProjectSummary(stored) ? stored : null;
 }
 
 export async function putProject(project: Project): Promise<void> {
@@ -114,8 +132,68 @@ export async function putProject(project: Project): Promise<void> {
 
 export async function deleteProject(id: string): Promise<void> {
   const db = await database();
-  const transaction = db.transaction([PROJECTS, DOCUMENTS], 'readwrite');
+  const transaction = db.transaction([PROJECTS, DOCUMENTS, FILE_LINKS], 'readwrite');
   transaction.objectStore(PROJECTS).delete(id);
   transaction.objectStore(DOCUMENTS).delete(id);
+  transaction.objectStore(FILE_LINKS).delete(id);
+  await transactionDone(transaction);
+}
+
+function isFileLink(value: unknown): value is FileLink {
+  if (typeof value !== 'object' || value === null) return false;
+  if (!('id' in value) || !('handle' in value) || !('name' in value)) return false;
+  return typeof value.id === 'string' && typeof value.name === 'string';
+}
+
+export async function getFileLink(projectId: string): Promise<FileLink | null> {
+  const db = await database();
+  const store = db.transaction(FILE_LINKS).objectStore(FILE_LINKS);
+  const stored: unknown = await requestResult(store.get(projectId));
+  return isFileLink(stored) ? stored : null;
+}
+
+export async function listFileLinks(): Promise<FileLink[]> {
+  const db = await database();
+  const store = db.transaction(FILE_LINKS).objectStore(FILE_LINKS);
+  const stored: unknown[] = await requestResult(store.getAll());
+  const links: FileLink[] = [];
+  for (const value of stored) {
+    if (isFileLink(value)) links.push(value);
+  }
+  links.sort((left, right) => right.openedAt.localeCompare(left.openedAt));
+  return links;
+}
+
+export async function putFileLink(link: FileLink): Promise<void> {
+  const db = await database();
+  const transaction = db.transaction(FILE_LINKS, 'readwrite');
+  transaction.objectStore(FILE_LINKS).put(link);
+  await transactionDone(transaction);
+}
+
+export async function deleteFileLink(projectId: string): Promise<void> {
+  const db = await database();
+  const transaction = db.transaction(FILE_LINKS, 'readwrite');
+  transaction.objectStore(FILE_LINKS).delete(projectId);
+  await transactionDone(transaction);
+}
+
+export async function listUserPresets(): Promise<unknown[]> {
+  const db = await database();
+  const store = db.transaction(PRESETS).objectStore(PRESETS);
+  return requestResult(store.getAll());
+}
+
+export async function putUserPreset(preset: DesignSystemPreset): Promise<void> {
+  const db = await database();
+  const transaction = db.transaction(PRESETS, 'readwrite');
+  transaction.objectStore(PRESETS).put(preset);
+  await transactionDone(transaction);
+}
+
+export async function deleteUserPreset(presetId: string): Promise<void> {
+  const db = await database();
+  const transaction = db.transaction(PRESETS, 'readwrite');
+  transaction.objectStore(PRESETS).delete(presetId);
   await transactionDone(transaction);
 }

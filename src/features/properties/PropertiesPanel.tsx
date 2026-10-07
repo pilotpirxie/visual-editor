@@ -7,9 +7,11 @@ import {
 import { sharedSlotOf, slotForCategory } from '../../app/blockLists';
 import { blockShared, blockUnshared } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, useStore } from '../../app/store';
-import { registry } from '../../components/registry';
+import { blockComponentId, blockLabel, registry } from '../../components/registry';
+import type { Block } from '../../app/types';
 import { CATEGORIES, type ComponentDefinition } from '../../components/types';
 import { AdvancedTab } from './AdvancedTab';
+import { CodeField } from './CodeField';
 import { ContentTab } from './ContentTab';
 import { PageSettingsPanel } from './PageSettingsPanel';
 import { StyleTab } from './StyleTab';
@@ -18,11 +20,23 @@ import './properties.css';
 const TEXT_ENTRY_TARGETS = 'input, textarea, select, [contenteditable="true"]';
 const BUTTON_TARGETS = 'button, summary';
 
-const TABS: { id: PropertiesTab; label: string }[] = [
+type TabOption = { id: PropertiesTab; label: string };
+
+const COMPONENT_TABS: TabOption[] = [
   { id: 'content', label: 'Content' },
   { id: 'style', label: 'Style' },
   { id: 'advanced', label: 'Advanced' },
 ];
+
+const HTML_TABS: TabOption[] = [
+  { id: 'code', label: 'Code' },
+  { id: 'advanced', label: 'Advanced' },
+];
+
+function shownTab(block: Block, activeTab: PropertiesTab): PropertiesTab {
+  if (block.kind === 'html') return activeTab === 'advanced' ? 'advanced' : 'code';
+  return activeTab === 'code' ? 'content' : activeTab;
+}
 
 function focusField(container: HTMLElement, path: string): boolean {
   const field = container.querySelector(`[data-field-path="${CSS.escape(path)}"]`);
@@ -87,10 +101,16 @@ function SharedSwitch({
   );
 }
 
-function PropertiesTabs({ activeTab }: { activeTab: PropertiesTab }): JSX.Element {
+function PropertiesTabs({
+  tabs,
+  activeTab,
+}: {
+  tabs: TabOption[];
+  activeTab: PropertiesTab;
+}): JSX.Element {
   return (
     <div className="ve-tabs" role="tablist" aria-label="Block settings">
-      {TABS.map(({ id, label }) => (
+      {tabs.map(({ id, label }) => (
         <button
           key={id}
           type="button"
@@ -134,10 +154,35 @@ export function PropertiesPanel(): JSX.Element {
     );
   }
 
-  const component = registry.get(block.componentId);
+  const componentId = blockComponentId(block);
+  const component = componentId === null ? undefined : registry.get(componentId);
   const definition = component === undefined ? null : component.definition;
-  const title = definition === null ? `Missing component: ${block.componentId}` : definition.name;
   const categoryLabel = definition === null ? null : categoryLabelOf(definition);
+  const tab = shownTab(block, activeTab);
+  if (block.kind === 'html') {
+    return (
+      <aside className="ve-panel ve-properties" aria-label="Properties">
+        <header className="ve-properties-section">
+          <h2 className="ve-properties-title">HTML block</h2>
+          {definition !== null && <p className="ve-muted">Converted from {definition.name}</p>}
+          {definition !== null && <SharedSwitch blockId={block.id} definition={definition} />}
+        </header>
+        <PropertiesTabs tabs={HTML_TABS} activeTab={tab} />
+        <div
+          className="ve-properties-body"
+          key={block.id}
+          ref={bodyRef}
+          role="tabpanel"
+          id="ve-properties-panel"
+          aria-labelledby={`ve-properties-tab-${tab}`}
+        >
+          {tab === 'code' && <CodeField id="ve-html-code" blockId={block.id} html={block.html} />}
+          {tab === 'advanced' && <AdvancedTab block={block} />}
+        </div>
+      </aside>
+    );
+  }
+  const title = definition === null ? blockLabel(block) : definition.name;
 
   return (
     <aside className="ve-panel ve-properties" aria-label="Properties">
@@ -146,22 +191,22 @@ export function PropertiesPanel(): JSX.Element {
         {categoryLabel !== null && <p className="ve-muted">{categoryLabel}</p>}
         {definition !== null && <SharedSwitch blockId={block.id} definition={definition} />}
       </header>
-      {definition !== null && <PropertiesTabs activeTab={activeTab} />}
+      {definition !== null && <PropertiesTabs tabs={COMPONENT_TABS} activeTab={tab} />}
       <div
         className="ve-properties-body"
         key={block.id}
         ref={bodyRef}
         role="tabpanel"
         id="ve-properties-panel"
-        aria-labelledby={`ve-properties-tab-${activeTab}`}
+        aria-labelledby={`ve-properties-tab-${tab}`}
       >
-        {definition !== null && activeTab === 'content' && (
+        {definition !== null && tab === 'content' && (
           <ContentTab block={block} definition={definition} />
         )}
-        {definition !== null && activeTab === 'style' && (
+        {definition !== null && tab === 'style' && (
           <StyleTab block={block} definition={definition} />
         )}
-        {definition !== null && activeTab === 'advanced' && <AdvancedTab block={block} />}
+        {definition !== null && tab === 'advanced' && <AdvancedTab block={block} />}
       </div>
     </aside>
   );

@@ -1,10 +1,13 @@
 export type IconData = { body: string; width?: number; height?: number; hidden?: true };
 
+export type IconStyle = { suffix: string; label: string };
+
 export type IconSetData = {
   width: number;
   height: number;
   icons: Record<string, IconData>;
   aliases: Record<string, string>;
+  styles: IconStyle[];
 };
 
 const DEFAULT_ICONIFY_SIZE = 16;
@@ -35,7 +38,29 @@ function isPlainAlias(target: Record<string, unknown>): boolean {
   return true;
 }
 
-export function convertIconifySet(source: unknown): IconSetData {
+function convertStyles(metadata: unknown, fallbackStyles: IconStyle[]): IconStyle[] {
+  if (!isRecord(metadata) || !isRecord(metadata.suffixes)) return fallbackStyles;
+  const styles: IconStyle[] = [];
+  for (const [suffix, label] of Object.entries(metadata.suffixes)) {
+    if (typeof label === 'string') styles.push({ suffix, label });
+  }
+  return styles;
+}
+
+export function iconStyleOf(name: string, styles: readonly IconStyle[]): string {
+  let best = '';
+  for (const { suffix } of styles) {
+    const isLonger = suffix.length > best.length;
+    if (suffix !== '' && isLonger && name.endsWith(`-${suffix}`)) best = suffix;
+  }
+  return best;
+}
+
+export function convertIconifySet(
+  source: unknown,
+  metadata: unknown = {},
+  fallbackStyles: IconStyle[] = [],
+): IconSetData {
   if (!isRecord(source) || !isRecord(source.icons)) {
     throw new Error('Icon set JSON must be an object with an "icons" object');
   }
@@ -59,5 +84,6 @@ export function convertIconifySet(source: unknown): IconSetData {
     height: numberOrNull(source.height) ?? DEFAULT_ICONIFY_SIZE,
     icons,
     aliases,
+    styles: convertStyles(metadata, fallbackStyles),
   };
 }

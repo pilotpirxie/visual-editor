@@ -3,14 +3,23 @@ import { useStore } from '../../app/store';
 import { Canvas } from '../canvas/Canvas';
 import { DragGhost } from '../canvas/DragGhost';
 import { DesignSystemSheet } from '../design-system/DesignSystemSheet';
+import { useDiskAutosave } from '../files/diskAutosave';
 import { LibraryPanel } from '../library/LibraryPanel';
+import { ConvertToHtmlDialog } from '../properties/ConvertToHtmlDialog';
 import { PropertiesPanel } from '../properties/PropertiesPanel';
 import { CompactTabs } from './CompactTabs';
 import { ResizeHandle } from './ResizeHandle';
 import { Toolbar } from './Toolbar';
 import './editor.css';
 
+function ConversionHost(): JSX.Element | null {
+  const blockId = useStore((state) => state.editor.conversionBlockId);
+  if (blockId === null) return null;
+  return <ConvertToHtmlDialog key={blockId} blockId={blockId} />;
+}
+
 export function EditorShell(): JSX.Element {
+  useDiskAutosave();
   const { left, right } = useStore((state) => state.editor.panels);
   const compactView = useStore((state) => state.editor.compactView);
   const isDesignSheetOpen = useStore((state) => state.editor.isDesignSheetOpen);
@@ -40,6 +49,7 @@ export function EditorShell(): JSX.Element {
       {isDesignSheetOpen && <DesignSystemSheet />}
       <CompactTabs />
       <DragGhost />
+      <ConversionHost />
     </div>
   );
 }

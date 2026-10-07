@@ -1,0 +1,54 @@
+@layer components {
+  @scope (.b-contact-form) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-details {
+      --stack-gap: var(--space-4);
+      align-content: start;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-channels {
+      --stack-gap: var(--space-4);
+      margin-top: var(--space-4);
+    }
+
+    .b-channels li {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .b-channels a {
+      color: inherit;
+    }
+
+    .b-channels address {
+      font-style: normal;
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      flex: none;
+      color: var(--color-primary);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+      --card-padding: var(--space-8);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

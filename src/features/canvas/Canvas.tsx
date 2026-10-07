@@ -22,6 +22,9 @@ import {
 import type { Device } from '../../app/types';
 import { dropBlock, isNoopDrop } from '../editor/blockActions';
 import { openPage } from '../pages/pageActions';
+import { BlockContextMenu } from '../editor/BlockContextMenu';
+import { closeOpenPopovers, type MenuPoint } from '../editor/Menu';
+import { useClipboard } from '../editor/useClipboard';
 import { useShortcuts } from '../editor/useShortcuts';
 import { CanvasFrame, type CanvasFrameHandle } from './CanvasFrame';
 import { dragController, type DragPayload } from './dragController';
@@ -52,7 +55,7 @@ import './canvas.css';
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
-function useElementSize(ref: RefObject<HTMLElement | null>): Size {
+export function useElementSize(ref: RefObject<HTMLElement | null>): Size {
   const [size, setSize] = useState<Size>({ width: 0, height: 0 });
   useLayoutEffect(() => {
     const element = ref.current;
@@ -149,6 +152,42 @@ function useCanvasPointer(doc: Document | null, isPreview: boolean): string | nu
   }, [doc, isPreview]);
 
   return isPreview ? null : hoveredId;
+}
+
+type CanvasMenu = { blockId: string; point: MenuPoint };
+
+function useCanvasContextMenu(
+  frame: CanvasFrameHandle | null,
+  isPreview: boolean,
+  scale: number,
+): [CanvasMenu | null, () => void] {
+  const [menu, setMenu] = useState<CanvasMenu | null>(null);
+
+  useEffect(() => {
+    if (frame === null || isPreview) return;
+    const { iframe, doc } = frame;
+    function onContextMenu(event: MouseEvent): void {
+      const blockId = blockIdFromEvent(event);
+      if (blockId === null) return;
+      event.preventDefault();
+      dispatch(blockSelected(blockId));
+      const box = iframe.getBoundingClientRect();
+      const point = { x: box.left + event.clientX * scale, y: box.top + event.clientY * scale };
+      setMenu({ blockId, point });
+    }
+    function onPointerDown(): void {
+      setMenu(null);
+      closeOpenPopovers(document);
+    }
+    doc.addEventListener('contextmenu', onContextMenu);
+    doc.addEventListener('pointerdown', onPointerDown);
+    return () => {
+      doc.removeEventListener('contextmenu', onContextMenu);
+      doc.removeEventListener('pointerdown', onPointerDown);
+    };
+  }, [frame, isPreview, scale]);
+
+  return [menu, () => setMenu(null)];
 }
 
 function isShown(element: HTMLElement): boolean {
@@ -270,7 +309,9 @@ export function Canvas(): JSX.Element {
   const hiddenIds = useHiddenBlockIds(pageDevice);
   const dropY = useCanvasDropTarget(frame, viewportRef, fit.scale);
   useScrollSelectedIntoView(frame, selectedId);
+  const [contextMenu, closeContextMenu] = useCanvasContextMenu(frame, isPreview, fit.scale);
   useShortcuts(frame?.doc ?? null);
+  useClipboard(frame?.doc ?? null);
 
   return (
     <div className="ve-canvas" ref={viewportRef}>
@@ -314,6 +355,13 @@ export function Canvas(): JSX.Element {
       )}
       {fit.scale < 1 && <p className="ve-canvas-zoom">Zoom {Math.round(fit.scale * 100)}%</p>}
       {isDragging && <div className="ve-canvas-catcher" />}
+      {contextMenu !== null && (
+        <BlockContextMenu
+          blockId={contextMenu.blockId}
+          point={contextMenu.point}
+          onClose={closeContextMenu}
+        />
+      )}
     </div>
   );
 }

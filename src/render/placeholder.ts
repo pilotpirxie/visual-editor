@@ -1,6 +1,6 @@
 import type { ImageValue, PlaceholderRatio, PlaceholderSubject } from '../components/types';
 
-type Placeholder = ImageValue['placeholder'];
+export type Placeholder = ImageValue['placeholder'];
 
 const LONG_EDGE_PX = 1200;
 const GLYPH_SHARE = 0.16;
@@ -65,6 +65,11 @@ export function placeholderSvg({ ratio, subject }: Placeholder): string {
     `<text x="50%" y="${labelY}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="${fontSize}" fill="${LABEL_COLOR}">${width} × ${height}</text>`,
     '</svg>',
   ].join('');
+}
+
+export function placeholderFileName(placeholder: Placeholder): string {
+  const { width, height } = placeholderSize(placeholder.ratio);
+  return `placeholder-${placeholder.subject}-${width}x${height}.svg`;
 }
 
 export function placeholderDataUrl(placeholder: Placeholder): string {

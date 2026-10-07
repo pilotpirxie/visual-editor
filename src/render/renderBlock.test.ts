@@ -1,10 +1,10 @@
 import type { TemplateDelegate } from 'handlebars';
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from '../app/projectFactory';
-import type { Block } from '../app/types';
+import type { ComponentBlock, HtmlBlock } from '../app/types';
 import { createBlock, registry } from '../components/registry';
 import type { RegisteredComponent } from '../components/types';
-import { createRenderContext, renderBlock } from './renderBlock';
+import { createRenderContext, renderBlock, renderHtmlBlock } from './renderBlock';
 
 function registered(componentId: string): RegisteredComponent {
   const component = registry.get(componentId);
@@ -17,7 +17,7 @@ const content = registered('content-text-image');
 const canvas = createRenderContext(createSampleProject(), 'canvas');
 const exported = createRenderContext(createSampleProject(), 'export');
 
-function heroBlock(changes: Partial<Block> = {}): Block {
+function heroBlock(changes: Partial<ComponentBlock> = {}): ComponentBlock {
   return { ...createBlock(hero.definition), ...changes };
 }
 
@@ -137,5 +137,29 @@ describe('createRenderContext', () => {
       pages: { ...project.pages, ids: [...project.pages.ids, 'gone'] },
     };
     expect(createRenderContext(withDanglingId, 'canvas').pageSlugs).not.toHaveProperty('gone');
+  });
+});
+
+describe('renderHtmlBlock', () => {
+  const htmlBlock: HtmlBlock = {
+    id: 'h1',
+    kind: 'html',
+    html: '<section class="b-x"><p onclick="x()">Hi</p></section>',
+    disabled: false,
+    anchor: 'story',
+    extraClasses: ['wide'],
+    hideOn: ['phone'],
+  };
+
+  it('wraps the cleaned markup for selection on the canvas', () => {
+    expect(renderHtmlBlock(htmlBlock, canvas)).toBe(
+      '<div data-block-id="h1" data-html-block=""><section class="b-x wide" id="story"><p>Hi</p></section></div>',
+    );
+  });
+
+  it('writes the cleaned markup as it is in the export, with hide classes', () => {
+    expect(renderHtmlBlock(htmlBlock, exported)).toBe(
+      '<section class="b-x wide hide-phone" id="story"><p>Hi</p></section>',
+    );
   });
 });

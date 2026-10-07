@@ -1,10 +1,16 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { blockSelected } from '../../app/editorSlice';
+import { blockRemoved, pageSharedSlotShown } from '../../app/projectSlice';
 import { createBlankProject, createSampleProject } from '../../app/projectFactory';
 import { dispatch, store } from '../../app/store';
 import type { Project } from '../../app/types';
 import { click, firePointer, getButton, render, runInAct } from '../../test/dom';
-import { homePage, loadIntoAppStore } from '../../test/fixtures';
+import {
+  componentBlockOf,
+  homePage,
+  loadIntoAppStore,
+  shareNavAndFooter,
+} from '../../test/fixtures';
 import { dragController } from '../canvas/dragController';
 import { LayersTab } from './LayersTab';
 
@@ -40,10 +46,45 @@ function layoutRows(container: HTMLElement): void {
   }
 }
 
+function layoutList(list: Element, top: number): void {
+  const rowCount = list.children.length;
+  list.getBoundingClientRect = () => new DOMRect(0, top, LIST_WIDTH, rowCount * ROW_HEIGHT);
+  for (const [index, row] of [...list.children].entries()) {
+    row.getBoundingClientRect = () =>
+      new DOMRect(0, top + index * ROW_HEIGHT, LIST_WIDTH, ROW_HEIGHT);
+  }
+}
+
+function layoutGroups(container: HTMLElement): void {
+  const tops: Record<string, number> = {
+    'Shared header': 0,
+    'Blocks on this page': 100,
+    'Shared footer': 300,
+  };
+  for (const list of container.querySelectorAll('ol')) {
+    layoutList(list, tops[list.getAttribute('aria-label') ?? '']);
+  }
+}
+
+function groupTitles(container: HTMLElement): string[] {
+  const titles: string[] = [];
+  for (const title of container.querySelectorAll('.ve-group-title')) {
+    titles.push(title.textContent ?? '');
+  }
+  return titles;
+}
+
+function dragRow(container: HTMLElement, name: string, fromY: number, toY: number): void {
+  const row = getButton(container, name).closest('.ve-layer');
+  if (row === null) throw new Error(`No layer row for ${name}`);
+  firePointer(row, 'pointerdown', { clientX: 10, clientY: fromY, button: 0, buttons: 1 });
+  firePointer(window, 'pointermove', { clientX: 10, clientY: toY, buttons: 1 });
+}
+
 function projectWithUnknownBlock(): Project {
   const project = createSampleProject();
   const heroId = homePage(project).blockIds[1];
-  const hero = project.blocks.entities[heroId];
+  const hero = componentBlockOf(project, heroId);
   return {
     ...project,
     blocks: {
@@ -71,7 +112,7 @@ describe('LayersTab', () => {
   it('names blocks whose component is no longer in the library', () => {
     loadIntoAppStore(projectWithUnknownBlock());
     const { container } = render(<LayersTab />);
-    expect(rowNames(container)[1]).toBe('Missing: retired-hero');
+    expect(rowNames(container)[1]).toBe('Missing component: retired-hero');
   });
 
   it('selects a block from its row and marks the selected row', () => {
@@ -144,5 +185,89 @@ describe('LayersTab', () => {
     expect(dragController.isActive()).toBe(true);
     firePointer(window, 'pointerup', { clientX: 10, clientY: 130, buttons: 0 });
     expect(blockIds()[2]).toBe(nav);
+  });
+});
+
+describe('LayersTab with shared blocks', () => {
+  it('groups the shared header, the page and the shared footer', () => {
+    shareNavAndFooter();
+    const { container } = render(<LayersTab />);
+    expect(groupTitles(container)).toEqual(['Shared header', 'This page', 'Shared footer']);
+    expect(rowNames(container)).toEqual([
+      'Navigation, logo left',
+      'Hero, centered text',
+      'Features grid, 3 columns',
+      'Footer, simple',
+    ]);
+  });
+
+  it('leaves out a shared slot the page hides', () => {
+    shareNavAndFooter();
+    const pageId = homePage(store.getState().project).id;
+    dispatch(pageSharedSlotShown({ pageId, slot: 'footer', isShown: false }));
+    const { container } = render(<LayersTab />);
+    expect(groupTitles(container)).toEqual(['Shared header', 'This page']);
+    expect(rowNames(container)).not.toContain('Footer, simple');
+  });
+
+  it('keeps the page group when the page itself has no blocks', () => {
+    shareNavAndFooter();
+    for (const blockId of blockIds()) dispatch(blockRemoved({ blockId }));
+    const { container } = render(<LayersTab />);
+    expect(groupTitles(container)).toEqual(['Shared header', 'This page', 'Shared footer']);
+    expect(container.textContent).toContain('This page has no blocks yet.');
+  });
+
+  it('reorders page blocks within the page group', () => {
+    shareNavAndFooter();
+    const [hero] = blockIds();
+    const { container } = render(<LayersTab />);
+    layoutGroups(container);
+    dragRow(container, 'Hero, centered text', 110, 175);
+    firePointer(window, 'pointerup', { clientX: 10, clientY: 175, buttons: 0 });
+    expect(blockIds()[1]).toBe(hero);
+    expect(store.getState().project.sharedSlots.header).toHaveLength(1);
+  });
+
+  it('does not let a shared block land among the page blocks', () => {
+    const { navId } = shareNavAndFooter();
+    const pageBefore = blockIds();
+    const { container } = render(<LayersTab />);
+    layoutGroups(container);
+    dragRow(container, 'Navigation, logo left', 10, 150);
+    expect(container.querySelector('[data-drop]')).toBeNull();
+    firePointer(window, 'pointerup', { clientX: 10, clientY: 150, buttons: 0 });
+    expect(blockIds()).toEqual(pageBefore);
+    expect(store.getState().project.sharedSlots.header).toEqual([navId]);
+  });
+
+  it('does not let a page block land in a shared slot', () => {
+    const { footerId } = shareNavAndFooter();
+    const pageBefore = blockIds();
+    const { container } = render(<LayersTab />);
+    layoutGroups(container);
+    dragRow(container, 'Hero, centered text', 110, 310);
+    expect(container.querySelector('[data-drop]')).toBeNull();
+    firePointer(window, 'pointerup', { clientX: 10, clientY: 310, buttons: 0 });
+    expect(blockIds()).toEqual(pageBefore);
+    expect(store.getState().project.sharedSlots.footer).toEqual([footerId]);
+  });
+});
+
+describe('LayersTab context menu', () => {
+  it('selects the block and opens its actions on right-click', () => {
+    const { container } = render(<LayersTab />);
+    const row = container.querySelectorAll('.ve-layer')[1];
+    if (row === undefined) throw new Error('Expected a second layer row');
+    runInAct(() => {
+      row.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, clientX: 20, clientY: 30 }));
+    });
+    expect(store.getState().editor.selectedBlockId).toBe(blockIds()[1]);
+    const menu = container.querySelector('[role="menu"]');
+    expect(menu?.getAttribute('aria-label')).toBe('Hero, centered text actions');
+    const duplicate = getButton(container, 'Duplicate');
+    firePointer(duplicate, 'pointerdown', { button: 0 });
+    click(duplicate);
+    expect(blockIds()).toHaveLength(5);
   });
 });

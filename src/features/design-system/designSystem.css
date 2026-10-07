@@ -1,4 +1,78 @@
 @layer components {
+  .ve-preset-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ve-preset-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    background: var(--ve-bg);
+  }
+
+  .ve-preset-card[data-current] {
+    border-color: var(--ve-accent);
+    box-shadow: 0 0 0 1px var(--ve-accent);
+  }
+
+  .ve-preset-swatches {
+    display: flex;
+    height: 28px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    border: 1px solid var(--ve-border);
+    border-radius: 4px;
+  }
+
+  .ve-preset-swatches span {
+    flex: 1;
+  }
+
+  .ve-preset-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .ve-preset-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .ve-specimen {
+    width: 100%;
+    height: 560px;
+    margin-top: 8px;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+  }
+
+  .ve-icon-samples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 8px 0;
+    color: var(--ve-text);
+  }
+
+  .ve-icon-samples svg {
+    width: 20px;
+    height: 20px;
+  }
+
   .ve-design-sheet {
     grid-area: canvas;
     z-index: 3;

@@ -1,6 +1,6 @@
 import type { Page, Project } from '../app/types';
 import { escapeHtml } from './attributes';
-import { googleFontsHref } from './fonts';
+export const SITE_CSS_PATH = 'assets/css/site.css';
 
 export const DEFAULT_TITLE_TEMPLATE = '{{page.title}} | {{site.title}}';
 
@@ -14,6 +14,7 @@ export type PageHeadInput = {
   page: Page;
   fileName: string;
   assetFiles: Record<string, string>;
+  fontsHref: string | null;
 };
 
 export function applyTitleTemplate(template: string, pageTitle: string, siteTitle: string): string {
@@ -32,15 +33,24 @@ function meta(attribute: 'name' | 'property', key: string, content: string): str
   return `  <meta ${attribute}="${key}" content="${escapeHtml(content)}">`;
 }
 
-export function buildPageHead({ project, page, fileName, assetFiles }: PageHeadInput): string[] {
-  const { settings, designSystem } = project;
+export function buildPageHead({
+  project,
+  page,
+  fileName,
+  assetFiles,
+  fontsHref,
+}: PageHeadInput): string[] {
+  const { settings } = project;
   const pageTitle = page.seo.title?.trim() || page.name;
-  const title = applyTitleTemplate(DEFAULT_TITLE_TEMPLATE, pageTitle, settings.title);
-  const description = page.seo.description?.trim() ?? '';
+  const title = applyTitleTemplate(settings.titleTemplate, pageTitle, settings.title);
+  const description = page.seo.description?.trim() || settings.description.trim();
   const socialTitle = page.seo.socialTitle?.trim() || title;
   const socialDescription = page.seo.socialDescription?.trim() || description;
-  const imageAssetId = page.seo.socialImageAssetId;
+  const imageAssetId = page.seo.socialImageAssetId ?? settings.socialImageAssetId;
   const imageFile = imageAssetId === undefined ? undefined : assetFiles[imageAssetId];
+  const favicon =
+    settings.faviconAssetId === undefined ? undefined : project.assets[settings.faviconAssetId];
+  const faviconFile = favicon === undefined ? undefined : assetFiles[favicon.id];
   const canonical = absoluteUrl(settings.baseUrl, fileName);
 
   const lines = [
@@ -59,8 +69,11 @@ export function buildPageHead({ project, page, fileName, assetFiles }: PageHeadI
   lines.push(
     meta('name', 'twitter:card', imageFile === undefined ? 'summary' : 'summary_large_image'),
   );
+  if (favicon !== undefined && faviconFile !== undefined) {
+    const type = escapeHtml(favicon.mimeType);
+    lines.push(`  <link rel="icon" href="${escapeHtml(faviconFile)}" type="${type}">`);
+  }
 
-  const fontsHref = googleFontsHref(designSystem.fonts);
   if (fontsHref !== null) {
     lines.push(
       '  <link rel="preconnect" href="https://fonts.googleapis.com">',
@@ -68,6 +81,6 @@ export function buildPageHead({ project, page, fileName, assetFiles }: PageHeadI
       `  <link rel="stylesheet" href="${escapeHtml(fontsHref)}">`,
     );
   }
-  lines.push('  <link rel="stylesheet" href="site.css">');
+  lines.push(`  <link rel="stylesheet" href="${SITE_CSS_PATH}">`);
   return lines;
 }

@@ -1,31 +1,62 @@
-import type { JSX } from 'react';
-import { behaviors, core } from 'virtual:site-runtime';
+import { useState, type JSX } from 'react';
 import {
   DEVICE_VIEWPORTS,
   designSheetToggled,
+  type LinkedFile,
   deviceChanged,
   panelToggled,
   previewToggled,
   type DeviceMode,
   type PanelSide,
 } from '../../app/editorSlice';
-import { describeError } from '../../app/errors';
 import { redo, undo } from '../../app/history';
 import { followLink, HOME_PATH } from '../../app/router';
-import { dispatch, store, useStore } from '../../app/store';
+import { dispatch, useStore } from '../../app/store';
 import type { Device } from '../../app/types';
-import { registry } from '../../components/registry';
 import type { SaveStatus } from '../../persistence/autosave';
-import { buildExportFiles } from '../../render/exportSite';
-import { downloadFiles } from '../export/downloadFiles';
+import { ExportDialog } from '../export/ExportDialog';
+import { LicensesDialog } from '../licenses/LicensesDialog';
+import { FileMenu } from '../files/FileMenu';
 import { PageSwitcher } from '../pages/PageSwitcher';
+import { NewProjectDialog } from '../home/NewProjectDialog';
+import { ProjectSettingsDialog } from '../project/ProjectSettingsDialog';
+import { duplicateBlock, removeBlock } from './blockActions';
+import { clipboardItems } from './blockMenu';
 import { Icon } from './Icon';
+import { MenuButton, type MenuItem } from './Menu';
 
 const SAVE_STATUS_LABELS: Record<SaveStatus, string> = {
   saving: 'Saving…',
-  saved: 'Saved',
+  saved: 'Saved in browser',
   error: 'Not saved',
 };
+
+const TIME_FORMAT = new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit' });
+
+export function linkedFileStatus(linkedFile: LinkedFile, isStale: boolean): string {
+  const savedAt =
+    linkedFile.savedAt === null ? null : TIME_FORMAT.format(Date.parse(linkedFile.savedAt));
+  let status: string;
+  if (linkedFile.kind === 'download') {
+    status = `Downloaded ${linkedFile.name}`;
+  } else if (savedAt === null) {
+    status = linkedFile.name;
+  } else {
+    status = `${linkedFile.name} · saved ${savedAt}`;
+  }
+  return isStale ? `${status} · changes not saved to file` : status;
+}
+
+function FileStatus(): JSX.Element | null {
+  const linkedFile = useStore((state) => state.editor.linkedFile);
+  const isStale = useStore((state) => state.editor.isLinkedFileStale);
+  if (linkedFile === null) return null;
+  return (
+    <span className="ve-file-status ve-wide-only" data-stale={isStale || undefined}>
+      {linkedFileStatus(linkedFile, isStale)}
+    </span>
+  );
+}
 
 const DEVICE_MODES: { id: DeviceMode; label: string; icon: string }[] = [
   { id: 'responsive', label: 'Responsive', icon: 'move-horizontal' },
@@ -45,13 +76,49 @@ export function deviceReadout(device: Device): string {
   return `${width} × ${height}`;
 }
 
-async function exportSite(): Promise<void> {
-  try {
-    await downloadFiles(buildExportFiles(store.getState().project, registry, { core, behaviors }));
-  } catch (error) {
-    console.error('Export failed', error);
-    window.alert(`Export failed: ${describeError(error)}`);
-  }
+function EditMenu(): JSX.Element {
+  const selectedBlockId = useStore((state) => state.editor.selectedBlockId);
+  const hasClipboard = useStore((state) => state.editor.clipboardText !== null);
+  const canUndo = useStore((state) => state.history.past.length > 0);
+  const canRedo = useStore((state) => state.history.future.length > 0);
+  const items: MenuItem[] = [
+    {
+      id: 'undo',
+      label: 'Undo',
+      shortcut: 'Mod+Z',
+      disabled: !canUndo,
+      onSelect: () => dispatch(undo()),
+    },
+    {
+      id: 'redo',
+      label: 'Redo',
+      shortcut: 'Shift+Mod+Z',
+      disabled: !canRedo,
+      onSelect: () => dispatch(redo()),
+    },
+    { id: 'clipboard-separator', isSeparator: true },
+    ...clipboardItems(selectedBlockId, hasClipboard),
+    {
+      id: 'duplicate',
+      label: 'Duplicate',
+      shortcut: 'Mod+D',
+      disabled: selectedBlockId === null,
+      onSelect: () => {
+        if (selectedBlockId !== null) dispatch(duplicateBlock(selectedBlockId));
+      },
+    },
+    {
+      id: 'delete',
+      label: 'Delete',
+      shortcut: 'Delete',
+      isDanger: true,
+      disabled: selectedBlockId === null,
+      onSelect: () => {
+        if (selectedBlockId !== null) dispatch(removeBlock(selectedBlockId));
+      },
+    },
+  ];
+  return <MenuButton label="Edit" icon="pencil" items={items} />;
 }
 
 function PanelToggle({ side }: { side: PanelSide }): JSX.Element {
@@ -80,6 +147,10 @@ export function Toolbar(): JSX.Element {
   const canRedo = useStore((state) => state.history.future.length > 0);
   const isDesignSheetOpen = useStore((state) => state.editor.isDesignSheetOpen);
   const isPreview = useStore((state) => state.editor.isPreview);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isExportOpen, setIsExportOpen] = useState(false);
+  const [isLicensesOpen, setIsLicensesOpen] = useState(false);
+  const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
 
   return (
     <header className="ve-toolbar">
@@ -97,10 +168,26 @@ export function Toolbar(): JSX.Element {
           </span>
           <span className="ve-wide-only">Visual Editor</span>
         </a>
-        <span className="ve-project-title">{title}</span>
+        <FileMenu
+          onNewProject={() => setIsNewProjectOpen(true)}
+          onProjectSettings={() => setIsSettingsOpen(true)}
+          onExport={() => setIsExportOpen(true)}
+          onLicenses={() => setIsLicensesOpen(true)}
+        />
+        <EditMenu />
+        <button
+          type="button"
+          className="ve-project-title"
+          aria-haspopup="dialog"
+          title="Project settings"
+          onClick={() => setIsSettingsOpen(true)}
+        >
+          {title}
+        </button>
         <span className="ve-save-status" data-status={saveStatus} role="status">
           {SAVE_STATUS_LABELS[saveStatus]}
         </span>
+        <FileStatus />
       </div>
 
       <div className="ve-toolbar-group ve-toolbar-center">
@@ -168,13 +255,18 @@ export function Toolbar(): JSX.Element {
           type="button"
           className="ve-button ve-button--primary"
           aria-label="Export"
-          onClick={exportSite}
+          aria-haspopup="dialog"
+          onClick={() => setIsExportOpen(true)}
         >
           <Icon name="download" />
           <span className="ve-wide-only">Export</span>
         </button>
         <PanelToggle side="right" />
       </div>
+      {isSettingsOpen && <ProjectSettingsDialog onClose={() => setIsSettingsOpen(false)} />}
+      {isExportOpen && <ExportDialog onClose={() => setIsExportOpen(false)} />}
+      {isLicensesOpen && <LicensesDialog onClose={() => setIsLicensesOpen(false)} />}
+      {isNewProjectOpen && <NewProjectDialog onClose={() => setIsNewProjectOpen(false)} />}
     </header>
   );
 }

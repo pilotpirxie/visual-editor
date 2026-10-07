@@ -14,6 +14,8 @@ import {
   typeScaleTokens,
 } from './generators';
 import { FontPicker } from './FontPicker';
+import { IconSetPicker } from './IconSetPicker';
+import { PresetGallery } from './PresetGallery';
 import { TokenControl } from './TokenControls';
 import './designSystem.css';
 
@@ -242,6 +244,9 @@ export function DesignSystemSheet(): JSX.Element {
         </button>
       </header>
       <div className="ve-design-sheet-body">
+        <DesignSection title="Presets">
+          <PresetGallery />
+        </DesignSection>
         <DesignSection title="Colors">
           <ContrastNotes tokens={tokens} />
           <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'color')} />
@@ -290,6 +295,9 @@ export function DesignSystemSheet(): JSX.Element {
         </DesignSection>
         <DesignSection title="Motion">
           <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'motion')} />
+        </DesignSection>
+        <DesignSection title="Icons">
+          <IconSetPicker />
         </DesignSection>
       </div>
     </aside>

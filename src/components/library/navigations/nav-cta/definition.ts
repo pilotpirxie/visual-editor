@@ -1,0 +1,69 @@
+import type { ComponentDefinition } from '../../../types';
+
+export const definition: ComponentDefinition = {
+  id: 'nav-cta',
+  version: 1,
+  name: 'Navigation, sign in and button',
+  category: 'navigations',
+  description: 'Logo with an icon, links in the middle, and sign in plus a button on the right.',
+  tags: ['menu', 'navbar', 'header', 'login', 'cta'],
+  fieldGroups: ['Logo', 'Links', 'Buttons', 'Menu'],
+  styleOverrides: ['--color-background', '--color-text'],
+  behaviors: ['menu'],
+  fields: [
+    {
+      name: 'logoIcon',
+      label: 'Logo icon',
+      type: 'icon',
+      default: 'lucide:audio-lines',
+      iconPurpose: 'logo',
+      group: 'Logo',
+    },
+    {
+      name: 'links',
+      label: 'Links',
+      type: 'list',
+      group: 'Links',
+      minItems: 0,
+      maxItems: 6,
+      itemLabel: 'label',
+      itemFields: [
+        { name: 'label', label: 'Label', type: 'text', default: 'Link' },
+        {
+          name: 'link',
+          label: 'Link',
+          type: 'link',
+          default: { type: 'url', url: '#', newTab: false },
+        },
+      ],
+      default: [
+        { label: 'Product', link: { type: 'section', anchor: 'features', newTab: false } },
+        { label: 'Pricing', link: { type: 'section', anchor: 'pricing', newTab: false } },
+        { label: 'Customers', link: { type: 'section', anchor: 'customers', newTab: false } },
+      ],
+    },
+    {
+      name: 'signIn',
+      label: 'Sign in link',
+      type: 'button',
+      default: {
+        label: 'Sign in',
+        link: { type: 'url', url: '#', newTab: false },
+        variant: 'ghost',
+      },
+      group: 'Buttons',
+    },
+    {
+      name: 'cta',
+      label: 'Button',
+      type: 'button',
+      default: {
+        label: 'Get started',
+        link: { type: 'url', url: '#', newTab: false },
+        variant: 'primary',
+      },
+      group: 'Buttons',
+    },
+    { name: 'menuIcon', label: 'Menu icon', type: 'icon', default: 'menu', group: 'Menu' },
+  ],
+};

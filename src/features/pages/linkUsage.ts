@@ -48,9 +48,9 @@ export function linksToPage(project: Project, pageId: string): LinkUsage[] {
   const usages: LinkUsage[] = [];
   for (const { blockId, place } of blockPlaces(project, pageId)) {
     const block = project.blocks.entities[blockId];
-    const definition =
-      block === undefined ? undefined : registry.get(block.componentId)?.definition;
-    if (block === undefined || definition === undefined) continue;
+    if (block?.kind !== 'component') continue;
+    const definition = registry.get(block.componentId)?.definition;
+    if (definition === undefined) continue;
     for (const field of definition.fields) {
       for (const fieldLabel of linkingFieldLabels(field, block.values[field.name], pageId)) {
         usages.push({ blockId, place, blockName: definition.name, fieldLabel });

@@ -3,7 +3,7 @@ import { blockSelected, propertiesTabChanged } from '../../app/editorSlice';
 import { undo } from '../../app/history';
 import { dispatch, store } from '../../app/store';
 import { changeValue, click, getButton, render, runInAct } from '../../test/dom';
-import { homePage, loadIntoAppStore } from '../../test/fixtures';
+import { componentBlockOf, homePage, loadIntoAppStore } from '../../test/fixtures';
 import { PropertiesPanel } from './PropertiesPanel';
 
 vi.mock('../../persistence/db', () => ({
@@ -23,7 +23,7 @@ function selectHeroStyle(): string {
 }
 
 function overridesOf(blockId: string): Record<string, string> {
-  return store.getState().project.blocks.entities[blockId].overrides;
+  return componentBlockOf(store.getState().project, blockId).overrides;
 }
 
 function row(container: HTMLElement, token: string): HTMLElement {

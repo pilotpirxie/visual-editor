@@ -1,9 +1,20 @@
 import { createSampleProject } from '../app/projectFactory';
-import { projectLoaded } from '../app/projectSlice';
-import { createAppStore, dispatch } from '../app/store';
-import type { Page, Project } from '../app/types';
+import { blockShared, projectLoaded } from '../app/projectSlice';
+import { createAppStore, dispatch, store } from '../app/store';
+import { FONT_ROLES, type ComponentBlock, type Page, type Project } from '../app/types';
+import { SYSTEM_FONT_STACKS } from '../render/fonts';
 
 export type TestStore = ReturnType<typeof createAppStore>;
+
+export function withSystemFonts(project: Project): Project {
+  const { tokens } = project.designSystem;
+  for (const role of FONT_ROLES) {
+    const token = tokens[`--font-${role}`];
+    if (token !== undefined) token.value = SYSTEM_FONT_STACKS[role];
+  }
+  project.designSystem.fonts = [];
+  return project;
+}
 
 export function createTestStore(project: Project = createSampleProject()): TestStore {
   const store = createAppStore();
@@ -16,6 +27,20 @@ export function loadIntoAppStore(project: Project = createSampleProject()): Proj
   return project;
 }
 
+export function componentBlockOf(project: Project, blockId: string): ComponentBlock {
+  const block = project.blocks.entities[blockId];
+  if (block?.kind !== 'component') throw new Error(`Block ${blockId} is not a component block`);
+  return block;
+}
+
 export function homePage(project: Project): Page {
   return project.pages.entities[project.pages.homePageId];
+}
+
+export function shareNavAndFooter(target: TestStore = store): { navId: string; footerId: string } {
+  const page = homePage(target.getState().project);
+  const [navId, , , footerId] = page.blockIds;
+  target.dispatch(blockShared({ blockId: navId, slot: 'header', pageId: page.id }));
+  target.dispatch(blockShared({ blockId: footerId, slot: 'footer', pageId: page.id }));
+  return { navId, footerId };
 }

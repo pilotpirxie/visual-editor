@@ -1,0 +1,87 @@
+import type { ComponentDefinition } from '../../../types';
+
+export const definition: ComponentDefinition = {
+  id: 'hero-email',
+  version: 1,
+  name: 'Hero, email sign-up',
+  category: 'headers',
+  description: 'Page heading with an email field and button, for waitlists and early access.',
+  tags: ['hero', 'heading', 'email', 'waitlist', 'signup', 'form', 'launch'],
+  fieldGroups: ['Heading', 'Form'],
+  styleOverrides: ['--color-background', '--color-text', '--section-padding-y'],
+  fields: [
+    {
+      name: 'eyebrow',
+      label: 'Eyebrow',
+      type: 'text',
+      default: 'Private beta opens in March',
+      group: 'Heading',
+    },
+    {
+      name: 'title',
+      label: 'Title',
+      type: 'text',
+      default: 'Your research repository, rebuilt for small product teams',
+      required: true,
+      maxLength: 120,
+      group: 'Heading',
+    },
+    {
+      name: 'text',
+      label: 'Text',
+      type: 'textarea',
+      default:
+        'Join the waitlist and be first to try Fieldnote. We are letting in a few teams every week.',
+      group: 'Heading',
+    },
+    {
+      name: 'emailLabel',
+      label: 'Email field label',
+      type: 'text',
+      default: 'Work email',
+      required: true,
+      group: 'Form',
+    },
+    {
+      name: 'emailPlaceholder',
+      label: 'Email placeholder',
+      type: 'text',
+      default: 'you@company.com',
+      group: 'Form',
+    },
+    {
+      name: 'buttonLabel',
+      label: 'Button label',
+      type: 'text',
+      default: 'Join the waitlist',
+      required: true,
+      group: 'Form',
+    },
+    {
+      name: 'note',
+      label: 'Note under the form',
+      type: 'text',
+      default: 'No spam. One email when your spot is ready.',
+      group: 'Form',
+    },
+    {
+      name: 'formAction',
+      label: 'Form action URL',
+      type: 'text',
+      default: '',
+      help: 'Address that receives submissions. Leave empty to show the form without sending it.',
+      group: 'Form',
+    },
+    {
+      name: 'formMethod',
+      label: 'Method',
+      type: 'select',
+      default: 'post',
+      options: [
+        { value: 'post', label: 'POST' },
+        { value: 'get', label: 'GET' },
+      ],
+      group: 'Form',
+    },
+  ],
+};

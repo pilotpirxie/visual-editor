@@ -9,7 +9,7 @@ import {
   putProject,
   type ProjectSummary,
 } from '../../persistence/db';
-import { blur, click, getButton, pressKey, render } from '../../test/dom';
+import { blur, changeValue, click, getButton, pressKey, render } from '../../test/dom';
 import { HomeScreen } from './HomeScreen';
 
 vi.mock('../../persistence/db', () => ({
@@ -17,6 +17,7 @@ vi.mock('../../persistence/db', () => ({
   getProject: vi.fn(async () => null),
   listProjects: vi.fn(async () => []),
   deleteProject: vi.fn(async () => {}),
+  listUserPresets: vi.fn(async () => []),
 }));
 
 const stored = createSampleProject();
@@ -77,26 +78,52 @@ describe('HomeScreen', () => {
     );
   });
 
-  it('creates a blank project and opens it', async () => {
+  it('creates a blank project with the chosen preset and opens it', async () => {
     const container = await renderHome();
     click(getButton(container, 'New project'));
+    click(await vi.waitFor(() => getButton(container, 'Start with Midnight')));
     await vi.waitFor(() => expect(savedProjects()).toHaveLength(1));
     const created = savedProjects()[0];
     expect(created.settings.title).toBe('Untitled site');
+    expect(created.designSystem.presetId).toBe('midnight');
     expect(created.blocks.ids).toEqual([]);
     expect(window.location.pathname).toBe(`/p/${created.id}/${created.pages.homePageId}`);
   });
 
-  it('stays on the list and explains when a new project cannot be saved', async () => {
+  it('names a new project with the site name the user typed', async () => {
+    const container = await renderHome();
+    click(getButton(container, 'New project'));
+    changeValue(container.querySelector('#ve-new-project-name'), '  Harbor Bakery  ');
+    click(getButton(container, 'Start with Clean'));
+    await vi.waitFor(() => expect(savedProjects()).toHaveLength(1));
+    expect(savedProjects()[0].settings.title).toBe('Harbor Bakery');
+  });
+
+  it('starts a project from a starter as a copy with new ids', async () => {
+    const container = await renderHome();
+    click(getButton(container, 'New project'));
+    click(getButton(container, 'Starters'));
+    click(await vi.waitFor(() => getButton(container, 'Use the Startup waitlist starter')));
+    await vi.waitFor(() => expect(savedProjects()).toHaveLength(1));
+    const created = savedProjects()[0];
+    expect(created.starterId).toBe('waitlist');
+    expect(created.settings.title).toBe('Orbit');
+    expect(created.blocks.ids.length).toBeGreaterThan(0);
+    expect(window.location.pathname).toBe(`/p/${created.id}/${created.pages.homePageId}`);
+  });
+
+  it('keeps the dialog open and explains when a new project cannot be saved', async () => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
     vi.mocked(putProject).mockRejectedValueOnce(new Error('Quota exceeded'));
     const container = await renderHome();
     click(getButton(container, 'New project'));
+    click(getButton(container, 'Start with Clean'));
     await vi.waitFor(() =>
       expect(container.querySelector('[role="alert"]')?.textContent).toBe(
         'Could not create a project: Quota exceeded',
       ),
     );
+    expect(getButton(container, 'Start with Clean').disabled).toBe(false);
     expect(window.location.pathname).toBe('/');
   });
 

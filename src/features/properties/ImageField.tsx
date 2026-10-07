@@ -8,6 +8,7 @@ import {
   type PlaceholderSubject,
 } from '../../components/types';
 import { placeholderDataUrl, placeholderImage } from '../../render/placeholder';
+import '../editor/dialog.css';
 import { Icon } from '../editor/Icon';
 import type { ControlProps } from './FieldControl';
 

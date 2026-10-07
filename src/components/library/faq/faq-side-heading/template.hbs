@@ -1,0 +1,21 @@
+<section class="b-faq-side-heading section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      {{#if showButton}}
+      <div class="cluster">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+      {{/if}}
+    </header>
+    <div class="b-list">
+      {{#each items}}
+      <details class="b-item" name="{{../block.id}}-faq" data-field="items.{{@index}}">
+        <summary class="b-question"><span>{{question}}</span><span class="b-icon">{{svgIcon ../expandIcon}}</span></summary>
+        <div class="prose b-answer">{{richText answer}}</div>
+      </details>
+      {{/each}}
+    </div>
+  </div>
+</section>

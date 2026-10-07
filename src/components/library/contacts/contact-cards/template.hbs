@@ -1,0 +1,18 @@
+<section class="b-contact-cards section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="grid b-grid">
+      {{#each cards}}
+      <article class="card stack b-card" data-field="cards.{{@index}}">
+        <span class="b-icon">{{svgIcon icon}}</span>
+        <h3>{{title}}</h3>
+        {{#if text}}<p class="b-text">{{nl2br text}}</p>{{/if}}
+        <a class="b-link" href="{{href link.link}}" {{linkAttrs link.link}}>{{link.label}}</a>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

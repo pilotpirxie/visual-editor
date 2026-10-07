@@ -69,6 +69,7 @@ export type Field = {
   minItems?: number;
   maxItems?: number;
   itemLabel?: string;
+  iconPurpose?: 'logo' | 'brand';
 };
 
 export type ComponentDefinition = {

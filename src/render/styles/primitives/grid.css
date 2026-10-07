@@ -1,0 +1,7 @@
+@layer primitives {
+  .grid {
+    display: grid;
+    gap: var(--grid-gap, var(--space-6));
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min, 16rem), 100%), 1fr));
+  }
+}

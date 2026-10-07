@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars/runtime';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { resolveHref } from './handlebars';
+import { createRenderCollector, resolveHref } from './handlebars';
 import { registerIconSet } from './icons';
 
 const data = { pageSlugs: { home: 'index', about: 'about' } };
@@ -68,19 +68,44 @@ describe('template helpers', () => {
     registerIconSet('lucide', {
       width: 24,
       height: 24,
+      styles: [],
       icons: { check: { body: '<path d="M20 6 9 17l-5-5"/>' } },
       aliases: { tick: 'check' },
     });
     const expected =
       '<svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
-    expect(String(helpers.svgIcon('lucide:check'))).toBe(expected);
-    expect(String(helpers.svgIcon('check'))).toBe(expected);
-    expect(String(helpers.svgIcon('tick'))).toBe(expected);
+    const options = { hash: {}, data: { pageSlugs: {} } };
+    expect(String(helpers.svgIcon('lucide:check', options))).toBe(expected);
+    expect(String(helpers.svgIcon('check', options))).toBe(expected);
+    expect(String(helpers.svgIcon('tick', options))).toBe(expected);
+  });
+
+  it('svgIcon refers to a sprite symbol and records the icon when exporting', () => {
+    registerIconSet('lucide', {
+      width: 24,
+      height: 24,
+      styles: [],
+      icons: { check: { body: '<path d="M20 6 9 17l-5-5"/>' } },
+      aliases: {},
+    });
+    const collector = createRenderCollector();
+    const options = { hash: {}, data: { pageSlugs: {}, collector } };
+    expect(String(helpers.svgIcon('lucide:check', options))).toBe(
+      '<svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#icon-lucide-check"></use></svg>',
+    );
+    expect([...collector.icons.keys()]).toEqual(['icon-lucide-check']);
+    expect([...collector.iconSets]).toEqual(['lucide']);
+  });
+
+  it('safeUrl keeps web addresses and drops script addresses', () => {
+    expect(helpers.safeUrl('https://forms.example/submit')).toBe('https://forms.example/submit');
+    expect(helpers.safeUrl(' javascript:alert(1)')).toBe('');
+    expect(helpers.safeUrl(undefined)).toBe('');
   });
 
   it('svgIcon warns and renders nothing for an unknown icon', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    expect(helpers.svgIcon('no-such-icon')).toBe('');
+    expect(helpers.svgIcon('no-such-icon', { hash: {}, data: { pageSlugs: {} } })).toBe('');
     expect(warn).toHaveBeenCalledWith('svgIcon: unknown icon "no-such-icon"');
   });
 

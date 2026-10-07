@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
+  blockSelected,
   deviceChanged,
   panelToggled,
   previewToggled,
@@ -9,8 +10,7 @@ import { blockValueSet } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
 import { click, getButton, render, runInAct } from '../../test/dom';
 import { homePage, loadIntoAppStore } from '../../test/fixtures';
-import { downloadFiles } from '../export/downloadFiles';
-import { deviceReadout, Toolbar } from './Toolbar';
+import { deviceReadout, linkedFileStatus, Toolbar } from './Toolbar';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
@@ -19,13 +19,24 @@ vi.mock('../../persistence/db', () => ({
   deleteProject: vi.fn(async () => {}),
 }));
 
-vi.mock('../export/downloadFiles', () => ({ downloadFiles: vi.fn(async () => {}) }));
-
 beforeEach(() => {
   loadIntoAppStore();
   dispatch(deviceChanged('desktop'));
   dispatch(previewToggled(false));
   if (store.getState().editor.panels.left.collapsed) dispatch(panelToggled('left'));
+});
+
+describe('linkedFileStatus', () => {
+  it('says where the project file lives and whether it has unsaved changes', () => {
+    const file = { name: 'site.json', savedAt: null, kind: 'file' as const, isAutoSaving: false };
+    expect(linkedFileStatus(file, false)).toBe('site.json');
+    expect(linkedFileStatus({ ...file, kind: 'download' }, true)).toBe(
+      'Downloaded site.json · changes not saved to file',
+    );
+    expect(linkedFileStatus({ ...file, savedAt: '2026-10-07T10:42:00.000Z' }, false)).toMatch(
+      /^site\.json · saved /,
+    );
+  });
 });
 
 describe('deviceReadout', () => {
@@ -50,6 +61,25 @@ describe('Toolbar', () => {
     click(getButton(container, 'Responsive'));
     expect(store.getState().editor.device).toBe('responsive');
     expect(container.querySelector('.ve-readout')).toBeNull();
+  });
+
+  it('opens the project settings from the project title', () => {
+    const { container } = render(<Toolbar />);
+    click(getButton(container, 'Fieldnote'));
+    expect(container.querySelector('dialog')?.open).toBe(true);
+    expect(container.querySelector('#ve-project-settings-title')?.textContent).toBe(
+      'Project settings',
+    );
+  });
+
+  it('offers block actions in the Edit menu only when a block is selected', () => {
+    const { container } = render(<Toolbar />);
+    const editMenu = container.querySelector('[role="menu"][aria-label="Edit"]');
+    if (editMenu === null) throw new Error('Expected the Edit menu');
+    expect(getButton(editMenu, 'Duplicate').hasAttribute('disabled')).toBe(true);
+    runInAct(() => dispatch(blockSelected(homePage(store.getState().project).blockIds[1])));
+    click(getButton(editMenu, 'Duplicate'));
+    expect(homePage(store.getState().project).blockIds).toHaveLength(5);
   });
 
   it('starts and ends Preview', () => {
@@ -93,23 +123,10 @@ describe('Toolbar', () => {
     expect(container.querySelector('[role="status"]')?.textContent).toBe('Not saved');
   });
 
-  it('exports the current project as files', async () => {
+  it('opens the export dialog with the files the site needs', async () => {
     const { container } = render(<Toolbar />);
     click(getButton(container, 'Export'));
-    await vi.waitFor(() => expect(downloadFiles).toHaveBeenCalledOnce());
-    const files = vi.mocked(downloadFiles).mock.calls[0][0];
-    expect(Object.keys(files)).toContain('index.html');
-  });
-
-  it('tells the user when the export fails', async () => {
-    vi.mocked(downloadFiles).mockRejectedValueOnce(new Error('Disk is full'));
-    const alerts: string[] = [];
-    vi.spyOn(window, 'alert').mockImplementation((message) => {
-      alerts.push(String(message));
-    });
-    vi.spyOn(console, 'error').mockImplementation(() => {});
-    const { container } = render(<Toolbar />);
-    click(getButton(container, 'Export'));
-    await vi.waitFor(() => expect(alerts).toEqual(['Export failed: Disk is full']));
+    expect(container.querySelector('#ve-export-title')?.textContent).toBe('Export site');
+    await vi.waitFor(() => expect(container.textContent).toContain('files,'));
   });
 });

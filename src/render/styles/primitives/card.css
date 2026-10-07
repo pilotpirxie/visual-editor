@@ -1,0 +1,9 @@
+@layer primitives {
+  .card {
+    padding: var(--card-padding, var(--space-6));
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--card-radius);
+    background: var(--color-background);
+    box-shadow: var(--card-shadow);
+  }
+}

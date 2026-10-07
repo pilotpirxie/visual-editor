@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { blockSelected, fieldFocusRequested } from '../../app/editorSlice';
 import { dispatch, store } from '../../app/store';
 import { changeValue, click, render, runInAct } from '../../test/dom';
-import { homePage, loadIntoAppStore } from '../../test/fixtures';
+import { componentBlockOf, homePage, loadIntoAppStore } from '../../test/fixtures';
+import { convertToHtml } from '../editor/htmlBlockActions';
 import { PropertiesPanel } from './PropertiesPanel';
 
 vi.mock('../../persistence/db', () => ({
@@ -70,7 +71,7 @@ describe('PropertiesPanel', () => {
     const heroId = select(1);
     changeValue(fieldInput(container, 'title'), 'Ship');
     changeValue(fieldInput(container, 'title'), 'Ship it');
-    expect(store.getState().project.blocks.entities[heroId].values.title).toBe('Ship it');
+    expect(componentBlockOf(store.getState().project, heroId).values.title).toBe('Ship it');
     expect(store.getState().history.past).toHaveLength(1);
   });
 
@@ -115,5 +116,44 @@ describe('PropertiesPanel', () => {
       blockId: heroId,
       path: 'no-such-field',
     });
+  });
+
+  it('offers the shared switch for navigations and footers only', () => {
+    const { container } = render(<PropertiesPanel />);
+    select(1);
+    expect(container.querySelector('#ve-shared-switch')).toBeNull();
+    select(0);
+    expect(container.querySelector('#ve-shared-switch')).not.toBeNull();
+    select(3);
+    expect(container.querySelector('#ve-shared-switch')).not.toBeNull();
+  });
+
+  it('moves the selected footer into the shared footer and back', () => {
+    const { container } = render(<PropertiesPanel />);
+    const footerId = select(3);
+    click(container.querySelector('#ve-shared-switch'));
+    expect(store.getState().project.sharedSlots.footer).toEqual([footerId]);
+    expect(homePage(store.getState().project).blockIds).not.toContain(footerId);
+    expect(container.querySelector('#ve-shared-help')?.textContent).toContain('every page');
+    click(container.querySelector('#ve-shared-switch'));
+    expect(store.getState().project.sharedSlots.footer).toEqual([]);
+    expect(homePage(store.getState().project).blockIds.at(-1)).toBe(footerId);
+    expect(store.getState().editor.selectedBlockId).toBe(footerId);
+  });
+});
+
+describe('PropertiesPanel with an HTML block', () => {
+  it('shows the code editor and the Advanced tab instead of the block fields', () => {
+    const heroId = homePage(store.getState().project).blockIds[1] ?? '';
+    runInAct(() => {
+      dispatch(convertToHtml(heroId));
+      dispatch(blockSelected(heroId));
+    });
+    const { container } = render(<PropertiesPanel />);
+    expect(container.querySelector('.ve-properties-title')?.textContent).toBe('HTML block');
+    expect(container.textContent).toContain('Converted from Hero, centered text');
+    const tabs = [...container.querySelectorAll('[role="tab"]')].map((tab) => tab.textContent);
+    expect(tabs).toEqual(['Code', 'Advanced']);
+    expect(container.querySelector('[role="textbox"][aria-label="HTML"]')).not.toBeNull();
   });
 });

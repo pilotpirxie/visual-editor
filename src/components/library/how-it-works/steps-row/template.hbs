@@ -1,0 +1,16 @@
+<section class="b-steps-row section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <ol class="grid b-steps" role="list">
+      {{#each steps}}
+      <li class="stack b-step" data-field="steps.{{@index}}">
+        <h3>{{title}}</h3>
+        <p>{{nl2br text}}</p>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

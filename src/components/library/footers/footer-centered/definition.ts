@@ -1,0 +1,48 @@
+import type { ComponentDefinition } from '../../../types';
+
+export const definition: ComponentDefinition = {
+  id: 'footer-centered',
+  version: 1,
+  name: 'Footer, minimal centered',
+  category: 'footers',
+  description: 'Site name, a row of links and a legal line, all centered.',
+  tags: ['footer', 'minimal', 'centered', 'links', 'simple'],
+  fieldGroups: ['Links', 'Legal'],
+  styleOverrides: ['--color-background', '--color-text', '--section-padding-y'],
+  fields: [
+    {
+      name: 'links',
+      label: 'Links',
+      type: 'list',
+      group: 'Links',
+      minItems: 0,
+      maxItems: 8,
+      itemLabel: 'label',
+      itemFields: [
+        { name: 'label', label: 'Label', type: 'text', default: 'Link' },
+        {
+          name: 'link',
+          label: 'Link',
+          type: 'link',
+          default: { type: 'url', url: '#', newTab: false },
+        },
+      ],
+      default: [
+        { label: 'Privacy', link: { type: 'url', url: '#', newTab: false } },
+        { label: 'Terms', link: { type: 'url', url: '#', newTab: false } },
+        { label: 'Status', link: { type: 'url', url: '#', newTab: false } },
+        {
+          label: 'Contact',
+          link: { type: 'email', url: 'hello@fieldnote.example', newTab: false },
+        },
+      ],
+    },
+    {
+      name: 'copyright',
+      label: 'Legal line',
+      type: 'text',
+      default: '© 2026 Fieldnote Inc.',
+      group: 'Legal',
+    },
+  ],
+};

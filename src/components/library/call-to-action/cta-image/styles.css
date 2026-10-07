@@ -1,0 +1,28 @@
+@layer components {
+  @scope (.b-cta-image) {
+    .b-panel {
+      --card-padding: var(--space-8);
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+      background: var(--color-surface);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        --card-padding: var(--space-12);
+        grid-template-columns: 3fr 2fr;
+        gap: var(--space-12);
+      }
+    }
+  }
+}

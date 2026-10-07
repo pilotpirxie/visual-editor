@@ -1,3 +1,4 @@
+import { inflateRawSync } from 'node:zlib';
 import { expect, type Locator, type Page } from '@playwright/test';
 
 export type Box = { top: number; bottom: number; left: number; right: number };
@@ -5,6 +6,7 @@ export type Box = { top: number; bottom: number; left: number; right: number };
 export async function createProject(page: Page): Promise<void> {
   await page.goto('/');
   await page.getByRole('button', { name: 'New project' }).click();
+  await page.getByRole('button', { name: 'Start with Clean' }).click();
   await expect(page.locator('.ve-toolbar')).toBeVisible();
   await expect(page.frameLocator('.ve-canvas-frame').locator('#ve-page')).toBeAttached();
 }
@@ -39,4 +41,20 @@ export async function blockBoundaryOnScreen(page: Page, index: number): Promise<
     const block = blocks[blockIndex].getBoundingClientRect();
     return frameBox.top + block.bottom * scale;
   }, index);
+}
+
+export function readZip(buffer: Buffer): Map<string, Buffer> {
+  const files = new Map<string, Buffer>();
+  let offset = 0;
+  while (buffer.readUInt32LE(offset) === 0x04034b50) {
+    const method = buffer.readUInt16LE(offset + 8);
+    const compressedSize = buffer.readUInt32LE(offset + 18);
+    const nameLength = buffer.readUInt16LE(offset + 26);
+    const name = buffer.toString('utf8', offset + 30, offset + 30 + nameLength);
+    const start = offset + 30 + nameLength;
+    const body = buffer.subarray(start, start + compressedSize);
+    files.set(name, method === 8 ? inflateRawSync(body) : Buffer.from(body));
+    offset = start + compressedSize;
+  }
+  return files;
 }

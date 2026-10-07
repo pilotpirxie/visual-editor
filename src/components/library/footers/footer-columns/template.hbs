@@ -1,0 +1,42 @@
+<footer class="b-footer-columns section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <div class="stack b-brand">
+        <a class="b-logo" href="index.html">{{site.title}}</a>
+        {{#if tagline}}<p class="b-muted" data-field="tagline">{{nl2br tagline}}</p>{{/if}}
+        <ul class="cluster b-socials" role="list">
+          {{#each socials}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}</span></a></li>
+          {{/each}}
+        </ul>
+      </div>
+      <nav class="b-columns" aria-label="Footer">
+        <div class="stack b-column">
+          <h2 class="b-heading" data-field="productTitle">{{productTitle}}</h2>
+          <ul class="stack b-links" role="list">
+            {{#each productLinks}}
+            <li><a href="{{href link}}" {{linkAttrs link}} data-field="productLinks.{{@index}}">{{label}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+        <div class="stack b-column">
+          <h2 class="b-heading" data-field="companyTitle">{{companyTitle}}</h2>
+          <ul class="stack b-links" role="list">
+            {{#each companyLinks}}
+            <li><a href="{{href link}}" {{linkAttrs link}} data-field="companyLinks.{{@index}}">{{label}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+        <div class="stack b-column">
+          <h2 class="b-heading" data-field="resourcesTitle">{{resourcesTitle}}</h2>
+          <ul class="stack b-links" role="list">
+            {{#each resourcesLinks}}
+            <li><a href="{{href link}}" {{linkAttrs link}} data-field="resourcesLinks.{{@index}}">{{label}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <p class="b-muted b-legal" data-field="copyright">{{copyright}}</p>
+  </div>
+</footer>

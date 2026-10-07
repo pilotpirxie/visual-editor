@@ -5,18 +5,23 @@ import {
   current,
   type PayloadAction,
 } from '@reduxjs/toolkit';
-import { createBlock, registry } from '../components/registry';
+import { blockCategory, createBlock, registry } from '../components/registry';
+import { iconSetInfo } from '../../packages/icon-data/src/sets';
 import { isValidAnchor, isValidClassName } from '../render/attributes';
 import { referencedTokenName } from '../render/css';
 import { isSafeCssValue } from '../render/sanitize';
 import { findBlockList, sharedSlotOf, slotForCategory } from './blockLists';
 import { createBlankProject, createPage, UNTITLED_PROJECT_TITLE } from './projectFactory';
+import { FAVICON_TYPES, settingError, SOCIAL_IMAGE_TYPES, type SettingKey } from './settingsRules';
 import { slugError } from './slugs';
 import {
   DEVICES,
   FONT_ROLES,
   type Block,
+  type ComponentBlock,
+  type DesignSystem,
   type Device,
+  type HtmlBlock,
   type Asset,
   type FontRole,
   type Page,
@@ -31,11 +36,25 @@ const pagesAdapter = createEntityAdapter<Page>();
 
 export type NewPage = { id: string; name: string; slug: string };
 
+export type BlockListTarget = { kind: 'page'; pageId: string } | { kind: 'slot'; slot: SharedSlot };
+
 export type SeoTextKey = Exclude<keyof PageSeo, 'socialImageAssetId'>;
 
 export type ImageUpload = Omit<Asset, 'id'>;
 
-export const SOCIAL_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
+export { FAVICON_TYPES, settingError, SOCIAL_IMAGE_TYPES, type SettingKey };
+
+export type ProjectImageRole = 'favicon' | 'socialImage';
+
+const PROJECT_IMAGE_TYPES: Record<ProjectImageRole, string[]> = {
+  favicon: FAVICON_TYPES,
+  socialImage: SOCIAL_IMAGE_TYPES,
+};
+
+const PROJECT_IMAGE_KEYS: Record<ProjectImageRole, 'faviconAssetId' | 'socialImageAssetId'> = {
+  favicon: 'faviconAssetId',
+  socialImage: 'socialImageAssetId',
+};
 
 const SEO_TEXT_KEYS: SeoTextKey[] = ['title', 'description', 'socialTitle', 'socialDescription'];
 
@@ -43,18 +62,29 @@ function isSeoTextKey(key: string): key is SeoTextKey {
   return SEO_TEXT_KEYS.some((known) => known === key);
 }
 
-function isImageUpload(upload: ImageUpload): boolean {
+function isImageUpload(upload: ImageUpload, allowedTypes: readonly string[]): boolean {
   return (
-    SOCIAL_IMAGE_TYPES.includes(upload.mimeType) &&
+    allowedTypes.includes(upload.mimeType) &&
     upload.dataUrl.startsWith(`data:${upload.mimeType};base64,`)
   );
 }
 
-function removeAssetIfUnused(state: Project, assetId: string | undefined): void {
-  if (assetId === undefined) return;
+function assetFromUpload(upload: ImageUpload | null): Asset | null {
+  if (upload === null) return null;
+  return { ...upload, id: crypto.randomUUID() };
+}
+
+function isAssetUsed(state: Project, assetId: string): boolean {
+  const { faviconAssetId, socialImageAssetId } = state.settings;
+  if (faviconAssetId === assetId || socialImageAssetId === assetId) return true;
   for (const id of state.pages.ids) {
-    if (state.pages.entities[id]?.seo.socialImageAssetId === assetId) return;
+    if (state.pages.entities[id]?.seo.socialImageAssetId === assetId) return true;
   }
+  return false;
+}
+
+function removeAssetIfUnused(state: Project, assetId: string | undefined): void {
+  if (assetId === undefined || isAssetUsed(state, assetId)) return;
   delete state.assets[assetId];
 }
 
@@ -149,7 +179,14 @@ function isValidNewPage(state: Project, page: NewPage): boolean {
   return slugError(page.slug, slugsExcept(state, null)) === null;
 }
 
-function isOverridable(block: Block, token: string): boolean {
+function targetList(state: Project, target: BlockListTarget, block: Block): string[] | null {
+  if (target.kind === 'page') return state.pages.entities[target.pageId]?.blockIds ?? null;
+  const category = blockCategory(block);
+  if (category === null || slotForCategory(category) !== target.slot) return null;
+  return state.sharedSlots[target.slot];
+}
+
+function isOverridable(block: ComponentBlock, token: string): boolean {
   const component = registry.get(block.componentId);
   if (component === undefined) return false;
   return component.definition.styleOverrides.includes(token);
@@ -189,6 +226,17 @@ export const projectSlice = createSlice({
         }
         return { payload: { pageId, index, block: createBlock(component.definition) } };
       },
+    },
+    blockPasted(
+      state,
+      action: PayloadAction<{ target: BlockListTarget; index: number; block: Block }>,
+    ) {
+      const { target, index, block } = action.payload;
+      if (state.blocks.entities[block.id] !== undefined) return;
+      const list = targetList(state, target, block);
+      if (list === null) return;
+      blocksAdapter.addOne(state.blocks, block);
+      list.splice(clamp(index, 0, list.length), 0, block.id);
     },
     pageAdded(state, action: PayloadAction<NewPage>) {
       const { id, name, slug } = action.payload;
@@ -288,7 +336,7 @@ export const projectSlice = createSlice({
         const { pageId, asset } = action.payload;
         const page = state.pages.entities[pageId];
         if (page === undefined) return;
-        if (asset !== null && !isImageUpload(asset)) return;
+        if (asset !== null && !isImageUpload(asset, SOCIAL_IMAGE_TYPES)) return;
         const previousAssetId = page.seo.socialImageAssetId;
         if (asset === null) {
           delete page.seo.socialImageAssetId;
@@ -299,8 +347,47 @@ export const projectSlice = createSlice({
         removeAssetIfUnused(state, previousAssetId);
       },
       prepare(pageId: string, upload: ImageUpload | null) {
-        const asset = upload === null ? null : { ...upload, id: crypto.randomUUID() };
-        return { payload: { pageId, asset } };
+        return { payload: { pageId, asset: assetFromUpload(upload) } };
+      },
+    },
+    settingSet: {
+      reducer(state, action: PayloadAction<{ key: SettingKey; value: string }, string, EditMeta>) {
+        const { key, value } = action.payload;
+        if (settingError(key, value) !== null) {
+          console.warn(`Ignored an invalid value for the project setting "${key}"`);
+          return;
+        }
+        if (key === 'baseUrl') {
+          const baseUrl = value.trim();
+          if (baseUrl === '') {
+            delete state.settings.baseUrl;
+          } else {
+            state.settings.baseUrl = baseUrl;
+          }
+          return;
+        }
+        state.settings[key] = key === 'title' || key === 'language' ? value.trim() : value;
+      },
+      prepare(key: SettingKey, value: string, kind: EditKind) {
+        return { payload: { key, value }, meta: editMeta(kind, `setting:${key}`) };
+      },
+    },
+    projectImageSet: {
+      reducer(state, action: PayloadAction<{ role: ProjectImageRole; asset: Asset | null }>) {
+        const { role, asset } = action.payload;
+        const key = PROJECT_IMAGE_KEYS[role];
+        if (asset !== null && !isImageUpload(asset, PROJECT_IMAGE_TYPES[role])) return;
+        const previousAssetId = state.settings[key];
+        if (asset === null) {
+          delete state.settings[key];
+        } else {
+          state.assets[asset.id] = asset;
+          state.settings[key] = asset.id;
+        }
+        removeAssetIfUnused(state, previousAssetId);
+      },
+      prepare(role: ProjectImageRole, upload: ImageUpload | null) {
+        return { payload: { role, asset: assetFromUpload(upload) } };
       },
     },
     homePageSet(state, action: PayloadAction<{ pageId: string }>) {
@@ -345,10 +432,10 @@ export const projectSlice = createSlice({
       const { blockId, slot, pageId } = action.payload;
       const page = state.pages.entities[pageId];
       const block = state.blocks.entities[blockId];
-      const component = block === undefined ? undefined : registry.get(block.componentId);
-      if (page === undefined || component === undefined) return;
+      const category = block === undefined ? null : blockCategory(block);
+      if (page === undefined || category === null) return;
       const index = page.blockIds.indexOf(blockId);
-      if (index === -1 || slotForCategory(component.definition.category) !== slot) return;
+      if (index === -1 || slotForCategory(category) !== slot) return;
       page.blockIds.splice(index, 1);
       state.sharedSlots[slot].push(blockId);
       if (slot === 'header') {
@@ -394,7 +481,7 @@ export const projectSlice = createSlice({
       ) {
         const { blockId, name, value } = action.payload;
         const block = state.blocks.entities[blockId];
-        if (block === undefined || Object.is(block.values[name], value)) return;
+        if (block?.kind !== 'component' || Object.is(block.values[name], value)) return;
         block.values[name] = value;
       },
       prepare(blockId: string, name: string, value: unknown, kind: EditKind) {
@@ -411,7 +498,7 @@ export const projectSlice = createSlice({
       ) {
         const { blockId, token, value } = action.payload;
         const block = state.blocks.entities[blockId];
-        if (block === undefined || !isOverridable(block, token)) return;
+        if (block?.kind !== 'component' || !isOverridable(block, token)) return;
         if (referencedTokenName(value) === token) {
           delete block.overrides[token];
           return;
@@ -428,7 +515,36 @@ export const projectSlice = createSlice({
     },
     blockOverrideRemoved(state, action: PayloadAction<{ blockId: string; token: string }>) {
       const block = state.blocks.entities[action.payload.blockId];
-      if (block !== undefined) delete block.overrides[action.payload.token];
+      if (block?.kind === 'component') delete block.overrides[action.payload.token];
+    },
+    blockConvertedToHtml(
+      state,
+      action: PayloadAction<{ blockId: string; html: string; sourceComponentId: string }>,
+    ) {
+      const { blockId, html, sourceComponentId } = action.payload;
+      const block = state.blocks.entities[blockId];
+      if (block?.kind !== 'component') return;
+      const converted: HtmlBlock = {
+        id: block.id,
+        kind: 'html',
+        html,
+        disabled: block.disabled,
+        extraClasses: [...block.extraClasses],
+        hideOn: [...block.hideOn],
+        sourceComponentId,
+      };
+      if (block.anchor !== undefined) converted.anchor = block.anchor;
+      state.blocks.entities[blockId] = converted;
+    },
+    blockHtmlSet: {
+      reducer(state, action: PayloadAction<{ blockId: string; html: string }, string, EditMeta>) {
+        const block = state.blocks.entities[action.payload.blockId];
+        if (block?.kind !== 'html' || block.html === action.payload.html) return;
+        block.html = action.payload.html;
+      },
+      prepare(blockId: string, html: string, kind: EditKind) {
+        return { payload: { blockId, html }, meta: editMeta(kind, `html:${blockId}`) };
+      },
     },
     blockAdvancedSet: {
       reducer(
@@ -470,6 +586,14 @@ export const projectSlice = createSlice({
       }
       state.designSystem.fonts = fonts;
     },
+    designSystemApplied(state, action: PayloadAction<DesignSystem>) {
+      state.designSystem = action.payload;
+    },
+    iconSetChanged(state, action: PayloadAction<string>) {
+      const info = iconSetInfo(action.payload);
+      if (info === undefined || info.isBrandOnly) return;
+      state.designSystem.iconSet = action.payload;
+    },
     tokensSet: {
       reducer(state, action: PayloadAction<TokensChange, string, EditMeta>) {
         const { values, generators } = action.payload;
@@ -500,8 +624,11 @@ export const {
   pageSlugSet,
   pageSeoSet,
   pageSocialImageSet,
+  settingSet,
+  projectImageSet,
   homePageSet,
   blockInserted,
+  blockPasted,
   blockMoved,
   blockDuplicated,
   blockRemoved,
@@ -512,8 +639,12 @@ export const {
   blockValueSet,
   blockOverrideSet,
   blockOverrideRemoved,
+  blockConvertedToHtml,
+  blockHtmlSet,
   blockAdvancedSet,
   tokenSet,
   tokensSet,
   fontSet,
+  iconSetChanged,
+  designSystemApplied,
 } = projectSlice.actions;

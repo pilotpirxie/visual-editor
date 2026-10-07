@@ -169,7 +169,7 @@
     pointer-events: auto;
   }
 
-  .ve-block-toolbar button {
+  .ve-block-toolbar > button {
     display: grid;
     place-items: center;
     width: 28px;
@@ -181,11 +181,11 @@
     cursor: pointer;
   }
 
-  .ve-block-toolbar button:hover:not(:disabled) {
+  .ve-block-toolbar > button:hover:not(:disabled) {
     background: rgb(255 255 255 / 0.18);
   }
 
-  .ve-block-toolbar button:disabled {
+  .ve-block-toolbar > button:disabled {
     opacity: 0.45;
     cursor: default;
   }
@@ -261,7 +261,7 @@
       translate: -50% 0;
     }
 
-    .ve-block-toolbar button {
+    .ve-block-toolbar > button {
       width: 40px;
       height: 40px;
     }

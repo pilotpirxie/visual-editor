@@ -15,7 +15,7 @@ function setup(
 }
 
 function head(project: Project, page: Page, fileName = 'about.html', assetFiles = {}): string {
-  return buildPageHead({ project, page, fileName, assetFiles }).join('\n');
+  return buildPageHead({ project, page, fileName, assetFiles, fontsHref: null }).join('\n');
 }
 
 describe('applyTitleTemplate', () => {
@@ -63,6 +63,44 @@ describe('buildPageHead', () => {
     expect(html).toContain('<link rel="canonical" href="https://acme.com/about.html">');
     expect(html).toContain('content="https://acme.com/card-a1.png"');
     expect(head(project, page, 'index.html')).toContain('href="https://acme.com/"');
+  });
+
+  it('fills the project title template', () => {
+    const { project, page } = setup({ title: 'Pricing' });
+    project.settings.titleTemplate = '{{site.title}} · {{page.title}}';
+    expect(head(project, page)).toContain('<title>Fieldnote · Pricing</title>');
+  });
+
+  it('falls back to the project description and default social image', () => {
+    const { project, page } = setup();
+    project.settings.description = 'Research, tagged.';
+    project.settings.socialImageAssetId = 'p1';
+    const html = head(project, page, 'about.html', { p1: 'default-p1.png' });
+    expect(html).toContain('<meta name="description" content="Research, tagged.">');
+    expect(html).toContain('<meta property="og:image" content="default-p1.png">');
+  });
+
+  it('prefers the page description and social image over the project defaults', () => {
+    const { project, page } = setup({ description: 'About us', socialImageAssetId: 'a1' });
+    project.settings.description = 'Research, tagged.';
+    project.settings.socialImageAssetId = 'p1';
+    const html = head(project, page, 'about.html', { a1: 'card-a1.png', p1: 'default-p1.png' });
+    expect(html).toContain('content="About us"');
+    expect(html).toContain('content="card-a1.png"');
+    expect(html).not.toContain('default-p1.png');
+  });
+
+  it('links the favicon with its type', () => {
+    const { project, page } = setup();
+    project.assets.f1 = {
+      id: 'f1',
+      name: 'icon.svg',
+      mimeType: 'image/svg+xml',
+      dataUrl: 'data:image/svg+xml;base64,PHN2Zz4=',
+    };
+    project.settings.faviconAssetId = 'f1';
+    const html = head(project, page, 'about.html', { f1: 'icon-f1.svg' });
+    expect(html).toContain('<link rel="icon" href="icon-f1.svg" type="image/svg+xml">');
   });
 
   it('escapes text so it cannot end the tag', () => {

@@ -1,7 +1,9 @@
 import Handlebars from 'handlebars/runtime';
-import type { Block, Project, ProjectSettings } from '../app/types';
+import type { Block, ComponentBlock, HtmlBlock, Project } from '../app/types';
 import type { RegisteredComponent } from '../components/types';
+import { formatHtml } from './formatHtml';
 import type { RenderData } from './handlebars';
+import { decorateHtmlRoots, stripUnsafeHtml } from './htmlSafety';
 import './handlebars';
 
 export type RenderContext = RenderData & {
@@ -24,21 +26,24 @@ export function pageSlugsOf(pages: Project['pages']): Record<string, string> {
   return pageSlugs;
 }
 
+export type SiteContext = { siteTitle: string; iconSet: string };
+
 export function renderContextFor(
-  settings: ProjectSettings,
+  { siteTitle, iconSet }: SiteContext,
   pageSlugs: Record<string, string>,
   mode: RenderContext['mode'],
   currentPageId: string | null,
 ): RenderContext {
-  return { mode, site: { title: settings.title }, pageSlugs, currentPageId };
+  return { mode, site: { title: siteTitle }, pageSlugs, currentPageId, iconSet };
 }
 
 export function createRenderContext(
-  project: Pick<Project, 'settings' | 'pages'>,
+  project: Pick<Project, 'settings' | 'pages' | 'designSystem'>,
   mode: RenderContext['mode'],
   currentPageId: string | null = null,
 ): RenderContext {
-  return renderContextFor(project.settings, pageSlugsOf(project.pages), mode, currentPageId);
+  const site = { siteTitle: project.settings.title, iconSet: project.designSystem.iconSet };
+  return renderContextFor(site, pageSlugsOf(project.pages), mode, currentPageId);
 }
 
 function stripEditorAttributes(html: string): string {
@@ -52,7 +57,7 @@ function stripEditorAttributes(html: string): string {
   return template.innerHTML;
 }
 
-function rootAttributes(block: Block, ctx: RenderContext): string[] {
+function rootAttributes(block: ComponentBlock, ctx: RenderContext): string[] {
   const escape = Handlebars.escapeExpression;
   const attributes = [`data-component="${escape(block.componentId)}"`];
   if (ctx.mode !== 'export') attributes.push(`data-block-id="${escape(block.id)}"`);
@@ -84,7 +89,7 @@ function withClasses(attributes: string, classes: string[]): string {
 }
 
 export function renderBlock(
-  block: Block,
+  block: ComponentBlock,
   component: RegisteredComponent,
   ctx: RenderContext,
 ): string {
@@ -97,6 +102,8 @@ export function renderBlock(
     pageSlugs: ctx.pageSlugs,
     currentPageId: ctx.currentPageId,
     eagerImages: component.definition.category === 'headers',
+    iconSet: ctx.iconSet,
+    collector: ctx.collector,
   };
   const html = component.template(templateValues, { data: renderData }).trim();
   const root = ROOT_OPEN_TAG.exec(html)?.groups;
@@ -110,4 +117,36 @@ export function renderBlock(
   const withRoot = html.replace(ROOT_OPEN_TAG, () => openTag);
   if (ctx.mode === 'export') return stripEditorAttributes(withRoot);
   return withRoot;
+}
+
+export function renderHtmlBlock(block: HtmlBlock, ctx: RenderContext): string {
+  const { html } = stripUnsafeHtml(block.html);
+  const decorated = decorateHtmlRoots(html, {
+    anchor: block.anchor,
+    classes: rootClasses(block, ctx),
+  });
+  if (ctx.mode === 'export') return decorated;
+  const id = Handlebars.escapeExpression(block.id);
+  return `<div data-block-id="${id}" data-html-block="">${decorated}</div>`;
+}
+
+export function renderAnyBlock(
+  block: Block,
+  registry: ReadonlyMap<string, RegisteredComponent>,
+  ctx: RenderContext,
+): string | null {
+  if (block.kind === 'html') return renderHtmlBlock(block, ctx);
+  const component = registry.get(block.componentId);
+  if (component === undefined) return null;
+  return renderBlock(block, component, ctx);
+}
+
+export function convertBlockToHtml(
+  block: ComponentBlock,
+  component: RegisteredComponent,
+  project: Pick<Project, 'settings' | 'pages' | 'designSystem'>,
+): string {
+  const plain: ComponentBlock = { ...block, extraClasses: [], hideOn: [] };
+  delete plain.anchor;
+  return formatHtml(renderBlock(plain, component, createRenderContext(project, 'export')));
 }

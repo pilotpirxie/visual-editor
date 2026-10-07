@@ -87,6 +87,16 @@ defineIfMissing(HTMLDialogElement.prototype, 'close', function close(this: HTMLD
   this.removeAttribute('open');
   this.dispatchEvent(new Event('close'));
 });
+function toggleEvent(newState: 'open' | 'closed'): Event {
+  return Object.assign(new Event('toggle'), { newState });
+}
+
+defineIfMissing(HTMLElement.prototype, 'showPopover', function showPopover(this: HTMLElement) {
+  this.dispatchEvent(toggleEvent('open'));
+});
+defineIfMissing(HTMLElement.prototype, 'hidePopover', function hidePopover(this: HTMLElement) {
+  this.dispatchEvent(toggleEvent('closed'));
+});
 defineIfMissing(Element.prototype, 'setPointerCapture', function setPointerCapture() {});
 defineIfMissing(Element.prototype, 'releasePointerCapture', function releasePointerCapture() {});
 defineIfMissing(Element.prototype, 'hasPointerCapture', function hasPointerCapture() {

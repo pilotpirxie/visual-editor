@@ -1,8 +1,22 @@
-import { findBlockList, sharedSlotOf } from '../../app/blockLists';
-import { blockDuplicated, blockInserted, blockMoved, blockRemoved } from '../../app/projectSlice';
+import {
+  findBlockList,
+  sharedSlotOf,
+  slotForCategory,
+  visibleBlockLists,
+} from '../../app/blockLists';
+import { blockSelected } from '../../app/editorSlice';
+import {
+  blockDuplicated,
+  blockInserted,
+  blockMoved,
+  blockRemoved,
+  type BlockListTarget,
+} from '../../app/projectSlice';
 import { selectCurrentPage, type AppThunk, type RootState } from '../../app/store';
+import type { Category } from '../../components/types';
 import type { DragPayload } from '../canvas/dragController';
 import { finalMoveIndex } from '../canvas/geometry';
+import { loadBlockIconSets } from '../icons/ensureIconSets';
 
 export type MoveOffset = -1 | 1;
 
@@ -15,11 +29,39 @@ function insertionIndex(state: RootState, pageBlockIds: string[]): number {
   return selectedIndex === -1 ? pageBlockIds.length : selectedIndex + 1;
 }
 
+export type BlockLocation = { target: BlockListTarget; index: number };
+
+export function pasteLocation(state: RootState, category: Category | null): BlockLocation {
+  const page = selectCurrentPage(state);
+  const { selectedBlockId } = state.editor;
+  const slot = selectedBlockId === null ? null : sharedSlotOf(state.project, selectedBlockId);
+  const fitsSlot = slot !== null && category !== null && slotForCategory(category) === slot;
+  if (selectedBlockId !== null && slot !== null && fitsSlot) {
+    const list = state.project.sharedSlots[slot];
+    return { target: { kind: 'slot', slot }, index: list.indexOf(selectedBlockId) + 1 };
+  }
+  return {
+    target: { kind: 'page', pageId: page.id },
+    index: insertionIndex(state, page.blockIds),
+  };
+}
+
+function loadIconsOf(blockId: string): AppThunk {
+  return (dispatch) => {
+    dispatch(loadBlockIconSets([blockId])).catch((error: unknown) => {
+      console.error(`Could not load the icons of block ${blockId}`, error);
+    });
+  };
+}
+
 export function insertComponent(componentId: string): AppThunk {
   return (dispatch, getState) => {
     const state = getState();
     const page = selectCurrentPage(state);
-    dispatch(blockInserted(page.id, insertionIndex(state, page.blockIds), componentId));
+    const inserted = dispatch(
+      blockInserted(page.id, insertionIndex(state, page.blockIds), componentId),
+    );
+    dispatch(loadIconsOf(inserted.payload.block.id));
   };
 }
 
@@ -30,6 +72,25 @@ export function moveBlockBy(blockId: string, offset: MoveOffset): AppThunk {
     const to = list.indexOf(blockId) + offset;
     if (to < 0 || to >= list.length) return;
     dispatch(blockMoved({ blockId, toIndex: to }));
+  };
+}
+
+export function selectSiblingBlock(offset: MoveOffset): AppThunk {
+  return (dispatch, getState) => {
+    const state = getState();
+    const { header, page, footer } = visibleBlockLists(state.project, selectCurrentPage(state));
+    const blockIds = [...header, ...page, ...footer];
+    if (blockIds.length === 0) return;
+    const { selectedBlockId } = state.editor;
+    const current = selectedBlockId === null ? -1 : blockIds.indexOf(selectedBlockId);
+    let next: number;
+    if (current === -1) {
+      next = offset === 1 ? 0 : blockIds.length - 1;
+    } else {
+      next = Math.min(Math.max(current + offset, 0), blockIds.length - 1);
+    }
+    if (next === current) return;
+    dispatch(blockSelected(blockIds[next]));
   };
 }
 
@@ -60,7 +121,8 @@ export function dropBlock(payload: DragPayload, dropIndex: number): AppThunk {
   return (dispatch, getState) => {
     const page = selectCurrentPage(getState());
     if (payload.kind === 'new') {
-      dispatch(blockInserted(page.id, dropIndex, payload.componentId));
+      const inserted = dispatch(blockInserted(page.id, dropIndex, payload.componentId));
+      dispatch(loadIconsOf(inserted.payload.block.id));
     } else if (payload.kind === 'move') {
       const list = findBlockList(getState().project, payload.blockId);
       if (list === null || isNoopDrop(list, payload, dropIndex)) return;

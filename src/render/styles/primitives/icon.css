@@ -1,0 +1,9 @@
+@layer primitives {
+  .icon {
+    display: inline-block;
+    flex-shrink: 0;
+    width: var(--icon-size, 1.25em);
+    height: var(--icon-size, 1.25em);
+    vertical-align: middle;
+  }
+}

@@ -1,8 +1,9 @@
-import { useState, type JSX, type MouseEvent } from 'react';
+import { useState, type JSX } from 'react';
 import { compactTabSelected, panelToggled } from '../../app/editorSlice';
 import { dispatch, selectCurrentPage, store, useStore } from '../../app/store';
 import type { Page } from '../../app/types';
 import { Icon } from '../editor/Icon';
+import { closeOwningPopover } from '../editor/Menu';
 import { openPage } from './pageActions';
 import { PageDialog } from './PageDialog';
 import { pageFileName } from './PagesTab';
@@ -10,11 +11,6 @@ import './pages.css';
 
 const SEARCH_FROM_PAGE_COUNT = 11;
 const MENU_ID = 've-page-switcher-menu';
-
-function closeMenu(event: MouseEvent<HTMLElement>): void {
-  const menu = event.currentTarget.closest<HTMLElement>('[popover]');
-  if (menu !== null && 'hidePopover' in menu && menu.matches(':popover-open')) menu.hidePopover();
-}
 
 function matchesQuery(page: Page, query: string): boolean {
   const term = query.trim().toLowerCase();
@@ -71,7 +67,7 @@ export function PageSwitcher(): JSX.Element {
                 type="button"
                 aria-current={page.id === currentPage.id ? 'page' : undefined}
                 onClick={(event) => {
-                  closeMenu(event);
+                  closeOwningPopover(event.currentTarget);
                   dispatch(openPage(page.id));
                 }}
               >
@@ -86,7 +82,7 @@ export function PageSwitcher(): JSX.Element {
         <button
           type="button"
           onClick={(event) => {
-            closeMenu(event);
+            closeOwningPopover(event.currentTarget);
             setIsAdding(true);
           }}
         >
@@ -96,7 +92,7 @@ export function PageSwitcher(): JSX.Element {
         <button
           type="button"
           onClick={(event) => {
-            closeMenu(event);
+            closeOwningPopover(event.currentTarget);
             managePages();
           }}
         >

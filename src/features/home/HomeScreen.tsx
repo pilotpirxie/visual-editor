@@ -1,17 +1,22 @@
 import { useEffect, useRef, useState, type JSX, type KeyboardEvent } from 'react';
 import { describeError } from '../../app/errors';
-import { createBlankProject, UNTITLED_PROJECT_TITLE } from '../../app/projectFactory';
-import { editorPath, followLink, navigate, projectPath } from '../../app/router';
+import { followLink, projectPath } from '../../app/router';
 import { autosave } from '../../app/store';
 import type { Project } from '../../app/types';
 import {
   deleteProject,
   getProject,
+  listFileLinks,
   listProjects,
   putProject,
+  type FileLink,
   type ProjectSummary,
 } from '../../persistence/db';
 import { Icon } from '../editor/Icon';
+import { canUseFileSystemAccess } from '../files/fileAccess';
+import { fileCommands } from '../files/fileCommands';
+import { LicensesDialog } from '../licenses/LicensesDialog';
+import { NewProjectDialog } from './NewProjectDialog';
 import { duplicateProject, formatLastEdit, withTitle } from './projects';
 import './home.css';
 
@@ -21,14 +26,40 @@ async function requireProject(id: string): Promise<Project> {
   return project;
 }
 
-type ProjectList = { summaries: ProjectSummary[]; listedAt: number };
+type ProjectList = { summaries: ProjectSummary[]; recentFiles: FileLink[]; listedAt: number };
 
 type RenameExit = 'keyboard' | 'blur';
 
 async function loadProjectList(): Promise<ProjectList> {
   await autosave.flush();
   const summaries = await listProjects();
-  return { summaries, listedAt: Date.now() };
+  const recentFiles = canUseFileSystemAccess() ? await listFileLinks() : [];
+  return { summaries, recentFiles, listedAt: Date.now() };
+}
+
+function RecentFiles({ links }: { links: FileLink[] }): JSX.Element | null {
+  if (links.length === 0) return null;
+  return (
+    <section className="ve-home-recent" aria-labelledby="ve-home-recent-title">
+      <h2 id="ve-home-recent-title" className="ve-group-title">
+        Recent files
+      </h2>
+      <ul className="ve-home-recent-list">
+        {links.map((link) => (
+          <li key={link.id}>
+            <button
+              type="button"
+              className="ve-button ve-button--outline"
+              onClick={() => fileCommands.openRecent(link)}
+            >
+              <Icon name="file" />
+              {link.name}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 }
 
 function RenameInput({
@@ -70,6 +101,8 @@ export function HomeScreen(): JSX.Element {
   const [projectList, setProjectList] = useState<ProjectList | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [renamingId, setRenamingId] = useState<string | null>(null);
+  const [isLicensesOpen, setIsLicensesOpen] = useState(false);
+  const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
   const renameButtonsRef = useRef(new Map<string, HTMLButtonElement>());
 
   useEffect(() => {
@@ -101,18 +134,6 @@ export function HomeScreen(): JSX.Element {
     }
   }
 
-  async function createProject(): Promise<void> {
-    const project = createBlankProject(UNTITLED_PROJECT_TITLE);
-    try {
-      await putProject(project);
-    } catch (createError) {
-      console.error('Could not create a project', createError);
-      setError(`Could not create a project: ${describeError(createError)}`);
-      return;
-    }
-    navigate(editorPath(project.id, project.pages.homePageId));
-  }
-
   function finishRename(summary: ProjectSummary, title: string | null, exit: RenameExit): void {
     setRenamingId(null);
     if (exit === 'keyboard') renameButtonsRef.current.get(summary.id)?.focus();
@@ -141,10 +162,25 @@ export function HomeScreen(): JSX.Element {
     <main className="ve-home">
       <header className="ve-home-header">
         <h1>My projects</h1>
-        <button type="button" className="ve-button ve-button--primary" onClick={createProject}>
-          <Icon name="plus" />
-          New project
-        </button>
+        <div className="ve-home-actions">
+          <button
+            type="button"
+            className="ve-button ve-button--outline"
+            onClick={fileCommands.openFromDisk}
+          >
+            <Icon name="folder-open" />
+            Open from disk
+          </button>
+          <button
+            type="button"
+            className="ve-button ve-button--primary"
+            aria-haspopup="dialog"
+            onClick={() => setIsNewProjectOpen(true)}
+          >
+            <Icon name="plus" />
+            New project
+          </button>
+        </div>
       </header>
 
       {error !== null && (
@@ -158,6 +194,8 @@ export function HomeScreen(): JSX.Element {
           You have no projects yet. Create one to start building a site.
         </p>
       )}
+
+      {projectList !== null && <RecentFiles links={projectList.recentFiles} />}
 
       {projectList !== null && projectList.summaries.length > 0 && (
         <ul className="ve-home-grid" aria-label="Projects">
@@ -218,6 +256,13 @@ export function HomeScreen(): JSX.Element {
           ))}
         </ul>
       )}
+      <footer className="ve-home-footer">
+        <button type="button" className="ve-button" onClick={() => setIsLicensesOpen(true)}>
+          Open-source licenses
+        </button>
+      </footer>
+      {isLicensesOpen && <LicensesDialog onClose={() => setIsLicensesOpen(false)} />}
+      {isNewProjectOpen && <NewProjectDialog onClose={() => setIsNewProjectOpen(false)} />}
     </main>
   );
 }

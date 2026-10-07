@@ -1,9 +1,9 @@
 import Handlebars from 'handlebars/runtime';
 import { memo, useLayoutEffect, useMemo, useRef, type JSX } from 'react';
 import { selectCanvasRenderContext, useStore } from '../../app/store';
-import type { Block } from '../../app/types';
+import type { Block, HtmlBlock } from '../../app/types';
 import { registry } from '../../components/registry';
-import { renderBlock, type RenderContext } from '../../render/renderBlock';
+import { renderBlock, renderHtmlBlock, type RenderContext } from '../../render/renderBlock';
 import { morphChildren } from './morph';
 import type { ScrollAnchor } from './scrollAnchor';
 
@@ -26,8 +26,19 @@ function notice(blockId: string, text: string): string {
   return `<div data-block-id="${escape(blockId)}" style="${NOTICE_STYLE}">${escape(text)}</div>`;
 }
 
+function renderHtmlForCanvas(block: HtmlBlock, ctx: RenderContext): string {
+  if (block.disabled) return notice(block.id, 'Disabled: HTML block');
+  try {
+    return renderHtmlBlock(block, ctx);
+  } catch (error) {
+    console.error(`Canvas: HTML block ${block.id} failed to render`, error);
+    return notice(block.id, 'This HTML block could not be shown');
+  }
+}
+
 function renderForCanvas(block: Block | undefined, ctx: RenderContext): string {
   if (block === undefined) return '';
+  if (block.kind === 'html') return renderHtmlForCanvas(block, ctx);
   const component = registry.get(block.componentId);
   if (component === undefined) {
     console.error(`Canvas: block ${block.id} uses unknown component "${block.componentId}"`);

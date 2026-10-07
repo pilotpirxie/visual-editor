@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { convertIconifySet } from './convert';
+import { convertIconifySet, iconStyleOf } from './convert';
 
 describe('convertIconifySet', () => {
   const source = {
@@ -38,5 +38,34 @@ describe('convertIconifySet', () => {
 
   it('rejects data without icons', () => {
     expect(() => convertIconifySet({ prefix: 'demo' })).toThrow(/icons/);
+  });
+});
+
+describe('icon styles', () => {
+  const source = { width: 24, height: 24, icons: { 'star-line': { body: '' } } };
+
+  it('reads styles from the set metadata suffixes', () => {
+    const converted = convertIconifySet(source, { suffixes: { line: 'Line', fill: 'Fill' } });
+    expect(converted.styles).toEqual([
+      { suffix: 'line', label: 'Line' },
+      { suffix: 'fill', label: 'Fill' },
+    ]);
+  });
+
+  it('uses the given styles when the metadata has none', () => {
+    const fallback = [{ suffix: 'filled', label: 'Filled' }];
+    expect(convertIconifySet(source, {}, fallback).styles).toEqual(fallback);
+    expect(convertIconifySet(source).styles).toEqual([]);
+  });
+
+  it('finds the longest matching suffix of an icon name', () => {
+    const styles = [
+      { suffix: '', label: 'Regular' },
+      { suffix: 'solid', label: 'Solid' },
+      { suffix: '20-solid', label: 'Solid 20' },
+    ];
+    expect(iconStyleOf('bolt-20-solid', styles)).toBe('20-solid');
+    expect(iconStyleOf('bolt-solid', styles)).toBe('solid');
+    expect(iconStyleOf('bolt', styles)).toBe('');
   });
 });

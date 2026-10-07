@@ -1,0 +1,47 @@
+@layer components {
+  @scope (.b-logos-row) {
+    :scope {
+      --section-padding-y: var(--space-12);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-title {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    .b-logos {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6) var(--space-8);
+      align-items: center;
+    }
+
+    .b-logo img {
+      width: 100%;
+      max-width: 9rem;
+      height: auto;
+      margin-inline: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      opacity: 0.8;
+    }
+
+    @media (min-width: 768px) {
+      .b-logos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .b-logo {
+        flex: 0 1 9rem;
+      }
+    }
+  }
+}

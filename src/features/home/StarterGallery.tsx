@@ -1,0 +1,138 @@
+import { useEffect, useMemo, useRef, useState, type JSX } from 'react';
+import { describeError } from '../../app/errors';
+import type { Project } from '../../app/types';
+import { registry } from '../../components/registry';
+import { renderStandalonePage } from '../../render/exportSite';
+import { loadStarter, STARTERS, type StarterInfo } from '../../starters/starters';
+import { useElementSize } from '../canvas/Canvas';
+import { ensureProjectIconSets } from '../icons/ensureIconSets';
+import { StarterPreview } from './StarterPreview';
+
+const THUMBNAIL_WIDTH = 1440;
+const THUMBNAIL_HEIGHT = 900;
+
+type LoadedStarter = { starter: StarterInfo; project: Project };
+
+type StarterGalleryProps = {
+  isDisabled: boolean;
+  onUse(starter: StarterInfo, project: Project): void;
+};
+
+async function loadStarterWithIcons(starter: StarterInfo): Promise<LoadedStarter> {
+  const project = await loadStarter(starter);
+  await ensureProjectIconSets(project);
+  return { starter, project };
+}
+
+function pageNamesOf(project: Project): string[] {
+  const names: string[] = [];
+  for (const id of project.pages.ids) {
+    const page = project.pages.entities[id];
+    if (page !== undefined) names.push(page.name);
+  }
+  return names;
+}
+
+function StarterThumbnail({ project }: { project: Project }): JSX.Element {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const { width } = useElementSize(boxRef);
+  const html = useMemo(
+    () =>
+      renderStandalonePage(project, project.pages.homePageId, registry, { shouldLinkFonts: true }),
+    [project],
+  );
+  return (
+    <div className="ve-starter-thumbnail" ref={boxRef}>
+      <iframe
+        sandbox=""
+        srcDoc={html}
+        loading="lazy"
+        tabIndex={-1}
+        aria-hidden="true"
+        style={{
+          width: THUMBNAIL_WIDTH,
+          height: THUMBNAIL_HEIGHT,
+          transform: `scale(${width / THUMBNAIL_WIDTH})`,
+        }}
+      />
+    </div>
+  );
+}
+
+export function StarterGallery({ isDisabled, onUse }: StarterGalleryProps): JSX.Element {
+  const [starters, setStarters] = useState<LoadedStarter[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [previewing, setPreviewing] = useState<LoadedStarter | null>(null);
+
+  useEffect(() => {
+    let isCancelled = false;
+    async function load(): Promise<void> {
+      try {
+        const loaded = await Promise.all(STARTERS.map(loadStarterWithIcons));
+        if (!isCancelled) setStarters(loaded);
+      } catch (loadError) {
+        console.error('Could not load the starter projects', loadError);
+        if (!isCancelled) setError(describeError(loadError));
+      }
+    }
+    void load();
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
+
+  if (error !== null) {
+    return (
+      <p className="ve-home-error" role="alert">
+        Could not load the starters: {error}
+      </p>
+    );
+  }
+  if (starters === null) return <p className="ve-muted">Loading starters…</p>;
+
+  return (
+    <>
+      <ul className="ve-starter-grid" aria-label="Starters">
+        {starters.map((loaded) => {
+          const { starter, project } = loaded;
+          return (
+            <li key={starter.id} className="ve-starter-card">
+              <StarterThumbnail project={project} />
+              <h3 className="ve-starter-name">{starter.name}</h3>
+              <p className="ve-muted">{starter.description}</p>
+              <p className="ve-starter-pages">{pageNamesOf(project).join(' · ')}</p>
+              <div className="ve-starter-actions">
+                <button
+                  type="button"
+                  className="ve-button ve-button--outline"
+                  aria-label={`Preview ${starter.name}`}
+                  onClick={() => setPreviewing(loaded)}
+                >
+                  Preview
+                </button>
+                <button
+                  type="button"
+                  className="ve-button ve-button--primary"
+                  aria-label={`Use the ${starter.name} starter`}
+                  disabled={isDisabled}
+                  onClick={() => onUse(starter, project)}
+                >
+                  Use this starter
+                </button>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      {previewing !== null && (
+        <StarterPreview
+          starter={previewing.starter}
+          project={previewing.project}
+          isDisabled={isDisabled}
+          onUse={(shown) => onUse(previewing.starter, shown)}
+          onClose={() => setPreviewing(null)}
+        />
+      )}
+    </>
+  );
+}

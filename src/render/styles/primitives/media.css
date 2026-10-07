@@ -1,0 +1,14 @@
+@layer primitives {
+  .media {
+    overflow: hidden;
+    aspect-ratio: var(--media-ratio, 16 / 9);
+    border-radius: var(--media-radius, var(--radius-lg));
+    background: var(--color-surface);
+  }
+
+  .media > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

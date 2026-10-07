@@ -9,11 +9,11 @@ import { useSyncExternalStore } from 'react';
 import { pageSlugsOf, renderContextFor } from '../render/renderBlock';
 import { createAutosave } from '../persistence/autosave';
 import { putProject } from '../persistence/db';
-import { editorSlice, saveStatusChanged } from './editorSlice';
+import { editorSlice, linkedFileOutdated, saveStatusChanged } from './editorSlice';
 import { createRootReducer, type RootState } from './history';
 import { projectLoaded, projectSlice } from './projectSlice';
 import { visibleBlockLists } from './blockLists';
-import type { Page, Project, SharedSlot } from './types';
+import type { DesignSystem, Page, Project, SharedSlot } from './types';
 
 export type { RootState };
 
@@ -29,6 +29,16 @@ const AUTOSAVE_DELAY_MS = 1000;
 
 export function createAppStore({ preloadedState, onProjectEdited }: AppStoreOptions = {}) {
   const listener = createListenerMiddleware<RootState>();
+  listener.startListening({
+    predicate: (action, current, previous) => {
+      const { linkedFile, isLinkedFileStale } = current.editor;
+      const isEdit = current.project !== previous.project && !projectLoaded.match(action);
+      return isEdit && linkedFile !== null && !isLinkedFileStale;
+    },
+    effect: (_action, api) => {
+      api.dispatch(linkedFileOutdated());
+    },
+  });
   if (onProjectEdited !== undefined) {
     listener.startListening({
       predicate: (action, current, previous) =>
@@ -68,6 +78,10 @@ export function selectCurrentPage(state: RootState): Page {
   return state.project.pages.entities[pageId];
 }
 
+export function selectCanvasDesignSystem(state: RootState): DesignSystem {
+  return state.editor.previewDesignSystem ?? state.project.designSystem;
+}
+
 export function selectShownSlot(state: RootState, slot: SharedSlot): string[] {
   return visibleBlockLists(state.project, selectCurrentPage(state))[slot];
 }
@@ -86,11 +100,19 @@ const selectPageSlugs = createSelector(
 
 export const selectCanvasRenderContext = createSelector(
   [
-    (state: RootState) => state.project.settings,
+    (state: RootState) => state.project.settings.title,
+    (state: RootState) =>
+      state.editor.previewDesignSystem?.iconSet ?? state.project.designSystem.iconSet,
     selectPageSlugs,
     (state: RootState) => state.editor.isPreview,
     (state: RootState) => selectCurrentPage(state).id,
+    (state: RootState) => state.editor.iconSetsVersion,
   ],
-  (settings, pageSlugs, isPreview, currentPageId) =>
-    renderContextFor(settings, pageSlugs, isPreview ? 'preview' : 'canvas', currentPageId),
+  (siteTitle, iconSet, pageSlugs, isPreview, currentPageId) =>
+    renderContextFor(
+      { siteTitle, iconSet },
+      pageSlugs,
+      isPreview ? 'preview' : 'canvas',
+      currentPageId,
+    ),
 );

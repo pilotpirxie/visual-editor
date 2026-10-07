@@ -1,0 +1,1022 @@
+{
+  "schemaVersion": 2,
+  "id": "starter-mobile-app",
+  "settings": {
+    "title": "Tandem",
+    "description": "The shared grocery list and meal planner for busy households.",
+    "language": "en",
+    "titleTemplate": "{{page.title}} | {{site.title}}"
+  },
+  "designSystem": {
+    "tokens": {
+      "--color-primary": {
+        "name": "--color-primary",
+        "label": "Primary",
+        "group": "color",
+        "value": "#c2185b"
+      },
+      "--color-primary-contrast": {
+        "name": "--color-primary-contrast",
+        "label": "Primary contrast",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--color-background": {
+        "name": "--color-background",
+        "label": "Background",
+        "group": "color",
+        "value": "#fffbf5"
+      },
+      "--color-surface": {
+        "name": "--color-surface",
+        "label": "Surface",
+        "group": "color",
+        "value": "#ffefe2"
+      },
+      "--color-text": {
+        "name": "--color-text",
+        "label": "Text",
+        "group": "color",
+        "value": "#2b1d3a"
+      },
+      "--color-text-muted": {
+        "name": "--color-text-muted",
+        "label": "Muted text",
+        "group": "color",
+        "value": "#5f4b6b"
+      },
+      "--color-border": {
+        "name": "--color-border",
+        "label": "Border",
+        "group": "color",
+        "value": "#f1d9c6"
+      },
+      "--font-heading": {
+        "name": "--font-heading",
+        "label": "Heading font",
+        "group": "typography",
+        "value": "\"Nunito\", system-ui, sans-serif"
+      },
+      "--font-body": {
+        "name": "--font-body",
+        "label": "Body font",
+        "group": "typography",
+        "value": "\"Nunito\", system-ui, sans-serif"
+      },
+      "--font-mono": {
+        "name": "--font-mono",
+        "label": "Mono font",
+        "group": "typography",
+        "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+      },
+      "--font-weight-regular": {
+        "name": "--font-weight-regular",
+        "label": "Regular weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-bold": {
+        "name": "--font-weight-bold",
+        "label": "Bold weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--text-xs": {
+        "name": "--text-xs",
+        "label": "Extra small",
+        "group": "typography",
+        "value": "0.68rem"
+      },
+      "--text-sm": {
+        "name": "--text-sm",
+        "label": "Small",
+        "group": "typography",
+        "value": "0.85rem"
+      },
+      "--text-base": {
+        "name": "--text-base",
+        "label": "Base",
+        "group": "typography",
+        "value": "1.0625rem"
+      },
+      "--text-lg": {
+        "name": "--text-lg",
+        "label": "Large",
+        "group": "typography",
+        "value": "1.3281rem"
+      },
+      "--text-xl": {
+        "name": "--text-xl",
+        "label": "XL",
+        "group": "typography",
+        "value": "1.6602rem"
+      },
+      "--text-2xl": {
+        "name": "--text-2xl",
+        "label": "2XL",
+        "group": "typography",
+        "value": "2.0752rem"
+      },
+      "--text-3xl": {
+        "name": "--text-3xl",
+        "label": "3XL",
+        "group": "typography",
+        "value": "clamp(1.7019rem, 1.4046rem + 1.4868vw, 2.594rem)"
+      },
+      "--text-4xl": {
+        "name": "--text-4xl",
+        "label": "4XL",
+        "group": "typography",
+        "value": "clamp(1.9147rem, 1.472rem + 2.2131vw, 3.2425rem)"
+      },
+      "--text-5xl": {
+        "name": "--text-5xl",
+        "label": "5XL",
+        "group": "typography",
+        "value": "clamp(2.154rem, 1.521rem + 3.1652vw, 4.0531rem)"
+      },
+      "--line-height-tight": {
+        "name": "--line-height-tight",
+        "label": "Tight line height",
+        "group": "typography",
+        "value": "1.15"
+      },
+      "--line-height-normal": {
+        "name": "--line-height-normal",
+        "label": "Normal line height",
+        "group": "typography",
+        "value": "1.6"
+      },
+      "--space-1": {
+        "name": "--space-1",
+        "label": "Space 1",
+        "group": "spacing",
+        "value": "0.2813rem"
+      },
+      "--space-2": {
+        "name": "--space-2",
+        "label": "Space 2",
+        "group": "spacing",
+        "value": "0.5625rem"
+      },
+      "--space-3": {
+        "name": "--space-3",
+        "label": "Space 3",
+        "group": "spacing",
+        "value": "0.8438rem"
+      },
+      "--space-4": {
+        "name": "--space-4",
+        "label": "Space 4",
+        "group": "spacing",
+        "value": "1.125rem"
+      },
+      "--space-6": {
+        "name": "--space-6",
+        "label": "Space 6",
+        "group": "spacing",
+        "value": "1.6875rem"
+      },
+      "--space-8": {
+        "name": "--space-8",
+        "label": "Space 8",
+        "group": "spacing",
+        "value": "2.25rem"
+      },
+      "--space-12": {
+        "name": "--space-12",
+        "label": "Space 12",
+        "group": "spacing",
+        "value": "3.375rem"
+      },
+      "--space-16": {
+        "name": "--space-16",
+        "label": "Space 16",
+        "group": "spacing",
+        "value": "4.5rem"
+      },
+      "--section-padding-y": {
+        "name": "--section-padding-y",
+        "label": "Section padding",
+        "group": "spacing",
+        "value": "clamp(3rem, 2rem + 4vw, 6rem)"
+      },
+      "--container-max-width": {
+        "name": "--container-max-width",
+        "label": "Container width",
+        "group": "spacing",
+        "value": "72rem"
+      },
+      "--container-padding-x": {
+        "name": "--container-padding-x",
+        "label": "Container padding",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--radius-sm": {
+        "name": "--radius-sm",
+        "label": "Small radius",
+        "group": "shape",
+        "value": "0.5rem"
+      },
+      "--radius-md": {
+        "name": "--radius-md",
+        "label": "Medium radius",
+        "group": "shape",
+        "value": "1rem"
+      },
+      "--radius-lg": {
+        "name": "--radius-lg",
+        "label": "Large radius",
+        "group": "shape",
+        "value": "1.5rem"
+      },
+      "--radius-full": {
+        "name": "--radius-full",
+        "label": "Full radius",
+        "group": "shape",
+        "value": "9999px"
+      },
+      "--border-width": {
+        "name": "--border-width",
+        "label": "Border width",
+        "group": "shape",
+        "value": "1px"
+      },
+      "--shadow-sm": {
+        "name": "--shadow-sm",
+        "label": "Small shadow",
+        "group": "elevation",
+        "value": "0 2px 4px rgb(194 24 91 / 0.08)"
+      },
+      "--shadow-md": {
+        "name": "--shadow-md",
+        "label": "Medium shadow",
+        "group": "elevation",
+        "value": "0 8px 20px rgb(194 24 91 / 0.12)"
+      },
+      "--shadow-lg": {
+        "name": "--shadow-lg",
+        "label": "Large shadow",
+        "group": "elevation",
+        "value": "0 20px 48px rgb(194 24 91 / 0.16)"
+      },
+      "--button-radius": {
+        "name": "--button-radius",
+        "label": "Button radius",
+        "group": "component",
+        "value": "var(--radius-full)"
+      },
+      "--button-padding-y": {
+        "name": "--button-padding-y",
+        "label": "Button padding Y",
+        "group": "component",
+        "value": "0.75rem"
+      },
+      "--button-padding-x": {
+        "name": "--button-padding-x",
+        "label": "Button padding X",
+        "group": "component",
+        "value": "1.25rem"
+      },
+      "--card-radius": {
+        "name": "--card-radius",
+        "label": "Card radius",
+        "group": "component",
+        "value": "var(--radius-lg)"
+      },
+      "--card-shadow": {
+        "name": "--card-shadow",
+        "label": "Card shadow",
+        "group": "component",
+        "value": "var(--shadow-sm)"
+      },
+      "--transition-fast": {
+        "name": "--transition-fast",
+        "label": "Fast",
+        "group": "motion",
+        "value": "120ms"
+      },
+      "--transition-normal": {
+        "name": "--transition-normal",
+        "label": "Normal",
+        "group": "motion",
+        "value": "200ms"
+      }
+    },
+    "fonts": [
+      {
+        "role": "heading",
+        "family": "Nunito",
+        "weights": [400, 700]
+      },
+      {
+        "role": "body",
+        "family": "Nunito",
+        "weights": [400, 700]
+      }
+    ],
+    "generators": {
+      "typeBasePx": 17,
+      "typeRatio": 1.25,
+      "spaceUnitPx": 4.5
+    },
+    "iconSet": "tabler",
+    "presetId": "playful"
+  },
+  "pages": {
+    "ids": ["home", "features", "download", "not-found"],
+    "entities": {
+      "home": {
+        "id": "home",
+        "name": "Home",
+        "slug": "home",
+        "blockIds": [
+          "home-hero",
+          "home-features",
+          "home-steps",
+          "home-quote",
+          "home-stats",
+          "home-download"
+        ],
+        "seo": {
+          "description": "Tandem is the shared grocery list and meal planner for busy households."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "features": {
+        "id": "features",
+        "name": "Features",
+        "slug": "features",
+        "blockIds": ["features-hero", "features-rows", "features-list", "features-banner"],
+        "seo": {
+          "description": "Shared lists sorted by aisle, recipe imports and a fair chore rota."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "download": {
+        "id": "download",
+        "name": "Download",
+        "slug": "download",
+        "blockIds": ["download-hero", "download-steps", "download-faq"],
+        "seo": {
+          "description": "Download Tandem free on iPhone and Android."
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "not-found": {
+        "id": "not-found",
+        "name": "Page not found",
+        "slug": "404",
+        "blockIds": ["not-found-hero"],
+        "seo": {},
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      }
+    },
+    "homePageId": "home"
+  },
+  "blocks": {
+    "ids": [
+      "nav",
+      "footer",
+      "home-hero",
+      "home-features",
+      "home-steps",
+      "home-quote",
+      "home-stats",
+      "home-download",
+      "features-hero",
+      "features-rows",
+      "features-list",
+      "features-banner",
+      "download-hero",
+      "download-steps",
+      "download-faq",
+      "not-found-hero"
+    ],
+    "entities": {
+      "nav": {
+        "id": "nav",
+        "kind": "component",
+        "componentId": "nav-simple",
+        "componentVersion": 1,
+        "values": {
+          "links": [
+            {
+              "label": "Features",
+              "link": {
+                "type": "page",
+                "pageId": "features",
+                "newTab": false
+              }
+            },
+            {
+              "label": "How it works",
+              "link": {
+                "type": "section",
+                "pageId": "home",
+                "anchor": "how-it-works",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Reviews",
+              "link": {
+                "type": "section",
+                "pageId": "home",
+                "anchor": "reviews",
+                "newTab": false
+              }
+            }
+          ],
+          "showCta": true,
+          "cta": {
+            "label": "Get the app",
+            "link": {
+              "type": "page",
+              "pageId": "download",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "menuIcon": "menu"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "footer": {
+        "id": "footer",
+        "kind": "component",
+        "componentId": "footer-centered",
+        "componentVersion": 1,
+        "values": {
+          "links": [
+            {
+              "label": "Features",
+              "link": {
+                "type": "page",
+                "pageId": "features",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Download",
+              "link": {
+                "type": "page",
+                "pageId": "download",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Privacy",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Support",
+              "link": {
+                "type": "email",
+                "url": "hello@tandem.example",
+                "newTab": false
+              }
+            }
+          ],
+          "copyright": "© 2026 Tandem Labs. Made for busy households."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-hero": {
+        "id": "home-hero",
+        "kind": "component",
+        "componentId": "hero-image",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "New: weekly meal plans",
+          "title": "One shopping list for the whole household",
+          "text": "Tandem keeps your groceries, meals and chores in sync, so nobody buys a third jar of mustard again.",
+          "primaryButton": {
+            "label": "Download free",
+            "link": {
+              "type": "page",
+              "pageId": "download",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "See the features",
+            "link": {
+              "type": "page",
+              "pageId": "features",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The Tandem app showing a shared grocery list with items checked off",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "screenshot"
+            }
+          },
+          "imageSide": "right"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-features": {
+        "id": "home-features",
+        "kind": "component",
+        "componentId": "features-grid-3",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Why families love it",
+          "title": "Less back and forth, more dinner",
+          "intro": "<p>Everything your household plans in one calm app.</p>",
+          "items": [
+            {
+              "icon": "check-circle",
+              "title": "Shared lists",
+              "text": "Add an item at home and see it checked off at the store, live."
+            },
+            {
+              "icon": "calendar",
+              "title": "Meal plans",
+              "text": "Plan the week in minutes and turn recipes into a list with one tap."
+            },
+            {
+              "icon": "users",
+              "title": "Fair chores",
+              "text": "Rotate tasks automatically so the same person is not always on dishes."
+            }
+          ],
+          "align": "center",
+          "columns": "3"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "features"
+      },
+      "home-steps": {
+        "id": "home-steps",
+        "kind": "component",
+        "componentId": "steps-row",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "How it works",
+          "title": "Ready before your next shop",
+          "steps": [
+            {
+              "title": "Download Tandem",
+              "text": "Free on iPhone and Android. No account needed to try it."
+            },
+            {
+              "title": "Invite your household",
+              "text": "Send a link by text and everyone joins the same lists."
+            },
+            {
+              "title": "Shop together",
+              "text": "Lists update as people add and tick items, wherever they are."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "how-it-works"
+      },
+      "home-quote": {
+        "id": "home-quote",
+        "kind": "component",
+        "componentId": "testimonial-quote",
+        "componentVersion": 1,
+        "values": {
+          "quote": "We used to send each other photos of the fridge. Now the list just knows what we need, and Sunday shopping takes half the time.",
+          "name": "Ana and Joel Martins",
+          "role": "Parents of three, Porto",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ana and Joel Martins",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "reviews"
+      },
+      "home-stats": {
+        "id": "home-stats",
+        "kind": "component",
+        "componentId": "stats-row",
+        "componentVersion": 1,
+        "values": {
+          "stats": [
+            {
+              "value": "250,000",
+              "label": "Households"
+            },
+            {
+              "value": "4.9",
+              "label": "App Store rating"
+            },
+            {
+              "value": "18 min",
+              "label": "Saved per shop"
+            },
+            {
+              "value": "12",
+              "label": "Languages"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-download": {
+        "id": "home-download",
+        "kind": "component",
+        "componentId": "cta-image",
+        "componentVersion": 1,
+        "values": {
+          "title": "Get Tandem on your phone",
+          "text": "Free to download. Plus is $3.99 a month for unlimited lists and meal plans.",
+          "primaryButton": {
+            "label": "Download for iPhone",
+            "link": {
+              "type": "page",
+              "pageId": "download",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Get it on Android",
+            "link": {
+              "type": "page",
+              "pageId": "download",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Two phones showing the same Tandem shopping list",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "product"
+            }
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "features-hero": {
+        "id": "features-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Features",
+          "title": "Small app, big relief for busy households",
+          "text": "Lists, meals and chores in one place, shared with everyone who lives with you.",
+          "primaryButton": {
+            "label": "Download free",
+            "link": {
+              "type": "page",
+              "pageId": "download",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": false,
+          "secondaryButton": {
+            "label": "Watch the 2-minute demo",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "features-rows": {
+        "id": "features-rows",
+        "kind": "component",
+        "componentId": "features-alternating",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "",
+          "title": "Made for real kitchens",
+          "intro": "Tandem works the way households already do, just with fewer texts.",
+          "rows": [
+            {
+              "title": "Lists that sort themselves by aisle",
+              "text": "Items are grouped the way your store is laid out, so you walk each aisle once.",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A grocery list grouped by store aisle",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "screenshot"
+                }
+              }
+            },
+            {
+              "title": "Recipes become shopping lists",
+              "text": "Paste any recipe link and Tandem adds what you are missing, in the right amounts.",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A recipe turned into list items",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "screenshot"
+                }
+              }
+            },
+            {
+              "title": "A chore rota everyone accepts",
+              "text": "Tasks rotate on a schedule you agree on together, with gentle reminders.",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A weekly chore rota with names",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "screenshot"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "features-list": {
+        "id": "features-list",
+        "kind": "component",
+        "componentId": "features-checklist",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Included free",
+          "title": "Everything you need to start",
+          "intro": "Upgrade to Plus only if you want more lists or meal plans.",
+          "showButton": true,
+          "button": {
+            "label": "Download free",
+            "link": {
+              "type": "page",
+              "pageId": "download",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "checkIcon": "check-circle",
+          "items": [
+            {
+              "title": "Unlimited household members",
+              "text": "Invite everyone you live with."
+            },
+            {
+              "title": "Offline mode",
+              "text": "Lists work in stores with no signal."
+            },
+            {
+              "title": "Dark mode",
+              "text": "Easy on the eyes at night."
+            },
+            {
+              "title": "Home screen widgets",
+              "text": "See the list without opening the app."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "features-banner": {
+        "id": "features-banner",
+        "kind": "component",
+        "componentId": "cta-banner",
+        "componentVersion": 1,
+        "values": {
+          "title": "Try Plus free for 30 days",
+          "text": "Unlimited lists, meal plans and recipe imports.",
+          "button": {
+            "label": "Download free",
+            "link": {
+              "type": "page",
+              "pageId": "download",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "download-hero": {
+        "id": "download-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Free on iPhone and Android",
+          "title": "Download Tandem",
+          "text": "Install the app, invite your household and start your first shared list in under a minute.",
+          "primaryButton": {
+            "label": "Download on the App Store",
+            "link": {
+              "type": "url",
+              "url": "https://apps.apple.com",
+              "newTab": true
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Get it on Google Play",
+            "link": {
+              "type": "url",
+              "url": "https://play.google.com",
+              "newTab": true
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "download-steps": {
+        "id": "download-steps",
+        "kind": "component",
+        "componentId": "steps-timeline",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Getting started",
+          "title": "Your first week with Tandem",
+          "intro": "Most households are fully set up after one shop.",
+          "steps": [
+            {
+              "label": "Day 1",
+              "title": "Make your first list",
+              "text": "Add the basics you buy every week."
+            },
+            {
+              "label": "Day 2",
+              "title": "Invite your household",
+              "text": "Share a link so everyone sees the same list."
+            },
+            {
+              "label": "Day 4",
+              "title": "Plan three dinners",
+              "text": "Pick recipes and let Tandem add the ingredients."
+            },
+            {
+              "label": "Day 7",
+              "title": "Set up chores",
+              "text": "Agree on a rota and let reminders do the nagging."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "download-faq": {
+        "id": "download-faq",
+        "kind": "component",
+        "componentId": "faq-accordion",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "FAQ",
+          "title": "Questions before you download",
+          "expandIcon": "chevron-down",
+          "items": [
+            {
+              "question": "Is Tandem free?",
+              "answer": "<p>Yes. The free plan includes one shared list and the chore rota. Plus adds unlimited lists and meal plans for $3.99 a month.</p>"
+            },
+            {
+              "question": "Does everyone need the app?",
+              "answer": "<p>Each household member needs the app to edit lists. You can also share a read-only link with anyone.</p>"
+            },
+            {
+              "question": "Which phones are supported?",
+              "answer": "<p>iPhone with iOS 17 or later and Android 10 or later.</p>"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "faq"
+      },
+      "not-found-hero": {
+        "id": "not-found-hero",
+        "kind": "component",
+        "componentId": "hero-centered",
+        "componentVersion": 1,
+        "values": {
+          "eyebrow": "Error 404",
+          "title": "This page is not on the list",
+          "text": "It may have moved or never existed. Let us get you back home.",
+          "primaryButton": {
+            "label": "Back to the home page",
+            "link": {
+              "type": "page",
+              "pageId": "home",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": false,
+          "secondaryButton": {
+            "label": "Watch the 2-minute demo",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      }
+    }
+  },
+  "sharedSlots": {
+    "header": ["nav"],
+    "footer": ["footer"]
+  },
+  "assets": {}
+}

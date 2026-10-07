@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { pageAdded } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, store } from '../../app/store';
 import { blur, changeValue, click, getButton, render, runInAct } from '../../test/dom';
-import { loadIntoAppStore } from '../../test/fixtures';
+import { loadIntoAppStore, shareNavAndFooter } from '../../test/fixtures';
 import { PageSettingsPanel } from './PageSettingsPanel';
 
 vi.mock('../../persistence/db', () => ({
@@ -68,7 +68,7 @@ describe('PageSettingsPanel', () => {
   it('uploads a social image, previews it and removes it', async () => {
     const { container } = render(<PageSettingsPanel />);
     chooseFile(container, new File(['png'], 'card.png', { type: 'image/png' }));
-    await vi.waitFor(() => expect(container.querySelector('.ve-social-preview')).not.toBeNull());
+    await vi.waitFor(() => expect(container.querySelector('.ve-upload-preview')).not.toBeNull());
     const assetId = seo().socialImageAssetId ?? '';
     expect(store.getState().project.assets[assetId]?.dataUrl).toMatch(/^data:image\/png;base64,/);
     click(getButton(container, 'Remove'));
@@ -91,5 +91,25 @@ describe('PageSettingsPanel', () => {
     chooseFile(container, file);
     expect(container.querySelector('[role="alert"]')?.textContent).toBe(message);
     expect(seo().socialImageAssetId).toBeUndefined();
+  });
+
+  it('shows the shared slot switches only once the project has shared blocks', () => {
+    const { container } = render(<PageSettingsPanel />);
+    expect(container.querySelector('[role="switch"]')).toBeNull();
+    runInAct(() => {
+      shareNavAndFooter();
+    });
+    expect(container.querySelector('#ve-page-shared-header')).not.toBeNull();
+    expect(container.querySelector('#ve-page-shared-footer')).not.toBeNull();
+  });
+
+  it('hides and shows the shared footer on this page', () => {
+    shareNavAndFooter();
+    const { container } = render(<PageSettingsPanel />);
+    click(container.querySelector('#ve-page-shared-footer'));
+    expect(selectCurrentPage(store.getState()).showSharedFooter).toBe(false);
+    expect(selectCurrentPage(store.getState()).showSharedHeader).toBe(true);
+    click(container.querySelector('#ve-page-shared-footer'));
+    expect(selectCurrentPage(store.getState()).showSharedFooter).toBe(true);
   });
 });

@@ -1,0 +1,44 @@
+@layer components {
+  @scope (.b-pricing-single) {
+    .b-inner {
+      --container-max-width: 34rem;
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      text-align: center;
+    }
+
+    .b-plan {
+      --stack-gap: var(--space-6);
+      --card-padding: var(--space-8);
+      --card-shadow: var(--shadow-lg);
+    }
+
+    .b-price {
+      text-align: center;
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-period,
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      text-align: center;
+    }
+
+    .b-button {
+      width: 100%;
+    }
+  }
+}

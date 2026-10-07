@@ -1,0 +1,41 @@
+@layer components {
+  @scope (.b-testimonial-quote) {
+    .b-figure {
+      --stack-gap: var(--space-8);
+      max-width: 52rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      text-wrap: balance;
+    }
+
+    .b-person {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-inline: auto;
+      text-align: start;
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3.5rem;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      color: var(--color-text-muted);
+    }
+  }
+}

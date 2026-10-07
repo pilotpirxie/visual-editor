@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { blockSelected } from '../../app/editorSlice';
-import { createTestStore, homePage, type TestStore } from '../../test/fixtures';
+import {
+  componentBlockOf,
+  createTestStore,
+  homePage,
+  shareNavAndFooter,
+  type TestStore,
+} from '../../test/fixtures';
 import type { DragPayload } from '../canvas/dragController';
 import {
   dropBlock,
@@ -16,7 +22,17 @@ function blockIds(store: TestStore): string[] {
 }
 
 function componentAt(store: TestStore, index: number): string {
-  return store.getState().project.blocks.entities[blockIds(store)[index]].componentId;
+  return componentBlockOf(store.getState().project, blockIds(store)[index]).componentId;
+}
+
+function headerIds(store: TestStore): string[] {
+  return store.getState().project.sharedSlots.header;
+}
+
+function shareTwoNavigations(store: TestStore): string[] {
+  const { navId } = shareNavAndFooter(store);
+  store.dispatch(duplicateBlock(navId));
+  return headerIds(store);
 }
 
 function movePayload(blockId: string): DragPayload {
@@ -43,6 +59,24 @@ describe('insertComponent', () => {
     store.dispatch(insertComponent('cta-centered'));
     expect(componentAt(store, 4)).toBe('cta-centered');
   });
+
+  it('inserts at the top of the page when a shared header block is selected', () => {
+    const store = createTestStore();
+    const { navId } = shareNavAndFooter(store);
+    store.dispatch(blockSelected(navId));
+    store.dispatch(insertComponent('cta-centered'));
+    expect(componentAt(store, 0)).toBe('cta-centered');
+    expect(headerIds(store)).toEqual([navId]);
+  });
+
+  it('inserts at the end of the page when a shared footer block is selected', () => {
+    const store = createTestStore();
+    const { footerId } = shareNavAndFooter(store);
+    store.dispatch(blockSelected(footerId));
+    store.dispatch(insertComponent('cta-centered'));
+    expect(componentAt(store, 2)).toBe('cta-centered');
+    expect(store.getState().project.sharedSlots.footer).toEqual([footerId]);
+  });
 });
 
 describe('moveBlockBy', () => {
@@ -63,6 +97,17 @@ describe('moveBlockBy', () => {
     store.dispatch(moveBlockBy(last, 1));
     store.dispatch(moveBlockBy('missing', 1));
     expect(store.getState().history.past).toHaveLength(0);
+  });
+
+  it('moves a shared block within its slot and never onto the page', () => {
+    const store = createTestStore();
+    const [nav, copy] = shareTwoNavigations(store);
+    const pageBefore = blockIds(store);
+    store.dispatch(moveBlockBy(copy, -1));
+    expect(headerIds(store)).toEqual([copy, nav]);
+    store.dispatch(moveBlockBy(nav, 1));
+    expect(headerIds(store)).toEqual([copy, nav]);
+    expect(blockIds(store)).toEqual(pageBefore);
   });
 });
 
@@ -119,6 +164,13 @@ describe('dropBlock', () => {
     const nav = blockIds(store)[0];
     store.dispatch(dropBlock(movePayload(nav), 3));
     expect(blockIds(store)[2]).toBe(nav);
+  });
+
+  it('moves a dragged shared block within its slot', () => {
+    const store = createTestStore();
+    const [nav, copy] = shareTwoNavigations(store);
+    store.dispatch(dropBlock(movePayload(nav), 2));
+    expect(headerIds(store)).toEqual([copy, nav]);
   });
 
   it('changes nothing for a drop next to the block itself or for list items', () => {

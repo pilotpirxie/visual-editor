@@ -36,9 +36,20 @@ export type FontSelection = { role: FontRole; family: string; weights: number[] 
 export type TokenGenerators = { typeBasePx: number; typeRatio: number; spaceUnitPx: number };
 
 export type DesignSystem = {
+  presetId?: string;
   tokens: Record<string, Token>;
   fonts: FontSelection[];
   generators: TokenGenerators;
+  iconSet: string;
+};
+
+export type DesignSystemPreset = {
+  id: string;
+  name: string;
+  description: string;
+  tags: string[];
+  source: 'builtin' | 'user';
+  designSystem: DesignSystem;
 };
 
 export type PageSeo = {
@@ -59,25 +70,38 @@ export type Page = {
   showSharedFooter: boolean;
 };
 
-export type ComponentBlock = {
+export type BlockBase = {
   id: string;
-  kind: 'component';
-  componentId: string;
-  componentVersion: number;
-  values: Record<string, unknown>;
-  overrides: Record<string, string>;
   disabled: boolean;
   anchor?: string;
   extraClasses: string[];
   hideOn: Device[];
 };
 
-export type Block = ComponentBlock;
+export type ComponentBlock = BlockBase & {
+  kind: 'component';
+  componentId: string;
+  componentVersion: number;
+  values: Record<string, unknown>;
+  overrides: Record<string, string>;
+};
+
+export type HtmlBlock = BlockBase & {
+  kind: 'html';
+  html: string;
+  sourceComponentId?: string;
+};
+
+export type Block = ComponentBlock | HtmlBlock;
 
 export type ProjectSettings = {
   title: string;
+  description: string;
   language: string;
   baseUrl?: string;
+  titleTemplate: string;
+  faviconAssetId?: string;
+  socialImageAssetId?: string;
 };
 
 export type Asset = { id: string; name: string; mimeType: string; dataUrl: string };
@@ -85,6 +109,7 @@ export type Asset = { id: string; name: string; mimeType: string; dataUrl: strin
 export type Project = {
   schemaVersion: 2;
   id: string;
+  starterId?: string;
   settings: ProjectSettings;
   designSystem: DesignSystem;
   pages: EntityState<Page, string> & { homePageId: string };

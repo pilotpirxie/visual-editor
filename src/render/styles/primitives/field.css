@@ -1,0 +1,37 @@
+@layer primitives {
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--field-gap, var(--space-2));
+  }
+
+  .field > label {
+    font-weight: var(--font-weight-bold);
+  }
+
+  .field :is(input, textarea, select) {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: var(--space-2) var(--space-3);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-background);
+    color: var(--color-text);
+    font: inherit;
+  }
+
+  .field textarea {
+    min-height: 8rem;
+    resize: vertical;
+  }
+
+  .field :is(input, textarea, select):focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .field-hint {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+}

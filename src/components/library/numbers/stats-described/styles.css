@@ -1,0 +1,51 @@
+@layer components {
+  @scope (.b-stats-described) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-stats {
+      --grid-min: 14rem;
+      --grid-gap: var(--space-8);
+      margin: 0;
+    }
+
+    .b-stat {
+      --stack-gap: var(--space-2);
+      padding-top: var(--space-4);
+      border-top: 2px solid var(--color-primary);
+    }
+
+    .b-value {
+      order: -1;
+      margin: 0;
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-label {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-text {
+      margin: 0;
+      color: var(--color-text-muted);
+    }
+  }
+}

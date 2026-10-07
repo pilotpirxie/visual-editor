@@ -6,7 +6,7 @@ test('edits are saved in the browser and come back after a reload', async ({ pag
   await insertBlock(page, 'Headers', 'Hero, centered text');
   const title = page.locator('[data-field-path="title"] input');
   await title.fill('Persisted title');
-  await expect(page.locator('.ve-save-status')).toHaveText('Saved');
+  await expect(page.locator('.ve-save-status')).toHaveText('Saved in browser');
 
   await page.reload();
   const canvas = page.frameLocator('.ve-canvas-frame');

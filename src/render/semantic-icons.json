@@ -1,0 +1,911 @@
+{
+  "arrow-right": {
+    "lucide": "arrow-right",
+    "remix": "arrow-right-line",
+    "tabler": "arrow-right",
+    "phosphor": "arrow-right",
+    "heroicons": "arrow-right",
+    "material-symbols": "arrow-forward",
+    "iconoir": "arrow-right"
+  },
+  "arrow-left": {
+    "lucide": "arrow-left",
+    "remix": "arrow-left-line",
+    "tabler": "arrow-left",
+    "phosphor": "arrow-left",
+    "heroicons": "arrow-left",
+    "material-symbols": "arrow-back",
+    "iconoir": "arrow-left"
+  },
+  "arrow-up": {
+    "lucide": "arrow-up",
+    "remix": "arrow-up-line",
+    "tabler": "arrow-up",
+    "phosphor": "arrow-up",
+    "heroicons": "arrow-up",
+    "material-symbols": "arrow-upward",
+    "iconoir": "arrow-up"
+  },
+  "arrow-down": {
+    "lucide": "arrow-down",
+    "remix": "arrow-down-line",
+    "tabler": "arrow-down",
+    "phosphor": "arrow-down",
+    "heroicons": "arrow-down",
+    "material-symbols": "arrow-downward",
+    "iconoir": "arrow-down"
+  },
+  "arrow-up-right": {
+    "lucide": "arrow-up-right",
+    "remix": "arrow-right-up-line",
+    "tabler": "arrow-up-right",
+    "phosphor": "arrow-up-right",
+    "heroicons": "arrow-up-right",
+    "material-symbols": "arrow-outward",
+    "iconoir": "arrow-up-right"
+  },
+  "chevron-right": {
+    "lucide": "chevron-right",
+    "remix": "arrow-right-s-line",
+    "tabler": "chevron-right",
+    "phosphor": "caret-right",
+    "heroicons": "chevron-right",
+    "material-symbols": "chevron-right",
+    "iconoir": "nav-arrow-right"
+  },
+  "chevron-left": {
+    "lucide": "chevron-left",
+    "remix": "arrow-left-s-line",
+    "tabler": "chevron-left",
+    "phosphor": "caret-left",
+    "heroicons": "chevron-left",
+    "material-symbols": "chevron-left",
+    "iconoir": "nav-arrow-left"
+  },
+  "chevron-down": {
+    "lucide": "chevron-down",
+    "remix": "arrow-down-s-line",
+    "tabler": "chevron-down",
+    "phosphor": "caret-down",
+    "heroicons": "chevron-down",
+    "material-symbols": "keyboard-arrow-down",
+    "iconoir": "nav-arrow-down"
+  },
+  "chevron-up": {
+    "lucide": "chevron-up",
+    "remix": "arrow-up-s-line",
+    "tabler": "chevron-up",
+    "phosphor": "caret-up",
+    "heroicons": "chevron-up",
+    "material-symbols": "keyboard-arrow-up",
+    "iconoir": "nav-arrow-up"
+  },
+  "check": {
+    "lucide": "check",
+    "remix": "check-line",
+    "tabler": "check",
+    "phosphor": "check",
+    "heroicons": "check",
+    "material-symbols": "check",
+    "iconoir": "check"
+  },
+  "check-circle": {
+    "lucide": "circle-check",
+    "remix": "checkbox-circle-line",
+    "tabler": "circle-check",
+    "phosphor": "check-circle",
+    "heroicons": "check-circle",
+    "material-symbols": "check-circle-outline",
+    "iconoir": "check-circle"
+  },
+  "x": {
+    "lucide": "x",
+    "remix": "close-line",
+    "tabler": "x",
+    "phosphor": "x",
+    "heroicons": "x-mark",
+    "material-symbols": "close",
+    "iconoir": "xmark"
+  },
+  "menu": {
+    "lucide": "menu",
+    "remix": "menu-line",
+    "tabler": "menu-2",
+    "phosphor": "list",
+    "heroicons": "bars-3",
+    "material-symbols": "menu",
+    "iconoir": "menu"
+  },
+  "plus": {
+    "lucide": "plus",
+    "remix": "add-line",
+    "tabler": "plus",
+    "phosphor": "plus",
+    "heroicons": "plus",
+    "material-symbols": "add",
+    "iconoir": "plus"
+  },
+  "minus": {
+    "lucide": "minus",
+    "remix": "subtract-line",
+    "tabler": "minus",
+    "phosphor": "minus",
+    "heroicons": "minus",
+    "material-symbols": "remove",
+    "iconoir": "minus"
+  },
+  "search": {
+    "lucide": "search",
+    "remix": "search-line",
+    "tabler": "search",
+    "phosphor": "magnifying-glass",
+    "heroicons": "magnifying-glass",
+    "material-symbols": "search",
+    "iconoir": "search"
+  },
+  "star": {
+    "lucide": "star",
+    "remix": "star-line",
+    "tabler": "star",
+    "phosphor": "star",
+    "heroicons": "star",
+    "material-symbols": "star-outline",
+    "iconoir": "star"
+  },
+  "heart": {
+    "lucide": "heart",
+    "remix": "heart-line",
+    "tabler": "heart",
+    "phosphor": "heart",
+    "heroicons": "heart",
+    "material-symbols": "favorite-outline",
+    "iconoir": "heart"
+  },
+  "zap": {
+    "lucide": "zap",
+    "remix": "flashlight-line",
+    "tabler": "bolt",
+    "phosphor": "lightning",
+    "heroicons": "bolt",
+    "material-symbols": "bolt-outline",
+    "iconoir": "flash"
+  },
+  "shield": {
+    "lucide": "shield-check",
+    "remix": "shield-check-line",
+    "tabler": "shield-check",
+    "phosphor": "shield-check",
+    "heroicons": "shield-check",
+    "material-symbols": "verified-user-outline",
+    "iconoir": "shield-check"
+  },
+  "smile": {
+    "lucide": "smile",
+    "remix": "emotion-happy-line",
+    "tabler": "mood-smile",
+    "phosphor": "smiley",
+    "heroicons": "face-smile",
+    "material-symbols": "sentiment-satisfied-outline",
+    "iconoir": "emoji"
+  },
+  "lock": {
+    "lucide": "lock",
+    "remix": "lock-line",
+    "tabler": "lock",
+    "phosphor": "lock",
+    "heroicons": "lock-closed",
+    "material-symbols": "lock-outline",
+    "iconoir": "lock"
+  },
+  "user": {
+    "lucide": "user",
+    "remix": "user-line",
+    "tabler": "user",
+    "phosphor": "user",
+    "heroicons": "user",
+    "material-symbols": "person-outline",
+    "iconoir": "user"
+  },
+  "users": {
+    "lucide": "users",
+    "remix": "team-line",
+    "tabler": "users",
+    "phosphor": "users",
+    "heroicons": "users",
+    "material-symbols": "group-outline",
+    "iconoir": "group"
+  },
+  "mail": {
+    "lucide": "mail",
+    "remix": "mail-line",
+    "tabler": "mail",
+    "phosphor": "envelope-simple",
+    "heroicons": "envelope",
+    "material-symbols": "mail-outline",
+    "iconoir": "mail"
+  },
+  "phone": {
+    "lucide": "phone",
+    "remix": "phone-line",
+    "tabler": "phone",
+    "phosphor": "phone",
+    "heroicons": "phone",
+    "material-symbols": "call-outline",
+    "iconoir": "phone"
+  },
+  "map-pin": {
+    "lucide": "map-pin",
+    "remix": "map-pin-line",
+    "tabler": "map-pin",
+    "phosphor": "map-pin",
+    "heroicons": "map-pin",
+    "material-symbols": "location-on-outline",
+    "iconoir": "map-pin"
+  },
+  "calendar": {
+    "lucide": "calendar",
+    "remix": "calendar-line",
+    "tabler": "calendar",
+    "phosphor": "calendar",
+    "heroicons": "calendar",
+    "material-symbols": "calendar-today-outline",
+    "iconoir": "calendar"
+  },
+  "clock": {
+    "lucide": "clock",
+    "remix": "time-line",
+    "tabler": "clock",
+    "phosphor": "clock",
+    "heroicons": "clock",
+    "material-symbols": "schedule-outline",
+    "iconoir": "clock"
+  },
+  "globe": {
+    "lucide": "globe",
+    "remix": "global-line",
+    "tabler": "globe",
+    "phosphor": "globe",
+    "heroicons": "globe-alt",
+    "material-symbols": "language",
+    "iconoir": "globe"
+  },
+  "house": {
+    "lucide": "house",
+    "remix": "home-4-line",
+    "tabler": "home",
+    "phosphor": "house",
+    "heroicons": "home",
+    "material-symbols": "home-outline",
+    "iconoir": "home"
+  },
+  "settings": {
+    "lucide": "settings",
+    "remix": "settings-3-line",
+    "tabler": "settings",
+    "phosphor": "gear",
+    "heroicons": "cog-6-tooth",
+    "material-symbols": "settings-outline",
+    "iconoir": "settings"
+  },
+  "bell": {
+    "lucide": "bell",
+    "remix": "notification-3-line",
+    "tabler": "bell",
+    "phosphor": "bell",
+    "heroicons": "bell",
+    "material-symbols": "notifications-outline",
+    "iconoir": "bell"
+  },
+  "bookmark": {
+    "lucide": "bookmark",
+    "remix": "bookmark-line",
+    "tabler": "bookmark",
+    "phosphor": "bookmark",
+    "heroicons": "bookmark",
+    "material-symbols": "bookmark-outline",
+    "iconoir": "bookmark"
+  },
+  "camera": {
+    "lucide": "camera",
+    "remix": "camera-line",
+    "tabler": "camera",
+    "phosphor": "camera",
+    "heroicons": "camera",
+    "material-symbols": "photo-camera-outline",
+    "iconoir": "camera"
+  },
+  "image": {
+    "lucide": "image",
+    "remix": "image-line",
+    "tabler": "photo",
+    "phosphor": "image",
+    "heroicons": "photo",
+    "material-symbols": "image-outline",
+    "iconoir": "media-image"
+  },
+  "video": {
+    "lucide": "video",
+    "remix": "video-line",
+    "tabler": "video",
+    "phosphor": "video-camera",
+    "heroicons": "video-camera",
+    "material-symbols": "videocam-outline",
+    "iconoir": "video-camera"
+  },
+  "play": {
+    "lucide": "play",
+    "remix": "play-line",
+    "tabler": "play",
+    "phosphor": "play",
+    "heroicons": "play",
+    "material-symbols": "play-arrow-outline",
+    "iconoir": "play"
+  },
+  "mic": {
+    "lucide": "mic",
+    "remix": "mic-line",
+    "tabler": "microphone",
+    "phosphor": "microphone",
+    "heroicons": "microphone",
+    "material-symbols": "mic-outline",
+    "iconoir": "microphone"
+  },
+  "headphones": {
+    "lucide": "headphones",
+    "remix": "headphone-line",
+    "tabler": "headphones",
+    "phosphor": "headphones",
+    "heroicons": "speaker-wave",
+    "material-symbols": "headphones-outline",
+    "iconoir": "headset"
+  },
+  "download": {
+    "lucide": "download",
+    "remix": "download-line",
+    "tabler": "download",
+    "phosphor": "download-simple",
+    "heroicons": "arrow-down-tray",
+    "material-symbols": "download",
+    "iconoir": "download"
+  },
+  "upload": {
+    "lucide": "upload",
+    "remix": "upload-line",
+    "tabler": "upload",
+    "phosphor": "upload-simple",
+    "heroicons": "arrow-up-tray",
+    "material-symbols": "upload",
+    "iconoir": "upload"
+  },
+  "cloud": {
+    "lucide": "cloud",
+    "remix": "cloud-line",
+    "tabler": "cloud",
+    "phosphor": "cloud",
+    "heroicons": "cloud",
+    "material-symbols": "cloud-outline",
+    "iconoir": "cloud"
+  },
+  "database": {
+    "lucide": "database",
+    "remix": "database-2-line",
+    "tabler": "database",
+    "phosphor": "database",
+    "heroicons": "circle-stack",
+    "material-symbols": "database-outline",
+    "iconoir": "database"
+  },
+  "code": {
+    "lucide": "code",
+    "remix": "code-s-slash-line",
+    "tabler": "code",
+    "phosphor": "code",
+    "heroicons": "code-bracket",
+    "material-symbols": "code",
+    "iconoir": "code"
+  },
+  "terminal": {
+    "lucide": "terminal",
+    "remix": "terminal-box-line",
+    "tabler": "terminal",
+    "phosphor": "terminal-window",
+    "heroicons": "command-line",
+    "material-symbols": "terminal",
+    "iconoir": "terminal"
+  },
+  "cpu": {
+    "lucide": "cpu",
+    "remix": "cpu-line",
+    "tabler": "cpu",
+    "phosphor": "cpu",
+    "heroicons": "cpu-chip",
+    "material-symbols": "memory-outline",
+    "iconoir": "cpu"
+  },
+  "smartphone": {
+    "lucide": "smartphone",
+    "remix": "smartphone-line",
+    "tabler": "device-mobile",
+    "phosphor": "device-mobile",
+    "heroicons": "device-phone-mobile",
+    "material-symbols": "smartphone-outline",
+    "iconoir": "smartphone-device"
+  },
+  "monitor": {
+    "lucide": "monitor",
+    "remix": "computer-line",
+    "tabler": "device-desktop",
+    "phosphor": "desktop",
+    "heroicons": "computer-desktop",
+    "material-symbols": "desktop-windows-outline",
+    "iconoir": "computer"
+  },
+  "wifi": {
+    "lucide": "wifi",
+    "remix": "wifi-line",
+    "tabler": "wifi",
+    "phosphor": "wifi-high",
+    "heroicons": "wifi",
+    "material-symbols": "wifi",
+    "iconoir": "wifi"
+  },
+  "link": {
+    "lucide": "link",
+    "remix": "link",
+    "tabler": "link",
+    "phosphor": "link",
+    "heroicons": "link",
+    "material-symbols": "link",
+    "iconoir": "link"
+  },
+  "external-link": {
+    "lucide": "external-link",
+    "remix": "external-link-line",
+    "tabler": "external-link",
+    "phosphor": "arrow-square-out",
+    "heroicons": "arrow-top-right-on-square",
+    "material-symbols": "open-in-new",
+    "iconoir": "open-new-window"
+  },
+  "share": {
+    "lucide": "share-2",
+    "remix": "share-line",
+    "tabler": "share",
+    "phosphor": "share-network",
+    "heroicons": "share",
+    "material-symbols": "share-outline",
+    "iconoir": "share-android"
+  },
+  "send": {
+    "lucide": "send",
+    "remix": "send-plane-line",
+    "tabler": "send",
+    "phosphor": "paper-plane-tilt",
+    "heroicons": "paper-airplane",
+    "material-symbols": "send-outline",
+    "iconoir": "send"
+  },
+  "message": {
+    "lucide": "message-square",
+    "remix": "chat-3-line",
+    "tabler": "message",
+    "phosphor": "chat-text",
+    "heroicons": "chat-bubble-left",
+    "material-symbols": "chat-outline",
+    "iconoir": "chat-bubble"
+  },
+  "help": {
+    "lucide": "circle-question-mark",
+    "remix": "question-line",
+    "tabler": "help-circle",
+    "phosphor": "question",
+    "heroicons": "question-mark-circle",
+    "material-symbols": "help-outline",
+    "iconoir": "help-circle"
+  },
+  "info": {
+    "lucide": "info",
+    "remix": "information-line",
+    "tabler": "info-circle",
+    "phosphor": "info",
+    "heroicons": "information-circle",
+    "material-symbols": "info-outline",
+    "iconoir": "info-circle"
+  },
+  "alert": {
+    "lucide": "triangle-alert",
+    "remix": "error-warning-line",
+    "tabler": "alert-triangle",
+    "phosphor": "warning",
+    "heroicons": "exclamation-triangle",
+    "material-symbols": "warning-outline",
+    "iconoir": "warning-triangle"
+  },
+  "award": {
+    "lucide": "award",
+    "remix": "award-line",
+    "tabler": "award",
+    "phosphor": "medal",
+    "heroicons": "trophy",
+    "material-symbols": "workspace-premium-outline",
+    "iconoir": "medal"
+  },
+  "trophy": {
+    "lucide": "trophy",
+    "remix": "trophy-line",
+    "tabler": "trophy",
+    "phosphor": "trophy",
+    "heroicons": "trophy",
+    "material-symbols": "trophy-outline",
+    "iconoir": "trophy"
+  },
+  "gift": {
+    "lucide": "gift",
+    "remix": "gift-line",
+    "tabler": "gift",
+    "phosphor": "gift",
+    "heroicons": "gift",
+    "material-symbols": "redeem",
+    "iconoir": "gift"
+  },
+  "shopping-cart": {
+    "lucide": "shopping-cart",
+    "remix": "shopping-cart-line",
+    "tabler": "shopping-cart",
+    "phosphor": "shopping-cart",
+    "heroicons": "shopping-cart",
+    "material-symbols": "shopping-cart-outline",
+    "iconoir": "cart"
+  },
+  "credit-card": {
+    "lucide": "credit-card",
+    "remix": "bank-card-line",
+    "tabler": "credit-card",
+    "phosphor": "credit-card",
+    "heroicons": "credit-card",
+    "material-symbols": "credit-card-outline",
+    "iconoir": "credit-card"
+  },
+  "dollar": {
+    "lucide": "dollar-sign",
+    "remix": "money-dollar-circle-line",
+    "tabler": "currency-dollar",
+    "phosphor": "currency-dollar",
+    "heroicons": "currency-dollar",
+    "material-symbols": "attach-money",
+    "iconoir": "dollar"
+  },
+  "tag": {
+    "lucide": "tag",
+    "remix": "price-tag-3-line",
+    "tabler": "tag",
+    "phosphor": "tag",
+    "heroicons": "tag",
+    "material-symbols": "sell-outline",
+    "iconoir": "label"
+  },
+  "trending-up": {
+    "lucide": "trending-up",
+    "remix": "line-chart-line",
+    "tabler": "trending-up",
+    "phosphor": "trend-up",
+    "heroicons": "arrow-trending-up",
+    "material-symbols": "trending-up",
+    "iconoir": "graph-up"
+  },
+  "chart": {
+    "lucide": "chart-column",
+    "remix": "bar-chart-box-line",
+    "tabler": "chart-bar",
+    "phosphor": "chart-bar",
+    "heroicons": "chart-bar",
+    "material-symbols": "bar-chart",
+    "iconoir": "stats-up-square"
+  },
+  "chart-pie": {
+    "lucide": "chart-pie",
+    "remix": "pie-chart-line",
+    "tabler": "chart-pie",
+    "phosphor": "chart-pie-slice",
+    "heroicons": "chart-pie",
+    "material-symbols": "pie-chart-outline",
+    "iconoir": "percentage-circle"
+  },
+  "target": {
+    "lucide": "target",
+    "remix": "focus-3-line",
+    "tabler": "target",
+    "phosphor": "target",
+    "heroicons": "viewfinder-circle",
+    "material-symbols": "target",
+    "iconoir": "position"
+  },
+  "rocket": {
+    "lucide": "rocket",
+    "remix": "rocket-line",
+    "tabler": "rocket",
+    "phosphor": "rocket-launch",
+    "heroicons": "rocket-launch",
+    "material-symbols": "rocket-launch-outline",
+    "iconoir": "rocket"
+  },
+  "sparkles": {
+    "lucide": "sparkles",
+    "remix": "sparkling-line",
+    "tabler": "sparkles",
+    "phosphor": "sparkle",
+    "heroicons": "sparkles",
+    "material-symbols": "auto-awesome-outline",
+    "iconoir": "sparks"
+  },
+  "sun": {
+    "lucide": "sun",
+    "remix": "sun-line",
+    "tabler": "sun",
+    "phosphor": "sun",
+    "heroicons": "sun",
+    "material-symbols": "light-mode-outline",
+    "iconoir": "sun-light"
+  },
+  "moon": {
+    "lucide": "moon",
+    "remix": "moon-line",
+    "tabler": "moon",
+    "phosphor": "moon",
+    "heroicons": "moon",
+    "material-symbols": "dark-mode-outline",
+    "iconoir": "half-moon"
+  },
+  "leaf": {
+    "lucide": "leaf",
+    "remix": "leaf-line",
+    "tabler": "leaf",
+    "phosphor": "leaf",
+    "heroicons": "sparkles",
+    "material-symbols": "eco-outline",
+    "iconoir": "leaf"
+  },
+  "coffee": {
+    "lucide": "coffee",
+    "remix": "cup-line",
+    "tabler": "coffee",
+    "phosphor": "coffee",
+    "heroicons": "fire",
+    "material-symbols": "coffee-outline",
+    "iconoir": "coffee-cup"
+  },
+  "briefcase": {
+    "lucide": "briefcase",
+    "remix": "briefcase-line",
+    "tabler": "briefcase",
+    "phosphor": "briefcase",
+    "heroicons": "briefcase",
+    "material-symbols": "work-outline",
+    "iconoir": "suitcase"
+  },
+  "book": {
+    "lucide": "book-open",
+    "remix": "book-open-line",
+    "tabler": "book",
+    "phosphor": "book-open",
+    "heroicons": "book-open",
+    "material-symbols": "menu-book-outline",
+    "iconoir": "open-book"
+  },
+  "file": {
+    "lucide": "file-text",
+    "remix": "file-text-line",
+    "tabler": "file-text",
+    "phosphor": "file-text",
+    "heroicons": "document-text",
+    "material-symbols": "description-outline",
+    "iconoir": "page"
+  },
+  "folder": {
+    "lucide": "folder",
+    "remix": "folder-line",
+    "tabler": "folder",
+    "phosphor": "folder",
+    "heroicons": "folder",
+    "material-symbols": "folder-outline",
+    "iconoir": "folder"
+  },
+  "pencil": {
+    "lucide": "pencil",
+    "remix": "pencil-line",
+    "tabler": "pencil",
+    "phosphor": "pencil-simple",
+    "heroicons": "pencil",
+    "material-symbols": "edit-outline",
+    "iconoir": "edit-pencil"
+  },
+  "trash": {
+    "lucide": "trash",
+    "remix": "delete-bin-line",
+    "tabler": "trash",
+    "phosphor": "trash",
+    "heroicons": "trash",
+    "material-symbols": "delete-outline",
+    "iconoir": "trash"
+  },
+  "filter": {
+    "lucide": "funnel",
+    "remix": "filter-3-line",
+    "tabler": "filter",
+    "phosphor": "funnel",
+    "heroicons": "funnel",
+    "material-symbols": "filter-alt-outline",
+    "iconoir": "filter"
+  },
+  "sliders": {
+    "lucide": "sliders-horizontal",
+    "remix": "equalizer-line",
+    "tabler": "adjustments-horizontal",
+    "phosphor": "sliders-horizontal",
+    "heroicons": "adjustments-horizontal",
+    "material-symbols": "tune",
+    "iconoir": "settings"
+  },
+  "layers": {
+    "lucide": "layers",
+    "remix": "stack-line",
+    "tabler": "stack-2",
+    "phosphor": "stack",
+    "heroicons": "square-3-stack-3d",
+    "material-symbols": "layers-outline",
+    "iconoir": "multiple-pages"
+  },
+  "grid": {
+    "lucide": "layout-grid",
+    "remix": "layout-grid-line",
+    "tabler": "layout-grid",
+    "phosphor": "squares-four",
+    "heroicons": "squares-2x2",
+    "material-symbols": "grid-view-outline",
+    "iconoir": "view-grid"
+  },
+  "puzzle": {
+    "lucide": "puzzle",
+    "remix": "puzzle-line",
+    "tabler": "puzzle",
+    "phosphor": "puzzle-piece",
+    "heroicons": "puzzle-piece",
+    "material-symbols": "extension-outline",
+    "iconoir": "puzzle"
+  },
+  "lightbulb": {
+    "lucide": "lightbulb",
+    "remix": "lightbulb-line",
+    "tabler": "bulb",
+    "phosphor": "lightbulb",
+    "heroicons": "light-bulb",
+    "material-symbols": "lightbulb-outline",
+    "iconoir": "light-bulb"
+  },
+  "thumbs-up": {
+    "lucide": "thumbs-up",
+    "remix": "thumb-up-line",
+    "tabler": "thumb-up",
+    "phosphor": "thumbs-up",
+    "heroicons": "hand-thumb-up",
+    "material-symbols": "thumb-up-outline",
+    "iconoir": "thumbs-up"
+  },
+  "eye": {
+    "lucide": "eye",
+    "remix": "eye-line",
+    "tabler": "eye",
+    "phosphor": "eye",
+    "heroicons": "eye",
+    "material-symbols": "visibility-outline",
+    "iconoir": "eye"
+  },
+  "refresh": {
+    "lucide": "refresh-cw",
+    "remix": "refresh-line",
+    "tabler": "refresh",
+    "phosphor": "arrows-clockwise",
+    "heroicons": "arrow-path",
+    "material-symbols": "refresh",
+    "iconoir": "refresh"
+  },
+  "quote": {
+    "lucide": "quote",
+    "remix": "double-quotes-l",
+    "tabler": "quote",
+    "phosphor": "quotes",
+    "heroicons": "chat-bubble-bottom-center-text",
+    "material-symbols": "format-quote-outline",
+    "iconoir": "quote"
+  },
+  "compass": {
+    "lucide": "compass",
+    "remix": "compass-3-line",
+    "tabler": "compass",
+    "phosphor": "compass",
+    "heroicons": "map",
+    "material-symbols": "explore-outline",
+    "iconoir": "compass"
+  },
+  "flag": {
+    "lucide": "flag",
+    "remix": "flag-line",
+    "tabler": "flag",
+    "phosphor": "flag",
+    "heroicons": "flag",
+    "material-symbols": "flag-outline",
+    "iconoir": "triangle-flag"
+  },
+  "key": {
+    "lucide": "key",
+    "remix": "key-2-line",
+    "tabler": "key",
+    "phosphor": "key",
+    "heroicons": "key",
+    "material-symbols": "key-outline",
+    "iconoir": "key"
+  },
+  "fingerprint": {
+    "lucide": "fingerprint-pattern",
+    "remix": "fingerprint-line",
+    "tabler": "fingerprint",
+    "phosphor": "fingerprint",
+    "heroicons": "finger-print",
+    "material-symbols": "fingerprint",
+    "iconoir": "fingerprint"
+  },
+  "workflow": {
+    "lucide": "workflow",
+    "remix": "flow-chart",
+    "tabler": "sitemap",
+    "phosphor": "flow-arrow",
+    "heroicons": "arrows-right-left",
+    "material-symbols": "account-tree-outline",
+    "iconoir": "network-right"
+  },
+  "repeat": {
+    "lucide": "repeat",
+    "remix": "repeat-line",
+    "tabler": "repeat",
+    "phosphor": "repeat",
+    "heroicons": "arrow-path-rounded-square",
+    "material-symbols": "repeat",
+    "iconoir": "repeat"
+  },
+  "hourglass": {
+    "lucide": "hourglass",
+    "remix": "hourglass-line",
+    "tabler": "hourglass",
+    "phosphor": "hourglass",
+    "heroicons": "clock",
+    "material-symbols": "hourglass-empty",
+    "iconoir": "hourglass"
+  },
+  "support": {
+    "lucide": "life-buoy",
+    "remix": "customer-service-2-line",
+    "tabler": "lifebuoy",
+    "phosphor": "lifebuoy",
+    "heroicons": "lifebuoy",
+    "material-symbols": "support-agent",
+    "iconoir": "headset-help"
+  },
+  "transcript": {
+    "lucide": "file-text",
+    "remix": "file-list-3-line",
+    "tabler": "file-description",
+    "phosphor": "article",
+    "heroicons": "document-text",
+    "material-symbols": "article-outline",
+    "iconoir": "journal-page"
+  },
+  "audio-lines": {
+    "lucide": "audio-lines",
+    "remix": "voiceprint-line",
+    "tabler": "wave-sine",
+    "phosphor": "waveform",
+    "heroicons": "signal",
+    "material-symbols": "graphic-eq",
+    "iconoir": "sound-high"
+  }
+}

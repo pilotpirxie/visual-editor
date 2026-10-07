@@ -30,61 +30,6 @@
     color: var(--ve-muted);
   }
 
-  .ve-menu {
-    position-area: bottom span-left;
-    position-try-fallbacks: flip-block;
-    min-width: 180px;
-    margin: 4px 0;
-    padding: 4px;
-    border: 1px solid var(--ve-border);
-    border-radius: var(--ve-radius);
-    background: var(--ve-bg);
-    color: var(--ve-text);
-    box-shadow: var(--ve-shadow);
-  }
-
-  .ve-menu:popover-open {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .ve-menu button {
-    padding: 8px 10px;
-    border: 0;
-    border-radius: 4px;
-    background: none;
-    color: inherit;
-    font: inherit;
-    text-align: left;
-    cursor: pointer;
-  }
-
-  .ve-menu button:hover:enabled,
-  .ve-menu button:focus-visible {
-    background: var(--ve-surface);
-  }
-
-  .ve-menu button:disabled {
-    color: var(--ve-border-strong);
-    cursor: default;
-  }
-
-  .ve-menu .ve-menu-danger:enabled {
-    color: var(--ve-danger);
-  }
-
-  .ve-menu-separator {
-    height: 1px;
-    margin: 4px 0;
-    background: var(--ve-border);
-  }
-
-  .ve-menu > button {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
   .ve-page-switcher {
     max-width: 220px;
     border-color: var(--ve-border);
@@ -123,66 +68,5 @@
 
   .ve-page-switcher-list [aria-current='page'] {
     background: var(--ve-accent-soft);
-  }
-
-  .ve-dialog {
-    width: min(440px, calc(100% - 32px));
-    padding: 0;
-    border: 0;
-    border-radius: 10px;
-    background: var(--ve-bg);
-    color: var(--ve-text);
-    box-shadow: var(--ve-shadow);
-  }
-
-  .ve-dialog::backdrop {
-    background: rgb(16 24 40 / 0.4);
-  }
-
-  .ve-dialog-body {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px;
-  }
-
-  .ve-dialog-warning {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 10px 12px;
-    border-radius: var(--ve-radius);
-    background: #fef3c7;
-    color: #78350f;
-  }
-
-  .ve-dialog-warning ul {
-    max-height: 160px;
-    margin: 0;
-    padding-left: 18px;
-    overflow-y: auto;
-  }
-
-  .ve-dialog-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-  }
-
-  .ve-button--danger {
-    padding-inline: 12px;
-    background: var(--ve-danger);
-    color: #ffffff;
-    font-weight: 600;
-  }
-
-  .ve-button--danger:hover {
-    background: color-mix(in oklab, var(--ve-danger), black 12%);
-  }
-
-  @media (width < 1024px) {
-    .ve-menu button {
-      min-height: 44px;
-    }
   }
 }

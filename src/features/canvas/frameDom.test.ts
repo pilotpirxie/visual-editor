@@ -8,12 +8,15 @@ import {
 } from './frameDom';
 
 const PAGE = `
+  <div id="ve-header"><nav data-block-id="shared-nav">Navigation</nav></div>
+  <div id="ve-page">
   <section data-block-id="block-1">
     <h2 data-field="title"><em class="inner">Title</em></h2>
     <article data-field="items.2"><h3 class="item-title">Item</h3></article>
     <p class="plain">No field</p>
   </section>
   <footer data-block-id="block-&quot;2&quot;"><p class="footer-text">Footer</p></footer>
+  </div>
   <p data-field="orphan" class="orphan">Outside</p>
 `;
 
@@ -49,7 +52,7 @@ describe('blockRoot', () => {
 });
 
 describe('blockSpans', () => {
-  it('measures every block in page order', () => {
+  it('measures the blocks of the page itself, in order, leaving out shared ones', () => {
     expect(blockSpans(document)).toHaveLength(2);
   });
 });

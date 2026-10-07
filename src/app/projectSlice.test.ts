@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { createTestStore, homePage, type TestStore } from '../test/fixtures';
+import { createSampleProject } from './projectFactory';
+import {
+  componentBlockOf,
+  createTestStore,
+  homePage,
+  shareNavAndFooter,
+  withSystemFonts,
+  type TestStore,
+} from '../test/fixtures';
 import { blockSelected, pageOpened } from './editorSlice';
 import { undo } from './history';
 import {
@@ -10,11 +18,13 @@ import {
   blockMoved,
   blockOverrideRemoved,
   blockOverrideSet,
+  blockPasted,
   blockRemoved,
   blockShared,
   blockUnshared,
   blockValueSet,
   fontSet,
+  iconSetChanged,
   pageAdded,
   pageSharedSlotShown,
   tokenSet,
@@ -26,9 +36,10 @@ function pageBlockIds(store: TestStore): string[] {
 }
 
 function componentIds(store: TestStore): string[] {
-  const { entities } = store.getState().project.blocks;
+  const { project } = store.getState();
   const ids: string[] = [];
-  for (const blockId of pageBlockIds(store)) ids.push(entities[blockId].componentId);
+  for (const blockId of pageBlockIds(store))
+    ids.push(componentBlockOf(project, blockId).componentId);
   return ids;
 }
 
@@ -40,7 +51,7 @@ describe('blockInserted', () => {
   it('inserts a block with its default values at the given index and selects it', () => {
     const store = createTestStore();
     store.dispatch(blockInserted(homePageId(store), 2, 'cta-centered'));
-    const inserted = store.getState().project.blocks.entities[pageBlockIds(store)[2]];
+    const inserted = componentBlockOf(store.getState().project, pageBlockIds(store)[2] ?? '');
     expect(componentIds(store)[2]).toBe('cta-centered');
     expect(inserted.values.title).toBe('Your next customer call could be your best roadmap input');
     expect(store.getState().editor.selectedBlockId).toBe(inserted.id);
@@ -98,10 +109,14 @@ describe('blockDuplicated', () => {
     const source = pageBlockIds(store)[2];
     store.dispatch(blockDuplicated(source));
     const copyId = pageBlockIds(store)[3];
-    const { entities } = store.getState().project.blocks;
+    const { project } = store.getState();
     expect(copyId).not.toBe(source);
-    expect(entities[copyId].values).toEqual(entities[source].values);
-    expect(entities[copyId].values.items).not.toBe(entities[source].values.items);
+    expect(componentBlockOf(project, copyId).values).toEqual(
+      componentBlockOf(project, source).values,
+    );
+    expect(componentBlockOf(project, copyId).values.items).not.toBe(
+      componentBlockOf(project, source).values.items,
+    );
     expect(store.getState().editor.selectedBlockId).toBe(copyId);
   });
 
@@ -151,7 +166,7 @@ describe('blockValueSet', () => {
     const store = createTestStore();
     const blockId = pageBlockIds(store)[1];
     store.dispatch(blockValueSet(blockId, 'title', 'Ship what customers asked for', 'continuous'));
-    expect(store.getState().project.blocks.entities[blockId].values.title).toBe(
+    expect(componentBlockOf(store.getState().project, blockId).values.title).toBe(
       'Ship what customers asked for',
     );
   });
@@ -176,7 +191,7 @@ describe('blockValueSet', () => {
 });
 
 function heroOverrides(store: TestStore): Record<string, string> {
-  return store.getState().project.blocks.entities[pageBlockIds(store)[1]].overrides;
+  return componentBlockOf(store.getState().project, pageBlockIds(store)[1]).overrides;
 }
 
 describe('blockOverrideSet', () => {
@@ -356,7 +371,7 @@ describe('tokensSet', () => {
 
 describe('fontSet', () => {
   it('sets the font of a role and its token in one undo step', () => {
-    const store = createTestStore();
+    const store = createTestStore(withSystemFonts(createSampleProject()));
     store.dispatch(
       fontSet({
         role: 'heading',
@@ -371,7 +386,7 @@ describe('fontSet', () => {
   });
 
   it('replaces the font of the same role and goes back to a system font', () => {
-    const store = createTestStore();
+    const store = createTestStore(withSystemFonts(createSampleProject()));
     const lora = { family: 'Lora', weights: [400] };
     store.dispatch(fontSet({ role: 'body', selection: lora, stack: '"Lora", serif' }));
     store.dispatch(fontSet({ role: 'body', selection: null, stack: 'system-ui, sans-serif' }));
@@ -385,20 +400,12 @@ describe('fontSet', () => {
     ['an empty family name', { family: ' ', weights: [400] }, 'serif'],
     ['an unsafe font stack', { family: 'Lora', weights: [400] }, 'serif; color: red'],
   ])('ignores %s', (_name, selection, stack) => {
-    const store = createTestStore();
+    const store = createTestStore(withSystemFonts(createSampleProject()));
     const before = store.getState().project;
     store.dispatch(fontSet({ role: 'body', selection, stack }));
     expect(store.getState().project).toBe(before);
   });
 });
-
-function shareNavAndFooter(store: TestStore): { navId: string; footerId: string } {
-  const [navId, , , footerId] = pageBlockIds(store);
-  const pageId = homePageId(store);
-  store.dispatch(blockShared({ blockId: navId, slot: 'header', pageId }));
-  store.dispatch(blockShared({ blockId: footerId, slot: 'footer', pageId }));
-  return { navId, footerId };
-}
 
 describe('blockShared', () => {
   it('moves a navigation into the shared header and a footer into the shared footer', () => {
@@ -479,5 +486,62 @@ describe('pageSharedSlotShown', () => {
     expect(store.getState().project.pages.entities.about?.showSharedHeader).toBe(false);
     expect(homePage(store.getState().project).showSharedHeader).toBe(true);
     expect(store.getState().editor.selectedBlockId).toBeNull();
+  });
+});
+
+describe('blockPasted', () => {
+  function pastedCopy(store: TestStore, blockId: string, newId: string) {
+    return { ...store.getState().project.blocks.entities[blockId], id: newId };
+  }
+
+  it('adds a ready-made block to the page at the index and selects it, in one undo step', () => {
+    const store = createTestStore();
+    const heroId = pageBlockIds(store)[1];
+    const block = pastedCopy(store, heroId, 'pasted');
+    store.dispatch(
+      blockPasted({ target: { kind: 'page', pageId: homePageId(store) }, index: 2, block }),
+    );
+    expect(pageBlockIds(store)[2]).toBe('pasted');
+    expect(store.getState().editor.selectedBlockId).toBe('pasted');
+    store.dispatch(undo());
+    expect(pageBlockIds(store)).not.toContain('pasted');
+  });
+
+  it('adds a navigation to the shared header but refuses other blocks there', () => {
+    const store = createTestStore();
+    const [navId, heroId] = pageBlockIds(store);
+    const header = { kind: 'slot' as const, slot: 'header' as const };
+    store.dispatch(
+      blockPasted({ target: header, index: 0, block: pastedCopy(store, navId, 'nav-2') }),
+    );
+    store.dispatch(
+      blockPasted({ target: header, index: 0, block: pastedCopy(store, heroId, 'hero-2') }),
+    );
+    expect(store.getState().project.sharedSlots.header).toEqual(['nav-2']);
+    expect(store.getState().project.blocks.entities['hero-2']).toBeUndefined();
+  });
+
+  it('refuses a block whose id is already used', () => {
+    const store = createTestStore();
+    const heroId = pageBlockIds(store)[1];
+    const block = pastedCopy(store, heroId, heroId);
+    store.dispatch(
+      blockPasted({ target: { kind: 'page', pageId: homePageId(store) }, index: 0, block }),
+    );
+    expect(pageBlockIds(store)).toHaveLength(4);
+    expect(store.getState().history.past).toHaveLength(0);
+  });
+});
+
+describe('iconSetChanged', () => {
+  it('switches the default icon set in one undo step and refuses brand-only sets', () => {
+    const store = createTestStore();
+    store.dispatch(iconSetChanged('phosphor'));
+    expect(store.getState().project.designSystem.iconSet).toBe('phosphor');
+    store.dispatch(iconSetChanged('simple-icons'));
+    store.dispatch(iconSetChanged('made-up'));
+    expect(store.getState().project.designSystem.iconSet).toBe('phosphor');
+    store.dispatch(undo());
+    expect(store.getState().project.designSystem.iconSet).toBe('lucide');
   });
 });
