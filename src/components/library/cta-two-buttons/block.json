@@ -1,0 +1,55 @@
+{
+  "name": "Call to action, two buttons",
+  "category": "call-to-action",
+  "description": "A rounded panel with a short pitch on one side and two buttons on the other.",
+  "tags": ["cta", "buttons", "panel", "trial", "demo", "signup"],
+  "fieldGroups": ["Content", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "See what your customers already told you",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Upload three recordings and get themes, quotes and clips back the same day. Or book 30 minutes with our team and bring your questions.",
+      "group": "Content"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Book a demo",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons"
+    }
+  ]
+}

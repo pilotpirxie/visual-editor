@@ -1,116 +1,20 @@
 import type { Block, Project } from '../../app/types';
-import {
-  isButtonValue,
-  isColorValue,
-  isImageValue,
-  isLinkValue,
-  asListItems,
-} from '../../components/fields';
+import { fitValues } from '../../components/fieldValues';
 import { compareVersions } from '../../components/packFormat';
-import type { BlockPack, CustomDefinition, Field } from '../../components/types';
-import { isRecord } from '../../persistence/parseBlock';
-import { withFieldDefaults } from '../../persistence/migrations';
+import type { BlockPack, PackBlock } from '../../components/types';
 
 export type FieldChange = { blockName: string; field: string; pageNames: string[] };
 
 export type PackUpgrade = {
-  definitions: Record<string, CustomDefinition>;
+  definitions: Record<string, PackBlock>;
   blocks: Block[];
   removedFields: FieldChange[];
   resetFields: FieldChange[];
 };
 
-type ValueUpgrade = { values: Record<string, unknown>; removed: string[]; reset: string[] };
-
 export type UpgradeRule = 'newer' | 'newer-or-changed';
 
-function fitsType(field: Field, value: unknown): boolean {
-  switch (field.type) {
-    case 'text':
-    case 'textarea':
-    case 'richtext':
-    case 'date':
-    case 'icon':
-      return typeof value === 'string';
-    case 'select':
-    case 'segmented':
-      return field.options?.some((option) => option.value === value) ?? false;
-    case 'number':
-    case 'range':
-      return typeof value === 'number' && Number.isFinite(value);
-    case 'boolean':
-      return typeof value === 'boolean';
-    case 'color':
-      return isColorValue(value);
-    case 'image':
-      return isImageValue(value);
-    case 'link':
-      return isLinkValue(value);
-    case 'button':
-      return isButtonValue(value);
-    case 'list':
-      return Array.isArray(value) && value.every(isRecord);
-    default: {
-      const unknownType: never = field.type;
-      throw new Error(`Unknown field type "${String(unknownType)}"`);
-    }
-  }
-}
-
-function keptItems(field: Field, value: unknown): Record<string, unknown>[] {
-  const itemFields = field.itemFields ?? [];
-  const items: Record<string, unknown>[] = [];
-  for (const item of asListItems(value)) {
-    const kept: Record<string, unknown> = {};
-    for (const itemField of itemFields) {
-      const itemValue = item[itemField.name];
-      if (itemValue !== undefined && fitsType(itemField, itemValue))
-        kept[itemField.name] = itemValue;
-    }
-    items.push(withFieldDefaults(itemFields, kept));
-  }
-  return items;
-}
-
-function renamedValues(
-  values: Record<string, unknown>,
-  renames: Record<string, string>,
-): Record<string, unknown> {
-  const renamed: Record<string, unknown> = {};
-  for (const [key, value] of Object.entries(values)) {
-    const target = renames[key];
-    const isMoved = target !== undefined && !(target in values);
-    renamed[isMoved ? target : key] = value;
-  }
-  return renamed;
-}
-
-export function upgradeValues(
-  values: Record<string, unknown>,
-  custom: CustomDefinition,
-): ValueUpgrade {
-  const renamed = renamedValues(values, custom.fieldRenames);
-  const fieldNames = new Set(custom.definition.fields.map(({ name }) => name));
-  const removed = Object.keys(renamed).filter((name) => !fieldNames.has(name));
-  const reset: string[] = [];
-  const upgraded: Record<string, unknown> = {};
-  for (const field of custom.definition.fields) {
-    const value = renamed[field.name];
-    if (value === undefined) continue;
-    if (!fitsType(field, value)) {
-      reset.push(field.name);
-      continue;
-    }
-    upgraded[field.name] = field.type === 'list' ? keptItems(field, value) : value;
-  }
-  return { values: withFieldDefaults(custom.definition.fields, upgraded), removed, reset };
-}
-
-function shouldUpgrade(
-  embedded: CustomDefinition,
-  offered: CustomDefinition,
-  rule: UpgradeRule,
-): boolean {
+function shouldUpgrade(embedded: PackBlock, offered: PackBlock, rule: UpgradeRule): boolean {
   const order = compareVersions(offered.pack.version, embedded.pack.version);
   if (order > 0) return true;
   if (order < 0 || rule === 'newer') return false;
@@ -152,9 +56,9 @@ export function upgradeProjectToPack(
   pack: BlockPack,
   rule: UpgradeRule,
 ): PackUpgrade | null {
-  const definitions: Record<string, CustomDefinition> = {};
+  const definitions: Record<string, PackBlock> = {};
   for (const offered of pack.blocks) {
-    const embedded = project.customDefinitions[offered.definition.id];
+    const embedded = project.packBlocks[offered.definition.id];
     if (embedded !== undefined && shouldUpgrade(embedded, offered, rule)) {
       definitions[offered.definition.id] = offered;
     }
@@ -168,13 +72,13 @@ export function upgradeProjectToPack(
     if (block?.kind !== 'component') continue;
     const custom = definitions[block.componentId];
     if (custom === undefined) continue;
-    const upgrade = upgradeValues(block.values, custom);
+    const upgrade = fitValues(custom.definition.fields, block.values);
     const pageNames = pageNamesOf(project, blockId);
     for (const field of upgrade.removed)
       addChange(removedFields, custom.definition.name, field, pageNames);
     for (const field of upgrade.reset)
       addChange(resetFields, custom.definition.name, field, pageNames);
-    blocks.push({ ...block, componentVersion: custom.definition.version, values: upgrade.values });
+    blocks.push({ ...block, values: upgrade.values });
   }
   return { definitions, blocks, removedFields, resetFields };
 }
@@ -209,9 +113,9 @@ export function usedComponentIds(project: Project): Set<string> {
 
 export function withoutUnusedDefinitions(project: Project): Project {
   const used = usedComponentIds(project);
-  const customDefinitions: Record<string, CustomDefinition> = {};
-  for (const [id, custom] of Object.entries(project.customDefinitions)) {
-    if (used.has(id)) customDefinitions[id] = custom;
+  const packBlocks: Record<string, PackBlock> = {};
+  for (const [id, custom] of Object.entries(project.packBlocks)) {
+    if (used.has(id)) packBlocks[id] = custom;
   }
-  return { ...project, customDefinitions };
+  return { ...project, packBlocks };
 }

@@ -1,0 +1,83 @@
+{
+  "name": "How it works, timeline",
+  "category": "how-it-works",
+  "description": "A heading on the side and steps down a vertical timeline.",
+  "tags": ["steps", "timeline", "process", "roadmap", "schedule"],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Your first month",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What rolling out Fieldnote looks like",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "A customer success lead guides every team through the first four weeks.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Week 1"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "label": "Week 1",
+          "title": "Kickoff and setup",
+          "text": "Connect calendars, invite the team and import past recordings."
+        },
+        {
+          "label": "Week 2",
+          "title": "First interviews",
+          "text": "Run your first calls with Fieldnote listening in."
+        },
+        {
+          "label": "Week 3",
+          "title": "Build your tags",
+          "text": "Agree on themes and tag the highlights together."
+        },
+        {
+          "label": "Week 4",
+          "title": "Share the first report",
+          "text": "Present what customers told you, with the clips to prove it."
+        }
+      ]
+    }
+  ]
+}

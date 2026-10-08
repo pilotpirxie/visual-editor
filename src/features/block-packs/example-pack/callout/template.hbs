@@ -1,0 +1,16 @@
+<section class="b-example-callout section">
+  <div class="container">
+    <aside class="b-box" data-tone="{{tone}}">
+      {{#if icon}}<span class="icon b-icon" data-field="icon">{{svgIcon icon}}</span>{{/if}}
+      <div class="stack b-copy">
+        <h2 class="b-title" data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+        {{#if showButton}}
+        <div class="cluster">
+          <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        </div>
+        {{/if}}
+      </div>
+    </aside>
+  </div>
+</section>

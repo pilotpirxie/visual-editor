@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { createPage, createSampleProject } from '../app/projectFactory';
 import type { Project } from '../app/types';
-import { registry } from '../components/registry';
+import { builtInComponents } from '../components/registry';
 import { loadIconSet } from '../features/icons/loadIconSet';
 import { placeholderImage } from './placeholder';
 import { buildLicensesText, buildSiteJs, dataUrlToBlob } from './assembleSite';
@@ -26,7 +26,7 @@ function blockIdOf(project: Project, componentId: string): string {
 }
 
 function filesOf(project: Project) {
-  return buildExportFiles(project, registry, runtime).files;
+  return buildExportFiles(project, builtInComponents, runtime).files;
 }
 
 function text(files: Record<string, string | Blob>, path: string): string {
@@ -74,7 +74,7 @@ describe('buildExportFiles', () => {
     const hero = componentBlockOf(project, blockIdOf(project, 'hero-centered'));
     hero.componentId = 'content-text-image';
     hero.values = {
-      ...registry
+      ...builtInComponents
         .get('content-text-image')
         ?.definition.fields.reduce<Record<string, unknown>>(
           (values, field) => ({ ...values, [field.name]: field.default }),
@@ -195,13 +195,13 @@ describe('buildExportFiles', () => {
   });
 
   it('ships CSS only for the components, primitives and tokens the site uses', () => {
-    const result = buildExportFiles(createSampleProject(), registry, runtime);
+    const result = buildExportFiles(createSampleProject(), builtInComponents, runtime);
     const css = text(result.files, 'assets/css/site.css');
     expect(css).toContain('@scope (.b-nav-simple)');
     expect(css).not.toContain('@scope (.b-cta-centered)');
     expect(css).not.toContain('.media {');
     expect(result.omitted.primitives).toContain('media');
-    expect(result.omitted.components).toBe(registry.size - 4);
+    expect(result.omitted.components).toBe(builtInComponents.size - 4);
   });
 
   it('writes HTML blocks as they are and still ships their source CSS and behaviors', () => {

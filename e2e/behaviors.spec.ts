@@ -47,6 +47,7 @@ async function expectBehaviorsWork(scope: Scope, page: Page): Promise<void> {
   await product.click();
   await expect(product).toHaveAttribute('aria-expanded', 'true');
   await expect(scope.getByRole('link', { name: 'Theme board' })).toBeVisible();
+  await scope.getByRole('link', { name: 'Theme board' }).focus();
   await page.keyboard.press('Escape');
   await expect(product).toHaveAttribute('aria-expanded', 'false');
   await product.focus();
@@ -56,6 +57,7 @@ async function expectBehaviorsWork(scope: Scope, page: Page): Promise<void> {
 
 test('tabs, pricing toggle, carousel, numbers and dropdowns work in Preview', async ({ page }) => {
   await addInteractiveBlocks(page);
+  await page.locator('label', { hasText: 'Desktop (1440 px)' }).click();
   await page.getByRole('button', { name: 'Preview', exact: true }).click();
   await expectBehaviorsWork(page.frameLocator('.ve-canvas-frame'), page);
 });

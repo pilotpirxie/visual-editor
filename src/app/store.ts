@@ -13,7 +13,7 @@ import { editorSlice, linkedFileOutdated, noticeShown, saveStatusChanged } from 
 import { createRootReducer, projectRefreshed, type RootState } from './history';
 import { projectLoaded, projectSlice } from './projectSlice';
 import { visibleBlockLists } from './blockLists';
-import { projectRegistry } from '../features/block-packs/customComponents';
+import { componentsFor } from '../components/registry';
 import { announcementFor } from '../features/editor/announcements';
 import { announce } from '../features/editor/LiveAnnouncer';
 import type { Page, Project, SharedSlot } from './types';
@@ -129,10 +129,10 @@ const selectPageSlugs = createSelector(
 
 export const selectComponents = createSelector(
   [
-    (state: RootState) => state.project.customDefinitions,
-    (state: RootState) => state.editor.customComponentsVersion,
+    (state: RootState) => state.project.packBlocks,
+    (state: RootState) => state.editor.packBlocksVersion,
   ],
-  (customDefinitions) => projectRegistry({ customDefinitions }),
+  (packBlocks) => componentsFor({ packBlocks }),
 );
 
 export const selectCanvasRenderContext = createSelector(

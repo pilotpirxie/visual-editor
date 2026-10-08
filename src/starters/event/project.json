@@ -1,11 +1,12 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 1,
   "id": "starter-event",
   "settings": {
     "title": "Gridlines",
     "description": "Gridlines is a two-day conference on software for the energy transition, 19–20 November 2026 at Kraftwerk Berlin.",
     "language": "en",
-    "titleTemplate": "{{page.title}} | {{site.title}}"
+    "titleTemplate": "{{page.title}} | {{site.title}}",
+    "indexable": true
   },
   "designSystem": {
     "presetId": "bold",
@@ -431,7 +432,8 @@
           "home-cta"
         ],
         "seo": {
-          "description": "Gridlines 2026: two days of talks and workshops on software for the energy transition, 19–20 November at Kraftwerk Berlin."
+          "description": "Gridlines 2026: two days of talks and workshops on software for the energy transition, 19–20 November at Kraftwerk Berlin.",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -442,7 +444,8 @@
         "slug": "schedule",
         "blockIds": ["schedule-hero", "schedule-agenda", "schedule-party", "schedule-cta"],
         "seo": {
-          "description": "The full Gridlines 2026 schedule: keynotes, track talks, workshops and the Thursday party, 19–20 November in Berlin."
+          "description": "The full Gridlines 2026 schedule: keynotes, track talks, workshops and the Thursday party, 19–20 November in Berlin.",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -453,7 +456,8 @@
         "slug": "speakers",
         "blockIds": ["speakers-hero", "speakers-lineup", "speakers-rules", "speakers-cta"],
         "seo": {
-          "description": "Meet the twelve Gridlines 2026 speakers from grid operators, wind farms, energy startups and open-source projects."
+          "description": "Meet the twelve Gridlines 2026 speakers from grid operators, wind farms, energy startups and open-source projects.",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -470,7 +474,8 @@
           "tickets-contact"
         ],
         "seo": {
-          "description": "Gridlines 2026 passes from €120, early-bird prices until 16 October, and details on refunds, transfers, access and the venue."
+          "description": "Gridlines 2026 passes from €120, early-bird prices until 16 October, and details on refunds, transfers, access and the venue.",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -509,7 +514,6 @@
         "id": "header-banner",
         "kind": "component",
         "componentId": "banner-announcement",
-        "componentVersion": 1,
         "values": {
           "showIcon": true,
           "icon": "tag",
@@ -539,7 +543,6 @@
         "id": "header-nav",
         "kind": "component",
         "componentId": "nav-cta",
-        "componentVersion": 1,
         "values": {
           "logoIcon": "lucide:zap",
           "links": [
@@ -607,7 +610,6 @@
         "id": "footer-footer",
         "kind": "component",
         "componentId": "footer-columns",
-        "componentVersion": 1,
         "values": {
           "tagline": "The conference for people who write software for the energy transition. 19–20 November 2026 at Kraftwerk Berlin.",
           "productTitle": "Conference",
@@ -749,7 +751,6 @@
         "id": "home-hero",
         "kind": "component",
         "componentId": "hero-background",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "19–20 November 2026 · Kraftwerk Berlin",
           "title": "Software for a grid that runs on wind and sun",
@@ -796,7 +797,6 @@
         "id": "home-tracks",
         "kind": "component",
         "componentId": "features-bento",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "What to expect",
           "title": "Three tracks, one workshop day",
@@ -909,7 +909,6 @@
         "id": "home-numbers",
         "kind": "component",
         "componentId": "stats-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Gridlines 2026",
           "title": "The energy software crowd, all in one hall",
@@ -955,7 +954,6 @@
         "id": "home-speakers",
         "kind": "component",
         "componentId": "team-cards",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Featured speakers",
           "title": "Who takes the stage",
@@ -1074,7 +1072,6 @@
         "id": "home-quote",
         "kind": "component",
         "componentId": "testimonial-quote",
-        "componentVersion": 1,
         "values": {
           "quote": "The person next to you at lunch runs the system you complained about in your talk. That only happens at Gridlines.",
           "name": "Grace Mwangi",
@@ -1103,7 +1100,6 @@
         "id": "home-sponsors",
         "kind": "component",
         "componentId": "logos-heading",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Partners",
           "title": "Our 2026 partners",
@@ -1211,7 +1207,6 @@
         "id": "home-cta",
         "kind": "component",
         "componentId": "cta-centered",
-        "componentVersion": 1,
         "values": {
           "title": "Early-bird passes end 16 October",
           "text": "Save €200 on a pass that covers both days, every talk, a workshop seat, lunch and the Thursday party.",
@@ -1242,7 +1237,6 @@
         "id": "schedule-hero",
         "kind": "component",
         "componentId": "hero-centered",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Schedule",
           "title": "Two days, 46 sessions, one power station",
@@ -1284,7 +1278,6 @@
         "id": "schedule-agenda",
         "kind": "component",
         "componentId": "content-agenda",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Main stage and workshops",
           "title": "Hour by hour, both days",
@@ -1433,7 +1426,6 @@
         "id": "schedule-party",
         "kind": "component",
         "componentId": "content-text-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Thursday, 19:00",
           "title": "Then the party starts",
@@ -1463,7 +1455,6 @@
         "id": "schedule-cta",
         "kind": "component",
         "componentId": "cta-banner",
-        "componentVersion": 1,
         "values": {
           "title": "Workshops have 40 seats per room",
           "text": "Pick yours when you book. Early-bird holders choose first.",
@@ -1486,7 +1477,6 @@
         "id": "speakers-hero",
         "kind": "component",
         "componentId": "hero-centered",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Speakers",
           "title": "Meet the 2026 speakers",
@@ -1528,7 +1518,6 @@
         "id": "speakers-lineup",
         "kind": "component",
         "componentId": "team-grid",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "2026 lineup",
           "title": "Twelve speakers, no sales pitches",
@@ -1738,7 +1727,6 @@
         "id": "speakers-rules",
         "kind": "component",
         "componentId": "features-grid-3",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "How we pick talks",
           "title": "What makes a Gridlines talk",
@@ -1774,7 +1762,6 @@
         "id": "speakers-cta",
         "kind": "component",
         "componentId": "cta-two-buttons",
-        "componentVersion": 1,
         "values": {
           "title": "See all twelve live in Berlin",
           "text": "Early-bird passes are €390 until 16 October and include every talk, a workshop seat and the Thursday party.",
@@ -1815,7 +1802,6 @@
         "id": "tickets-hero",
         "kind": "component",
         "componentId": "hero-centered",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Tickets",
           "title": "One pass, both days",
@@ -1859,7 +1845,6 @@
         "id": "tickets-passes",
         "kind": "component",
         "componentId": "pricing-3-plans",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Passes",
           "title": "Book early, pay less",
@@ -1929,7 +1914,6 @@
         "id": "tickets-faq",
         "kind": "component",
         "componentId": "faq-accordion",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Questions",
           "title": "Before you book",
@@ -1971,7 +1955,6 @@
         "id": "tickets-venue",
         "kind": "component",
         "componentId": "content-text-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Venue: Kraftwerk Berlin",
           "title": "A former power station",
@@ -2002,7 +1985,6 @@
         "id": "tickets-contact",
         "kind": "component",
         "componentId": "contact-cards",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Get in touch",
           "title": "Still have a question?",
@@ -2062,5 +2044,6 @@
     "header": ["header-banner", "header-nav"],
     "footer": ["footer-footer"]
   },
+  "packBlocks": {},
   "assets": {}
 }

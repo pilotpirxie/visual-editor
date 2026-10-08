@@ -145,16 +145,14 @@ describe('prepareForPaste', () => {
     });
   });
 
-  it('upgrades a block copied from a tab running an older version', () => {
+  it('fills values the copied block is missing from its definition', () => {
     const project = createSampleProject();
     const { heroId } = sampleIds(project);
     const envelope = envelopeOf(project, heroId);
     const copied = asComponent(envelope.block);
     const current = componentBlock(project, heroId);
-    copied.componentVersion = 0;
     delete copied.values.title;
     const pasted = asComponent(prepareForPaste(envelope, project, 'new-id')?.block);
-    expect(pasted.componentVersion).toBe(current.componentVersion);
     expect(pasted.values.title).toBe(current.values.title);
   });
 
@@ -286,7 +284,7 @@ describe('custom blocks on the clipboard', () => {
   function projectWithCustomBlock(): { project: Project; blockId: string } {
     const project = createSampleProject();
     const custom = quoteCardDefinition();
-    project.customDefinitions[custom.definition.id] = custom;
+    project.packBlocks[custom.definition.id] = custom;
     const block = createBlock(custom.definition);
     block.values.quote = 'Pasted with its definition';
     project.blocks.ids.push(block.id);
@@ -300,31 +298,31 @@ describe('custom blocks on the clipboard', () => {
     const text = JSON.stringify(envelopeOf(project, blockId));
     const envelope = parseEnvelope(text);
     if (envelope === null) throw new Error('Expected an envelope');
-    expect(Object.keys(envelope.customDefinitions)).toEqual(['acme/quote-card']);
+    expect(Object.keys(envelope.packBlocks)).toEqual(['acme/quote-card']);
     const store = createTestStore();
     await store.dispatch(pasteEnvelope(envelope));
     const target = store.getState().project;
-    expect(target.customDefinitions['acme/quote-card']).toBeDefined();
+    expect(target.packBlocks['acme/quote-card']).toBeDefined();
     const pasted = target.blocks.entities[homePage(target).blockIds.at(-1) ?? ''];
     expect(asComponent(pasted).values.quote).toBe('Pasted with its definition');
     expect(store.getState().editor.notices[0]?.text).toContain('not in your library');
     store.dispatch(undo());
-    expect(store.getState().project.customDefinitions).toEqual({});
+    expect(store.getState().project.packBlocks).toEqual({});
   });
 
   it('refuses a pasted definition that does not pass validation', async () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     const { project, blockId } = projectWithCustomBlock();
     const envelope = envelopeOf(project, blockId);
-    const custom = envelope.customDefinitions['acme/quote-card'];
+    const custom = envelope.packBlocks['acme/quote-card'];
     if (custom === undefined) throw new Error('Expected the definition');
-    envelope.customDefinitions['acme/quote-card'] = {
+    envelope.packBlocks['acme/quote-card'] = {
       ...custom,
       template: '<section class="b-acme-quote-card" onclick="steal()">x</section>',
     };
     const store = createTestStore();
     await store.dispatch(pasteEnvelope(envelope));
-    expect(store.getState().project.customDefinitions).toEqual({});
+    expect(store.getState().project.packBlocks).toEqual({});
     expect(store.getState().editor.notices[0]?.text).toContain('custom block is not valid');
   });
 });

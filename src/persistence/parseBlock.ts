@@ -1,13 +1,10 @@
 import { DEVICES, type Block, type Device, type HtmlBlock } from '../app/types';
+import { isRecord } from '../components/fields';
 import { stripUnsafeHtml } from '../render/htmlSafety';
 import { isValidAnchor, isValidClassName } from '../render/attributes';
 import { isSafeCssValue } from '../render/sanitize';
 
-const TOKEN_NAME = /^--[a-z0-9-]+$/;
-
-export function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
+export const TOKEN_NAME = /^--[a-z0-9-]+$/;
 
 function parseOverrides(value: unknown): Record<string, string> {
   const overrides: Record<string, string> = {};
@@ -62,14 +59,13 @@ export function parseBlock(value: unknown): Block | null {
   const optionalAnchor = typeof anchor === 'string' && isValidAnchor(anchor) ? { anchor } : {};
   if (kind === 'html') return parseHtmlBlock(id, value);
   if (kind !== 'component') return null;
-  const { componentId, componentVersion, values } = value;
-  if (typeof componentId !== 'string' || typeof componentVersion !== 'number') return null;
+  const { componentId, values } = value;
+  if (typeof componentId !== 'string') return null;
   if (!isRecord(values)) return null;
   return {
     id,
     kind: 'component',
     componentId,
-    componentVersion,
     values: structuredClone(values),
     overrides: parseOverrides(value.overrides),
     disabled: value.disabled === true,

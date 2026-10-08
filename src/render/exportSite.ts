@@ -71,6 +71,21 @@ function renderBlocks(
   return blockHtml;
 }
 
+function renderPageBlocks(
+  project: Project,
+  page: Page,
+  registry: ReadonlyMap<string, RegisteredComponent>,
+  ctx: RenderContext,
+  usedComponents: UsedComponents,
+): PageBlocks {
+  const lists = visibleBlockLists(project, page);
+  return {
+    header: renderBlocks(lists.header, project, registry, ctx, usedComponents),
+    main: renderBlocks(lists.page, project, registry, ctx, usedComponents),
+    footer: renderBlocks(lists.footer, project, registry, ctx, usedComponents),
+  };
+}
+
 export function renderProjectPage(
   project: Project,
   pageId: string,
@@ -84,12 +99,7 @@ export function renderProjectPage(
   const collector = createRenderCollector();
   const site = siteContextOf(project);
   const ctx: RenderContext = { ...renderContextFor(site, pageSlugs, 'export', pageId), collector };
-  const lists = visibleBlockLists(project, page);
-  const blocks: PageBlocks = {
-    header: renderBlocks(lists.header, project, registry, ctx, usedComponents),
-    main: renderBlocks(lists.page, project, registry, ctx, usedComponents),
-    footer: renderBlocks(lists.footer, project, registry, ctx, usedComponents),
-  };
+  const blocks = renderPageBlocks(project, page, registry, ctx, usedComponents);
   return { page, fileName: `${slug}.html`, blocks, collector };
 }
 
@@ -180,11 +190,8 @@ export function renderStandalonePage(
     'preview',
     pageId,
   );
-  const lists = visibleBlockLists(project, page);
   const usedComponents: UsedComponents = new Map();
-  const header = renderBlocks(lists.header, project, registry, ctx, usedComponents);
-  const main = renderBlocks(lists.page, project, registry, ctx, usedComponents);
-  const footer = renderBlocks(lists.footer, project, registry, ctx, usedComponents);
+  const { header, main, footer } = renderPageBlocks(project, page, registry, ctx, usedComponents);
   const styles = [CANVAS_BASE_CSS, buildTokensCss(project.designSystem.tokens)];
   for (const component of sortedComponents(usedComponents)) styles.push(component.styles);
   const fontsHref = options.shouldLinkFonts ? googleFontsHref(project.designSystem.fonts) : null;

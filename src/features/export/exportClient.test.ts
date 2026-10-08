@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { createSampleProject } from '../../app/projectFactory';
-import { registry } from '../../components/registry';
+import { builtInComponents } from '../../components/registry';
 import { prepareExportInput } from '../../render/exportSite';
 import { loadIconSet } from '../icons/loadIconSet';
 import { assembleExport, writeExportFolder } from './exportClient';
@@ -34,7 +34,7 @@ function memoryFolder(written: Map<string, string | Blob>, prefix = ''): Writabl
 
 describe('assembleExport', () => {
   it('builds the site files and a zip on the main thread when workers are missing', async () => {
-    const input = prepareExportInput(createSampleProject(), registry);
+    const input = prepareExportInput(createSampleProject(), builtInComponents);
     const { result, zip } = await assembleExport(input, runtime);
     expect(Object.keys(result.files)).toContain('index.html');
     expect(zip.type).toBe('application/zip');
@@ -50,7 +50,7 @@ describe('assembleExport', () => {
       dataUrl: 'data:,x',
     };
     project.settings.faviconAssetId = 'broken';
-    const input = prepareExportInput(project, registry);
+    const input = prepareExportInput(project, builtInComponents);
     const error = vi.spyOn(console, 'error').mockImplementation(() => {});
     await expect(assembleExport(input, runtime)).rejects.toThrow(
       'Only base64 data URLs can be exported as files',

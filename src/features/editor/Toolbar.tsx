@@ -22,7 +22,7 @@ import {
   useTooltip,
   type MenuItem,
 } from '../../../packages/ui/src';
-import { DeviceSelect } from './DeviceSelect';
+import { DeviceToggle } from './DeviceToggle';
 import { SHORTCUT_KEYS } from './shortcutList';
 
 const PANEL_TOGGLES: Record<PanelSide, { name: string; icon: string }> = {
@@ -130,7 +130,7 @@ function LogoLink(): JSX.Element {
   );
 }
 
-function PreviewButton({ isDisabled }: { isDisabled: boolean }): JSX.Element {
+export function PreviewButton({ isDisabled }: { isDisabled: boolean }): JSX.Element {
   const isPreview = useStore((state) => state.editor.isPreview);
   const label = isPreview ? 'Exit preview' : 'Preview';
   const { triggerProps, tooltip } = useTooltip({ text: label, shortcut: SHORTCUT_KEYS.preview });
@@ -168,9 +168,9 @@ export function Toolbar(): JSX.Element {
       </div>
 
       <div className="ve-toolbar-group ve-toolbar-center">
-        <DeviceSelect
-          id="ve-device"
-          className="ve-device-select"
+        <DeviceToggle
+          name="ve-device"
+          className="ve-device-toggle"
           value={device}
           modes={DEVICE_MODES}
           onChange={(mode) => dispatch(deviceChanged(mode))}

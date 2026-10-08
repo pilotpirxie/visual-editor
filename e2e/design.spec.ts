@@ -44,7 +44,6 @@ test('a block override applies to that block only and resets to the design value
 
   await openPropertiesTab(page, 'style');
   const row = page.locator('.ve-override[data-token="--color-background"]');
-  await row.getByRole('button', { name: 'Override' }).click();
   await row.locator('label', { hasText: 'Custom color' }).click();
   await row.getByLabel('Background: hex value').fill('#ff0000');
   await expect(cta).toHaveCSS('background-color', RED);
@@ -63,13 +62,13 @@ test('a block hidden on phones shows striped at phone width and stays selectable
   const shade = page.locator('.ve-outline--hidden');
   await expect(shade).toHaveCount(0);
 
-  const device = page.getByRole('combobox', { name: 'Device' });
-  await device.focus();
-  await device.selectOption('phone');
+  const phone = page.getByRole('radio', { name: 'Phone (375 px)' });
+  await page.locator('label', { hasText: 'Phone (375 px)' }).click();
+  await expect(phone).toBeChecked();
   await expect(shade).toHaveCount(1);
   await expect(shade).toContainText('Hidden on phone');
 
-  await device.blur();
+  await phone.blur();
   await page.keyboard.press('Escape');
   await expect(page.locator('.ve-properties .ui-title')).toHaveText('Page settings');
   await page.frameLocator('.ve-canvas-frame').locator('[data-component="cta-centered"]').click();
@@ -81,7 +80,6 @@ test('a custom background also colors blocks that sit on the surface color', asy
   const stats = page.frameLocator('.ve-canvas-frame').locator('[data-component="stats-described"]');
   await openPropertiesTab(page, 'style');
   const row = page.locator('.ve-override[data-token="--color-background"]');
-  await row.getByRole('button', { name: 'Override' }).click();
   await row.locator('label', { hasText: 'Custom color' }).click();
   await row.getByLabel('Background: hex value').fill('#ff0000');
   await expect(stats).toHaveCSS('background-color', RED);

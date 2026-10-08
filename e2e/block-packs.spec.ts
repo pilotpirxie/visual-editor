@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { expect, test, type Page } from '@playwright/test';
 import { createProject, insertBlock, readZip } from './editor';
-import { HOSTILE_PACK, INVALID_PACK, RENAMED_PACK, VALID_PACK } from './fixtures/packs';
+import { bylinePack, hostilePack, invalidPack, validPack } from './fixtures/packs';
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
@@ -14,18 +14,18 @@ function canvas(page: Page) {
   return page.frameLocator('.ve-canvas-frame');
 }
 
-async function choosePack(page: Page, pack: unknown, name = 'acme-blocks.json'): Promise<void> {
+async function choosePack(page: Page, pack: Promise<Buffer>): Promise<void> {
   const chooserPromise = page.waitForEvent('filechooser');
   await page.locator('.ve-blocks').getByRole('button', { name: 'Load block pack' }).click();
   const chooser = await chooserPromise;
   await chooser.setFiles({
-    name,
-    mimeType: 'application/json',
-    buffer: Buffer.from(JSON.stringify(pack)),
+    name: 'acme-blocks.zip',
+    mimeType: 'application/zip',
+    buffer: await pack,
   });
 }
 
-async function addPack(page: Page, pack: unknown, confirmLabel: string): Promise<void> {
+async function addPack(page: Page, pack: Promise<Buffer>, confirmLabel: string): Promise<void> {
   await choosePack(page, pack);
   const dialog = page.getByRole('dialog', { name: /Acme blocks/ });
   await dialog.getByRole('button', { name: confirmLabel }).click();
@@ -38,7 +38,7 @@ function normalized(text: string | null): string {
 
 test('a valid pack previews at three widths and its blocks join the library', async ({ page }) => {
   await createProject(page);
-  await choosePack(page, VALID_PACK);
+  await choosePack(page, validPack());
   const dialog = page.getByRole('dialog', { name: 'Acme blocks 1.0.0' });
   await expect(dialog.locator('figcaption')).toHaveText([
     'Phone · 375 px',
@@ -72,18 +72,18 @@ test('a valid pack previews at three widths and its blocks join the library', as
 
 test('an invalid pack lists every problem with its block, field and line', async ({ page }) => {
   await createProject(page);
-  await choosePack(page, INVALID_PACK);
+  await choosePack(page, invalidPack());
   const dialog = page.getByRole('dialog', { name: 'Acme blocks 1.0.0' });
   const note = dialog.getByRole('note');
   await expect(note).toContainText('This pack can’t be loaded');
-  await expect(note).toContainText('acme/broken › template, line 2');
-  await expect(note).toContainText('acme/broken › styles, line 3: !important is not allowed');
+  await expect(note).toContainText('acme/broken › template.hbs, line 2');
+  await expect(note).toContainText('acme/broken › styles.css, line 3: !important is not allowed');
   await expect(dialog.getByRole('button', { name: 'Add to library' })).toHaveCount(0);
 });
 
 test('a pack’s CSS cannot reach the blocks around it', async ({ page }) => {
   await createProject(page);
-  await addPack(page, HOSTILE_PACK, 'Add to library');
+  await addPack(page, hostilePack(), 'Add to library');
   await insertBlock(page, 'Testimonials', 'Hostile card Custom');
   await insertBlock(page, 'Headers', 'Hero, centered text');
   const red = 'rgb(255, 0, 0)';
@@ -105,7 +105,7 @@ test('a project with custom blocks opens in a browser that does not have the pac
   browser,
 }) => {
   await createProject(page);
-  await addPack(page, VALID_PACK, 'Add to library');
+  await addPack(page, validPack(), 'Add to library');
   await insertBlock(page, 'Testimonials', 'Quote card Custom');
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: /^File/ }).click();
@@ -131,22 +131,25 @@ test('a project with custom blocks opens in a browser that does not have the pac
   await other.close();
 });
 
-test('updating a pack keeps content, moves renamed fields and refuses older versions', async ({
+test('updating a pack keeps content, drops removed fields and refuses older versions', async ({
   page,
 }) => {
   await createProject(page);
-  await addPack(page, VALID_PACK, 'Add to library');
+  await addPack(page, validPack(), 'Add to library');
   await insertBlock(page, 'Testimonials', 'Quote card Custom');
   await page.locator('#ve-field-quote').fill('Edited before the update');
   await page.locator('#ve-field-author').fill('Ana Lima');
   await expect(canvas(page).locator('.b-acme-quote-card .b-author')).toHaveText('Ana Lima');
 
-  await addPack(page, RENAMED_PACK, 'Update to 1.1.0');
+  await addPack(page, bylinePack(), 'Update to 1.1.0');
   const block = canvas(page).locator('.b-acme-quote-card');
   await expect(block.locator('blockquote')).toHaveText('Edited before the update');
-  await expect(block.locator('.b-author')).toHaveText('Ana Lima');
+  await expect(block.locator('.b-author')).toHaveText('A happy customer');
+  await expect(
+    page.locator('.ve-toast', { hasText: 'Removed “author” in Quote card on Home.' }),
+  ).toBeVisible();
 
-  await choosePack(page, VALID_PACK);
+  await choosePack(page, validPack());
   const dialog = page.getByRole('dialog', { name: 'Acme blocks 1.0.0' });
   await expect(
     dialog.getByRole('button', { name: 'Your library has the newer 1.1.0' }),
@@ -172,7 +175,7 @@ test('custom blocks render under a Content Security Policy without unsafe-eval',
     if (message.text().includes('Content Security Policy')) violations.push(message.text());
   });
   await createProject(page);
-  await addPack(page, VALID_PACK, 'Add to library');
+  await addPack(page, validPack(), 'Add to library');
   await insertBlock(page, 'Testimonials', 'Quote card Custom');
   await expect(canvas(page).locator('.b-acme-quote-card blockquote')).toHaveText(
     'It changed how our team works.',

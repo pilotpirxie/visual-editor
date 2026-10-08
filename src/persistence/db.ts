@@ -1,9 +1,8 @@
-import { behaviors } from 'virtual:site-runtime';
 import type { Project } from '../app/types';
-import { parseEmbeddedDefinitions, parsePackInfo } from '../components/packFormat';
+import { parseEmbeddedBlocks, parsePackInfo } from '../components/packFormat';
 import type { BlockPack } from '../components/types';
-import { isRecord } from './parseBlock';
-import { openProjectDocument } from './migrations';
+import { isRecord } from '../components/fields';
+import { parseProjectDocument } from './validateProject';
 import { postTabMessage } from './tabChannel';
 
 export type ProjectSummary = { id: string; title: string; updatedAt: string };
@@ -38,7 +37,7 @@ export type FileLink = {
 };
 
 const DB_NAME = 'visual-editor';
-const DB_VERSION = 4;
+const DB_VERSION = 1;
 const PROJECTS = 'projects';
 const DOCUMENTS = 'documents';
 const FILE_LINKS = 'fileHandles';
@@ -139,7 +138,7 @@ export async function getProject(id: string): Promise<Project | null> {
   const documentsStore = db.transaction(DOCUMENTS).objectStore(DOCUMENTS);
   const stored: unknown = await requestResult(documentsStore.get(id));
   if (stored === undefined) return null;
-  return openProjectDocument(stored);
+  return parseProjectDocument(stored);
 }
 
 export async function getProjectSummary(id: string): Promise<ProjectSummary | null> {
@@ -206,13 +205,6 @@ export async function putFileLink(link: FileLink): Promise<void> {
   await transactionDone(transaction);
 }
 
-export async function deleteFileLink(projectId: string): Promise<void> {
-  const db = await database();
-  const transaction = db.transaction(FILE_LINKS, 'readwrite');
-  transaction.objectStore(FILE_LINKS).delete(projectId);
-  await transactionDone(transaction);
-}
-
 function parseStoredPack(value: unknown): BlockPack | null {
   if (!isRecord(value) || !Array.isArray(value.blocks)) return null;
   const { info } = parsePackInfo(value);
@@ -223,7 +215,7 @@ function parseStoredPack(value: unknown): BlockPack | null {
       rawBlocks[block.definition.id] = block;
     }
   }
-  const blocks = Object.values(parseEmbeddedDefinitions(rawBlocks, Object.keys(behaviors)));
+  const blocks = Object.values(parseEmbeddedBlocks(rawBlocks));
   if (blocks.length === 0) return null;
   return { ...info, blocks, isPartial: value.isPartial === true };
 }
@@ -312,7 +304,7 @@ export async function getSnapshotProject(id: string): Promise<Project | null> {
   } catch (error) {
     throw new Error(`Snapshot ${id} is not valid JSON`, { cause: error });
   }
-  return openProjectDocument(document);
+  return parseProjectDocument(document);
 }
 
 export async function latestSnapshotText(projectId: string): Promise<string | null> {

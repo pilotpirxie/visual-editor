@@ -15,7 +15,11 @@ export function browserFeatureChecks(): FeatureCheck[] {
     },
     { name: 'structured cloning', isSupported: typeof structuredClone === 'function' },
     { name: 'browser storage', isSupported: typeof indexedDB !== 'undefined' },
-    { name: 'compression streams', isSupported: typeof CompressionStream === 'function' },
+    {
+      name: 'compression streams',
+      isSupported:
+        typeof CompressionStream === 'function' && typeof DecompressionStream === 'function',
+    },
     {
       name: 'random ids',
       isSupported: typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function',

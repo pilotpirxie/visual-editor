@@ -1,7 +1,7 @@
 import type { EntityState } from '@reduxjs/toolkit';
-import type { CustomDefinition } from '../components/types';
+import type { PackBlock } from '../components/types';
 
-export const SCHEMA_VERSION = 4;
+export const SCHEMA_VERSION = 1;
 
 export const TOKEN_GROUPS = [
   'color',
@@ -85,7 +85,6 @@ export type BlockBase = {
 export type ComponentBlock = BlockBase & {
   kind: 'component';
   componentId: string;
-  componentVersion: number;
   values: Record<string, unknown>;
   overrides: Record<string, string>;
 };
@@ -120,6 +119,6 @@ export type Project = {
   pages: EntityState<Page, string> & { homePageId: string };
   blocks: EntityState<Block, string>;
   sharedSlots: Record<SharedSlot, string[]>;
-  customDefinitions: Record<string, CustomDefinition>;
+  packBlocks: Record<string, PackBlock>;
   assets: Record<string, Asset>;
 };

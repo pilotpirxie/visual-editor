@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars/runtime';
 import type { HelperOptions } from 'handlebars';
-import { isRecord } from '../persistence/parseBlock';
+import { isRecord } from '../components/fields';
 import './handlebars';
 import { BLOCK_HELPERS, isTemplateHelper } from './helperNames';
 
@@ -22,23 +22,23 @@ export class TemplateRenderError extends Error {
   }
 }
 
-function isMustache(node: hbs.AST.Node): node is hbs.AST.MustacheStatement {
+export function isMustache(node: hbs.AST.Node): node is hbs.AST.MustacheStatement {
   return node.type === 'MustacheStatement';
 }
 
-function isBlock(node: hbs.AST.Node): node is hbs.AST.BlockStatement {
+export function isBlock(node: hbs.AST.Node): node is hbs.AST.BlockStatement {
   return node.type === 'BlockStatement';
 }
 
-function isContent(node: hbs.AST.Node): node is hbs.AST.ContentStatement {
+export function isContent(node: hbs.AST.Node): node is hbs.AST.ContentStatement {
   return node.type === 'ContentStatement';
 }
 
-function isPath(node: hbs.AST.Node): node is hbs.AST.PathExpression {
+export function isPath(node: hbs.AST.Node): node is hbs.AST.PathExpression {
   return node.type === 'PathExpression';
 }
 
-function isSubExpression(node: hbs.AST.Node): node is hbs.AST.SubExpression {
+export function isSubExpression(node: hbs.AST.Node): node is hbs.AST.SubExpression {
   return node.type === 'SubExpression';
 }
 
@@ -88,7 +88,7 @@ function helperName(path: hbs.AST.PathExpression): string | null {
   return isSimple ? (path.parts[0] ?? null) : null;
 }
 
-function hashPairs(node: { hash?: hbs.AST.Hash }): hbs.AST.HashPair[] {
+export function hashPairs(node: { hash?: hbs.AST.Hash }): hbs.AST.HashPair[] {
   return node.hash?.pairs ?? [];
 }
 
@@ -130,11 +130,10 @@ function callHelper(
   if (name === null) throw new TemplateRenderError(`"${node.path.original}" is not a helper`);
   const params: unknown[] = [];
   for (const param of node.params) params.push(evaluate(param, context, scope));
-  const options: HelperOptions & { name: string; loc: hbs.AST.SourceLocation } = {
+  const options: HelperOptions & { name: string } = {
     name,
     hash: evaluateHash(hashPairs(node), context, scope),
     data: scope.data,
-    loc: node.loc,
     fn: blocks.fn,
     inverse: blocks.inverse,
   };

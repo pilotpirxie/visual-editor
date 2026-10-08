@@ -1,19 +1,19 @@
 import { describe, expect, it, vi } from 'vitest';
-import { quoteCardBlockJson, testPackJson } from '../test/packFixtures';
+import {
+  quoteCardBlock,
+  quoteCardBlockJson,
+  testPackFiles,
+  testPackInfo,
+  TEST_THUMBNAIL,
+} from '../test/packFixtures';
 import {
   compareVersions,
-  customRootClass,
-  parseEmbeddedDefinitions,
-  parsePackFile,
-  toPackFileJson,
+  componentIdOf,
+  parseEmbeddedBlocks,
+  parsePackFiles,
+  rootClassOf,
   type PackError,
 } from './packFormat';
-
-const BEHAVIORS = ['menu', 'tabs'];
-
-function withBlockChanges(changes: Record<string, unknown>): Record<string, unknown> {
-  return testPackJson([{ ...quoteCardBlockJson(), ...changes }]);
-}
 
 function fieldsWith(name: string, changes: Record<string, unknown>): unknown[] {
   const fields = quoteCardBlockJson().fields;
@@ -27,48 +27,70 @@ function fieldsWith(name: string, changes: Record<string, unknown>): unknown[] {
   return changed;
 }
 
-function errorsOf(pack: unknown): PackError[] {
-  return parsePackFile(pack, BEHAVIORS).errors;
+function errorsWith(changes: Record<string, unknown>): PackError[] {
+  return parsePackFiles(testPackFiles([quoteCardBlock(changes)])).errors;
 }
 
-describe('parsePackFile', () => {
+function filesWithout(path: string): Map<string, Uint8Array> {
+  const files = new Map(testPackFiles());
+  files.delete(path);
+  return files;
+}
+
+describe('parsePackFiles', () => {
   it('reads a valid pack into namespaced definitions', () => {
-    const { info, blocks, errors } = parsePackFile(testPackJson(), BEHAVIORS);
+    const { info, blocks, errors } = parsePackFiles(testPackFiles());
     expect(errors).toEqual([]);
-    expect(info).toEqual({
-      id: 'acme',
-      name: 'Acme blocks',
-      version: '1.0.0',
-      author: 'Acme Studio',
-      license: 'MIT',
-    });
+    expect(info).toEqual(testPackInfo());
     expect(blocks).toHaveLength(1);
     expect(blocks[0]?.definition.id).toBe('acme/quote-card');
     expect(blocks[0]?.definition.category).toBe('testimonials');
-    expect(blocks[0]?.fieldRenames).toEqual({});
+    expect(blocks[0]?.thumbnail).toBe(TEST_THUMBNAIL);
   });
 
-  it('names the pack property that is wrong and loads no blocks', () => {
-    const pack = { ...testPackJson(), format: 'other', version: 'one', blocks: [] };
-    const result = parsePackFile(pack, BEHAVIORS);
+  it('finds the pack inside one wrapper folder', () => {
+    const wrapped = new Map<string, Uint8Array>();
+    for (const [path, data] of testPackFiles()) wrapped.set(`acme-blocks/${path}`, data);
+    expect(parsePackFiles(wrapped).blocks).toHaveLength(1);
+  });
+
+  it('rejects files without a pack.json', () => {
+    const { errors } = parsePackFiles(filesWithout('pack.json'));
+    expect(errors[0]?.message).toContain('has no pack.json');
+  });
+
+  it('names the pack.json property that is wrong and loads no blocks', () => {
+    const files = testPackFiles([quoteCardBlock()], { ...testPackInfo(), version: 'one' });
+    const result = parsePackFiles(files);
     expect(result.blocks).toEqual([]);
-    expect(result.errors.map(({ field }) => field)).toEqual(['version', 'format', 'blocks']);
+    expect(result.errors.map(({ field }) => field)).toEqual(['pack.json version']);
   });
 
-  it('rejects a file that is not an object', () => {
-    expect(errorsOf([1, 2])[0]?.message).toContain('not a block pack');
+  it('reports invalid JSON with its line', () => {
+    const files = new Map(testPackFiles());
+    files.set(
+      'quote-card/block.json',
+      new TextEncoder().encode('{\n  "name": "Quote",\n  oops\n}'),
+    );
+    expect(parsePackFiles(files).errors).toEqual([
+      {
+        block: 'quote-card',
+        field: 'block.json',
+        line: 3,
+        message: expect.stringContaining('is not valid JSON'),
+      },
+    ]);
   });
 
-  it('names the block and field of every problem and keeps the valid blocks', () => {
+  it('names the block and file of every problem and keeps the valid blocks', () => {
     const broken = {
-      ...quoteCardBlockJson(),
-      id: 'broken',
-      category: 'widgets',
-      behaviors: ['confetti'],
-      thumbnail: 'https://example.com/a.png',
-      fields: fieldsWith('quote', { type: 'poem' }),
+      ...quoteCardBlock(
+        { category: 'widgets', fields: fieldsWith('quote', { type: 'poem' }) },
+        'broken',
+      ),
+      thumbnail: new TextEncoder().encode('<svg/>'),
     };
-    const result = parsePackFile(testPackJson([quoteCardBlockJson(), broken]), BEHAVIORS);
+    const result = parsePackFiles(testPackFiles([quoteCardBlock(), broken]));
     expect(result.blocks.map(({ definition }) => definition.id)).toEqual(['acme/quote-card']);
     expect(result.errors).toEqual([
       {
@@ -85,54 +107,53 @@ describe('parsePackFile', () => {
       },
       {
         block: 'broken',
-        field: 'behaviors',
+        field: 'thumbnail.webp',
         line: null,
-        message: '"confetti" is not a site runtime behavior',
-      },
-      {
-        block: 'broken',
-        field: 'thumbnail',
-        line: null,
-        message: expect.stringContaining('data URL'),
+        message: 'is missing or not a WebP image',
       },
     ]);
   });
 
-  it('checks that defaults fit their field type', () => {
-    const errors = errorsOf(
-      withBlockChanges({
-        fields: fieldsWith('showAuthor', { default: 'yes' }),
-      }),
-    );
+  it('needs a template and styles for every block', () => {
+    const { errors } = parsePackFiles(filesWithout('quote-card/template.hbs'));
     expect(errors).toEqual([
+      { block: 'quote-card', field: 'template.hbs', line: null, message: 'is missing or empty' },
+    ]);
+  });
+
+  it('needs kebab-case block folders', () => {
+    const errors = parsePackFiles(testPackFiles([quoteCardBlock({}, 'Quote_Card')])).errors;
+    expect(errors[0]?.message).toContain('kebab-case folder name');
+  });
+
+  it('checks that defaults fit their field type', () => {
+    expect(errorsWith({ fields: fieldsWith('showAuthor', { default: 'yes' }) })).toEqual([
       {
         block: 'quote-card',
         field: 'showAuthor.default',
         line: null,
-        message: 'must be true or false',
+        message: 'Choose on or off',
       },
     ]);
   });
 
   it('checks list items and their limits', () => {
-    const errors = errorsOf(withBlockChanges({ fields: fieldsWith('points', { default: [] }) }));
+    const errors = errorsWith({ fields: fieldsWith('points', { default: [] }) });
     expect(errors[0]).toMatchObject({ field: 'points.default', message: 'needs at least 1 items' });
   });
 
   it('refuses field names templates already use', () => {
-    const errors = errorsOf(withBlockChanges({ fields: fieldsWith('author', { name: 'href' }) }));
+    const errors = errorsWith({ fields: fieldsWith('author', { name: 'href' }) });
     expect(errors.some(({ message }) => message.includes('templates use that name'))).toBe(true);
   });
 
   it('refuses a required field with an empty default and unknown visibleWhen fields', () => {
-    const errors = errorsOf(
-      withBlockChanges({
-        fields: fieldsWith('quote', {
-          default: '',
-          visibleWhen: { field: 'missing', equals: true },
-        }),
+    const errors = errorsWith({
+      fields: fieldsWith('quote', {
+        default: '',
+        visibleWhen: { field: 'missing', equals: true },
       }),
-    );
+    });
     expect(errors.map(({ field }) => field)).toEqual(['quote.default', 'quote.visibleWhen']);
   });
 
@@ -147,44 +168,24 @@ describe('parsePackFile', () => {
           ? [nested(depth - 1)]
           : [{ name: 'text', label: 'Text', type: 'text', default: '' }],
     });
-    expect(errorsOf(withBlockChanges({ fields: [nested(2)] }))).toEqual([]);
-    expect(errorsOf(withBlockChanges({ fields: [nested(3)] }))[0]?.message).toContain('too deeply');
-  });
-
-  it('checks that field renames point to fields that exist', () => {
-    const errors = errorsOf(
-      withBlockChanges({ fieldRenames: { headline: 'title', author: 'quote' } }),
-    );
-    expect(errors.map(({ field }) => field)).toEqual([
-      'fieldRenames.headline',
-      'fieldRenames.author',
-    ]);
-  });
-
-  it('reports blocks that share an id', () => {
-    const errors = errorsOf(testPackJson([quoteCardBlockJson(), quoteCardBlockJson()]));
-    expect(errors).toEqual([
-      {
-        block: 'acme/quote-card',
-        field: 'id',
-        line: null,
-        message: 'is used by another block in this pack',
-      },
-    ]);
+    expect(errorsWith({ fields: [nested(2)] })).toEqual([]);
+    expect(errorsWith({ fields: [nested(3)] })[0]?.message).toContain('too deeply');
   });
 
   it('normalizes rich text defaults', () => {
-    const pack = withBlockChanges({
-      fields: [
-        {
-          name: 'intro',
-          label: 'Intro',
-          type: 'richtext',
-          default: '<p onclick="x()">Hi <script>bad()</script><b>there</b></p>',
-        },
-      ],
-    });
-    const field = parsePackFile(pack, BEHAVIORS).blocks[0]?.definition.fields[0];
+    const files = testPackFiles([
+      quoteCardBlock({
+        fields: [
+          {
+            name: 'intro',
+            label: 'Intro',
+            type: 'richtext',
+            default: '<p onclick="x()">Hi <script>bad()</script><b>there</b></p>',
+          },
+        ],
+      }),
+    ]);
+    const field = parsePackFiles(files).blocks[0]?.definition.fields[0];
     expect(field?.default).toBe('<p>Hi <strong>there</strong></p>');
   });
 });
@@ -197,33 +198,31 @@ describe('compareVersions', () => {
   });
 });
 
-describe('customRootClass', () => {
-  it('joins the pack and block ids', () => {
-    expect(customRootClass('acme/quote-card')).toBe('b-acme-quote-card');
+describe('component ids and root classes', () => {
+  it('namespaces pack blocks and keeps built-in ids bare', () => {
+    expect(componentIdOf('acme', 'quote-card')).toBe('acme/quote-card');
+    expect(componentIdOf('builtin', 'hero-centered')).toBe('hero-centered');
+  });
+
+  it('joins the pack and block ids in the root class', () => {
+    expect(rootClassOf('acme/quote-card')).toBe('b-acme-quote-card');
+    expect(rootClassOf('hero-centered')).toBe('b-hero-centered');
   });
 });
 
-describe('parseEmbeddedDefinitions', () => {
-  it('reads definitions saved in a project and drops broken ones', () => {
-    const [definition] = parsePackFile(testPackJson(), BEHAVIORS).blocks;
-    if (definition === undefined) throw new Error('fixture pack did not parse');
+describe('parseEmbeddedBlocks', () => {
+  it('reads blocks saved in a project and drops broken ones', () => {
+    const [packBlock] = parsePackFiles(testPackFiles()).blocks;
+    if (packBlock === undefined) throw new Error('fixture pack did not parse');
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const saved = JSON.parse(
       JSON.stringify({
-        'acme/quote-card': definition,
-        'acme/broken': { ...definition, template: 3 },
-        'other/quote-card': definition,
+        'acme/quote-card': packBlock,
+        'acme/broken': { ...packBlock, template: 3 },
+        'other/quote-card': packBlock,
       }),
     );
-    expect(parseEmbeddedDefinitions(saved, BEHAVIORS)).toEqual({ 'acme/quote-card': definition });
+    expect(parseEmbeddedBlocks(saved)).toEqual({ 'acme/quote-card': packBlock });
     expect(warn).toHaveBeenCalledTimes(2);
-  });
-});
-
-describe('toPackFileJson', () => {
-  it('writes a pack that reads back the same', () => {
-    const { info, blocks } = parsePackFile(testPackJson(), BEHAVIORS);
-    if (info === null) throw new Error('fixture pack did not parse');
-    expect(parsePackFile(toPackFileJson(info, blocks), BEHAVIORS).blocks).toEqual(blocks);
   });
 });

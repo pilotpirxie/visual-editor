@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { blockPacksLoaded, blockSelected, compactTabSelected } from '../../app/editorSlice';
 import { dispatch, store } from '../../app/store';
-import { registry } from '../../components/registry';
+import { builtInComponents } from '../../components/registry';
 import { CATEGORIES } from '../../components/types';
 import { changeValue, click, firePointer, getButton, render, runInAct } from '../../test/dom';
 import { componentBlockOf, homePage, loadIntoAppStore } from '../../test/fixtures';
@@ -17,11 +17,7 @@ vi.mock('../../persistence/db', () => ({
   deleteProject: vi.fn(async () => {}),
 }));
 
-const ENTRIES = [...registry.values()].map(({ definition, thumbnail }) => ({
-  definition,
-  thumbnail,
-  pack: null,
-}));
+const ENTRIES = [...builtInComponents.values()];
 
 function componentIds(): string[] {
   const { project } = store.getState();
@@ -152,7 +148,7 @@ describe('BlocksTab with block packs', () => {
       container.querySelector<HTMLButtonElement>('.ve-component-card')?.click();
     });
     expect(componentIds()).toContain('acme/quote-card');
-    expect(store.getState().project.customDefinitions['acme/quote-card']).toBeDefined();
+    expect(store.getState().project.packBlocks['acme/quote-card']).toBeDefined();
   });
 
   it('finds pack blocks by search', () => {

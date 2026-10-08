@@ -6,7 +6,7 @@ import { definitionOf } from '../../components/registry';
 import { DEFAULT_ICON_SET, parseIconRef } from '../../render/icons';
 import { isIconSetLoaded, loadIconSet } from './loadIconSet';
 
-type IconSource = Pick<Project, 'customDefinitions' | 'designSystem'>;
+type IconSource = Pick<Project, 'packBlocks' | 'designSystem'>;
 
 function addFixedSets(block: Block, project: IconSource, sets: Set<string>): void {
   if (block.kind !== 'component') return;

@@ -1,7 +1,7 @@
 import { createBlankProject } from '../../../src/app/projectFactory';
 import { BUILTIN_PRESETS, CLEAN_PRESET } from '../../../src/presets/presets';
 import type { Project } from '../../../src/app/types';
-import { createBlock, registry } from '../../../src/components/registry';
+import { builtInComponents, createBlock } from '../../../src/components/registry';
 import { EDITOR_CSS } from '../../../src/features/canvas/CanvasFrame';
 import { ensureIconSets, iconSetsUsedBy } from '../../../src/features/icons/ensureIconSets';
 import { renderStandalonePage } from '../../../src/render/exportSite';
@@ -21,7 +21,7 @@ const THUMBNAIL_CSS =
   'body { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }';
 
 function projectWith(componentId: string, presetId: string): Project {
-  const component = registry.get(componentId);
+  const component = builtInComponents.get(componentId);
   if (component === undefined) throw new Error(`Unknown component ${componentId}`);
   const preset = BUILTIN_PRESETS.find((candidate) => candidate.id === presetId) ?? CLEAN_PRESET;
   const project = createBlankProject('Fieldnote', preset);
@@ -37,7 +37,7 @@ function projectWith(componentId: string, presetId: string): Project {
 async function render(componentId: string, presetId = CLEAN_PRESET.id): Promise<string> {
   const project = projectWith(componentId, presetId);
   await ensureIconSets(iconSetsUsedBy(Object.values(project.blocks.entities), project));
-  const html = renderStandalonePage(project, project.pages.homePageId, registry, {
+  const html = renderStandalonePage(project, project.pages.homePageId, builtInComponents, {
     shouldLinkFonts: true,
   });
   return html
@@ -46,6 +46,6 @@ async function render(componentId: string, presetId = CLEAN_PRESET.id): Promise<
 }
 
 window.thumbnailHarness = {
-  ids: () => [...registry.keys()].sort(),
+  ids: () => [...builtInComponents.keys()].sort(),
   render,
 };

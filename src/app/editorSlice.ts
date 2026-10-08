@@ -81,7 +81,7 @@ export type EditorState = {
   isLinkedFileStale: boolean;
   conversionBlockId: string | null;
   iconSetsVersion: number;
-  customComponentsVersion: number;
+  packBlocksVersion: number;
   blockPacks: BlockPack[];
   savedBlocks: SavedBlockRecord[];
   sectionStates: Record<string, boolean>;
@@ -95,7 +95,7 @@ const initialState: EditorState = {
   pageSelections: {},
   pendingAnchor: null,
   focusRequest: null,
-  device: 'desktop',
+  device: 'responsive',
   responsiveWidth: null,
   isPreview: false,
   panels: {
@@ -113,7 +113,7 @@ const initialState: EditorState = {
   isLinkedFileStale: false,
   conversionBlockId: null,
   iconSetsVersion: 0,
-  customComponentsVersion: 0,
+  packBlocksVersion: 0,
   blockPacks: [],
   savedBlocks: [],
   sectionStates: {},
@@ -188,8 +188,8 @@ export const editorSlice = createSlice({
     iconSetsLoaded(state) {
       state.iconSetsVersion += 1;
     },
-    customComponentsLoaded(state) {
-      state.customComponentsVersion += 1;
+    packBlocksLoaded(state) {
+      state.packBlocksVersion += 1;
     },
     blockPacksLoaded(state, action: PayloadAction<BlockPack[]>) {
       state.blockPacks = action.payload;
@@ -313,7 +313,7 @@ export const {
   conversionRequested,
   sectionToggled,
   iconSetsLoaded,
-  customComponentsLoaded,
+  packBlocksLoaded,
   blockPacksLoaded,
   savedBlocksLoaded,
   dialogOpened,

@@ -1,11 +1,12 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 1,
   "id": "starter-agency",
   "settings": {
     "title": "Quire",
     "description": "An independent design studio in Glasgow making brand identities, websites and campaigns since 2014.",
     "language": "en",
-    "titleTemplate": "{{page.title}} | {{site.title}}"
+    "titleTemplate": "{{page.title}} | {{site.title}}",
+    "indexable": true
   },
   "designSystem": {
     "presetId": "editorial",
@@ -431,7 +432,8 @@
         ],
         "seo": {
           "description": "Quire is a design studio of 14 in Glasgow making brand identities, websites and campaigns for distillers, theatres and publishers.",
-          "title": "Independent design studio in Glasgow"
+          "title": "Independent design studio in Glasgow",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -448,7 +450,8 @@
           "services-cta"
         ],
         "seo": {
-          "description": "Brand identity, websites and campaigns from Quire in Glasgow, with our four-stage process and typical engagement fees."
+          "description": "Brand identity, websites and campaigns from Quire in Glasgow, with our four-stage process and typical engagement fees.",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -466,7 +469,8 @@
           "work-cta"
         ],
         "seo": {
-          "description": "Selected identities, websites and campaigns by Quire from 2023 to 2026, with the results they delivered for each client."
+          "description": "Selected identities, websites and campaigns by Quire from 2023 to 2026, with the results they delivered for each client.",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -477,7 +481,8 @@
         "slug": "team",
         "blockIds": ["team-hero", "team-people", "team-studio", "team-careers", "team-cta"],
         "seo": {
-          "description": "Meet the 14 designers, writers and developers of Quire in Glasgow, and see open roles at the studio."
+          "description": "Meet the 14 designers, writers and developers of Quire in Glasgow, and see open roles at the studio.",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -488,7 +493,8 @@
         "slug": "contact",
         "blockIds": ["contact-hero", "contact-enquiry", "contact-channels", "contact-questions"],
         "seo": {
-          "description": "Start a project with Quire: send an enquiry, visit the studio on King Street in Glasgow, or read what to expect first."
+          "description": "Start a project with Quire: send an enquiry, visit the studio on King Street in Glasgow, or read what to expect first.",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -533,7 +539,6 @@
         "id": "header-banner",
         "kind": "component",
         "componentId": "banner-announcement",
-        "componentVersion": 1,
         "values": {
           "showIcon": true,
           "icon": "sparkles",
@@ -555,7 +560,6 @@
         "id": "header-nav",
         "kind": "component",
         "componentId": "nav-simple",
-        "componentVersion": 1,
         "values": {
           "links": [
             {
@@ -613,7 +617,6 @@
         "id": "footer-footer",
         "kind": "component",
         "componentId": "footer-columns",
-        "componentVersion": 1,
         "values": {
           "tagline": "An independent design studio in Glasgow. Brand identity, websites and campaigns since 2014.",
           "productTitle": "Studio",
@@ -767,7 +770,6 @@
         "id": "home-hero",
         "kind": "component",
         "componentId": "hero-background",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Independent design studio, Glasgow",
           "title": "Design for people with something to say",
@@ -815,7 +817,6 @@
         "id": "home-clients",
         "kind": "component",
         "componentId": "logos-row",
-        "componentVersion": 1,
         "values": {
           "title": "Recent clients include",
           "logos": [
@@ -920,7 +921,6 @@
         "id": "home-disciplines",
         "kind": "component",
         "componentId": "features-grid-3",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "What we do",
           "title": "Three disciplines, one team",
@@ -956,7 +956,6 @@
         "id": "home-work",
         "kind": "component",
         "componentId": "gallery-masonry",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Selected work",
           "title": "Recent projects from the studio",
@@ -1064,7 +1063,6 @@
         "id": "home-quote",
         "kind": "component",
         "componentId": "testimonial-quote",
-        "componentVersion": 1,
         "values": {
           "quote": "They read every script in the season before they drew a single poster. Our audiences could tell.",
           "name": "Dele Adeyemi",
@@ -1099,7 +1097,6 @@
         "id": "home-cta",
         "kind": "component",
         "componentId": "cta-centered",
-        "componentVersion": 1,
         "values": {
           "title": "Booking now for spring 2027",
           "text": "We take on eight to ten new projects a year, so each one gets a senior team. Tell us about yours and we will reply within two working days.",
@@ -1123,7 +1120,6 @@
         "id": "services-hero",
         "kind": "component",
         "componentId": "hero-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Services",
           "title": "One team, start to finish",
@@ -1172,7 +1168,6 @@
         "id": "services-capabilities",
         "kind": "component",
         "componentId": "features-tabs",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "What we do",
           "title": "What each discipline includes",
@@ -1244,7 +1239,6 @@
         "id": "services-process",
         "kind": "component",
         "componentId": "steps-images",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Process",
           "title": "How a project runs",
@@ -1328,7 +1322,6 @@
         "id": "services-fees",
         "kind": "component",
         "componentId": "pricing-list",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Engagement fees",
           "title": "What projects usually cost",
@@ -1431,7 +1424,6 @@
         "id": "services-cta",
         "kind": "component",
         "componentId": "cta-banner",
-        "componentVersion": 1,
         "values": {
           "title": "Not sure which of these you need?",
           "text": "Most projects start with a 45-minute call. No deck required.",
@@ -1455,7 +1447,6 @@
         "id": "work-hero",
         "kind": "component",
         "componentId": "hero-centered",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Selected work",
           "title": "Work we are proud of",
@@ -1490,7 +1481,6 @@
         "id": "work-projects",
         "kind": "component",
         "componentId": "gallery-grid",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "2023 to 2026",
           "title": "Nine recent projects",
@@ -1645,7 +1635,6 @@
         "id": "work-ardlin",
         "kind": "component",
         "componentId": "testimonial-logo",
-        "componentVersion": 1,
         "values": {
           "logo": {
             "source": "placeholder",
@@ -1689,7 +1678,6 @@
         "id": "work-merrow",
         "kind": "component",
         "componentId": "content-list-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Case study: Merrow",
           "title": "A shop built around the sea",
@@ -1743,7 +1731,6 @@
         "id": "work-manifesto",
         "kind": "component",
         "componentId": "content-quote",
-        "componentVersion": 1,
         "values": {
           "showIcon": true,
           "quoteIcon": "quote",
@@ -1781,7 +1768,6 @@
         "id": "work-cta",
         "kind": "component",
         "componentId": "cta-two-buttons",
-        "componentVersion": 1,
         "values": {
           "title": "Have a project in mind?",
           "text": "Tell us what you are making and when it needs to launch. We reply to every enquiry within two working days.",
@@ -1815,7 +1801,6 @@
         "id": "team-hero",
         "kind": "component",
         "componentId": "hero-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "The studio",
           "title": "Fourteen people, one table",
@@ -1864,7 +1849,6 @@
         "id": "team-people",
         "kind": "component",
         "componentId": "team-cards",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "The people",
           "title": "Who you will work with",
@@ -2077,7 +2061,6 @@
         "id": "team-studio",
         "kind": "component",
         "componentId": "content-text-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "How we run the studio",
           "title": "Small on purpose",
@@ -2107,7 +2090,6 @@
         "id": "team-careers",
         "kind": "component",
         "componentId": "careers-list",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Careers",
           "title": "Join the studio",
@@ -2159,7 +2141,6 @@
         "id": "team-cta",
         "kind": "component",
         "componentId": "cta-centered",
-        "componentVersion": 1,
         "values": {
           "title": "Work with the people on this page",
           "text": "Tell us about your project and one of the founders will reply within two working days.",
@@ -2183,7 +2164,6 @@
         "id": "contact-hero",
         "kind": "component",
         "componentId": "hero-centered",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Contact",
           "title": "Tell us what you are making",
@@ -2217,7 +2197,6 @@
         "id": "contact-enquiry",
         "kind": "component",
         "componentId": "contact-map",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "New projects",
           "title": "Start with a few lines",
@@ -2255,7 +2234,6 @@
         "id": "contact-channels",
         "kind": "component",
         "componentId": "contact-cards",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Other ways in",
           "title": "Write to the right person",
@@ -2315,7 +2293,6 @@
         "id": "contact-questions",
         "kind": "component",
         "componentId": "faq-side-heading",
-        "componentVersion": 1,
         "values": {
           "title": "Before you write",
           "text": "The questions we hear most in a first call. Anything else, ask Niamh directly.",
@@ -2365,5 +2342,6 @@
     "header": ["header-banner", "header-nav"],
     "footer": ["footer-footer"]
   },
+  "packBlocks": {},
   "assets": {}
 }

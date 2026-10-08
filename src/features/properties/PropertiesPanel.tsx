@@ -129,7 +129,7 @@ export function PropertiesPanel(): JSX.Element {
   const compactView = useStore((state) => state.editor.compactView);
   const isCollapsed = useStore((state) => state.editor.panels.right.collapsed);
   const activeTab = useStore((state) => state.editor.propertiesTab);
-  const customDefinitions = useStore((state) => state.project.customDefinitions);
+  const packBlocks = useStore((state) => state.project.packBlocks);
   const bodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -149,7 +149,7 @@ export function PropertiesPanel(): JSX.Element {
 
   const componentId = blockComponentId(block);
   const definition =
-    componentId === null ? null : (definitionOf({ customDefinitions }, componentId) ?? null);
+    componentId === null ? null : (definitionOf({ packBlocks }, componentId) ?? null);
   const categoryLabel = definition === null ? null : categoryLabelOf(definition);
   const tab = shownTab(block, activeTab);
   if (block.kind === 'html') {
@@ -175,7 +175,7 @@ export function PropertiesPanel(): JSX.Element {
       </aside>
     );
   }
-  const title = definition === null ? blockLabel(block, { customDefinitions }) : definition.name;
+  const title = definition === null ? blockLabel(block, { packBlocks }) : definition.name;
 
   return (
     <aside className="ve-panel ve-properties" aria-label="Properties">

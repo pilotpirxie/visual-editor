@@ -1,0 +1,183 @@
+{
+  "name": "Team, list",
+  "category": "team",
+  "description": "A heading and compact rows with a small photo, name, role and one-line bio.",
+  "tags": ["team", "people", "advisors", "investors", "board", "list", "directory"],
+  "fieldGroups": ["Heading", "People"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Advisors",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Backed by people who have run research at scale",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Our advisors meet with the team every quarter and read every new interview guide we publish.",
+      "group": "Heading"
+    },
+    {
+      "name": "people",
+      "label": "People",
+      "type": "list",
+      "group": "People",
+      "minItems": 1,
+      "maxItems": 24,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "bio",
+          "label": "Bio",
+          "type": "textarea",
+          "maxLength": 160,
+          "default": "One sentence about this person."
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Elena Petrova",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Elena Petrova",
+          "role": "Advisor, research operations",
+          "bio": "Grew the research team at a health insurer from two people to forty."
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Samuel Adeyemi",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Samuel Adeyemi",
+          "role": "Advisor, go-to-market",
+          "bio": "Took two developer tools from their first customer to a public listing."
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Hiroshi Watanabe",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Hiroshi Watanabe",
+          "role": "Advisor, speech recognition",
+          "bio": "Spent a decade building speech models for languages most tools ignore."
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Clara Lindqvist",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Clara Lindqvist",
+          "role": "Advisor, privacy and compliance",
+          "bio": "Former data protection officer who keeps our consent flows short and clear."
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Omar Farouk",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Omar Farouk",
+          "role": "Angel investor",
+          "bio": "Founded and sold a survey platform used by 4,000 product teams."
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Beatriz Costa",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Beatriz Costa",
+          "role": "Advisor, design",
+          "bio": "Ran design at a Lisbon banking app and still reviews our new screens."
+        }
+      ]
+    }
+  ]
+}

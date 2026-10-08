@@ -1,8 +1,10 @@
-const THUMBNAIL = `data:image/svg+xml;base64,${Buffer.from(
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400"><rect width="640" height="400" fill="#e5e7eb"/></svg>',
-).toString('base64')}`;
+import { createZip, type ZipEntry } from '../../src/features/export/zip';
 
 type Json = Record<string, unknown>;
+
+type FixtureBlock = { id: string; json: Json; template: string; styles: string };
+
+const THUMBNAIL = Buffer.from('UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==', 'base64');
 
 const QUOTE_TEMPLATE = [
   '<section class="b-acme-quote-card section">',
@@ -22,71 +24,85 @@ const QUOTE_STYLES = [
   '}',
 ].join('\n');
 
-function quoteCard(version: number, authorFieldName: 'author' | 'byline'): Json {
+function quoteCard(authorField: Json): FixtureBlock {
   return {
     id: 'quote-card',
-    version,
-    name: 'Quote card',
-    category: 'testimonials',
-    styleOverrides: ['--color-background', '--color-text', '--section-padding-y'],
-    fields: [
-      {
-        name: 'quote',
-        label: 'Quote',
-        type: 'textarea',
-        default: 'It changed how our team works.',
-        required: true,
-      },
-      { name: authorFieldName, label: 'Author', type: 'text', default: 'Dana Ruiz, Northwind' },
-    ],
+    json: {
+      name: 'Quote card',
+      category: 'testimonials',
+      styleOverrides: ['--color-background', '--color-text', '--section-padding-y'],
+      fields: [
+        {
+          name: 'quote',
+          label: 'Quote',
+          type: 'textarea',
+          default: 'It changed how our team works.',
+          required: true,
+        },
+        authorField,
+      ],
+    },
     template: QUOTE_TEMPLATE,
     styles: QUOTE_STYLES,
-    thumbnail: THUMBNAIL,
-    ...(authorFieldName === 'byline' ? { fieldRenames: { author: 'byline' } } : {}),
   };
 }
 
-function pack(version: string, blocks: Json[]): Json {
-  return {
-    format: 'block-pack',
-    formatVersion: 1,
-    id: 'acme',
-    name: 'Acme blocks',
-    version,
-    author: 'Acme Studio',
-    license: 'MIT',
-    blocks,
-  };
+const AUTHOR = { name: 'author', label: 'Author', type: 'text', default: 'Dana Ruiz, Northwind' };
+
+const BYLINE = { name: 'byline', label: 'Byline', type: 'text', default: 'A happy customer' };
+
+async function packZip(version: string, blocks: FixtureBlock[]): Promise<Buffer> {
+  const encoder = new TextEncoder();
+  const info = { id: 'acme', name: 'Acme blocks', version, author: 'Acme Studio', license: 'MIT' };
+  const entries: ZipEntry[] = [{ path: 'pack.json', data: encoder.encode(JSON.stringify(info)) }];
+  for (const block of blocks) {
+    entries.push(
+      { path: `${block.id}/block.json`, data: encoder.encode(JSON.stringify(block.json)) },
+      { path: `${block.id}/template.hbs`, data: encoder.encode(block.template) },
+      { path: `${block.id}/styles.css`, data: encoder.encode(block.styles) },
+      { path: `${block.id}/thumbnail.webp`, data: new Uint8Array(THUMBNAIL) },
+    );
+  }
+  const zip = await createZip(entries);
+  return Buffer.from(await zip.arrayBuffer());
 }
 
-export const VALID_PACK = pack('1.0.0', [quoteCard(1, 'author')]);
+export function validPack(): Promise<Buffer> {
+  return packZip('1.0.0', [quoteCard(AUTHOR)]);
+}
 
-export const RENAMED_PACK = pack('1.1.0', [quoteCard(2, 'byline')]);
+export function bylinePack(): Promise<Buffer> {
+  return packZip('1.1.0', [quoteCard(BYLINE)]);
+}
 
-export const INVALID_PACK = pack('1.0.0', [
-  {
-    ...quoteCard(1, 'author'),
-    id: 'broken',
-    template:
-      '<section class="b-acme-broken">\n  <a href="https://evil.example/{{quote}}">x</a>\n</section>',
-    styles:
-      '@layer components {\n  @scope (.b-acme-broken) {\n    a { color: red !important; }\n  }\n}',
-  },
-]);
+export function invalidPack(): Promise<Buffer> {
+  return packZip('1.0.0', [
+    {
+      ...quoteCard(AUTHOR),
+      id: 'broken',
+      template:
+        '<section class="b-acme-broken">\n  <a href="https://evil.example/{{quote}}">x</a>\n</section>',
+      styles:
+        '@layer components {\n  @scope (.b-acme-broken) {\n    a { color: red !important; }\n  }\n}',
+    },
+  ]);
+}
 
-export const HOSTILE_PACK = pack('1.0.0', [
-  {
-    ...quoteCard(1, 'author'),
-    id: 'hostile',
-    name: 'Hostile card',
-    template: '<section class="b-acme-hostile"><h1>Hostile</h1></section>',
-    styles: [
-      '@layer components {',
-      '  @scope (.b-acme-hostile) {',
-      '    :scope ~ * { background: rgb(255, 0, 0); }',
-      '    :scope + * h1, h1, body, html { color: rgb(255, 0, 0); background: rgb(255, 0, 0); }',
-      '  }',
-      '}',
-    ].join('\n'),
-  },
-]);
+export function hostilePack(): Promise<Buffer> {
+  const hostile = quoteCard(AUTHOR);
+  return packZip('1.0.0', [
+    {
+      id: 'hostile',
+      json: { ...hostile.json, name: 'Hostile card' },
+      template: '<section class="b-acme-hostile"><h1>Hostile</h1></section>',
+      styles: [
+        '@layer components {',
+        '  @scope (.b-acme-hostile) {',
+        '    :scope ~ * { background: rgb(255, 0, 0); }',
+        '    :scope + * h1, h1, body, html { color: rgb(255, 0, 0); background: rgb(255, 0, 0); }',
+        '  }',
+        '}',
+      ].join('\n'),
+    },
+  ]);
+}

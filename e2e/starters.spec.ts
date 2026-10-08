@@ -34,12 +34,11 @@ test('a starter previews every page on every device and starts a new project', a
   const frame = preview.locator('.ve-starter-frame');
   await expect(page.frameLocator('.ve-starter-frame').locator('h1')).toBeVisible();
   await expect(frame).toHaveCSS('width', '1440px');
-  const device = preview.getByRole('combobox', { name: 'Device' });
-  await device.selectOption('tablet');
+  await preview.locator('label', { hasText: 'Tablet (768 px)' }).click();
   await expect(frame).toHaveCSS('width', '768px');
-  await device.selectOption('phone');
+  await preview.locator('label', { hasText: 'Phone (375 px)' }).click();
   await expect(frame).toHaveCSS('width', '375px');
-  await device.selectOption('desktop');
+  await preview.locator('label', { hasText: 'Desktop (1440 px)' }).click();
 
   await page
     .frameLocator('.ve-starter-frame')

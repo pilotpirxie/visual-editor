@@ -1,11 +1,12 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "id": "starter-waitlist",
   "settings": {
     "title": "Orbit",
     "description": "A calm calendar for remote teams. Join the waitlist for early access.",
     "language": "en",
-    "titleTemplate": "{{page.title}} | {{site.title}}"
+    "titleTemplate": "{{page.title}} | {{site.title}}",
+    "indexable": true
   },
   "designSystem": {
     "presetId": "midnight",
@@ -309,6 +310,90 @@
         "label": "Normal",
         "group": "motion",
         "value": "200ms"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#05070d"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#0f1424"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#f3f4f6"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#a3abbd"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#222a40"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#c4b5fd"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#1e1b4b"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
       }
     },
     "fonts": [
@@ -339,7 +424,8 @@
         "slug": "home",
         "blockIds": ["home-hero", "home-features", "home-roadmap", "home-faq"],
         "seo": {
-          "description": "Orbit is a calm calendar for remote teams. Join the early access waitlist."
+          "description": "Orbit is a calm calendar for remote teams. Join the early access waitlist.",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -354,7 +440,6 @@
         "id": "nav",
         "kind": "component",
         "componentId": "nav-centered",
-        "componentVersion": 1,
         "values": {
           "logoIcon": "lucide:audio-lines",
           "links": [
@@ -397,7 +482,6 @@
         "id": "footer",
         "kind": "component",
         "componentId": "footer-centered",
-        "componentVersion": 1,
         "values": {
           "links": [
             {
@@ -436,7 +520,6 @@
         "id": "home-hero",
         "kind": "component",
         "componentId": "hero-email",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Early access opens in May",
           "title": "A calm calendar for remote teams",
@@ -457,7 +540,6 @@
         "id": "home-features",
         "kind": "component",
         "componentId": "features-grid-3",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Why Orbit",
           "title": "Fewer meetings, better ones",
@@ -492,7 +574,6 @@
         "id": "home-roadmap",
         "kind": "component",
         "componentId": "steps-timeline",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Roadmap",
           "title": "Where Orbit is going",
@@ -530,7 +611,6 @@
         "id": "home-faq",
         "kind": "component",
         "componentId": "faq-accordion",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "FAQ",
           "title": "Questions about the waitlist",
@@ -562,5 +642,6 @@
     "header": ["nav"],
     "footer": ["footer"]
   },
+  "packBlocks": {},
   "assets": {}
 }

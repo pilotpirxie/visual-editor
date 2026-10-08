@@ -1,6 +1,7 @@
 import Handlebars from 'handlebars/runtime';
 import { activeSectionTheme } from '../app/sectionThemes';
 import type { Block, ComponentBlock, HtmlBlock, Project } from '../app/types';
+import { isBuiltIn } from '../components/packFormat';
 import type { RegisteredComponent } from '../components/types';
 import { formatHtml } from './formatHtml';
 import type { RenderData } from './handlebars';
@@ -128,7 +129,7 @@ export function renderBlock(
     collector: ctx.collector,
   };
   const rendered = component.template(templateValues, { data: renderData }).trim();
-  const html = component.isCustom ? stripUnsafeHtml(rendered).html.trim() : rendered;
+  const html = isBuiltIn(component.pack) ? rendered : stripUnsafeHtml(rendered).html.trim();
   const root = ROOT_OPEN_TAG.exec(html)?.groups;
   if (root?.tag === undefined || root.attributes === undefined) {
     throw new Error(
@@ -173,7 +174,6 @@ export function convertBlockToHtml(
     id: block.id,
     kind: 'component',
     componentId: block.componentId,
-    componentVersion: block.componentVersion,
     values: block.values,
     overrides: block.overrides,
     disabled: block.disabled,

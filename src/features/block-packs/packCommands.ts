@@ -1,19 +1,20 @@
-import { behaviors } from 'virtual:site-runtime';
-import { customComponentsLoaded, noticeShown } from '../../app/editorSlice';
+import { noticeShown } from '../../app/editorSlice';
 import { describeError } from '../../app/errors';
 import { dispatch, store } from '../../app/store';
-import { toPackFileJson, type ParsedPackFile } from '../../components/packFormat';
+import type { ParsedPackFile } from '../../components/packFormat';
 import type { BlockPack } from '../../components/types';
 import { slugify } from '../../app/slugs';
 import { downloadBlob } from '../export/download';
-import { pickJsonFile, readFile, type JsonPicker } from '../files/fileAccess';
-import { ensureCustomComponents } from './customComponents';
+import { pickFile, type FilePicker } from '../files/fileAccess';
 import {
   addPackToLibrary,
   addProjectPackToLibrary,
+  blockCountLabel,
+  loadPackBlocks,
   removePackFromLibrary,
   takenClasses,
 } from './packLibrary';
+import { packZip } from './packZip';
 
 export type PackDialog =
   { kind: 'load'; fileName: string; reading: ParsedPackFile } | { kind: 'manage' } | null;
@@ -31,18 +32,19 @@ export type PackCommands = {
   download(pack: BlockPack): void;
 };
 
-const PACK_PICKER: JsonPicker = { id: 'visual-editor-block-packs', description: 'Block pack' };
+const PACK_PICKER: FilePicker = {
+  id: 'visual-editor-block-packs',
+  description: 'Block pack',
+  type: 'application/zip',
+  extension: '.zip',
+};
 
 function reportFailure(action: string, error: unknown): void {
   console.error(`${action} failed`, error);
   dispatch(noticeShown('error', `${action} failed: ${describeError(error)}`));
 }
 
-function blockCountLabel(count: number): string {
-  return count === 1 ? '1 block' : `${count} blocks`;
-}
-
-export function createPackCommands(): PackCommands {
+function createPackCommands(): PackCommands {
   let dialog: PackDialog = null;
   const listeners = new Set<() => void>();
 
@@ -51,26 +53,24 @@ export function createPackCommands(): PackCommands {
     for (const listener of listeners) listener();
   }
 
-  async function readPack(text: string, fileName: string): Promise<void> {
-    const { readBlockPack } = await import('./validatePack');
-    const reading = await readBlockPack(text, {
-      behaviorNames: Object.keys(behaviors),
-      takenClasses: takenClasses(store.getState().editor.blockPacks, ''),
-    });
-    const { hasCompiled } = await ensureCustomComponents(reading.blocks);
-    if (hasCompiled) dispatch(customComponentsLoaded());
-    setDialog({ kind: 'load', fileName, reading });
+  async function readPack(file: File): Promise<void> {
+    const { readBlockPack } = await import('../../components/validatePack');
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    const taken = takenClasses(store.getState().editor.blockPacks, '');
+    const reading = await readBlockPack(bytes, taken);
+    await dispatch(loadPackBlocks(reading.blocks));
+    setDialog({ kind: 'load', fileName: file.name, reading });
+  }
+
+  async function downloadPack(pack: BlockPack): Promise<void> {
+    const zip = await packZip(pack);
+    downloadBlob(zip, `${slugify(pack.name)}-${pack.version}.zip`);
   }
 
   async function pickAndRead(): Promise<void> {
-    const picked = await pickJsonFile(PACK_PICKER);
-    if (picked === null) return;
-    await readPack(picked.text, picked.name);
-  }
-
-  async function readDropped(file: File): Promise<void> {
-    const picked = await readFile(file);
-    await readPack(picked.text, picked.name);
+    const file = await pickFile(PACK_PICKER);
+    if (file === null) return;
+    await readPack(file);
   }
 
   async function addPack(pack: BlockPack): Promise<void> {
@@ -92,7 +92,7 @@ export function createPackCommands(): PackCommands {
       pickAndRead().catch((error: unknown) => reportFailure('Loading the block pack', error));
     },
     loadFile(file) {
-      readDropped(file).catch((error: unknown) => reportFailure('Loading the block pack', error));
+      readPack(file).catch((error: unknown) => reportFailure('Loading the block pack', error));
     },
     confirm(pack) {
       addPack(pack).catch((error: unknown) => reportFailure('Adding the block pack', error));
@@ -108,9 +108,9 @@ export function createPackCommands(): PackCommands {
       );
     },
     download(pack) {
-      const json = `${JSON.stringify(toPackFileJson(pack, pack.blocks), null, 2)}\n`;
-      const blob = new Blob([json], { type: 'application/json' });
-      downloadBlob(blob, `${slugify(pack.name)}-${pack.version}.json`);
+      downloadPack(pack).catch((error: unknown) =>
+        reportFailure('Downloading the block pack', error),
+      );
     },
   };
 }

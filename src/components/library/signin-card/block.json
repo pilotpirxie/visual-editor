@@ -1,0 +1,124 @@
+{
+  "name": "Sign in, centered card",
+  "category": "sign-in",
+  "description": "A centered card with email, password, remember me and links to reset or sign up.",
+  "tags": ["sign in", "login", "log in", "account", "password", "form", "card"],
+  "fieldGroups": ["Heading", "Form", "Links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Sign in to Fieldnote",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Welcome back. Your team’s interviews are right where you left them.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "passwordLabel",
+      "label": "Password field label",
+      "type": "text",
+      "default": "Password",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "rememberLabel",
+      "label": "Remember me label",
+      "type": "text",
+      "default": "Remember me",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Sign in",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "forgotLabel",
+      "label": "Forgot password label",
+      "type": "text",
+      "default": "Forgot your password?",
+      "group": "Links"
+    },
+    {
+      "name": "forgotLink",
+      "label": "Forgot password link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    },
+    {
+      "name": "signUpText",
+      "label": "Sign up text",
+      "type": "text",
+      "default": "New to Fieldnote?",
+      "group": "Links"
+    },
+    {
+      "name": "signUpLabel",
+      "label": "Sign up link label",
+      "type": "text",
+      "default": "Create an account",
+      "group": "Links"
+    },
+    {
+      "name": "signUpLink",
+      "label": "Sign up link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    }
+  ]
+}

@@ -18,7 +18,6 @@ import type { ComponentDefinition, Field } from './types';
 function definitionWith(fields: Field[], fieldGroups?: string[]): ComponentDefinition {
   return {
     id: 'fixture',
-    version: 1,
     name: 'Fixture',
     category: 'content',
     fields,

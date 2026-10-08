@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import type { Project } from '../app/types';
 import { validateField } from '../components/fields';
-import { forEachFieldValue } from '../components/fieldValues';
-import { registry } from '../components/registry';
+import { fitValues, forEachFieldValue } from '../components/fieldValues';
+import { builtInComponents } from '../components/registry';
 import { collectExportWarnings } from '../features/export/exportWarnings';
 import { ensureProjectIconSets } from '../features/icons/ensureIconSets';
 import { buildExportFiles, renderStandalonePage } from '../render/exportSite';
@@ -54,7 +54,7 @@ function categoriesOf(project: Project, blockIds: string[]): string[] {
   const categories: string[] = [];
   for (const id of blockIds) {
     const componentId = componentBlockOf(project, id).componentId;
-    categories.push(registry.get(componentId)?.definition.category ?? '');
+    categories.push(builtInComponents.get(componentId)?.definition.category ?? '');
   }
   return categories;
 }
@@ -77,11 +77,16 @@ describe.each(STARTERS)('the $name starter', (starter) => {
     const project = projectOf(starter);
     for (const blockId of project.blocks.ids) {
       const block = componentBlockOf(project, blockId);
-      const component = registry.get(block.componentId);
+      const component = builtInComponents.get(block.componentId);
       expect(component, block.componentId).toBeDefined();
       if (component === undefined) continue;
       forEachFieldValue(component.definition.fields, block.values, (field, value) => {
         expect(validateField(field, value), `${block.componentId}.${field.name}`).toBeNull();
+      });
+      expect(fitValues(component.definition.fields, block.values), block.id).toEqual({
+        values: block.values,
+        removed: [],
+        reset: [],
       });
     }
   });
@@ -90,7 +95,7 @@ describe.each(STARTERS)('the $name starter', (starter) => {
     const project = projectOf(starter);
     for (const blockId of project.blocks.ids) {
       const block = componentBlockOf(project, blockId);
-      const fields = registry.get(block.componentId)?.definition.fields ?? [];
+      const fields = builtInComponents.get(block.componentId)?.definition.fields ?? [];
       forEachFieldValue(fields, block.values, (_field, value) => {
         for (const pageId of linkedPageIds(value)) {
           expect(project.pages.entities[pageId], `${block.componentId} → ${pageId}`).toBeDefined();
@@ -101,10 +106,10 @@ describe.each(STARTERS)('the $name starter', (starter) => {
 
   it('exports with no warnings other than missing form action URLs and the social image', () => {
     const project = projectOf(starter);
-    for (const warning of collectExportWarnings(project, registry)) {
+    for (const warning of collectExportWarnings(project, builtInComponents)) {
       expect(warning.text).toMatch(/the form has no action URL|^No social image on /);
     }
-    const { files } = buildExportFiles(project, registry, runtime);
+    const { files } = buildExportFiles(project, builtInComponents, runtime);
     expect(Object.keys(files)).toContain('index.html');
     expect(Object.keys(files)).toContain('assets/css/site.css');
   });
@@ -126,7 +131,9 @@ describe.each(STARTERS)('the $name starter', (starter) => {
   it('renders every page as a standalone preview with no scripts', () => {
     const project = projectOf(starter);
     for (const pageId of project.pages.ids) {
-      const html = renderStandalonePage(project, pageId, registry, { shouldLinkFonts: true });
+      const html = renderStandalonePage(project, pageId, builtInComponents, {
+        shouldLinkFonts: true,
+      });
       expect(html).toContain('<main>');
       expect(html.match(/<h1[\s>]/g), `page ${pageId}`).toHaveLength(1);
       expect(html).not.toContain('<script');

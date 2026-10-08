@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { createSampleProject } from '../app/projectFactory';
 import { sectionThemeById } from '../app/sectionThemes';
 import type { ComponentBlock, HtmlBlock } from '../app/types';
-import { createBlock, registry } from '../components/registry';
+import { builtInComponents, createBlock } from '../components/registry';
 import type { RegisteredComponent } from '../components/types';
 import {
   convertBlockToHtml,
@@ -13,8 +13,8 @@ import {
 } from './renderBlock';
 
 function registered(componentId: string): RegisteredComponent {
-  const component = registry.get(componentId);
-  if (!component) throw new Error(`${componentId} is missing from the registry`);
+  const component = builtInComponents.get(componentId);
+  if (!component) throw new Error(`${componentId} is missing from the built-in blocks`);
   return component;
 }
 

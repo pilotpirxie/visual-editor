@@ -1,9 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from '../app/projectFactory';
 import type { Project } from '../app/types';
-import { parsePackFile } from '../components/packFormat';
 import { componentBlockOf, homePage } from '../test/fixtures';
-import { testPackJson } from '../test/packFixtures';
+import { quoteCardDefinition } from '../test/packFixtures';
 import { parseProjectDocument, ProjectFormatError } from './validateProject';
 
 function sample(): Project {
@@ -27,14 +26,11 @@ describe('parseProjectDocument', () => {
     expect(parsed).not.toBe(project);
   });
 
-  it('keeps the custom block definitions a project embeds', () => {
+  it('keeps the pack blocks a project embeds', () => {
     const project = sample();
-    const [definition] = parsePackFile(testPackJson(), ['menu']).blocks;
-    if (definition === undefined) throw new Error('fixture pack did not parse');
-    project.customDefinitions = { [definition.definition.id]: definition };
-    expect(parseProjectDocument(asJson(project)).customDefinitions).toEqual(
-      project.customDefinitions,
-    );
+    const packBlock = quoteCardDefinition();
+    project.packBlocks = { [packBlock.definition.id]: packBlock };
+    expect(parseProjectDocument(asJson(project)).packBlocks).toEqual(project.packBlocks);
   });
 
   it('keeps blocks whose component is unknown so they can show a missing card', () => {
@@ -56,7 +52,7 @@ describe('parseProjectDocument', () => {
 
   it('rejects other formats and versions', () => {
     expectInvalid('nope', 'project is missing');
-    expectInvalid({ ...sample(), schemaVersion: 2 }, 'unsupported format');
+    expectInvalid({ ...sample(), schemaVersion: 4 }, 'unsupported format');
   });
 
   it('names the part of the file that is wrong', () => {

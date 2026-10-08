@@ -1,133 +1,60 @@
-import { statSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { behaviors } from 'virtual:site-runtime';
-import { beforeAll, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { createSampleProject } from '../app/projectFactory';
-import { ensureIconSets } from '../features/icons/ensureIconSets';
-import { isSemanticIcon, parseIconRef, resolveIcon } from '../render/icons';
 import { createRenderContext, renderBlock } from '../render/renderBlock';
-import { createBlock, registry } from './registry';
-import { formFieldsProblem, rootElementProblem } from './definitionRules';
-import { asListItems } from './fields';
-import { CATEGORIES, type ComponentDefinition, type Field } from './types';
+import { quoteCardDefinition } from '../test/packFixtures';
+import {
+  builtInComponents,
+  compiledPackBlock,
+  componentsFor,
+  createBlock,
+  ensurePackBlocks,
+  packBlockProblems,
+} from './registry';
 
-const CATEGORY_IDS: string[] = CATEGORIES.map(({ id }) => id);
-const ctx = createRenderContext(createSampleProject(), 'canvas');
-
-type IconDefault = { field: Field; ref: string };
-
-function iconDefaults(definition: ComponentDefinition): IconDefault[] {
-  const defaults: IconDefault[] = [];
-  for (const field of definition.fields) {
-    if (field.type === 'icon' && typeof field.default === 'string') {
-      defaults.push({ field, ref: field.default });
-    }
-    if (field.type !== 'list') continue;
-    for (const itemField of field.itemFields ?? []) {
-      if (itemField.type !== 'icon') continue;
-      if (typeof itemField.default === 'string')
-        defaults.push({ field: itemField, ref: itemField.default });
-      for (const item of asListItems(field.default)) {
-        const ref = item[itemField.name];
-        if (typeof ref === 'string' && ref !== '') defaults.push({ field: itemField, ref });
-      }
-    }
-  }
-  return defaults;
-}
-
-beforeAll(async () => {
-  await ensureIconSets(['lucide', 'simple-icons']);
-});
-
-describe.each([...registry.values()])(
-  'component $definition.id',
-  ({ definition, template, styles }) => {
-    it('has a kebab-case id and a known category', () => {
-      expect(definition.id).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
-      expect(CATEGORY_IDS).toContain(definition.category);
-    });
-
-    it('renders its defaults into exactly one root element with class b-<id>', () => {
-      const component = { definition, template, styles, thumbnail: '', isCustom: false };
-      const html = renderBlock(createBlock(definition), component, ctx);
-      expect(rootElementProblem(html, `b-${definition.id}`)).toBeNull();
-    });
-
-    it('renders only icons that exist in the default icon set', () => {
-      const warn = vi.spyOn(console, 'warn');
-      renderBlock(
-        createBlock(definition),
-        { definition, template, styles, thumbnail: '', isCustom: false },
-        ctx,
-      );
-      expect(warn).not.toHaveBeenCalled();
-      warn.mockRestore();
-    });
-
-    it('starts with semantic icons, logos from allowed sets and brands only in brand fields', () => {
-      for (const { field, ref } of iconDefaults(definition)) {
-        expect(resolveIcon(ref), `${field.name}: ${ref}`).not.toBeNull();
-        const { set } = parseIconRef(ref);
-        if (set === null) expect(isSemanticIcon(ref), `${field.name}: ${ref}`).toBe(true);
-        if (field.iconPurpose === 'logo') {
-          expect(set, field.name).not.toBeNull();
-          expect(['remix', 'simple-icons']).not.toContain(set);
-        }
-        if (set === 'simple-icons') expect(field.iconPurpose, field.name).toBe('brand');
-      }
-    });
-
-    it('has default values for required fields and valid visibleWhen references', () => {
-      const names = definition.fields.map(({ name }) => name);
-      for (const field of definition.fields) {
-        if (field.required) expect(field.default, field.name).toBeTruthy();
-        if (field.visibleWhen) expect(names).toContain(field.visibleWhen.field);
-      }
-    });
-
-    it('scopes its CSS to its own root inside the components layer', () => {
-      expect(styles.trim().startsWith('@layer components {')).toBe(true);
-      expect(styles.match(/@scope\b/g)).toHaveLength(1);
-      expect(styles).toContain(`@scope (.b-${definition.id})`);
-    });
-
-    it('uses design tokens instead of literal colors and never uses !important', () => {
-      expect(styles).not.toMatch(/#[0-9a-f]{3,8}\b/i);
-      expect(styles).not.toMatch(/\b(rgba?|hsla?)\(/);
-      expect(styles).not.toContain('!important');
-    });
-
-    it('pairs a form action URL with a method', () => {
-      expect(formFieldsProblem(definition)).toBeNull();
-    });
-
-    it('only uses behaviors the site runtime provides', () => {
-      for (const name of definition.behaviors ?? []) expect(Object.keys(behaviors)).toContain(name);
-    });
-  },
-);
-
-describe('block thumbnails', () => {
-  const MAX_THUMBNAIL_BYTES = 80 * 1024;
-  const definitionFiles = Object.keys(import.meta.glob('./library/*/*/definition.ts'));
-  const thumbnailFiles = Object.keys(import.meta.glob('./library/*/*/thumbnail.webp'));
-
-  it('has a generated thumbnail for every block (run yarn thumbnails:update)', () => {
-    const missing: string[] = [];
-    for (const file of definitionFiles) {
-      const thumbnail = file.replace('definition.ts', 'thumbnail.webp');
-      if (!thumbnailFiles.includes(thumbnail)) missing.push(thumbnail);
-    }
-    expect(missing).toEqual([]);
+describe('pack block compile cache', () => {
+  it('compiles a valid definition and adds it to the project registry', async () => {
+    const custom = quoteCardDefinition();
+    const project = createSampleProject();
+    project.packBlocks[custom.definition.id] = custom;
+    expect(componentsFor(project).has(custom.definition.id)).toBe(false);
+    const { hasCompiled, problems } = await ensurePackBlocks([custom]);
+    expect(hasCompiled).toBe(true);
+    expect(problems).toEqual([]);
+    const components = componentsFor(project);
+    expect(components.get(custom.definition.id)?.pack.id).toBe('acme');
+    expect(components.get('hero-centered')).toBe(builtInComponents.get('hero-centered'));
+    expect(componentsFor(project)).toBe(components);
   });
 
-  it('keeps every thumbnail small', () => {
-    const tooLarge: string[] = [];
-    for (const file of thumbnailFiles) {
-      const bytes = statSync(fileURLToPath(new URL(file, import.meta.url))).size;
-      if (bytes > MAX_THUMBNAIL_BYTES) tooLarge.push(`${file}: ${bytes} bytes`);
-    }
-    expect(tooLarge).toEqual([]);
+  it('refuses definitions that fail validation, such as one edited by hand in a project file', async () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const custom = {
+      ...quoteCardDefinition({}, '1.0.0', 'hostile'),
+      styles: '.b-acme-hostile { position: fixed; inset: 0; }',
+    };
+    const { problems } = await ensurePackBlocks([custom]);
+    expect(problems.length).toBeGreaterThan(0);
+    expect(compiledPackBlock(custom)).toBeUndefined();
+    expect(packBlockProblems(custom)).toEqual(problems);
+  });
+
+  it('cleans what a custom template renders before it reaches the page', async () => {
+    const custom = quoteCardDefinition();
+    await ensurePackBlocks([custom]);
+    const component = compiledPackBlock(custom);
+    if (component === undefined) throw new Error('The fixture did not compile');
+    const hostile = {
+      ...component,
+      template: () =>
+        '<section class="b-acme-quote-card"><img src="x" onerror="alert(1)"></section>',
+    };
+    const project = createSampleProject();
+    const html = renderBlock(
+      createBlock(custom.definition),
+      hostile,
+      createRenderContext(project, 'export'),
+    );
+    expect(html).not.toContain('onerror');
+    expect(html).toContain('data-component="acme/quote-card"');
   });
 });

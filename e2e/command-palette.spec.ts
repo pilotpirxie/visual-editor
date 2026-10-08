@@ -22,7 +22,7 @@ test('the command palette inserts blocks, opens pages, switches devices and expo
   await page.keyboard.press('ControlOrMeta+K');
   await palette.getByRole('combobox').fill('show phone');
   await page.keyboard.press('Enter');
-  await expect(page.getByLabel('Device')).toHaveValue('phone');
+  await expect(page.getByRole('radio', { name: 'Phone (375 px)' })).toBeChecked();
 
   const exportButton = page.getByRole('button', { name: 'Export', exact: true });
   await exportButton.focus();

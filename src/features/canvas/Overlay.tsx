@@ -6,10 +6,9 @@ import type { Device } from '../../app/types';
 import { blockLabel } from '../../components/registry';
 import { duplicateBlock, moveBlockBy, removeBlock } from '../editor/blockActions';
 import { useBlockMenuItems } from '../editor/blockMenu';
-import { dragController } from './dragController';
 import { PAGE_ROOT_ID } from './frameDom';
 import { blockToolbarTop, clamp } from './geometry';
-import { focusNeighbour, Icon, IconButton, MenuButton } from '../../../packages/ui/src';
+import { focusNeighbour, IconButton, MenuButton } from '../../../packages/ui/src';
 
 type Rect = { top: number; left: number; width: number; height: number };
 
@@ -110,9 +109,9 @@ function useBlockName(blockId: string | null): string | null {
   const block = useStore((state) =>
     blockId === null ? undefined : state.project.blocks.entities[blockId],
   );
-  const customDefinitions = useStore((state) => state.project.customDefinitions);
+  const packBlocks = useStore((state) => state.project.packBlocks);
   if (block === undefined) return null;
-  return blockLabel(block, { customDefinitions });
+  return blockLabel(block, { packBlocks });
 }
 
 function HiddenShade({
@@ -157,7 +156,6 @@ type BlockToolbarProps = { blockId: string; rect: Rect; name: string; overlayHei
 
 function BlockToolbar({ blockId, rect, name, overlayHeight }: BlockToolbarProps): JSX.Element {
   const blockIds = useStore((state) => findBlockList(state.project, blockId));
-  const isShared = useIsShared(blockId);
   const moreItems = useBlockMenuItems(blockId);
   const index = blockIds === null ? -1 : blockIds.indexOf(blockId);
   const count = blockIds === null ? 0 : blockIds.length;
@@ -175,20 +173,6 @@ function BlockToolbar({ blockId, rect, name, overlayHeight }: BlockToolbarProps)
       style={style}
       onKeyDown={(event) => focusNeighbour(event, 'button:enabled', 'horizontal')}
     >
-      {!isShared && (
-        <span
-          className="ui-icon-button ve-block-handle"
-          aria-hidden="true"
-          title="Drag to move"
-          onPointerDown={(event) => {
-            event.preventDefault();
-            event.currentTarget.setPointerCapture(event.pointerId);
-            dragController.start({ kind: 'move', blockId, label: name }, event);
-          }}
-        >
-          <Icon name="grip" />
-        </span>
-      )}
       <IconButton
         label="Move up"
         icon="arrow-up"

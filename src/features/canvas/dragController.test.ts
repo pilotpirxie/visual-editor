@@ -5,6 +5,7 @@ import {
   type DragPayload,
   type DropTarget,
 } from './dragController';
+import type { Point } from './geometry';
 
 const NEW_BLOCK: DragPayload = { kind: 'new', componentId: 'cta-centered', label: 'CTA' };
 const PRIMARY_BUTTON = 0;
@@ -14,14 +15,19 @@ type TargetCapture = {
   target: DropTarget;
   drops: { payload: DragPayload; index: number }[];
   indicators: (number | null)[];
+  resolvedPoints: Point[];
 };
 
 function createTarget(index: number | null, isAccepting = true): TargetCapture {
   const drops: TargetCapture['drops'] = [];
   const indicators: TargetCapture['indicators'] = [];
+  const resolvedPoints: Point[] = [];
   const target: DropTarget = {
     accepts: () => isAccepting,
-    resolve: () => index,
+    resolve: (point) => {
+      resolvedPoints.push(point);
+      return index;
+    },
     showIndicator: (shown) => {
       indicators.push(shown);
     },
@@ -29,7 +35,7 @@ function createTarget(index: number | null, isAccepting = true): TargetCapture {
       drops.push({ payload, index: dropIndex });
     },
   };
-  return { target, drops, indicators };
+  return { target, drops, indicators, resolvedPoints };
 }
 
 function pointer(type: string, x: number, y: number, buttons = 1): void {
@@ -46,11 +52,46 @@ function startAt(controller: DragController, x: number, y: number, button = PRIM
   });
 }
 
+const FRAME_SCALE = 0.5;
+const FRAME_OFFSET = { x: 300, y: 100 };
+
+function frameToPage(point: Point): Point {
+  return { x: FRAME_OFFSET.x + point.x * FRAME_SCALE, y: FRAME_OFFSET.y + point.y * FRAME_SCALE };
+}
+
+function createFrameView(): Window {
+  const iframe = document.createElement('iframe');
+  document.body.append(iframe);
+  const view = iframe.contentWindow;
+  if (view === null) throw new Error('Test iframe has no window');
+  return view;
+}
+
+function framePointer(view: Window, type: string, x: number, y: number, buttons = 1): void {
+  const event = new PointerEvent(type, { clientX: x, clientY: y, buttons, bubbles: true });
+  view.dispatchEvent(event);
+}
+
+function startInFrame(view: Window, x: number, y: number): void {
+  controller.start(
+    NEW_BLOCK,
+    {
+      clientX: x,
+      clientY: y,
+      button: PRIMARY_BUTTON,
+      pointerId: 1,
+      currentTarget: view.document.body,
+    },
+    { view, toPage: frameToPage },
+  );
+}
+
 let controller = createDragController();
 
 afterEach(() => {
   controller.cancel();
   controller = createDragController();
+  for (const iframe of document.querySelectorAll('iframe')) iframe.remove();
 });
 
 describe('start', () => {
@@ -179,6 +220,64 @@ describe('cancel', () => {
 
   it('can be called when nothing is being dragged', () => {
     expect(() => controller.cancel()).not.toThrow();
+  });
+});
+
+describe('frame source', () => {
+  it('maps pointer moves inside the frame to page coordinates', () => {
+    const view = createFrameView();
+    startInFrame(view, 10, 10);
+    framePointer(view, 'pointermove', 12, 12);
+    expect(controller.isActive()).toBe(false);
+    framePointer(view, 'pointermove', 40, 10);
+    expect(controller.getSnapshot()).toEqual({ payload: NEW_BLOCK, point: { x: 320, y: 105 } });
+    expect(document.documentElement.classList.contains('is-dragging')).toBe(true);
+    expect(view.document.documentElement.classList.contains('is-dragging')).toBe(true);
+  });
+
+  it('drops at the mapped point and clears the dragging state in both documents', () => {
+    const view = createFrameView();
+    const { target, drops, resolvedPoints } = createTarget(2);
+    controller.registerTarget(target);
+    startInFrame(view, 10, 10);
+    framePointer(view, 'pointermove', 40, 60);
+    framePointer(view, 'pointerup', 40, 60, 0);
+    expect(resolvedPoints.at(-1)).toEqual({ x: 320, y: 130 });
+    expect(drops).toEqual([{ payload: NEW_BLOCK, index: 2 }]);
+    expect(document.documentElement.classList.contains('is-dragging')).toBe(false);
+    expect(view.document.documentElement.classList.contains('is-dragging')).toBe(false);
+  });
+
+  it('keeps following the pointer after it leaves the frame for the page', () => {
+    const view = createFrameView();
+    startInFrame(view, 10, 10);
+    framePointer(view, 'pointermove', 40, 10);
+    pointer('pointermove', 50, 60);
+    expect(controller.getSnapshot()?.point).toEqual({ x: 50, y: 60 });
+  });
+
+  it('swallows the click that follows a drag inside the frame', () => {
+    const view = createFrameView();
+    controller.registerTarget(createTarget(1).target);
+    startInFrame(view, 10, 10);
+    framePointer(view, 'pointermove', 40, 10);
+    framePointer(view, 'pointerup', 40, 10, 0);
+    const click = new MouseEvent('click', { bubbles: true, cancelable: true });
+    view.document.body.dispatchEvent(click);
+    expect(click.defaultPrevented).toBe(true);
+  });
+
+  it('cancels the drag on Escape pressed inside the frame', () => {
+    const view = createFrameView();
+    const { target, drops } = createTarget(2);
+    controller.registerTarget(target);
+    startInFrame(view, 10, 10);
+    framePointer(view, 'pointermove', 40, 10);
+    view.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', cancelable: true }));
+    framePointer(view, 'pointerup', 40, 10, 0);
+    expect(drops).toHaveLength(0);
+    expect(controller.isActive()).toBe(false);
+    expect(view.document.documentElement.classList.contains('is-dragging')).toBe(false);
   });
 });
 

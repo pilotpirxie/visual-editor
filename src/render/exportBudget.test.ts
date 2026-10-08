@@ -3,7 +3,7 @@ import { behaviors, core } from 'virtual:site-runtime';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { createBlankProject, createPage } from '../app/projectFactory';
 import type { Block, Project } from '../app/types';
-import { createBlock, registry } from '../components/registry';
+import { builtInComponents, createBlock } from '../components/registry';
 import { ensureIconSets, iconSetsUsedBy } from '../features/icons/ensureIconSets';
 import { buildSiteJs } from './assembleSite';
 import { buildExportFiles } from './exportSite';
@@ -20,7 +20,7 @@ function tenPageSiteWithEveryBlock(): Project {
     pages.push(createPage(`page-${index}`, `Page ${index}`, `page-${index}`));
   }
   const blocks: Record<string, Block> = {};
-  const components = [...registry.values()];
+  const components = [...builtInComponents.values()];
   for (const [index, component] of components.entries()) {
     const block = createBlock(component.definition);
     blocks[block.id] = block;
@@ -55,7 +55,7 @@ describe('export size budgets', () => {
   });
 
   it('keeps site.css under 30 KB gzipped for a 10-page site that uses every block', () => {
-    const { files } = buildExportFiles(project, registry, { core, behaviors });
+    const { files } = buildExportFiles(project, builtInComponents, { core, behaviors });
     const css = files['assets/css/site.css'];
     if (typeof css !== 'string') throw new Error('site.css was not written as text');
     const size = gzippedSize(css);

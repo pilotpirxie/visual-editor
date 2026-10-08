@@ -1,0 +1,128 @@
+{
+  "name": "Logo cloud, row",
+  "category": "logo-clouds",
+  "description": "A short line of text above a row of customer logos.",
+  "tags": ["logos", "customers", "trusted by", "brands", "social proof"],
+  "fieldGroups": ["Heading", "Logos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Text above the logos",
+      "type": "text",
+      "default": "Trusted by product teams at",
+      "group": "Heading"
+    },
+    {
+      "name": "logos",
+      "label": "Logos",
+      "type": "list",
+      "group": "Logos",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "company",
+      "itemFields": [
+        {
+          "name": "company",
+          "label": "Company",
+          "type": "text",
+          "default": "Company"
+        },
+        {
+          "name": "image",
+          "label": "Logo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Company logo",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "company": "Lumen Health",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Lumen Health",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Northwind",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Northwind",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Brightpath",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Brightpath",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Ledgerly",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ledgerly",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Orbit Labs",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Orbit Labs",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

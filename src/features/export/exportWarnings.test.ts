@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from '../../app/projectFactory';
 import type { Project } from '../../app/types';
-import { registry } from '../../components/registry';
+import { builtInComponents } from '../../components/registry';
 import { placeholderImage } from '../../render/placeholder';
 import { componentBlockOf, homePage, withSearchDetails } from '../../test/fixtures';
 import { createPage } from '../../app/projectFactory';
@@ -13,7 +13,7 @@ function sampleProject(): Project {
 
 function warningTexts(project: Project): string[] {
   const texts: string[] = [];
-  for (const warning of collectExportWarnings(project, registry)) texts.push(warning.text);
+  for (const warning of collectExportWarnings(project, builtInComponents)) texts.push(warning.text);
   return texts;
 }
 

@@ -1,24 +1,31 @@
 import { useRef, useState, type JSX, type SyntheticEvent } from 'react';
-import { DEVICE_VIEWPORTS, noticeShown, type DeviceMode } from '../../app/editorSlice';
+import { DEVICE_VIEWPORTS, noticeShown } from '../../app/editorSlice';
 import { dispatch } from '../../app/store';
 import type { Device, Project } from '../../app/types';
-import { registry } from '../../components/registry';
+import { builtInComponents } from '../../components/registry';
 import { applyPreset, BUILTIN_PRESETS, PRESET_GROUPS } from '../../presets/presets';
 import { renderStandalonePage } from '../../render/exportSite';
 import { googleFontsHref } from '../../render/fonts';
 import { pageSlugsOf } from '../../render/renderBlock';
-import { useElementSize } from '../canvas/Canvas';
 import { isElementTarget } from '../canvas/frameDom';
 import { fitDevice } from '../canvas/geometry';
 import { canvasLinkTarget } from '../canvas/links';
 import { ensureIconSets } from '../icons/ensureIconSets';
 import type { StarterInfo } from '../../starters/starters';
-import { Button, closeDialogOf, Dialog, Field, Select, Title } from '../../../packages/ui/src';
-import { DeviceSelect } from '../editor/DeviceSelect';
+import {
+  Button,
+  closeDialogOf,
+  Dialog,
+  Field,
+  Select,
+  Title,
+  useElementSize,
+} from '../../../packages/ui/src';
+import { DeviceToggle } from '../editor/DeviceToggle';
 
 const TITLE_ID = 've-starter-preview-title';
 
-const STARTER_DEVICES: DeviceMode[] = ['desktop', 'tablet', 'phone'];
+const STARTER_DEVICES: Device[] = ['desktop', 'tablet', 'phone'];
 
 type StarterPreviewProps = {
   starter: StarterInfo;
@@ -50,7 +57,7 @@ export function StarterPreview({
   const available = useElementSize(viewportRef);
   const shown = withPreset(project, presetId);
   const fit = fitDevice(DEVICE_VIEWPORTS[device], available);
-  const html = renderStandalonePage(shown, pageId, registry, { shouldLinkFonts: false });
+  const html = renderStandalonePage(shown, pageId, builtInComponents, { shouldLinkFonts: false });
   const pageSlugs = pageSlugsOf(project.pages);
 
   async function choosePreset(nextPresetId: string): Promise<void> {
@@ -119,14 +126,11 @@ export function StarterPreview({
               onChange={(event) => setPageId(event.target.value)}
             />
           </Field>
-          <DeviceSelect
-            id="ve-starter-device"
-            className="ve-starter-device-select"
+          <DeviceToggle
+            name="ve-starter-device"
             value={device}
             modes={STARTER_DEVICES}
-            onChange={(mode) => {
-              if (mode !== 'responsive') setDevice(mode);
-            }}
+            onChange={(mode) => setDevice(mode)}
           />
           <Field id="ve-starter-design" label="Design" layout="inline" className="ve-starter-field">
             <Select

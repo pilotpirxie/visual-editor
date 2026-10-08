@@ -1,0 +1,203 @@
+{
+  "name": "Sign up, with benefits",
+  "category": "sign-up",
+  "description": "A heading and list of benefits beside a sign-up form in a card.",
+  "tags": ["sign up", "register", "create account", "trial", "benefits", "form", "split"],
+  "fieldGroups": ["Heading", "Benefits", "Form", "Terms", "Links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Start free",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Run your next round of interviews in Fieldnote",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Setup takes five minutes. Bring your team, your calls and your questions.",
+      "group": "Heading"
+    },
+    {
+      "name": "checkIcon",
+      "label": "Check icon",
+      "type": "icon",
+      "default": "check",
+      "group": "Benefits"
+    },
+    {
+      "name": "benefits",
+      "label": "Benefits",
+      "type": "list",
+      "group": "Benefits",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Benefit"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "One sentence about it."
+        }
+      ],
+      "default": [
+        {
+          "title": "Unlimited interview recordings",
+          "text": "Record calls in Zoom, Meet or Teams, or upload the files you already have."
+        },
+        {
+          "title": "Transcripts in 30 languages",
+          "text": "Speaker labels and timestamps, ready minutes after the call ends."
+        },
+        {
+          "title": "Themes that find themselves",
+          "text": "Highlights are tagged as you listen and grouped across every interview."
+        },
+        {
+          "title": "Free for 14 days",
+          "text": "Every Team plan feature. No credit card until you decide to stay."
+        }
+      ]
+    },
+    {
+      "name": "formTitle",
+      "label": "Form title",
+      "type": "text",
+      "default": "Create your account",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Full name",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "passwordLabel",
+      "label": "Password field label",
+      "type": "text",
+      "default": "Password",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "passwordHint",
+      "label": "Password hint",
+      "type": "text",
+      "default": "Use at least 12 characters.",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Start free trial",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "termsText",
+      "label": "Terms checkbox text",
+      "type": "text",
+      "default": "I agree to the",
+      "required": true,
+      "group": "Terms"
+    },
+    {
+      "name": "termsLabel",
+      "label": "Terms link label",
+      "type": "text",
+      "default": "terms of service",
+      "required": true,
+      "group": "Terms"
+    },
+    {
+      "name": "termsLink",
+      "label": "Terms link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": true
+      },
+      "group": "Terms"
+    },
+    {
+      "name": "signInText",
+      "label": "Sign in text",
+      "type": "text",
+      "default": "Already have an account?",
+      "group": "Links"
+    },
+    {
+      "name": "signInLabel",
+      "label": "Sign in link label",
+      "type": "text",
+      "default": "Sign in",
+      "group": "Links"
+    },
+    {
+      "name": "signInLink",
+      "label": "Sign in link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['old/**', 'build/**', 'test-results/**', 'playwright-report/**', 'blob-report/**'] },
+  { ignores: ['build/**', 'test-results/**', 'playwright-report/**', 'blob-report/**'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

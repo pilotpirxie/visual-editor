@@ -12,10 +12,8 @@ const WEBP_QUALITY = 0.8;
 
 async function componentFolders(): Promise<Map<string, string>> {
   const folders = new Map<string, string>();
-  for (const category of await readdir(LIBRARY)) {
-    for (const id of await readdir(join(LIBRARY, category))) {
-      folders.set(id, join(LIBRARY, category, id));
-    }
+  for (const entry of await readdir(LIBRARY, { withFileTypes: true })) {
+    if (entry.isDirectory()) folders.set(entry.name, join(LIBRARY, entry.name));
   }
   return folders;
 }

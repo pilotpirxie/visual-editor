@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createPage } from '../../app/projectFactory';
-import { registry } from '../../components/registry';
+import { builtInComponents } from '../../components/registry';
 import type { SavedBlockRecord } from '../../persistence/db';
 import { createTestStore } from '../../test/fixtures';
 import {
@@ -10,11 +10,7 @@ import {
   runPaletteAction,
 } from './commands';
 
-const entries = [...registry.values()].map(({ definition, thumbnail }) => ({
-  definition,
-  thumbnail,
-  pack: null,
-}));
+const entries = [...builtInComponents.values()];
 
 const savedBlock: SavedBlockRecord = {
   id: 'saved-1',

@@ -1,11 +1,12 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 1,
   "id": "starter-restaurant",
   "settings": {
     "title": "Hazel",
     "description": "Hazel is a seasonal Italian restaurant on North Clark Street in Andersonville, Chicago, with handmade pasta, a wood-fired hearth and a private dining room.",
     "language": "en",
-    "titleTemplate": "{{page.title}} | {{site.title}}"
+    "titleTemplate": "{{page.title}} | {{site.title}}",
+    "indexable": true
   },
   "designSystem": {
     "presetId": "warm",
@@ -431,7 +432,8 @@
         ],
         "seo": {
           "description": "Hazel is a seasonal Italian restaurant in Andersonville, Chicago: handmade pasta, a wood-fired hearth and dinner Tuesday to Sunday.",
-          "title": "Seasonal Italian restaurant in Andersonville"
+          "title": "Seasonal Italian restaurant in Andersonville",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -443,7 +445,8 @@
         "blockIds": ["menu-hero", "menu-dinner", "menu-tasting", "menu-allergies", "menu-cta"],
         "seo": {
           "description": "The autumn menu at Hazel: handmade pasta, dishes from the wood-fired hearth, desserts and Italian wine, with prices and dietary tags.",
-          "title": "Autumn menu"
+          "title": "Autumn menu",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -462,7 +465,8 @@
         ],
         "seo": {
           "description": "How chef Marta Kowalczyk and Daniel Okafor turned an old Swedish bakery on Clark Street into Hazel, and the people who cook there today.",
-          "title": "Our story"
+          "title": "Our story",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -480,7 +484,8 @@
         ],
         "seo": {
           "description": "Book a table or the private Proofing Room at Hazel, 5226 North Clark Street, Chicago. Opening hours, directions and booking questions.",
-          "title": "Book a table"
+          "title": "Book a table",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -521,7 +526,6 @@
         "id": "header-banner",
         "kind": "component",
         "componentId": "banner-announcement",
-        "componentVersion": 1,
         "values": {
           "showIcon": true,
           "icon": "calendar",
@@ -543,7 +547,6 @@
         "id": "header-nav",
         "kind": "component",
         "componentId": "nav-cta",
-        "componentVersion": 1,
         "values": {
           "logoIcon": "phosphor:leaf",
           "links": [
@@ -611,7 +614,6 @@
         "id": "footer-footer",
         "kind": "component",
         "componentId": "footer-newsletter",
-        "componentVersion": 1,
         "values": {
           "logoIcon": "phosphor:leaf",
           "description": "Seasonal Italian cooking in Andersonville since 2019.\n5226 North Clark Street, Chicago, IL 60640",
@@ -733,7 +735,6 @@
         "id": "home-hero",
         "kind": "component",
         "componentId": "hero-background",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Andersonville, Chicago, since 2019",
           "title": "Seasonal Italian cooking on North Clark Street",
@@ -781,7 +782,6 @@
         "id": "home-kitchen",
         "kind": "component",
         "componentId": "content-text-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "The kitchen",
           "title": "Pasta rolled every afternoon, vegetables we know by name",
@@ -809,7 +809,6 @@
         "id": "home-gallery",
         "kind": "component",
         "componentId": "gallery-grid",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Autumn 2026",
           "title": "A few plates from the new menu",
@@ -920,7 +919,6 @@
         "id": "home-ways",
         "kind": "component",
         "componentId": "features-icon-list",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Ways to eat with us",
           "title": "Dinner six nights a week, and lunch on Sundays",
@@ -978,7 +976,6 @@
         "id": "home-reviews",
         "kind": "component",
         "componentId": "testimonials-carousel",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Guests and critics",
           "title": "What people say on the way home",
@@ -1064,7 +1061,6 @@
         "id": "home-cta",
         "kind": "component",
         "componentId": "cta-centered",
-        "componentVersion": 1,
         "values": {
           "title": "Tables open 30 days ahead",
           "text": "Send a request for up to ten guests, call us for anything bigger, or walk in for a seat at the bar. Dinner starts at 5 pm, Tuesday to Sunday.",
@@ -1096,7 +1092,6 @@
         "id": "menu-hero",
         "kind": "component",
         "componentId": "hero-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Served until November 22",
           "title": "The autumn menu, cooked for sharing",
@@ -1145,7 +1140,6 @@
         "id": "menu-dinner",
         "kind": "component",
         "componentId": "pricing-list",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Dinner, Tuesday to Sunday",
           "title": "Autumn 2026",
@@ -1344,7 +1338,6 @@
         "id": "menu-tasting",
         "kind": "component",
         "componentId": "pricing-single",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Fridays and Saturdays",
           "title": "Let the kitchen cook for your table",
@@ -1374,7 +1367,6 @@
         "id": "menu-allergies",
         "kind": "component",
         "componentId": "content-list-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Allergies and dietary needs",
           "title": "Tell us before you order, and the kitchen will adapt",
@@ -1428,7 +1420,6 @@
         "id": "menu-cta",
         "kind": "component",
         "componentId": "cta-banner",
-        "componentVersion": 1,
         "values": {
           "title": "Tables for this weekend go quickly",
           "text": "Book up to 30 days ahead, or walk in for a seat at the bar.",
@@ -1452,7 +1443,6 @@
         "id": "about-hero",
         "kind": "component",
         "componentId": "hero-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Our story",
           "title": "A neighborhood osteria in an old Swedish bakery",
@@ -1501,7 +1491,6 @@
         "id": "about-story",
         "kind": "component",
         "componentId": "content-two-columns",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "How it started",
           "title": "Named after the best cook either of us knew",
@@ -1517,7 +1506,6 @@
         "id": "about-quote",
         "kind": "component",
         "componentId": "content-quote",
-        "componentVersion": 1,
         "values": {
           "showIcon": true,
           "quoteIcon": "quote",
@@ -1549,7 +1537,6 @@
         "id": "about-team",
         "kind": "component",
         "componentId": "team-grid",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "The team",
           "title": "The people behind the pass and the bar",
@@ -1631,7 +1618,6 @@
         "id": "about-farms",
         "kind": "component",
         "componentId": "features-grid-3",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Who we buy from",
           "title": "Thirty-one farms, most within 200 miles",
@@ -1682,7 +1668,6 @@
         "id": "about-cta",
         "kind": "component",
         "componentId": "cta-two-buttons",
-        "componentVersion": 1,
         "values": {
           "title": "Come and eat with us",
           "text": "Dinner Tuesday to Sunday from 5 pm, and lunch on Sundays from 11:30 am. Book a table, or see what is cooking this season.",
@@ -1723,7 +1708,6 @@
         "id": "booking-hero",
         "kind": "component",
         "componentId": "hero-centered",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Reservations",
           "title": "Book a table at Hazel",
@@ -1758,7 +1742,6 @@
         "id": "booking-request",
         "kind": "component",
         "componentId": "contact-map",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Request a table",
           "title": "Tell us when you would like to come",
@@ -1798,7 +1781,6 @@
         "id": "booking-private",
         "kind": "component",
         "componentId": "content-text-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Private dining",
           "title": "The Proofing Room seats up to 14",
@@ -1827,7 +1809,6 @@
         "id": "booking-quote",
         "kind": "component",
         "componentId": "testimonial-quote",
-        "componentVersion": 1,
         "values": {
           "quote": "We booked the Proofing Room for my father’s eightieth. Fourteen of us, three generations, and the kitchen sent out an apple crostata with candles we never asked for.",
           "name": "Sofia Marchetti",
@@ -1862,7 +1843,6 @@
         "id": "booking-faq",
         "kind": "component",
         "componentId": "faq-accordion",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Before you book",
           "title": "Questions about booking",
@@ -1906,5 +1886,6 @@
     "header": ["header-banner", "header-nav"],
     "footer": ["footer-footer"]
   },
+  "packBlocks": {},
   "assets": {}
 }

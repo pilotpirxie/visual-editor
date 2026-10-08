@@ -1,0 +1,151 @@
+{
+  "name": "Logo cloud, grid with heading",
+  "category": "logo-clouds",
+  "description": "A heading and short text beside a grid of logos in tiles.",
+  "tags": ["logos", "customers", "partners", "integrations", "grid"],
+  "fieldGroups": ["Heading", "Logos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Works with the tools your team already uses",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Bring recordings in from your video calls and send insights out to where decisions are made.",
+      "group": "Heading"
+    },
+    {
+      "name": "logos",
+      "label": "Logos",
+      "type": "list",
+      "group": "Logos",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "company",
+      "itemFields": [
+        {
+          "name": "company",
+          "label": "Company",
+          "type": "text",
+          "default": "Company"
+        },
+        {
+          "name": "image",
+          "label": "Logo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Company logo",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "logo"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "company": "Video calls",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Video call app",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Calendar",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Calendar app",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Team chat",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Team chat app",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Issue tracker",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Issue tracker",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Docs",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Docs app",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Design tool",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Design tool",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "logo"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

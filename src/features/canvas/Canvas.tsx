@@ -1,7 +1,6 @@
 import {
   useEffect,
   useEffectEvent,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -20,7 +19,7 @@ import {
   type RootState,
 } from '../../app/store';
 import type { Block } from '../../app/types';
-import { blockCategory } from '../../components/registry';
+import { blockCategory, blockLabel } from '../../components/registry';
 import { dropBlock, isNoopDrop } from '../editor/blockActions';
 import { openPage } from '../pages/pageActions';
 import { BlockContextMenu } from '../editor/BlockContextMenu';
@@ -38,7 +37,7 @@ import {
   isFullyInView,
   isOutOfView,
   isPointInBox,
-  type Size,
+  type Point,
 } from './geometry';
 import {
   blockIdFromEvent,
@@ -52,26 +51,9 @@ import { canvasLinkTarget } from './links';
 import { Overlay } from './Overlay';
 import { ResponsiveHandles } from './ResponsiveHandles';
 import './canvas.css';
-import { closeOpenPopovers, type MenuPoint } from '../../../packages/ui/src';
+import { closeOpenPopovers, useElementSize, type MenuPoint } from '../../../packages/ui/src';
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
-
-export function useElementSize(ref: RefObject<HTMLElement | null>): Size {
-  const [size, setSize] = useState<Size>({ width: 0, height: 0 });
-  useLayoutEffect(() => {
-    const element = ref.current;
-    if (element === null) return;
-    const observer = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const { width, height } = entry.contentRect;
-        if (width > 0 && height > 0) setSize({ width, height });
-      }
-    });
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, [ref]);
-  return size;
-}
 
 function scrollBehavior(view: Window): ScrollBehavior {
   return view.matchMedia(REDUCED_MOTION_QUERY).matches ? 'auto' : 'smooth';
@@ -170,6 +152,51 @@ function useCanvasPointer(doc: Document | null, isPreview: boolean): string | nu
   return isPreview ? null : hoveredId;
 }
 
+function frameToPage(iframe: HTMLIFrameElement, scale: number, point: Point): Point {
+  const box = iframe.getBoundingClientRect();
+  return { x: box.left + point.x * scale, y: box.top + point.y * scale };
+}
+
+function useCanvasBlockDrag(
+  frame: CanvasFrameHandle | null,
+  isEditing: boolean,
+  scale: number,
+): void {
+  useEffect(() => {
+    if (frame === null || !isEditing) return;
+    const { iframe, doc } = frame;
+    const view = doc.defaultView;
+    if (view === null) return;
+    const source = { view, toPage: (point: Point) => frameToPage(iframe, scale, point) };
+    function onPointerDown(event: PointerEvent): void {
+      const blockId = blockIdFromEvent(event);
+      if (event.pointerType === 'touch' || blockId === null) return;
+      const state = store.getState();
+      const block = state.project.blocks.entities[blockId];
+      const isPageBlock = selectCurrentPage(state).blockIds.includes(blockId);
+      if (block === undefined || !isPageBlock) return;
+      const label = blockLabel(block, { packBlocks: state.project.packBlocks });
+      const down = {
+        clientX: event.clientX,
+        clientY: event.clientY,
+        button: event.button,
+        pointerId: event.pointerId,
+        currentTarget: event.target,
+      };
+      dragController.start({ kind: 'move', blockId, label }, down, source);
+    }
+    function onDragStart(event: DragEvent): void {
+      event.preventDefault();
+    }
+    doc.addEventListener('pointerdown', onPointerDown);
+    doc.addEventListener('dragstart', onDragStart);
+    return () => {
+      doc.removeEventListener('pointerdown', onPointerDown);
+      doc.removeEventListener('dragstart', onDragStart);
+    };
+  }, [frame, isEditing, scale]);
+}
+
 type CanvasMenu = { blockId: string; point: MenuPoint };
 
 function useCanvasContextMenu(
@@ -187,8 +214,7 @@ function useCanvasContextMenu(
       if (blockId === null) return;
       event.preventDefault();
       dispatch(blockSelected(blockId));
-      const box = iframe.getBoundingClientRect();
-      const point = { x: box.left + event.clientX * scale, y: box.top + event.clientY * scale };
+      const point = frameToPage(iframe, scale, { x: event.clientX, y: event.clientY });
       setMenu({ blockId, point });
     }
     function onPointerDown(): void {
@@ -322,13 +348,12 @@ export function Canvas(): JSX.Element {
   const fit = fitDevice(viewport, available);
   const pageDevice = deviceForWidth(fit.frame.width);
   const hiddenIds = useShownBlockIds((block) => block.hideOn.includes(pageDevice));
-  const customDefinitions = useStore((state) => state.project.customDefinitions);
-  const modalIds = useShownBlockIds(
-    (block) => blockCategory(block, { customDefinitions }) === 'modals',
-  );
+  const packBlocks = useStore((state) => state.project.packBlocks);
+  const modalIds = useShownBlockIds((block) => blockCategory(block, { packBlocks }) === 'modals');
   const dropY = useCanvasDropTarget(frame, viewportRef, fit.scale);
   useScrollSelectedIntoView(frame, selectedId);
   const [contextMenu, closeContextMenu] = useCanvasContextMenu(frame, isPreview, fit.scale);
+  useCanvasBlockDrag(frame, !isPreview && !isReadOnly, fit.scale);
   useShortcuts(frame?.doc ?? null);
   useClipboard(frame?.doc ?? null);
 

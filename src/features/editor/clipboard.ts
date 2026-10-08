@@ -1,19 +1,19 @@
-import { clipboardTextStored, customComponentsLoaded, noticeShown } from '../../app/editorSlice';
+import { clipboardTextStored, noticeShown } from '../../app/editorSlice';
 import { blockPasted } from '../../app/projectSlice';
 import type { AppThunk } from '../../app/store';
 import type { Block, Project, Token } from '../../app/types';
-import { mapFieldValues } from '../../components/fieldValues';
-import { isButtonValue, isLinkValue } from '../../components/fields';
-import { behaviors } from 'virtual:site-runtime';
-import { parseEmbeddedDefinitions } from '../../components/packFormat';
-import { blockCategory, blockComponentId, definitionOf } from '../../components/registry';
-import type { CustomDefinition } from '../../components/types';
-import { ensureCustomComponents } from '../block-packs/customComponents';
-import { packInLibrary } from '../block-packs/packLibrary';
-import type { LinkValue } from '../../components/types';
-import { upgradeComponentBlock } from '../../persistence/migrations';
-import { projectRegistry } from '../block-packs/customComponents';
-import { isRecord, parseBlock } from '../../persistence/parseBlock';
+import { fitValues, mapFieldValues } from '../../components/fieldValues';
+import { isButtonValue, isLinkValue, isRecord } from '../../components/fields';
+import { parseEmbeddedBlocks } from '../../components/packFormat';
+import {
+  blockCategory,
+  blockComponentId,
+  componentsFor,
+  definitionOf,
+} from '../../components/registry';
+import type { LinkValue, PackBlock } from '../../components/types';
+import { loadPackBlocks, packInLibrary } from '../block-packs/packLibrary';
+import { parseBlock } from '../../persistence/parseBlock';
 import { referencedTokenName } from '../../render/css';
 import { createRenderContext, renderAnyBlock } from '../../render/renderBlock';
 import { isSafeCssValue } from '../../render/sanitize';
@@ -30,7 +30,7 @@ export type BlockEnvelope = {
   sourceProjectId: string;
   block: Block;
   tokens: Record<string, string>;
-  customDefinitions: Record<string, CustomDefinition>;
+  packBlocks: Record<string, PackBlock>;
 };
 
 export type ClipboardPayload = { text: string; html: string };
@@ -38,7 +38,7 @@ export type ClipboardPayload = { text: string; html: string };
 export type PastePreparation = {
   block: Block;
   clearedLinkCount: number;
-  custom: CustomDefinition | undefined;
+  custom: PackBlock | undefined;
 };
 
 export type ClipboardWriter = Pick<DataTransfer, 'setData'>;
@@ -69,9 +69,9 @@ function overrideTokens(block: Block, tokens: Record<string, Token>): Record<str
   return resolved;
 }
 
-function definitionsUsedBy(block: Block, project: Project): Record<string, CustomDefinition> {
+function definitionsUsedBy(block: Block, project: Project): Record<string, PackBlock> {
   const componentId = blockComponentId(block);
-  const custom = componentId === null ? undefined : project.customDefinitions[componentId];
+  const custom = componentId === null ? undefined : project.packBlocks[componentId];
   return custom === undefined ? {} : { [custom.definition.id]: custom };
 }
 
@@ -84,13 +84,13 @@ export function createEnvelope(project: Project, blockId: string): BlockEnvelope
     sourceProjectId: project.id,
     block: structuredClone(block),
     tokens: overrideTokens(block, project.designSystem.tokens),
-    customDefinitions: structuredClone(definitionsUsedBy(block, project)),
+    packBlocks: structuredClone(definitionsUsedBy(block, project)),
   };
 }
 
 export function envelopeHtml(project: Project, block: Block): string {
   try {
-    const components = projectRegistry(project);
+    const components = componentsFor(project);
     return renderAnyBlock(block, components, createRenderContext(project, 'export')) ?? '';
   } catch (error) {
     console.warn(`Could not render block ${block.id} for the clipboard`, error);
@@ -127,7 +127,7 @@ export function parseEnvelope(text: string): BlockEnvelope | null {
     sourceProjectId: data.sourceProjectId,
     block,
     tokens: parseTokenValues(data.tokens),
-    customDefinitions: parseEmbeddedDefinitions(data.customDefinitions, Object.keys(behaviors)),
+    packBlocks: parseEmbeddedBlocks(data.packBlocks),
   };
 }
 
@@ -146,17 +146,18 @@ export function prepareForPaste(
   newBlockId: string,
 ): PastePreparation | null {
   const componentId = blockComponentId(envelope.block);
-  const incoming = componentId === null ? undefined : envelope.customDefinitions[componentId];
+  const incoming = componentId === null ? undefined : envelope.packBlocks[componentId];
   const custom =
-    componentId !== null && project.customDefinitions[componentId] === undefined
-      ? incoming
-      : undefined;
+    componentId !== null && project.packBlocks[componentId] === undefined ? incoming : undefined;
   if (envelope.block.kind === 'html') {
     return { block: { ...envelope.block, id: newBlockId }, clearedLinkCount: 0, custom };
   }
   const definition = definitionOf(project, envelope.block.componentId) ?? custom?.definition;
   if (definition === undefined) return null;
-  const block = upgradeComponentBlock(envelope.block, definition);
+  const block = {
+    ...envelope.block,
+    values: fitValues(definition.fields, envelope.block.values).values,
+  };
   const pageIds = new Set(project.pages.ids);
   let clearedLinkCount = 0;
   const values = mapFieldValues(definition.fields, block.values, (field, value) => {
@@ -226,8 +227,7 @@ export function pasteEnvelope(envelope: BlockEnvelope): AppThunk<Promise<void>> 
     }
     const { custom } = prepared;
     if (custom !== undefined) {
-      const { hasCompiled, problems } = await ensureCustomComponents([custom]);
-      if (hasCompiled) dispatch(customComponentsLoaded());
+      const problems = await dispatch(loadPackBlocks([custom]));
       if (problems.length > 0) {
         dispatch(noticeShown('error', 'This block can’t be added: its custom block is not valid.'));
         return;
@@ -239,7 +239,7 @@ export function pasteEnvelope(envelope: BlockEnvelope): AppThunk<Promise<void>> 
         ? project
         : {
             ...project,
-            customDefinitions: { ...project.customDefinitions, [custom.definition.id]: custom },
+            packBlocks: { ...project.packBlocks, [custom.definition.id]: custom },
           };
     await ensureIconSets(iconSetsUsedBy([prepared.block], withIncoming));
     const location = pasteLocation(getState(), blockCategory(prepared.block, withIncoming));

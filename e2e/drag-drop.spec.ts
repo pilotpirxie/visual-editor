@@ -1,8 +1,12 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 import { blockBoundaryOnScreen, boxOf, createProject, insertBlock, layerNames } from './editor';
 
 const DROP_LINE_TOLERANCE_PX = 3;
 const DRAG_STEPS = 12;
+
+function canvasBlocks(page: Page): Locator {
+  return page.frameLocator('.ve-canvas-frame').locator('[data-block-id]');
+}
 
 async function startDraggingCard(page: Page, category: string, blockName: string): Promise<void> {
   const library = page.locator('.ve-library');
@@ -52,25 +56,42 @@ test('Escape cancels a drag without adding anything', async ({ page }) => {
   expect(await layerNames(page)).toEqual(['Navigation, logo left', 'Footer, simple']);
 });
 
-test('a selected block can be dragged by its handle to a new position', async ({ page }) => {
-  await page
-    .frameLocator('.ve-canvas-frame')
-    .locator('[data-block-id]')
-    .first()
-    .click({
-      position: { x: 10, y: 10 },
-    });
-  const handle = await boxOf(page.locator('.ve-block-handle'));
+test('a block can be dragged by pressing anywhere on it in the canvas', async ({ page }) => {
+  const navigation = await boxOf(canvasBlocks(page).first());
   const device = await boxOf(page.locator('.ve-canvas-device'));
   const belowFooter = (await blockBoundaryOnScreen(page, 1)) - 2;
 
-  await page.mouse.move((handle.left + handle.right) / 2, (handle.top + handle.bottom) / 2);
+  await page.mouse.move(navigation.left + 10, (navigation.top + navigation.bottom) / 2);
   await page.mouse.down();
   await page.mouse.move((device.left + device.right) / 2, belowFooter, { steps: DRAG_STEPS });
   await expect(page.locator('.ve-drop-line')).toBeVisible();
   await page.mouse.up();
 
   expect(await layerNames(page)).toEqual(['Footer, simple', 'Navigation, logo left']);
+});
+
+test('a press that barely moves selects the block instead of dragging it', async ({ page }) => {
+  const navigation = await boxOf(canvasBlocks(page).first());
+  const x = navigation.left + 10;
+  const y = (navigation.top + navigation.bottom) / 2;
+
+  await page.mouse.move(x, y);
+  await page.mouse.down();
+  await page.mouse.move(x + 2, y + 1);
+  await page.mouse.up();
+
+  await expect(page.locator('.ve-properties .ui-title')).toHaveText('Navigation, logo left');
+  await expect(page.locator('.ve-drop-line')).toHaveCount(0);
+  expect(await layerNames(page)).toEqual(['Navigation, logo left', 'Footer, simple']);
+});
+
+test('clicking a text on the canvas still focuses its field', async ({ page }) => {
+  await page.keyboard.press('Escape');
+  await canvasBlocks(page).nth(1).locator('[data-field="copyright"]').click();
+  await expect(page.locator('.ve-properties .ui-title')).toHaveText('Footer, simple');
+  await expect(
+    page.locator('[data-field-path="copyright"] :is(input, textarea)').first(),
+  ).toBeFocused();
 });
 
 test('the Layers list reorders blocks by dragging rows', async ({ page }) => {

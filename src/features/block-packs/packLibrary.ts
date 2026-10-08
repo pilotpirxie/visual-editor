@@ -1,42 +1,31 @@
-import { blockPacksLoaded, customComponentsLoaded, noticeShown } from '../../app/editorSlice';
+import { blockPacksLoaded, packBlocksLoaded, noticeShown } from '../../app/editorSlice';
 import { customBlocksUpgraded } from '../../app/projectSlice';
 import type { AppThunk, RootState } from '../../app/store';
-import { compareVersions } from '../../components/packFormat';
-import { registry } from '../../components/registry';
-import type {
-  BlockPack,
-  ComponentDefinition,
-  CustomDefinition,
-  PackInfo,
-} from '../../components/types';
+import { compareVersions, rootClassOf, type PackError } from '../../components/packFormat';
+import { builtInComponents, ensurePackBlocks } from '../../components/registry';
+import type { BlockPack, LibraryEntry, PackBlock, PackInfo } from '../../components/types';
 import { deleteBlockPack, listBlockPacks, putBlockPack } from '../../persistence/db';
-import { ensureCustomComponents } from './customComponents';
 import { upgradeNotice, upgradeProjectToPack, type UpgradeRule } from './packUpdates';
 
-export type LibraryEntry = {
-  definition: ComponentDefinition;
-  thumbnail: string;
-  pack: PackInfo | null;
-};
+export function blockCountLabel(count: number): string {
+  return count === 1 ? '1 block' : `${count} blocks`;
+}
 
-export function packEntries(packs: readonly BlockPack[]): LibraryEntry[] {
-  const entries: LibraryEntry[] = [];
-  for (const pack of packs) {
-    for (const custom of pack.blocks) {
-      entries.push({
-        definition: custom.definition,
-        thumbnail: custom.thumbnail,
-        pack: custom.pack,
-      });
-    }
-  }
+export function libraryEntries(packs: readonly BlockPack[]): LibraryEntry[] {
+  const entries: LibraryEntry[] = [...builtInComponents.values()];
+  for (const pack of packs) entries.push(...pack.blocks);
   return entries;
 }
 
-function packEntryFor(
-  packs: readonly BlockPack[],
-  componentId: string,
-): CustomDefinition | undefined {
+export function loadPackBlocks(packBlocks: Iterable<PackBlock>): AppThunk<Promise<PackError[]>> {
+  return async (dispatch) => {
+    const { hasCompiled, problems } = await ensurePackBlocks(packBlocks);
+    if (hasCompiled) dispatch(packBlocksLoaded());
+    return problems;
+  };
+}
+
+function packEntryFor(packs: readonly BlockPack[], componentId: string): PackBlock | undefined {
   for (const pack of packs) {
     const custom = pack.blocks.find(({ definition }) => definition.id === componentId);
     if (custom !== undefined) return custom;
@@ -44,12 +33,9 @@ function packEntryFor(
   return undefined;
 }
 
-export function customEntryFor(
-  state: RootState,
-  componentId: string,
-): CustomDefinition | undefined {
-  if (registry.has(componentId)) return undefined;
-  const embedded = state.project.customDefinitions[componentId];
+export function customEntryFor(state: RootState, componentId: string): PackBlock | undefined {
+  if (builtInComponents.has(componentId)) return undefined;
+  const embedded = state.project.packBlocks[componentId];
   if (embedded !== undefined) return embedded;
   return packEntryFor(state.editor.blockPacks, componentId);
 }
@@ -62,7 +48,7 @@ export function takenClasses(
   for (const pack of packs) {
     if (pack.id === exceptPackId) continue;
     for (const { definition } of pack.blocks) {
-      classes.set(`b-${definition.id.replace('/', '-')}`, definition.id);
+      classes.set(rootClassOf(definition.id), definition.id);
     }
   }
   return classes;
@@ -80,20 +66,19 @@ function upgradeOpenProject(pack: BlockPack, rule: UpgradeRule): AppThunk<Promis
   return async (dispatch, getState) => {
     const upgrade = upgradeProjectToPack(getState().project, pack, rule);
     if (upgrade === null) return;
-    const { hasCompiled } = await ensureCustomComponents(Object.values(upgrade.definitions));
-    if (hasCompiled) dispatch(customComponentsLoaded());
+    await dispatch(loadPackBlocks(Object.values(upgrade.definitions)));
     dispatch(customBlocksUpgraded({ definitions: upgrade.definitions, blocks: upgrade.blocks }));
     dispatch(noticeShown('info', upgradeNotice(pack, upgrade)));
   };
 }
 
 export function missingPacks(
-  customDefinitions: Record<string, CustomDefinition>,
+  packBlocks: Record<string, PackBlock>,
   libraryPacks: readonly BlockPack[],
 ): PackInfo[] {
   const libraryIds = new Set(libraryPacks.map(({ id }) => id));
   const missing = new Map<string, PackInfo>();
-  for (const { pack } of Object.values(customDefinitions)) {
+  for (const { pack } of Object.values(packBlocks)) {
     if (!libraryIds.has(pack.id)) missing.set(pack.id, pack);
   }
   return [...missing.values()];
@@ -104,7 +89,7 @@ export function syncProjectWithLibrary(): AppThunk<Promise<void>> {
     const packs = await dispatch(loadPackLibrary());
     for (const pack of packs) await dispatch(upgradeOpenProject(pack, 'newer'));
     const { project, editor } = getState();
-    for (const pack of missingPacks(project.customDefinitions, editor.blockPacks)) {
+    for (const pack of missingPacks(project.packBlocks, editor.blockPacks)) {
       dispatch(
         noticeShown(
           'info',
@@ -144,7 +129,7 @@ export function removePackFromLibrary(packId: string): AppThunk<Promise<void>> {
 
 export function addProjectPackToLibrary(packId: string): AppThunk<Promise<void>> {
   return async (dispatch, getState) => {
-    const blocks = Object.values(getState().project.customDefinitions).filter(
+    const blocks = Object.values(getState().project.packBlocks).filter(
       (custom) => custom.pack.id === packId,
     );
     const [first] = blocks;

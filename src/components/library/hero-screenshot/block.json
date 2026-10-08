@@ -1,0 +1,99 @@
+{
+  "name": "Hero, app screenshot",
+  "category": "headers",
+  "description": "Centered heading and buttons above a product screenshot in a browser frame.",
+  "tags": ["hero", "heading", "screenshot", "product", "app", "saas"],
+  "fieldGroups": ["Heading", "Buttons", "Screenshot"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Customer research, finally organized",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From raw interviews to roadmap decisions in one afternoon",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Record, transcribe and tag every customer call. Fieldnote finds the patterns so your team can act on them.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See how it works",
+        "link": {
+          "type": "section",
+          "anchor": "how-it-works",
+          "newTab": false
+        },
+        "variant": "ghost"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "note",
+      "label": "Note under the buttons",
+      "type": "text",
+      "default": "14-day free trial · No credit card needed",
+      "group": "Buttons"
+    },
+    {
+      "name": "screenshot",
+      "label": "Screenshot",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Fieldnote board with interview themes grouped into columns",
+        "decorative": false,
+        "width": 1200,
+        "height": 675,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Screenshot"
+    }
+  ]
+}

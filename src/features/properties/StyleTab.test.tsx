@@ -2,7 +2,15 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { blockSelected, propertiesTabChanged } from '../../app/editorSlice';
 import { undo } from '../../app/history';
 import { dispatch, store } from '../../app/store';
-import { changeValue, choiceInput, click, getButton, render, runInAct } from '../../test/dom';
+import {
+  changeValue,
+  choiceInput,
+  click,
+  getButton,
+  queryButton,
+  render,
+  runInAct,
+} from '../../test/dom';
 import { componentBlockOf, homePage, loadIntoAppStore } from '../../test/fixtures';
 import { PropertiesPanel } from './PropertiesPanel';
 
@@ -43,31 +51,49 @@ beforeEach(() => {
 });
 
 describe('StyleTab', () => {
-  it('lists the tokens the block offers with their inherited design values', () => {
+  it('shows a control for every token the block offers, set to its design value', () => {
     const { container } = render(<PropertiesPanel />);
     selectHeroStyle();
     const background = row(container, '--color-background');
     expect(background.textContent).toContain('Background');
-    expect(background.querySelector('.ve-override-inherited')?.textContent).toBe('#ffffff');
+    expect(choiceInput(background, 'Background')?.checked).toBe(true);
+    const padding = row(container, '--section-padding-y').querySelector('select');
+    expect(padding?.value).toBe('--section-padding-y');
+    expect(padding?.selectedOptions[0]?.textContent).toMatch(/^Design value/);
     expect(container.querySelectorAll('.ve-override')).toHaveLength(3);
   });
 
-  it('overrides a color with a design swatch and resets it with one click', () => {
+  it('creates an override by choosing a value, with no extra step', () => {
     const { container } = render(<PropertiesPanel />);
     const heroId = selectHeroStyle();
-    click(getButton(row(container, '--color-background'), 'Override Background'));
-    const surface = choiceInput(row(container, '--color-background'), 'Surface');
-    click(surface);
+    click(choiceInput(row(container, '--color-background'), 'Surface'));
     expect(overridesOf(heroId)).toEqual({ '--color-background': 'var(--color-surface)' });
+  });
+
+  it('offers Reset only for overridden tokens and resets with one click', () => {
+    const { container } = render(<PropertiesPanel />);
+    const heroId = selectHeroStyle();
+    expect(queryButton(container, 'Reset Background to the design value')).toBeNull();
+    click(choiceInput(row(container, '--color-background'), 'Surface'));
     click(getButton(container, 'Reset Background to the design value'));
     expect(overridesOf(heroId)).toEqual({});
-    expect(getButton(row(container, '--color-background'), 'Override Background')).toBeDefined();
+    expect(queryButton(container, 'Reset Background to the design value')).toBeNull();
+  });
+
+  it('clears the override when the design value is chosen again', () => {
+    const { container } = render(<PropertiesPanel />);
+    const heroId = selectHeroStyle();
+    const select = row(container, '--section-padding-y').querySelector('select');
+    changeValue(select, '--space-8');
+    expect(overridesOf(heroId)['--section-padding-y']).toBe('var(--space-8)');
+    changeValue(select, '--section-padding-y');
+    expect(overridesOf(heroId)).toEqual({});
+    expect(queryButton(container, 'Reset Section padding to the design value')).toBeNull();
   });
 
   it('overrides padding with a spacing token or a custom value', () => {
     const { container } = render(<PropertiesPanel />);
     const heroId = selectHeroStyle();
-    click(getButton(row(container, '--section-padding-y'), 'Override Section padding'));
     const select = row(container, '--section-padding-y').querySelector('select');
     changeValue(select, '--space-8');
     expect(overridesOf(heroId)['--section-padding-y']).toBe('var(--space-8)');
@@ -81,11 +107,11 @@ describe('StyleTab', () => {
   it('keeps an unsafe custom value as a draft with a message instead of saving it', () => {
     const { container } = render(<PropertiesPanel />);
     const heroId = selectHeroStyle();
-    click(getButton(row(container, '--section-padding-y'), 'Override Section padding'));
+    changeValue(row(container, '--section-padding-y').querySelector('select'), 'custom');
     const custom = row(container, '--section-padding-y').querySelector('input[type="text"]');
     expect(custom).toHaveProperty('value', 'clamp(3rem, 2rem + 4vw, 6rem)');
     changeValue(custom, '1rem; color: red');
-    expect(overridesOf(heroId)['--section-padding-y']).toBeUndefined();
+    expect(overridesOf(heroId)['--section-padding-y']).toBe('clamp(3rem, 2rem + 4vw, 6rem)');
     expect(container.querySelector('[role="alert"]')?.textContent).toBe(
       'Use a CSS value such as 2rem or 24px',
     );
@@ -94,7 +120,6 @@ describe('StyleTab', () => {
   it('shows an override restored by undo', () => {
     const { container } = render(<PropertiesPanel />);
     const heroId = selectHeroStyle();
-    click(getButton(row(container, '--color-text'), 'Override Text'));
     click(choiceInput(row(container, '--color-text'), 'Primary'));
     click(getButton(container, 'Reset Text to the design value'));
     runInAct(() => dispatch(undo()));
@@ -108,7 +133,6 @@ describe('StyleTab', () => {
     function theme(label: string): HTMLInputElement | null {
       return themeInput(container, label);
     }
-    click(getButton(row(container, '--color-text'), 'Override Text'));
     click(choiceInput(row(container, '--color-text'), 'Primary'));
     click(theme('Dark'));
     expect(overridesOf(heroId)).toMatchObject({
@@ -128,7 +152,6 @@ describe('StyleTab', () => {
   it('keeps padding overrides when the theme changes', () => {
     const { container } = render(<PropertiesPanel />);
     const heroId = selectHeroStyle();
-    click(getButton(row(container, '--section-padding-y'), 'Override Section padding'));
     changeValue(row(container, '--section-padding-y').querySelector('select'), '--space-8');
     click(themeInput(container, 'Surface'));
     expect(overridesOf(heroId)).toEqual({

@@ -52,6 +52,18 @@ test('arrow keys move the selection on the canvas and Cmd+P toggles Preview', as
   await expect(page.locator('.ve-properties .ui-title')).toHaveText('Call to action, centered');
   await page.keyboard.press('ControlOrMeta+P');
   await expect(page.locator('.ve-shell')).toHaveAttribute('data-preview', /.*/);
+  await expect(page.locator('.ve-toolbar')).toBeHidden();
   await page.keyboard.press('ControlOrMeta+P');
   await expect(page.locator('.ve-shell')).not.toHaveAttribute('data-preview', /.*/);
+  await expect(page.locator('.ve-toolbar')).toBeVisible();
+});
+
+test('Preview hides the toolbar and a floating button exits it', async ({ page }) => {
+  await addHeroAndCta(page);
+  await page.getByRole('button', { name: 'Preview', exact: true }).click();
+  await expect(page.locator('.ve-toolbar')).toBeHidden();
+  await page.locator('.ve-preview-exit').getByRole('button', { name: 'Exit preview' }).click();
+  await expect(page.locator('.ve-shell')).not.toHaveAttribute('data-preview', /.*/);
+  await expect(page.locator('.ve-toolbar')).toBeVisible();
+  await expect(page.locator('.ve-preview-exit')).toHaveCount(0);
 });

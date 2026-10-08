@@ -1,0 +1,36 @@
+@layer components {
+  @scope (.b-example-callout) {
+    .b-box {
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-start;
+      padding: var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-box[data-tone='accent'] {
+      border-color: color-mix(in oklab, var(--color-primary) 35%, var(--color-border));
+      background: color-mix(in oklab, var(--color-primary) 8%, var(--color-background));
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      flex: none;
+      color: var(--color-primary);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-title {
+      font-size: var(--text-xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+  }
+}

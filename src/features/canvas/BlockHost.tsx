@@ -2,8 +2,8 @@ import Handlebars from 'handlebars/runtime';
 import { memo, useLayoutEffect, useMemo, useRef, type ErrorInfo, type JSX } from 'react';
 import { selectCanvasRenderContext, selectComponents, useStore } from '../../app/store';
 import type { Block, HtmlBlock } from '../../app/types';
-import type { CustomDefinition, RegisteredComponent } from '../../components/types';
-import { customComponentProblems } from '../block-packs/customComponents';
+import type { PackBlock, RegisteredComponent } from '../../components/types';
+import { packBlockProblems } from '../../components/registry';
 import { renderBlock, renderHtmlBlock, type RenderContext } from '../../render/renderBlock';
 import { morphChildren } from './morph';
 import type { ScrollAnchor } from './scrollAnchor';
@@ -41,13 +41,13 @@ function renderHtmlForCanvas(block: HtmlBlock, ctx: RenderContext): string {
 function unavailableNotice(
   blockId: string,
   componentId: string,
-  custom: CustomDefinition | undefined,
+  custom: PackBlock | undefined,
 ): string {
   if (custom === undefined) {
     console.error(`Canvas: block ${blockId} uses unknown component "${componentId}"`);
     return notice(blockId, `Missing component: ${componentId}`);
   }
-  if (customComponentProblems(custom) !== undefined) {
+  if (packBlockProblems(custom) !== undefined) {
     return notice(
       blockId,
       `This custom block is not valid and can’t be shown: ${custom.definition.name}`,
@@ -60,13 +60,13 @@ function renderForCanvas(
   block: Block | undefined,
   ctx: RenderContext,
   components: ReadonlyMap<string, RegisteredComponent>,
-  customDefinitions: Record<string, CustomDefinition>,
+  packBlocks: Record<string, PackBlock>,
 ): string {
   if (block === undefined) return '';
   if (block.kind === 'html') return renderHtmlForCanvas(block, ctx);
   const component = components.get(block.componentId);
   if (component === undefined) {
-    return unavailableNotice(block.id, block.componentId, customDefinitions[block.componentId]);
+    return unavailableNotice(block.id, block.componentId, packBlocks[block.componentId]);
   }
   if (block.disabled) return notice(block.id, `Disabled: ${component.definition.name}`);
   try {
@@ -111,10 +111,10 @@ const BlockContent = memo(function BlockContent({
   const block = useStore((state) => state.project.blocks.entities[blockId]);
   const ctx = useStore(selectCanvasRenderContext);
   const components = useStore(selectComponents);
-  const customDefinitions = useStore((state) => state.project.customDefinitions);
+  const packBlocks = useStore((state) => state.project.packBlocks);
   const html = useMemo(
-    () => renderForCanvas(block, ctx, components, customDefinitions),
-    [block, ctx, components, customDefinitions],
+    () => renderForCanvas(block, ctx, components, packBlocks),
+    [block, ctx, components, packBlocks],
   );
   const hostRef = useRef<HTMLDivElement>(null);
 

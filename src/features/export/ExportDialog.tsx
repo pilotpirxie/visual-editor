@@ -4,7 +4,7 @@ import { noticeShown } from '../../app/editorSlice';
 import { describeError } from '../../app/errors';
 import { slugify } from '../../app/slugs';
 import { dispatch, store } from '../../app/store';
-import { ensureProjectComponents, projectRegistry } from '../block-packs/customComponents';
+import { componentsFor, ensurePackBlocks } from '../../components/registry';
 import type { ExportResult } from '../../render/assembleSite';
 import { prepareExportInput } from '../../render/exportSite';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
@@ -27,8 +27,8 @@ async function prepareExport(): Promise<Preparation> {
   const { project } = store.getState();
   try {
     await ensureProjectIconSets(project);
-    await ensureProjectComponents(project);
-    const components = projectRegistry(project);
+    await ensurePackBlocks(Object.values(project.packBlocks));
+    const components = componentsFor(project);
     const input = prepareExportInput(project, components);
     const assembled = await assembleExport(input, { core, behaviors });
     return { kind: 'ready', assembled, warnings: collectExportWarnings(project, components) };

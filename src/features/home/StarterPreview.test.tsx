@@ -5,7 +5,7 @@ import { dispatch, store } from '../../app/store';
 import type { Project } from '../../app/types';
 import { BUILTIN_PRESETS } from '../../presets/presets';
 import { loadStarter, STARTERS, type StarterInfo } from '../../starters/starters';
-import { changeValue, click, getButton, render, runInAct } from '../../test/dom';
+import { changeValue, choiceInput, click, getButton, render, runInAct } from '../../test/dom';
 import { ensureIconSets } from '../icons/ensureIconSets';
 import { StarterPreview } from './StarterPreview';
 
@@ -121,7 +121,7 @@ describe('StarterPreview pages and devices', () => {
     expect(frameOf(container).title).toBe('SaaS product preview');
     expect(selectLabelled(container, 'Page').value).toBe(saasProject.pages.homePageId);
     expect(selectLabelled(container, 'Design').value).toBe('clean');
-    expect(selectLabelled(container, 'Device').value).toBe('desktop');
+    expect(choiceInput(container, 'Desktop (1440 px)')?.checked).toBe(true);
     expect(frameHtml(container)).toContain(
       'From raw interviews to roadmap decisions in one afternoon',
     );
@@ -146,21 +146,22 @@ describe('StarterPreview pages and devices', () => {
 
   it('offers desktop, tablet and phone sizes and fits the frame to the chosen one', () => {
     const { container } = renderPreview();
-    const device = selectLabelled(container, 'Device');
     const values: string[] = [];
-    for (const option of device.options) values.push(option.value);
+    for (const radio of container.querySelectorAll<HTMLInputElement>('input[type="radio"]')) {
+      values.push(radio.value);
+    }
     expect(values).toEqual(['desktop', 'tablet', 'phone']);
     expect(frameOf(container).style.width).toBe('1440px');
-    changeValue(device, 'tablet');
+    click(choiceInput(container, 'Tablet (768 px)'));
     expect(frameOf(container).style.width).toBe('768px');
-    changeValue(device, 'phone');
+    click(choiceInput(container, 'Phone (375 px)'));
     expect(frameOf(container).style.width).toBe('375px');
   });
 
   it('keeps the same frame when only the device changes', () => {
     const { container } = renderPreview();
     const frame = frameOf(container);
-    changeValue(selectLabelled(container, 'Device'), 'phone');
+    click(choiceInput(container, 'Phone (375 px)'));
     expect(frameOf(container)).toBe(frame);
   });
 });

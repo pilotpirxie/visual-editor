@@ -37,11 +37,11 @@ function layerName(block: Block | undefined, blockId: string, project: Definitio
 
 function useLayerRows(blockIds: string[]): LayerRow[] {
   const blocks = useStore((state) => state.project.blocks.entities);
-  const customDefinitions = useStore((state) => state.project.customDefinitions);
+  const packBlocks = useStore((state) => state.project.packBlocks);
   const rows: LayerRow[] = [];
   for (const id of blockIds) {
     const block = blocks[id];
-    const name = layerName(block, id, { customDefinitions });
+    const name = layerName(block, id, { packBlocks });
     rows.push({ id, name, isDisabled: block?.disabled === true });
   }
   return rows;

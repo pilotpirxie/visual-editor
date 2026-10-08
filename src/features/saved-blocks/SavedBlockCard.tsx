@@ -2,7 +2,7 @@ import { useState, type JSX, type KeyboardEvent } from 'react';
 import { describeError } from '../../app/errors';
 import { noticeShown } from '../../app/editorSlice';
 import { dispatch } from '../../app/store';
-import { registry } from '../../components/registry';
+import { builtInComponents } from '../../components/registry';
 import type { SavedBlockRecord } from '../../persistence/db';
 import { insertSavedBlock, removeSavedBlock, renameSavedBlock } from './savedBlockActions';
 import { Button, Icon, MenuButton, TextInput } from '../../../packages/ui/src';
@@ -19,7 +19,7 @@ function reportFailure(action: string, error: unknown): void {
 
 function thumbnailOf(record: SavedBlockRecord): string | null {
   if (record.componentId === null) return null;
-  return registry.get(record.componentId)?.thumbnail ?? null;
+  return builtInComponents.get(record.componentId)?.thumbnail ?? null;
 }
 
 export function SavedBlockCard({ record }: { record: SavedBlockRecord }): JSX.Element {

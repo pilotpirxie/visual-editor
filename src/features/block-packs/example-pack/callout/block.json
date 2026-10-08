@@ -1,0 +1,81 @@
+{
+  "name": "Callout, icon and text",
+  "category": "content",
+  "description": "A highlighted note with an icon, a title, text and an optional button. Copy this block to start your own: the root element needs the class b-<pack id>-<block id>, here b-example-callout, and its CSS lives in one @scope for that class inside @layer components.",
+  "tags": ["callout", "note", "tip", "example"],
+  "fieldGroups": ["Content", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "info",
+      "group": "Content",
+      "help": "A built-in icon name follows the site's icon set; set:name picks one icon."
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Good to know",
+      "required": true,
+      "maxLength": 80,
+      "group": "Content",
+      "help": "Text fields are escaped, so any characters are safe."
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Callouts draw attention to one important point, such as a deadline, a tip or a change in plans.",
+      "group": "Content",
+      "help": "Line breaks become <br> through the nl2br helper."
+    },
+    {
+      "name": "tone",
+      "label": "Tone",
+      "type": "segmented",
+      "default": "neutral",
+      "group": "Content",
+      "help": "Select and segmented values are good for data attributes the CSS can style.",
+      "options": [
+        {
+          "value": "neutral",
+          "label": "Neutral"
+        },
+        {
+          "value": "accent",
+          "label": "Accent"
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "group": "Button",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "help": "Links always go through the href helper, so they follow page renames.",
+      "default": {
+        "label": "Read the details",
+        "link": {
+          "type": "section",
+          "anchor": "details",
+          "newTab": false
+        },
+        "variant": "primary"
+      }
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import {
   type ExportResult,
   type SiteRuntimeChunks,
 } from '../../render/assembleSite';
+import { describeError } from '../../app/errors';
 import { writeToFolder, type WritableFolder } from './exportFolder';
 import { createZip, zipEntriesOf } from './zip';
 
@@ -34,6 +35,6 @@ export async function runExportJob(job: ExportJob): Promise<ExportJobResult> {
     return await runJob(job);
   } catch (error) {
     console.error(`The export job "${job.kind}" failed`, error);
-    return { kind: 'failed', message: error instanceof Error ? error.message : String(error) };
+    return { kind: 'failed', message: describeError(error) };
   }
 }

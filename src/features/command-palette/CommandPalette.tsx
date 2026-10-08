@@ -3,8 +3,7 @@ import { dialogClosed, noticeShown } from '../../app/editorSlice';
 import { describeError } from '../../app/errors';
 import { dispatch, useStore } from '../../app/store';
 import type { Page } from '../../app/types';
-import { registry } from '../../components/registry';
-import { packEntries, type LibraryEntry } from '../block-packs/packLibrary';
+import { libraryEntries } from '../block-packs/packLibrary';
 import {
   buildPaletteCommands,
   filterPaletteCommands,
@@ -16,10 +15,6 @@ import './commandPalette.css';
 import { Dialog, SearchInput } from '../../../packages/ui/src';
 
 const TITLE_ID = 've-palette-title';
-
-const BUILT_IN_ENTRIES: LibraryEntry[] = [...registry.values()].map(
-  ({ definition, thumbnail }) => ({ definition, thumbnail, pack: null }),
-);
 
 type CommandGroup = { group: PaletteGroup; commands: PaletteCommand[] };
 
@@ -47,7 +42,7 @@ function usePaletteCommands(): PaletteCommand[] {
       const page = pagesState.entities[id];
       if (page !== undefined) pages.push(page);
     }
-    const entries = [...BUILT_IN_ENTRIES, ...packEntries(packs)];
+    const entries = libraryEntries(packs);
     return buildPaletteCommands({ entries, savedBlocks, pages, isReadOnly });
   }, [packs, savedBlocks, pagesState, isReadOnly]);
 }

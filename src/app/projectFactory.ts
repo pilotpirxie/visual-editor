@@ -1,4 +1,4 @@
-import { createBlock, registry } from '../components/registry';
+import { builtInComponents, createBlock } from '../components/registry';
 import { CLEAN_PRESET, presetDesignSystem } from '../presets/presets';
 import { DEFAULT_TITLE_TEMPLATE } from '../render/pageHead';
 import {
@@ -51,7 +51,7 @@ export function createBlankProject(
     pages: { ids: [home.id], entities: { [home.id]: home }, homePageId: home.id },
     blocks: { ids: [], entities: {} },
     sharedSlots: { header: [], footer: [] },
-    customDefinitions: {},
+    packBlocks: {},
     assets: {},
   };
 }
@@ -61,7 +61,7 @@ export function createSampleProject(): Project {
   const blockIds: string[] = [];
   const blockEntities: Record<string, Block> = {};
   for (const componentId of SAMPLE_PAGE_COMPONENTS) {
-    const component = registry.get(componentId);
+    const component = builtInComponents.get(componentId);
     if (component === undefined) {
       throw new Error(`The sample project needs component "${componentId}"`);
     }

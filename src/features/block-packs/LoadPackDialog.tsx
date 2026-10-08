@@ -3,14 +3,19 @@ import { createPage } from '../../app/projectFactory';
 import { store, useStore } from '../../app/store';
 import type { Project } from '../../app/types';
 import { compareVersions, type PackError, type ParsedPackFile } from '../../components/packFormat';
-import { createBlock } from '../../components/registry';
-import type { BlockPack, CustomDefinition, PackInfo } from '../../components/types';
+import { componentsFor, createBlock } from '../../components/registry';
+import type { BlockPack, PackBlock, PackInfo } from '../../components/types';
 import { renderStandalonePage } from '../../render/exportSite';
-import { useElementSize } from '../canvas/Canvas';
-import { projectRegistry } from './customComponents';
 import { packCommands } from './packCommands';
 import { packInLibrary } from './packLibrary';
-import { Button, closeDialogOf, Dialog, Field, Select } from '../../../packages/ui/src';
+import {
+  Button,
+  closeDialogOf,
+  Dialog,
+  Field,
+  Select,
+  useElementSize,
+} from '../../../packages/ui/src';
 
 const TITLE_ID = 've-load-pack-title';
 const PREVIEW_PAGE_ID = 'pack-preview';
@@ -26,7 +31,7 @@ type LoadPackDialogProps = { fileName: string; reading: ParsedPackFile };
 
 type Confirmation = { label: string; isAllowed: boolean };
 
-function previewProjectFor(project: Project, custom: CustomDefinition): Project {
+function previewProjectFor(project: Project, custom: PackBlock): Project {
   const page = createPage(PREVIEW_PAGE_ID, 'Preview', 'preview');
   const block = createBlock(custom.definition);
   page.blockIds = [block.id];
@@ -35,7 +40,7 @@ function previewProjectFor(project: Project, custom: CustomDefinition): Project 
     pages: { ids: [page.id], entities: { [page.id]: page }, homePageId: page.id },
     blocks: { ids: [block.id], entities: { [block.id]: block } },
     sharedSlots: { header: [], footer: [] },
-    customDefinitions: { [custom.definition.id]: custom },
+    packBlocks: { [custom.definition.id]: custom },
   };
 }
 
@@ -94,13 +99,13 @@ function PreviewFrame({
   );
 }
 
-function BlockPreview({ custom }: { custom: CustomDefinition }): JSX.Element {
+function BlockPreview({ custom }: { custom: PackBlock }): JSX.Element {
   const project = useStore((state) => state.project);
   const listRef = useRef<HTMLDivElement>(null);
   const { width: boxWidth } = useElementSize(listRef);
   const html = useMemo(() => {
     const preview = previewProjectFor(project, custom);
-    return renderStandalonePage(preview, PREVIEW_PAGE_ID, projectRegistry(preview), {
+    return renderStandalonePage(preview, PREVIEW_PAGE_ID, componentsFor(preview), {
       shouldLinkFonts: true,
     });
   }, [project, custom]);

@@ -31,9 +31,9 @@ function initialEditor(): EditorState {
 }
 
 describe('editorSlice initial state', () => {
-  it('opens on desktop with both panels at their default widths and the canvas view', () => {
+  it('opens in responsive mode with both panels at their default widths and the canvas view', () => {
     const editor = initialEditor();
-    expect(editor.device).toBe('desktop');
+    expect(editor.device).toBe('responsive');
     expect(editor.panels.left).toEqual({ width: 280, collapsed: false });
     expect(editor.panels.right).toEqual({ width: 320, collapsed: false });
     expect(editor.compactView).toBe('canvas');

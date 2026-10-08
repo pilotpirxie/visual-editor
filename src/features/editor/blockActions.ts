@@ -17,8 +17,7 @@ import type { Category } from '../../components/types';
 import type { DragPayload } from '../canvas/dragController';
 import { finalMoveIndex } from '../canvas/geometry';
 import { loadBlockIconSets } from '../icons/ensureIconSets';
-import { loadCustomComponents } from '../block-packs/customComponents';
-import { customEntryFor } from '../block-packs/packLibrary';
+import { customEntryFor, loadPackBlocks } from '../block-packs/packLibrary';
 import { noticeShown } from '../../app/editorSlice';
 
 export type MoveOffset = -1 | 1;
@@ -63,7 +62,7 @@ function insertAt(pageId: string, index: number, componentId: string): AppThunk 
     const inserted = dispatch(blockInserted(pageId, index, componentId, custom));
     dispatch(loadIconsOf(inserted.payload.block.id));
     if (custom === undefined) return;
-    dispatch(loadCustomComponents([custom])).catch((error: unknown) => {
+    dispatch(loadPackBlocks([custom])).catch((error: unknown) => {
       console.error(`Could not prepare the custom block ${componentId}`, error);
       dispatch(
         noticeShown('error', `The custom block “${custom.definition.name}” could not be prepared.`),

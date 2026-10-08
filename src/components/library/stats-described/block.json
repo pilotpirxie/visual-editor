@@ -1,0 +1,85 @@
+{
+  "name": "Numbers, with descriptions",
+  "category": "numbers",
+  "description": "A heading and intro, then numbers with a sentence about each.",
+  "tags": ["numbers", "stats", "results", "impact", "case study"],
+  "fieldGroups": ["Heading", "Numbers"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Results",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What changes when research is easy to share",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Numbers from a survey of 240 teams after their first quarter with Fieldnote.",
+      "group": "Heading"
+    },
+    {
+      "name": "stats",
+      "label": "Numbers",
+      "type": "list",
+      "group": "Numbers",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Number",
+          "type": "text",
+          "default": "100"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What this number means."
+        }
+      ],
+      "default": [
+        {
+          "value": "3×",
+          "label": "More interviews",
+          "text": "Teams talk to customers three times as often once notes take care of themselves."
+        },
+        {
+          "value": "72%",
+          "label": "Faster synthesis",
+          "text": "Themes appear while you interview instead of a week later."
+        },
+        {
+          "value": "9 in 10",
+          "label": "Stakeholders engaged",
+          "text": "Short clips get watched, so more decisions start from evidence."
+        }
+      ]
+    },
+    {
+      "name": "countUp",
+      "label": "Count up when visible",
+      "type": "boolean",
+      "default": true,
+      "group": "Numbers"
+    }
+  ]
+}

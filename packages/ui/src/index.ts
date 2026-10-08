@@ -38,3 +38,4 @@ export { TextArea } from './TextArea';
 export { TextInput } from './TextInput';
 export { Title } from './Title';
 export { TooltipLabel, useTooltip } from './Tooltip';
+export { useElementSize, type ElementSize } from './useElementSize';

@@ -1,15 +1,18 @@
-import { isRecord } from '../persistence/parseBlock';
+import { describeError } from '../app/errors';
+import { TOKEN_NAME } from '../persistence/parseBlock';
 import { HANDLEBARS_BUILTIN_HELPERS, TEMPLATE_HELPERS } from '../render/helperNames';
 import { normalizeRichText } from '../render/sanitize';
-import { asListItems, validateField } from './fields';
+import { asListItems, isRecord, validateField } from './fields';
+import { jsonErrorLine } from './jsonLines';
+import manifest from './library/pack.json';
 import {
   CATEGORIES,
+  FIELD_TYPES,
   type Category,
   type ComponentDefinition,
-  type CustomDefinition,
   type Field,
   type FieldOption,
-  type FieldType,
+  type PackBlock,
   type PackInfo,
 } from './types';
 
@@ -20,45 +23,34 @@ export type PackError = {
   message: string;
 };
 
-export type ParsedPackBlock = { definition: CustomDefinition | null; errors: PackError[] };
+export type PackFiles = ReadonlyMap<string, Uint8Array>;
 
 export type ParsedPackFile = {
   info: PackInfo | null;
-  blocks: CustomDefinition[];
+  blocks: PackBlock[];
   errors: PackError[];
 };
 
-type Report = (field: string | null, message: string) => void;
+export type PackBlockSources = { template: unknown; styles: unknown; thumbnail: unknown };
 
-export const PACK_FORMAT = 'block-pack';
-export const PACK_FORMAT_VERSION = 1;
+type Report = (field: string | null, message: string, line?: number | null) => void;
+
+export const BUILT_IN_PACK: PackInfo = manifest;
+
+export const PACK_FILE = 'pack.json';
+export const BLOCK_FILE = 'block.json';
+export const TEMPLATE_FILE = 'template.hbs';
+export const STYLES_FILE = 'styles.css';
+export const THUMBNAIL_FILE = 'thumbnail.webp';
 
 const KEBAB_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const FIELD_NAME = /^[a-z][a-zA-Z0-9]*$/;
 const VERSION = /^(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)$/;
-const TOKEN_NAME = /^--[a-z0-9-]+$/;
-const THUMBNAIL = /^data:image\/(?:png|jpeg|webp|svg\+xml);base64,[a-z0-9+/]+={0,2}$/i;
-const ICON_REF = /^(?:[a-z0-9-]+:)?[a-z0-9-]+$/;
+const THUMBNAIL_PREFIX = 'data:image/webp;base64,';
+const THUMBNAIL = /^data:image\/webp;base64,[a-z0-9+/]+={0,2}$/i;
 const ICON_PURPOSES = ['logo', 'brand'] as const;
 const MAX_LIST_DEPTH = 2;
-
-const FIELD_TYPES: readonly FieldType[] = [
-  'text',
-  'textarea',
-  'richtext',
-  'number',
-  'range',
-  'boolean',
-  'select',
-  'segmented',
-  'color',
-  'image',
-  'icon',
-  'link',
-  'button',
-  'list',
-  'date',
-];
+const BASE64_CHUNK = 0x8000;
 
 const RESERVED_FIELD_NAMES = new Set<string>([
   ...TEMPLATE_HELPERS,
@@ -70,12 +62,23 @@ const RESERVED_FIELD_NAMES = new Set<string>([
   'prototype',
 ]);
 
-export function customComponentId(packId: string, blockId: string): string {
-  return `${packId}/${blockId}`;
+const textDecoder = new TextDecoder();
+
+export function isBuiltIn(pack: PackInfo): boolean {
+  return pack.id === BUILT_IN_PACK.id;
 }
 
-export function customRootClass(componentId: string): string {
+export function componentIdOf(packId: string, blockId: string): string {
+  return packId === BUILT_IN_PACK.id ? blockId : `${packId}/${blockId}`;
+}
+
+export function rootClassOf(componentId: string): string {
   return `b-${componentId.replace('/', '-')}`;
+}
+
+export function packBlockId(packBlock: PackBlock): string {
+  if (isBuiltIn(packBlock.pack)) return packBlock.definition.id;
+  return packBlock.definition.id.slice(packBlock.pack.id.length + 1);
 }
 
 export function isPackVersion(value: unknown): value is string {
@@ -183,36 +186,21 @@ function parseOptions(value: unknown, path: string, report: Report): FieldOption
   return options;
 }
 
-function iconProblem(value: unknown): string | null {
-  if (typeof value !== 'string') return 'must be an icon name';
-  if (value !== '' && !ICON_REF.test(value)) return 'must be an icon name like star or lucide:star';
-  return null;
-}
-
 function valueProblem(field: Field, value: unknown): string | null {
-  switch (field.type) {
-    case 'boolean':
-      return typeof value === 'boolean' ? null : 'must be true or false';
-    case 'richtext':
-      return typeof value === 'string' ? null : 'must be text';
-    case 'icon':
-      return iconProblem(value);
-    case 'list':
-      return listProblem(field, value);
-    default:
-      return validateField(field, value);
-  }
+  const problem = validateField(field, value);
+  if (problem !== null || field.type !== 'list') return problem;
+  return listProblem(field, value);
 }
 
 function listProblem(field: Field, value: unknown): string | null {
-  if (!Array.isArray(value) || !value.every(isRecord)) return 'must be a list of items';
-  if (field.minItems !== undefined && value.length < field.minItems) {
+  const items = asListItems(value);
+  if (field.minItems !== undefined && items.length < field.minItems) {
     return `needs at least ${field.minItems} items`;
   }
-  if (field.maxItems !== undefined && value.length > field.maxItems) {
+  if (field.maxItems !== undefined && items.length > field.maxItems) {
     return `allows at most ${field.maxItems} items`;
   }
-  for (const [index, item] of value.entries()) {
+  for (const [index, item] of items.entries()) {
     for (const itemField of field.itemFields ?? []) {
       const problem = valueProblem(itemField, item[itemField.name] ?? itemField.default);
       if (problem !== null) return `item ${index + 1}: ${itemField.name} ${problem}`;
@@ -359,32 +347,6 @@ function parseFields(value: unknown, parentPath: string, depth: number, report: 
   return fields;
 }
 
-function parseFieldRenames(
-  value: unknown,
-  fields: Field[],
-  report: Report,
-): Record<string, string> {
-  if (value === undefined) return {};
-  if (!isRecord(value)) {
-    report('fieldRenames', 'must map old field names to new ones');
-    return {};
-  }
-  const renames: Record<string, string> = {};
-  const names = new Set(fields.map(({ name }) => name));
-  for (const [from, to] of Object.entries(value)) {
-    if (typeof to !== 'string' || !names.has(to)) {
-      report(`fieldRenames.${from}`, `must name one of this block’s fields`);
-      continue;
-    }
-    if (names.has(from)) {
-      report(`fieldRenames.${from}`, 'renames a field that still exists');
-      continue;
-    }
-    renames[from] = to;
-  }
-  return renames;
-}
-
 function parseStyleOverrides(value: unknown, report: Report): string[] {
   const tokens = textListAt(value, 'styleOverrides', report);
   for (const token of tokens) {
@@ -393,38 +355,27 @@ function parseStyleOverrides(value: unknown, report: Report): string[] {
   return tokens;
 }
 
-function parseBehaviors(
-  value: unknown,
-  behaviorNames: readonly string[],
-  report: Report,
-): string[] | undefined {
-  const names = optionalTextListAt(value, 'behaviors', report);
-  for (const name of names ?? []) {
-    if (!behaviorNames.includes(name))
-      report('behaviors', `"${name}" is not a site runtime behavior`);
-  }
-  return names;
+function sourceTextAt(value: unknown, file: string, report: Report): string {
+  if (typeof value === 'string' && value.trim() !== '') return value;
+  report(file, 'is missing or empty');
+  return '';
 }
 
-export type PackBlockContext = { pack: PackInfo; behaviorNames: readonly string[]; index: number };
-
 export function parsePackBlock(
+  pack: PackInfo,
+  blockId: string,
   raw: unknown,
-  { pack, behaviorNames, index }: PackBlockContext,
-): ParsedPackBlock {
-  const blockLabel =
-    isRecord(raw) && typeof raw.id === 'string' && raw.id !== '' ? raw.id : `block ${index + 1}`;
+  sources: PackBlockSources,
+): { packBlock: PackBlock | null; errors: PackError[] } {
   const errors: PackError[] = [];
-  const report: Report = (field, message) => {
-    errors.push({ block: blockLabel, field, line: null, message });
+  const report: Report = (field, message, line = null) => {
+    errors.push({ block: blockId, field, line, message });
   };
+  if (!KEBAB_ID.test(blockId)) report(null, 'needs a kebab-case folder name, like hero-split');
   if (!isRecord(raw)) {
-    report(null, 'is not an object');
-    return { definition: null, errors };
+    report(BLOCK_FILE, 'must hold one JSON object');
+    return { packBlock: null, errors };
   }
-  if (typeof raw.id !== 'string' || !KEBAB_ID.test(raw.id))
-    report('id', 'must be kebab-case, like hero-split');
-  const version = wholeNumberAt(raw.version, 'version', 1, report);
   const name = textAt(raw.name, 'name', report);
   const category: Category | undefined = oneOf(
     raw.category,
@@ -436,20 +387,18 @@ export function parsePackBlock(
   const tags = optionalTextListAt(raw.tags, 'tags', report);
   const fieldGroups = optionalTextListAt(raw.fieldGroups, 'fieldGroups', report);
   const fields = parseFields(raw.fields, '', 1, report);
-  const template = textAt(raw.template, 'template', report);
-  const styles = textAt(raw.styles, 'styles', report);
-  const behaviors = parseBehaviors(raw.behaviors, behaviorNames, report);
   const styleOverrides = parseStyleOverrides(raw.styleOverrides, report);
-  if (typeof raw.thumbnail !== 'string' || !THUMBNAIL.test(raw.thumbnail)) {
-    report('thumbnail', 'must be a base64 PNG, JPEG, WebP or SVG data URL');
+  const template = sourceTextAt(sources.template, TEMPLATE_FILE, report);
+  const styles = sourceTextAt(sources.styles, STYLES_FILE, report);
+  const { thumbnail } = sources;
+  if (typeof thumbnail !== 'string' || !THUMBNAIL.test(thumbnail)) {
+    report(THUMBNAIL_FILE, 'is missing or not a WebP image');
   }
-  const fieldRenames = parseFieldRenames(raw.fieldRenames, fields, report);
-  if (errors.length > 0 || category === undefined || typeof raw.id !== 'string') {
-    return { definition: null, errors };
+  if (errors.length > 0 || category === undefined || typeof thumbnail !== 'string') {
+    return { packBlock: null, errors };
   }
   const definition: ComponentDefinition = {
-    id: customComponentId(pack.id, raw.id),
-    version,
+    id: componentIdOf(pack.id, blockId),
     name,
     category,
     fields,
@@ -458,19 +407,23 @@ export function parsePackBlock(
   if (description !== undefined) definition.description = description;
   if (tags !== undefined) definition.tags = tags;
   if (fieldGroups !== undefined) definition.fieldGroups = fieldGroups;
-  if (behaviors !== undefined) definition.behaviors = behaviors;
-  const thumbnail = String(raw.thumbnail);
-  return { definition: { pack, definition, template, styles, thumbnail, fieldRenames }, errors };
+  return { packBlock: { pack, definition, template, styles, thumbnail }, errors };
 }
 
-export function parsePackInfo(raw: Record<string, unknown>): {
-  info: PackInfo | null;
-  errors: PackError[];
-} {
+export function parsePackInfo(raw: unknown): { info: PackInfo | null; errors: PackError[] } {
   const errors: PackError[] = [];
   const report: Report = (field, message) => {
-    errors.push({ block: null, field, line: null, message });
+    errors.push({
+      block: null,
+      field: field === null ? PACK_FILE : `${PACK_FILE} ${field}`,
+      line: null,
+      message,
+    });
   };
+  if (!isRecord(raw)) {
+    report(null, 'must hold one JSON object');
+    return { info: null, errors };
+  }
   if (typeof raw.id !== 'string' || !KEBAB_ID.test(raw.id))
     report('id', 'must be kebab-case, like acme-marketing');
   if (!isPackVersion(raw.version)) report('version', 'must be a version like 1.2.0');
@@ -483,118 +436,132 @@ export function parsePackInfo(raw: Record<string, unknown>): {
   return { info: { id: raw.id, name, version: raw.version, author, license }, errors };
 }
 
-export function parsePackFile(raw: unknown, behaviorNames: readonly string[]): ParsedPackFile {
-  if (!isRecord(raw)) {
-    const message = 'This file is not a block pack: it must hold one JSON object';
+export function base64Of(bytes: Uint8Array): string {
+  let binary = '';
+  for (let index = 0; index < bytes.length; index += BASE64_CHUNK) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + BASE64_CHUNK));
+  }
+  return btoa(binary);
+}
+
+export function thumbnailBytes(thumbnail: string): Uint8Array<ArrayBuffer> {
+  const binary = atob(thumbnail.slice(THUMBNAIL_PREFIX.length));
+  return Uint8Array.from(binary, (char) => char.charCodeAt(0));
+}
+
+function isWebp(bytes: Uint8Array): boolean {
+  const riff = textDecoder.decode(bytes.subarray(0, 4));
+  const webp = textDecoder.decode(bytes.subarray(8, 12));
+  return riff === 'RIFF' && webp === 'WEBP';
+}
+
+function thumbnailOf(bytes: Uint8Array | undefined): string | undefined {
+  if (bytes === undefined || !isWebp(bytes)) return undefined;
+  return `${THUMBNAIL_PREFIX}${base64Of(bytes)}`;
+}
+
+function readJsonFile(bytes: Uint8Array, report: (line: number, message: string) => void): unknown {
+  const text = textDecoder.decode(bytes);
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    report(jsonErrorLine(text), `is not valid JSON: ${describeError(error)}`);
+    return undefined;
+  }
+}
+
+function packRootOf(files: PackFiles): string | null {
+  let root: string | null = null;
+  for (const path of files.keys()) {
+    if (path !== PACK_FILE && !path.endsWith(`/${PACK_FILE}`)) continue;
+    const folder = path.slice(0, path.length - PACK_FILE.length);
+    if (root === null || folder.split('/').length < root.split('/').length) root = folder;
+  }
+  return root;
+}
+
+function blockIdsIn(files: PackFiles, root: string): string[] {
+  const ids: string[] = [];
+  for (const path of files.keys()) {
+    if (!path.startsWith(root)) continue;
+    const parts = path.slice(root.length).split('/');
+    const [blockId, file] = parts;
+    if (parts.length === 2 && file === BLOCK_FILE && blockId !== undefined) ids.push(blockId);
+  }
+  return ids.sort();
+}
+
+function textOf(bytes: Uint8Array | undefined): string | undefined {
+  return bytes === undefined ? undefined : textDecoder.decode(bytes);
+}
+
+export function parsePackFiles(files: PackFiles): ParsedPackFile {
+  const root = packRootOf(files);
+  if (root === null) {
+    const message = `This is not a block pack: it has no ${PACK_FILE}`;
     return { info: null, blocks: [], errors: [{ block: null, field: null, line: null, message }] };
   }
-  const { info, errors } = parsePackInfo(raw);
-  if (raw.format !== PACK_FORMAT) {
-    errors.push({ block: null, field: 'format', line: null, message: `must be "${PACK_FORMAT}"` });
+  const errors: PackError[] = [];
+  const manifestBytes = files.get(`${root}${PACK_FILE}`) ?? new Uint8Array();
+  const rawInfo = readJsonFile(manifestBytes, (line, message) => {
+    errors.push({ block: null, field: PACK_FILE, line, message });
+  });
+  if (errors.length > 0) return { info: null, blocks: [], errors };
+  const { info, errors: infoErrors } = parsePackInfo(rawInfo);
+  errors.push(...infoErrors);
+  const blockIds = blockIdsIn(files, root);
+  if (blockIds.length === 0) {
+    const message = `must hold at least one block folder with a ${BLOCK_FILE}`;
+    errors.push({ block: null, field: null, line: null, message });
   }
-  if (raw.formatVersion !== PACK_FORMAT_VERSION) {
-    const message = `must be ${PACK_FORMAT_VERSION}; this editor can’t read other versions`;
-    errors.push({ block: null, field: 'formatVersion', line: null, message });
-  }
-  if (!Array.isArray(raw.blocks) || raw.blocks.length === 0) {
-    errors.push({
-      block: null,
-      field: 'blocks',
-      line: null,
-      message: 'must list at least one block',
+  if (info === null || errors.length > 0) return { info, blocks: [], errors };
+  const blocks: PackBlock[] = [];
+  for (const blockId of blockIds) {
+    const folder = `${root}${blockId}/`;
+    let isReadable = true;
+    const raw = readJsonFile(
+      files.get(`${folder}${BLOCK_FILE}`) ?? new Uint8Array(),
+      (line, message) => {
+        isReadable = false;
+        errors.push({ block: blockId, field: BLOCK_FILE, line, message });
+      },
+    );
+    if (!isReadable) continue;
+    const parsed = parsePackBlock(info, blockId, raw, {
+      template: textOf(files.get(`${folder}${TEMPLATE_FILE}`)),
+      styles: textOf(files.get(`${folder}${STYLES_FILE}`)),
+      thumbnail: thumbnailOf(files.get(`${folder}${THUMBNAIL_FILE}`)),
     });
-  }
-  if (info === null || errors.length > 0 || !Array.isArray(raw.blocks)) {
-    return { info, blocks: [], errors };
-  }
-  const blocks: CustomDefinition[] = [];
-  const ids = new Set<string>();
-  for (const [index, rawBlock] of raw.blocks.entries()) {
-    const parsed = parsePackBlock(rawBlock, { pack: info, behaviorNames, index });
     errors.push(...parsed.errors);
-    if (parsed.definition === null) continue;
-    const id = parsed.definition.definition.id;
-    if (ids.has(id)) {
-      errors.push({
-        block: id,
-        field: 'id',
-        line: null,
-        message: 'is used by another block in this pack',
-      });
-      continue;
-    }
-    ids.add(id);
-    blocks.push(parsed.definition);
+    if (parsed.packBlock !== null) blocks.push(parsed.packBlock);
   }
   return { info, blocks, errors };
 }
 
-export function packBlockId(custom: CustomDefinition): string {
-  return custom.definition.id.slice(custom.pack.id.length + 1);
-}
-
-export function toPackBlockJson(custom: CustomDefinition): Record<string, unknown> {
-  const { definition, template, styles, thumbnail, fieldRenames } = custom;
-  return {
-    ...definition,
-    id: packBlockId(custom),
-    template,
-    styles,
-    thumbnail,
-    ...(Object.keys(fieldRenames).length > 0 ? { fieldRenames } : {}),
-  };
-}
-
-export function toPackFileJson(
-  pack: PackInfo,
-  blocks: CustomDefinition[],
-): Record<string, unknown> {
-  return {
-    format: PACK_FORMAT,
-    formatVersion: PACK_FORMAT_VERSION,
-    id: pack.id,
-    name: pack.name,
-    version: pack.version,
-    author: pack.author,
-    license: pack.license,
-    blocks: blocks.map(toPackBlockJson),
-  };
-}
-
-function parseEmbeddedDefinition(
-  id: string,
-  raw: unknown,
-  behaviorNames: readonly string[],
-): CustomDefinition | null {
-  if (!isRecord(raw) || !isRecord(raw.pack) || !isRecord(raw.definition)) return null;
+function parseEmbeddedBlock(id: string, raw: unknown): PackBlock | null {
+  if (!isRecord(raw) || !isRecord(raw.definition)) return null;
   const { info } = parsePackInfo(raw.pack);
-  if (info === null || !id.startsWith(`${info.id}/`)) return null;
-  const blockRaw = {
-    ...raw.definition,
-    id: id.slice(info.id.length + 1),
+  if (info === null || isBuiltIn(info) || !id.startsWith(`${info.id}/`)) return null;
+  const blockId = id.slice(info.id.length + 1);
+  const { packBlock } = parsePackBlock(info, blockId, raw.definition, {
     template: raw.template,
     styles: raw.styles,
     thumbnail: raw.thumbnail,
-    fieldRenames: raw.fieldRenames,
-  };
-  const parsed = parsePackBlock(blockRaw, { pack: info, behaviorNames, index: 0 });
-  if (parsed.definition === null || parsed.definition.definition.id !== id) return null;
-  return parsed.definition;
+  });
+  if (packBlock === null || packBlock.definition.id !== id) return null;
+  return packBlock;
 }
 
-export function parseEmbeddedDefinitions(
-  value: unknown,
-  behaviorNames: readonly string[],
-): Record<string, CustomDefinition> {
-  const definitions: Record<string, CustomDefinition> = {};
-  if (!isRecord(value)) return definitions;
+export function parseEmbeddedBlocks(value: unknown): Record<string, PackBlock> {
+  const packBlocks: Record<string, PackBlock> = {};
+  if (!isRecord(value)) return packBlocks;
   for (const [id, raw] of Object.entries(value)) {
-    const definition = parseEmbeddedDefinition(id, raw, behaviorNames);
-    if (definition === null) {
-      console.warn(`Skipped the embedded custom block "${id}": its definition is not valid`);
+    const packBlock = parseEmbeddedBlock(id, raw);
+    if (packBlock === null) {
+      console.warn(`Skipped the embedded pack block "${id}": its definition is not valid`);
       continue;
     }
-    definitions[id] = definition;
+    packBlocks[id] = packBlock;
   }
-  return definitions;
+  return packBlocks;
 }

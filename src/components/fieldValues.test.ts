@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { forEachFieldValue, mapFieldValues } from './fieldValues';
+import { fitValues, forEachFieldValue, mapFieldValues } from './fieldValues';
 import type { Field } from './types';
 
 const FIELDS: Field[] = [
@@ -40,5 +40,35 @@ describe('mapFieldValues', () => {
   it('leaves missing fields and lists that are not arrays alone', () => {
     const mapped = mapFieldValues(FIELDS, { items: 'broken' }, () => 'changed');
     expect(mapped).toEqual({ items: 'broken' });
+  });
+});
+
+describe('fitValues', () => {
+  const fields: Field[] = [
+    ...FIELDS,
+    { name: 'count', label: 'Count', type: 'number', default: 3 },
+    { name: 'isOn', label: 'On', type: 'boolean', default: true },
+  ];
+
+  it('keeps values that fit, fills missing ones and lists removed and reset fields', () => {
+    const result = fitValues(fields, {
+      title: 'Kept',
+      count: 'three',
+      retired: 'x',
+      items: [{ label: 'A', old: 1 }, { label: 2 }],
+    });
+    expect(result.values).toEqual({
+      title: 'Kept',
+      items: [{ label: 'A' }, { label: '' }],
+      count: 3,
+      isOn: true,
+    });
+    expect(result.removed).toEqual(['retired']);
+    expect(result.reset).toEqual(['count']);
+  });
+
+  it('leaves values that already fit unchanged', () => {
+    const values = { title: 'A', items: [{ label: 'B' }], count: 1, isOn: false };
+    expect(fitValues(fields, values)).toEqual({ values, removed: [], reset: [] });
   });
 });

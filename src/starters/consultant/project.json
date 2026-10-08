@@ -1,11 +1,12 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 1,
   "id": "starter-consultant",
   "settings": {
     "title": "Calloway Leadership",
     "description": "Leadership coaching for first-time engineering managers, from Minneapolis and online.",
     "language": "en",
-    "titleTemplate": "{{page.title}} | {{site.title}}"
+    "titleTemplate": "{{page.title}} | {{site.title}}",
+    "indexable": true
   },
   "designSystem": {
     "presetId": "corporate",
@@ -432,7 +433,8 @@
         ],
         "seo": {
           "description": "Ruth Calloway coaches first-time engineering managers in Minneapolis and online: better one-on-ones, clearer feedback, calmer first years.",
-          "title": "Leadership coaching for new engineering managers"
+          "title": "Leadership coaching for new engineering managers",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -450,7 +452,8 @@
         ],
         "seo": {
           "description": "Coaching programs from $3,600 and single sessions from $350 for new engineering managers, with fixed, published prices.",
-          "title": "Coaching programs and prices"
+          "title": "Coaching programs and prices",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -469,7 +472,8 @@
         ],
         "seo": {
           "description": "Engineering managers, and the leaders who hired Ruth Calloway, describe what changed for them and their teams after coaching.",
-          "title": "Client stories"
+          "title": "Client stories",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -481,7 +485,8 @@
         "blockIds": ["contact-hero", "contact-form", "contact-faq", "contact-newsletter"],
         "seo": {
           "description": "Book a free 30-minute intro call with leadership coach Ruth Calloway, or ask a question about programs and prices.",
-          "title": "Book a free intro call"
+          "title": "Book a free intro call",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -522,7 +527,6 @@
         "id": "header-banner",
         "kind": "component",
         "componentId": "banner-announcement",
-        "componentVersion": 1,
         "values": {
           "showIcon": true,
           "icon": "calendar",
@@ -544,7 +548,6 @@
         "id": "header-nav",
         "kind": "component",
         "componentId": "nav-simple",
-        "componentVersion": 1,
         "values": {
           "links": [
             {
@@ -602,7 +605,6 @@
         "id": "footer-footer",
         "kind": "component",
         "componentId": "footer-columns",
-        "componentVersion": 1,
         "values": {
           "tagline": "Leadership coaching for engineers in their first two years of managing people. Based in Minneapolis, working with managers across North America.",
           "productTitle": "Coaching",
@@ -740,7 +742,6 @@
         "id": "home-hero",
         "kind": "component",
         "componentId": "hero-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Coaching for first-time engineering managers",
           "title": "Become the manager you needed in your first year",
@@ -788,7 +789,6 @@
         "id": "home-clients",
         "kind": "component",
         "componentId": "logos-row",
-        "componentVersion": 1,
         "values": {
           "title": "Managers I have coached lead teams at",
           "logos": [
@@ -895,7 +895,6 @@
         "id": "home-benefits",
         "kind": "component",
         "componentId": "features-icon-list",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "What you get",
           "title": "Practical help with the parts of managing nobody taught you",
@@ -953,7 +952,6 @@
         "id": "home-about",
         "kind": "component",
         "componentId": "content-list-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "About Ruth",
           "title": "I have sat in the chair you are sitting in",
@@ -1008,7 +1006,6 @@
         "id": "home-approach",
         "kind": "component",
         "componentId": "steps-row",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "How coaching works",
           "title": "What working together looks like",
@@ -1041,7 +1038,6 @@
         "id": "home-results",
         "kind": "component",
         "componentId": "stats-described",
-        "componentVersion": 2,
         "values": {
           "eyebrow": "Results",
           "title": "What changes for the managers I coach",
@@ -1076,7 +1072,6 @@
         "id": "home-cta",
         "kind": "component",
         "componentId": "cta-centered",
-        "componentVersion": 1,
         "values": {
           "title": "Start with a free intro call",
           "text": "Tell me what is going on with your team. If coaching with me is not the right fit, I will point you to something that is.",
@@ -1108,7 +1103,6 @@
         "id": "services-hero",
         "kind": "component",
         "componentId": "hero-centered",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Services and prices",
           "title": "Coaching programs for new engineering managers",
@@ -1144,7 +1138,6 @@
         "id": "services-programs",
         "kind": "component",
         "componentId": "pricing-3-plans",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Programs",
           "title": "Choose the support that fits your first years",
@@ -1219,7 +1212,6 @@
         "id": "services-sessions",
         "kind": "component",
         "componentId": "pricing-list",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Single sessions",
           "title": "Help with one decision or one conversation",
@@ -1286,7 +1278,6 @@
         "id": "services-included",
         "kind": "component",
         "componentId": "features-checklist",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Included every time",
           "title": "The details that make coaching work",
@@ -1337,7 +1328,6 @@
         "id": "services-cta",
         "kind": "component",
         "componentId": "cta-banner",
-        "componentVersion": 1,
         "values": {
           "title": "Not sure which program fits?",
           "text": "A free 30-minute intro call is the quickest way to find out.",
@@ -1361,7 +1351,6 @@
         "id": "testimonials-hero",
         "kind": "component",
         "componentId": "hero-centered",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Client stories",
           "title": "What managers say a year after coaching",
@@ -1396,7 +1385,6 @@
         "id": "testimonials-quotes",
         "kind": "component",
         "componentId": "testimonials-grid",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "From managers",
           "title": "In their own words",
@@ -1516,7 +1504,6 @@
         "id": "testimonials-sponsor",
         "kind": "component",
         "componentId": "testimonial-logo",
-        "componentVersion": 1,
         "values": {
           "logo": {
             "source": "placeholder",
@@ -1557,7 +1544,6 @@
         "id": "testimonials-numbers",
         "kind": "component",
         "componentId": "stats-row",
-        "componentVersion": 2,
         "values": {
           "stats": [
             {
@@ -1596,7 +1582,6 @@
         "id": "testimonials-story",
         "kind": "component",
         "componentId": "content-quote",
-        "componentVersion": 1,
         "values": {
           "showIcon": true,
           "quoteIcon": "quote",
@@ -1626,7 +1611,6 @@
         "id": "testimonials-cta",
         "kind": "component",
         "componentId": "cta-two-buttons",
-        "componentVersion": 1,
         "values": {
           "title": "Want to hear it from a past client?",
           "text": "After your intro call, I can introduce you to two managers I have coached, so you can ask them anything before you decide.",
@@ -1667,7 +1651,6 @@
         "id": "contact-hero",
         "kind": "component",
         "componentId": "hero-centered",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Contact",
           "title": "Book a free intro call",
@@ -1702,7 +1685,6 @@
         "id": "contact-form",
         "kind": "component",
         "componentId": "contact-form",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Free intro call",
           "title": "Tell me about your team",
@@ -1729,7 +1711,6 @@
         "id": "contact-faq",
         "kind": "component",
         "componentId": "faq-side-heading",
-        "componentVersion": 1,
         "values": {
           "title": "Questions before you book",
           "text": "Something else on your mind? Write to me and I will answer within one working day.",
@@ -1777,7 +1758,6 @@
         "id": "contact-newsletter",
         "kind": "component",
         "componentId": "newsletter-inline",
-        "componentVersion": 1,
         "values": {
           "title": "The first-year manager letter",
           "text": "One short email every other Tuesday: a question to bring to your next one-on-one and a lesson from my coaching practice, shared without names.",
@@ -1802,5 +1782,6 @@
     "header": ["header-banner", "header-nav"],
     "footer": ["footer-footer"]
   },
+  "packBlocks": {},
   "assets": {}
 }

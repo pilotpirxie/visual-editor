@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type JSX } from 'react';
 import { describeError } from '../../app/errors';
 import type { Project } from '../../app/types';
-import { registry } from '../../components/registry';
+import { builtInComponents } from '../../components/registry';
 import { renderStandalonePage } from '../../render/exportSite';
 import {
   loadStarter,
@@ -10,10 +10,9 @@ import {
   type StarterInfo,
   type StarterUseCase,
 } from '../../starters/starters';
-import { useElementSize } from '../canvas/Canvas';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import { StarterPreview } from './StarterPreview';
-import { Button, SegmentedControl } from '../../../packages/ui/src';
+import { Button, SegmentedControl, useElementSize } from '../../../packages/ui/src';
 
 const THUMBNAIL_WIDTH = 1440;
 const THUMBNAIL_HEIGHT = 900;
@@ -67,7 +66,9 @@ function StarterThumbnail({ project }: { project: Project }): JSX.Element {
   const { width } = useElementSize(boxRef);
   const html = useMemo(
     () =>
-      renderStandalonePage(project, project.pages.homePageId, registry, { shouldLinkFonts: true }),
+      renderStandalonePage(project, project.pages.homePageId, builtInComponents, {
+        shouldLinkFonts: true,
+      }),
     [project],
   );
   return (

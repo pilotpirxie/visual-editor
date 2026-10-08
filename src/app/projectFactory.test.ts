@@ -59,7 +59,7 @@ describe('createBlankProject', () => {
     expect(project.pages.entities[homePageId]?.blockIds).toEqual([]);
     expect(project.blocks).toEqual({ ids: [], entities: {} });
     expect(project.sharedSlots).toEqual({ header: [], footer: [] });
-    expect(project.customDefinitions).toEqual({});
+    expect(project.packBlocks).toEqual({});
     expect(project.assets).toEqual({});
   });
 

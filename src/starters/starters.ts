@@ -1,6 +1,6 @@
 import { copyProjectWithNewIds } from '../app/projectCopy';
 import type { Project } from '../app/types';
-import { openProjectDocument } from '../persistence/migrations';
+import { parseProjectDocument } from '../persistence/validateProject';
 
 export const STARTER_USE_CASES = [
   { id: 'products', label: 'Products' },
@@ -94,7 +94,7 @@ function moduleDefault(value: unknown): unknown {
 
 export async function loadStarter(starter: StarterInfo): Promise<Project> {
   const loaded = await starter.load();
-  return openProjectDocument(moduleDefault(loaded));
+  return parseProjectDocument(moduleDefault(loaded));
 }
 
 export function instantiateStarter(starter: StarterInfo, project: Project, title: string): Project {

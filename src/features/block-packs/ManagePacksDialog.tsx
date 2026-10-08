@@ -1,15 +1,57 @@
 import { useMemo, useState, type JSX } from 'react';
-import { useStore } from '../../app/store';
+import { noticeShown } from '../../app/editorSlice';
+import { describeError } from '../../app/errors';
+import { dispatch, useStore } from '../../app/store';
 import type { BlockPack, PackInfo } from '../../components/types';
-import exampleUrl from './example-pack.json?url';
 import { packCommands } from './packCommands';
-import { missingPacks } from './packLibrary';
+import { blockCountLabel, missingPacks } from './packLibrary';
+import { createZip, type ZipEntry } from '../export/zip';
+import { downloadBlob } from '../export/download';
 import { Button, closeDialogOf, Dialog } from '../../../packages/ui/src';
 
 const TITLE_ID = 've-manage-packs-title';
+const EXAMPLE_FOLDER = './example-pack/';
+const EXAMPLE_FILE_NAME = 'example-block-pack.zip';
 
-function blockCount(count: number): string {
-  return count === 1 ? '1 block' : `${count} blocks`;
+const exampleTextFiles = import.meta.glob<string>('./example-pack/**/*.{json,hbs,css}', {
+  eager: true,
+  query: '?raw',
+  import: 'default',
+});
+const exampleThumbnails = import.meta.glob<string>('./example-pack/**/*.webp', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+});
+
+async function fetchBytes(url: string): Promise<Uint8Array<ArrayBuffer>> {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Could not load ${url} (${response.status})`);
+  return new Uint8Array(await response.arrayBuffer());
+}
+
+async function examplePackZip(): Promise<Blob> {
+  const encoder = new TextEncoder();
+  const entries: ZipEntry[] = [];
+  for (const [path, text] of Object.entries(exampleTextFiles)) {
+    entries.push({ path: path.slice(EXAMPLE_FOLDER.length), data: encoder.encode(text) });
+  }
+  for (const [path, url] of Object.entries(exampleThumbnails)) {
+    entries.push({ path: path.slice(EXAMPLE_FOLDER.length), data: await fetchBytes(url) });
+  }
+  entries.sort((left, right) => left.path.localeCompare(right.path));
+  return createZip(entries);
+}
+
+async function saveExamplePack(): Promise<void> {
+  downloadBlob(await examplePackZip(), EXAMPLE_FILE_NAME);
+}
+
+function downloadExamplePack(): void {
+  saveExamplePack().catch((error: unknown) => {
+    console.error('Downloading the example pack failed', error);
+    dispatch(noticeShown('error', `Downloading the example pack failed: ${describeError(error)}`));
+  });
 }
 
 function PackRow({ pack }: { pack: BlockPack }): JSX.Element {
@@ -22,7 +64,7 @@ function PackRow({ pack }: { pack: BlockPack }): JSX.Element {
         </strong>
         {pack.isPartial && <span className="ve-pack-badge">Partial</span>}
         <span className="ui-muted">
-          {pack.author} · {pack.license} · {blockCount(pack.blocks.length)}
+          {pack.author} · {pack.license} · {blockCountLabel(pack.blocks.length)}
         </span>
       </div>
       <div className="ve-pack-actions">
@@ -77,8 +119,8 @@ function MissingPackRow({ pack }: { pack: PackInfo }): JSX.Element {
 
 export function ManagePacksDialog(): JSX.Element {
   const packs = useStore((state) => state.editor.blockPacks);
-  const customDefinitions = useStore((state) => state.project.customDefinitions);
-  const missing = useMemo(() => missingPacks(customDefinitions, packs), [customDefinitions, packs]);
+  const packBlocks = useStore((state) => state.project.packBlocks);
+  const missing = useMemo(() => missingPacks(packBlocks, packs), [packBlocks, packs]);
 
   return (
     <Dialog labelId={TITLE_ID} size="wide" onClose={packCommands.closeDialog}>
@@ -108,9 +150,9 @@ export function ManagePacksDialog(): JSX.Element {
           </section>
         )}
         <div className="ui-dialog-actions ve-pack-footer">
-          <a className="ve-pack-example" href={exampleUrl} download="example-block-pack.json">
+          <Button className="ve-pack-example" variant="ghost" onClick={downloadExamplePack}>
             Download example pack
-          </a>
+          </Button>
           <Button variant="secondary" onClick={packCommands.loadFromDisk}>
             Load block pack…
           </Button>

@@ -11,7 +11,7 @@ import {
 } from '../../app/editorSlice';
 import { blockValueSet } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
-import { changeValue, click, getButton, render, runInAct } from '../../test/dom';
+import { choiceInput, click, getButton, render, runInAct } from '../../test/dom';
 import { homePage, loadIntoAppStore } from '../../test/fixtures';
 import { EditorDialogs } from './EditorDialogs';
 import { Toolbar } from './Toolbar';
@@ -32,21 +32,25 @@ beforeEach(() => {
 });
 
 describe('Toolbar', () => {
-  it('lists the device modes with their widths in one select and switches between them', () => {
+  it('lists the device modes as icons labelled with their widths and switches between them', () => {
     const { container } = render(<Toolbar />);
-    const device = container.querySelector<HTMLSelectElement>('select[aria-label="Device"]');
+    const device = container.querySelector('fieldset.ve-device-toggle');
+    expect(device?.querySelector('legend')?.textContent).toBe('Device');
     const labels: string[] = [];
-    for (const option of device?.options ?? []) labels.push(option.textContent ?? '');
+    for (const label of device?.querySelectorAll('label') ?? []) {
+      expect(label.querySelector('svg')).not.toBeNull();
+      labels.push(label.textContent ?? '');
+    }
     expect(labels).toEqual([
       'Responsive',
       'Desktop (1440 px)',
       'Tablet (768 px)',
       'Phone (375 px)',
     ]);
-    expect(device?.value).toBe('desktop');
-    changeValue(device, 'phone');
+    expect(choiceInput(container, 'Desktop (1440 px)')?.checked).toBe(true);
+    click(choiceInput(container, 'Phone (375 px)'));
     expect(store.getState().editor.device).toBe('phone');
-    changeValue(device, 'responsive');
+    click(choiceInput(container, 'Responsive'));
     expect(store.getState().editor.device).toBe('responsive');
   });
 

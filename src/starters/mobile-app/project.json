@@ -1,11 +1,12 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "id": "starter-mobile-app",
   "settings": {
     "title": "Tandem",
     "description": "The shared grocery list and meal planner for busy households.",
     "language": "en",
-    "titleTemplate": "{{page.title}} | {{site.title}}"
+    "titleTemplate": "{{page.title}} | {{site.title}}",
+    "indexable": true
   },
   "designSystem": {
     "presetId": "playful",
@@ -309,6 +310,90 @@
         "label": "Normal",
         "group": "motion",
         "value": "200ms"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#2b1d3a"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#3a2a4c"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#fffbf5"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#cdbfd8"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#4d3a62"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#f48fb1"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#2b1d3a"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
       }
     },
     "fonts": [
@@ -346,7 +431,8 @@
           "home-download"
         ],
         "seo": {
-          "description": "Tandem is the shared grocery list and meal planner for busy households."
+          "description": "Tandem is the shared grocery list and meal planner for busy households.",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -357,7 +443,8 @@
         "slug": "features",
         "blockIds": ["features-hero", "features-rows", "features-list", "features-banner"],
         "seo": {
-          "description": "Shared lists sorted by aisle, recipe imports and a fair chore rota."
+          "description": "Shared lists sorted by aisle, recipe imports and a fair chore rota.",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -368,7 +455,8 @@
         "slug": "download",
         "blockIds": ["download-hero", "download-steps", "download-faq"],
         "seo": {
-          "description": "Download Tandem free on iPhone and Android."
+          "description": "Download Tandem free on iPhone and Android.",
+          "noindex": false
         },
         "showSharedHeader": true,
         "showSharedFooter": true
@@ -411,7 +499,6 @@
         "id": "nav",
         "kind": "component",
         "componentId": "nav-simple",
-        "componentVersion": 1,
         "values": {
           "links": [
             {
@@ -462,7 +549,6 @@
         "id": "footer",
         "kind": "component",
         "componentId": "footer-centered",
-        "componentVersion": 1,
         "values": {
           "links": [
             {
@@ -509,7 +595,6 @@
         "id": "home-hero",
         "kind": "component",
         "componentId": "hero-image",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "New: weekly meal plans",
           "title": "One shopping list for the whole household",
@@ -556,7 +641,6 @@
         "id": "home-features",
         "kind": "component",
         "componentId": "features-grid-3",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Why families love it",
           "title": "Less back and forth, more dinner",
@@ -591,7 +675,6 @@
         "id": "home-steps",
         "kind": "component",
         "componentId": "steps-row",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "How it works",
           "title": "Ready before your next shop",
@@ -620,7 +703,6 @@
         "id": "home-quote",
         "kind": "component",
         "componentId": "testimonial-quote",
-        "componentVersion": 1,
         "values": {
           "quote": "We used to send each other photos of the fridge. Now the list just knows what we need, and Sunday shopping takes half the time.",
           "name": "Ana and Joel Martins",
@@ -648,7 +730,6 @@
         "id": "home-stats",
         "kind": "component",
         "componentId": "stats-row",
-        "componentVersion": 1,
         "values": {
           "stats": [
             {
@@ -667,7 +748,8 @@
               "value": "12",
               "label": "Languages"
             }
-          ]
+          ],
+          "countUp": false
         },
         "overrides": {},
         "disabled": false,
@@ -678,7 +760,6 @@
         "id": "home-download",
         "kind": "component",
         "componentId": "cta-image",
-        "componentVersion": 1,
         "values": {
           "title": "Get Tandem on your phone",
           "text": "Free to download. Plus is $3.99 a month for unlimited lists and meal plans.",
@@ -723,7 +804,6 @@
         "id": "features-hero",
         "kind": "component",
         "componentId": "hero-centered",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Features",
           "title": "Small app, big relief for busy households",
@@ -757,7 +837,6 @@
         "id": "features-rows",
         "kind": "component",
         "componentId": "features-alternating",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "",
           "title": "Made for real kitchens",
@@ -822,7 +901,6 @@
         "id": "features-list",
         "kind": "component",
         "componentId": "features-checklist",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Included free",
           "title": "Everything you need to start",
@@ -866,7 +944,6 @@
         "id": "features-banner",
         "kind": "component",
         "componentId": "cta-banner",
-        "componentVersion": 1,
         "values": {
           "title": "Try Plus free for 30 days",
           "text": "Unlimited lists, meal plans and recipe imports.",
@@ -889,7 +966,6 @@
         "id": "download-hero",
         "kind": "component",
         "componentId": "hero-centered",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Free on iPhone and Android",
           "title": "Download Tandem",
@@ -923,7 +999,6 @@
         "id": "download-steps",
         "kind": "component",
         "componentId": "steps-timeline",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "Getting started",
           "title": "Your first week with Tandem",
@@ -960,7 +1035,6 @@
         "id": "download-faq",
         "kind": "component",
         "componentId": "faq-accordion",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "FAQ",
           "title": "Questions before you download",
@@ -990,7 +1064,6 @@
         "id": "not-found-hero",
         "kind": "component",
         "componentId": "http-404",
-        "componentVersion": 1,
         "values": {
           "eyebrow": "404",
           "title": "This page is not on the list",
@@ -1026,5 +1099,6 @@
     "header": ["nav"],
     "footer": ["footer"]
   },
+  "packBlocks": {},
   "assets": {}
 }

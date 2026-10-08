@@ -5,8 +5,13 @@ import {
   current,
   type PayloadAction,
 } from '@reduxjs/toolkit';
-import { blockCategory, createBlock, definitionOf, registry } from '../components/registry';
-import type { CustomDefinition } from '../components/types';
+import {
+  blockCategory,
+  builtInComponents,
+  createBlock,
+  definitionOf,
+} from '../components/registry';
+import type { PackBlock } from '../components/types';
 import { iconSetInfo } from '../../packages/icon-data/src/sets';
 import { isValidAnchor, isValidClassName } from '../render/attributes';
 import { referencedTokenName } from '../render/css';
@@ -215,7 +220,7 @@ function targetList(
   state: Project,
   target: BlockListTarget,
   block: Block,
-  custom?: CustomDefinition,
+  custom?: PackBlock,
 ): string[] | null {
   if (target.kind === 'page') return state.pages.entities[target.pageId]?.blockIds ?? null;
   const category = blockCategory(block, state) ?? custom?.definition.category ?? null;
@@ -239,9 +244,9 @@ function anchorsInUse(state: Project, pageId: string): string[] {
   return anchors;
 }
 
-function embedDefinition(state: Project, custom: CustomDefinition | undefined): void {
-  if (custom === undefined || state.customDefinitions[custom.definition.id] !== undefined) return;
-  state.customDefinitions[custom.definition.id] = custom;
+function embedDefinition(state: Project, custom: PackBlock | undefined): void {
+  if (custom === undefined || state.packBlocks[custom.definition.id] !== undefined) return;
+  state.packBlocks[custom.definition.id] = custom;
 }
 
 function withModalAnchor(state: Project, pageId: string, block: Block): Block {
@@ -281,7 +286,7 @@ export const projectSlice = createSlice({
           pageId: string;
           index: number;
           block: Block;
-          custom?: CustomDefinition;
+          custom?: PackBlock;
         }>,
       ) {
         const { pageId, index, custom } = action.payload;
@@ -292,8 +297,8 @@ export const projectSlice = createSlice({
         blocksAdapter.addOne(state.blocks, block);
         page.blockIds.splice(clamp(index, 0, page.blockIds.length), 0, block.id);
       },
-      prepare(pageId: string, index: number, componentId: string, custom?: CustomDefinition) {
-        const definition = registry.get(componentId)?.definition ?? custom?.definition;
+      prepare(pageId: string, index: number, componentId: string, custom?: PackBlock) {
+        const definition = builtInComponents.get(componentId)?.definition ?? custom?.definition;
         if (definition === undefined || definition.id !== componentId) {
           throw new Error(`Cannot insert unknown component "${componentId}"`);
         }
@@ -306,7 +311,7 @@ export const projectSlice = createSlice({
         target: BlockListTarget;
         index: number;
         block: Block;
-        custom?: CustomDefinition;
+        custom?: PackBlock;
       }>,
     ) {
       const { target, index, block, custom } = action.payload;
@@ -319,9 +324,9 @@ export const projectSlice = createSlice({
     },
     customBlocksUpgraded(
       state,
-      action: PayloadAction<{ definitions: Record<string, CustomDefinition>; blocks: Block[] }>,
+      action: PayloadAction<{ definitions: Record<string, PackBlock>; blocks: Block[] }>,
     ) {
-      Object.assign(state.customDefinitions, action.payload.definitions);
+      Object.assign(state.packBlocks, action.payload.definitions);
       for (const block of action.payload.blocks) {
         if (state.blocks.entities[block.id] !== undefined) state.blocks.entities[block.id] = block;
       }

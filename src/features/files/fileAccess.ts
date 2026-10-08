@@ -7,14 +7,19 @@ export type PickedFile = {
   handle: FileSystemFileHandle | null;
 };
 
-export type JsonPicker = { id: string; description: string };
+export type FilePicker = { id: string; description: string; type: string; extension: string };
 
-const PROJECT_PICKER: JsonPicker = { id: 'visual-editor-projects', description: 'Project file' };
+type ChosenFile = { file: File; handle: FileSystemFileHandle | null };
 
-function pickerTypes(picker: JsonPicker): FilePickerAcceptType[] {
-  return [
-    { description: picker.description, accept: { [PROJECT_FILE_TYPE]: [PROJECT_FILE_EXTENSION] } },
-  ];
+const PROJECT_PICKER: FilePicker = {
+  id: 'visual-editor-projects',
+  description: 'Project file',
+  type: PROJECT_FILE_TYPE,
+  extension: PROJECT_FILE_EXTENSION,
+};
+
+function pickerTypes(picker: FilePicker): FilePickerAcceptType[] {
+  return [{ description: picker.description, accept: { [picker.type]: [picker.extension] } }];
 }
 
 export function canUseFileSystemAccess(): boolean {
@@ -33,41 +38,26 @@ export async function readHandle(handle: FileSystemFileHandle): Promise<PickedFi
   return { text: await file.text(), name: file.name, lastModified: file.lastModified, handle };
 }
 
-async function readChosenFile(input: HTMLInputElement): Promise<PickedFile | null> {
-  const file = input.files?.[0];
-  if (file === undefined) return null;
-  return readFile(file);
-}
-
-export async function readFile(file: File): Promise<PickedFile> {
-  return {
-    text: await file.text(),
-    name: file.name,
-    lastModified: file.lastModified,
-    handle: null,
-  };
-}
-
-function pickWithInput(): Promise<PickedFile | null> {
-  return new Promise((resolve, reject) => {
+function chooseWithInput(picker: FilePicker): Promise<ChosenFile | null> {
+  return new Promise((resolve) => {
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = `${PROJECT_FILE_EXTENSION},${PROJECT_FILE_TYPE}`;
-    async function readSelection(): Promise<void> {
-      try {
-        resolve(await readChosenFile(input));
-      } catch (error) {
-        reject(error);
-      }
-    }
-    input.addEventListener('change', () => void readSelection(), { once: true });
+    input.accept = `${picker.extension},${picker.type}`;
+    input.addEventListener(
+      'change',
+      () => {
+        const file = input.files?.[0];
+        resolve(file === undefined ? null : { file, handle: null });
+      },
+      { once: true },
+    );
     input.addEventListener('cancel', () => resolve(null), { once: true });
     input.click();
   });
 }
 
-export async function pickJsonFile(picker: JsonPicker): Promise<PickedFile | null> {
-  if (window.showOpenFilePicker === undefined) return pickWithInput();
+async function chooseFile(picker: FilePicker): Promise<ChosenFile | null> {
+  if (window.showOpenFilePicker === undefined) return chooseWithInput(picker);
   let handles: FileSystemFileHandle[];
   try {
     handles = await window.showOpenFilePicker({ id: picker.id, types: pickerTypes(picker) });
@@ -77,11 +67,19 @@ export async function pickJsonFile(picker: JsonPicker): Promise<PickedFile | nul
   }
   const handle = handles[0];
   if (handle === undefined) return null;
-  return readHandle(handle);
+  return { file: await handle.getFile(), handle };
 }
 
-export function pickProjectFile(): Promise<PickedFile | null> {
-  return pickJsonFile(PROJECT_PICKER);
+export async function pickFile(picker: FilePicker): Promise<File | null> {
+  const chosen = await chooseFile(picker);
+  return chosen?.file ?? null;
+}
+
+export async function pickProjectFile(): Promise<PickedFile | null> {
+  const chosen = await chooseFile(PROJECT_PICKER);
+  if (chosen === null) return null;
+  const { file, handle } = chosen;
+  return { text: await file.text(), name: file.name, lastModified: file.lastModified, handle };
 }
 
 export async function pickSaveHandle(suggestedName: string): Promise<FileSystemFileHandle | null> {

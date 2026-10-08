@@ -194,11 +194,6 @@
     border-radius: 4px;
   }
 
-  .ve-block-toolbar .ve-block-handle {
-    cursor: grab;
-    touch-action: none;
-  }
-
   .ve-drop-line {
     position: absolute;
     right: 0;

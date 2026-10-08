@@ -22,6 +22,7 @@ const ISO_DATE = /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})$/;
 const HTML_TAG = /<[^>]*>/g;
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE = /^\+?[\d\s().-]{3,}$/;
+export const ICON_REF = /^(?:[a-z0-9-]+:)?[a-z0-9-]+$/;
 
 export function defaultValues(fields: Field[]): Record<string, unknown> {
   const values: Record<string, unknown> = {};
@@ -56,13 +57,13 @@ export function isFieldVisible(field: Field, values: Record<string, unknown>): b
   return values[field.visibleWhen.field] === field.visibleWhen.equals;
 }
 
-function isListItem(value: unknown): value is ListItem {
+export function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 export function asListItems(value: unknown): ListItem[] {
   if (!Array.isArray(value)) return [];
-  return value.filter(isListItem);
+  return value.filter(isRecord);
 }
 
 export function canAddItem(field: Field, items: readonly ListItem[]): boolean {
@@ -197,16 +198,14 @@ function isBlank(field: Field, value: unknown): boolean {
   return text.trim() === '';
 }
 
-function validateText(field: Field, value: unknown): string | null {
-  if (typeof value !== 'string') return 'Enter some text';
+function lengthError(field: Field, value: string): string | null {
   if (field.maxLength !== undefined && value.length > field.maxLength) {
     return `Use at most ${field.maxLength} characters`;
   }
   return null;
 }
 
-function validateNumber(field: Field, value: unknown): string | null {
-  if (typeof value !== 'number' || Number.isNaN(value)) return 'Enter a number';
+function rangeError(field: Field, value: number): string | null {
   if (field.min !== undefined && value < field.min) return `Use ${field.min} or more`;
   if (field.max !== undefined && value > field.max) return `Use ${field.max} or less`;
   return null;
@@ -217,44 +216,68 @@ function validateOption(field: Field, value: unknown): string | null {
   return isKnownOption ? null : 'Choose one of the options';
 }
 
-export function validateField(field: Field, value: unknown): string | null {
-  if (field.required && isBlank(field, value)) return 'This field is required';
-
+function typeError(field: Field, value: unknown): string | null {
   switch (field.type) {
     case 'text':
     case 'textarea':
-      return validateText(field, value);
+    case 'richtext':
+      return typeof value === 'string' ? null : 'Enter some text';
+    case 'date':
+      return typeof value === 'string' ? null : 'Enter a valid date';
+    case 'icon':
+      return typeof value === 'string' && (value === '' || ICON_REF.test(value))
+        ? null
+        : 'Choose an icon like star or lucide:star';
     case 'number':
     case 'range':
-      return validateNumber(field, value);
+      return typeof value === 'number' && Number.isFinite(value) ? null : 'Enter a number';
+    case 'boolean':
+      return typeof value === 'boolean' ? null : 'Choose on or off';
     case 'select':
     case 'segmented':
       return validateOption(field, value);
-    case 'date': {
-      if (value === '' && !field.required) return null;
-      const isDate = typeof value === 'string' && isValidDate(value);
-      return isDate ? null : 'Enter a valid date';
-    }
     case 'color':
       return isColorValue(value) ? null : 'Choose a design color or a hex color like #4f46e5';
     case 'image':
-      if (!isImageValue(value)) return 'Choose an image';
-      if (!value.decorative && value.alt.trim() === '') {
-        return 'Add alt text or mark the image as decorative';
-      }
-      return null;
+      return isImageValue(value) ? null : 'Choose an image';
     case 'link':
-      return linkError(value);
+      return isLinkValue(value) ? null : 'Choose where the link goes';
     case 'button':
-      return buttonError(value);
-    case 'richtext':
-    case 'boolean':
-    case 'icon':
+      return isButtonValue(value) ? null : 'Set up the button';
     case 'list':
-      return null;
+      return Array.isArray(value) && value.every(isRecord) ? null : 'Add a list of items';
     default: {
       const unknownType: never = field.type;
       throw new Error(`Unknown field type "${String(unknownType)}"`);
     }
   }
+}
+
+function constraintError(field: Field, value: unknown): string | null {
+  if ((field.type === 'text' || field.type === 'textarea') && typeof value === 'string') {
+    return lengthError(field, value);
+  }
+  if ((field.type === 'number' || field.type === 'range') && typeof value === 'number') {
+    return rangeError(field, value);
+  }
+  if (field.type === 'date' && typeof value === 'string') {
+    if (value === '' && !field.required) return null;
+    return isValidDate(value) ? null : 'Enter a valid date';
+  }
+  if (field.type === 'image' && isImageValue(value)) {
+    const isMissingAlt = !value.decorative && value.alt.trim() === '';
+    return isMissingAlt ? 'Add alt text or mark the image as decorative' : null;
+  }
+  if (field.type === 'link') return linkError(value);
+  if (field.type === 'button') return buttonError(value);
+  return null;
+}
+
+export function fitsField(field: Field, value: unknown): boolean {
+  return typeError(field, value) === null;
+}
+
+export function validateField(field: Field, value: unknown): string | null {
+  if (field.required && isBlank(field, value)) return 'This field is required';
+  return typeError(field, value) ?? constraintError(field, value);
 }

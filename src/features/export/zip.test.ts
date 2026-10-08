@@ -1,34 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createZip, crc32, zipEntriesOf } from './zip';
-
-type ReadEntry = { name: string; method: number; data: Uint8Array };
-
-async function inflateRaw(bytes: Uint8Array<ArrayBuffer>): Promise<Uint8Array> {
-  const body = new Response(bytes).body;
-  if (body === null) throw new Error('No body');
-  const stream = body.pipeThrough(new DecompressionStream('deflate-raw'));
-  return new Uint8Array(await new Response(stream).arrayBuffer());
-}
-
-async function readZip(blob: Blob): Promise<ReadEntry[]> {
-  const bytes = new Uint8Array(await blob.arrayBuffer());
-  const view = new DataView(bytes.buffer);
-  const decoder = new TextDecoder();
-  const entries: ReadEntry[] = [];
-  let offset = 0;
-  while (view.getUint32(offset, true) === 0x04034b50) {
-    const method = view.getUint16(offset + 8, true);
-    const compressedSize = view.getUint32(offset + 18, true);
-    const nameLength = view.getUint16(offset + 26, true);
-    const name = decoder.decode(bytes.slice(offset + 30, offset + 30 + nameLength));
-    const start = offset + 30 + nameLength;
-    const body = bytes.slice(start, start + compressedSize);
-    const data = method === 8 ? await inflateRaw(body) : body;
-    entries.push({ name, method, data });
-    offset = start + compressedSize;
-  }
-  return entries;
-}
+import { createZip, crc32, readZip, ZipFormatError, zipEntriesOf } from './zip';
 
 async function firstHeader(): Promise<DataView> {
   const zip = await createZip(await zipEntriesOf({ 'a.txt': 'a' }));
@@ -55,17 +26,15 @@ describe('createZip', () => {
     });
     const zip = await createZip(entries);
     expect(zip.type).toBe('application/zip');
-    const read = await readZip(zip);
-    expect(read.map((entry) => entry.name)).toEqual([
+    expect(zip.size).toBeLessThan(repeated.length);
+    const read = await readZip(new Uint8Array(await zip.arrayBuffer()));
+    expect([...read.keys()]).toEqual([
       'assets/images/icon.png',
       'assets/images/é.svg',
       'index.html',
     ]);
-    const decoder = new TextDecoder();
-    expect(decoder.decode(read[2]?.data)).toBe(repeated);
-    expect(read[2]?.method).toBe(8);
-    expect([...(read[0]?.data ?? [])]).toEqual([1, 2, 3]);
-    expect(read[0]?.method).toBe(0);
+    expect(new TextDecoder().decode(read.get('index.html'))).toBe(repeated);
+    expect([...(read.get('assets/images/icon.png') ?? [])]).toEqual([1, 2, 3]);
   });
 
   it('stamps every file with the same fixed date, 1980-01-01 00:00', async () => {
@@ -99,5 +68,57 @@ describe('createZip', () => {
     const end = new DataView(bytes.buffer, bytes.length - 22);
     expect(end.getUint32(0, true)).toBe(0x06054b50);
     expect(end.getUint16(10, true)).toBe(2);
+  });
+});
+
+async function zipBytes(files: Record<string, string>): Promise<Uint8Array<ArrayBuffer>> {
+  const zip = await createZip(await zipEntriesOf(files));
+  return new Uint8Array(await zip.arrayBuffer());
+}
+
+function centralHeaderAt(bytes: Uint8Array<ArrayBuffer>): number {
+  const view = new DataView(bytes.buffer);
+  return view.getUint32(bytes.length - 22 + 16, true);
+}
+
+describe('readZip', () => {
+  it('skips folders and macOS metadata', async () => {
+    const bytes = await zipBytes({
+      'pack/': '',
+      'pack/pack.json': '{}',
+      '__MACOSX/pack/._pack.json': 'x',
+      'pack/.DS_Store': 'x',
+    });
+    expect([...(await readZip(bytes)).keys()]).toEqual(['pack/pack.json']);
+  });
+
+  it('reads sizes from the central directory, as zips with data descriptors need', async () => {
+    const bytes = await zipBytes({ 'a.txt': 'Fieldnote '.repeat(40) });
+    const view = new DataView(bytes.buffer);
+    view.setUint16(6, 0x0008, true);
+    view.setUint32(14, 0, true);
+    view.setUint32(18, 0, true);
+    view.setUint32(22, 0, true);
+    const read = await readZip(bytes);
+    expect(new TextDecoder().decode(read.get('a.txt'))).toBe('Fieldnote '.repeat(40));
+  });
+
+  it('refuses files that are not zips', async () => {
+    const bytes = new TextEncoder().encode('{"format": "block-pack", "blocks": []}');
+    await expect(readZip(bytes)).rejects.toThrow(ZipFormatError);
+  });
+
+  it('refuses damaged files', async () => {
+    const bytes = await zipBytes({ 'a.txt': 'hello' });
+    const view = new DataView(bytes.buffer);
+    view.setUint32(centralHeaderAt(bytes) + 16, 0, true);
+    await expect(readZip(bytes)).rejects.toThrow('a.txt in the zip is damaged');
+  });
+
+  it('refuses encrypted files', async () => {
+    const bytes = await zipBytes({ 'secret.txt': 'hello' });
+    const view = new DataView(bytes.buffer);
+    view.setUint16(centralHeaderAt(bytes) + 8, 0x0001, true);
+    await expect(readZip(bytes)).rejects.toThrow('secret.txt is encrypted');
   });
 });

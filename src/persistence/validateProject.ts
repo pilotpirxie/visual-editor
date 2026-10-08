@@ -16,11 +16,11 @@ import {
   type Token,
   type TokenGenerators,
 } from '../app/types';
-import { behaviors } from 'virtual:site-runtime';
 import { iconSetInfo } from '../../packages/icon-data/src/sets';
-import { parseEmbeddedDefinitions } from '../components/packFormat';
+import { parseEmbeddedBlocks } from '../components/packFormat';
 import { isSafeCssValue } from '../render/sanitize';
-import { isRecord, parseBlock } from './parseBlock';
+import { isRecord } from '../components/fields';
+import { parseBlock, TOKEN_NAME } from './parseBlock';
 
 export class ProjectFormatError extends Error {
   constructor(message: string, options?: ErrorOptions) {
@@ -29,7 +29,6 @@ export class ProjectFormatError extends Error {
   }
 }
 
-const TOKEN_NAME = /^--[a-z0-9-]+$/;
 const ASSET_TYPES = [...new Set([...SOCIAL_IMAGE_TYPES, ...FAVICON_TYPES])];
 const SEO_TEXT_KEYS = ['title', 'description', 'socialTitle', 'socialDescription'] as const;
 
@@ -283,7 +282,7 @@ export function parseProjectDocument(value: unknown): Project {
     pages: parsePages(raw.pages, blocks, assets),
     blocks,
     sharedSlots,
-    customDefinitions: parseEmbeddedDefinitions(raw.customDefinitions, Object.keys(behaviors)),
+    packBlocks: parseEmbeddedBlocks(raw.packBlocks),
     assets,
   };
 }

@@ -8,24 +8,28 @@ import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import { convertIconifySet } from './packages/icon-data/src/convert.ts';
 import { iconSetInfo } from './packages/icon-data/src/sets.ts';
-import { TEMPLATE_HELPERS } from './src/render/helperNames.ts';
 
-const KNOWN_HELPERS = Object.fromEntries(TEMPLATE_HELPERS.map((name) => [name, true]));
+const TEMPLATE_AST_NOISE = new Set(['loc', 'strip', 'openStrip', 'closeStrip', 'inverseStrip']);
 
-function handlebarsPrecompile(): Plugin {
+function isTemplateAstNoise(holder: unknown, key: string): boolean {
+  if (TEMPLATE_AST_NOISE.has(key)) return true;
+  const isContent =
+    typeof holder === 'object' &&
+    holder !== null &&
+    'type' in holder &&
+    holder.type === 'ContentStatement';
+  return isContent && key === 'original';
+}
+
+function handlebarsAst(): Plugin {
   return {
-    name: 'handlebars-precompile',
+    name: 'handlebars-ast',
     transform(source, id) {
       if (!id.endsWith('.hbs')) return null;
-      const spec = Handlebars.precompile(source, {
-        knownHelpers: KNOWN_HELPERS,
-        knownHelpersOnly: true,
-        strict: false,
+      const ast = JSON.stringify(Handlebars.parse(source), function (key, value: unknown) {
+        return isTemplateAstNoise(this, key) ? undefined : value;
       });
-      return {
-        code: `import Handlebars from 'handlebars/runtime';\nexport default Handlebars.template(${spec});\n`,
-        map: null,
-      };
+      return { code: `export default JSON.parse(${JSON.stringify(ast)});\n`, map: null };
     },
   };
 }
@@ -106,7 +110,7 @@ function iconSets(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), handlebarsPrecompile(), siteRuntime(), iconSets()],
+  plugins: [react(), handlebarsAst(), siteRuntime(), iconSets()],
   build: { outDir: 'build' },
   test: {
     environment: 'jsdom',

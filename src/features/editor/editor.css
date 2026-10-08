@@ -104,9 +104,17 @@
     min-width: 0;
   }
 
-  .ve-device-select {
-    width: auto;
-    max-width: 100%;
+  @media (width >= 1024px) {
+    .ve-device-toggle .ui-segment {
+      min-height: 28px;
+      padding-inline: 6px;
+    }
+  }
+
+  @media (width < 520px) {
+    .ve-device-toggle {
+      display: none;
+    }
   }
 
   .ve-logo {
@@ -175,6 +183,30 @@
 
   .ve-shell[data-preview] :is(.ve-library, .ve-properties, .ve-resize-handle, .ve-compact-tabs) {
     display: none;
+  }
+
+  .ve-shell[data-preview]:not([data-read-only]) {
+    --ve-toolbar-height: 0px;
+  }
+
+  .ve-shell[data-preview]:not([data-read-only]) .ve-toolbar {
+    display: none;
+  }
+
+  .ve-preview-exit {
+    position: fixed;
+    inset-block-start: 12px;
+    inset-inline-end: 12px;
+    z-index: 20;
+    padding: 2px;
+    border: 1px solid var(--ve-border);
+    border-radius: 999px;
+    background: var(--ve-bg);
+    box-shadow: var(--ve-shadow);
+  }
+
+  .ve-preview-exit .ui-button {
+    border-radius: 999px;
   }
 
   @media (width >= 1024px) {

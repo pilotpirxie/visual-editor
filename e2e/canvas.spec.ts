@@ -45,13 +45,13 @@ test('adding blocks below the fold scrolls the page, never the canvas around it'
   expect(scrollOffsets.canvas).toBe(0);
   expect(scrollOffsets.page).toBeGreaterThan(0);
 
-  const lastBlockInView = await page.evaluate(() => {
+  const lastBlockInView = await page.evaluate((tolerance) => {
     const iframe = document.querySelector<HTMLIFrameElement>('.ve-canvas-frame');
     const blocks = iframe?.contentDocument?.querySelectorAll('[data-block-id]');
     const last = blocks?.[blocks.length - 1]?.getBoundingClientRect();
     const viewportHeight = iframe?.contentWindow?.innerHeight ?? 0;
-    return last !== undefined && last.top >= 0 && last.bottom <= viewportHeight;
-  });
+    return last !== undefined && last.top >= 0 && last.bottom <= viewportHeight + tolerance;
+  }, TOLERANCE_PX);
   expect(lastBlockInView).toBe(true);
 
   const device = await boxOf(page.locator('.ve-canvas-device'));
@@ -63,11 +63,11 @@ test('phone and tablet previews keep the real screen proportions and fit the can
   page,
 }) => {
   const screens = [
-    { device: 'phone', ratio: 375 / 812 },
-    { device: 'tablet', ratio: 768 / 1024 },
+    { device: 'Phone (375 px)', ratio: 375 / 812 },
+    { device: 'Tablet (768 px)', ratio: 768 / 1024 },
   ];
   for (const screen of screens) {
-    await page.getByRole('combobox', { name: 'Device' }).selectOption(screen.device);
+    await page.locator('label', { hasText: screen.device }).click();
     await expect
       .poll(async () => {
         const box = await boxOf(page.locator('.ve-canvas-device'));

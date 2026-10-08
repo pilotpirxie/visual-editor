@@ -646,11 +646,11 @@ describe('custom blocks', () => {
     const inserted = componentBlockOf(store.getState().project, pageBlockIds(store)[0] ?? '');
     expect(inserted.componentId).toBe('acme/quote-card');
     expect(inserted.values.quote).toBe('It changed how our team works.');
-    expect(store.getState().project.customDefinitions['acme/quote-card']).toEqual(custom);
+    expect(store.getState().project.packBlocks['acme/quote-card']).toEqual(custom);
     store.dispatch(undo());
-    expect(store.getState().project.customDefinitions).toEqual({});
+    expect(store.getState().project.packBlocks).toEqual({});
     store.dispatch(redo());
-    expect(store.getState().project.customDefinitions['acme/quote-card']).toEqual(custom);
+    expect(store.getState().project.packBlocks['acme/quote-card']).toEqual(custom);
   });
 
   it('keeps the project copy when the block is inserted again', () => {
@@ -659,7 +659,7 @@ describe('custom blocks', () => {
     store.dispatch(blockInserted(homePageId(store), 0, custom.definition.id, custom));
     const other = quoteCardDefinition({ name: 'Renamed' });
     store.dispatch(blockInserted(homePageId(store), 0, other.definition.id, other));
-    expect(store.getState().project.customDefinitions['acme/quote-card']?.definition.name).toBe(
+    expect(store.getState().project.packBlocks['acme/quote-card']?.definition.name).toBe(
       'Quote card',
     );
   });
@@ -669,20 +669,18 @@ describe('custom blocks', () => {
     const custom = quoteCardDefinition();
     store.dispatch(blockInserted(homePageId(store), 0, custom.definition.id, custom));
     const block = componentBlockOf(store.getState().project, pageBlockIds(store)[0] ?? '');
-    const newer = quoteCardDefinition({ version: 2 }, '1.1.0');
+    const newer = quoteCardDefinition({}, '1.1.0');
     store.dispatch(
       customBlocksUpgraded({
         definitions: { [newer.definition.id]: newer },
-        blocks: [{ ...block, componentVersion: 2 }],
+        blocks: [{ ...block, values: { ...block.values, quote: 'Upgraded' } }],
       }),
     );
-    expect(store.getState().project.customDefinitions['acme/quote-card']?.pack.version).toBe(
-      '1.1.0',
-    );
+    expect(store.getState().project.packBlocks['acme/quote-card']?.pack.version).toBe('1.1.0');
     store.dispatch(undo());
-    expect(store.getState().project.customDefinitions['acme/quote-card']?.pack.version).toBe(
-      '1.0.0',
+    expect(store.getState().project.packBlocks['acme/quote-card']?.pack.version).toBe('1.0.0');
+    expect(componentBlockOf(store.getState().project, block.id).values.quote).toBe(
+      block.values.quote,
     );
-    expect(componentBlockOf(store.getState().project, block.id).componentVersion).toBe(1);
   });
 });

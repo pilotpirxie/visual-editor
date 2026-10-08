@@ -11,7 +11,7 @@ import { EditorDialogs } from './EditorDialogs';
 import { LiveAnnouncer } from './LiveAnnouncer';
 import { PanelBoundary } from './PanelBoundary';
 import { ResizeHandle } from './ResizeHandle';
-import { Toolbar } from './Toolbar';
+import { PreviewButton, Toolbar } from './Toolbar';
 import './editor.css';
 
 function ConversionHost(): JSX.Element | null {
@@ -48,6 +48,7 @@ export function EditorShell(): JSX.Element {
   const compactView = useStore((state) => state.editor.compactView);
   const isDesignSheetOpen = useStore((state) => state.editor.isDesignSheetOpen);
   const isPreview = useStore((state) => state.editor.isPreview);
+  const isReadOnly = useStore((state) => state.editor.isReadOnly);
   const isLeftHidden = left.collapsed || isPreview;
   const isRightHidden = right.collapsed || isPreview;
   const panelWidths: CSSProperties = {
@@ -63,11 +64,17 @@ export function EditorShell(): JSX.Element {
       data-left-collapsed={isLeftHidden || undefined}
       data-right-collapsed={isRightHidden || undefined}
       data-preview={isPreview || undefined}
+      data-read-only={isReadOnly || undefined}
     >
       <a className="ve-skip-link" href={`#${CANVAS_ID}`} onClick={skipToCanvas}>
         Skip to canvas
       </a>
       <Toolbar />
+      {isPreview && !isReadOnly && (
+        <div className="ve-preview-exit">
+          <PreviewButton isDisabled={false} />
+        </div>
+      )}
       <PanelBoundary name="library panel" className="ve-panel ve-library">
         <LibraryPanel />
       </PanelBoundary>

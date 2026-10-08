@@ -163,29 +163,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 4px 8px;
-    align-items: center;
-  }
-
-  .ve-override--open {
     align-items: start;
-  }
-
-  .ve-override-inherited {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    min-width: 0;
-    overflow: hidden;
-    color: var(--ve-muted);
-    font-size: 12px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .ve-override-inherited .ve-swatch-color {
-    flex-shrink: 0;
-    width: 16px;
-    height: 16px;
   }
 
   .ve-prefixed-input {

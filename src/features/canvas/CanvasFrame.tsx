@@ -51,6 +51,8 @@ export const EDITOR_CSS = [
   '#ve-page:empty { min-height: 100vh; }',
   `html[data-ve-editing] ${LIVE_ONLY_DIALOGS} { display: block; position: relative; inset: auto; opacity: 1; }`,
   'html[data-ve-editing] [data-behavior~="modal"] { display: block; padding-block: 2rem; }',
+  'html[data-ve-editing] #ve-page [data-block-id] { cursor: grab; -webkit-user-select: none; user-select: none; }',
+  'html.is-dragging, html.is-dragging * { cursor: grabbing !important; }',
 ].join('\n');
 
 const NO_STORAGE: SiteStorage = { getItem: () => null, setItem: () => {} };

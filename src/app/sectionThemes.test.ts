@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { registry } from '../components/registry';
+import { builtInComponents } from '../components/registry';
 import { CLEAN_PRESET } from '../presets/presets';
 import { blockSectionThemeSet, projectSlice } from './projectSlice';
 import { createSampleProject } from './projectFactory';
@@ -51,8 +51,8 @@ describe('section themes', () => {
   });
 
   it('are offered on blocks that let users change their background', () => {
-    const hero = registry.get('hero-centered')?.definition;
-    const banner = registry.get('cta-banner')?.definition;
+    const hero = builtInComponents.get('hero-centered')?.definition;
+    const banner = builtInComponents.get('cta-banner')?.definition;
     expect(hero !== undefined && supportsSectionThemes(hero)).toBe(true);
     expect(banner !== undefined && supportsSectionThemes(banner)).toBe(false);
   });

@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { registry } from '../../components/registry';
+import { builtInComponents } from '../../components/registry';
 import { filterComponents } from './search';
 
-const components = [...registry.values()];
+const components = [...builtInComponents.values()];
 function ids(query: string): string[] {
   return filterComponents(components, query).map(({ definition }) => definition.id);
 }

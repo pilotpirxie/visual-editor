@@ -1,4 +1,4 @@
-import type { TemplateDelegate } from 'handlebars';
+import type { InterpretedTemplate } from '../render/templateInterpreter';
 
 export const CATEGORIES = [
   { id: 'navigations', label: 'Navigations' },
@@ -32,22 +32,25 @@ export const CATEGORIES = [
 
 export type Category = (typeof CATEGORIES)[number]['id'];
 
-export type FieldType =
-  | 'text'
-  | 'textarea'
-  | 'richtext'
-  | 'number'
-  | 'range'
-  | 'boolean'
-  | 'select'
-  | 'segmented'
-  | 'color'
-  | 'image'
-  | 'icon'
-  | 'link'
-  | 'button'
-  | 'list'
-  | 'date';
+export const FIELD_TYPES = [
+  'text',
+  'textarea',
+  'richtext',
+  'number',
+  'range',
+  'boolean',
+  'select',
+  'segmented',
+  'color',
+  'image',
+  'icon',
+  'link',
+  'button',
+  'list',
+  'date',
+] as const;
+
+export type FieldType = (typeof FIELD_TYPES)[number];
 
 export type FieldOption = { value: string; label: string; icon?: string };
 
@@ -75,7 +78,6 @@ export type Field = {
 
 export type ComponentDefinition = {
   id: string;
-  version: number;
   name: string;
   category: Category;
   description?: string;
@@ -83,9 +85,9 @@ export type ComponentDefinition = {
   fieldGroups?: string[];
   fields: Field[];
   styleOverrides: string[];
-  behaviors?: string[];
-  migrate?: (values: Record<string, unknown>, fromVersion: number) => Record<string, unknown>;
 };
+
+export type BlockJson = Omit<ComponentDefinition, 'id'>;
 
 export const LINK_TYPES = ['page', 'section', 'url', 'email', 'phone'] as const;
 
@@ -109,14 +111,6 @@ export type ButtonValue = {
   variant: ButtonVariant;
 };
 
-export type RegisteredComponent = {
-  definition: ComponentDefinition;
-  template: TemplateDelegate;
-  styles: string;
-  thumbnail: string;
-  isCustom: boolean;
-};
-
 export type PackInfo = {
   id: string;
   name: string;
@@ -125,16 +119,25 @@ export type PackInfo = {
   license: string;
 };
 
-export type CustomDefinition = {
+export type PackBlock = {
   pack: PackInfo;
   definition: ComponentDefinition;
   template: string;
   styles: string;
   thumbnail: string;
-  fieldRenames: Record<string, string>;
 };
 
-export type BlockPack = PackInfo & { blocks: CustomDefinition[]; isPartial: boolean };
+export type RegisteredComponent = {
+  pack: PackInfo;
+  definition: ComponentDefinition;
+  template: InterpretedTemplate;
+  styles: string;
+  thumbnail: string;
+};
+
+export type LibraryEntry = Pick<PackBlock, 'pack' | 'definition' | 'thumbnail'>;
+
+export type BlockPack = PackInfo & { blocks: PackBlock[]; isPartial: boolean };
 
 export const PLACEHOLDER_RATIOS = ['1:1', '4:3', '3:2', '16:9', '3:4', '21:9'] as const;
 

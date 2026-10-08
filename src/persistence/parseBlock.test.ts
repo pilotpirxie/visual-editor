@@ -5,7 +5,6 @@ const COMPONENT_BLOCK = {
   id: 'b1',
   kind: 'component',
   componentId: 'hero-centered',
-  componentVersion: 1,
   values: { title: 'Hello' },
   overrides: { '--color-text': '#111' },
   disabled: false,

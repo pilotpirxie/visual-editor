@@ -1,4 +1,4 @@
-import { useState, type JSX } from 'react';
+import type { JSX } from 'react';
 import {
   blockOverrideRemoved,
   blockOverrideSet,
@@ -10,49 +10,27 @@ import { dispatch, useStore } from '../../app/store';
 import type { ComponentBlock, Token } from '../../app/types';
 import type { ComponentDefinition, Field } from '../../components/types';
 import { tokenReference } from '../../render/css';
-import { resolveColor } from '../design-system/colors';
 import { FieldControl } from './FieldControl';
 import { TokenSelect } from './TokenSelect';
-import { Button, IconButton, Section, SegmentedControl } from '../../../packages/ui/src';
+import { IconButton, Section, SegmentedControl } from '../../../packages/ui/src';
 import { useSection } from '../editor/useSection';
 
 type OverrideRowProps = {
   block: ComponentBlock;
   name: string;
   tokens: Record<string, Token>;
-  isOpen: boolean;
-  onOpen(): void;
-  onClose(): void;
 };
 
-function sameGroupTokens(token: Token | undefined, tokens: Record<string, Token>): Token[] {
+const DESIGN_VALUE_LABEL = 'Design value';
+
+function tokenOptions(token: Token | undefined, tokens: Record<string, Token>): Token[] {
   const options: Token[] = [];
   if (token === undefined) return options;
+  options.push({ ...token, label: DESIGN_VALUE_LABEL });
   for (const candidate of Object.values(tokens)) {
     if (candidate.group === token.group && candidate.name !== token.name) options.push(candidate);
   }
   return options;
-}
-
-function InheritedValue({
-  token,
-  tokens,
-}: {
-  token: Token | undefined;
-  tokens: Record<string, Token>;
-}): JSX.Element {
-  if (token === undefined) return <span className="ve-override-inherited">Not set</span>;
-  return (
-    <span className="ve-override-inherited">
-      {token.group === 'color' && (
-        <span
-          className="ve-swatch-color"
-          style={{ background: resolveColor(token.value, tokens) }}
-        />
-      )}
-      {token.value}
-    </span>
-  );
 }
 
 function OverrideControl({
@@ -67,7 +45,7 @@ function OverrideControl({
   tokens: Record<string, Token>;
 }): JSX.Element {
   const label = token?.label ?? name;
-  const override = block.overrides[name];
+  const value = block.overrides[name] ?? tokenReference(name);
 
   function change(next: unknown, kind: EditKind): void {
     if (typeof next !== 'string') return;
@@ -76,58 +54,35 @@ function OverrideControl({
 
   if (token?.group === 'color') {
     const field: Field = { name, label, type: 'color', default: tokenReference(name) };
-    const value = override ?? tokenReference(name);
     return <FieldControl field={field} value={value} path={`style.${name}`} onChange={change} />;
   }
   return (
     <TokenSelect
       id={`ve-style-${name}`}
       label={label}
-      value={override ?? token?.value ?? ''}
-      options={sameGroupTokens(token, tokens)}
+      value={value}
+      options={tokenOptions(token, tokens)}
       onChange={change}
     />
   );
 }
 
-function OverrideRow({
-  block,
-  name,
-  tokens,
-  isOpen,
-  onOpen,
-  onClose,
-}: OverrideRowProps): JSX.Element {
+function OverrideRow({ block, name, tokens }: OverrideRowProps): JSX.Element {
   const token = tokens[name];
   const label = token?.label ?? name;
   const isOverridden = block.overrides[name] !== undefined;
 
-  function reset(): void {
-    dispatch(blockOverrideRemoved({ blockId: block.id, token: name }));
-    onClose();
-  }
-
-  if (!isOverridden && !isOpen) {
-    return (
-      <div className="ve-override" data-token={name}>
-        <span className="ui-field-label">{label}</span>
-        <InheritedValue token={token} tokens={tokens} />
-        <Button variant="ghost" aria-label={`Override ${label}`} onClick={onOpen}>
-          Override
-        </Button>
-      </div>
-    );
-  }
-
   return (
-    <div className="ve-override ve-override--open" data-token={name}>
+    <div className="ve-override" data-token={name}>
       <OverrideControl block={block} name={name} token={token} tokens={tokens} />
-      <IconButton
-        className="ve-override-reset"
-        label={`Reset ${label} to the design value`}
-        icon="rotate-ccw"
-        onClick={reset}
-      />
+      {isOverridden && (
+        <IconButton
+          className="ve-override-reset"
+          label={`Reset ${label} to the design value`}
+          icon="rotate-ccw"
+          onClick={() => dispatch(blockOverrideRemoved({ blockId: block.id, token: name }))}
+        />
+      )}
     </div>
   );
 }
@@ -158,7 +113,6 @@ export function StyleTab({
   definition: ComponentDefinition;
 }): JSX.Element {
   const tokens = useStore((state) => state.project.designSystem.tokens);
-  const [openTokens, setOpenTokens] = useState<string[]>([]);
   const section = useSection('style:overrides');
 
   if (definition.styleOverrides.length === 0) {
@@ -170,15 +124,7 @@ export function StyleTab({
       {supportsSectionThemes(definition) && <SectionThemePicker block={block} />}
       <Section title="Overrides" isOpen={section.isOpen} onToggle={section.onToggle}>
         {definition.styleOverrides.map((name) => (
-          <OverrideRow
-            key={name}
-            block={block}
-            name={name}
-            tokens={tokens}
-            isOpen={openTokens.includes(name)}
-            onOpen={() => setOpenTokens([...openTokens, name])}
-            onClose={() => setOpenTokens(openTokens.filter((open) => open !== name))}
-          />
+          <OverrideRow key={name} block={block} name={name} tokens={tokens} />
         ))}
       </Section>
     </>

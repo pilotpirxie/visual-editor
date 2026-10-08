@@ -12,19 +12,18 @@ type CanvasWidth = 320 | 375 | 768 | 1440;
 const WIDTHS: CanvasWidth[] = [320, 375, 768, 1440];
 
 const DEVICE_FOR_WIDTH: Record<Exclude<CanvasWidth, 320>, string> = {
-  375: 'phone',
-  768: 'tablet',
-  1440: 'desktop',
+  375: 'Phone (375 px)',
+  768: 'Tablet (768 px)',
+  1440: 'Desktop (1440 px)',
 };
 
 async function showCanvasAt(page: Page, width: CanvasWidth): Promise<void> {
-  const device = page.getByLabel('Device');
   if (width === 320) {
-    await device.selectOption('responsive');
+    await page.locator('label', { hasText: 'Responsive' }).click();
     await page.getByRole('separator', { name: 'Resize the page from its right edge' }).focus();
     await page.keyboard.press('Home');
   } else {
-    await device.selectOption(DEVICE_FOR_WIDTH[width]);
+    await page.locator('label', { hasText: DEVICE_FOR_WIDTH[width] }).click();
   }
   await expect
     .poll(() =>

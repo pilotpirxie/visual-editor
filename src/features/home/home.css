@@ -225,10 +225,6 @@
     grid-template-columns: auto minmax(0, 1fr);
   }
 
-  .ve-starter-device-select {
-    width: auto;
-  }
-
   .ve-starter-viewport {
     display: flex;
     flex: 1;

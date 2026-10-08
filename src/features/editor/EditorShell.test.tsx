@@ -1,5 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { compactTabSelected, panelToggled } from '../../app/editorSlice';
+import {
+  compactTabSelected,
+  panelToggled,
+  previewToggled,
+  readOnlyChanged,
+} from '../../app/editorSlice';
 import { settingSet } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
 import { click, getButton, render, runInAct } from '../../test/dom';
@@ -25,6 +30,8 @@ beforeEach(() => {
   loadIntoAppStore();
   expandBothPanels();
   dispatch(compactTabSelected('canvas'));
+  dispatch(readOnlyChanged(false));
+  dispatch(previewToggled(false));
 });
 
 describe('CompactTabs', () => {
@@ -78,6 +85,27 @@ describe('EditorShell', () => {
     expect(document.title).toBe('Harbor Bakery – Visual Editor');
     unmount();
     expect(document.title).toBe('Visual Editor');
+  });
+
+  it('offers a floating Exit preview button in Preview that returns to editing', () => {
+    const { container } = render(<EditorShell />);
+    expect(container.querySelector('.ve-preview-exit')).toBeNull();
+    runInAct(() => dispatch(previewToggled(true)));
+    const floating = container.querySelector('.ve-preview-exit');
+    if (floating === null) throw new Error('Expected the floating preview exit');
+    click(getButton(floating, 'Exit preview'));
+    expect(store.getState().editor.isPreview).toBe(false);
+    expect(container.querySelector('.ve-preview-exit')).toBeNull();
+  });
+
+  it('keeps the toolbar and shows no floating exit in a read-only tab', () => {
+    const { container } = render(<EditorShell />);
+    runInAct(() => dispatch(readOnlyChanged(true)));
+    const shell = container.querySelector<HTMLElement>('.ve-shell');
+    expect(shell?.dataset.preview).toBe('true');
+    expect(shell?.dataset.readOnly).toBe('true');
+    expect(container.querySelector('.ve-toolbar')).not.toBeNull();
+    expect(container.querySelector('.ve-preview-exit')).toBeNull();
   });
 
   it('switches the compact view from the tab bar', () => {

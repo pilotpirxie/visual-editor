@@ -1,5 +1,5 @@
 import type { DesignSystem, DesignSystemPreset, TokenGroup } from '../app/types';
-import { isRecord } from '../persistence/parseBlock';
+import { isRecord } from '../components/fields';
 import { parseDesignSystem, ProjectFormatError } from '../persistence/validateProject';
 import bold from './bold.json';
 import brutalist from './brutalist.json';

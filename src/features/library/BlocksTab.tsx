@@ -1,16 +1,16 @@
 import { useMemo, useState, type DragEvent, type JSX, type PointerEvent } from 'react';
 import { dispatch, useStore } from '../../app/store';
-import { registry } from '../../components/registry';
-import type { BlockPack } from '../../components/types';
+import { isBuiltIn } from '../../components/packFormat';
+import type { BlockPack, LibraryEntry } from '../../components/types';
 import { CATEGORIES } from '../../components/types';
 import { packCommands } from '../block-packs/packCommands';
-import { packEntries, type LibraryEntry } from '../block-packs/packLibrary';
+import { libraryEntries } from '../block-packs/packLibrary';
 import { dragController } from '../canvas/dragController';
 import { insertComponent } from '../editor/blockActions';
 import { SavedBlockCard } from '../saved-blocks/SavedBlockCard';
 import type { SavedBlockRecord } from '../../persistence/db';
 import { filterComponents, matchesWords, searchWords } from './search';
-import { Button, Icon, SearchInput, Title, useTooltip } from '../../../packages/ui/src';
+import { Button, SearchInput, Title, useTooltip } from '../../../packages/ui/src';
 
 const THUMBNAIL_WIDTH = 640;
 const THUMBNAIL_HEIGHT = 400;
@@ -35,19 +35,11 @@ function groupByPack(packs: readonly BlockPack[]): CategoryGroup[] {
     groups.push({
       id: `${PACK_GROUP_PREFIX}${pack.id}`,
       label: pack.name,
-      components: packEntries([pack]),
+      components: pack.blocks,
     });
   }
   return groups;
 }
-
-const BUILT_IN_ENTRIES: LibraryEntry[] = [...registry.values()].map(
-  ({ definition, thumbnail }) => ({
-    definition,
-    thumbnail,
-    pack: null,
-  }),
-);
 
 function hasFiles(event: DragEvent): boolean {
   return event.dataTransfer.types.includes('Files');
@@ -93,24 +85,18 @@ function ComponentCard({ component }: { component: LibraryEntry }): JSX.Element 
           startDrag(event);
         }}
       >
-        {thumbnail === '' ? (
-          <span className="ve-thumbnail-placeholder" aria-hidden="true">
-            <Icon name="layout-grid" />
-          </span>
-        ) : (
-          <img
-            src={thumbnail}
-            alt=""
-            width={THUMBNAIL_WIDTH}
-            height={THUMBNAIL_HEIGHT}
-            loading="lazy"
-            decoding="async"
-            draggable={false}
-          />
-        )}
+        <img
+          src={thumbnail}
+          alt=""
+          width={THUMBNAIL_WIDTH}
+          height={THUMBNAIL_HEIGHT}
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+        />
         <span>
           {definition.name}
-          {pack !== null && (
+          {!isBuiltIn(pack) && (
             <>
               {' '}
               <span className="ve-custom-badge">Custom</span>
@@ -184,7 +170,7 @@ export function BlocksTab(): JSX.Element {
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const packs = useStore((state) => state.editor.blockPacks);
   const savedBlocks = useStore((state) => state.editor.savedBlocks);
-  const entries = useMemo(() => [...BUILT_IN_ENTRIES, ...packEntries(packs)], [packs]);
+  const entries = useMemo(() => libraryEntries(packs), [packs]);
   const categoryGroups = useMemo(() => groupByCategory(entries), [entries]);
   const packGroups = useMemo(() => groupByPack(packs), [packs]);
   const isSearching = query.trim() !== '';

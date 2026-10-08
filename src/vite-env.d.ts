@@ -1,6 +1,5 @@
 declare module '*.hbs' {
-  import type { TemplateDelegate } from 'handlebars';
-  const template: TemplateDelegate;
+  const template: hbs.AST.Program;
   export default template;
 }
 

@@ -9,7 +9,7 @@ type BlockContextMenuProps = { blockId: string; point: MenuPoint; onClose(): voi
 export function BlockContextMenu({ blockId, point, onClose }: BlockContextMenuProps): JSX.Element {
   const items = useBlockMenuItems(blockId);
   const block = useStore((state) => state.project.blocks.entities[blockId]);
-  const customDefinitions = useStore((state) => state.project.customDefinitions);
-  const name = block === undefined ? 'Block' : blockLabel(block, { customDefinitions });
+  const packBlocks = useStore((state) => state.project.packBlocks);
+  const name = block === undefined ? 'Block' : blockLabel(block, { packBlocks });
   return <PointMenu label={`${name} actions`} items={items} point={point} onClose={onClose} />;
 }
