@@ -6,9 +6,9 @@
   .ui-section-summary {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: var(--ve-space-2);
     min-height: var(--ve-target);
-    padding: 8px 16px;
+    padding: var(--ve-space-2) var(--ve-space-4);
     list-style: none;
     cursor: pointer;
     user-select: none;
@@ -28,15 +28,15 @@
   }
 
   .ui-section-title {
-    font-size: 13px;
+    font-size: var(--ve-text-md);
     font-weight: 700;
   }
 
   .ui-section-body {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 4px 16px 16px;
+    gap: var(--ve-space-4);
+    padding: var(--ve-space-1) var(--ve-space-4) var(--ve-space-4);
   }
 
   .ui-dialog .ui-section-summary,

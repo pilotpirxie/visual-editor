@@ -38,6 +38,26 @@ function meta(attribute: 'name' | 'property', key: string, content: string): str
   return `  <meta ${attribute}="${key}" content="${escapeHtml(content)}">`;
 }
 
+export type PageSeoDefaults = {
+  title: string;
+  description: string;
+  socialTitle: string;
+  socialDescription: string;
+};
+
+export function pageSeoDefaults(project: Pick<Project, 'settings'>, page: Page): PageSeoDefaults {
+  const { settings } = project;
+  const pageTitle = page.seo.title?.trim() || page.name;
+  const title = applyTitleTemplate(settings.titleTemplate, pageTitle, settings.title);
+  const description = page.seo.description?.trim() || settings.description.trim();
+  return {
+    title,
+    description,
+    socialTitle: page.seo.socialTitle?.trim() || title,
+    socialDescription: page.seo.socialDescription?.trim() || description,
+  };
+}
+
 export function buildPageHead({
   project,
   page,
@@ -46,11 +66,7 @@ export function buildPageHead({
   fontsHref,
 }: PageHeadInput): string[] {
   const { settings } = project;
-  const pageTitle = page.seo.title?.trim() || page.name;
-  const title = applyTitleTemplate(settings.titleTemplate, pageTitle, settings.title);
-  const description = page.seo.description?.trim() || settings.description.trim();
-  const socialTitle = page.seo.socialTitle?.trim() || title;
-  const socialDescription = page.seo.socialDescription?.trim() || description;
+  const { title, description, socialTitle, socialDescription } = pageSeoDefaults(project, page);
   const imageAssetId = page.seo.socialImageAssetId ?? settings.socialImageAssetId;
   const imageFile = imageAssetId === undefined ? undefined : assetFiles[imageAssetId];
   const favicon =

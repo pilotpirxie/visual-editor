@@ -54,7 +54,10 @@ describe('useTooltip', () => {
     const { container } = render(<Described />);
     const button = container.querySelector('button');
     if (button === null) throw new Error('No button');
-    runInAct(() => button.focus());
+    runInAct(() => {
+      button.focus();
+      vi.advanceTimersByTime(0);
+    });
     expect(container.querySelector('[role="tooltip"]')).not.toBeNull();
     runInAct(() => button.blur());
     expect(container.querySelector('[role="tooltip"]')).toBeNull();

@@ -10,6 +10,12 @@ export function blockRoot(doc: Document, blockId: string): Element | null {
 
 export const PAGE_ROOT_ID = 've-page';
 
+export const CANVAS_ID = 've-canvas';
+
+export function focusCanvas(): void {
+  document.getElementById(CANVAS_ID)?.focus();
+}
+
 export function blockSpans(doc: Document): VerticalSpan[] {
   return [...doc.querySelectorAll(`#${PAGE_ROOT_ID} [data-block-id]`)].map((element) => {
     const { top, bottom } = element.getBoundingClientRect();

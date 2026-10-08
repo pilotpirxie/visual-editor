@@ -29,6 +29,8 @@ export const DEVICE_VIEWPORTS: Record<Device, DeviceViewport> = {
 
 export const MIN_RESPONSIVE_WIDTH = 320;
 
+export const LIBRARY_DRAWER_QUERY = '(1024px <= width < 1280px)';
+
 export const PANEL_LIMITS: Record<PanelSide, { min: number; max: number; initial: number }> = {
   left: { min: 240, max: 400, initial: 280 },
   right: { min: 280, max: 480, initial: 320 },
@@ -70,6 +72,7 @@ export type EditorState = {
   responsiveWidth: number | null;
   isPreview: boolean;
   panels: Record<PanelSide, { width: number; collapsed: boolean }>;
+  isLibraryDrawerOpen: boolean;
   libraryTab: LibraryTab;
   propertiesTab: PropertiesTab;
   isDesignSheetOpen: boolean;
@@ -102,6 +105,7 @@ const initialState: EditorState = {
     left: { width: PANEL_LIMITS.left.initial, collapsed: false },
     right: { width: PANEL_LIMITS.right.initial, collapsed: false },
   },
+  isLibraryDrawerOpen: false,
   libraryTab: 'blocks',
   propertiesTab: 'content',
   isDesignSheetOpen: false,
@@ -136,6 +140,7 @@ export const editorSlice = createSlice({
       state.currentPageId = pageId;
       state.selectedBlockId = state.pageSelections[pageId] ?? null;
       state.focusRequest = null;
+      state.isLibraryDrawerOpen = false;
       if (state.compactView === 'library') state.compactView = 'canvas';
     },
     pageSelectionForgotten(state, action: PayloadAction<string>) {
@@ -163,7 +168,9 @@ export const editorSlice = createSlice({
     previewToggled(state, action: PayloadAction<boolean>) {
       if (state.isReadOnly && !action.payload) return;
       state.isPreview = action.payload;
-      if (action.payload) state.isDesignSheetOpen = false;
+      if (!action.payload) return;
+      state.isDesignSheetOpen = false;
+      state.isLibraryDrawerOpen = false;
     },
     panelResized(state, action: PayloadAction<{ side: PanelSide; width: number }>) {
       const { side, width } = action.payload;
@@ -172,6 +179,15 @@ export const editorSlice = createSlice({
     },
     panelToggled(state, action: PayloadAction<PanelSide>) {
       state.panels[action.payload].collapsed = !state.panels[action.payload].collapsed;
+    },
+    libraryDrawerToggled(state, action: PayloadAction<boolean>) {
+      state.isLibraryDrawerOpen = action.payload;
+    },
+    blockLibraryOpened(state) {
+      state.libraryTab = 'blocks';
+      state.compactView = 'library';
+      state.panels.left.collapsed = false;
+      state.isLibraryDrawerOpen = true;
     },
     libraryTabChanged(state, action: PayloadAction<LibraryTab>) {
       state.libraryTab = action.payload;
@@ -253,11 +269,13 @@ export const editorSlice = createSlice({
       .addCase(blockInserted, (state, action) => {
         state.selectedBlockId = action.payload.block.id;
         state.propertiesTab = 'content';
+        state.isLibraryDrawerOpen = false;
         if (state.compactView === 'library') state.compactView = 'canvas';
       })
       .addCase(blockPasted, (state, action) => {
         state.selectedBlockId = action.payload.block.id;
         state.propertiesTab = 'content';
+        state.isLibraryDrawerOpen = false;
         if (state.compactView === 'library') state.compactView = 'canvas';
       })
       .addCase(blockConvertedToHtml, (state) => {
@@ -279,6 +297,7 @@ export const editorSlice = createSlice({
         state.propertiesTab = 'content';
         state.isPreview = false;
         state.isDesignSheetOpen = false;
+        state.isLibraryDrawerOpen = false;
         state.saveStatus = 'saved';
         state.linkedFile = null;
         state.isLinkedFileStale = false;
@@ -300,6 +319,8 @@ export const {
   previewToggled,
   panelResized,
   panelToggled,
+  libraryDrawerToggled,
+  blockLibraryOpened,
   libraryTabChanged,
   propertiesTabChanged,
   designSheetToggled,

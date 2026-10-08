@@ -35,11 +35,10 @@ test('deleting a project from the home screen closes it in the tab that has it o
   await createProject(editor);
   const home = await context.newPage();
   await home.goto('/');
-  home.on('dialog', (dialog) => {
-    expect(dialog.message()).toContain('is open in another tab');
-    void dialog.accept();
-  });
   await home.getByRole('button', { name: 'Delete Untitled site' }).click();
+  const confirm = home.getByRole('dialog', { name: 'Delete “Untitled site”?' });
+  await expect(confirm).toContainText('open in another tab');
+  await confirm.getByRole('button', { name: 'Delete project' }).click();
   await expect(editor).toHaveURL(/\/$/);
   await expect(editor.getByText('was deleted in another tab')).toBeVisible();
 });

@@ -28,11 +28,21 @@ export function ColorField({
   const tokens = useStore((state) => state.project.designSystem.tokens);
   const current = typeof value === 'string' ? value : '';
   const colorTokens = swatchTokens(tokens, current);
-  const isCustom = referencedTokenName(current) === null;
+  const currentName = referencedTokenName(current);
+  const isCustom = currentName === null;
+  const tokenLabel = isCustom ? 'Custom' : (tokens[currentName]?.label ?? null);
+  const selectedLabel = tokenLabel === field.label ? null : tokenLabel;
 
   return (
     <fieldset className="ve-color" aria-describedby={describedBy}>
-      <legend className="ui-field-label">{field.label}</legend>
+      <legend className="ui-field-label">
+        {field.label}
+        {selectedLabel !== null && (
+          <span className="ve-color-current" aria-hidden="true">
+            {selectedLabel}
+          </span>
+        )}
+      </legend>
       <div className="ve-swatches">
         {colorTokens.map((token) => (
           <TooltipLabel key={token.name} className="ve-swatch" text={token.label}>

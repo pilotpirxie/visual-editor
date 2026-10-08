@@ -12,6 +12,7 @@ import { slugError } from '../../app/slugs';
 import { dispatch, selectCurrentPage, useStore } from '../../app/store';
 import type { Page, SharedSlot } from '../../app/types';
 import type { Field as FieldSchema } from '../../components/types';
+import { pageSeoDefaults } from '../../render/pageHead';
 import { pageFileName } from '../pages/PagesTab';
 import { FieldControl } from './FieldControl';
 import { ImageUploadInput } from './ImageUploadInput';
@@ -108,6 +109,14 @@ function SharedSlotSwitch({ page, slot }: { page: Page; slot: SharedSlot }): JSX
 export function PageSettingsPanel(): JSX.Element {
   const page = useStore(selectCurrentPage);
   const homePageId = useStore((state) => state.project.pages.homePageId);
+  const settings = useStore((state) => state.project.settings);
+  const defaults = pageSeoDefaults({ settings }, page);
+  const placeholders: Record<SeoTextKey, string> = {
+    title: page.name,
+    description: settings.description.trim(),
+    socialTitle: defaults.socialTitle,
+    socialDescription: defaults.socialDescription,
+  };
   const hasSharedBlocks = useStore(
     (state) =>
       state.project.sharedSlots.header.length + state.project.sharedSlots.footer.length > 0,
@@ -117,7 +126,7 @@ export function PageSettingsPanel(): JSX.Element {
     return (
       <FieldControl
         key={key}
-        field={SEO_FIELDS[key]}
+        field={{ ...SEO_FIELDS[key], placeholder: placeholders[key] }}
         value={page.seo[key] ?? ''}
         path={`page-${key}`}
         onChange={(value, kind) => {
@@ -130,10 +139,12 @@ export function PageSettingsPanel(): JSX.Element {
   return (
     <div className="ve-page-settings" key={page.id}>
       <header className="ve-properties-header">
-        <Title>Page settings</Title>
-        <p className="ui-muted">
-          {page.name} · {pageFileName(page, homePageId)}
-        </p>
+        <div className="ve-properties-heading">
+          <Title>Page settings</Title>
+          <span className="ve-properties-detail">
+            {page.name} · {pageFileName(page, homePageId)}
+          </span>
+        </div>
       </header>
       <PageSection id="seo" title="Search engines">
         {renderSeoField('title')}

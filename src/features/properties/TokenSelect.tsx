@@ -16,6 +16,12 @@ type TokenSelectProps = {
 
 const CUSTOM = 'custom';
 const CUSTOM_VALUE_ERROR = 'Use a CSS value such as 2rem or 24px';
+const MAX_SHOWN_VALUE_LENGTH = 12;
+
+function optionLabel(option: Token): string {
+  if (option.value.length > MAX_SHOWN_VALUE_LENGTH) return option.label;
+  return `${option.label} (${option.value})`;
+}
 
 function selectedOption(value: string, options: Token[]): Token | null {
   const name = referencedTokenName(value);
@@ -34,7 +40,7 @@ export function TokenSelect({
   const selected = selectedOption(value, options);
   const selectOptions = [];
   for (const option of options) {
-    selectOptions.push({ value: option.name, label: `${option.label} (${option.value})` });
+    selectOptions.push({ value: option.name, label: optionLabel(option) });
   }
   selectOptions.push({ value: CUSTOM, label: 'Custom value' });
 
@@ -52,6 +58,7 @@ export function TokenSelect({
         <Select
           id={id}
           value={selected === null ? CUSTOM : selected.name}
+          title={selected?.value}
           options={selectOptions}
           onChange={(event) => choose(event.target.value)}
         />

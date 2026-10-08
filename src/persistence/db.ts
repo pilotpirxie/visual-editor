@@ -158,6 +158,7 @@ export async function putProject(project: Project): Promise<void> {
   const transaction = db.transaction([PROJECTS, DOCUMENTS], 'readwrite');
   transaction.objectStore(PROJECTS).put(summary);
   transaction.objectStore(DOCUMENTS).put(project);
+  transaction.commit();
   await transactionDone(transaction);
   postTabMessage({ kind: 'project-saved', projectId: project.id });
 }

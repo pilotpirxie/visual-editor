@@ -1,6 +1,12 @@
 import { readFile } from 'node:fs/promises';
 import { expect, test, type Page } from '@playwright/test';
-import { createProject, insertBlock, openProjectSettings, storedProject } from './editor';
+import {
+  createProject,
+  insertBlock,
+  openProjectSettings,
+  storedProject,
+  waitForSaved,
+} from './editor';
 
 async function saveByDownload(page: Page): Promise<string> {
   const downloadPromise = page.waitForEvent('download');
@@ -34,9 +40,10 @@ test('a project saved to disk opens again identical after it was deleted', async
   await page.locator('#ve-field-title').fill('Changed after saving');
   await expect(page.getByRole('button', { name: 'File, changes not saved to file' })).toBeVisible();
 
+  await waitForSaved(page);
   await page.goto('/');
-  page.once('dialog', (dialog) => void dialog.accept());
   await page.getByRole('button', { name: 'Delete Acme Research' }).click();
+  await page.getByRole('dialog').getByRole('button', { name: 'Delete project' }).click();
   await expect(page.getByRole('button', { name: 'Delete Acme Research' })).toHaveCount(0);
 
   const chooserPromise = page.waitForEvent('filechooser');
@@ -47,7 +54,7 @@ test('a project saved to disk opens again identical after it was deleted', async
     mimeType: 'application/json',
     buffer: Buffer.from(savedText),
   });
-  await expect(page).toHaveTitle('Acme Research – Visual Editor');
+  await expect(page).toHaveTitle(/ · Acme Research – Visual Editor$/);
   await expect(
     page.frameLocator('.ve-canvas-frame').locator('[data-component="hero-centered"] h1'),
   ).toHaveText('Saved to disk');
@@ -77,7 +84,7 @@ test('opening a file of a project the browser already has offers a copy', async 
   const dialog = page.getByRole('dialog', { name: '“Acme Research” is already in this browser' });
   await expect(dialog).toBeVisible();
   await dialog.getByRole('button', { name: 'Open as copy' }).click();
-  await expect(page).toHaveTitle('Copy of Acme Research – Visual Editor');
+  await expect(page).toHaveTitle(/ · Copy of Acme Research – Visual Editor$/);
 });
 
 test('a file that is not a project shows an error and changes nothing', async ({ page }) => {

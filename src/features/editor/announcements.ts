@@ -1,6 +1,6 @@
 import type { UnknownAction } from '@reduxjs/toolkit';
 import { findBlockList } from '../../app/blockLists';
-import { blockSelected } from '../../app/editorSlice';
+import { blockSelected, pageOpened } from '../../app/editorSlice';
 import { redo, undo, type RootState } from '../../app/history';
 import {
   blockDuplicated,
@@ -53,6 +53,10 @@ export function announcementFor(
   } else if (blockInserted.match(action) || blockPasted.match(action)) {
     const label = labelOf(after.project, action.payload.block.id);
     return label === null ? null : `Added ${label}`;
+  } else if (pageOpened.match(action)) {
+    const page = after.project.pages.entities[action.payload.pageId];
+    if (page === undefined || action.payload.pageId === action.payload.fromPageId) return null;
+    return `Page ${page.name} opened`;
   } else if (undo.match(action) && before.project !== after.project) {
     return 'Undone';
   } else if (redo.match(action) && before.project !== after.project) {

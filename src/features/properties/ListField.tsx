@@ -155,7 +155,10 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
                 data-drop={dropEdgeAt(dropIndex, index, items.length) ?? undefined}
               >
                 <details>
-                  <summary className="ve-list-item-summary">{title}</summary>
+                  <summary className="ve-list-item-summary">
+                    <Icon name="chevron-down" />
+                    <span>{title}</span>
+                  </summary>
                   <div className="ve-list-item-fields">
                     {visibleItemFields(itemFields, item).map((itemField) => (
                       <FieldControl

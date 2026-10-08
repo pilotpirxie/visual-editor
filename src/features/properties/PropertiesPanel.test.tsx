@@ -41,7 +41,7 @@ describe('PropertiesPanel', () => {
     const { container } = render(<PropertiesPanel />);
     select(1);
     expect(container.querySelector('.ui-title')?.textContent).toBe('Hero, centered text');
-    expect(container.querySelector('header .ui-muted')?.textContent).toBe('Headers');
+    expect(container.querySelector('header .ve-properties-detail')?.textContent).toBe('Headers');
     expect(container.querySelectorAll('.ui-section-title').length).toBeGreaterThan(0);
   });
 
@@ -148,7 +148,7 @@ describe('PropertiesPanel with an HTML block', () => {
     });
     const { container } = render(<PropertiesPanel />);
     expect(container.querySelector('.ui-title')?.textContent).toBe('HTML block');
-    expect(container.textContent).toContain('Converted from Hero, centered text');
+    expect(container.textContent).toContain('From Hero, centered text');
     const tabs = [...container.querySelectorAll('[role="tab"]')].map((tab) => tab.textContent);
     expect(tabs).toEqual(['Code', 'Advanced']);
     expect(container.querySelector('[role="textbox"][aria-label="HTML"]')).not.toBeNull();

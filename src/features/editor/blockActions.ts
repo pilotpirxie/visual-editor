@@ -15,6 +15,7 @@ import {
 import { selectCurrentPage, type AppThunk, type RootState } from '../../app/store';
 import type { Category } from '../../components/types';
 import type { DragPayload } from '../canvas/dragController';
+import { focusCanvas } from '../canvas/frameDom';
 import { finalMoveIndex } from '../canvas/geometry';
 import { loadBlockIconSets } from '../icons/ensureIconSets';
 import { customEntryFor, loadPackBlocks } from '../block-packs/packLibrary';
@@ -114,9 +115,29 @@ export function duplicateBlock(blockId: string): AppThunk {
   };
 }
 
+function neighbourLayerName(): HTMLElement | null {
+  const row = document.activeElement?.closest('.ve-layer') ?? null;
+  const neighbour = row?.nextElementSibling ?? row?.previousElementSibling ?? null;
+  return neighbour?.querySelector<HTMLElement>('.ve-layer-name') ?? null;
+}
+
+function restoreFocusAfterRemoval(neighbour: HTMLElement | null): void {
+  requestAnimationFrame(() => {
+    const active = document.activeElement;
+    if (active !== null && active !== document.body) return;
+    if (neighbour?.isConnected === true) {
+      neighbour.focus();
+      return;
+    }
+    focusCanvas();
+  });
+}
+
 export function removeBlock(blockId: string): AppThunk {
   return (dispatch) => {
+    const neighbour = neighbourLayerName();
     dispatch(blockRemoved({ blockId }));
+    restoreFocusAfterRemoval(neighbour);
   };
 }
 

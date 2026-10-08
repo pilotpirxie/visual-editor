@@ -3,6 +3,7 @@ import {
   useId,
   useLayoutEffect,
   useRef,
+  useState,
   type JSX,
   type KeyboardEvent,
   type RefObject,
@@ -99,6 +100,10 @@ function focusFirstItem(menu: HTMLElement): void {
 }
 
 function moveFocus(event: KeyboardEvent<HTMLDivElement>): void {
+  if (event.key === 'Tab') {
+    event.currentTarget.hidePopover();
+    return;
+  }
   const buttons = menuButtons(event.currentTarget);
   const current = buttons.findIndex((button) => button === document.activeElement);
   const next = rovingIndex(event.key, current, buttons.length, 'vertical');
@@ -108,7 +113,10 @@ function moveFocus(event: KeyboardEvent<HTMLDivElement>): void {
   target.focus();
 }
 
-function useToggle(menuRef: RefObject<HTMLDivElement | null>, onClosed?: () => void): void {
+function useToggle(
+  menuRef: RefObject<HTMLDivElement | null>,
+  onToggle?: (isOpen: boolean) => void,
+): void {
   useEffect(() => {
     const menu = menuRef.current;
     if (menu === null) return;
@@ -118,13 +126,12 @@ function useToggle(menuRef: RefObject<HTMLDivElement | null>, onClosed?: () => v
         const isAtPoint = menu.classList.contains('ui-menu--at-point');
         if (!isAtPoint && !supportsAnchorPositioning()) placeBelowInvoker(menu);
         focusFirstItem(menu);
-      } else if (!isOpening) {
-        onClosed?.();
       }
+      onToggle?.(isOpening);
     }
     menu.addEventListener('toggle', handleToggle);
     return () => menu.removeEventListener('toggle', handleToggle);
-  }, [menuRef, onClosed]);
+  }, [menuRef, onToggle]);
 }
 
 type MenuListProps = {
@@ -147,13 +154,16 @@ function MenuList({ id, label, items, menuRef, className }: MenuListProps): JSX.
       onKeyDown={moveFocus}
     >
       {items.map((item) => {
-        if (isSeparator(item)) return <div key={item.id} className="ui-menu-separator" />;
+        if (isSeparator(item)) {
+          return <div key={item.id} className="ui-menu-separator" role="separator" />;
+        }
         const isCheckable = item.isChecked !== undefined;
         return (
           <button
             key={item.id}
             type="button"
             role={isCheckable ? 'menuitemcheckbox' : 'menuitem'}
+            tabIndex={-1}
             aria-label={item.label}
             aria-checked={isCheckable ? item.isChecked : undefined}
             className={item.isDanger === true ? 'ui-menu-danger' : undefined}
@@ -203,7 +213,8 @@ export function MenuButton({
 }: MenuButtonProps): JSX.Element {
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
-  useToggle(menuRef);
+  const [isOpen, setIsOpen] = useState(false);
+  useToggle(menuRef, setIsOpen);
   const buttonClass = isLabelShown
     ? buttonClassName(variant, className)
     : classNames('ui-icon-button', className);
@@ -219,6 +230,8 @@ export function MenuButton({
         disabled={disabled}
         tabIndex={tabIndex}
         aria-haspopup="menu"
+        aria-expanded={isOpen}
+        aria-controls={menuId}
         aria-label={status === undefined ? label : `${label}, ${status}`}
         {...triggerProps}
       >
@@ -234,10 +247,23 @@ export function MenuButton({
 
 type PointMenuProps = { label: string; items: MenuItem[]; point: MenuPoint; onClose(): void };
 
+function focusAfterClose(menu: HTMLElement | null, previous: Element | null): void {
+  const active = document.activeElement;
+  const isFocusLost =
+    active === null || active === document.body || menu?.contains(active) === true;
+  if (!isFocusLost || !(previous instanceof HTMLElement) || !previous.isConnected) return;
+  previous.focus({ preventScroll: true });
+}
+
 export function PointMenu({ label, items, point, onClose }: PointMenuProps): JSX.Element {
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
-  useToggle(menuRef, onClose);
+  const [previousFocus] = useState(() => document.activeElement);
+  useToggle(menuRef, (isOpen) => {
+    if (isOpen) return;
+    focusAfterClose(menuRef.current, previousFocus);
+    onClose();
+  });
 
   useLayoutEffect(() => {
     const menu = menuRef.current;

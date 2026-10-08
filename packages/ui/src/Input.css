@@ -3,12 +3,13 @@
     width: 100%;
     min-width: 0;
     min-height: var(--ve-control-height);
-    padding: 6px 8px;
+    padding: var(--ve-space-2) var(--ve-space-3);
     border: 1px solid var(--ve-border-strong);
     border-radius: var(--ve-radius);
     background: var(--ve-bg);
     color: var(--ve-text);
     font: inherit;
+    font-size: var(--ve-input-text);
   }
 
   .ui-input:focus-visible {
@@ -57,11 +58,5 @@
   .ui-unit {
     color: var(--ve-muted);
     font-size: 12px;
-  }
-
-  @media (width < 1024px) {
-    .ui-input {
-      font-size: 16px;
-    }
   }
 }

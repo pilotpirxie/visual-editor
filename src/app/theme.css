@@ -6,7 +6,7 @@
   --ve-canvas-bg: #eceef3;
   --ve-surface: #f6f7f9;
   --ve-border: #e3e5ea;
-  --ve-border-strong: #c9cdd6;
+  --ve-border-strong: #80879a;
   --ve-text: #161a23;
   --ve-muted: #5d6474;
   --ve-accent: #2f5bea;
@@ -16,15 +16,28 @@
   --ve-device-frame: #d5d8df;
   --ve-radius: 6px;
   --ve-shadow: 0 1px 2px rgb(16 24 40 / 0.08), 0 4px 12px rgb(16 24 40 / 0.08);
-  --ve-toolbar-height: 48px;
+  --ve-toolbar-height: 44px;
   --ve-control-height: 32px;
   --ve-target: 32px;
+  --ve-space-1: 2px;
+  --ve-space-2: 4px;
+  --ve-space-3: 8px;
+  --ve-space-4: 12px;
+  --ve-space-5: 16px;
+  --ve-space-6: 24px;
+  --ve-text-xs: 11px;
+  --ve-text-sm: 12px;
+  --ve-text-md: 13px;
+  --ve-text-lg: 15px;
+  --ve-text-xl: 24px;
+  --ve-input-text: var(--ve-text-md);
 }
 
-@media (width < 1024px) {
+@media (width < 1024px), (pointer: coarse) {
   :root {
     --ve-control-height: 44px;
     --ve-target: 44px;
+    --ve-input-text: 16px;
   }
 }
 
@@ -90,7 +103,7 @@
   }
 
   body {
-    font: 13px/1.4 var(--ve-font);
+    font: var(--ve-text-md) / 1.4 var(--ve-font);
     color: var(--ve-text);
     background: var(--ve-bg);
     overflow: hidden;
@@ -111,14 +124,14 @@
 @layer utilities {
   .ve-boot,
   .ve-unsupported {
-    padding: 48px 24px;
+    padding: 48px var(--ve-space-6);
     color: var(--ve-muted);
   }
 
   .ve-unsupported h1 {
-    margin-bottom: 8px;
+    margin-bottom: var(--ve-space-3);
     color: var(--ve-text);
-    font-size: 24px;
+    font-size: var(--ve-text-xl);
   }
 
   .ve-panel-error {

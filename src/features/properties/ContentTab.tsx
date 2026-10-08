@@ -20,6 +20,16 @@ function editableGroups(
   return groups;
 }
 
+function normalizedLabel(label: string): string {
+  return label.toLowerCase().replace(/\s+/g, '');
+}
+
+function repeatsGroupName(group: FieldGroup): boolean {
+  const [onlyField] = group.fields;
+  if (group.fields.length !== 1 || onlyField === undefined) return false;
+  return normalizedLabel(onlyField.label) === normalizedLabel(group.name);
+}
+
 function ContentSection({
   id,
   title,
@@ -58,6 +68,7 @@ export function ContentTab({
               field={field}
               value={block.values[field.name]}
               path={field.name}
+              isLabelHidden={repeatsGroupName(group)}
               onChange={(value, kind) => dispatch(blockValueSet(block.id, field.name, value, kind))}
             />
           ))}

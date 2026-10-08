@@ -17,6 +17,7 @@ import { subscribeTabMessages } from '../../persistence/tabChannel';
 import { canUseFileSystemAccess } from '../files/fileAccess';
 import { fileCommands } from '../files/fileCommands';
 import { LicensesDialog, NewProjectDialog } from '../../app/lazyDialogs';
+import { DeleteProjectDialog } from './DeleteProjectDialog';
 import { duplicateProject, formatLastEdit, withTitle } from './projects';
 import './home.css';
 import { Button, IconButton, TextInput, Title } from '../../../packages/ui/src';
@@ -30,6 +31,8 @@ async function requireProject(id: string): Promise<Project> {
 type ProjectList = { summaries: ProjectSummary[]; recentFiles: FileLink[]; listedAt: number };
 
 type RenameExit = 'keyboard' | 'blur';
+
+type PendingDelete = { summary: ProjectSummary; isOpenElsewhere: boolean };
 
 async function loadProjectList(): Promise<ProjectList> {
   await autosave.flush();
@@ -97,6 +100,9 @@ export function HomeScreen(): JSX.Element {
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [isLicensesOpen, setIsLicensesOpen] = useState(false);
   const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
+  const [deleting, setDeleting] = useState<PendingDelete | null>(null);
+  const newProjectRef = useRef<HTMLButtonElement>(null);
+  const gridRef = useRef<HTMLUListElement>(null);
   const renameButtonsRef = useRef(new Map<string, HTMLButtonElement>());
   const [listAttempt, setListAttempt] = useState(0);
 
@@ -154,13 +160,21 @@ export function HomeScreen(): JSX.Element {
     });
   }
 
-  async function remove(summary: ProjectSummary): Promise<void> {
+  async function askToRemove(summary: ProjectSummary): Promise<void> {
     const isOpenElsewhere = await isProjectOpenElsewhere(summary.id);
-    const question = isOpenElsewhere
-      ? `“${summary.title}” is open in another tab. Delete it anyway? That tab will close it.`
-      : `Delete “${summary.title}”? This cannot be undone.`;
-    if (!window.confirm(question)) return;
+    setDeleting({ summary, isOpenElsewhere });
+  }
+
+  function focusCardAt(index: number): void {
+    const links = gridRef.current?.querySelectorAll<HTMLElement>('.ve-home-card-title a') ?? [];
+    const target = links[Math.min(index, links.length - 1)] ?? newProjectRef.current;
+    target?.focus();
+  }
+
+  async function remove(summary: ProjectSummary): Promise<void> {
+    const index = projectList?.summaries.indexOf(summary) ?? 0;
     await runProjectAction('delete the project', () => deleteProject(summary.id));
+    requestAnimationFrame(() => focusCardAt(index));
   }
 
   return (
@@ -172,6 +186,7 @@ export function HomeScreen(): JSX.Element {
             Open from disk
           </Button>
           <Button
+            ref={newProjectRef}
             variant="primary"
             icon="plus"
             aria-haspopup="dialog"
@@ -211,7 +226,7 @@ export function HomeScreen(): JSX.Element {
       {projectList !== null && <RecentFiles links={projectList.recentFiles} />}
 
       {projectList !== null && projectList.summaries.length > 0 && (
-        <ul className="ve-home-grid" aria-label="Projects">
+        <ul ref={gridRef} className="ve-home-grid" aria-label="Projects">
           {projectList.summaries.map((summary) => (
             <li key={summary.id} className="ve-home-card">
               {renamingId === summary.id ? (
@@ -250,7 +265,7 @@ export function HomeScreen(): JSX.Element {
                 <IconButton
                   label={`Delete ${summary.title}`}
                   icon="trash"
-                  onClick={() => void remove(summary)}
+                  onClick={() => void askToRemove(summary)}
                 />
               </div>
             </li>
@@ -266,6 +281,14 @@ export function HomeScreen(): JSX.Element {
         {isLicensesOpen && <LicensesDialog onClose={() => setIsLicensesOpen(false)} />}
         {isNewProjectOpen && <NewProjectDialog onClose={() => setIsNewProjectOpen(false)} />}
       </Suspense>
+      {deleting !== null && (
+        <DeleteProjectDialog
+          title={deleting.summary.title}
+          isOpenElsewhere={deleting.isOpenElsewhere}
+          onConfirm={() => void remove(deleting.summary)}
+          onClose={() => setDeleting(null)}
+        />
+      )}
     </main>
   );
 }

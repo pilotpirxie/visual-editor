@@ -74,7 +74,7 @@ export function SavedBlockCard({ record }: { record: SavedBlockRecord }): JSX.El
             draggable={false}
           />
         )}
-        {mode !== 'renaming' && <span>{record.name}</span>}
+        {mode !== 'renaming' && <span className="ve-component-name">{record.name}</span>}
       </button>
       {mode === 'renaming' && (
         <TextInput

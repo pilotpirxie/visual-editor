@@ -67,4 +67,11 @@
     background: var(--ve-accent-soft);
     color: var(--ve-accent);
   }
+
+  @media (forced-colors: active) {
+    .ui-icon-button[aria-pressed='true'] {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+  }
 }

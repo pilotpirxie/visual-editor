@@ -46,6 +46,23 @@ function presetSummary(preset: DesignSystemPreset): string {
   return `${fontSummary(preset)} · ${iconSetInfo(iconSet)?.label ?? iconSet}`;
 }
 
+function PresetSummary({ preset }: { preset: DesignSystemPreset }): JSX.Element {
+  const { tokens } = preset.designSystem;
+  return (
+    <>
+      <span className="ve-preset-swatches" aria-hidden="true">
+        {SWATCH_TOKENS.map((name) => (
+          <span key={name} style={{ background: tokens[name]?.value }} />
+        ))}
+      </span>
+      <span className="ve-preset-text">
+        <strong className="ve-preset-name">{preset.name}</strong>
+        <span className="ui-muted">{presetSummary(preset)}</span>
+      </span>
+    </>
+  );
+}
+
 type PresetListProps = {
   label: string;
   presets: readonly DesignSystemPreset[];
@@ -62,24 +79,47 @@ export function PresetList({
   return (
     <ul className="ve-preset-list" aria-label={label}>
       {presets.map((preset) => {
-        const { tokens } = preset.designSystem;
         const isCurrent = preset.id === currentPresetId;
         return (
           <li key={preset.id} className="ve-preset-row" data-current={isCurrent || undefined}>
-            <span className="ve-preset-swatches" aria-hidden="true">
-              {SWATCH_TOKENS.map((name) => (
-                <span key={name} style={{ background: tokens[name]?.value }} />
-              ))}
-            </span>
-            <span className="ve-preset-text">
-              <strong className="ve-preset-name">{preset.name}</strong>
-              <span className="ui-muted">{presetSummary(preset)}</span>
-            </span>
+            <PresetSummary preset={preset} />
             {isCurrent && <span className="ve-preset-current">Current</span>}
             {renderAction(preset)}
           </li>
         );
       })}
+    </ul>
+  );
+}
+
+type PresetPickerProps = {
+  label: string;
+  presets: readonly DesignSystemPreset[];
+  isDisabled: boolean;
+  onPick(preset: DesignSystemPreset): void;
+};
+
+export function PresetPicker({
+  label,
+  presets,
+  isDisabled,
+  onPick,
+}: PresetPickerProps): JSX.Element {
+  return (
+    <ul className="ve-preset-picker" aria-label={label}>
+      {presets.map((preset) => (
+        <li key={preset.id}>
+          <button
+            type="button"
+            className="ve-preset-row ve-preset-pick"
+            aria-label={`Start with ${preset.name}`}
+            disabled={isDisabled}
+            onClick={() => onPick(preset)}
+          >
+            <PresetSummary preset={preset} />
+          </button>
+        </li>
+      ))}
     </ul>
   );
 }

@@ -37,7 +37,7 @@ function savedProjects(): Project[] {
 
 function presetButtons(container: HTMLElement): HTMLButtonElement[] {
   const buttons: HTMLButtonElement[] = [];
-  for (const button of container.querySelectorAll<HTMLButtonElement>('.ve-preset-row button')) {
+  for (const button of container.querySelectorAll<HTMLButtonElement>('button.ve-preset-pick')) {
     buttons.push(button);
   }
   return buttons;
@@ -78,7 +78,7 @@ describe('NewProjectDialog presets', () => {
     const expected: string[] = [];
     for (const preset of BUILTIN_PRESETS) expected.push(`Start with ${preset.name}`);
     expect(presetLabels(container)).toEqual(expected);
-    expect(container.querySelector('.ve-preset-list')?.getAttribute('aria-label')).toBe(
+    expect(container.querySelector('.ve-preset-picker')?.getAttribute('aria-label')).toBe(
       'Design presets',
     );
   });
@@ -176,7 +176,7 @@ describe('NewProjectDialog tabs', () => {
     changeValue(nameInput(container), 'Orbit for Teams');
     click(getButton(container, 'Starters'));
     click(
-      await vi.waitFor(() => getButton(container, 'Use the Startup waitlist starter'), {
+      await vi.waitFor(() => getButton(container, 'Use this starter: Startup waitlist'), {
         timeout: STARTERS_LOAD_TIMEOUT_MS,
       }),
     );

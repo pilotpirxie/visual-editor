@@ -109,7 +109,7 @@ describe('ListField', () => {
 
   it('reports typing inside an item as a continuous change of the whole list', () => {
     const { element, changes } = renderList(list, [{ title: 'One' }, { title: 'Two' }]);
-    changeValue(element.querySelector('[data-field-path="items.1.title"] input'), 'Second');
+    changeValue(element.querySelector('[data-field-path="items.1.title"] textarea'), 'Second');
     expect(changes.at(-1)).toEqual({
       value: [{ title: 'One' }, { title: 'Second' }],
       kind: 'continuous',
@@ -139,7 +139,7 @@ describe('ListField', () => {
   it('keeps an item open while typing changes its title', () => {
     const { element } = renderList(roomyList, [{ title: 'One' }]);
     element.querySelectorAll('details')[0].open = true;
-    changeValue(element.querySelector('[data-field-path="items.0.title"] input'), 'Uno');
+    changeValue(element.querySelector('[data-field-path="items.0.title"] textarea'), 'Uno');
     expect(openDetails(element)).toEqual(['Uno']);
   });
 
@@ -149,7 +149,7 @@ describe('ListField', () => {
     await nextFrame();
     expect(openDetails(element)).toEqual(['New feature']);
     expect(document.activeElement).toBe(
-      element.querySelector('[data-field-path="items.0.title"] input'),
+      element.querySelector('[data-field-path="items.0.title"] textarea'),
     );
   });
 

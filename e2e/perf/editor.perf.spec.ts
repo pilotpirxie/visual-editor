@@ -69,10 +69,10 @@ test('a field edit reaches the canvas in under 100 ms on a 30-block page', async
   await expect(page.locator('#ve-field-title')).toBeVisible();
   await slowDownCpu(page);
   const samples = await page.evaluate(async (count) => {
-    const input = document.querySelector<HTMLInputElement>('#ve-field-title');
+    const input = document.querySelector<HTMLTextAreaElement>('#ve-field-title');
     const frame = document.querySelector<HTMLIFrameElement>('.ve-canvas-frame');
     const heading = frame?.contentDocument?.querySelector('[data-component="hero-centered"] h1');
-    const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
+    const setValue = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set;
     if (input === null || heading === null || heading === undefined || setValue === undefined) {
       throw new Error('The hero title field or heading is missing');
     }

@@ -108,7 +108,7 @@ describe('HomeScreen', () => {
     click(getButton(container, 'New project'));
     click(getButton(container, 'Starters'));
     click(
-      await vi.waitFor(() => getButton(container, 'Use the Startup waitlist starter'), {
+      await vi.waitFor(() => getButton(container, 'Use this starter: Startup waitlist'), {
         timeout: STARTERS_LOAD_TIMEOUT_MS,
       }),
     );
@@ -185,13 +185,14 @@ describe('HomeScreen', () => {
     expect(listProjects).toHaveBeenCalledTimes(2);
   });
 
-  it('deletes a project only after the user confirms', async () => {
-    const answers = [false, true];
-    vi.spyOn(window, 'confirm').mockImplementation(() => answers.shift() ?? false);
+  it('deletes a project only after the user confirms in a dialog', async () => {
     const container = await renderHome();
     click(getButton(container, 'Delete Fieldnote'));
+    const cancel = await vi.waitFor(() => getButton(container, 'Cancel'));
+    click(cancel);
     expect(deleteProject).not.toHaveBeenCalled();
     click(getButton(container, 'Delete Fieldnote'));
+    click(await vi.waitFor(() => getButton(container, 'Delete project')));
     await vi.waitFor(() => expect(deleteProject).toHaveBeenCalledWith(stored.id));
   });
 });

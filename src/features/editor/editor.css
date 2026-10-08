@@ -86,8 +86,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    padding-inline: 8px;
+    gap: var(--ve-space-4);
+    padding-inline: var(--ve-space-3);
     border-bottom: 1px solid var(--ve-border);
     background: var(--ve-bg);
   }
@@ -95,7 +95,51 @@
   .ve-toolbar-group {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: var(--ve-space-2);
+  }
+
+  .ve-toolbar-start {
+    min-width: 0;
+  }
+
+  .ve-project {
+    display: flex;
+    align-items: center;
+    gap: var(--ve-space-1);
+    min-width: 0;
+    margin-inline-end: var(--ve-space-3);
+  }
+
+  .ve-project-name {
+    min-width: 0;
+    max-width: 18ch;
+    min-height: var(--ve-target);
+    padding-inline: var(--ve-space-3);
+    overflow: hidden;
+    border: 0;
+    border-radius: var(--ve-radius);
+    background: none;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .ve-project-name:hover:enabled {
+    background: var(--ve-surface);
+  }
+
+  .ve-project-name:disabled {
+    cursor: default;
+  }
+
+  .ve-save-state {
+    display: inline-flex;
+    color: var(--ve-muted);
+  }
+
+  .ve-save-state[data-status='error'] {
+    color: var(--ve-danger);
   }
 
   .ve-toolbar-center {
@@ -104,7 +148,7 @@
     min-width: 0;
   }
 
-  @media (width >= 1024px) {
+  @media (width >= 1024px) and (pointer: fine) {
     .ve-device-toggle .ui-segment {
       min-height: 28px;
       padding-inline: 6px;
@@ -112,7 +156,15 @@
   }
 
   @media (width < 520px) {
-    .ve-device-toggle {
+    .ve-device-toggle,
+    .ve-help-button,
+    .ve-project-name {
+      display: none;
+    }
+  }
+
+  @media (width >= 520px) {
+    .ve-device-menu {
       display: none;
     }
   }
@@ -120,10 +172,27 @@
   .ve-logo {
     display: inline-flex;
     align-items: center;
-    margin-inline: 8px 12px;
+    justify-content: center;
+    min-width: var(--ve-target);
+    min-height: var(--ve-target);
+    padding-inline: var(--ve-space-2);
+    border-radius: var(--ve-radius);
     color: inherit;
     font-weight: 700;
+    white-space: nowrap;
     text-decoration: none;
+  }
+
+  @media (width >= 1280px) {
+    .ve-logo > .ve-icon {
+      display: none;
+    }
+  }
+
+  @media (width < 1280px) {
+    .ve-logo-text {
+      display: none;
+    }
   }
 
   .ve-logo:hover {
@@ -195,9 +264,10 @@
 
   .ve-preview-exit {
     position: fixed;
-    inset-block-start: 12px;
-    inset-inline-end: 12px;
+    inset-block-end: calc(var(--ve-space-5) + env(safe-area-inset-bottom));
+    inset-inline-start: 50%;
     z-index: 20;
+    translate: -50% 0;
     padding: 2px;
     border: 1px solid var(--ve-border);
     border-radius: 999px;
@@ -209,10 +279,50 @@
     border-radius: 999px;
   }
 
+  @media (width >= 1280px) {
+    .ve-shell[data-left-collapsed] :is(.ve-library, .ve-resize-handle[data-side='left']) {
+      display: none;
+    }
+  }
+
   @media (width >= 1024px) {
-    .ve-shell[data-left-collapsed] :is(.ve-library, .ve-resize-handle[data-side='left']),
     .ve-shell[data-right-collapsed] :is(.ve-properties, .ve-resize-handle[data-side='right']) {
       display: none;
+    }
+  }
+
+  .ve-drawer-scrim {
+    display: none;
+  }
+
+  @media (1024px <= width < 1280px) {
+    .ve-shell {
+      grid-template-columns: 0 0 minmax(0, 1fr) 0 var(--ve-right-width);
+    }
+
+    .ve-shell .ve-resize-handle[data-side='left'],
+    .ve-shell:not([data-library-drawer]) .ve-library {
+      display: none;
+    }
+
+    .ve-shell[data-library-drawer] .ve-library {
+      grid-area: canvas;
+      z-index: 6;
+      justify-self: start;
+      width: min(var(--ve-drawer-width), 100%);
+      box-shadow: 12px 0 32px rgb(17 24 39 / 0.12);
+    }
+
+    .ve-drawer-scrim {
+      display: block;
+      grid-area: canvas;
+      z-index: 5;
+      background: rgb(17 24 39 / 0.12);
+    }
+
+    .ve-shell[data-dragging] :is(.ve-library, .ve-drawer-scrim) {
+      opacity: 0;
+      pointer-events: none;
     }
   }
 
@@ -249,25 +359,26 @@
     }
 
     .ve-toolbar {
-      gap: 4px;
+      gap: var(--ve-space-2);
       min-height: 52px;
-      padding-inline: 4px;
+      padding-inline: var(--ve-space-2);
     }
 
     .ve-toolbar-group {
       flex: none;
-      gap: 2px;
+      gap: var(--ve-space-1);
+    }
+
+    .ve-toolbar-start {
+      flex-shrink: 1;
     }
 
     .ve-toolbar-center {
       flex: 1 1 0;
     }
 
-    .ve-logo {
-      margin-inline: 0;
-      min-width: 44px;
-      height: 44px;
-      justify-content: center;
+    .ve-project {
+      margin-inline-end: 0;
     }
 
     .ve-toasts {
@@ -301,9 +412,17 @@
     .ve-compact-tab[aria-current='page'] {
       color: var(--ve-accent);
     }
+  }
 
+  @media (width < 1024px), (pointer: coarse) {
     .ve-shell :is(input, select, textarea, [contenteditable='true']) {
-      font-size: 16px;
+      font-size: var(--ve-input-text);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .ve-resize-handle:focus-visible {
+      outline: 2px solid Highlight;
     }
   }
 }

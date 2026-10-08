@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState, type CSSProperties, type JSX } from 'react';
-import { compactTabSelected } from '../../app/editorSlice';
+import { blockLibraryOpened, compactTabSelected } from '../../app/editorSlice';
 import { findBlockList, sharedSlotOf } from '../../app/blockLists';
 import { dispatch, store, useStore } from '../../app/store';
 import type { Device } from '../../app/types';
@@ -8,7 +8,17 @@ import { duplicateBlock, moveBlockBy, removeBlock } from '../editor/blockActions
 import { useBlockMenuItems } from '../editor/blockMenu';
 import { PAGE_ROOT_ID } from './frameDom';
 import { blockToolbarTop, clamp } from './geometry';
-import { focusNeighbour, IconButton, MenuButton } from '../../../packages/ui/src';
+import { Button, focusNeighbour, IconButton, MenuButton } from '../../../packages/ui/src';
+
+const FINE_POINTER_QUERY = '(pointer: fine)';
+
+function openBlockLibrary(): void {
+  dispatch(blockLibraryOpened());
+  if (!window.matchMedia(FINE_POINTER_QUERY).matches) return;
+  requestAnimationFrame(() => {
+    document.querySelector<HTMLInputElement>('.ve-blocks-search input')?.focus();
+  });
+}
 
 type Rect = { top: number; left: number; width: number; height: number };
 
@@ -232,8 +242,10 @@ export function Overlay({
       {isEmpty && emptyRect !== null && (
         <div className="ve-empty-area" style={boxStyle(emptyRect)}>
           <div className="ve-empty">
-            <span className="ve-wide-only">Drag a block here to start</span>
-            <span className="ve-compact-only">Add a block from the Blocks tab</span>
+            <Button variant="primary" icon="plus" onClick={openBlockLibrary}>
+              Add a block
+            </Button>
+            <span className="ve-wide-only">or drag one here from the library</span>
           </div>
         </div>
       )}

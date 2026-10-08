@@ -55,7 +55,7 @@ test('a starter previews every page on every device and starts a new project', a
 
   await preview.getByRole('button', { name: 'Use this starter' }).click();
   await expect(page.locator('.ve-toolbar')).toBeVisible();
-  await expect(page).toHaveTitle('Fieldnote – Visual Editor');
+  await expect(page).toHaveTitle(/ · Fieldnote – Visual Editor$/);
   const canvas = page.frameLocator('.ve-canvas-frame');
   await expect(canvas.locator('h1')).toBeVisible();
   await expect
@@ -78,7 +78,7 @@ test('a blank project starts from the chosen preset and site name', async ({ pag
   await page.getByRole('button', { name: 'New project' }).click();
   await page.getByLabel('Site name').fill('Harbor Bakery');
   await page.getByRole('button', { name: 'Start with Midnight' }).click();
-  await expect(page).toHaveTitle('Harbor Bakery – Visual Editor');
+  await expect(page).toHaveTitle(/ · Harbor Bakery – Visual Editor$/);
   await expect
     .poll(() =>
       page

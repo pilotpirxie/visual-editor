@@ -67,3 +67,19 @@ test('Preview hides the toolbar and a floating button exits it', async ({ page }
   await expect(page.locator('.ve-toolbar')).toBeVisible();
   await expect(page.locator('.ve-preview-exit')).toHaveCount(0);
 });
+
+test('closing a toolbar menu with Escape returns focus to its button', async ({ page }) => {
+  await createProject(page);
+  const fileButton = page.getByRole('button', { name: 'File', exact: true });
+  await fileButton.focus();
+  await page.keyboard.press('Enter');
+  const menu = page.getByRole('menu', { name: 'File' });
+  await expect(menu).toBeVisible();
+  await expect(fileButton).toHaveAttribute('aria-expanded', 'true');
+  await page.keyboard.press('Escape');
+  await expect(menu).toBeHidden();
+  await expect(fileButton).toBeFocused();
+  await expect(fileButton).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.locator('.ve-toolbar')).toBeVisible();
+  await expect(page.getByText('Something went wrong')).toHaveCount(0);
+});

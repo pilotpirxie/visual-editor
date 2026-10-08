@@ -23,7 +23,9 @@ test('a copied block pastes onto another page and into a project in another tab'
   await page.keyboard.press('ControlOrMeta+C');
 
   await addPage(page, 'About');
-  await canvas(page).locator('#ve-page').click();
+  await canvas(page)
+    .locator('#ve-page')
+    .click({ position: { x: 8, y: 8 } });
   await page.keyboard.press('ControlOrMeta+V');
   await expect(canvas(page).locator('[data-component="hero-centered"] h1')).toHaveText(
     'Copied hero',
@@ -31,7 +33,9 @@ test('a copied block pastes onto another page and into a project in another tab'
 
   const otherTab = await context.newPage();
   await createProject(otherTab);
-  await canvas(otherTab).locator('#ve-page').click();
+  await canvas(otherTab)
+    .locator('#ve-page')
+    .click({ position: { x: 8, y: 8 } });
   await otherTab.keyboard.press('ControlOrMeta+V');
   await expect(canvas(otherTab).locator('[data-component="hero-centered"] h1')).toHaveText(
     'Copied hero',

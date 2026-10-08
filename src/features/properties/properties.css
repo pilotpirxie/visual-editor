@@ -2,19 +2,58 @@
   .ve-properties-header {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 16px;
+    gap: var(--ve-space-1);
+    padding: var(--ve-space-3) var(--ve-space-4);
     border-bottom: 1px solid var(--ve-border);
   }
 
+  .ve-properties-heading {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ve-space-3);
+    min-width: 0;
+    min-height: var(--ve-space-6);
+  }
+
+  .ve-properties-heading > .ui-title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ve-properties-detail {
+    flex: none;
+    max-width: 50%;
+    overflow: hidden;
+    color: var(--ve-muted);
+    font-size: var(--ve-text-sm);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ve-properties-header .ui-switch {
+    min-height: var(--ve-control-height);
+    font-size: var(--ve-text-sm);
+  }
+
   .ve-properties-empty {
-    padding: 16px;
+    padding: var(--ve-space-5);
   }
 
   .ve-field-control {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--ve-space-2);
+  }
+
+  .ve-field-control[data-label-hidden] > * > :first-child:is(.ui-field-label, legend) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 
   .ve-properties-body {
@@ -26,13 +65,13 @@
   .ve-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--ve-space-2);
   }
 
   .ve-list-items {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--ve-space-2);
   }
 
   .ve-list-item {
@@ -62,26 +101,50 @@
   }
 
   .ve-list-item-summary {
-    overflow: hidden;
-    padding: 10px 104px 10px 10px;
+    display: flex;
+    align-items: center;
+    gap: var(--ve-space-2);
+    min-height: var(--ve-target);
+    padding-inline: var(--ve-space-3) calc(3 * var(--ve-target) + var(--ve-space-3));
     font-weight: 600;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    list-style: none;
     cursor: pointer;
+  }
+
+  .ve-list-item-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .ve-list-item-summary > .ve-icon {
+    color: var(--ve-muted);
+    transition: rotate 120ms;
+  }
+
+  .ve-list-item details:not([open]) > .ve-list-item-summary > .ve-icon {
+    rotate: -90deg;
+  }
+
+  .ve-list-item-summary > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .ve-list-item-fields {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 4px 10px 12px;
+    gap: var(--ve-space-4);
+    padding: var(--ve-space-2) var(--ve-space-3) var(--ve-space-4);
   }
 
   .ve-list-item-actions {
     position: absolute;
-    top: 4px;
-    right: 4px;
+    top: 0;
+    right: var(--ve-space-1);
     display: flex;
+    align-items: center;
+    min-height: var(--ve-target);
   }
 
   .ve-list-handle {
@@ -102,11 +165,17 @@
     cursor: default;
   }
 
+  .ve-color-current {
+    margin-inline-start: var(--ve-space-3);
+    color: var(--ve-muted);
+    font-weight: 400;
+  }
+
   .ve-swatches {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 6px;
+    gap: var(--ve-space-1);
+    margin-top: var(--ve-space-2);
   }
 
   .ve-swatch {
@@ -241,14 +310,31 @@
   .ve-button-field {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--ve-space-2);
     min-width: 0;
   }
 
-  .ve-button-field .ve-link {
-    padding: 10px;
+  .ve-button-field {
+    padding: var(--ve-space-1) var(--ve-space-4) var(--ve-space-4);
+    border: 1px solid var(--ve-border);
     border-radius: var(--ve-radius);
-    background: var(--ve-surface);
+  }
+
+  .ve-button-field > legend {
+    margin-inline-start: calc(-1 * var(--ve-space-2));
+    padding-inline: var(--ve-space-2);
+  }
+
+  .ve-button-field > :is(label, .ve-link):not(:first-of-type) {
+    margin-block-start: var(--ve-space-2);
+  }
+
+  .ve-single-line {
+    min-height: var(--ve-control-height);
+    max-height: 6lh;
+    padding-block: max(var(--ve-space-2), calc((var(--ve-control-height) - 1lh - 2px) / 2));
+    resize: none;
+    field-sizing: content;
   }
 
   .ve-token-select {
@@ -486,6 +572,13 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: var(--ve-space-4);
+    padding: var(--ve-space-4);
+  }
+
+  @media (forced-colors: active) {
+    .ve-swatch-color {
+      forced-color-adjust: none;
+    }
   }
 }

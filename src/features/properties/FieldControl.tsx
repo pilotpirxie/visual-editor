@@ -33,6 +33,7 @@ type FieldControlProps = {
   field: Field;
   value: unknown;
   path: string;
+  isLabelHidden?: boolean;
   onChange(value: unknown, kind: EditKind): void;
 };
 
@@ -56,7 +57,13 @@ const CONTROLS: Record<FieldType, (props: ControlProps) => JSX.Element> = {
   button: ButtonField,
 };
 
-export function FieldControl({ field, value, path, onChange }: FieldControlProps): JSX.Element {
+export function FieldControl({
+  field,
+  value,
+  path,
+  isLabelHidden = false,
+  onChange,
+}: FieldControlProps): JSX.Element {
   const [draft, setDraft] = useState<Draft | null>(null);
   const isDraftStale = draft !== null && !Object.is(draft.base, value);
   if (isDraftStale) setDraft(null);
@@ -87,6 +94,7 @@ export function FieldControl({ field, value, path, onChange }: FieldControlProps
       className="ve-field-control"
       data-field-path={path}
       data-invalid={error !== null || undefined}
+      data-label-hidden={isLabelHidden || undefined}
       onBlur={dropDraftOnLeave}
     >
       <Control

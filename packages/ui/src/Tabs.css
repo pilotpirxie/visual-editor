@@ -1,14 +1,14 @@
 @layer components {
   .ui-tabs {
     display: flex;
-    gap: 4px;
-    padding: 8px 8px 0;
+    gap: var(--ve-space-2);
+    padding: var(--ve-space-2) var(--ve-space-3) 0;
     border-bottom: 1px solid var(--ve-border);
   }
 
   .ui-tabs [role='tab'] {
     min-height: var(--ve-target);
-    padding: 6px 10px;
+    padding: var(--ve-space-2) var(--ve-space-3);
     border: 0;
     border-bottom: 2px solid transparent;
     background: none;
@@ -27,5 +27,11 @@
     flex: 1;
     min-height: 0;
     overflow-y: auto;
+  }
+
+  @media (forced-colors: active) {
+    .ui-tabs [aria-selected='true'] {
+      border-bottom-color: Highlight;
+    }
   }
 }

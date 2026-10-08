@@ -11,6 +11,10 @@ export async function createProject(page: Page): Promise<void> {
   await expect(page.frameLocator('.ve-canvas-frame').locator('#ve-page')).toBeAttached();
 }
 
+export async function waitForSaved(page: Page): Promise<void> {
+  await expect(page.locator('.ve-save-state')).toHaveAttribute('data-status', 'saved');
+}
+
 export type LibraryTab = 'Blocks' | 'Layers' | 'Pages';
 
 export type StoredProject = {

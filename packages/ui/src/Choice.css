@@ -60,7 +60,7 @@
   .ui-segmented {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--ve-space-2);
     min-width: 0;
   }
 
@@ -101,7 +101,7 @@
     outline: 2px solid var(--ve-accent);
   }
 
-  @media (width < 1024px) {
+  @media (width < 1024px), (pointer: coarse) {
     .ui-check input {
       width: 20px;
       height: 20px;
@@ -120,6 +120,31 @@
 
     .ui-switch input:checked::after {
       translate: 18px 0;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .ui-segment:has(input:checked) {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+
+    .ui-switch input {
+      border: 1px solid ButtonText;
+      background: ButtonFace;
+      forced-color-adjust: none;
+    }
+
+    .ui-switch input::after {
+      background: ButtonText;
+    }
+
+    .ui-switch input:checked {
+      background: Highlight;
+    }
+
+    .ui-switch input:checked::after {
+      background: HighlightText;
     }
   }
 }

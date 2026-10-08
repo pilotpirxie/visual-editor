@@ -3,8 +3,9 @@
     position-area: bottom span-left;
     position-try-fallbacks: flip-block;
     min-width: 180px;
-    margin: 4px 0;
-    padding: 4px;
+    max-width: calc(100vw - var(--ve-space-5));
+    margin: var(--ve-space-2) 0;
+    padding: var(--ve-space-2);
     border: 1px solid var(--ve-border);
     border-radius: var(--ve-radius);
     background: var(--ve-bg);
@@ -20,15 +21,16 @@
   .ui-menu > button {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: var(--ve-space-2);
     min-height: var(--ve-target);
-    padding: 6px 10px 6px 4px;
+    padding: var(--ve-space-2) var(--ve-space-3) var(--ve-space-2) var(--ve-space-2);
     border: 0;
     border-radius: 4px;
     background: none;
     color: inherit;
     font: inherit;
-    text-align: left;
+    text-align: start;
+    white-space: nowrap;
     cursor: pointer;
   }
 
@@ -48,7 +50,7 @@
 
   .ui-menu-separator {
     height: 1px;
-    margin: 4px 0;
+    margin: var(--ve-space-2) 0;
     background: var(--ve-border);
   }
 
@@ -60,13 +62,22 @@
 
   .ui-menu-label {
     flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .ui-menu-shortcut {
-    margin-left: 24px;
+    margin-inline-start: var(--ve-space-6);
     color: var(--ve-muted);
     font: inherit;
-    font-size: 12px;
+    font-size: var(--ve-text-sm);
+  }
+
+  @media (pointer: coarse) {
+    .ui-menu-shortcut {
+      display: none;
+    }
   }
 
   .ui-menu.ui-menu--at-point {

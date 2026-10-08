@@ -1,4 +1,12 @@
-import { useMemo, useState, type DragEvent, type JSX, type PointerEvent } from 'react';
+import {
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type DragEvent,
+  type JSX,
+  type PointerEvent,
+} from 'react';
 import { dispatch, useStore } from '../../app/store';
 import { isBuiltIn } from '../../components/packFormat';
 import type { BlockPack, LibraryEntry } from '../../components/types';
@@ -10,7 +18,7 @@ import { insertComponent } from '../editor/blockActions';
 import { SavedBlockCard } from '../saved-blocks/SavedBlockCard';
 import type { SavedBlockRecord } from '../../persistence/db';
 import { filterComponents, matchesWords, searchWords } from './search';
-import { Button, SearchInput, Title, useTooltip } from '../../../packages/ui/src';
+import { Button, IconButton, SearchInput, Title, useTooltip } from '../../../packages/ui/src';
 
 const THUMBNAIL_WIDTH = 640;
 const THUMBNAIL_HEIGHT = 400;
@@ -61,7 +69,10 @@ function allowFileDrop(event: DragEvent): void {
 function ComponentCard({ component }: { component: LibraryEntry }): JSX.Element {
   const { definition, thumbnail, pack } = component;
   const { triggerProps, tooltip } = useTooltip({
-    text: definition.description ?? '',
+    text:
+      definition.description === undefined
+        ? definition.name
+        : `${definition.name}: ${definition.description}`,
     isDescription: true,
   });
 
@@ -94,7 +105,7 @@ function ComponentCard({ component }: { component: LibraryEntry }): JSX.Element 
           decoding="async"
           draggable={false}
         />
-        <span>
+        <span className="ve-component-name">
           {definition.name}
           {!isBuiltIn(pack) && (
             <>
@@ -140,6 +151,20 @@ function ComponentGrid({ components }: { components: LibraryEntry[] }): JSX.Elem
 
 type GroupLink = { id: string; label: string; count: number };
 
+function GroupHeader({ link, onBack }: { link: GroupLink; onBack(): void }): JSX.Element {
+  return (
+    <div className="ve-blocks-back">
+      <IconButton label="All categories" icon="chevron-left" onClick={onBack} />
+      <Title className="ve-blocks-heading">{link.label}</Title>
+      <span className="ve-count">{link.count}</span>
+    </div>
+  );
+}
+
+function scrollPanelOf(element: HTMLElement | null): HTMLElement | null {
+  return element?.closest<HTMLElement>('.ui-tab-panel') ?? null;
+}
+
 function groupLinks(groups: CategoryGroup[]): GroupLink[] {
   return groups.map(({ id, label, components }) => ({ id, label, count: components.length }));
 }
@@ -168,6 +193,8 @@ function CategoryList({
 export function BlocksTab(): JSX.Element {
   const [query, setQuery] = useState('');
   const [categoryId, setCategoryId] = useState<string | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const listScrollTop = useRef(0);
   const packs = useStore((state) => state.editor.blockPacks);
   const savedBlocks = useStore((state) => state.editor.savedBlocks);
   const entries = useMemo(() => libraryEntries(packs), [packs]);
@@ -185,57 +212,60 @@ export function BlocksTab(): JSX.Element {
   }
   const isListShown = !isSearching && !category && !isSavedOpen;
 
+  useLayoutEffect(() => {
+    const panel = scrollPanelOf(rootRef.current);
+    if (panel === null) return;
+    panel.scrollTop = isListShown ? listScrollTop.current : 0;
+  }, [isListShown, categoryId]);
+
+  function openGroup(id: string): void {
+    listScrollTop.current = scrollPanelOf(rootRef.current)?.scrollTop ?? 0;
+    setCategoryId(id);
+  }
+
+  function closeGroup(): void {
+    setCategoryId(null);
+  }
+
   return (
-    <div className="ve-blocks" onDragOver={allowFileDrop} onDrop={loadDroppedPack}>
-      <SearchInput
-        className="ve-blocks-search"
-        label="Search blocks"
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-      />
+    <div ref={rootRef} className="ve-blocks" onDragOver={allowFileDrop} onDrop={loadDroppedPack}>
+      <div className="ve-blocks-head">
+        <SearchInput
+          className="ve-blocks-search"
+          label="Search blocks"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+        />
+        {!isSearching && isSavedOpen && (
+          <GroupHeader
+            link={{ id: SAVED_GROUP_ID, label: 'Saved blocks', count: savedBlocks.length }}
+            onBack={closeGroup}
+          />
+        )}
+        {!isSearching && category && (
+          <GroupHeader
+            link={{ id: category.id, label: category.label, count: category.components.length }}
+            onBack={closeGroup}
+          />
+        )}
+      </div>
 
       {isSearching && savedResults.length > 0 && <SavedBlockGrid records={savedResults} />}
       {isSearching && results.length > 0 && <ComponentGrid components={results} />}
       {isSearching && !hasResults && <p className="ui-muted">No blocks match “{query.trim()}”.</p>}
 
-      {!isSearching && isSavedOpen && (
-        <>
-          <Button
-            variant="ghost"
-            icon="chevron-left"
-            className="ve-back"
-            onClick={() => setCategoryId(null)}
-          >
-            All categories
-          </Button>
-          <Title>Saved blocks</Title>
-          <SavedBlockGrid records={savedBlocks} />
-        </>
-      )}
+      {!isSearching && isSavedOpen && <SavedBlockGrid records={savedBlocks} />}
 
-      {!isSearching && category && (
-        <>
-          <Button
-            variant="ghost"
-            icon="chevron-left"
-            className="ve-back"
-            onClick={() => setCategoryId(null)}
-          >
-            All categories
-          </Button>
-          <Title>{category.label}</Title>
-          <ComponentGrid components={category.components} />
-        </>
-      )}
+      {!isSearching && category && <ComponentGrid components={category.components} />}
 
       {isListShown && myBlockLinks.length > 0 && (
         <section className="ve-my-blocks" aria-label="My blocks">
-          <Title>My blocks</Title>
-          <CategoryList groups={myBlockLinks} onOpen={setCategoryId} />
+          <Title className="ve-blocks-heading">My blocks</Title>
+          <CategoryList groups={myBlockLinks} onOpen={openGroup} />
         </section>
       )}
 
-      {isListShown && <CategoryList groups={groupLinks(categoryGroups)} onOpen={setCategoryId} />}
+      {isListShown && <CategoryList groups={groupLinks(categoryGroups)} onOpen={openGroup} />}
 
       {isListShown && (
         <div className="ve-pack-buttons">

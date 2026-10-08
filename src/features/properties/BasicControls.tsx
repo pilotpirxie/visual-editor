@@ -1,4 +1,4 @@
-import type { ChangeEvent, JSX } from 'react';
+import { useLayoutEffect, useRef, type ChangeEvent, type JSX, type KeyboardEvent } from 'react';
 import {
   Field,
   NumberInput,
@@ -28,6 +28,34 @@ function numberFromInput(event: ChangeEvent<HTMLInputElement>): number | string 
   return valueAsNumber;
 }
 
+const LINE_BREAKS = /\r\n?|\n/g;
+
+export function singleLine(text: string): string {
+  return text.replace(LINE_BREAKS, ' ');
+}
+
+function blockEnter(event: KeyboardEvent<HTMLTextAreaElement>): void {
+  if (event.key === 'Enter' && !event.nativeEvent.isComposing) event.preventDefault();
+}
+
+function supportsFieldSizing(): boolean {
+  if (typeof CSS === 'undefined' || typeof CSS.supports !== 'function') return false;
+  return CSS.supports('field-sizing', 'content');
+}
+
+function useFittedHeight(value: string): (textarea: HTMLTextAreaElement | null) => void {
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  useLayoutEffect(() => {
+    const textarea = textareaRef.current;
+    if (textarea === null || supportsFieldSizing()) return;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight + textarea.offsetHeight - textarea.clientHeight}px`;
+  }, [value]);
+  return (textarea) => {
+    textareaRef.current = textarea;
+  };
+}
+
 export function TextControl({
   field,
   value,
@@ -36,18 +64,39 @@ export function TextControl({
   isInvalid,
   onChange,
 }: ControlProps): JSX.Element {
-  const isDate = field.type === 'date';
+  const text = asText(value);
+  const fitHeight = useFittedHeight(text);
+  if (field.type === 'date') {
+    return (
+      <Field id={id} label={field.label}>
+        <TextInput
+          id={id}
+          type="date"
+          value={asText(value)}
+          aria-required={field.required}
+          isInvalid={isInvalid}
+          aria-describedby={describedBy}
+          onChange={(event) => onChange(event.target.value, 'discrete')}
+        />
+      </Field>
+    );
+  }
   return (
     <Field id={id} label={field.label}>
-      <TextInput
+      <TextArea
+        ref={fitHeight}
         id={id}
-        type={isDate ? 'date' : 'text'}
-        value={asText(value)}
+        rows={1}
+        className="ve-single-line"
+        aria-multiline="false"
+        value={text}
+        placeholder={field.placeholder}
         maxLength={field.maxLength}
         aria-required={field.required}
         isInvalid={isInvalid}
         aria-describedby={describedBy}
-        onChange={(event) => onChange(event.target.value, isDate ? 'discrete' : 'continuous')}
+        onKeyDown={blockEnter}
+        onChange={(event) => onChange(singleLine(event.target.value), 'continuous')}
       />
     </Field>
   );
@@ -67,6 +116,7 @@ export function TextareaControl({
         id={id}
         rows={TEXTAREA_ROWS}
         value={asText(value)}
+        placeholder={field.placeholder}
         maxLength={field.maxLength}
         aria-required={field.required}
         isInvalid={isInvalid}

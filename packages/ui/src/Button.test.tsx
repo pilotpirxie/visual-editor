@@ -50,6 +50,7 @@ describe('Button', () => {
 
 describe('IconButton', () => {
   it('names the button with its label for screen readers and shows it as a tooltip on focus', () => {
+    vi.useFakeTimers();
     const { container } = render(
       <IconButton label="Delete block" icon="trash" shortcut="Delete" />,
     );
@@ -61,6 +62,7 @@ describe('IconButton', () => {
     runInAct(() => {
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }));
       button.focus();
+      vi.advanceTimersByTime(0);
     });
     const tooltip = container.querySelector('[role="tooltip"]');
     expect(tooltip?.textContent).toBe('Delete blockDelete');
@@ -69,6 +71,7 @@ describe('IconButton', () => {
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     });
     expect(container.querySelector('[role="tooltip"]')).toBeNull();
+    vi.useRealTimers();
   });
 
   it('reports a pressed state only when one is given', () => {

@@ -2,17 +2,40 @@
   .ve-blocks {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 12px;
+    gap: var(--ve-space-3);
+    padding: var(--ve-space-3);
+  }
+
+  .ve-blocks-head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ve-space-2);
+    margin: calc(-1 * var(--ve-space-3)) calc(-1 * var(--ve-space-3)) 0;
+    padding: var(--ve-space-3);
+    background: var(--ve-bg);
+  }
+
+  .ve-blocks-back {
+    display: flex;
+    align-items: center;
+    gap: var(--ve-space-2);
+    padding-inline-end: var(--ve-space-3);
+  }
+
+  .ve-blocks-heading {
+    font-size: var(--ve-text-md);
   }
 
   .ve-categories button {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: var(--ve-space-2);
     width: 100%;
     min-height: var(--ve-target);
-    padding: 8px;
+    padding: var(--ve-space-2) var(--ve-space-3);
     border: 0;
     border-radius: var(--ve-radius);
     background: none;
@@ -33,13 +56,14 @@
 
   .ve-component-grid {
     display: grid;
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+    gap: var(--ve-space-3);
   }
 
   .ve-component-card {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--ve-space-2);
     width: 100%;
     padding: 0;
     border: 0;
@@ -53,6 +77,9 @@
   .ve-component-card img {
     width: 100%;
     height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: top;
     border: 1px solid var(--ve-border);
     border-radius: var(--ve-radius);
     -webkit-user-drag: none;
@@ -61,6 +88,12 @@
   .ve-component-card:hover img,
   .ve-component-card:focus-visible img {
     border-color: var(--ve-accent);
+  }
+
+  .ve-component-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .ve-saved-block {
@@ -80,7 +113,7 @@
   .ve-thumbnail-placeholder {
     display: grid;
     place-items: center;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
     border: 1px solid var(--ve-border);
     border-radius: var(--ve-radius);
     background: var(--ve-surface);
@@ -148,11 +181,6 @@
     bottom: -1px;
   }
 
-  .ve-back {
-    align-self: flex-start;
-    color: var(--ve-muted);
-  }
-
   .ve-layer-actions {
     display: flex;
     flex: none;
@@ -197,11 +225,7 @@
 
     .ve-layer-name,
     .ve-categories button {
-      min-height: 44px;
-    }
-
-    .ve-component-grid {
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+      min-height: var(--ve-target);
     }
   }
 }
@@ -231,5 +255,12 @@
     gap: 4px;
     padding-top: 8px;
     border-top: 1px solid var(--ve-border);
+  }
+
+  @media (forced-colors: active) {
+    .ve-layer[data-selected] {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
   }
 }

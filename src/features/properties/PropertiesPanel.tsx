@@ -67,6 +67,15 @@ function categoryLabelOf(definition: ComponentDefinition): string | null {
   return null;
 }
 
+function PanelHeading({ title, detail }: { title: string; detail: string | null }): JSX.Element {
+  return (
+    <div className="ve-properties-heading">
+      <Title>{title}</Title>
+      {detail !== null && <span className="ve-properties-detail">{detail}</span>}
+    </div>
+  );
+}
+
 function SharedSwitch({
   blockId,
   definition,
@@ -156,8 +165,10 @@ export function PropertiesPanel(): JSX.Element {
     return (
       <aside className="ve-panel ve-properties" aria-label="Properties">
         <header className="ve-properties-header">
-          <Title>HTML block</Title>
-          {definition !== null && <p className="ui-muted">Converted from {definition.name}</p>}
+          <PanelHeading
+            title="HTML block"
+            detail={definition === null ? null : `From ${definition.name}`}
+          />
           {definition !== null && <SharedSwitch blockId={block.id} definition={definition} />}
         </header>
         <PropertiesTabs tabs={HTML_TABS} activeTab={tab} />
@@ -180,8 +191,7 @@ export function PropertiesPanel(): JSX.Element {
   return (
     <aside className="ve-panel ve-properties" aria-label="Properties">
       <header className="ve-properties-header">
-        <Title>{title}</Title>
-        {categoryLabel !== null && <p className="ui-muted">{categoryLabel}</p>}
+        <PanelHeading title={title} detail={categoryLabel} />
         {definition !== null && <SharedSwitch blockId={block.id} definition={definition} />}
       </header>
       {definition !== null && <PropertiesTabs tabs={COMPONENT_TABS} activeTab={tab} />}

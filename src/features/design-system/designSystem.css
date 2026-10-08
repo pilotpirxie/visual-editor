@@ -20,6 +20,41 @@
     border-bottom: 0;
   }
 
+  .ve-preset-picker {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    gap: var(--ve-space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ve-preset-pick {
+    width: 100%;
+    padding: var(--ve-space-3) var(--ve-space-4);
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    background: var(--ve-bg);
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .ve-preset-pick:last-child {
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-preset-pick:hover:enabled {
+    border-color: var(--ve-accent);
+    background: var(--ve-accent-soft);
+  }
+
+  .ve-preset-pick:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
   .ve-preset-swatches {
     display: flex;
     flex: none;

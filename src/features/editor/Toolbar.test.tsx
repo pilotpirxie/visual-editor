@@ -54,12 +54,27 @@ describe('Toolbar', () => {
     expect(store.getState().editor.device).toBe('responsive');
   });
 
-  it('shows neither the project name nor a save status', () => {
-    const { container } = render(<Toolbar />);
+  it('shows the project name and a quiet save state that follows autosave', () => {
+    const { container } = render(
+      <>
+        <Toolbar />
+        <EditorDialogs />
+      </>,
+    );
+    const name = container.querySelector<HTMLButtonElement>('.ve-project-name');
+    expect(name?.textContent).toBe('Fieldnote');
+    expect(name?.getAttribute('aria-label')).toBe('Fieldnote, project settings');
+    const saveState = container.querySelector('.ve-save-state');
+    runInAct(() => dispatch(saveStatusChanged('saving')));
+    expect(saveState?.getAttribute('aria-label')).toBe('Saving…');
+    runInAct(() => dispatch(saveStatusChanged('error')));
+    expect(saveState?.getAttribute('data-status')).toBe('error');
+    expect(saveState?.getAttribute('aria-label')).toBe('Changes not saved');
     runInAct(() => dispatch(saveStatusChanged('saved')));
-    expect(container.textContent).not.toContain('Fieldnote');
-    expect(container.textContent).not.toContain('Saved');
+    expect(saveState?.getAttribute('aria-label')).toBe('All changes saved');
     expect(container.querySelector('[role="status"]')).toBeNull();
+    click(name);
+    expect(store.getState().editor.openDialog).toEqual({ kind: 'settings' });
   });
 
   it('opens the project settings from the File menu', async () => {

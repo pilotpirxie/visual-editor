@@ -12,7 +12,7 @@ test('project settings change the site title for every page and survive a reload
   await dialog.getByLabel('Base URL').fill('https://acme.example');
   await dialog.getByRole('button', { name: 'Done' }).click();
 
-  await expect(page).toHaveTitle('Acme Research – Visual Editor');
+  await expect(page).toHaveTitle(/ · Acme Research – Visual Editor$/);
   const canvasLanguage = page.frameLocator('.ve-canvas-frame').locator('html').getAttribute('lang');
   expect(await canvasLanguage).toBe('pl');
 

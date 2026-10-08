@@ -40,6 +40,7 @@ import {
   type Point,
 } from './geometry';
 import {
+  CANVAS_ID,
   blockIdFromEvent,
   blockRoot,
   blockSpans,
@@ -358,7 +359,7 @@ export function Canvas(): JSX.Element {
   useClipboard(frame?.doc ?? null);
 
   return (
-    <main id="ve-canvas" className="ve-canvas" ref={viewportRef} tabIndex={-1} aria-label="Canvas">
+    <main id={CANVAS_ID} className="ve-canvas" ref={viewportRef} tabIndex={-1} aria-label="Canvas">
       {isReadOnly && (
         <p className="ve-read-only" role="status">
           This project is open in another tab. Editing is paused here until you close it there.

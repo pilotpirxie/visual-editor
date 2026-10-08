@@ -84,6 +84,26 @@ describe('createAutosave', () => {
     await autosave.flush();
     expect(statuses.at(-1)).toBe('error');
     expect(error).toHaveBeenCalled();
+    expect(autosave.hasUnsavedChanges()).toBe(true);
     error.mockRestore();
+  });
+
+  it('has unsaved changes from the first edit until the write finishes', async () => {
+    let finishWrite = (): void => {};
+    const { autosave } = setup(
+      () =>
+        new Promise<void>((resolve) => {
+          finishWrite = resolve;
+        }),
+    );
+    expect(autosave.hasUnsavedChanges()).toBe(false);
+    autosave.schedule(createSampleProject());
+    expect(autosave.hasUnsavedChanges()).toBe(true);
+    const flushed = autosave.flush();
+    expect(autosave.hasUnsavedChanges()).toBe(true);
+    await vi.advanceTimersByTimeAsync(0);
+    finishWrite();
+    await flushed;
+    expect(autosave.hasUnsavedChanges()).toBe(false);
   });
 });

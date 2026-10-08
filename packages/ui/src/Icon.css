@@ -5,7 +5,7 @@
     height: 16px;
   }
 
-  @media (width < 1024px) {
+  @media (width < 1024px), (pointer: coarse) {
     .ve-icon {
       width: 20px;
       height: 20px;

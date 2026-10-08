@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import type { UnknownAction } from '@reduxjs/toolkit';
-import { blockSelected } from '../../app/editorSlice';
+import { blockSelected, pageOpened } from '../../app/editorSlice';
 import { undo } from '../../app/history';
-import { blockMoved, blockRemoved } from '../../app/projectSlice';
+import { blockMoved, blockRemoved, pageAdded } from '../../app/projectSlice';
 import { createTestStore, homePage, type TestStore } from '../../test/fixtures';
 import { announcementFor } from './announcements';
 
@@ -33,6 +33,16 @@ describe('announcementFor', () => {
       /^Deleted Hero, centered text\. Undo with (⌘Z|Ctrl\+Z)\.$/,
     );
     expect(announce(store, undo())).toBe('Undone');
+  });
+
+  it('names the page that was opened', () => {
+    const store = createTestStore();
+    const homeId = homePage(store.getState().project).id;
+    store.dispatch(pageAdded({ id: 'about', name: 'About', slug: 'about' }));
+    expect(announce(store, pageOpened({ pageId: 'about', fromPageId: homeId }))).toBe(
+      'Page About opened',
+    );
+    expect(announce(store, pageOpened({ pageId: 'about', fromPageId: 'about' }))).toBeNull();
   });
 
   it('stays quiet for actions that change nothing worth saying', () => {

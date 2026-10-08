@@ -67,6 +67,7 @@ export type Field = {
   max?: number;
   step?: number;
   maxLength?: number;
+  placeholder?: string;
   visibleWhen?: { field: string; equals: unknown };
   itemFields?: Field[];
   minItems?: number;

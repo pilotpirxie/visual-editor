@@ -155,7 +155,7 @@ export function StarterGallery({ isDisabled, onUse }: StarterGalleryProps): JSX.
                 </Button>
                 <Button
                   variant="primary"
-                  aria-label={`Use the ${starter.name} starter`}
+                  aria-label={`Use this starter: ${starter.name}`}
                   disabled={isDisabled}
                   onClick={() => onUse(starter, project)}
                 >

@@ -21,6 +21,11 @@ function showUnsupportedBrowser(root: HTMLElement, missing: string[]): void {
   root.replaceChildren(message);
 }
 
+window.addEventListener('beforeunload', (event) => {
+  if (!autosave.hasUnsavedChanges()) return;
+  void autosave.flush();
+  event.preventDefault();
+});
 window.addEventListener('pagehide', () => void autosave.flush());
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') void autosave.flush();

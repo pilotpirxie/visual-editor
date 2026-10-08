@@ -1,5 +1,5 @@
-import type { JSX } from 'react';
-import { libraryTabChanged, type LibraryTab } from '../../app/editorSlice';
+import type { JSX, KeyboardEvent } from 'react';
+import { libraryDrawerToggled, libraryTabChanged, type LibraryTab } from '../../app/editorSlice';
 import { dispatch, useStore } from '../../app/store';
 import { BlocksTab } from './BlocksTab';
 import { PagesTab } from '../pages/PagesTab';
@@ -13,11 +13,26 @@ const TABS: { id: LibraryTab; label: string }[] = [
   { id: 'pages', label: 'Pages' },
 ];
 
+function closeDrawerOnEscape(event: KeyboardEvent<HTMLElement>): void {
+  if (event.key !== 'Escape' || event.defaultPrevented) return;
+  const shell = event.currentTarget.closest('.ve-shell');
+  if (shell?.hasAttribute('data-library-drawer') !== true) return;
+  event.preventDefault();
+  event.stopPropagation();
+  dispatch(libraryDrawerToggled(false));
+  document.getElementById('ve-library-toggle')?.focus();
+}
+
 export function LibraryPanel(): JSX.Element {
   const activeTab = useStore((state) => state.editor.libraryTab);
 
   return (
-    <aside className="ve-panel ve-library" aria-label="Library">
+    <aside
+      id="ve-library"
+      className="ve-panel ve-library"
+      aria-label="Library"
+      onKeyDown={closeDrawerOnEscape}
+    >
       <Tabs
         label="Library"
         idPrefix="ve-library"

@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import { DEVICE_VIEWPORTS, type DeviceMode } from '../../app/editorSlice';
-import { SegmentedControl } from '../../../packages/ui/src';
+import { MenuButton, SegmentedControl, type MenuItem } from '../../../packages/ui/src';
 
 const DEVICE_LABELS: Record<DeviceMode, string> = {
   responsive: 'Responsive',
@@ -52,6 +52,34 @@ export function DeviceToggle<Mode extends DeviceMode>({
         const mode = modes.find((each) => each === picked);
         if (mode !== undefined) onChange(mode);
       }}
+    />
+  );
+}
+
+type DeviceMenuProps = {
+  value: DeviceMode;
+  modes: readonly DeviceMode[];
+  className?: string;
+  onChange(mode: DeviceMode): void;
+};
+
+export function DeviceMenu({ value, modes, className, onChange }: DeviceMenuProps): JSX.Element {
+  const items: MenuItem[] = [];
+  for (const mode of modes) {
+    items.push({
+      id: mode,
+      label: deviceOptionLabel(mode),
+      isChecked: mode === value,
+      onSelect: () => onChange(mode),
+    });
+  }
+  return (
+    <MenuButton
+      label={`Device: ${DEVICE_LABELS[value]}`}
+      icon={DEVICE_ICONS[value]}
+      items={items}
+      className={className}
+      isLabelShown={false}
     />
   );
 }

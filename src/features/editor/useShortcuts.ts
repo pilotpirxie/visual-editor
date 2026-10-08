@@ -15,6 +15,7 @@ import {
 
 const TEXT_ENTRY = 'input, textarea, select, [contenteditable]:not([contenteditable="false"])';
 const EDITING_PANELS = '.ve-properties, .ve-design-sheet';
+const BLOCK_SHORTCUT_AREAS = '.ve-canvas, .ve-layers';
 
 export type Shortcut =
   | { kind: 'undo' }
@@ -77,6 +78,13 @@ function blockShortcut(event: ShortcutKeyEvent, isFromCanvas: boolean): Shortcut
   }
 }
 
+function isBlockShortcutTarget(target: EventTarget | null, isFromCanvas: boolean): boolean {
+  if (isFromCanvas || !isElementTarget(target)) return true;
+  if (target === target.ownerDocument.body) return true;
+  if (target.closest('[role="menu"]') !== null) return false;
+  return target.closest(BLOCK_SHORTCUT_AREAS) !== null;
+}
+
 export function isEditingTarget(target: EventTarget | null): boolean {
   const isTyping = isElementTarget(target) && target.matches(TEXT_ENTRY);
   return isTyping || isInside(target, 'dialog') || isInside(target, EDITING_PANELS);
@@ -119,6 +127,7 @@ export function shortcutFor(event: ShortcutKeyEvent, isFromCanvas = false): Shor
   if (isPreviewKey(event)) return { kind: 'toggle-preview' };
   if (file !== null) return file;
   if (isInside(event.target, EDITING_PANELS)) return null;
+  if (!isBlockShortcutTarget(event.target, isFromCanvas)) return null;
   return blockShortcut(event, isFromCanvas);
 }
 

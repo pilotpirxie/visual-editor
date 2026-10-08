@@ -94,7 +94,14 @@ export function useTooltip({ text, shortcut, isDescription = false }: TooltipOpt
     const tooltip = tooltipRef.current;
     const trigger = triggerRef.current;
     if (!isOpen || tooltip === null || trigger === null) return;
-    tooltip.showPopover();
+    try {
+      tooltip.showPopover();
+    } catch (error) {
+      if (!(error instanceof DOMException) || error.name !== 'InvalidStateError') throw error;
+      console.warn(`Tooltip "${text}" skipped while another popover was changing`, error);
+      timerRef.current = window.setTimeout(close, 0);
+      return;
+    }
     const position = placeNear(
       trigger.getBoundingClientRect(),
       { width: tooltip.offsetWidth, height: tooltip.offsetHeight },
@@ -102,7 +109,7 @@ export function useTooltip({ text, shortcut, isDescription = false }: TooltipOpt
     );
     tooltip.style.top = `${position.top}px`;
     tooltip.style.left = `${position.left}px`;
-  }, [isOpen]);
+  }, [isOpen, close, text]);
 
   function scheduleOpen(event: PointerEvent<HTMLElement>): void {
     if (event.pointerType === 'touch') return;
@@ -128,7 +135,9 @@ export function useTooltip({ text, shortcut, isDescription = false }: TooltipOpt
     onPointerDown: close,
     onFocus: (event) => {
       triggerRef.current = event.currentTarget;
-      if (event.target instanceof Element && isFocusVisible(event.target)) open();
+      if (!(event.target instanceof Element) || !isFocusVisible(event.target)) return;
+      clearTimer();
+      timerRef.current = window.setTimeout(open, 0);
     },
     onBlur: close,
   };

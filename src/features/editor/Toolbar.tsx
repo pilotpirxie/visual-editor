@@ -3,11 +3,14 @@ import {
   designSheetToggled,
   deviceChanged,
   dialogOpened,
+  LIBRARY_DRAWER_QUERY,
+  libraryDrawerToggled,
   panelToggled,
   previewToggled,
   type DeviceMode,
   type PanelSide,
 } from '../../app/editorSlice';
+import type { SaveStatus } from '../../persistence/autosave';
 import { redo, undo } from '../../app/history';
 import { followLink, HOME_PATH } from '../../app/router';
 import { dispatch, useStore } from '../../app/store';
@@ -19,10 +22,11 @@ import {
   Icon,
   IconButton,
   MenuButton,
+  useMediaQuery,
   useTooltip,
   type MenuItem,
 } from '../../../packages/ui/src';
-import { DeviceToggle } from './DeviceToggle';
+import { DeviceMenu, DeviceToggle } from './DeviceToggle';
 import { SHORTCUT_KEYS } from './shortcutList';
 
 const PANEL_TOGGLES: Record<PanelSide, { name: string; icon: string }> = {
@@ -90,7 +94,7 @@ function EditMenu({ isReadOnly }: { isReadOnly: boolean }): JSX.Element {
       onSelect: () => dispatch(dialogOpened({ kind: 'find' })),
     },
   );
-  return <MenuButton label="Edit" icon="pencil" items={items} disabled={isReadOnly} />;
+  return <MenuButton label="Edit" icon="clipboard" items={items} disabled={isReadOnly} />;
 }
 
 function PanelToggle({ side }: { side: PanelSide }): JSX.Element {
@@ -107,7 +111,71 @@ function PanelToggle({ side }: { side: PanelSide }): JSX.Element {
   );
 }
 
+function LibraryToggle(): JSX.Element {
+  const isDrawer = useMediaQuery(LIBRARY_DRAWER_QUERY);
+  const isDrawerOpen = useStore((state) => state.editor.isLibraryDrawerOpen);
+  if (!isDrawer) return <PanelToggle side="left" />;
+  return (
+    <IconButton
+      id="ve-library-toggle"
+      className="ve-wide-only"
+      label="Library"
+      icon="panel-left"
+      aria-expanded={isDrawerOpen}
+      aria-controls="ve-library"
+      onClick={() => dispatch(libraryDrawerToggled(!isDrawerOpen))}
+    />
+  );
+}
+
 const DEVICE_MODES: DeviceMode[] = ['responsive', 'desktop', 'tablet', 'phone'];
+
+const SAVE_STATES: Record<SaveStatus, { label: string; icon: string }> = {
+  saved: { label: 'All changes saved', icon: 'cloud-check' },
+  saving: { label: 'Saving…', icon: 'cloud-upload' },
+  error: { label: 'Changes not saved', icon: 'cloud-alert' },
+};
+
+function ProjectName({ isReadOnly }: { isReadOnly: boolean }): JSX.Element {
+  const title = useStore((state) => state.project.settings.title);
+  const { triggerProps, tooltip } = useTooltip({ text: 'Project settings' });
+  return (
+    <>
+      <button
+        type="button"
+        className="ve-project-name"
+        aria-label={`${title}, project settings`}
+        aria-haspopup="dialog"
+        disabled={isReadOnly}
+        {...triggerProps}
+        onClick={() => dispatch(dialogOpened({ kind: 'settings' }))}
+      >
+        {title}
+      </button>
+      {tooltip}
+    </>
+  );
+}
+
+function SaveState(): JSX.Element {
+  const status = useStore((state) => state.editor.saveStatus);
+  const { label, icon } = SAVE_STATES[status];
+  const { triggerProps, tooltip } = useTooltip({ text: label });
+  return (
+    <>
+      <span
+        className="ve-save-state"
+        role="img"
+        aria-label={label}
+        data-status={status}
+        {...triggerProps}
+      >
+        <Icon name={icon} />
+      </span>
+      {tooltip}
+    </>
+  );
+}
 
 function LogoLink(): JSX.Element {
   const { triggerProps, tooltip } = useTooltip({ text: 'My projects' });
@@ -120,10 +188,8 @@ function LogoLink(): JSX.Element {
         aria-label="My projects"
         {...triggerProps}
       >
-        <span className="ve-compact-only">
-          <Icon name="house" />
-        </span>
-        <span className="ve-wide-only">Visual Editor</span>
+        <Icon name="house" />
+        <span className="ve-logo-text">Visual Editor</span>
       </a>
       {tooltip}
     </>
@@ -160,9 +226,13 @@ export function Toolbar(): JSX.Element {
 
   return (
     <header className="ve-toolbar">
-      <div className="ve-toolbar-group">
-        <PanelToggle side="left" />
+      <div className="ve-toolbar-group ve-toolbar-start">
+        <LibraryToggle />
         <LogoLink />
+        <div className="ve-project">
+          <ProjectName isReadOnly={isReadOnly} />
+          <SaveState />
+        </div>
         <FileMenu />
         <EditMenu isReadOnly={isReadOnly} />
       </div>
@@ -171,6 +241,12 @@ export function Toolbar(): JSX.Element {
         <DeviceToggle
           name="ve-device"
           className="ve-device-toggle"
+          value={device}
+          modes={DEVICE_MODES}
+          onChange={(mode) => dispatch(deviceChanged(mode))}
+        />
+        <DeviceMenu
+          className="ve-device-menu"
           value={device}
           modes={DEVICE_MODES}
           onChange={(mode) => dispatch(deviceChanged(mode))}
@@ -195,6 +271,7 @@ export function Toolbar(): JSX.Element {
           onClick={() => dispatch(redo())}
         />
         <IconButton
+          className="ve-help-button"
           label="Help"
           icon="circle-help"
           shortcut={SHORTCUT_KEYS.help}

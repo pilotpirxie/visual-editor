@@ -66,15 +66,26 @@ function renderField(field: Field, initial: unknown = field.default) {
 describe('FieldControl', () => {
   it('labels its input and commits valid text', () => {
     const { element, onChange } = renderField(fields.title, 'Hello');
-    const input = element.querySelector('input');
+    const input = element.querySelector('textarea');
     expect(element.querySelector('label')?.htmlFor).toBe(input?.id);
     changeValue(input, 'Hello there');
     expect(onChange).toHaveBeenLastCalledWith('Hello there', 'continuous');
   });
 
+  it('keeps text on one line, turning pasted line breaks into spaces', () => {
+    const { element, onChange } = renderField(fields.title, 'Hello');
+    const textarea = element.querySelector('textarea');
+    expect(textarea?.getAttribute('aria-multiline')).toBe('false');
+    changeValue(textarea, 'Customer research\nfor teams\r\nthat ship');
+    expect(onChange).toHaveBeenLastCalledWith(
+      'Customer research for teams that ship',
+      'continuous',
+    );
+  });
+
   it('keeps an empty required value as a draft with an inline error until focus leaves', () => {
     const { element, onChange } = renderField(fields.title, 'Hello');
-    const input = element.querySelector('input');
+    const input = element.querySelector('textarea');
     changeValue(input, '');
     expect(onChange).not.toHaveBeenCalled();
     expect(element.querySelector('[role="alert"]')?.textContent).toBe('This field is required');
@@ -147,11 +158,11 @@ describe('FieldControl', () => {
     const { container, rerender } = render(
       <FieldControl field={fields.title} value="Hello" path="title" onChange={onChange} />,
     );
-    changeValue(container.querySelector('input'), '');
+    changeValue(container.querySelector('textarea'), '');
     expect(container.querySelector('[role="alert"]')).not.toBeNull();
     rerender(<FieldControl field={fields.title} value="Undone" path="title" onChange={onChange} />);
     rerender(<FieldControl field={fields.title} value="Hello" path="title" onChange={onChange} />);
     expect(container.querySelector('[role="alert"]')).toBeNull();
-    expect(container.querySelector('input')?.value).toBe('Hello');
+    expect(container.querySelector('textarea')?.value).toBe('Hello');
   });
 });

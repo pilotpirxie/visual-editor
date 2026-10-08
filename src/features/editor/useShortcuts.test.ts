@@ -92,6 +92,22 @@ describe('shortcutFor', () => {
     expect(shortcutFor(keyEvent('Delete', { target }))).toBeNull();
   });
 
+  it('acts on blocks only from the canvas, the Layers list or with nothing focused', () => {
+    const toolbar = document.createElement('header');
+    toolbar.className = 've-toolbar';
+    const toolbarButton = placeInside(toolbar, 'button');
+    const layers = document.createElement('ol');
+    layers.className = 've-layers';
+    const layerRow = placeInside(layers, 'button');
+    expect(shortcutFor(keyEvent('Delete', { target: toolbarButton }))).toBeNull();
+    expect(shortcutFor(keyEvent('d', { metaKey: true, target: toolbarButton }))).toBeNull();
+    expect(shortcutFor(keyEvent('Delete', { target: layerRow }))).toEqual({ kind: 'remove' });
+    expect(shortcutFor(keyEvent('Delete', { target: toolbarButton }), true)).toEqual({
+      kind: 'remove',
+    });
+    expect(shortcutFor(keyEvent('Delete'))).toEqual({ kind: 'remove' });
+  });
+
   it('returns null for keys without a shortcut', () => {
     expect(shortcutFor(keyEvent('a'))).toBeNull();
     expect(shortcutFor(keyEvent('ArrowUp'))).toBeNull();

@@ -78,7 +78,11 @@
   .ve-responsive-handle:hover,
   .ve-responsive-handle:focus-visible {
     background: var(--ve-accent);
-    outline: none;
+  }
+
+  .ve-responsive-handle:focus-visible {
+    outline: 2px solid var(--ve-accent);
+    outline-offset: 2px;
   }
 
   .ve-canvas-catcher {
@@ -148,14 +152,15 @@
     padding: 2px 8px;
     border-bottom-right-radius: 4px;
     background: var(--ve-hover);
-    color: #ffffff;
-    font-size: 11px;
+    color: var(--ve-text);
+    font-size: var(--ve-text-xs);
     font-weight: 600;
     white-space: nowrap;
   }
 
   .ve-outline-label--selected {
     background: var(--ve-accent);
+    color: #ffffff;
   }
 
   .ve-outline-badge {
@@ -189,9 +194,14 @@
   }
 
   .ve-block-toolbar > .ui-icon-button {
-    min-width: 28px;
-    min-height: 28px;
+    min-width: var(--ve-target);
+    min-height: var(--ve-target);
     border-radius: 4px;
+  }
+
+  .ve-block-toolbar > :focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: -4px;
   }
 
   .ve-drop-line {
@@ -212,13 +222,19 @@
 
   .ve-empty {
     position: absolute;
-    inset: 24px;
-    display: grid;
-    place-items: center;
+    inset: var(--ve-space-6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ve-space-3);
     border: 2px dashed var(--ve-border-strong);
     border-radius: 12px;
     color: var(--ve-muted);
-    font-size: 15px;
+  }
+
+  .ve-empty > .ui-button {
+    pointer-events: auto;
   }
 
   .ve-drag-ghost {
@@ -245,24 +261,25 @@
 
   @media (width < 1024px) {
     .ve-canvas {
-      padding: 12px;
+      padding: var(--ve-space-4) var(--ve-space-4) calc(var(--ve-target) + var(--ve-space-5));
     }
 
     .ve-responsive-handle {
       display: none;
     }
 
-    .ve-block-toolbar {
-      top: auto;
-      right: auto;
-      bottom: 8px;
-      left: 50%;
-      translate: -50% 0;
+    .ve-canvas-width {
+      display: none;
     }
 
-    .ve-block-toolbar > .ui-icon-button {
-      min-width: 40px;
-      min-height: 40px;
+    .ve-block-toolbar {
+      position: fixed;
+      top: auto;
+      right: auto;
+      bottom: calc(56px + var(--ve-space-2) + env(safe-area-inset-bottom));
+      left: 50%;
+      z-index: 7;
+      translate: -50% 0;
     }
   }
 }

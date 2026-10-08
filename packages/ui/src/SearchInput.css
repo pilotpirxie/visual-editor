@@ -3,10 +3,10 @@
     display: flex;
     flex: 1;
     align-items: center;
-    gap: 6px;
+    gap: var(--ve-space-2);
     min-width: 0;
     min-height: var(--ve-control-height);
-    padding-inline: 8px;
+    padding-inline: var(--ve-space-3);
     border: 1px solid var(--ve-border-strong);
     border-radius: var(--ve-radius);
     background: var(--ve-bg);
@@ -26,11 +26,6 @@
     background: none;
     color: var(--ve-text);
     font: inherit;
-  }
-
-  @media (width < 1024px) {
-    .ui-search input {
-      font-size: 16px;
-    }
+    font-size: var(--ve-input-text);
   }
 }

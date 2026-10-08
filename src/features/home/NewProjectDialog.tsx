@@ -17,7 +17,7 @@ import {
   Tabs,
   TextInput,
 } from '../../../packages/ui/src';
-import { PresetList } from '../design-system/PresetList';
+import { PresetPicker } from '../design-system/PresetList';
 import { StarterGallery } from './StarterGallery';
 import '../design-system/designSystem.css';
 import './home.css';
@@ -94,19 +94,11 @@ export function NewProjectDialog({ onClose }: { onClose(): void }): JSX.Element 
         />
         <TabPanel idPrefix={TABS_ID} activeId={tab} className="ve-new-project-panel">
           {tab === 'blank' && (
-            <PresetList
+            <PresetPicker
               label="Design presets"
               presets={BUILTIN_PRESETS}
-              renderAction={(preset) => (
-                <Button
-                  variant="primary"
-                  aria-label={`Start with ${preset.name}`}
-                  disabled={isCreating}
-                  onClick={() => startBlank(preset)}
-                >
-                  Start
-                </Button>
-              )}
+              isDisabled={isCreating}
+              onPick={startBlank}
             />
           )}
           {tab === 'starters' && (

@@ -50,7 +50,7 @@ test('a site can be built on a phone, one view at a time', async ({ page }) => {
   await expect(canvas.locator('.b-hero-centered')).toBeVisible();
 
   await page.getByRole('button', { name: 'Edit Hero, centered text' }).tap();
-  const title = page.locator('[data-field-path="title"] input');
+  const title = page.locator('[data-field-path="title"] textarea');
   await expect(title).toBeVisible();
   const fontSize = await title.evaluate((input) => parseFloat(getComputedStyle(input).fontSize));
   expect(fontSize).toBeGreaterThanOrEqual(MIN_INPUT_FONT_SIZE_PX);
@@ -153,7 +153,7 @@ test('the design system, project settings and export work on a phone', async ({ 
   const settingsBox = await settings.boundingBox();
   expect(settingsBox?.width ?? 0).toBeLessThanOrEqual(page.viewportSize()?.width ?? 0);
   await settings.getByRole('button', { name: 'Done' }).tap();
-  await expect(page).toHaveTitle('Pocket site – Visual Editor');
+  await expect(page).toHaveTitle(/ · Pocket site – Visual Editor$/);
 
   await page.getByRole('button', { name: 'Export' }).tap();
   await expect(page.getByRole('dialog', { name: 'Export site' })).toBeVisible();
@@ -166,4 +166,18 @@ test('the home screen fits a phone screen', async ({ page }) => {
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
   );
   expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test('a phone switches the canvas device from a menu and finds Help in the File menu', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'New project' }).tap();
+  await page.getByRole('button', { name: 'Start with Clean' }).tap();
+  await page.getByRole('button', { name: 'Device: Responsive' }).tap();
+  await page.getByRole('menuitemcheckbox', { name: 'Phone (375 px)' }).tap();
+  await expect(page.getByRole('button', { name: 'Device: Phone' })).toBeVisible();
+  await page.getByRole('button', { name: 'File', exact: true }).tap();
+  await page.getByRole('menuitem', { name: 'Help' }).tap();
+  await expect(page.getByRole('dialog', { name: 'Help' })).toBeVisible();
 });

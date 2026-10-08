@@ -5,8 +5,10 @@ import { canUseFileSystemAccess } from './fileAccess';
 import { setDiskAutosave } from './fileActions';
 import { fileCommands } from './fileCommands';
 import { packCommands } from '../block-packs/packCommands';
-import { MenuButton, type MenuItem } from '../../../packages/ui/src';
+import { MenuButton, useMediaQuery, type MenuItem } from '../../../packages/ui/src';
 import { SHORTCUT_KEYS } from '../editor/shortcutList';
+
+const NARROW_TOOLBAR_QUERY = '(width < 520px)';
 
 function openDialog(dialog: EditorDialog): () => void {
   return () => dispatch(dialogOpened(dialog));
@@ -16,6 +18,7 @@ export function FileMenu(): JSX.Element {
   const linkedFile = useStore((state) => state.editor.linkedFile);
   const isLinkedFileStale = useStore((state) => state.editor.isLinkedFileStale);
   const isReadOnly = useStore((state) => state.editor.isReadOnly);
+  const isNarrow = useMediaQuery(NARROW_TOOLBAR_QUERY);
   const canAutoSave = canUseFileSystemAccess() && linkedFile?.kind === 'file';
   const items: MenuItem[] = [
     { id: 'new', label: 'New project…', onSelect: openDialog({ kind: 'new-project' }) },
@@ -68,10 +71,13 @@ export function FileMenu(): JSX.Element {
       },
     );
   }
-  items.push(
-    { id: 'licenses-separator', isSeparator: true },
-    { id: 'licenses', label: 'Open-source licenses', onSelect: openDialog({ kind: 'licenses' }) },
-  );
+  items.push({ id: 'licenses-separator', isSeparator: true });
+  if (isNarrow) items.push({ id: 'help', label: 'Help', onSelect: openDialog({ kind: 'help' }) });
+  items.push({
+    id: 'licenses',
+    label: 'Open-source licenses',
+    onSelect: openDialog({ kind: 'licenses' }),
+  });
   const status = linkedFile !== null && isLinkedFileStale ? 'changes not saved to file' : undefined;
   return <MenuButton label="File" icon="file" items={items} status={status} />;
 }

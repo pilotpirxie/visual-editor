@@ -34,7 +34,9 @@ beforeEach(() => {
 describe('PageSettingsPanel', () => {
   it('names the page and the file it is exported as', () => {
     const { container } = render(<PageSettingsPanel />);
-    expect(container.querySelector('header .ui-muted')?.textContent).toBe('Home · index.html');
+    expect(container.querySelector('header .ve-properties-detail')?.textContent).toBe(
+      'Home · index.html',
+    );
   });
 
   it('saves the SEO and social texts, and clearing one brings back its default', () => {

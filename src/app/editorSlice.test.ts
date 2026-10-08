@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createSampleProject } from './projectFactory';
 import { createTestStore, homePage } from '../test/fixtures';
 import {
+  blockLibraryOpened,
   blockSelected,
   compactTabSelected,
   designSheetToggled,
@@ -9,6 +10,7 @@ import {
   editorSlice,
   fieldFocusRequested,
   focusRequestHandled,
+  libraryDrawerToggled,
   libraryTabChanged,
   pageAnchorRequested,
   pageOpened,
@@ -300,5 +302,35 @@ describe('sectionToggled', () => {
     const store = createTestStore(createSampleProject());
     store.dispatch(sectionToggled({ id: 'page:seo', isOpen: false }));
     expect(store.getState().history.past).toHaveLength(0);
+  });
+});
+
+describe('library drawer', () => {
+  it('starts closed and opens on the Blocks tab when asked to add a block', () => {
+    const store = createTestStore();
+    store.dispatch(libraryTabChanged('layers'));
+    store.dispatch(panelToggled('left'));
+    expect(store.getState().editor.isLibraryDrawerOpen).toBe(false);
+    store.dispatch(blockLibraryOpened());
+    const editor = store.getState().editor;
+    expect(editor.isLibraryDrawerOpen).toBe(true);
+    expect(editor.libraryTab).toBe('blocks');
+    expect(editor.compactView).toBe('library');
+    expect(editor.panels.left.collapsed).toBe(false);
+  });
+
+  it('closes after a block is inserted, a page opens or Preview starts', () => {
+    const store = createTestStore();
+    const homeId = store.getState().project.pages.homePageId;
+    store.dispatch(libraryDrawerToggled(true));
+    store.dispatch(blockInserted(homeId, 0, 'cta-centered'));
+    expect(store.getState().editor.isLibraryDrawerOpen).toBe(false);
+    store.dispatch(libraryDrawerToggled(true));
+    store.dispatch(previewToggled(true));
+    expect(store.getState().editor.isLibraryDrawerOpen).toBe(false);
+    store.dispatch(previewToggled(false));
+    store.dispatch(libraryDrawerToggled(true));
+    store.dispatch(pageOpened({ pageId: 'other', fromPageId: homeId }));
+    expect(store.getState().editor.isLibraryDrawerOpen).toBe(false);
   });
 });

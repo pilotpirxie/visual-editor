@@ -9,15 +9,17 @@
 
   .ve-home-header {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 24px;
+    gap: var(--ve-space-4);
+    margin-bottom: var(--ve-space-6);
   }
 
   .ve-home-header h1,
   .ve-notice h1 {
-    font-size: 24px;
+    font-size: var(--ve-text-xl);
+    white-space: nowrap;
   }
 
   .ve-home-footer {
@@ -73,18 +75,32 @@
   }
 
   .ve-home-card {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding: 16px;
+    gap: var(--ve-space-2);
+    padding: var(--ve-space-4) var(--ve-space-5);
     border: 1px solid var(--ve-border);
     border-radius: var(--ve-radius);
     background: var(--ve-bg);
     box-shadow: var(--ve-shadow);
   }
 
+  .ve-home-card:has(.ve-home-card-title a:hover) {
+    border-color: var(--ve-accent);
+  }
+
+  .ve-home-card:has(.ve-home-card-title a:focus-visible) {
+    outline: 2px solid var(--ve-accent);
+    outline-offset: 1px;
+  }
+
   .ve-home-card-title {
-    font-size: 16px;
+    min-width: 0;
+    overflow: hidden;
+    font-size: var(--ve-text-lg);
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .ve-home-card-title a {
@@ -92,15 +108,27 @@
     text-decoration: none;
   }
 
+  .ve-home-card-title a:focus-visible {
+    outline: none;
+  }
+
+  .ve-home-card-title a::after {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    content: '';
+  }
+
   .ve-home-card-title a:hover {
     color: var(--ve-accent);
-    text-decoration: underline;
   }
 
   .ve-home-card-actions {
+    position: relative;
+    z-index: 1;
     display: flex;
-    gap: 4px;
-    margin-top: 8px;
+    gap: var(--ve-space-2);
+    align-self: flex-start;
   }
 
   .ve-notice {
