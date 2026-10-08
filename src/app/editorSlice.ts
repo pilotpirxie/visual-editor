@@ -18,7 +18,7 @@ export type PanelSide = 'left' | 'right';
 export type LibraryTab = 'blocks' | 'layers' | 'pages' | 'settings';
 export type PropertiesTab = 'content' | 'style' | 'advanced' | 'code';
 export type CompactView = 'library' | 'canvas' | 'properties';
-export type CompactTab = LibraryTab | 'canvas' | 'properties';
+export type CompactTab = 'canvas' | LibraryTab;
 export type DeviceViewport = { width: number; height: number | null };
 
 export const DEVICE_VIEWPORTS: Record<Device, DeviceViewport> = {
@@ -239,12 +239,18 @@ export const editorSlice = createSlice({
     },
     compactTabSelected(state, action: PayloadAction<CompactTab>) {
       const tab = action.payload;
-      if (tab === 'canvas' || tab === 'properties') {
-        state.compactView = tab;
+      state.isDesignSheetOpen = false;
+      if (tab === 'canvas') {
+        state.compactView = 'canvas';
       } else {
         state.libraryTab = tab;
         state.compactView = 'library';
       }
+    },
+    propertiesOpened(state) {
+      state.compactView = 'properties';
+      state.isDesignSheetOpen = false;
+      state.panels.right.collapsed = false;
     },
     saveStatusChanged(state, action: PayloadAction<SaveStatus>) {
       state.saveStatus = action.payload;
@@ -339,6 +345,7 @@ export const {
   propertiesTabChanged,
   designSheetToggled,
   compactTabSelected,
+  propertiesOpened,
   saveStatusChanged,
   noticeShown,
   noticeDismissed,
@@ -356,9 +363,10 @@ export const {
   readOnlyChanged,
 } = editorSlice.actions;
 
-export function selectCompactTab(editor: EditorState): CompactTab {
+export function selectCompactTab(editor: EditorState): CompactTab | null {
+  if (editor.isDesignSheetOpen || editor.compactView === 'properties') return null;
   if (editor.compactView === 'library') return editor.libraryTab;
-  return editor.compactView;
+  return 'canvas';
 }
 
 export function reconcileEditor(editor: EditorState, project: Project): EditorState {

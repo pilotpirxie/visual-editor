@@ -135,17 +135,33 @@ function matchRank(label: string, term: string): number | null {
   }
 }
 
-export function searchIcons(set: string, query: string, style: string | null = null): string[] {
-  const data = iconSets.get(set);
-  if (data === undefined) return [];
-  const term = toSearchTerm(query);
+const visibleNamesBySet = new WeakMap<IconSetData, Map<string, string[]>>();
+
+function visibleNames(data: IconSetData, style: string | null): string[] {
+  let byStyle = visibleNamesBySet.get(data);
+  if (byStyle === undefined) {
+    byStyle = new Map();
+    visibleNamesBySet.set(data, byStyle);
+  }
+  const styleKey = style ?? '';
+  const cached = byStyle.get(styleKey);
+  if (cached !== undefined) return cached;
   const names: string[] = [];
   for (const [name, icon] of Object.entries(data.icons)) {
     if (icon.hidden === true) continue;
     if (style !== null && iconStyleOf(name, data.styles) !== style) continue;
     names.push(name);
   }
-  if (term === '') return names;
+  byStyle.set(styleKey, names);
+  return names;
+}
+
+export function searchIcons(set: string, query: string, style: string | null = null): string[] {
+  const data = iconSets.get(set);
+  if (data === undefined) return [];
+  const term = toSearchTerm(query);
+  const names = visibleNames(data, style);
+  if (term === '') return [...names];
 
   const allowed = new Set(names);
   const bestRanks = new Map<string, number>();

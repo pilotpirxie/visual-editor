@@ -1,8 +1,8 @@
-import { useRef, useState, type JSX, type PointerEvent } from 'react';
-import { blockSelected, compactTabSelected, pageSelectionForgotten } from '../../app/editorSlice';
+import { useMemo, useRef, useState, type JSX, type PointerEvent } from 'react';
+import { blockSelected, pageSelectionForgotten, propertiesOpened } from '../../app/editorSlice';
 import { homePageSet, pageMoved } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, useStore } from '../../app/store';
-import type { Page } from '../../app/types';
+import type { Page, Project } from '../../app/types';
 import { dragController, type DragPayload } from '../canvas/dragController';
 import { dropEdgeAt, finalMoveIndex } from '../canvas/geometry';
 import { useListDropTarget } from '../canvas/useListDropTarget';
@@ -15,13 +15,15 @@ import { Button, Icon, MenuButton, type MenuItem } from '../../../packages/ui/sr
 type DialogState =
   { kind: 'add' } | { kind: 'rename'; pageId: string } | { kind: 'delete'; pageId: string } | null;
 
-type PageRow = { page: Page; index: number; isHome: boolean; isCurrent: boolean };
+type PageSummary = Pick<Page, 'id' | 'name' | 'slug'>;
+
+type PageRow = { page: PageSummary; index: number; isHome: boolean; isCurrent: boolean };
 
 export const PAGES_DRAG_OWNER = 'project:pages';
 
 const DROP_EDGE_MARGIN = 12;
 
-export function pageFileName(page: Page, homePageId: string): string {
+export function pageFileName(page: Pick<Page, 'id' | 'slug'>, homePageId: string): string {
   return page.id === homePageId ? 'index.html' : `${page.slug}.html`;
 }
 
@@ -32,7 +34,7 @@ function openPageSettings(pageId: string, isCurrent: boolean): void {
     dispatch(pageSelectionForgotten(pageId));
     dispatch(openPage(pageId));
   }
-  dispatch(compactTabSelected('properties'));
+  dispatch(propertiesOpened());
 }
 
 function isOwnPage(payload: DragPayload): boolean {
@@ -109,16 +111,29 @@ function PageMenu({
   );
 }
 
-function usePageRows(): PageRow[] {
-  const pages = useStore((state) => state.project.pages);
-  const currentPageId = useStore((state) => selectCurrentPage(state).id);
+function pageRowsOf(pages: Project['pages'], currentPageId: string): PageRow[] {
   const rows: PageRow[] = [];
   for (const [index, id] of pages.ids.entries()) {
     const page = pages.entities[id];
     if (page === undefined) continue;
-    rows.push({ page, index, isHome: id === pages.homePageId, isCurrent: id === currentPageId });
+    rows.push({
+      page: { id, name: page.name, slug: page.slug },
+      index,
+      isHome: id === pages.homePageId,
+      isCurrent: id === currentPageId,
+    });
   }
   return rows;
+}
+
+function usePageRows(): PageRow[] {
+  const rowsKey = useStore((state) =>
+    JSON.stringify(pageRowsOf(state.project.pages, selectCurrentPage(state).id)),
+  );
+  return useMemo(() => {
+    const rows: PageRow[] = JSON.parse(rowsKey);
+    return rows;
+  }, [rowsKey]);
 }
 
 export function PagesTab(): JSX.Element {

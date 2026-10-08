@@ -158,6 +158,21 @@ describe('template helpers', () => {
       expect(String(helpers.img({ ...image, decorative: true }, lazy))).toContain('alt=""');
     });
 
+    it('shows an uploaded image from its data URL on the canvas', () => {
+      const uploaded = {
+        source: 'upload',
+        src: 'data:image/png;base64,iVBORw0KGgo=',
+        name: 'team.png',
+        alt: 'The team',
+        decorative: false,
+        width: 640,
+        height: 480,
+      };
+      expect(String(helpers.img(uploaded, lazy))).toBe(
+        '<img src="data:image/png;base64,iVBORw0KGgo&#x3D;" alt="The team" width="640" height="480" loading="lazy">',
+      );
+    });
+
     it('warns and renders nothing for values that are not images', () => {
       const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
       expect(helpers.img({ src: 'javascript:alert(1)' }, lazy)).toBe('');

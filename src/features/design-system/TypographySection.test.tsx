@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createSampleProject } from '../../app/projectFactory';
 import { store } from '../../app/store';
-import { changeValue, click, getButton, render } from '../../test/dom';
+import { blur, changeValue, click, getButton, render } from '../../test/dom';
 import { loadIntoAppStore, withSystemFonts } from '../../test/fixtures';
 import { loadFontList } from './fontList';
 import { TypographySection } from './TypographySection';
@@ -138,6 +138,7 @@ describe('TypographySection weights and sizes', () => {
       `#${CSS.escape('ve-token---line-height-tight')}`,
     );
     changeValue(lineHeight, '9');
+    blur(lineHeight);
     expect(designSystem().tokens['--line-height-tight']?.value).toBe('1.15');
     expect(container.querySelector('[role="alert"]')?.textContent).toBe('Use 0.8 to 3');
     changeValue(lineHeight, '1.3');

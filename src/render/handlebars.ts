@@ -1,5 +1,6 @@
 import Handlebars from 'handlebars/runtime';
 import type { HelperOptions } from 'handlebars';
+import { slugify } from '../app/slugs';
 import { isImageValue } from '../components/fields';
 import type { LinkValue } from '../components/types';
 import {
@@ -15,11 +16,13 @@ import {
 import { IMAGES_FOLDER } from './pageHead';
 import { placeholderDataUrl, placeholderFileName, type Placeholder } from './placeholder';
 import { isSafeImageSrc, isSafeUrl, normalizeRichText } from './sanitize';
+import { cachedByText, hashText } from './textCache';
 
 export type RenderCollector = {
   icons: Map<string, SpriteIcon>;
   iconSets: Set<string>;
   images: Map<string, Placeholder>;
+  uploads: Map<string, string>;
 };
 
 export type RenderData = {
@@ -32,7 +35,7 @@ export type RenderData = {
 };
 
 export function createRenderCollector(): RenderCollector {
-  return { icons: new Map(), iconSets: new Set(), images: new Map() };
+  return { icons: new Map(), iconSets: new Set(), images: new Map(), uploads: new Map() };
 }
 
 const NEW_TAB_ATTRIBUTES = 'target="_blank" rel="noopener"';
@@ -121,6 +124,12 @@ function isIconSetReady(ref: string, defaultSet: string | undefined): boolean {
   return iconSetData(set) !== undefined;
 }
 
+const UPLOAD_HASH_CACHE_SIZE = 20;
+const FILE_EXTENSION = /\.[a-z0-9]+$/i;
+const DATA_URL_SUBTYPE = /^data:image\/(?<subtype>[a-z]+);/;
+
+const contentHashOf = cachedByText(UPLOAD_HASH_CACHE_SIZE, hashText);
+
 function imgHelper(image: unknown, options: HelperOptions): Handlebars.SafeString | string {
   if (!isImageValue(image)) {
     console.warn('img: expected an image value', image);
@@ -134,6 +143,11 @@ function imgHelper(image: unknown, options: HelperOptions): Handlebars.SafeStrin
   } else if (image.source === 'placeholder' && collector !== undefined) {
     src = `${IMAGES_FOLDER}/${placeholderFileName(image.placeholder)}`;
     collector.images.set(src, image.placeholder);
+  } else if (image.source === 'upload' && collector !== undefined) {
+    const extension = DATA_URL_SUBTYPE.exec(image.src)?.groups?.subtype ?? 'bin';
+    const baseName = slugify(image.name.replace(FILE_EXTENSION, ''));
+    src = `${IMAGES_FOLDER}/${baseName}-${contentHashOf(image.src)}.${extension}`;
+    collector.uploads.set(src, image.src);
   }
   if (!isSafeImageSrc(src)) {
     console.warn(`img: blocked an unsafe image source "${src}"`);
@@ -171,7 +185,9 @@ function safeUrlHelper(url: unknown): string {
 const DEFAULT_LANGUAGE = 'en';
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
-function dateFormatter(language: string): Intl.DateTimeFormat {
+const dateFormatters = new Map<string, Intl.DateTimeFormat>();
+
+function createDateFormatter(language: string): Intl.DateTimeFormat {
   const options: Intl.DateTimeFormatOptions = { dateStyle: 'long', timeZone: 'UTC' };
   try {
     return new Intl.DateTimeFormat(language, options);
@@ -179,6 +195,15 @@ function dateFormatter(language: string): Intl.DateTimeFormat {
     console.warn(`formatDate: unknown language "${language}", using ${DEFAULT_LANGUAGE}`, error);
     return new Intl.DateTimeFormat(DEFAULT_LANGUAGE, options);
   }
+}
+
+function dateFormatter(language: string): Intl.DateTimeFormat {
+  let formatter = dateFormatters.get(language);
+  if (formatter === undefined) {
+    formatter = createDateFormatter(language);
+    dateFormatters.set(language, formatter);
+  }
+  return formatter;
 }
 
 function formatDateHelper(date: unknown, options: HelperOptions): string {

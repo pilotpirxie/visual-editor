@@ -1,4 +1,5 @@
 import {
+  memo,
   useEffect,
   useEffectEvent,
   useMemo,
@@ -13,6 +14,7 @@ import {
   blockSelected,
   fieldFocusRequested,
   MIN_RESPONSIVE_WIDTH,
+  propertiesOpened,
   WIDE_LAYOUT_QUERY,
 } from '../../app/editorSlice';
 import {
@@ -111,12 +113,31 @@ function useCanvasPointer(doc: Document | null, isPreview: boolean): string | nu
 
   useEffect(() => {
     if (doc === null) return;
+    let lastPointerType = '';
+    function onPointerDown(event: PointerEvent): void {
+      lastPointerType = event.pointerType;
+    }
     function onPointerMove(event: PointerEvent): void {
       if (event.pointerType === 'touch' || isPreview) return;
       setHoveredId(blockIdFromEvent(event));
     }
     function onPointerLeave(): void {
       setHoveredId(null);
+    }
+    function startInlineEditAt(event: MouseEvent): boolean {
+      const view = doc?.defaultView ?? null;
+      if (view === null || !isElementTarget(event.target)) return false;
+      const fieldElement = event.target.closest('[data-field]');
+      const blockId = blockIdFromEvent(event);
+      const path = fieldPathFromEvent(event);
+      if (!(fieldElement instanceof view.HTMLElement) || blockId === null || path === null) {
+        return false;
+      }
+      const field = inlineTextField(store.getState().project, blockId, path);
+      if (field === null || !hasOnlyText(fieldElement)) return false;
+      event.preventDefault();
+      startInlineEdit(fieldElement, { blockId, field }, { x: event.clientX, y: event.clientY });
+      return true;
     }
     function onClick(event: MouseEvent): void {
       if (isPreview) return;
@@ -133,23 +154,19 @@ function useCanvasPointer(doc: Document | null, isPreview: boolean): string | nu
       if (isInsideInlineEdit(event.target)) return;
       const blockId = blockIdFromEvent(event);
       const path = fieldPathFromEvent(event);
-      if (blockId !== null && path !== null) {
-        dispatch(fieldFocusRequested({ blockId, path }));
+      if (blockId === null || path === null) {
+        dispatch(blockSelected(blockId));
         return;
       }
-      dispatch(blockSelected(blockId));
+      const isSecondTouch =
+        lastPointerType === 'touch' && store.getState().editor.selectedBlockId === blockId;
+      if (isSecondTouch && startInlineEditAt(event)) return;
+      dispatch(fieldFocusRequested({ blockId, path }));
+      if (isSecondTouch) dispatch(propertiesOpened());
     }
     function onDoubleClick(event: MouseEvent): void {
-      const view = doc?.defaultView ?? null;
-      if (isPreview || view === null || !isElementTarget(event.target)) return;
-      const fieldElement = event.target.closest('[data-field]');
-      const blockId = blockIdFromEvent(event);
-      const path = fieldPathFromEvent(event);
-      if (!(fieldElement instanceof view.HTMLElement) || blockId === null || path === null) return;
-      const field = inlineTextField(store.getState().project, blockId, path);
-      if (field === null || !hasOnlyText(fieldElement)) return;
-      event.preventDefault();
-      startInlineEdit(fieldElement, { blockId, field }, { x: event.clientX, y: event.clientY });
+      if (isPreview) return;
+      startInlineEditAt(event);
     }
     function onPreviewClick(event: MouseEvent): void {
       const link = linkFromEvent(event);
@@ -161,6 +178,7 @@ function useCanvasPointer(doc: Document | null, isPreview: boolean): string | nu
       event.preventDefault();
     }
     const view = doc.defaultView;
+    doc.addEventListener('pointerdown', onPointerDown, true);
     doc.addEventListener('pointermove', onPointerMove);
     doc.documentElement.addEventListener('pointerleave', onPointerLeave);
     doc.addEventListener('click', onClick, true);
@@ -168,6 +186,7 @@ function useCanvasPointer(doc: Document | null, isPreview: boolean): string | nu
     view?.addEventListener('click', onPreviewClick);
     doc.addEventListener('submit', onSubmit, true);
     return () => {
+      doc.removeEventListener('pointerdown', onPointerDown, true);
       doc.removeEventListener('pointermove', onPointerMove);
       doc.documentElement.removeEventListener('pointerleave', onPointerLeave);
       doc.removeEventListener('click', onClick, true);
@@ -283,23 +302,28 @@ function useCanvasDropTarget(
   useEffect(() => {
     if (frame === null) return;
     const { iframe, doc } = frame;
+    let resolvedSpans: ReturnType<typeof blockSpans> | null = null;
     return dragController.registerTarget({
       accepts: (payload) => isAccepted(payload),
       resolve(point) {
+        resolvedSpans = null;
         const viewport = viewportRef.current;
         if (viewport === null || !isShown(viewport)) return null;
         if (!isPointInBox(point, viewport.getBoundingClientRect(), 0)) return null;
         const topElement = document.elementFromPoint(point.x, point.y);
         if (topElement === null || !viewport.contains(topElement)) return null;
         const frameTop = iframe.getBoundingClientRect().top;
-        return dropIndexFromSpans(blockSpans(doc), (point.y - frameTop) / scale);
+        resolvedSpans = blockSpans(doc);
+        return dropIndexFromSpans(resolvedSpans, (point.y - frameTop) / scale);
       },
       showIndicator(index, payload) {
+        const spans = resolvedSpans;
+        resolvedSpans = null;
         if (index === null || isNoop(payload, index)) {
           setDropY(null);
           return;
         }
-        setDropY(indicatorY(blockSpans(doc), index, pageRootTop(doc)) * scale);
+        setDropY(indicatorY(spans ?? blockSpans(doc), index, pageRootTop(doc)) * scale);
       },
       drop: (payload, index) => dispatch(dropBlock(payload, index)),
       tick(point) {
@@ -361,6 +385,8 @@ function movingBlockId(): string | null {
   return snapshot.payload.blockId;
 }
 
+const MemoizedCanvasFrame = memo(CanvasFrame);
+
 export function Canvas(): JSX.Element {
   const device = useStore((state) => state.editor.device);
   const responsiveWidth = useStore((state) => state.editor.responsiveWidth);
@@ -402,7 +428,7 @@ export function Canvas(): JSX.Element {
         data-device={device}
         style={{ width: fit.box.width, height: fit.box.height }}
       >
-        <CanvasFrame
+        <MemoizedCanvasFrame
           width={fit.frame.width}
           height={fit.frame.height}
           scale={fit.scale}

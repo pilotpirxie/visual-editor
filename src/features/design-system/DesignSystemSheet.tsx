@@ -1,4 +1,4 @@
-import { useEffect, useRef, type JSX, type KeyboardEvent, type ReactNode } from 'react';
+import { memo, useEffect, useRef, type JSX, type KeyboardEvent, type ReactNode } from 'react';
 import { designSheetToggled } from '../../app/editorSlice';
 import { tokenSet, tokensSet, type EditKind } from '../../app/projectSlice';
 import { isThemeToken, themeFamilyTokenNames, type ThemeFamily } from '../../app/sectionThemes';
@@ -87,6 +87,27 @@ function DesignSection({
   );
 }
 
+type TokenRowProps = { token: Token; tokens: Record<string, Token> };
+
+function readsOtherTokens(token: Token): boolean {
+  return token.group === 'component' || token.value.includes('var(');
+}
+
+function isSameTokenRow(previous: TokenRowProps, next: TokenRowProps): boolean {
+  if (previous.token !== next.token) return false;
+  return previous.tokens === next.tokens || !readsOtherTokens(next.token);
+}
+
+const TokenRow = memo(function TokenRow({ token, tokens }: TokenRowProps): JSX.Element {
+  return (
+    <TokenControl
+      token={token}
+      tokens={tokens}
+      onChange={(value, kind) => setToken(token.name, value, kind)}
+    />
+  );
+}, isSameTokenRow);
+
 function TokenList({
   tokens,
   shown,
@@ -97,12 +118,7 @@ function TokenList({
   return (
     <>
       {shown.map((token) => (
-        <TokenControl
-          key={token.name}
-          token={token}
-          tokens={tokens}
-          onChange={(value, kind) => setToken(token.name, value, kind)}
-        />
+        <TokenRow key={token.name} token={token} tokens={tokens} />
       ))}
     </>
   );

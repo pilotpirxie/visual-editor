@@ -27,8 +27,27 @@ function leaveDeletedProject(projectId: string): void {
   dispatch(noticeShown('warning', `“${title}” was deleted in another tab.`));
 }
 
+type RefreshQueue = { isRunning: boolean; isQueued: boolean };
+
+async function refreshInTurn(projectId: string, queue: RefreshQueue): Promise<void> {
+  if (queue.isRunning) {
+    queue.isQueued = true;
+    return;
+  }
+  queue.isRunning = true;
+  try {
+    do {
+      queue.isQueued = false;
+      await refreshReadOnlyCopy(projectId);
+    } while (queue.isQueued);
+  } finally {
+    queue.isRunning = false;
+  }
+}
+
 export function useTabSync(projectId: string): void {
   useEffect(() => {
+    const queue: RefreshQueue = { isRunning: false, isQueued: false };
     return subscribeTabMessages((message) => {
       if (message.kind === 'saved-blocks-changed' || message.projectId !== projectId) return;
       if (!isShowing(projectId)) return;
@@ -37,7 +56,7 @@ export function useTabSync(projectId: string): void {
         return;
       }
       if (!store.getState().editor.isReadOnly) return;
-      refreshReadOnlyCopy(projectId).catch((error: unknown) => {
+      refreshInTurn(projectId, queue).catch((error: unknown) => {
         console.error(`Could not refresh project ${projectId} from another tab`, error);
       });
     });

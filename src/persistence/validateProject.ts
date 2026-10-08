@@ -1,4 +1,12 @@
-import { FAVICON_TYPES, settingError, SOCIAL_IMAGE_TYPES } from '../app/settingsRules';
+import {
+  APP_ICON_TYPES,
+  FAVICON_TYPES,
+  PAGE_META_RULES,
+  type Parsed,
+  settingError,
+  SITE_META_RULES,
+  SOCIAL_IMAGE_TYPES,
+} from '../app/settingsRules';
 import { slugError } from '../app/slugs';
 import {
   FONT_ROLES,
@@ -29,7 +37,7 @@ export class ProjectFormatError extends Error {
   }
 }
 
-const ASSET_TYPES = [...new Set([...SOCIAL_IMAGE_TYPES, ...FAVICON_TYPES])];
+const ASSET_TYPES = [...new Set([...SOCIAL_IMAGE_TYPES, ...FAVICON_TYPES, ...APP_ICON_TYPES])];
 const SEO_TEXT_KEYS = ['title', 'description', 'socialTitle', 'socialDescription'] as const;
 
 function fail(path: string, problem: string): never {
@@ -100,6 +108,23 @@ function assetIdAt(
   return assetId;
 }
 
+type MetaRules = Record<string, (value: unknown) => Parsed<unknown>>;
+
+function copyMeta(
+  raw: Record<string, unknown>,
+  rules: MetaRules,
+  path: string,
+): Record<string, unknown> {
+  const meta: Record<string, unknown> = {};
+  for (const [key, parse] of Object.entries(rules)) {
+    if (raw[key] === undefined) continue;
+    const parsed = parse(raw[key]);
+    if ('error' in parsed) fail(`${path}.${key}`, `is invalid: ${parsed.error}`);
+    meta[key] = parsed.value;
+  }
+  return meta;
+}
+
 function parseSettings(value: unknown, assets: Record<string, Asset>): ProjectSettings {
   const raw = recordAt(value, 'settings');
   const title = stringAt(raw.title, 'settings.title');
@@ -111,6 +136,7 @@ function parseSettings(value: unknown, assets: Record<string, Asset>): ProjectSe
     fail('settings.baseUrl', 'is not a web address');
   }
   const settings: ProjectSettings = {
+    ...copyMeta(raw, SITE_META_RULES, 'settings'),
     title,
     description: stringAt(raw.description, 'settings.description'),
     language,
@@ -122,6 +148,8 @@ function parseSettings(value: unknown, assets: Record<string, Asset>): ProjectSe
   if (faviconAssetId !== undefined) settings.faviconAssetId = faviconAssetId;
   const socialAssetId = assetIdAt(raw.socialImageAssetId, 'settings.socialImageAssetId', assets);
   if (socialAssetId !== undefined) settings.socialImageAssetId = socialAssetId;
+  const appIconAssetId = assetIdAt(raw.appIconAssetId, 'settings.appIconAssetId', assets);
+  if (appIconAssetId !== undefined) settings.appIconAssetId = appIconAssetId;
   return settings;
 }
 
@@ -207,7 +235,10 @@ function parseBlocks(value: unknown): Project['blocks'] {
 
 function parseSeo(value: unknown, path: string, assets: Record<string, Asset>): PageSeo {
   const raw = recordAt(value, path);
-  const seo: PageSeo = { noindex: booleanAt(raw.noindex, `${path}.noindex`) };
+  const seo: PageSeo = {
+    ...copyMeta(raw, PAGE_META_RULES, path),
+    noindex: booleanAt(raw.noindex, `${path}.noindex`),
+  };
   for (const key of SEO_TEXT_KEYS) {
     const text = optionalStringAt(raw[key], `${path}.${key}`);
     if (text !== undefined) seo[key] = text;

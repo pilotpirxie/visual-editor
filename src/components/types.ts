@@ -148,12 +148,21 @@ export const PLACEHOLDER_SUBJECTS = ['photo', 'person', 'product', 'logo', 'scre
 
 export type PlaceholderSubject = (typeof PLACEHOLDER_SUBJECTS)[number];
 
-export type ImageValue = {
-  source: 'placeholder';
+export const UPLOADED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
+
+type ImageBase = {
   src: string;
   alt: string;
   decorative: boolean;
   width: number;
   height: number;
+};
+
+export type PlaceholderImageValue = ImageBase & {
+  source: 'placeholder';
   placeholder: { ratio: PlaceholderRatio; subject: PlaceholderSubject };
 };
+
+export type UploadedImageValue = ImageBase & { source: 'upload'; name: string };
+
+export type ImageValue = PlaceholderImageValue | UploadedImageValue;

@@ -15,7 +15,7 @@ export type RenderContext = RenderData & {
 
 const ROOT_OPEN_TAG = /^<(?<tag>[a-z][a-z0-9-]*)(?<attributes>[^>]*)>/i;
 const CLASS_ATTRIBUTE = /\sclass="(?<classes>[^"]*)"/i;
-const EDITOR_ONLY_ATTRIBUTES = ['data-field'];
+export const EDITOR_ONLY_ATTRIBUTES = ['data-field'];
 
 export function pageSlugsOf(pages: Project['pages']): Record<string, string> {
   const { ids, entities, homePageId } = pages;
@@ -138,9 +138,7 @@ export function renderBlock(
   }
   const attributes = rootAttributes(block, ctx).join(' ');
   const openTag = `<${root.tag} ${attributes}${withClasses(root.attributes, rootClasses(block, ctx))}>`;
-  const withRoot = html.replace(ROOT_OPEN_TAG, () => openTag);
-  if (ctx.mode === 'export') return stripEditorAttributes(withRoot);
-  return withRoot;
+  return html.replace(ROOT_OPEN_TAG, () => openTag);
 }
 
 export function renderHtmlBlock(block: HtmlBlock, ctx: RenderContext): string {
@@ -162,7 +160,8 @@ export function renderAnyBlock(
   if (block.kind === 'html') return renderHtmlBlock(block, ctx);
   const component = registry.get(block.componentId);
   if (component === undefined) return null;
-  return renderBlock(block, component, ctx);
+  const html = renderBlock(block, component, ctx);
+  return ctx.mode === 'export' ? stripEditorAttributes(html) : html;
 }
 
 export function convertBlockToHtml(
@@ -180,5 +179,6 @@ export function convertBlockToHtml(
     extraClasses: [],
     hideOn: [],
   };
-  return formatHtml(renderBlock(plain, component, createRenderContext(project, 'export')));
+  const html = renderBlock(plain, component, createRenderContext(project, 'export'));
+  return formatHtml(html, 0, EDITOR_ONLY_ATTRIBUTES);
 }

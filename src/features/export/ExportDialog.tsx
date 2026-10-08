@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type JSX } from 'react';
+import { useEffect, useId, useMemo, useRef, useState, type JSX } from 'react';
 import { behaviors, core } from 'virtual:site-runtime';
 import {
   blockSelected,
@@ -46,9 +46,26 @@ async function prepareExport(): Promise<Preparation> {
   }
 }
 
+const textEncoder = new TextEncoder();
+
 function fileSize(content: string | Blob): number {
-  if (typeof content === 'string') return new TextEncoder().encode(content).length;
+  if (typeof content === 'string') return textEncoder.encode(content).length;
   return content.size;
+}
+
+type FileSizes = { paths: string[]; sizes: Map<string, number>; totalBytes: number };
+
+function fileSizesOf(files: ExportResult['files']): FileSizes {
+  const paths = Object.keys(files);
+  paths.sort();
+  const sizes = new Map<string, number>();
+  let totalBytes = 0;
+  for (const path of paths) {
+    const size = fileSize(files[path] ?? '');
+    sizes.set(path, size);
+    totalBytes += size;
+  }
+  return { paths, sizes, totalBytes };
 }
 
 export function formatBytes(bytes: number): string {
@@ -154,15 +171,7 @@ function ExportDone({ message }: { message: string }): JSX.Element {
 }
 
 function Summary({ result }: { result: ExportResult }): JSX.Element {
-  const paths = Object.keys(result.files);
-  paths.sort();
-  const sizes = new Map<string, number>();
-  let totalBytes = 0;
-  for (const path of paths) {
-    const size = fileSize(result.files[path] ?? '');
-    sizes.set(path, size);
-    totalBytes += size;
-  }
+  const { paths, sizes, totalBytes } = useMemo(() => fileSizesOf(result.files), [result.files]);
   const { omitted } = result;
   return (
     <details className="ve-export-files">

@@ -15,9 +15,9 @@ type ImageUploadInputProps = {
   onChange(upload: ImageUpload | null): void;
 };
 
-const SIZE_ERROR = 'Use an image smaller than 1 MB';
+export const IMAGE_SIZE_ERROR = 'Use an image smaller than 1 MB';
 
-function readAsDataUrl(file: File): Promise<string> {
+export function readAsDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -54,7 +54,7 @@ export function ImageUploadInput({
       return;
     }
     if (file.size > MAX_IMAGE_UPLOAD_BYTES) {
-      setError(SIZE_ERROR);
+      setError(IMAGE_SIZE_ERROR);
       return;
     }
     try {

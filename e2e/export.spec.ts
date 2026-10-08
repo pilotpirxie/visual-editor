@@ -122,3 +122,45 @@ test('exporting the same project twice gives byte-identical zips', async ({ page
   }
   expect(zips[0]?.equals(zips[1] ?? Buffer.alloc(0))).toBe(true);
 });
+
+test('an uploaded image shows on the canvas and ships as its own file', async ({ page }) => {
+  const png = Buffer.from(
+    'iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAIAAAB7QOjdAAAAD0lEQVR4nGP4z8DAwPAfAAcAAf9+CLHQAAAAAElFTkSuQmCC',
+    'base64',
+  );
+  await createProject(page);
+  await insertBlock(page, 'Content', 'Content, text and image');
+  await closeLibraryDrawer(page);
+  await page.getByRole('button', { name: 'Change image' }).click();
+  const imageDialog = page.getByRole('dialog', { name: 'Image' });
+  await imageDialog
+    .locator('input[type="file"]')
+    .setInputFiles({ name: 'Team photo.png', mimeType: 'image/png', buffer: png });
+  await expect(imageDialog.locator('.ve-image-preview')).toHaveAttribute(
+    'src',
+    /^data:image\/png;base64,/,
+  );
+  await expect(imageDialog.getByLabel('Shape')).toHaveCount(0);
+  await imageDialog.getByRole('button', { name: 'Done' }).click();
+  await expect(imageDialog).toBeHidden();
+
+  const canvasImage = page.frameLocator('.ve-canvas-frame').locator('.b-content-text-image img');
+  await expect(canvasImage).toHaveAttribute('src', /^data:image\/png;base64,/);
+  await expect(canvasImage).toHaveAttribute('width', '2');
+  await expect(canvasImage).toHaveAttribute('height', '1');
+
+  await page.getByRole('button', { name: 'Export', exact: true }).click();
+  const downloadPromise = page.waitForEvent('download');
+  await page
+    .getByRole('dialog', { name: 'Export site' })
+    .getByRole('button', { name: 'Download zip' })
+    .click();
+  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const imagePaths = [...files.keys()].filter((path) => path.startsWith('assets/images/'));
+  expect(imagePaths).toEqual([
+    expect.stringMatching(/^assets\/images\/team-photo-[a-z0-9]+\.png$/),
+  ]);
+  const [imagePath = ''] = imagePaths;
+  expect(files.get(imagePath)?.equals(png)).toBe(true);
+  expect(files.get('index.html')?.toString('utf8')).toContain(`src="${imagePath}"`);
+});

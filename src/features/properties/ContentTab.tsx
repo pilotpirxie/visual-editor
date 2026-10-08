@@ -1,5 +1,5 @@
-import type { JSX, ReactNode } from 'react';
-import { blockValueSet } from '../../app/projectSlice';
+import { useState, type JSX, type ReactNode } from 'react';
+import { blockValueSet, type EditKind } from '../../app/projectSlice';
 import { dispatch } from '../../app/store';
 import type { ComponentBlock } from '../../app/types';
 import { groupFields, isFieldVisible, type FieldGroup } from '../../components/fields';
@@ -47,6 +47,8 @@ function ContentSection({
   );
 }
 
+type ValueChange = (value: unknown, kind: EditKind) => void;
+
 export function ContentTab({
   block,
   definition,
@@ -54,6 +56,19 @@ export function ContentTab({
   block: ComponentBlock;
   definition: ComponentDefinition;
 }): JSX.Element {
+  const [changeHandlers] = useState(() => new Map<string, ValueChange>());
+
+  function changeHandlerFor(name: string): ValueChange {
+    const key = `${block.id}:${name}`;
+    let handler = changeHandlers.get(key);
+    if (handler === undefined) {
+      const blockId = block.id;
+      handler = (value, kind) => dispatch(blockValueSet(blockId, name, value, kind));
+      changeHandlers.set(key, handler);
+    }
+    return handler;
+  }
+
   return (
     <>
       {editableGroups(definition, block.values).map((group) => (
@@ -69,7 +84,7 @@ export function ContentTab({
               value={block.values[field.name]}
               path={field.name}
               isLabelHidden={repeatsGroupName(group)}
-              onChange={(value, kind) => dispatch(blockValueSet(block.id, field.name, value, kind))}
+              onChange={changeHandlerFor(field.name)}
             />
           ))}
         </ContentSection>

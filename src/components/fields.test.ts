@@ -7,6 +7,7 @@ import {
   isButtonValue,
   isColorValue,
   isFieldVisible,
+  isImageValue,
   isLinkValue,
   itemTitle,
   moveItem,
@@ -207,6 +208,33 @@ describe('isLinkValue', () => {
     ['nothing', null],
   ])('rejects %s', (_name, value) => {
     expect(isLinkValue(value)).toBe(false);
+  });
+});
+
+describe('isImageValue', () => {
+  const uploaded = {
+    source: 'upload',
+    src: 'data:image/png;base64,iVBORw0KGgo=',
+    name: 'team.png',
+    alt: 'The team',
+    decorative: false,
+    width: 800,
+    height: 600,
+  };
+
+  it('accepts an uploaded PNG, JPEG, WebP or GIF image', () => {
+    expect(isImageValue(uploaded)).toBe(true);
+    expect(isImageValue({ ...uploaded, src: 'data:image/jpeg;base64,/9j/4AAQ' })).toBe(true);
+  });
+
+  it.each([
+    ['an SVG, which can carry scripts', { ...uploaded, src: 'data:image/svg+xml;base64,PHN2Zz4=' }],
+    ['text that is not base64', { ...uploaded, src: 'data:image/png;base64,<script>' }],
+    ['a web address', { ...uploaded, src: 'https://example.com/team.png' }],
+    ['a missing file name', { ...uploaded, name: undefined }],
+    ['an unknown source', { ...uploaded, source: 'unsplash' }],
+  ])('rejects %s', (_name, value) => {
+    expect(isImageValue(value)).toBe(false);
   });
 });
 

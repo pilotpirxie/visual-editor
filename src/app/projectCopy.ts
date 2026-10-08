@@ -81,15 +81,19 @@ export function copyProjectWithNewIds(project: Project, title: string): Project 
     const id = mapped(ids.assets, asset.id);
     assets[id] = { ...asset, id };
   }
-  const settings = { ...project.settings, title };
+  const settings = { ...structuredClone(project.settings), title };
   const faviconAssetId = mappedOptional(ids.assets, settings.faviconAssetId);
   if (faviconAssetId !== undefined) settings.faviconAssetId = faviconAssetId;
   const socialImageAssetId = mappedOptional(ids.assets, settings.socialImageAssetId);
   if (socialImageAssetId !== undefined) settings.socialImageAssetId = socialImageAssetId;
+  const appIconAssetId = mappedOptional(ids.assets, settings.appIconAssetId);
+  if (appIconAssetId !== undefined) settings.appIconAssetId = appIconAssetId;
   return {
-    ...structuredClone(project),
+    schemaVersion: project.schemaVersion,
     id: crypto.randomUUID(),
+    ...(project.starterId === undefined ? {} : { starterId: project.starterId }),
     settings,
+    designSystem: structuredClone(project.designSystem),
     pages: {
       ids: mappedList(ids.pages, project.pages.ids),
       entities: pageEntities,
@@ -100,6 +104,7 @@ export function copyProjectWithNewIds(project: Project, title: string): Project 
       header: mappedList(ids.blocks, project.sharedSlots.header),
       footer: mappedList(ids.blocks, project.sharedSlots.footer),
     },
+    packBlocks: structuredClone(project.packBlocks),
     assets,
   };
 }

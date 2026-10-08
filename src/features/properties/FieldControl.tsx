@@ -1,4 +1,4 @@
-import { useState, type FocusEvent, type JSX } from 'react';
+import { memo, useState, type FocusEvent, type JSX } from 'react';
 import type { EditKind } from '../../app/projectSlice';
 import { validateField } from '../../components/fields';
 import type { Field, FieldType } from '../../components/types';
@@ -57,7 +57,7 @@ const CONTROLS: Record<FieldType, (props: ControlProps) => JSX.Element> = {
   button: ButtonField,
 };
 
-export function FieldControl({
+export const FieldControl = memo(function FieldControl({
   field,
   value,
   path,
@@ -109,4 +109,4 @@ export function FieldControl({
       <FieldError id={id} error={error} />
     </div>
   );
-}
+});

@@ -55,7 +55,90 @@ export type DesignSystemPreset = {
   designSystem: DesignSystem;
 };
 
-export type PageSeo = {
+export const OPEN_GRAPH_TYPES = ['website', 'article', 'profile'] as const;
+
+export type OpenGraphType = (typeof OPEN_GRAPH_TYPES)[number];
+
+export const IMAGE_PREVIEW_SIZES = ['large', 'standard', 'none'] as const;
+
+export type ImagePreviewSize = (typeof IMAGE_PREVIEW_SIZES)[number];
+
+export const SITEMAP_FREQUENCIES = [
+  'always',
+  'hourly',
+  'daily',
+  'weekly',
+  'monthly',
+  'yearly',
+  'never',
+] as const;
+
+export type SitemapFrequency = (typeof SITEMAP_FREQUENCIES)[number];
+
+export const PAGE_SCHEMA_TYPES = [
+  'WebPage',
+  'AboutPage',
+  'ContactPage',
+  'CollectionPage',
+  'FAQPage',
+  'ProfilePage',
+] as const;
+
+export type PageSchemaType = (typeof PAGE_SCHEMA_TYPES)[number];
+
+export const SITE_ENTITY_TYPES = ['Organization', 'Person'] as const;
+
+export type SiteEntityType = (typeof SITE_ENTITY_TYPES)[number];
+
+export const META_ATTRIBUTES = ['name', 'property'] as const;
+
+export type MetaAttribute = (typeof META_ATTRIBUTES)[number];
+
+export type MetaTag = { attribute: MetaAttribute; key: string; content: string };
+
+export const VERIFICATION_SERVICES = ['google', 'bing', 'yandex', 'pinterest', 'facebook'] as const;
+
+export type VerificationService = (typeof VERIFICATION_SERVICES)[number];
+
+export type SharedMeta = {
+  author?: string;
+  keywords?: string;
+  follow?: boolean;
+  snippets?: boolean;
+  imagePreview?: ImagePreviewSize;
+  translate?: boolean;
+  openGraphType?: OpenGraphType;
+  socialImageAlt?: string;
+  twitterCreator?: string;
+  themeColor?: string;
+  sitemapFrequency?: SitemapFrequency;
+  sitemapPriority?: number;
+  metaTags?: MetaTag[];
+  jsonLd?: string;
+};
+
+export type SiteMeta = SharedMeta & {
+  appName?: string;
+  backgroundColor?: string;
+  twitterSite?: string;
+  verification?: Partial<Record<VerificationService, string>>;
+  blockAiCrawlers?: boolean;
+  robotsRules?: string;
+  schemaMarkup?: boolean;
+  schemaEntity?: SiteEntityType;
+  entityName?: string;
+  socialProfiles?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+};
+
+export type PageMeta = SharedMeta & {
+  canonicalUrl?: string;
+  sitemapExcluded?: boolean;
+  schemaType?: PageSchemaType;
+};
+
+export type PageSeo = PageMeta & {
   title?: string;
   description?: string;
   socialTitle?: string;
@@ -97,7 +180,7 @@ export type HtmlBlock = BlockBase & {
 
 export type Block = ComponentBlock | HtmlBlock;
 
-export type ProjectSettings = {
+export type ProjectSettings = SiteMeta & {
   title: string;
   description: string;
   language: string;
@@ -106,6 +189,7 @@ export type ProjectSettings = {
   indexable: boolean;
   faviconAssetId?: string;
   socialImageAssetId?: string;
+  appIconAssetId?: string;
 };
 
 export type Asset = { id: string; name: string; mimeType: string; dataUrl: string };

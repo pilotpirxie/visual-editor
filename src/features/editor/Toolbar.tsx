@@ -21,7 +21,7 @@ import {
   useTooltip,
   type MenuItem,
 } from '../../../packages/ui/src';
-import { DeviceMenu, DeviceToggle } from './DeviceToggle';
+import { DeviceMenu, DeviceToggle, ViewMenu } from './DeviceToggle';
 import { SHORTCUT_KEYS } from './shortcutList';
 
 function EditMenu({ isReadOnly }: { isReadOnly: boolean }): JSX.Element {
@@ -83,6 +83,12 @@ function EditMenu({ isReadOnly }: { isReadOnly: boolean }): JSX.Element {
       label: 'Find and replace…',
       onSelect: () => dispatch(dialogOpened({ kind: 'find' })),
     },
+    {
+      id: 'palette',
+      label: 'Command palette…',
+      shortcut: SHORTCUT_KEYS.palette,
+      onSelect: () => dispatch(dialogOpened({ kind: 'palette' })),
+    },
   );
   return <MenuButton label="Edit" icon="clipboard" items={items} disabled={isReadOnly} />;
 }
@@ -121,13 +127,16 @@ function LogoLink(): JSX.Element {
   );
 }
 
-export function PreviewButton({ isDisabled }: { isDisabled: boolean }): JSX.Element {
+type PreviewButtonProps = { isDisabled: boolean; className?: string };
+
+export function PreviewButton({ isDisabled, className }: PreviewButtonProps): JSX.Element {
   const isPreview = useStore((state) => state.editor.isPreview);
   const label = isPreview ? 'Exit preview' : 'Preview';
   const { triggerProps, tooltip } = useTooltip({ text: label, shortcut: SHORTCUT_KEYS.preview });
   return (
     <>
       <Button
+        className={className}
         variant="ghost"
         icon={isPreview ? 'eye-off' : 'eye'}
         aria-label={label}
@@ -171,11 +180,18 @@ export function Toolbar(): JSX.Element {
           modes={DEVICE_MODES}
           onChange={(mode) => dispatch(deviceChanged(mode))}
         />
+        <ViewMenu
+          className="ve-view-menu"
+          value={device}
+          modes={DEVICE_MODES}
+          isPreviewDisabled={isReadOnly}
+          onChange={(mode) => dispatch(deviceChanged(mode))}
+          onPreview={() => dispatch(previewToggled(true))}
+        />
       </div>
 
       <div className="ve-toolbar-group">
         <IconButton
-          className="ve-wide-only"
           label="Undo"
           shortcut={SHORTCUT_KEYS.undo}
           icon="undo"
@@ -183,7 +199,6 @@ export function Toolbar(): JSX.Element {
           onClick={() => dispatch(undo())}
         />
         <IconButton
-          className="ve-wide-only"
           label="Redo"
           shortcut={SHORTCUT_KEYS.redo}
           icon="redo"
@@ -209,8 +224,9 @@ export function Toolbar(): JSX.Element {
         >
           <span className="ve-wide-only">Design</span>
         </Button>
-        <PreviewButton isDisabled={isReadOnly} />
+        <PreviewButton className="ve-preview-button" isDisabled={isReadOnly} />
         <Button
+          className="ve-export-button"
           variant="primary"
           icon="download"
           aria-label="Export"

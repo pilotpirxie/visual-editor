@@ -97,10 +97,10 @@ function connectCounters(view: Window, counters: Counter[]): () => void {
     { threshold: VISIBLE_THRESHOLD },
   );
 
-  for (const counter of counters) {
-    const { width } = counter.element.getBoundingClientRect();
+  const widths = counters.map((counter) => counter.element.getBoundingClientRect().width);
+  for (const [index, counter] of counters.entries()) {
     counter.element.style.display = 'inline-block';
-    counter.element.style.minWidth = `${width}px`;
+    counter.element.style.minWidth = `${widths[index] ?? 0}px`;
     counter.element.textContent = formatCount(counter.format, 0);
     observer.observe(counter.element);
   }

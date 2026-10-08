@@ -1,6 +1,10 @@
-import type { ImageValue, PlaceholderRatio, PlaceholderSubject } from '../components/types';
+import type {
+  PlaceholderImageValue,
+  PlaceholderRatio,
+  PlaceholderSubject,
+} from '../components/types';
 
-export type Placeholder = ImageValue['placeholder'];
+export type Placeholder = PlaceholderImageValue['placeholder'];
 
 const LONG_EDGE_PX = 1200;
 const GLYPH_SHARE = 0.16;
@@ -38,7 +42,7 @@ export function placeholderImage(
   placeholder: Placeholder,
   alt: string,
   decorative = false,
-): ImageValue {
+): PlaceholderImageValue {
   return {
     source: 'placeholder',
     src: '',

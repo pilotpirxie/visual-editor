@@ -8,6 +8,7 @@ import type { RegisteredComponent } from '../components/types';
 import {
   convertBlockToHtml,
   createRenderContext,
+  renderAnyBlock,
   renderBlock,
   renderHtmlBlock,
 } from './renderBlock';
@@ -98,8 +99,8 @@ describe('renderBlock', () => {
     );
   });
 
-  it('drops editor attributes in export mode', () => {
-    const html = renderBlock(heroBlock(), hero, exported);
+  it('drops editor attributes when a single block is rendered for export', () => {
+    const html = renderAnyBlock(heroBlock(), builtInComponents, exported) ?? '';
     expect(html).not.toContain('data-block-id');
     expect(html).not.toContain('data-field');
     expect(html).toContain('data-component="hero-centered"');
@@ -108,7 +109,7 @@ describe('renderBlock', () => {
   it('keeps text the user typed even when it looks like an editor attribute', () => {
     const block = { ...createBlock(content.definition) };
     block.values = { ...block.values, body: '<p>Write data-field="x" in your HTML</p>' };
-    const html = renderBlock(block, content, exported);
+    const html = renderAnyBlock(block, builtInComponents, exported) ?? '';
     expect(html).toContain('Write data-field="x" in your HTML');
     expect(html).not.toMatch(/<[^>]+data-field=/);
   });

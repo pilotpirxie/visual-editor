@@ -1,5 +1,5 @@
 import { act } from 'react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createSampleProject } from '../../app/projectFactory';
 import type { Project } from '../../app/types';
 import {
@@ -28,6 +28,24 @@ const summary: ProjectSummary = {
   title: 'Fieldnote',
   updatedAt: new Date().toISOString(),
 };
+
+class VisibleIntersectionObserver {
+  constructor(private readonly callback: IntersectionObserverCallback) {}
+  observe(target: Element): void {
+    const entry = { isIntersecting: true, target } as IntersectionObserverEntry;
+    queueMicrotask(() => this.callback([entry], this as unknown as IntersectionObserver));
+  }
+  unobserve(): void {}
+  disconnect(): void {}
+}
+
+function showEverythingOnScreen(): void {
+  vi.stubGlobal('IntersectionObserver', VisibleIntersectionObserver);
+}
+
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
 
 async function renderHome(): Promise<HTMLDivElement> {
   const { container } = render(<HomeScreen />);
@@ -139,7 +157,8 @@ describe('HomeScreen', () => {
     expect(getButton(starters, 'Use this starter: Startup waitlist').disabled).toBe(false);
   });
 
-  it('shows a live thumbnail of each project’s home page', async () => {
+  it('shows a live thumbnail of each project’s home page once it is near the screen', async () => {
+    showEverythingOnScreen();
     const container = await renderHome();
     await vi.waitFor(() =>
       expect(container.querySelector('.ve-home-card .ve-page-thumbnail iframe')).not.toBeNull(),
@@ -147,9 +166,16 @@ describe('HomeScreen', () => {
     expect(getProject).toHaveBeenCalledWith(stored.id);
   });
 
+  it('waits to load a thumbnail until its card is near the screen', async () => {
+    const container = await renderHome();
+    expect(container.querySelector('.ve-home-card .ve-page-thumbnail')).not.toBeNull();
+    expect(getProject).not.toHaveBeenCalledWith(stored.id);
+  });
+
   it('keeps an empty thumbnail box when a project cannot be read', async () => {
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
     vi.mocked(getProject).mockRejectedValue(new Error('Storage is locked'));
+    showEverythingOnScreen();
     const container = await renderHome();
     await vi.waitFor(() => expect(consoleError).toHaveBeenCalled());
     expect(consoleError.mock.calls[0]?.[0]).toBe(

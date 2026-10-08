@@ -92,4 +92,30 @@ describe('parseProjectDocument', () => {
     project.settings.faviconAssetId = 'missing';
     expectInvalid(asJson(project), 'settings.faviconAssetId');
   });
+
+  it('keeps valid site and page meta and the app icon', () => {
+    const project = sample();
+    project.assets.icon = {
+      id: 'icon',
+      name: 'icon.png',
+      mimeType: 'image/png',
+      dataUrl: 'data:image/png;base64,aGk=',
+    };
+    project.settings.appIconAssetId = 'icon';
+    project.settings.twitterSite = '@acme';
+    project.settings.verification = { google: 'abc' };
+    project.settings.metaTags = [{ attribute: 'name', key: 'referrer', content: 'no-referrer' }];
+    homePage(project).seo.follow = false;
+    homePage(project).seo.schemaType = 'AboutPage';
+    expect(parseProjectDocument(asJson(project))).toEqual(project);
+  });
+
+  it('names invalid site and page meta', () => {
+    const project = sample();
+    project.settings.themeColor = 'red; background: url(x)';
+    expectInvalid(asJson(project), 'settings.themeColor is invalid: Pick a color');
+    const page = sample();
+    homePage(page).seo.sitemapPriority = 7;
+    expectInvalid(asJson(page), 'seo.sitemapPriority is invalid');
+  });
 });

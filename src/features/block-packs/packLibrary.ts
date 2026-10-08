@@ -55,8 +55,10 @@ export function takenClasses(
 }
 
 export function loadPackLibrary(): AppThunk<Promise<BlockPack[]>> {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     const packs = await listBlockPacks();
+    const current = getState().editor.blockPacks;
+    if (JSON.stringify(current) === JSON.stringify(packs)) return current;
     dispatch(blockPacksLoaded(packs));
     return packs;
   };

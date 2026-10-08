@@ -1,4 +1,4 @@
-import { useRef, useState, type JSX, type SyntheticEvent } from 'react';
+import { useMemo, useRef, useState, type JSX, type SyntheticEvent } from 'react';
 import { DEVICE_VIEWPORTS, noticeShown } from '../../app/editorSlice';
 import { dispatch } from '../../app/store';
 import type { Device, Project } from '../../app/types';
@@ -55,10 +55,13 @@ export function StarterPreview({
   const pendingAnchorRef = useRef<string | null>(null);
   const requestedPresetIdRef = useRef(starter.presetId);
   const available = useElementSize(viewportRef);
-  const shown = withPreset(project, presetId);
+  const shown = useMemo(() => withPreset(project, presetId), [project, presetId]);
   const fit = fitDevice(DEVICE_VIEWPORTS[device], available);
-  const html = renderStandalonePage(shown, pageId, builtInComponents, { shouldLinkFonts: false });
-  const pageSlugs = pageSlugsOf(project.pages);
+  const html = useMemo(
+    () => renderStandalonePage(shown, pageId, builtInComponents, { shouldLinkFonts: false }),
+    [shown, pageId],
+  );
+  const pageSlugs = useMemo(() => pageSlugsOf(project.pages), [project.pages]);
 
   async function choosePreset(nextPresetId: string): Promise<void> {
     const preset = BUILTIN_PRESETS.find((item) => item.id === nextPresetId);

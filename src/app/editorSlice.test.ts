@@ -5,6 +5,7 @@ import {
   blockSelected,
   compactTabSelected,
   designSheetToggled,
+  propertiesOpened,
   deviceChanged,
   editorSlice,
   fieldFocusRequested,
@@ -250,11 +251,23 @@ describe('compactTabSelected', () => {
     expect(editor.libraryTab).toBe('layers');
   });
 
-  it('shows the canvas or the properties view directly', () => {
-    let editor = editorSlice.reducer(initialEditor(), compactTabSelected('properties'));
+  it('returns to the canvas from the properties view', () => {
+    let editor = editorSlice.reducer(initialEditor(), propertiesOpened());
     expect(editor.compactView).toBe('properties');
     editor = editorSlice.reducer(editor, compactTabSelected('canvas'));
     expect(editor.compactView).toBe('canvas');
+  });
+
+  it('opens project settings as a library tab', () => {
+    const editor = editorSlice.reducer(initialEditor(), compactTabSelected('settings'));
+    expect(editor.compactView).toBe('library');
+    expect(editor.libraryTab).toBe('settings');
+  });
+
+  it('closes the design panel when another view is chosen', () => {
+    let editor = editorSlice.reducer(initialEditor(), designSheetToggled(true));
+    editor = editorSlice.reducer(editor, compactTabSelected('pages'));
+    expect(editor.isDesignSheetOpen).toBe(false);
   });
 
   it('switches from the library to the canvas after a block is inserted', () => {
@@ -266,7 +279,7 @@ describe('compactTabSelected', () => {
 
   it('stays on properties when a block is inserted from elsewhere', () => {
     const store = createTestStore();
-    store.dispatch(compactTabSelected('properties'));
+    store.dispatch(propertiesOpened());
     store.dispatch(blockInserted(store.getState().project.pages.homePageId, 0, 'cta-centered'));
     expect(store.getState().editor.compactView).toBe('properties');
   });
@@ -278,8 +291,15 @@ describe('selectCompactTab', () => {
     expect(selectCompactTab(editor)).toBe('blocks');
   });
 
-  it('names the view itself otherwise', () => {
+  it('names the canvas otherwise', () => {
     expect(selectCompactTab(initialEditor())).toBe('canvas');
+  });
+
+  it('names no tab while properties or design cover the view', () => {
+    const properties = editorSlice.reducer(initialEditor(), propertiesOpened());
+    expect(selectCompactTab(properties)).toBeNull();
+    const design = editorSlice.reducer(initialEditor(), designSheetToggled(true));
+    expect(selectCompactTab(design)).toBeNull();
   });
 });
 

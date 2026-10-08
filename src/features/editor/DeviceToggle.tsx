@@ -63,7 +63,7 @@ type DeviceMenuProps = {
   onChange(mode: DeviceMode): void;
 };
 
-export function DeviceMenu({ value, modes, className, onChange }: DeviceMenuProps): JSX.Element {
+function deviceItems({ value, modes, onChange }: DeviceMenuProps): MenuItem[] {
   const items: MenuItem[] = [];
   for (const mode of modes) {
     items.push({
@@ -73,9 +73,34 @@ export function DeviceMenu({ value, modes, className, onChange }: DeviceMenuProp
       onSelect: () => onChange(mode),
     });
   }
+  return items;
+}
+
+export function DeviceMenu(props: DeviceMenuProps): JSX.Element {
+  const { value, className } = props;
   return (
     <MenuButton
       label={`Device: ${DEVICE_LABELS[value]}`}
+      icon={DEVICE_ICONS[value]}
+      items={deviceItems(props)}
+      className={className}
+      isLabelShown={false}
+    />
+  );
+}
+
+type ViewMenuProps = DeviceMenuProps & { isPreviewDisabled: boolean; onPreview(): void };
+
+export function ViewMenu(props: ViewMenuProps): JSX.Element {
+  const { value, className, isPreviewDisabled, onPreview } = props;
+  const items = deviceItems(props);
+  items.push(
+    { id: 'preview-separator', isSeparator: true },
+    { id: 'preview', label: 'Preview', disabled: isPreviewDisabled, onSelect: onPreview },
+  );
+  return (
+    <MenuButton
+      label={`View: ${DEVICE_LABELS[value]}`}
       icon={DEVICE_ICONS[value]}
       items={items}
       className={className}

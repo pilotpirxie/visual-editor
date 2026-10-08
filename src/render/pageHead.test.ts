@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from '../app/projectFactory';
 import type { Page, Project } from '../app/types';
-import { applyTitleTemplate, buildPageHead } from './pageHead';
+import {
+  applyTitleTemplate,
+  buildPageHead,
+  openGraphLocale,
+  resolvePageMeta,
+  robotsDirectives,
+} from './pageHead';
 
 function setup(
   changes: Partial<Page['seo']> = {},
@@ -106,5 +112,150 @@ describe('buildPageHead', () => {
   it('escapes text so it cannot end the tag', () => {
     const { project, page } = setup({ title: '"><script>' });
     expect(head(project, page)).toContain('<title>&quot;&gt;&lt;script&gt; | Fieldnote</title>');
+  });
+
+  it('combines the robots directives of the site and the page', () => {
+    const { project, page } = setup({ snippets: false });
+    project.settings.follow = false;
+    project.settings.imagePreview = 'large';
+    expect(head(project, page)).toContain(
+      '<meta name="robots" content="nofollow, nosnippet, max-image-preview:large">',
+    );
+    page.seo.follow = true;
+    page.seo.noindex = true;
+    expect(head(project, page)).toContain(
+      '<meta name="robots" content="noindex, nosnippet, max-image-preview:large">',
+    );
+  });
+
+  it('describes the site for sharing with its name, type, locale and URL', () => {
+    const { project, page } = setup({}, 'https://acme.com');
+    project.settings.language = 'en-GB';
+    page.seo.openGraphType = 'article';
+    const html = head(project, page);
+    expect(html).toContain('<meta property="og:site_name" content="Fieldnote">');
+    expect(html).toContain('<meta property="og:type" content="article">');
+    expect(html).toContain('<meta property="og:locale" content="en_GB">');
+    expect(html).toContain('<meta property="og:url" content="https://acme.com/about.html">');
+  });
+
+  it('uses a page canonical URL for the canonical link and sharing', () => {
+    const { project, page } = setup({ canonicalUrl: 'https://blog.acme.com/about' });
+    const html = head(project, page);
+    expect(html).toContain('<link rel="canonical" href="https://blog.acme.com/about">');
+    expect(html).toContain('<meta property="og:url" content="https://blog.acme.com/about">');
+  });
+
+  it('writes the X accounts and the image description', () => {
+    const { project, page } = setup({ socialImageAssetId: 'a1', twitterCreator: '@jane' });
+    project.settings.twitterSite = '@acme';
+    project.settings.socialImageAlt = 'The Fieldnote app';
+    const html = head(project, page, 'about.html', { a1: 'card-a1.png' });
+    expect(html).toContain('<meta name="twitter:site" content="@acme">');
+    expect(html).toContain('<meta name="twitter:creator" content="@jane">');
+    expect(html).toContain('<meta property="og:image:alt" content="The Fieldnote app">');
+    expect(html).toContain('<meta name="twitter:image:alt" content="The Fieldnote app">');
+  });
+
+  it('resolves a theme color token and lets the page override it', () => {
+    const { project, page } = setup();
+    project.settings.themeColor = 'var(--color-primary)';
+    const primary = project.designSystem.tokens['--color-primary']?.value ?? '';
+    expect(head(project, page)).toContain(`<meta name="theme-color" content="${primary}">`);
+    page.seo.themeColor = '#123456';
+    expect(head(project, page)).toContain('<meta name="theme-color" content="#123456">');
+  });
+
+  it('writes verification codes, author and keywords', () => {
+    const { project, page } = setup({ keywords: 'about, team' });
+    project.settings.verification = { google: 'g-123', bing: 'B456' };
+    project.settings.author = 'Fieldnote team';
+    project.settings.keywords = 'research';
+    const html = head(project, page);
+    expect(html).toContain('<meta name="google-site-verification" content="g-123">');
+    expect(html).toContain('<meta name="msvalidate.01" content="B456">');
+    expect(html).toContain('<meta name="author" content="Fieldnote team">');
+    expect(html).toContain('<meta name="keywords" content="about, team">');
+    expect(html).not.toContain('content="research"');
+  });
+
+  it('adds custom meta tags, lets the page replace them and replaces generated ones', () => {
+    const { project, page } = setup({
+      metaTags: [
+        { attribute: 'name', key: 'format-detection', content: 'telephone=yes' },
+        { attribute: 'name', key: 'description', content: 'Custom description' },
+      ],
+    });
+    project.settings.metaTags = [
+      { attribute: 'name', key: 'format-detection', content: 'telephone=no' },
+      { attribute: 'name', key: 'referrer', content: 'no-referrer' },
+      { attribute: 'name', key: '', content: 'unfinished' },
+    ];
+    const html = head(project, page);
+    expect(html).toContain('<meta name="format-detection" content="telephone=yes">');
+    expect(html).toContain('<meta name="referrer" content="no-referrer">');
+    expect(html).toContain('<meta name="description" content="Custom description">');
+    expect(html).not.toContain('telephone=no');
+    expect(html).not.toContain('unfinished');
+  });
+
+  it('links the app icon as the Apple touch icon and the web manifest', () => {
+    const { project, page } = setup();
+    project.settings.appIconAssetId = 'i1';
+    project.settings.appName = 'Fieldnote';
+    const html = head(project, page, 'about.html', { i1: 'icon-i1.png' });
+    expect(html).toContain('<link rel="apple-touch-icon" href="icon-i1.png">');
+    expect(html).toContain('<link rel="manifest" href="site.webmanifest">');
+    expect(html).toContain('<meta name="apple-mobile-web-app-title" content="Fieldnote">');
+  });
+
+  it('adds structured data unless the site turns it off', () => {
+    const { project, page } = setup();
+    expect(head(project, page)).toContain('<script type="application/ld+json">');
+    project.settings.schemaMarkup = false;
+    expect(head(project, page)).not.toContain('application/ld+json');
+  });
+});
+
+describe('robotsDirectives', () => {
+  it('is empty for an indexed page with default settings', () => {
+    expect(robotsDirectives(true, {})).toEqual([]);
+  });
+
+  it('lists every directive that differs from the default', () => {
+    expect(
+      robotsDirectives(false, {
+        follow: false,
+        snippets: false,
+        imagePreview: 'none',
+        translate: false,
+      }),
+    ).toEqual(['noindex', 'nofollow', 'nosnippet', 'max-image-preview:none', 'notranslate']);
+  });
+});
+
+describe('openGraphLocale', () => {
+  it('writes a language with a region in Open Graph form', () => {
+    expect(openGraphLocale('pt-BR')).toBe('pt_BR');
+  });
+
+  it('skips a language without a region', () => {
+    expect(openGraphLocale('en')).toBeNull();
+  });
+});
+
+describe('resolvePageMeta', () => {
+  it('prefers page values and merges meta tags by name', () => {
+    const { project, page } = setup({
+      author: 'Jane',
+      metaTags: [{ attribute: 'property', key: 'fb:app_id', content: '2' }],
+    });
+    project.settings.author = 'Team';
+    project.settings.keywords = 'research';
+    project.settings.metaTags = [{ attribute: 'property', key: 'fb:app_id', content: '1' }];
+    const meta = resolvePageMeta(project, page);
+    expect(meta.author).toBe('Jane');
+    expect(meta.keywords).toBe('research');
+    expect(meta.metaTags).toEqual([{ attribute: 'property', key: 'fb:app_id', content: '2' }]);
   });
 });

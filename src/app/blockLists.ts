@@ -24,6 +24,18 @@ export function findBlockList(project: BlockListOwner, blockId: string): string[
   return null;
 }
 
+export function blockListOn(
+  project: BlockListOwner,
+  blockId: string,
+  likelyPageId: string,
+): string[] | null {
+  const likelyList = project.pages.entities[likelyPageId]?.blockIds;
+  if (likelyList?.includes(blockId) === true && sharedSlotOf(project, blockId) === null) {
+    return likelyList;
+  }
+  return findBlockList(project, blockId);
+}
+
 export function visibleBlockLists(
   project: Pick<Project, 'sharedSlots'>,
   page: Page,

@@ -28,6 +28,8 @@
   }
 
   .ve-find-row {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 48px;
     display: flex;
     align-items: center;
     justify-content: space-between;

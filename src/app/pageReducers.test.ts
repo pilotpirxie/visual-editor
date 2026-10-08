@@ -6,6 +6,7 @@ import {
   homePageSet,
   pageAdded,
   pageDuplicated,
+  pageMetaSet,
   pageMoved,
   pageRemoved,
   pageRenamed,
@@ -14,6 +15,7 @@ import {
   pageSocialImageSet,
   projectImageSet,
   settingSet,
+  siteMetaSet,
 } from './projectSlice';
 
 function pageNames(store: TestStore): string[] {
@@ -336,5 +338,68 @@ describe('projectImageSet', () => {
     store.dispatch(projectImageSet('socialImage', PNG_UPLOAD));
     store.dispatch(projectImageSet('socialImage', null));
     expect(Object.keys(store.getState().project.assets)).toHaveLength(1);
+  });
+});
+
+describe('site and page meta', () => {
+  it('stores site meta, normalizes it and clears it when emptied, undoably', () => {
+    const store = createTestStore();
+    store.dispatch(siteMetaSet('twitterSite', 'fieldnote', 'discrete'));
+    store.dispatch(siteMetaSet('themeColor', ' #ABCDEF ', 'discrete'));
+    expect(store.getState().project.settings).toMatchObject({
+      twitterSite: '@fieldnote',
+      themeColor: '#ABCDEF',
+    });
+    store.dispatch(siteMetaSet('twitterSite', '', 'discrete'));
+    expect(store.getState().project.settings).not.toHaveProperty('twitterSite');
+    store.dispatch(undo());
+    expect(store.getState().project.settings.twitterSite).toBe('@fieldnote');
+  });
+
+  it('ignores invalid site meta', () => {
+    const store = createTestStore();
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const before = store.getState().project.settings;
+    store.dispatch(siteMetaSet('contactEmail', 'not an email', 'discrete'));
+    store.dispatch(siteMetaSet('sitemapPriority', 2, 'discrete'));
+    expect(store.getState().project.settings).toBe(before);
+  });
+
+  it('drops an empty verification record', () => {
+    const store = createTestStore();
+    store.dispatch(siteMetaSet('verification', { google: 'abc' }, 'discrete'));
+    store.dispatch(siteMetaSet('verification', { google: '' }, 'discrete'));
+    expect(store.getState().project.settings).not.toHaveProperty('verification');
+  });
+
+  it('stores page overrides and removes them to inherit again', () => {
+    const store = createTestStore();
+    addAbout(store);
+    store.dispatch(pageMetaSet('about', 'follow', false, 'discrete'));
+    store.dispatch(pageMetaSet('about', 'canonicalUrl', 'https://acme.com/about', 'continuous'));
+    expect(store.getState().project.pages.entities.about?.seo).toMatchObject({
+      follow: false,
+      canonicalUrl: 'https://acme.com/about',
+    });
+    store.dispatch(pageMetaSet('about', 'follow', undefined, 'discrete'));
+    expect(store.getState().project.pages.entities.about?.seo).not.toHaveProperty('follow');
+  });
+
+  it('merges continuous typing in one page field into one undo step', () => {
+    const store = createTestStore();
+    addAbout(store);
+    store.dispatch(pageMetaSet('about', 'keywords', 'a', 'continuous'));
+    store.dispatch(pageMetaSet('about', 'keywords', 'ab', 'continuous'));
+    store.dispatch(undo());
+    expect(store.getState().project.pages.entities.about?.seo).not.toHaveProperty('keywords');
+  });
+
+  it('stores the app icon as a PNG asset only', () => {
+    const store = createTestStore();
+    store.dispatch(projectImageSet('appIcon', SVG_UPLOAD));
+    expect(store.getState().project.assets).toEqual({});
+    store.dispatch(projectImageSet('appIcon', PNG_UPLOAD));
+    const { settings, assets } = store.getState().project;
+    expect(assets[settings.appIconAssetId ?? '']?.mimeType).toBe('image/png');
   });
 });

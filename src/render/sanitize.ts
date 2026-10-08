@@ -1,3 +1,5 @@
+import { cachedByText } from './textCache';
+
 type InlineTag = 'strong' | 'em' | 'a';
 
 type HeadingTag = 'h2' | 'h3';
@@ -281,17 +283,28 @@ function inertDocument(html: string): Document {
   return new DOMParser().parseFromString(html, 'text/html');
 }
 
-export function normalizeRichText(html: string, options: RichTextOptions = {}): string {
+function normalize(html: string, allowHeadings: boolean): string {
   const doc = inertDocument(html);
   const writer: BlockWriter = {
     doc,
     root: doc.createElement('div'),
     paragraph: null,
-    allowHeadings: options.allowHeadings === true,
+    allowHeadings,
   };
   appendBlocks(doc.body, writer);
   closeParagraph(writer);
   return writer.root.innerHTML;
+}
+
+const RICH_TEXT_CACHE_SIZE = 500;
+const normalizedWithHeadings = cachedByText(RICH_TEXT_CACHE_SIZE, (html) => normalize(html, true));
+const normalizedWithoutHeadings = cachedByText(RICH_TEXT_CACHE_SIZE, (html) =>
+  normalize(html, false),
+);
+
+export function normalizeRichText(html: string, options: RichTextOptions = {}): string {
+  if (options.allowHeadings === true) return normalizedWithHeadings(html);
+  return normalizedWithoutHeadings(html);
 }
 
 export function plainTextToHtml(text: string): string {

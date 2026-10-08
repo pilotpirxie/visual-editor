@@ -9,6 +9,7 @@ import {
   blockValueSet,
   projectLoaded,
   projectRestored,
+  tokensSet,
   type EditKind,
 } from './projectSlice';
 
@@ -55,6 +56,28 @@ describe('undo', () => {
     expect(store.getState().history.past[0]?.patches).toHaveLength(1);
     store.dispatch(undo());
     expect(title()).toBe(original);
+  });
+
+  it('merges continuous edits that replace the same set of values into one step', () => {
+    const { store } = setup();
+    const tokens = () => store.getState().project.designSystem.tokens;
+    const original = tokens()['--radius-md']?.value;
+    for (const [at, value] of [
+      [1000, '0.6rem'],
+      [1100, '0.7rem'],
+      [1200, '0.8rem'],
+    ] as const) {
+      const action = tokensSet(
+        { values: { '--radius-md': value, '--radius-lg': value } },
+        'continuous',
+      );
+      store.dispatch({ ...action, meta: { ...action.meta, at } });
+    }
+    const steps = store.getState().history.past;
+    expect(steps).toHaveLength(1);
+    expect(steps[0]?.patches).toHaveLength(2);
+    store.dispatch(undo());
+    expect(tokens()['--radius-md']?.value).toBe(original);
   });
 
   it('starts a new step after a longer pause or in another field', () => {

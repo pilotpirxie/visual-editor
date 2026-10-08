@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { boxOf, createProject, insertBlock, showBlockCategory } from './editor';
+import { boxOf, createProject, insertBlock } from './editor';
 
 const CANVAS_PADDING_PX = 24;
 const TOLERANCE_PX = 1;
@@ -97,14 +97,12 @@ test('double-clicking a heading edits it in place as one undo step', async ({ pa
   await expect(heading).toHaveText(original ?? '');
 });
 
-test('the Add block button inserts right after the selected block', async ({ page }) => {
+test('a selected block offers no Add block button while the library is on screen', async ({
+  page,
+}) => {
   await insertBlock(page, 'Navigations', 'Navigation, logo left');
-  await insertBlock(page, 'Footers', 'Footer, simple');
   const blocks = page.frameLocator('.ve-canvas-frame').locator('[data-component]');
   await blocks.first().click({ position: { x: 4, y: 4 } });
-  await page.getByRole('button', { name: 'Add block' }).click();
-  await showBlockCategory(page, 'Headers');
-  await page.locator('.ve-library').getByRole('button', { name: 'Hero, centered text' }).click();
-  await expect(blocks).toHaveCount(3);
-  await expect(blocks.nth(1)).toHaveAttribute('data-component', 'hero-centered');
+  await expect(page.locator('.ve-block-toolbar')).toBeVisible();
+  await expect(page.locator('.ve-add-here')).toBeHidden();
 });

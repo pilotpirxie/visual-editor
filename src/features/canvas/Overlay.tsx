@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState, type CSSProperties, type JSX } from 'react';
-import { compactTabSelected, libraryOpened } from '../../app/editorSlice';
-import { findBlockList, sharedSlotOf } from '../../app/blockLists';
-import { dispatch, store, useStore } from '../../app/store';
+import { libraryOpened, propertiesOpened } from '../../app/editorSlice';
+import { blockListOn, sharedSlotOf } from '../../app/blockLists';
+import { dispatch, selectCurrentPage, store, useStore } from '../../app/store';
 import type { Device } from '../../app/types';
 import { blockLabel } from '../../components/registry';
 import { duplicateBlock, moveBlockBy, removeBlock } from '../editor/blockActions';
@@ -118,7 +118,12 @@ function useIsInFooter(blockId: string | null): boolean {
 function AddBlockButton({ rect }: { rect: Rect }): JSX.Element {
   const style: CSSProperties = { top: rect.top + rect.height, left: rect.left + rect.width / 2 };
   return (
-    <Button className="ve-add-here" icon="plus" style={style} onClick={openBlockLibrary}>
+    <Button
+      className="ve-add-here ve-compact-only"
+      icon="plus"
+      style={style}
+      onClick={openBlockLibrary}
+    >
       Add block
     </Button>
   );
@@ -178,7 +183,9 @@ function ModalNote({
 type BlockToolbarProps = { blockId: string; rect: Rect; name: string; overlayHeight: number };
 
 function BlockToolbar({ blockId, rect, name, overlayHeight }: BlockToolbarProps): JSX.Element {
-  const blockIds = useStore((state) => findBlockList(state.project, blockId));
+  const blockIds = useStore((state) =>
+    blockListOn(state.project, blockId, selectCurrentPage(state).id),
+  );
   const moreItems = useBlockMenuItems(blockId);
   const index = blockIds === null ? -1 : blockIds.indexOf(blockId);
   const count = blockIds === null ? 0 : blockIds.length;
@@ -217,12 +224,14 @@ function BlockToolbar({ blockId, rect, name, overlayHeight }: BlockToolbarProps)
         isLabelShown={false}
         items={moreItems}
       />
-      <IconButton
-        className="ve-compact-only"
-        label={`Edit ${name}`}
+      <Button
+        className="ve-compact-only ve-block-edit"
         icon="pencil"
-        onClick={() => dispatch(compactTabSelected('properties'))}
-      />
+        aria-label={`Edit ${name}`}
+        onClick={() => dispatch(propertiesOpened())}
+      >
+        Edit
+      </Button>
     </div>
   );
 }

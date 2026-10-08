@@ -1,7 +1,7 @@
-import { findBlockList } from '../../app/blockLists';
+import { blockListOn } from '../../app/blockLists';
 import { conversionRequested, dialogOpened } from '../../app/editorSlice';
 import { blockDisabledSet } from '../../app/projectSlice';
-import { dispatch, useStore } from '../../app/store';
+import { dispatch, selectCurrentPage, useStore } from '../../app/store';
 import { duplicateBlock, moveBlockBy, removeBlock } from './blockActions';
 import { copyBlockFromMenu, cutBlockFromMenu, pasteFromMenu } from './clipboard';
 import { type MenuItem } from '../../../packages/ui/src';
@@ -111,7 +111,9 @@ export function blockMenuItems(context: BlockMenuContext): MenuItem[] {
 
 export function useBlockMenuItems(blockId: string): MenuItem[] {
   const isDisabled = useStore((state) => state.project.blocks.entities[blockId]?.disabled ?? false);
-  const list = useStore((state) => findBlockList(state.project, blockId));
+  const list = useStore((state) =>
+    blockListOn(state.project, blockId, selectCurrentPage(state).id),
+  );
   const hasClipboard = useStore((state) => state.editor.clipboardText !== null);
   const canConvert = useStore(
     (state) => state.project.blocks.entities[blockId]?.kind === 'component',

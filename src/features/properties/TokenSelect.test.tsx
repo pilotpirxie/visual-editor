@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { Token } from '../../app/types';
-import { changeValue, render } from '../../test/dom';
+import { blur, changeValue, render } from '../../test/dom';
 import { TokenSelect } from './TokenSelect';
 
 const OPTIONS: Token[] = [
@@ -46,6 +46,7 @@ describe('TokenSelect', () => {
   it('drops an invalid draft when the value changes from outside', () => {
     const { container, onChange, rerender } = renderSelect('3px');
     changeValue(container.querySelector('input'), '3px }');
+    blur(container.querySelector('input'));
     expect(onChange).not.toHaveBeenCalled();
     expect(container.querySelector('[role="alert"]')).not.toBeNull();
     rerender(

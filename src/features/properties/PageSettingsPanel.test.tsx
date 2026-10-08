@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { pageAdded } from '../../app/projectSlice';
+import { pageAdded, siteMetaSet } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, store } from '../../app/store';
 import { blur, changeValue, click, getButton, render, runInAct } from '../../test/dom';
 import { loadIntoAppStore, shareNavAndFooter } from '../../test/fixtures';
@@ -61,6 +61,7 @@ describe('PageSettingsPanel', () => {
     changeValue(slug, 'start');
     expect(selectCurrentPage(store.getState()).slug).toBe('start');
     changeValue(slug, 'about');
+    blur(slug);
     expect(selectCurrentPage(store.getState()).slug).toBe('start');
     expect(container.querySelector('[role="alert"]')?.textContent).toBe(
       'Another page already uses this slug',
@@ -114,5 +115,66 @@ describe('PageSettingsPanel', () => {
     expect(selectCurrentPage(store.getState()).showSharedHeader).toBe(true);
     click(container.querySelector('#ve-page-shared-footer'));
     expect(selectCurrentPage(store.getState()).showSharedFooter).toBe(true);
+  });
+
+  it('shows the site defaults in the override choices and stores only real overrides', () => {
+    runInAct(() => {
+      dispatch(siteMetaSet('follow', false, 'discrete'));
+      dispatch(siteMetaSet('imagePreview', 'large', 'discrete'));
+    });
+    const { container } = render(<PageSettingsPanel />);
+    const follow = container.querySelector<HTMLSelectElement>('#ve-page-follow');
+    expect(follow?.options[0]?.textContent).toBe('Site default (No)');
+    const preview = container.querySelector<HTMLSelectElement>('#ve-page-image-preview');
+    expect(preview?.options[0]?.textContent).toBe('Site default (Large)');
+    changeValue(follow, 'yes');
+    expect(seo().follow).toBe(true);
+    changeValue(follow, '');
+    expect(seo()).not.toHaveProperty('follow');
+  });
+
+  it('offers the site keywords as the placeholder and stores page keywords', () => {
+    runInAct(() => dispatch(siteMetaSet('keywords', 'research', 'discrete')));
+    const { container } = render(<PageSettingsPanel />);
+    const keywords = container.querySelector<HTMLInputElement>('#ve-page-keywords');
+    expect(keywords?.placeholder).toBe('research');
+    changeValue(keywords, 'pricing, plans');
+    expect(seo().keywords).toBe('pricing, plans');
+  });
+
+  it('accepts only a full canonical address', () => {
+    const { container } = render(<PageSettingsPanel />);
+    const canonical = container.querySelector('#ve-page-canonical');
+    changeValue(canonical, 'other.example/page');
+    expect(seo().canonicalUrl).toBeUndefined();
+    changeValue(canonical, 'https://other.example/page');
+    expect(seo().canonicalUrl).toBe('https://other.example/page');
+  });
+
+  it('sets a page theme color from the site default and resets it', () => {
+    runInAct(() => dispatch(siteMetaSet('themeColor', '#112233', 'discrete')));
+    const { container } = render(<PageSettingsPanel />);
+    click(getButton(container, 'Choose color'));
+    expect(seo().themeColor).toBe('#112233');
+    click(getButton(container, 'Use the site default'));
+    expect(seo()).not.toHaveProperty('themeColor');
+  });
+
+  it('leaves the page out of the sitemap and stores its priority', () => {
+    const { container } = render(<PageSettingsPanel />);
+    click(container.querySelector('#ve-page-sitemap-excluded'));
+    expect(seo().sitemapExcluded).toBe(true);
+    const priority = container.querySelector<HTMLSelectElement>('#ve-page-priority');
+    expect(priority?.options[0]?.textContent).toBe('Site default (Not set)');
+    changeValue(priority, '0.8');
+    expect(seo().sitemapPriority).toBe(0.8);
+    changeValue(priority, '');
+    expect(seo()).not.toHaveProperty('sitemapPriority');
+  });
+
+  it('marks the kind of page for structured data', () => {
+    const { container } = render(<PageSettingsPanel />);
+    changeValue(container.querySelector('#ve-page-schema-type'), 'ContactPage');
+    expect(seo().schemaType).toBe('ContactPage');
   });
 });

@@ -27,11 +27,11 @@ test('a site can be built on a phone, one view at a time', async ({ page }) => {
   const tabs = page.locator('.ve-compact-tabs');
   await expect(tabs).toBeVisible();
   await expect(tabs.getByRole('button')).toHaveText([
-    'Blocks',
-    'Pages',
-    'Layers',
     'Canvas',
-    'Properties',
+    'Blocks',
+    'Layers',
+    'Pages',
+    'Settings',
   ]);
   await expect(page.locator('.ve-canvas')).toBeVisible();
   await markCanvasDocument(page);
@@ -76,6 +76,30 @@ async function startOnPhone(page: Page): Promise<void> {
   await expect(page.locator('.ve-compact-tabs')).toBeVisible();
 }
 
+async function chooseBlockOnPhone(page: Page, category: string, name: string): Promise<void> {
+  const allCategories = page.locator('.ve-library').getByRole('button', { name: 'All categories' });
+  if (await allCategories.isVisible()) await allCategories.tap();
+  await page.locator('.ve-categories button', { hasText: category }).tap();
+  await page.getByRole('button', { name }).tap();
+}
+
+test('Add block under the selected block opens the library and inserts after it', async ({
+  page,
+}) => {
+  await startOnPhone(page);
+  await tapTab(page, 'Blocks');
+  await chooseBlockOnPhone(page, 'Navigations', 'Navigation, logo left');
+  await tapTab(page, 'Blocks');
+  await chooseBlockOnPhone(page, 'Footers', 'Footer, simple');
+  const blocks = page.frameLocator('.ve-canvas-frame').locator('[data-component]');
+  await blocks.first().tap({ position: { x: 4, y: 4 } });
+  await page.getByRole('button', { name: 'Add block' }).tap();
+  await expect(page.locator('.ve-library')).toBeVisible();
+  await chooseBlockOnPhone(page, 'Headers', 'Hero, centered text');
+  await expect(blocks).toHaveCount(3);
+  await expect(blocks.nth(1)).toHaveAttribute('data-component', 'hero-centered');
+});
+
 async function horizontalOverflow(page: Page): Promise<number> {
   return page.evaluate(
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -110,11 +134,17 @@ test('pages can be added, renamed and set up on a phone', async ({ page }) => {
   await tapTab(page, 'Pages');
   await page.getByRole('button', { name: 'More actions for Pricing' }).tap();
   await page.getByRole('menuitem', { name: 'Page settings' }).tap();
-  await expect(
-    page.locator('.ve-compact-tabs').getByRole('button', { name: 'Properties' }),
-  ).toHaveAttribute('aria-current', 'page');
+  const properties = page.locator('.ve-properties');
+  await expect(properties.getByRole('heading', { name: 'Page settings' })).toBeVisible();
+  await expect(page.locator('.ve-compact-tabs [aria-current]')).toHaveCount(0);
   await page.getByLabel('Page title').fill('Plans and prices');
   await expect(page.getByLabel('Page title')).toHaveValue('Plans and prices');
+  await page.getByLabel('Follow links').selectOption('no');
+  await properties.getByRole('button', { name: 'Done' }).tap();
+  await expect(page.locator('.ve-canvas')).toBeVisible();
+  await expect(
+    page.locator('.ve-compact-tabs').getByRole('button', { name: 'Canvas' }),
+  ).toHaveAttribute('aria-current', 'page');
 });
 
 test('block actions are reachable from the Layers list without a right-click', async ({ page }) => {
@@ -145,15 +175,22 @@ test('the design system, project settings and export work on a phone', async ({ 
   expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
   await page.getByRole('button', { name: 'Close design' }).tap();
 
-  await page.getByRole('button', { name: /^File/ }).tap();
-  await page.getByRole('menuitem', { name: 'Project settings' }).tap();
+  await tapTab(page, 'Settings');
+  await expect(
+    page.locator('.ve-compact-tabs').getByRole('button', { name: 'Settings' }),
+  ).toHaveAttribute('aria-current', 'page');
   const settings = page.getByRole('tabpanel', { name: 'Settings' });
   await settings.getByLabel('Site title').fill('Pocket site');
+  await settings.getByText('Sitemap and robots.txt').tap();
+  await settings.getByRole('switch', { name: 'Block AI training crawlers' }).tap();
+  await expect(settings.getByRole('switch', { name: 'Block AI training crawlers' })).toBeChecked();
   const settingsBox = await settings.boundingBox();
   expect(settingsBox?.width ?? 0).toBeLessThanOrEqual(page.viewportSize()?.width ?? 0);
+  expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
   await expect(page).toHaveTitle(/ · Pocket site – Visual Editor$/);
 
-  await page.getByRole('button', { name: 'Export' }).tap();
+  await page.getByRole('button', { name: 'File', exact: true }).tap();
+  await page.getByRole('menuitem', { name: 'Export site…' }).tap();
   await expect(page.getByRole('dialog', { name: 'Export site' })).toBeVisible();
 });
 
@@ -172,10 +209,63 @@ test('a phone switches the canvas device from a menu and finds Help in the File 
   await page.goto('/');
   await page.getByRole('button', { name: 'New project' }).tap();
   await page.getByRole('button', { name: 'Start with Clean' }).tap();
-  await page.getByRole('button', { name: 'Device: Responsive' }).tap();
+  await page.getByRole('button', { name: 'View: Responsive' }).tap();
   await page.getByRole('menuitemcheckbox', { name: 'Phone (375 px)' }).tap();
-  await expect(page.getByRole('button', { name: 'Device: Phone' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'View: Phone' })).toBeVisible();
   await page.getByRole('button', { name: 'File', exact: true }).tap();
   await page.getByRole('menuitem', { name: 'Help' }).tap();
   await expect(page.getByRole('dialog', { name: 'Help' })).toBeVisible();
+});
+
+test('undo, redo and preview are one tap away on a phone', async ({ page }) => {
+  await startOnPhone(page);
+  await tapTab(page, 'Blocks');
+  await page.locator('.ve-categories button', { hasText: 'Headers' }).tap();
+  await page.getByRole('button', { name: 'Hero, centered text' }).tap();
+  const canvas = page.frameLocator('.ve-canvas-frame');
+  await expect(canvas.locator('.b-hero-centered')).toHaveCount(1);
+  await page.getByRole('button', { name: 'Undo', exact: true }).tap();
+  await expect(canvas.locator('.b-hero-centered')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Redo', exact: true }).tap();
+  await expect(canvas.locator('.b-hero-centered')).toHaveCount(1);
+
+  await page.getByRole('button', { name: 'View: Responsive' }).tap();
+  await page.getByRole('menuitem', { name: 'Preview' }).tap();
+  await expect(page.locator('.ve-compact-tabs')).toBeHidden();
+  await page.getByRole('button', { name: 'Exit preview' }).tap();
+  await expect(page.locator('.ve-compact-tabs')).toBeVisible();
+});
+
+test('a second tap on a selected heading edits it in place', async ({ page }) => {
+  await startOnPhone(page);
+  await tapTab(page, 'Blocks');
+  await page.locator('.ve-categories button', { hasText: 'Headers' }).tap();
+  await page.getByRole('button', { name: 'Hero, centered text' }).tap();
+  const canvas = page.frameLocator('.ve-canvas-frame');
+  const heading = canvas.locator('h1');
+  await heading.tap();
+  await expect(canvas.locator('[data-ve-inline-edit]')).toHaveCount(1);
+  await page.keyboard.press('Escape');
+  await expect(canvas.locator('[data-ve-inline-edit]')).toHaveCount(0);
+
+  await canvas.locator('.b-hero-centered .btn').first().tap();
+  await expect(page.locator('.ve-properties')).toBeVisible();
+  await expect(page.locator('.ve-compact-tabs [aria-current]')).toHaveCount(0);
+});
+
+test.describe('on the narrowest phones', () => {
+  test.use({ viewport: { width: 320, height: 640 } });
+
+  test('the toolbar and the tab bar fit without scrolling sideways', async ({ page }) => {
+    await startOnPhone(page);
+    for (const control of await page.locator('.ve-toolbar :is(button, a):visible').all()) {
+      const box = await control.boundingBox();
+      expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
+      expect(box?.width ?? 0).toBeGreaterThanOrEqual(44);
+    }
+    await expect(page.locator('.ve-compact-tabs').getByRole('button')).toHaveCount(5);
+    expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+    await tapTab(page, 'Settings');
+    expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+  });
 });

@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from 'react';
+import { useEffect, useMemo, useState, type JSX } from 'react';
 import { describeError } from '../../app/errors';
 import { fontSet } from '../../app/projectSlice';
 import { dispatch } from '../../app/store';
@@ -30,9 +30,8 @@ export function previewWeight(family: FontFamily): number {
 }
 
 export function loadPreviewFont(doc: Document, family: string, weight: number): void {
-  for (const link of doc.head.querySelectorAll('link[data-font-preview]')) {
-    if (link.getAttribute('data-font-preview') === family) return;
-  }
+  const selector = `link[data-font-preview="${CSS.escape(family)}"]`;
+  if (doc.head.querySelector(selector) !== null) return;
   const link = doc.createElement('link');
   link.rel = 'stylesheet';
   link.href = previewFontHref(family, weight);
@@ -114,8 +113,11 @@ export function FontBrowser({
   const [category, setCategory] = useState<FontCategory | null>(null);
   const [shownCount, setShownCount] = useState(PAGE_SIZE);
   const [list, setList] = useState<HTMLUListElement | null>(null);
-  const matches = searchFonts(families, query, category);
-  const shown = matches.slice(0, shownCount);
+  const matches = useMemo(
+    () => searchFonts(families, query, category),
+    [families, query, category],
+  );
+  const shown = useMemo(() => matches.slice(0, shownCount), [matches, shownCount]);
   useFontPreviews(list, shown);
 
   const categoryOptions = [{ value: '', label: 'All categories' }, ...CATEGORY_OPTIONS];

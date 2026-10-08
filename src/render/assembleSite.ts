@@ -1,5 +1,7 @@
+import { AI_CRAWLERS } from '../app/settingsRules';
 import { slugify } from '../app/slugs';
-import type { Asset, FontSelection, Page, Project } from '../app/types';
+import type { Asset, FontSelection, Page, Project, ProjectSettings, Token } from '../app/types';
+import { resolveColor } from '../features/design-system/colors';
 import { iconSetInfo } from '../../packages/icon-data/src/sets';
 import { escapeHtml } from './attributes';
 import { buildSiteCss } from './css';
@@ -10,6 +12,8 @@ import {
   buildPageHead,
   IMAGES_FOLDER,
   isPageIndexed,
+  MANIFEST_PATH,
+  resolvePageMeta,
   SITE_CSS_PATH,
 } from './pageHead';
 
@@ -39,6 +43,7 @@ export type ExportInput = {
   pages: PreparedPage[];
   iconSets: string[];
   placeholders: PreparedFile[];
+  uploads: PreparedFile[];
   componentStyles: string[];
   omittedComponents: number;
 };
@@ -68,6 +73,8 @@ const IMAGE_EXTENSIONS: Record<string, string> = {
 const DATA_URL = /^data:(?<mimeType>[^;,]+);base64,(?<data>.*)$/;
 const FILE_EXTENSION = /\.[a-z0-9]+$/i;
 const ASSET_ID_LENGTH = 8;
+const LINE_BREAK = /\r?\n/;
+const MANIFEST_INDENT = 2;
 
 export function dataUrlToBlob(dataUrl: string): Blob {
   const parts = DATA_URL.exec(dataUrl)?.groups;
@@ -86,11 +93,39 @@ function assetFileName(asset: Asset): string {
   return `${IMAGES_FOLDER}/${baseName}-${asset.id.slice(0, ASSET_ID_LENGTH)}.${extension}`;
 }
 
+const PNG_SIGNATURE_LENGTH = 8;
+const PNG_WIDTH_OFFSET = 16;
+const PNG_HEIGHT_OFFSET = 20;
+const PNG_HEADER_LENGTH = 24;
+const PNG_HEADER_BASE64_LENGTH = 32;
+const PNG_SIGNATURE = [137, 80, 78, 71, 13, 10, 26, 10];
+
+export type ImageSize = { width: number; height: number };
+
+export function pngSize(dataUrl: string): ImageSize | null {
+  const data = DATA_URL.exec(dataUrl)?.groups?.data;
+  if (data === undefined) return null;
+  let binary: string;
+  try {
+    binary = atob(data.slice(0, PNG_HEADER_BASE64_LENGTH));
+  } catch (error) {
+    console.warn('Could not read the size of a PNG image', error);
+    return null;
+  }
+  if (binary.length < PNG_HEADER_LENGTH) return null;
+  for (let index = 0; index < PNG_SIGNATURE_LENGTH; index += 1) {
+    if (binary.charCodeAt(index) !== PNG_SIGNATURE[index]) return null;
+  }
+  const view = new DataView(Uint8Array.from(binary, (char) => char.charCodeAt(0)).buffer);
+  return { width: view.getUint32(PNG_WIDTH_OFFSET), height: view.getUint32(PNG_HEIGHT_OFFSET) };
+}
+
 function usedAssetIds(site: ExportSite): string[] {
   const assetIds: string[] = [];
-  const { faviconAssetId, socialImageAssetId } = site.settings;
+  const { faviconAssetId, socialImageAssetId, appIconAssetId } = site.settings;
   if (faviconAssetId !== undefined) assetIds.push(faviconAssetId);
   if (socialImageAssetId !== undefined) assetIds.push(socialImageAssetId);
+  if (appIconAssetId !== undefined) assetIds.push(appIconAssetId);
   for (const pageId of site.pages.ids) {
     const assetId = site.pages.entities[pageId]?.seo.socialImageAssetId;
     if (assetId !== undefined) assetIds.push(assetId);
@@ -163,34 +198,104 @@ type IndexedFile = { page: Page; fileName: string };
 
 type PageFile = IndexedFile & { prepared: PreparedPage };
 
-export function buildSitemap(site: Pick<Project, 'settings'>, files: IndexedFile[]): string | null {
-  const locations: string[] = [];
-  for (const { page, fileName } of files) {
-    const location = absoluteUrl(site.settings.baseUrl, fileName);
-    if (location !== null && isPageIndexed(site, page)) locations.push(location);
+function sitemapEntry(location: string, site: Pick<Project, 'settings'>, page: Page): string {
+  const meta = resolvePageMeta(site, page);
+  let entry = `<loc>${escapeHtml(location)}</loc>`;
+  if (meta.sitemapFrequency !== undefined) {
+    entry += `<changefreq>${meta.sitemapFrequency}</changefreq>`;
   }
-  if (locations.length === 0) return null;
-  const lines = [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  ];
-  for (const location of locations) lines.push(`  <url><loc>${escapeHtml(location)}</loc></url>`);
-  lines.push('</urlset>', '');
-  return lines.join('\n');
+  if (meta.sitemapPriority !== undefined) {
+    entry += `<priority>${meta.sitemapPriority.toFixed(1)}</priority>`;
+  }
+  return `  <url>${entry}</url>`;
 }
 
-export function buildRobotsTxt(sitemapUrl: string | null): string {
-  const lines = ['User-agent: *', 'Allow: /'];
+export function buildSitemap(site: Pick<Project, 'settings'>, files: IndexedFile[]): string | null {
+  const entries: string[] = [];
+  for (const { page, fileName } of files) {
+    const location = absoluteUrl(site.settings.baseUrl, fileName);
+    const isListed = isPageIndexed(site, page) && page.seo.sitemapExcluded !== true;
+    if (location !== null && isListed) entries.push(sitemapEntry(location, site, page));
+  }
+  if (entries.length === 0) return null;
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...entries,
+    '</urlset>',
+    '',
+  ].join('\n');
+}
+
+function extraRobotsLines(rules: string | undefined): string[] {
+  const lines: string[] = [];
+  for (const line of rules?.split(LINE_BREAK) ?? []) {
+    if (line.trim() !== '') lines.push(line.trim());
+  }
+  return lines;
+}
+
+export function buildRobotsTxt(settings: ProjectSettings, sitemapUrl: string | null): string {
+  const lines = ['User-agent: *', 'Allow: /', ...extraRobotsLines(settings.robotsRules)];
+  if (settings.blockAiCrawlers === true) {
+    lines.push('');
+    for (const crawler of AI_CRAWLERS) lines.push(`User-agent: ${crawler}`);
+    lines.push('Disallow: /');
+  }
   if (sitemapUrl !== null) lines.push('', `Sitemap: ${sitemapUrl}`);
   return `${lines.join('\n')}\n`;
 }
 
+function hasRobotsRules(settings: ProjectSettings): boolean {
+  return settings.blockAiCrawlers === true || extraRobotsLines(settings.robotsRules).length > 0;
+}
+
 function addSearchEngineFiles(files: ExportFiles, site: ExportSite, pages: IndexedFile[]): void {
-  if (absoluteUrl(site.settings.baseUrl, SITEMAP_PATH) === null) return;
   const sitemap = buildSitemap(site, pages);
-  if (sitemap !== null) files[SITEMAP_PATH] = sitemap;
-  const sitemapUrl = sitemap === null ? null : absoluteUrl(site.settings.baseUrl, SITEMAP_PATH);
-  files[ROBOTS_PATH] = buildRobotsTxt(sitemapUrl);
+  const sitemapUrl = absoluteUrl(site.settings.baseUrl, SITEMAP_PATH);
+  if (sitemap !== null && sitemapUrl !== null) files[SITEMAP_PATH] = sitemap;
+  if (sitemapUrl === null && !hasRobotsRules(site.settings)) return;
+  files[ROBOTS_PATH] = buildRobotsTxt(site.settings, sitemap === null ? null : sitemapUrl);
+}
+
+function manifestColor(
+  value: string | undefined,
+  tokens: Record<string, Token>,
+): string | undefined {
+  if (value === undefined) return undefined;
+  return resolveColor(value, tokens);
+}
+
+export function buildWebManifest(
+  site: ExportSite,
+  assetFiles: Record<string, string>,
+): string | null {
+  const { settings, assets, designSystem } = site;
+  const iconId = settings.appIconAssetId;
+  const icon = iconId === undefined ? undefined : assets[iconId];
+  const iconFile = iconId === undefined ? undefined : assetFiles[iconId];
+  if (icon === undefined || iconFile === undefined) return null;
+  const size = pngSize(icon.dataUrl);
+  const manifest = {
+    name: settings.title,
+    short_name: settings.appName?.trim() || settings.title,
+    description: settings.description.trim() || undefined,
+    lang: settings.language,
+    dir: textDirection(settings.language),
+    start_url: './',
+    scope: './',
+    display: 'browser',
+    theme_color: manifestColor(settings.themeColor, designSystem.tokens),
+    background_color: manifestColor(settings.backgroundColor, designSystem.tokens),
+    icons: [
+      {
+        src: iconFile,
+        sizes: size === null ? undefined : `${size.width}x${size.height}`,
+        type: icon.mimeType,
+      },
+    ],
+  };
+  return `${JSON.stringify(manifest, null, MANIFEST_INDENT)}\n`;
 }
 
 type PageDocument = {
@@ -237,9 +342,11 @@ function knownBehaviors(names: Set<string>, runtime: SiteRuntimeChunks, notes: s
 }
 
 function pageHtml(pages: PreparedPage[]): string {
-  const lines: string[] = [];
-  for (const { blocks } of pages) lines.push(...blocks.header, ...blocks.main, ...blocks.footer);
-  return lines.join('\n');
+  const uniqueBlocks = new Set<string>();
+  for (const { blocks } of pages) {
+    for (const html of [...blocks.header, ...blocks.main, ...blocks.footer]) uniqueBlocks.add(html);
+  }
+  return [...uniqueBlocks].join('\n');
 }
 
 function pageFilesOf(site: ExportSite, pages: PreparedPage[]): PageFile[] {
@@ -287,7 +394,10 @@ export function assembleSite(input: ExportInput, runtime: SiteRuntimeChunks): Ex
     if (asset !== undefined) files[fileName] = dataUrlToBlob(asset.dataUrl);
   }
   for (const { path, content } of input.placeholders) files[path] = content;
+  for (const { path, content } of input.uploads) files[path] = dataUrlToBlob(content);
   files[LICENSES_PATH] = buildLicensesText(input.iconSets, fonts);
+  const manifest = buildWebManifest(site, assetFiles);
+  if (manifest !== null) files[MANIFEST_PATH] = manifest;
   addSearchEngineFiles(files, site, pageFiles);
 
   return {

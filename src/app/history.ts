@@ -44,22 +44,30 @@ function editMetaOf(action: UnknownAction): EditMeta | null {
   return null;
 }
 
-function isSingleReplace(patches: Patch[]): boolean {
-  return patches.length === 1 && patches[0]?.op === 'replace';
+const PATH_SEPARATOR = '\u0000';
+
+function replacedPaths(patches: Patch[]): Set<string> | null {
+  const paths = new Set<string>();
+  for (const patch of patches) {
+    if (patch.op !== 'replace') return null;
+    paths.add(patch.path.join(PATH_SEPARATOR));
+  }
+  return paths.size === patches.length ? paths : null;
 }
 
-function hasSamePath(left: Patch | undefined, right: Patch | undefined): boolean {
-  if (left === undefined || right === undefined) return false;
-  if (left.path.length !== right.path.length) return false;
-  return left.path.every((part, index) => part === right.path[index]);
+function replacesSamePaths(earlier: Patch[], later: Patch[]): boolean {
+  const earlierPaths = replacedPaths(earlier);
+  const laterPaths = replacedPaths(later);
+  if (earlierPaths === null || laterPaths === null) return false;
+  if (earlierPaths.size === 0 || earlierPaths.size !== laterPaths.size) return false;
+  for (const path of laterPaths) {
+    if (!earlierPaths.has(path)) return false;
+  }
+  return true;
 }
 
 function mergeSteps(earlier: HistoryStep, later: HistoryStep): HistoryStep {
-  const isSameFieldEdit =
-    isSingleReplace(earlier.patches) &&
-    isSingleReplace(later.patches) &&
-    hasSamePath(earlier.patches[0], later.patches[0]);
-  if (isSameFieldEdit) {
+  if (replacesSamePaths(earlier.patches, later.patches)) {
     return { patches: later.patches, inversePatches: earlier.inversePatches };
   }
   return {

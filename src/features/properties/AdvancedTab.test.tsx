@@ -3,7 +3,7 @@ import { blockSelected, propertiesTabChanged } from '../../app/editorSlice';
 import { undo } from '../../app/history';
 import { blockAdvancedSet } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
-import { changeValue, click, render, runInAct } from '../../test/dom';
+import { blur, changeValue, click, render, runInAct } from '../../test/dom';
 import { homePage, loadIntoAppStore } from '../../test/fixtures';
 import { PropertiesPanel } from './PropertiesPanel';
 
@@ -51,6 +51,7 @@ describe('AdvancedTab', () => {
     const { container } = render(<PropertiesPanel />);
     openAdvanced(1);
     changeValue(input(container, 've-advanced-anchor'), 'Top');
+    blur(input(container, 've-advanced-anchor'));
     expect(blockAt(1).anchor).toBeUndefined();
     expect(container.querySelector('[role="alert"]')?.textContent).toBe(
       'Use lowercase letters, digits and hyphens, starting with a letter',
@@ -64,6 +65,7 @@ describe('AdvancedTab', () => {
     );
     openAdvanced(1);
     changeValue(input(container, 've-advanced-anchor'), 'features');
+    blur(input(container, 've-advanced-anchor'));
     expect(blockAt(1).anchor).toBeUndefined();
     expect(container.querySelector('[role="alert"]')?.textContent).toBe(
       'Another block on this page already uses #features',

@@ -1,8 +1,8 @@
-import { useRef, useState, type JSX, type KeyboardEvent, type PointerEvent } from 'react';
+import { useMemo, useRef, useState, type JSX, type KeyboardEvent, type PointerEvent } from 'react';
 import { blockSelected } from '../../app/editorSlice';
 import { blockDisabledSet } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, selectShownSlot, useStore } from '../../app/store';
-import type { Block } from '../../app/types';
+import type { Block, Project } from '../../app/types';
 import { blockLabel, type DefinitionSource } from '../../components/registry';
 import { dragController } from '../canvas/dragController';
 import { dropEdgeAt } from '../canvas/geometry';
@@ -35,16 +35,25 @@ function layerName(block: Block | undefined, blockId: string, project: Definitio
   return blockLabel(block, project);
 }
 
-function useLayerRows(blockIds: string[]): LayerRow[] {
-  const blocks = useStore((state) => state.project.blocks.entities);
-  const packBlocks = useStore((state) => state.project.packBlocks);
+function layerRowsOf(
+  project: Pick<Project, 'blocks' | 'packBlocks'>,
+  blockIds: string[],
+): LayerRow[] {
   const rows: LayerRow[] = [];
   for (const id of blockIds) {
-    const block = blocks[id];
-    const name = layerName(block, id, { packBlocks });
+    const block = project.blocks.entities[id];
+    const name = layerName(block, id, project);
     rows.push({ id, name, isDisabled: block?.disabled === true });
   }
   return rows;
+}
+
+function useLayerRows(blockIds: string[]): LayerRow[] {
+  const rowsKey = useStore((state) => JSON.stringify(layerRowsOf(state.project, blockIds)));
+  return useMemo(() => {
+    const rows: LayerRow[] = JSON.parse(rowsKey);
+    return rows;
+  }, [rowsKey]);
 }
 
 function LayerMenuButton({ row, tabIndex }: { row: LayerRow; tabIndex: number }): JSX.Element {

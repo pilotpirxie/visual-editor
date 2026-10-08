@@ -22,7 +22,7 @@ import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import { LicensesDialog, NewProjectDialog } from '../../app/lazyDialogs';
 import { DeleteProjectDialog } from './DeleteProjectDialog';
 import { duplicateProject, formatLastEdit, withTitle } from './projects';
-import { PageThumbnail, StarterGallery } from './StarterGallery';
+import { PageThumbnail, StarterGallery, useIsNearViewport } from './StarterGallery';
 import './home.css';
 import { Button, Icon, IconButton, TextInput, Title } from '../../../packages/ui/src';
 
@@ -53,9 +53,12 @@ async function loadThumbnailProject(projectId: string): Promise<Project | null> 
 
 function ProjectThumbnail({ summary }: { summary: ProjectSummary }): JSX.Element {
   const [project, setProject] = useState<Project | null>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+  const isNear = useIsNearViewport(boxRef);
   const { id, updatedAt } = summary;
 
   useEffect(() => {
+    if (!isNear) return;
     let isCancelled = false;
     async function load(): Promise<void> {
       try {
@@ -69,9 +72,9 @@ function ProjectThumbnail({ summary }: { summary: ProjectSummary }): JSX.Element
     return () => {
       isCancelled = true;
     };
-  }, [id, updatedAt]);
+  }, [id, updatedAt, isNear]);
 
-  if (project === null) return <div className="ve-page-thumbnail" />;
+  if (project === null) return <div className="ve-page-thumbnail" ref={boxRef} />;
   return <PageThumbnail project={project} />;
 }
 

@@ -34,6 +34,7 @@ function withLinkedAbout(): Project {
     dataUrl: 'data:image/png;base64,aGk=',
   };
   project.settings.faviconAssetId = 'a1';
+  project.settings.appIconAssetId = 'a1';
   return project;
 }
 
@@ -55,6 +56,7 @@ describe('copyProjectWithNewIds', () => {
       'footer-simple',
     );
     expect(copy.assets[copy.settings.faviconAssetId ?? '']?.name).toBe('icon.png');
+    expect(copy.assets[copy.settings.appIconAssetId ?? '']?.name).toBe('icon.png');
   });
 
   it('leaves the original project untouched', () => {

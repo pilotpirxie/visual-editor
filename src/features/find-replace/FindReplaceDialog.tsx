@@ -1,4 +1,12 @@
-import { useDeferredValue, useMemo, useState, type FormEvent, type JSX } from 'react';
+import {
+  memo,
+  useCallback,
+  useDeferredValue,
+  useMemo,
+  useState,
+  type FormEvent,
+  type JSX,
+} from 'react';
 import {
   blockSelected,
   dialogClosed,
@@ -93,10 +101,10 @@ type MatchRowProps = {
   match: FindMatch;
   isSelected: boolean;
   canReplace: boolean;
-  onToggle(isSelected: boolean): void;
+  onToggle(matchId: string, isSelected: boolean): void;
 };
 
-function MatchRow({
+const MatchRow = memo(function MatchRow({
   project,
   match,
   isSelected,
@@ -120,7 +128,7 @@ function MatchRow({
         <Checkbox
           label={text}
           checked={isSelected}
-          onChange={(event) => onToggle(event.currentTarget.checked)}
+          onChange={(event) => onToggle(match.id, event.currentTarget.checked)}
         />
       ) : (
         text
@@ -130,7 +138,7 @@ function MatchRow({
       </Button>
     </li>
   );
-}
+});
 
 function matchesLabel(count: number): string {
   return count === 1 ? '1 match' : `${count} matches`;
@@ -158,18 +166,20 @@ export function FindReplaceDialog({ onClose }: { onClose(): void }): JSX.Element
     [project, searchedQuery, options],
   );
   const selected = matches.filter((match) => !deselectedIds.has(match.id));
-  const groups = groupMatches(project, matches);
+  const groups = useMemo(() => groupMatches(project, matches), [project, matches]);
   const hasQuery = searchedQuery.trim() !== '';
 
-  function toggle(match: FindMatch, isSelected: boolean): void {
-    const next = new Set(deselectedIds);
-    if (isSelected) {
-      next.delete(match.id);
-    } else {
-      next.add(match.id);
-    }
-    setDeselectedIds(next);
-  }
+  const toggle = useCallback((matchId: string, isSelected: boolean): void => {
+    setDeselectedIds((previous) => {
+      const next = new Set(previous);
+      if (isSelected) {
+        next.delete(matchId);
+      } else {
+        next.add(matchId);
+      }
+      return next;
+    });
+  }, []);
 
   function replace(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
@@ -239,7 +249,7 @@ export function FindReplaceDialog({ onClose }: { onClose(): void }): JSX.Element
                       match={match}
                       isSelected={!deselectedIds.has(match.id)}
                       canReplace={!isReadOnly}
-                      onToggle={(isSelected) => toggle(match, isSelected)}
+                      onToggle={toggle}
                     />
                   ))}
                 </ul>

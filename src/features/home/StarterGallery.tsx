@@ -1,4 +1,12 @@
-import { useEffect, useMemo, useRef, useState, type JSX, type ReactNode } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type JSX,
+  type ReactNode,
+  type RefObject,
+} from 'react';
 import { describeError } from '../../app/errors';
 import type { Project } from '../../app/types';
 import { componentsFor } from '../../components/registry';
@@ -62,9 +70,28 @@ function pageNamesOf(project: Project): string[] {
   return names;
 }
 
-export function PageThumbnail({ project }: { project: Project }): JSX.Element {
-  const boxRef = useRef<HTMLDivElement>(null);
-  const { width } = useElementSize(boxRef);
+const NEAR_VIEWPORT_MARGIN = '300px';
+
+export function useIsNearViewport(ref: RefObject<HTMLElement | null>): boolean {
+  const [isNear, setIsNear] = useState(false);
+  useEffect(() => {
+    const element = ref.current;
+    if (element === null || isNear) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        setIsNear(true);
+      },
+      { rootMargin: NEAR_VIEWPORT_MARGIN },
+    );
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [ref, isNear]);
+  return isNear;
+}
+
+function ThumbnailFrame({ project, width }: { project: Project; width: number }): JSX.Element {
   const html = useMemo(
     () =>
       renderStandalonePage(project, project.pages.homePageId, componentsFor(project), {
@@ -73,19 +100,28 @@ export function PageThumbnail({ project }: { project: Project }): JSX.Element {
     [project],
   );
   return (
+    <iframe
+      sandbox=""
+      srcDoc={html}
+      loading="lazy"
+      tabIndex={-1}
+      aria-hidden="true"
+      style={{
+        width: THUMBNAIL_WIDTH,
+        height: THUMBNAIL_HEIGHT,
+        transform: `scale(${width / THUMBNAIL_WIDTH})`,
+      }}
+    />
+  );
+}
+
+export function PageThumbnail({ project }: { project: Project }): JSX.Element {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const { width } = useElementSize(boxRef);
+  const isNear = useIsNearViewport(boxRef);
+  return (
     <div className="ve-page-thumbnail" ref={boxRef}>
-      <iframe
-        sandbox=""
-        srcDoc={html}
-        loading="lazy"
-        tabIndex={-1}
-        aria-hidden="true"
-        style={{
-          width: THUMBNAIL_WIDTH,
-          height: THUMBNAIL_HEIGHT,
-          transform: `scale(${width / THUMBNAIL_WIDTH})`,
-        }}
-      />
+      {isNear && <ThumbnailFrame project={project} width={width} />}
     </div>
   );
 }

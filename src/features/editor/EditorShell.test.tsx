@@ -3,6 +3,7 @@ import {
   compactTabSelected,
   panelToggled,
   previewToggled,
+  propertiesOpened,
   readOnlyChanged,
 } from '../../app/editorSlice';
 import { settingSet } from '../../app/projectSlice';
@@ -35,11 +36,24 @@ beforeEach(() => {
 });
 
 describe('CompactTabs', () => {
-  it('offers the five editor views and marks the current one', () => {
+  it('offers the canvas and the library views and marks the current one', () => {
     const { container } = render(<CompactTabs />);
     const labels = [...container.querySelectorAll('button')].map((button) => button.textContent);
-    expect(labels).toEqual(['Blocks', 'Pages', 'Layers', 'Canvas', 'Properties']);
+    expect(labels).toEqual(['Canvas', 'Blocks', 'Layers', 'Pages', 'Settings']);
     expect(getButton(container, 'Canvas').getAttribute('aria-current')).toBe('page');
+  });
+
+  it('opens project settings from its own tab', () => {
+    const { container } = render(<CompactTabs />);
+    click(getButton(container, 'Settings'));
+    expect(store.getState().editor.libraryTab).toBe('settings');
+    expect(getButton(container, 'Settings').getAttribute('aria-current')).toBe('page');
+  });
+
+  it('marks no tab while the properties view is open', () => {
+    const { container } = render(<CompactTabs />);
+    runInAct(() => dispatch(propertiesOpened()));
+    expect(container.querySelector('[aria-current]')).toBeNull();
   });
 
   it('opens the pages list from its own tab', () => {
@@ -112,9 +126,14 @@ describe('EditorShell', () => {
 
   it('switches the compact view from the tab bar', () => {
     const { container } = render(<EditorShell />);
-    click(getButton(container, 'Properties'));
-    expect(container.querySelector<HTMLElement>('.ve-shell')?.dataset.compactView).toBe(
-      'properties',
-    );
+    click(getButton(container.querySelector('.ve-compact-tabs') ?? container, 'Layers'));
+    expect(container.querySelector<HTMLElement>('.ve-shell')?.dataset.compactView).toBe('library');
+  });
+
+  it('returns from the properties view to the canvas with Done', () => {
+    const { container } = render(<EditorShell />);
+    runInAct(() => dispatch(propertiesOpened()));
+    click(getButton(container.querySelector('.ve-properties') ?? container, 'Done'));
+    expect(store.getState().editor.compactView).toBe('canvas');
   });
 });

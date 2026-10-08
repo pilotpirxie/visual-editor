@@ -124,9 +124,20 @@ function formatNode(node: Node, depth: number, lines: string[]): void {
   if (!VOID_ELEMENTS.has(node.localName)) lines.push(`${indent}</${node.localName}>`);
 }
 
-export function formatHtml(html: string, depth = 0): string {
+function removeAttributes(root: DocumentFragment, names: readonly string[]): void {
+  for (const name of names) {
+    for (const element of root.querySelectorAll(`[${name}]`)) element.removeAttribute(name);
+  }
+}
+
+export function formatHtml(
+  html: string,
+  depth = 0,
+  removedAttributes: readonly string[] = [],
+): string {
   const template = document.createElement('template');
   template.innerHTML = html;
+  removeAttributes(template.content, removedAttributes);
   const lines: string[] = [];
   formatChildren(template.content, depth, lines);
   return lines.join('\n');

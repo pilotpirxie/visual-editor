@@ -38,4 +38,12 @@ describe('formatHtml', () => {
       '<div title="a &amp; &quot;b&quot;">',
     );
   });
+
+  it('drops the given attributes from every element while formatting', () => {
+    expect(
+      formatHtml('<section data-field="a"><p data-field="b" class="x">Text</p></section>', 0, [
+        'data-field',
+      ]),
+    ).toBe(['<section>', '  <p class="x">Text</p>', '</section>'].join('\n'));
+  });
 });

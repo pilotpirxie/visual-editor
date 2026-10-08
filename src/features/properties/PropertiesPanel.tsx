@@ -16,6 +16,7 @@ import { ContentTab } from './ContentTab';
 import { PageSettingsPanel } from './PageSettingsPanel';
 import { StyleTab } from './StyleTab';
 import { removeBlock } from '../editor/blockActions';
+import { BackToCanvasButton } from '../editor/CompactTabs';
 import { Button, Switch, Tabs, Title } from '../../../packages/ui/src';
 import './properties.css';
 
@@ -72,6 +73,7 @@ function PanelHeading({ title, detail }: { title: string; detail: string | null 
     <div className="ve-panel-heading">
       <Title>{title}</Title>
       {detail !== null && <span className="ve-panel-detail">{detail}</span>}
+      <BackToCanvasButton />
     </div>
   );
 }

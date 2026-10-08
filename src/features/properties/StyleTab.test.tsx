@@ -3,6 +3,7 @@ import { blockSelected, propertiesTabChanged } from '../../app/editorSlice';
 import { undo } from '../../app/history';
 import { dispatch, store } from '../../app/store';
 import {
+  blur,
   changeValue,
   choiceInput,
   click,
@@ -111,6 +112,7 @@ describe('StyleTab', () => {
     const custom = row(container, '--section-padding-y').querySelector('input[type="text"]');
     expect(custom).toHaveProperty('value', 'clamp(3rem, 2rem + 4vw, 6rem)');
     changeValue(custom, '1rem; color: red');
+    blur(custom);
     expect(overridesOf(heroId)['--section-padding-y']).toBe('clamp(3rem, 2rem + 4vw, 6rem)');
     expect(container.querySelector('[role="alert"]')?.textContent).toBe(
       'Use a CSS value such as 2rem or 24px',

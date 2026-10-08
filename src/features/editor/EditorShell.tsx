@@ -1,4 +1,5 @@
 import {
+  memo,
   Suspense,
   useEffect,
   useRef,
@@ -35,6 +36,13 @@ function ConversionHost(): JSX.Element | null {
     </Suspense>
   );
 }
+
+const ToolbarPanel = memo(Toolbar);
+const LibraryColumn = memo(LibraryPanel);
+const CanvasArea = memo(Canvas);
+const PropertiesColumn = memo(PropertiesPanel);
+const CompactTabBar = memo(CompactTabs);
+const ShellDialogs = memo(EditorDialogs);
 
 const APP_NAME = 'Visual Editor';
 const LIBRARY_ID = 've-library';
@@ -126,7 +134,7 @@ export function EditorShell(): JSX.Element {
         Skip to canvas
       </a>
       <PanelBoundary name="toolbar" className="ve-toolbar">
-        <Toolbar />
+        <ToolbarPanel />
       </PanelBoundary>
       {isPreview && !isReadOnly && (
         <div className="ve-preview-exit">
@@ -134,7 +142,7 @@ export function EditorShell(): JSX.Element {
         </div>
       )}
       <PanelBoundary name="library panel" className="ve-panel ve-library">
-        <LibraryPanel />
+        <LibraryColumn />
       </PanelBoundary>
       <ResizeHandle side="left" />
       {isDrawerOpen && (
@@ -145,11 +153,11 @@ export function EditorShell(): JSX.Element {
         />
       )}
       <PanelBoundary name="canvas" className="ve-canvas">
-        <Canvas />
+        <CanvasArea />
       </PanelBoundary>
       <ResizeHandle side="right" />
       <PanelBoundary name="properties panel" className="ve-panel ve-properties">
-        <PropertiesPanel />
+        <PropertiesColumn />
       </PanelBoundary>
       {isDesignSheetOpen && (
         <PanelBoundary name="design system panel" className="ve-design-sheet">
@@ -158,12 +166,12 @@ export function EditorShell(): JSX.Element {
           </Suspense>
         </PanelBoundary>
       )}
-      <CompactTabs />
+      <CompactTabBar />
       <DragGhost />
       <LiveAnnouncer />
       <PanelBoundary name="dialog">
         <ConversionHost />
-        <EditorDialogs />
+        <ShellDialogs />
       </PanelBoundary>
     </div>
   );

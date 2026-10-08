@@ -4,6 +4,7 @@ import { definitionOf } from '../../components/registry';
 import { asListItems, isButtonValue, isImageValue, isLinkValue } from '../../components/fields';
 import type { Field, LinkValue } from '../../components/types';
 import { normalizeRichText } from '../../render/sanitize';
+import { cachedByText } from '../../render/textCache';
 
 export type SearchOptions = { isCaseSensitive: boolean; isWholeWord: boolean };
 
@@ -55,11 +56,13 @@ export function buildPattern(query: string, options: SearchOptions): RegExp | nu
   return new RegExp(source, flags);
 }
 
-function richTextContent(html: string): string {
+const RICH_TEXT_CACHE_SIZE = 2000;
+
+const richTextContent = cachedByText(RICH_TEXT_CACHE_SIZE, (html) => {
   const template = document.createElement('template');
   template.innerHTML = html;
   return template.content.textContent ?? '';
-}
+});
 
 function replaceInRichText(html: string, pattern: RegExp, replacement: string): string {
   const template = document.createElement('template');

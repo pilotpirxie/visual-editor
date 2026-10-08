@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { designSheetToggled } from '../../app/editorSlice';
 import { dispatch, store } from '../../app/store';
-import { changeValue, click, getButton, pressKey, render, runInAct } from '../../test/dom';
+import { blur, changeValue, click, getButton, pressKey, render, runInAct } from '../../test/dom';
 import { loadIntoAppStore } from '../../test/fixtures';
 import { DesignSystemSheet } from './DesignSystemSheet';
 
@@ -63,6 +63,7 @@ describe('DesignSystemSheet', () => {
   it('keeps an out-of-range base size as a draft with a message', () => {
     const { container } = render(<DesignSystemSheet />);
     changeValue(input(container, '#ve-space-unit'), '40');
+    blur(input(container, '#ve-space-unit'));
     expect(tokenValue('--space-4')).toBe('1rem');
     expect(container.querySelector('[role="alert"]')?.textContent).toBe('Use 2 to 12 px');
   });

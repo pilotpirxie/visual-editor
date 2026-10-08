@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { changeValue, render } from '../../../src/test/dom';
+import { blur, changeValue, render } from '../../../src/test/dom';
 import { DraftInput } from './DraftInput';
 
 function validateSlug(text: string): string | null {
@@ -17,7 +17,7 @@ describe('DraftInput', () => {
     expect(container.querySelector('[role="alert"]')).toBeNull();
   });
 
-  it('keeps invalid text as a draft with an error and does not commit it', () => {
+  it('keeps invalid text as a draft and explains it once the field is left', () => {
     const onCommit = vi.fn();
     const { container } = render(
       <DraftInput id="slug" value="about" validate={validateSlug} onCommit={onCommit} />,
@@ -26,11 +26,31 @@ describe('DraftInput', () => {
     changeValue(input, 'About Us');
     expect(onCommit).not.toHaveBeenCalled();
     expect(input?.value).toBe('About Us');
+    expect(input?.hasAttribute('aria-invalid')).toBe(false);
+    expect(container.querySelector('[role="alert"]')).toBeNull();
+    blur(input);
     expect(input?.getAttribute('aria-invalid')).toBe('true');
     expect(input?.getAttribute('aria-describedby')).toBe('slug-error');
     expect(container.querySelector('#slug-error')?.textContent).toBe(
       'Use lowercase letters, digits and hyphens',
     );
+  });
+
+  it('keeps the shown error up to date and hides it once the text is valid', () => {
+    const onCommit = vi.fn();
+    const { container } = render(
+      <DraftInput id="slug" value="about" validate={validateSlug} onCommit={onCommit} />,
+    );
+    const input = container.querySelector('input');
+    changeValue(input, 'About Us');
+    blur(input);
+    changeValue(input, 'About');
+    expect(container.querySelector('#slug-error')?.textContent).toBe(
+      'Use lowercase letters, digits and hyphens',
+    );
+    changeValue(input, 'about');
+    expect(onCommit).toHaveBeenCalledWith('about');
+    expect(container.querySelector('[role="alert"]')).toBeNull();
   });
 
   it('drops the draft when the stored value changes elsewhere', () => {

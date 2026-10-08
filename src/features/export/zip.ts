@@ -45,8 +45,8 @@ function buildCrcTable(): Uint32Array {
 
 export function crc32(bytes: Uint8Array): number {
   let crc = 0xffffffff;
-  for (const byte of bytes) {
-    crc = (CRC_TABLE[(crc ^ byte) & 0xff] ?? 0) ^ (crc >>> 8);
+  for (let index = 0; index < bytes.length; index += 1) {
+    crc = (CRC_TABLE[(crc ^ (bytes[index] ?? 0)) & 0xff] ?? 0) ^ (crc >>> 8);
   }
   return (crc ^ 0xffffffff) >>> 0;
 }
@@ -119,8 +119,9 @@ export async function createZip(entries: ZipEntry[]): Promise<Blob> {
   const parts: Uint8Array<ArrayBuffer>[] = [];
   const prepared: PreparedEntry[] = [];
   let offset = 0;
-  for (const { path, data } of entries) {
-    const compressed = await deflateRaw(data);
+  const compressedEntries = await Promise.all(entries.map(({ data }) => deflateRaw(data)));
+  for (const [index, { path, data }] of entries.entries()) {
+    const compressed = compressedEntries[index] ?? data;
     const isDeflated = compressed.length < data.length;
     const entry: PreparedEntry = {
       name: encoder.encode(path),

@@ -35,6 +35,17 @@ function normalized(text: string): string {
   return text.normalize('NFKD').replace(DIACRITICS, '').trim().toLowerCase();
 }
 
+const normalizedNames = new WeakMap<FontFamily, string>();
+
+function normalizedName(family: FontFamily): string {
+  let name = normalizedNames.get(family);
+  if (name === undefined) {
+    name = normalized(family.family);
+    normalizedNames.set(family, name);
+  }
+  return name;
+}
+
 export function searchFonts(
   families: FontFamily[],
   query: string,
@@ -44,7 +55,7 @@ export function searchFonts(
   const matches: FontFamily[] = [];
   for (const family of families) {
     if (category !== null && family.category !== category) continue;
-    if (term !== '' && !normalized(family.family).includes(term)) continue;
+    if (term !== '' && !normalizedName(family).includes(term)) continue;
     matches.push(family);
   }
   return matches;

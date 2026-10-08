@@ -1,9 +1,11 @@
 import { isSafeUrl } from '../render/sanitize';
+import { cachedByText } from '../render/textCache';
 import {
   BUTTON_VARIANTS,
   LINK_TYPES,
   PLACEHOLDER_RATIOS,
   PLACEHOLDER_SUBJECTS,
+  UPLOADED_IMAGE_TYPES,
   type ButtonValue,
   type ComponentDefinition,
   type Field,
@@ -18,6 +20,8 @@ export type ListItem = Record<string, unknown>;
 const UNGROUPED = 'General';
 const COLOR_TOKEN = /^var\(--[a-z0-9-]+\)$/;
 const HEX_COLOR = /^#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
+const BASE64 = /^[A-Za-z0-9+/]+={0,2}$/;
+const UPLOAD_CHECK_CACHE_SIZE = 20;
 const ISO_DATE = /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})$/;
 const HTML_TAG = /<[^>]*>/g;
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -115,21 +119,29 @@ export function isColorValue(value: unknown): value is string {
   return typeof value === 'string' && (COLOR_TOKEN.test(value) || HEX_COLOR.test(value));
 }
 
+const isUploadedImageSrc = cachedByText(UPLOAD_CHECK_CACHE_SIZE, (src) => {
+  for (const type of UPLOADED_IMAGE_TYPES) {
+    const prefix = `data:${type};base64,`;
+    if (src.startsWith(prefix)) return BASE64.test(src.slice(prefix.length));
+  }
+  return false;
+});
+
 export function isImageValue(value: unknown): value is ImageValue {
   if (typeof value !== 'object' || value === null) return false;
   if (!('source' in value) || !('src' in value) || !('alt' in value)) return false;
   if (!('decorative' in value) || !('width' in value) || !('height' in value)) return false;
-  if (!('placeholder' in value)) return false;
+  if (typeof value.src !== 'string' || typeof value.alt !== 'string') return false;
+  if (typeof value.decorative !== 'boolean') return false;
+  if (!Number.isFinite(value.width) || !Number.isFinite(value.height)) return false;
+  if (value.source === 'upload') {
+    return 'name' in value && typeof value.name === 'string' && isUploadedImageSrc(value.src);
+  }
+  if (value.source !== 'placeholder' || !('placeholder' in value)) return false;
   const { placeholder } = value;
   if (typeof placeholder !== 'object' || placeholder === null) return false;
   if (!('ratio' in placeholder) || !('subject' in placeholder)) return false;
   return (
-    value.source === 'placeholder' &&
-    typeof value.src === 'string' &&
-    typeof value.alt === 'string' &&
-    typeof value.decorative === 'boolean' &&
-    Number.isFinite(value.width) &&
-    Number.isFinite(value.height) &&
     PLACEHOLDER_RATIOS.some((ratio) => ratio === placeholder.ratio) &&
     PLACEHOLDER_SUBJECTS.some((subject) => subject === placeholder.subject)
   );

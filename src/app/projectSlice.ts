@@ -19,7 +19,21 @@ import { isSafeCssValue } from '../render/sanitize';
 import { findBlockList, sharedSlotOf, slotForCategory } from './blockLists';
 import { sectionThemeById, supportsSectionThemes, THEMED_TOKENS } from './sectionThemes';
 import { createBlankProject, createPage, UNTITLED_PROJECT_TITLE } from './projectFactory';
-import { FAVICON_TYPES, settingError, SOCIAL_IMAGE_TYPES, type SettingKey } from './settingsRules';
+import {
+  APP_ICON_TYPES,
+  FAVICON_TYPES,
+  isPageMetaKey,
+  isSiteMetaKey,
+  isUnsetMeta,
+  PAGE_META_RULES,
+  settingError,
+  SITE_META_RULES,
+  SOCIAL_IMAGE_TYPES,
+  type PageMetaKey,
+  type Parsed,
+  type SettingKey,
+  type SiteMetaKey,
+} from './settingsRules';
 import { slugError, uniqueSlug } from './slugs';
 import {
   derivedFontWeights,
@@ -38,8 +52,9 @@ import {
   type Asset,
   type FontRole,
   type Page,
-  type PageSeo,
+  type PageMeta,
   type Project,
+  type SiteMeta,
   type SharedSlot,
   type TokenGenerators,
 } from './types';
@@ -51,7 +66,7 @@ export type NewPage = { id: string; name: string; slug: string };
 
 export type BlockListTarget = { kind: 'page'; pageId: string } | { kind: 'slot'; slot: SharedSlot };
 
-export type SeoTextKey = Exclude<keyof PageSeo, 'socialImageAssetId' | 'noindex'>;
+export type SeoTextKey = 'title' | 'description' | 'socialTitle' | 'socialDescription';
 
 export type SiteTextKey = 'title' | 'description';
 
@@ -62,18 +77,22 @@ export type TextEdit =
 
 export type ImageUpload = Omit<Asset, 'id'>;
 
-export { FAVICON_TYPES, settingError, SOCIAL_IMAGE_TYPES, type SettingKey };
+export { APP_ICON_TYPES, FAVICON_TYPES, settingError, SOCIAL_IMAGE_TYPES, type SettingKey };
 
-export type ProjectImageRole = 'favicon' | 'socialImage';
+export type ProjectImageRole = 'favicon' | 'socialImage' | 'appIcon';
+
+type ProjectImageKey = 'faviconAssetId' | 'socialImageAssetId' | 'appIconAssetId';
 
 const PROJECT_IMAGE_TYPES: Record<ProjectImageRole, string[]> = {
   favicon: FAVICON_TYPES,
   socialImage: SOCIAL_IMAGE_TYPES,
+  appIcon: APP_ICON_TYPES,
 };
 
-const PROJECT_IMAGE_KEYS: Record<ProjectImageRole, 'faviconAssetId' | 'socialImageAssetId'> = {
+const PROJECT_IMAGE_KEYS: Record<ProjectImageRole, ProjectImageKey> = {
   favicon: 'faviconAssetId',
   socialImage: 'socialImageAssetId',
+  appIcon: 'appIconAssetId',
 };
 
 const SEO_TEXT_KEYS: SeoTextKey[] = ['title', 'description', 'socialTitle', 'socialDescription'];
@@ -95,8 +114,9 @@ function assetFromUpload(upload: ImageUpload | null): Asset | null {
 }
 
 function isAssetUsed(state: Project, assetId: string): boolean {
-  const { faviconAssetId, socialImageAssetId } = state.settings;
-  if (faviconAssetId === assetId || socialImageAssetId === assetId) return true;
+  for (const key of Object.values(PROJECT_IMAGE_KEYS)) {
+    if (state.settings[key] === assetId) return true;
+  }
   for (const id of state.pages.ids) {
     if (state.pages.entities[id]?.seo.socialImageAssetId === assetId) return true;
   }
@@ -106,6 +126,28 @@ function isAssetUsed(state: Project, assetId: string): boolean {
 function removeAssetIfUnused(state: Project, assetId: string | undefined): void {
   if (assetId === undefined || isAssetUsed(state, assetId)) return;
   delete state.assets[assetId];
+}
+
+function applyMeta<Meta extends SiteMeta | PageMeta>(
+  target: Meta,
+  key: string,
+  value: unknown,
+  parse: (value: unknown) => Parsed<unknown>,
+): void {
+  if (isUnsetMeta(value)) {
+    Reflect.deleteProperty(target, key);
+    return;
+  }
+  const parsed = parse(value);
+  if ('error' in parsed) {
+    console.warn(`Ignored an invalid value for "${key}": ${parsed.error}`);
+    return;
+  }
+  if (isUnsetMeta(parsed.value)) {
+    Reflect.deleteProperty(target, key);
+    return;
+  }
+  Object.assign(target, { [key]: parsed.value });
 }
 
 export type EditKind = 'continuous' | 'discrete';
@@ -465,6 +507,38 @@ export const projectSlice = createSlice({
         return { payload: { key, value }, meta: editMeta(kind, `setting:${key}`) };
       },
     },
+    siteMetaSet: {
+      reducer(state, action: PayloadAction<{ key: string; value: unknown }, string, EditMeta>) {
+        const { key, value } = action.payload;
+        if (!isSiteMetaKey(key)) return;
+        applyMeta(state.settings, key, value, SITE_META_RULES[key]);
+      },
+      prepare<Key extends SiteMetaKey>(key: Key, value: SiteMeta[Key], kind: EditKind) {
+        return { payload: { key, value }, meta: editMeta(kind, `site-meta:${key}`) };
+      },
+    },
+    pageMetaSet: {
+      reducer(
+        state,
+        action: PayloadAction<{ pageId: string; key: string; value: unknown }, string, EditMeta>,
+      ) {
+        const { pageId, key, value } = action.payload;
+        const page = state.pages.entities[pageId];
+        if (page === undefined || !isPageMetaKey(key)) return;
+        applyMeta(page.seo, key, value, PAGE_META_RULES[key]);
+      },
+      prepare<Key extends PageMetaKey>(
+        pageId: string,
+        key: Key,
+        value: PageMeta[Key],
+        kind: EditKind,
+      ) {
+        return {
+          payload: { pageId, key, value },
+          meta: editMeta(kind, `page-meta:${pageId}:${key}`),
+        };
+      },
+    },
     projectImageSet: {
       reducer(state, action: PayloadAction<{ role: ProjectImageRole; asset: Asset | null }>) {
         const { role, asset } = action.payload;
@@ -762,6 +836,8 @@ export const {
   pageSeoSet,
   pageSocialImageSet,
   settingSet,
+  siteMetaSet,
+  pageMetaSet,
   projectImageSet,
   homePageSet,
   blockInserted,

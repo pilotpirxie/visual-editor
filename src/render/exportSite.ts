@@ -24,14 +24,19 @@ import {
   renderContextFor,
   siteContextOf,
   renderHtmlBlock,
+  EDITOR_ONLY_ATTRIBUTES,
   type RenderContext,
 } from './renderBlock';
 import { blockComponentId } from '../components/registry';
 
+export type RenderedBlock = { html: string; isComponent: boolean };
+
+type RenderedBlocks = Record<keyof PageBlocks, RenderedBlock[]>;
+
 export type RenderedPage = {
   page: Page;
   fileName: string;
-  blocks: PageBlocks;
+  blocks: RenderedBlocks;
   collector: RenderCollector;
 };
 
@@ -46,8 +51,8 @@ function renderBlocks(
   registry: ReadonlyMap<string, RegisteredComponent>,
   ctx: RenderContext,
   usedComponents: UsedComponents,
-): string[] {
-  const blockHtml: string[] = [];
+): RenderedBlock[] {
+  const rendered: RenderedBlock[] = [];
   for (const blockId of blockIds) {
     const block = project.blocks.entities[blockId];
     if (block === undefined) {
@@ -59,16 +64,16 @@ function renderBlocks(
     const component = componentId === null ? undefined : registry.get(componentId);
     if (component !== undefined) usedComponents.set(component.definition.id, component);
     if (block.kind === 'html') {
-      blockHtml.push(renderHtmlBlock(block, ctx));
+      rendered.push({ html: renderHtmlBlock(block, ctx), isComponent: false });
       continue;
     }
     if (component === undefined) {
       console.warn(`Export skipped block ${block.id}: unknown component "${block.componentId}"`);
       continue;
     }
-    blockHtml.push(renderBlock(block, component, ctx));
+    rendered.push({ html: renderBlock(block, component, ctx), isComponent: true });
   }
-  return blockHtml;
+  return rendered;
 }
 
 function renderPageBlocks(
@@ -77,7 +82,7 @@ function renderPageBlocks(
   registry: ReadonlyMap<string, RegisteredComponent>,
   ctx: RenderContext,
   usedComponents: UsedComponents,
-): PageBlocks {
+): RenderedBlocks {
   const lists = visibleBlockLists(project, page);
   return {
     header: renderBlocks(lists.header, project, registry, ctx, usedComponents),
@@ -115,10 +120,29 @@ function compareCodeUnits(left: string, right: string): number {
   return 0;
 }
 
-function formattedBlocks(blocks: string[], depth: number): string[] {
-  const lines: string[] = [];
-  for (const html of blocks) lines.push(formatHtml(html, depth));
-  return lines;
+type BlockFormatter = (blocks: RenderedBlock[], depth: number) => string[];
+
+function createBlockFormatter(): BlockFormatter {
+  const formatted = new Map<string, string>();
+  return (blocks, depth) => {
+    const lines: string[] = [];
+    for (const { html, isComponent } of blocks) {
+      const key = `${depth}:${isComponent ? 'c' : 'h'}:${html}`;
+      let output = formatted.get(key);
+      if (output === undefined) {
+        output = formatHtml(html, depth, isComponent ? EDITOR_ONLY_ATTRIBUTES : []);
+        formatted.set(key, output);
+      }
+      lines.push(output);
+    }
+    return lines;
+  };
+}
+
+function htmlOf(blocks: RenderedBlock[]): string {
+  let html = '';
+  for (const block of blocks) html += block.html;
+  return html;
 }
 
 export function prepareExportInput(
@@ -129,8 +153,10 @@ export function prepareExportInput(
     throw new Error(`Home page ${project.pages.homePageId} does not exist`);
   }
   const usedComponents: UsedComponents = new Map();
+  const formatBlocks = createBlockFormatter();
   const iconSets = new Set<string>();
   const placeholders = new Map<string, string>();
+  const uploads = new Map<string, string>();
   const pages: PreparedPage[] = [];
   for (const pageId of project.pages.ids) {
     const { fileName, blocks, collector } = renderProjectPage(
@@ -143,13 +169,14 @@ export function prepareExportInput(
     for (const [path, placeholder] of collector.images) {
       placeholders.set(path, placeholderSvg(placeholder));
     }
+    for (const [path, dataUrl] of collector.uploads) uploads.set(path, dataUrl);
     pages.push({
       pageId,
       fileName,
       blocks: {
-        header: formattedBlocks(blocks.header, BLOCK_INDENT),
-        main: formattedBlocks(blocks.main, MAIN_INDENT),
-        footer: formattedBlocks(blocks.footer, BLOCK_INDENT),
+        header: formatBlocks(blocks.header, BLOCK_INDENT),
+        main: formatBlocks(blocks.main, MAIN_INDENT),
+        footer: formatBlocks(blocks.footer, BLOCK_INDENT),
       },
       sprite: buildIconSprite(collector.icons.values()),
     });
@@ -157,12 +184,15 @@ export function prepareExportInput(
   const components = sortedComponents(usedComponents);
   const placeholderFiles: PreparedFile[] = [];
   for (const [path, content] of placeholders) placeholderFiles.push({ path, content });
+  const uploadFiles: PreparedFile[] = [];
+  for (const [path, content] of uploads) uploadFiles.push({ path, content });
   const { settings, pages: projectPages, assets, designSystem } = project;
   return {
     site: { settings, pages: projectPages, assets, designSystem },
     pages,
     iconSets: [...iconSets],
     placeholders: placeholderFiles,
+    uploads: uploadFiles,
     componentStyles: components.map((component) => component.styles),
     omittedComponents: registry.size - components.length,
   };
@@ -205,7 +235,7 @@ export function renderStandalonePage(
     fontsLink,
     `<style>${styles.join('\n')}</style>`,
     '</head>',
-    `<body>${header.join('')}<main>${main.join('')}</main>${footer.join('')}</body>`,
+    `<body>${htmlOf(header)}<main>${htmlOf(main)}</main>${htmlOf(footer)}</body>`,
     '</html>',
   ].join('\n');
 }

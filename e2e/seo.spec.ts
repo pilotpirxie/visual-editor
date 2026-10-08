@@ -45,3 +45,39 @@ test('without a base URL there is no sitemap or robots file', async ({ page }) =
   expect(files.has('sitemap.xml')).toBe(false);
   expect(files.has('robots.txt')).toBe(false);
 });
+
+test('site meta defaults reach every page and a page can override them', async ({ page }) => {
+  await createProject(page);
+  const settings = await openProjectSettings(page);
+  await settings.getByLabel('Base URL').fill('https://fieldnote.app');
+  await settings.getByLabel('Keywords').fill('research, interviews');
+  await settings.getByText('Social sharing').click();
+  await settings.getByLabel('X account of the site').fill('fieldnote');
+  await settings.getByText('Sitemap and robots.txt').click();
+  await settings.getByRole('switch', { name: 'Block AI training crawlers' }).check();
+  await closeLibraryDrawer(page);
+  await addPage(page, 'Contact');
+  const properties = page.locator('.ve-properties');
+  await properties.getByLabel('Follow links').selectOption('no');
+  await properties.getByText('Structured data').click();
+  await properties.getByLabel('Kind of page').selectOption('ContactPage');
+
+  await page.getByRole('button', { name: 'Export', exact: true }).click();
+  const dialog = page.getByRole('dialog', { name: 'Export site' });
+  const downloadPromise = page.waitForEvent('download');
+  await dialog.getByRole('button', { name: 'Download zip' }).click();
+  const files = readZip(await readFile(await (await downloadPromise).path()));
+
+  const home = files.get('index.html')?.toString('utf8') ?? '';
+  expect(home).toContain('<meta name="keywords" content="research, interviews">');
+  expect(home).toContain('<meta name="twitter:site" content="@fieldnote">');
+  expect(home).not.toContain('name="robots"');
+  expect(home).toContain('"@type": "WebSite"');
+  const contact = files.get('contact.html')?.toString('utf8') ?? '';
+  expect(contact).toContain('<meta name="robots" content="nofollow">');
+  expect(contact).toContain('<meta name="keywords" content="research, interviews">');
+  expect(contact).toContain('"@type": "ContactPage"');
+  const robots = files.get('robots.txt')?.toString('utf8') ?? '';
+  expect(robots).toContain('User-agent: GPTBot');
+  expect(robots).toContain('Sitemap: https://fieldnote.app/sitemap.xml');
+});

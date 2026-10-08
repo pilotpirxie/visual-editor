@@ -10,6 +10,9 @@ import { componentBlockOf, withSystemFonts } from '../test/fixtures';
 
 const runtime = { core: '/* core */', behaviors: { menu: '/* menu */' } };
 
+const PNG_512 =
+  'iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+
 beforeAll(async () => {
   await loadIconSet('lucide');
 });
@@ -87,6 +90,52 @@ describe('buildExportFiles', () => {
     expect(text(files, 'index.html')).toContain(
       'src="assets/images/placeholder-photo-1200x800.svg"',
     );
+  });
+
+  it('writes each uploaded image once and links every block that uses it', async () => {
+    const project = createSampleProject();
+    const dataUrl = `data:image/png;base64,${PNG_512}`;
+    const uploaded = {
+      source: 'upload',
+      src: dataUrl,
+      name: 'Team photo.PNG',
+      alt: 'The team',
+      decorative: false,
+      width: 512,
+      height: 512,
+    };
+    const hero = componentBlockOf(project, blockIdOf(project, 'hero-centered'));
+    hero.componentId = 'content-text-image';
+    hero.values = {
+      ...builtInComponents
+        .get('content-text-image')
+        ?.definition.fields.reduce<Record<string, unknown>>(
+          (values, field) => ({ ...values, [field.name]: field.default }),
+          {},
+        ),
+      image: uploaded,
+    };
+    const copy = createPage('copy', 'Copy', 'copy');
+    copy.blockIds = ['hero-copy'];
+    project.blocks.entities['hero-copy'] = { ...structuredClone(hero), id: 'hero-copy' };
+    project.blocks.ids.push('hero-copy');
+    project.pages.entities.copy = copy;
+    project.pages.ids.push('copy');
+
+    const files = filesOf(project);
+    const imagePaths = Object.keys(files).filter((path) => path.startsWith('assets/images/team'));
+    expect(imagePaths).toEqual([
+      expect.stringMatching(/^assets\/images\/team-photo-[a-z0-9]+\.png$/),
+    ]);
+    const [imagePath] = imagePaths;
+    const image = imagePath === undefined ? undefined : files[imagePath];
+    if (!(image instanceof Blob)) throw new Error('The uploaded image was not written as a file');
+    expect(image.type).toBe('image/png');
+    expect(await image.arrayBuffer()).toEqual(await dataUrlToBlob(dataUrl).arrayBuffer());
+    for (const page of ['index.html', 'copy.html']) {
+      expect(text(files, page)).toContain(`src="${imagePath}" alt="The team" width="512"`);
+      expect(text(files, page)).not.toContain('data:image/png');
+    }
   });
 
   it('links the Google Fonts the shipped CSS uses, with preconnects', () => {
@@ -282,13 +331,73 @@ describe('buildExportFiles', () => {
     expect(text(files, 'index.html')).toContain('<meta name="robots" content="noindex">');
   });
 
+  it('lists change frequency and priority and leaves out excluded pages', () => {
+    const project = createSampleProject();
+    project.settings.baseUrl = 'https://fieldnote.app';
+    project.settings.sitemapFrequency = 'monthly';
+    const about = createPage('about', 'About', 'about');
+    about.seo.sitemapPriority = 0.5;
+    about.seo.sitemapFrequency = 'weekly';
+    const legal = createPage('legal', 'Legal', 'legal');
+    legal.seo.sitemapExcluded = true;
+    for (const page of [about, legal]) {
+      project.pages.ids.push(page.id);
+      project.pages.entities[page.id] = page;
+    }
+    const sitemap = text(filesOf(project), 'sitemap.xml');
+    expect(sitemap).toContain(
+      '  <url><loc>https://fieldnote.app/</loc><changefreq>monthly</changefreq></url>',
+    );
+    expect(sitemap).toContain(
+      '  <url><loc>https://fieldnote.app/about.html</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>',
+    );
+    expect(sitemap).not.toContain('legal.html');
+  });
+
+  it('writes robots rules and AI crawler blocks even without a base URL', () => {
+    const project = createSampleProject();
+    project.settings.robotsRules = 'Disallow: /drafts/\n\n';
+    project.settings.blockAiCrawlers = true;
+    const robots = text(filesOf(project), 'robots.txt');
+    expect(
+      robots.startsWith('User-agent: *\nAllow: /\nDisallow: /drafts/\n\nUser-agent: GPTBot\n'),
+    ).toBe(true);
+    expect(robots).toContain('User-agent: ClaudeBot\n');
+    expect(robots.endsWith('Disallow: /\n')).toBe(true);
+    expect(robots).not.toContain('Sitemap:');
+  });
+
+  it('writes a web manifest with the app icon and its size', () => {
+    const project = createSampleProject();
+    project.assets.icon = {
+      id: 'icon',
+      name: 'icon.png',
+      mimeType: 'image/png',
+      dataUrl: `data:image/png;base64,${PNG_512}`,
+    };
+    project.settings.appIconAssetId = 'icon';
+    project.settings.appName = 'Fieldnote';
+    project.settings.themeColor = '#4f46e5';
+    const files = filesOf(project);
+    const manifest: unknown = JSON.parse(text(files, 'site.webmanifest'));
+    expect(manifest).toMatchObject({
+      name: 'Fieldnote',
+      short_name: 'Fieldnote',
+      start_url: './',
+      theme_color: '#4f46e5',
+      icons: [{ src: 'assets/images/icon-icon.png', sizes: '512x512', type: 'image/png' }],
+    });
+    expect(files['assets/images/icon-icon.png']).toBeInstanceOf(Blob);
+    expect(text(files, 'index.html')).toContain('<link rel="manifest" href="site.webmanifest">');
+  });
+
   it('ships no site.js and no script tag when no behavior is used', () => {
     const project = createSampleProject();
     const page = homePage(project);
     page.blockIds = page.blockIds.filter((id) => id !== blockIdOf(project, 'nav-simple'));
     const files = filesOf(project);
     expect(files['assets/js/site.js']).toBeUndefined();
-    expect(text(files, 'index.html')).not.toContain('<script');
+    expect(text(files, 'index.html')).not.toContain('<script src');
   });
 });
 

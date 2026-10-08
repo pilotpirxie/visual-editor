@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from './projectFactory';
 import {
+  blockListOn,
   findBlockList,
   isBlockShown,
   sharedSlotOf,
@@ -98,5 +99,21 @@ describe('slotForCategory', () => {
     ['features', null],
   ] as const)('puts %s blocks in %s', (category, slot) => {
     expect(slotForCategory(category)).toBe(slot);
+  });
+});
+
+describe('blockListOn', () => {
+  it('finds a block on the page it is expected on', () => {
+    const project = createSampleProject();
+    const home = project.pages.entities[project.pages.homePageId];
+    const blockId = home.blockIds[1] ?? '';
+    expect(blockListOn(project, blockId, home.id)).toBe(home.blockIds);
+  });
+
+  it('falls back to every list when the block is elsewhere', () => {
+    const { project, navId, heroId } = projectWithSharedNav();
+    expect(blockListOn(project, navId, project.pages.homePageId)).toBe(project.sharedSlots.header);
+    expect(blockListOn(project, heroId, 'another-page')).toBe(findBlockList(project, heroId));
+    expect(blockListOn(project, 'missing', project.pages.homePageId)).toBeNull();
   });
 });

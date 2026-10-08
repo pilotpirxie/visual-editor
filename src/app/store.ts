@@ -2,6 +2,7 @@ import {
   configureStore,
   createListenerMiddleware,
   createSelector,
+  isAnyOf,
   type ThunkAction,
   type UnknownAction,
 } from '@reduxjs/toolkit';
@@ -9,9 +10,24 @@ import { useSyncExternalStore } from 'react';
 import { pageSlugsOf, renderContextFor } from '../render/renderBlock';
 import { createAutosave, type SaveStatus } from '../persistence/autosave';
 import { putProject } from '../persistence/db';
-import { editorSlice, linkedFileOutdated, noticeShown, saveStatusChanged } from './editorSlice';
-import { createRootReducer, projectRefreshed, type RootState } from './history';
-import { projectLoaded, projectSlice } from './projectSlice';
+import {
+  blockSelected,
+  editorSlice,
+  linkedFileOutdated,
+  noticeShown,
+  pageOpened,
+  saveStatusChanged,
+} from './editorSlice';
+import { createRootReducer, projectRefreshed, redo, undo, type RootState } from './history';
+import {
+  blockDuplicated,
+  blockInserted,
+  blockMoved,
+  blockPasted,
+  blockRemoved,
+  projectLoaded,
+  projectSlice,
+} from './projectSlice';
 import { visibleBlockLists } from './blockLists';
 import { componentsFor } from '../components/registry';
 import { announcementFor } from '../features/editor/announcements';
@@ -60,7 +76,17 @@ export function createAppStore({
   }
   if (onAnnouncement !== undefined) {
     listener.startListening({
-      predicate: () => true,
+      matcher: isAnyOf(
+        blockSelected,
+        blockMoved,
+        blockDuplicated,
+        blockRemoved,
+        blockInserted,
+        blockPasted,
+        pageOpened,
+        undo,
+        redo,
+      ),
       effect: (action, api) => {
         const text = announcementFor(action, api.getOriginalState(), api.getState());
         if (text !== null) onAnnouncement(text);

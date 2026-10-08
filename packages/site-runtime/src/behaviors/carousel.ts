@@ -86,11 +86,13 @@ function connectCarousel(root: HTMLElement, parts: CarouselParts): () => void {
   function update(): void {
     frame = 0;
     const current = nearestSlideIndex(track, slides);
+    const isAtStart = scrolledDistance(track) <= 1;
+    const isAtLastSlide = isAtEnd(track);
     for (const [index, button] of dotButtons.entries()) {
       button.setAttribute('aria-current', String(index === current));
     }
-    previous.disabled = scrolledDistance(track) <= 1;
-    next.disabled = isAtEnd(track);
+    previous.disabled = isAtStart;
+    next.disabled = isAtLastSlide;
   }
 
   function scheduleUpdate(): void {

@@ -1,3 +1,4 @@
+import { cachedByText } from './textCache';
 import { isSafeImageSrc, isSafeUrl } from './sanitize';
 
 export type StrippedHtml = { html: string; removed: string[] };
@@ -81,7 +82,7 @@ function stripOnce(html: string, counts: Map<string, number>): string {
   return doc.body.innerHTML;
 }
 
-export function stripUnsafeHtml(html: string): StrippedHtml {
+function stripUntilStable(html: string): StrippedHtml {
   const counts = new Map<string, number>();
   let current = html;
   for (let pass = 0; pass < MAX_PASSES; pass += 1) {
@@ -92,6 +93,15 @@ export function stripUnsafeHtml(html: string): StrippedHtml {
   const removed: string[] = [];
   for (const [label, total] of counts) removed.push(countLabel(total, label));
   return { html: current, removed };
+}
+
+const STRIPPED_CACHE_SIZE = 100;
+
+const strippedHtml = cachedByText(STRIPPED_CACHE_SIZE, stripUntilStable);
+
+export function stripUnsafeHtml(html: string): StrippedHtml {
+  const stripped = strippedHtml(html);
+  return { html: stripped.html, removed: [...stripped.removed] };
 }
 
 export type RootDecoration = { anchor?: string; classes: string[] };

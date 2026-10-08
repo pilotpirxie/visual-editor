@@ -209,9 +209,22 @@
     border-radius: 4px;
   }
 
+  .ve-block-toolbar > .ve-block-edit {
+    min-height: var(--ve-target);
+    margin-inline-start: var(--ve-space-1);
+    border-color: #ffffff;
+    border-radius: 4px;
+    background: #ffffff;
+    color: var(--ve-accent);
+  }
+
   .ve-block-toolbar > :focus-visible {
     outline: 2px solid #ffffff;
     outline-offset: -4px;
+  }
+
+  .ve-block-toolbar > .ve-block-edit:focus-visible {
+    outline-color: var(--ve-accent);
   }
 
   .ve-drop-line {

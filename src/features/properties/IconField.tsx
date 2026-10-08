@@ -13,6 +13,7 @@ import { allowedIconSets } from '../icons/iconSets';
 import { isIconSetLoaded, loadIconSet } from '../icons/loadIconSet';
 import type { ControlProps } from './FieldControl';
 import { Icon } from '../../../packages/ui/src';
+import { cachedByText } from '../../render/textCache';
 
 const MAX_RESULTS = 96;
 const DEFAULT_FILTER = 'default';
@@ -49,6 +50,22 @@ function searchSets(sets: string[], query: string, style: string): IconMatch[] {
   return matches;
 }
 
+const SEARCH_CACHE_SIZE = 4;
+const KEY_SEPARATOR = '\u0000';
+
+const searchByKey = cachedByText(SEARCH_CACHE_SIZE, (key) => {
+  const [setList = '', query = '', style = ANY_STYLE] = key.split(KEY_SEPARATOR);
+  return searchSets(setList === '' ? [] : setList.split(' '), query, style);
+});
+
+function cachedSearch(sets: string[], query: string, style: string): IconMatch[] {
+  const loaded: string[] = [];
+  for (const set of sets) {
+    if (iconSetData(set) !== undefined) loaded.push(set);
+  }
+  return searchByKey([loaded.join(' '), query, style].join(KEY_SEPARATOR));
+}
+
 function refLabel(ref: string): string {
   if (ref === '') return 'No icon';
   const { set, name } = parseIconRef(ref);
@@ -72,7 +89,7 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
   const singleSet = sets.length === 1 ? sets[0] : undefined;
   const styles = singleSet === undefined ? [] : (iconSetData(singleSet)?.styles ?? []);
   const searchStyle = styles.length > 0 ? style : ANY_STYLE;
-  const matches = query === null ? [] : searchSets(sets, query, searchStyle);
+  const matches = query === null ? [] : cachedSearch(sets, query, searchStyle);
   const shown = matches.slice(0, MAX_RESULTS);
   const canUseDefault =
     typeof field.default === 'string' && isSemanticIcon(field.default) && ref !== field.default;

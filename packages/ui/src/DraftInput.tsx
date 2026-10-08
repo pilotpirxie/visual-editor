@@ -1,6 +1,7 @@
 import { useState, type JSX } from 'react';
 import { FieldError, fieldErrorId } from './Field';
 import { NumberInput } from './NumberInput';
+import { TextArea } from './TextArea';
 import { TextInput } from './TextInput';
 
 type DraftInputProps = {
@@ -13,11 +14,12 @@ type DraftInputProps = {
   max?: number;
   step?: number;
   placeholder?: string;
+  rows?: number;
   validate(text: string): string | null;
   onCommit(text: string): void;
 };
 
-type Draft = { text: string; base: string; error: string };
+type Draft = { text: string; base: string; error: string; isErrorShown: boolean };
 
 export function DraftInput({
   id,
@@ -29,6 +31,7 @@ export function DraftInput({
   max,
   step,
   placeholder,
+  rows,
   validate,
   onCommit,
 }: DraftInputProps): JSX.Element {
@@ -36,7 +39,7 @@ export function DraftInput({
   const isDraftStale = draft !== null && draft.base !== value;
   if (isDraftStale) setDraft(null);
   const activeDraft = isDraftStale ? null : draft;
-  const error = activeDraft === null ? null : activeDraft.error;
+  const error = activeDraft?.isErrorShown === true ? activeDraft.error : null;
 
   function change(text: string): void {
     const nextError = validate(text);
@@ -45,7 +48,13 @@ export function DraftInput({
       onCommit(text);
       return;
     }
-    setDraft({ text, base: value, error: nextError });
+    const isErrorShown = activeDraft?.isErrorShown ?? false;
+    setDraft({ text, base: value, error: nextError, isErrorShown });
+  }
+
+  function showErrorOnLeave(): void {
+    if (activeDraft === null || activeDraft.isErrorShown) return;
+    setDraft({ ...activeDraft, isErrorShown: true });
   }
 
   const inputProps = {
@@ -57,15 +66,16 @@ export function DraftInput({
     isInvalid: error !== null,
     value: activeDraft === null ? value : activeDraft.text,
     onChange: (event: { target: { value: string } }) => change(event.target.value),
+    onBlur: showErrorOnLeave,
   };
 
   return (
     <>
-      {type === 'number' ? (
+      {type === 'number' && (
         <NumberInput {...inputProps} unit={unit} min={min} max={max} step={step} />
-      ) : (
-        <TextInput {...inputProps} />
       )}
+      {type === 'text' && rows === undefined && <TextInput {...inputProps} />}
+      {type === 'text' && rows !== undefined && <TextArea {...inputProps} rows={rows} />}
       <FieldError id={id} error={error} />
     </>
   );
