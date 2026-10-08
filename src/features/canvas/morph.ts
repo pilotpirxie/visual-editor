@@ -1,3 +1,5 @@
+import { INLINE_EDIT_ATTRIBUTE } from './frameDom';
+
 function isElement(node: Node): node is Element {
   return node.nodeType === Node.ELEMENT_NODE;
 }
@@ -25,6 +27,10 @@ function patchChildren(current: Node, next: Node): void {
       const replaced = cursor;
       cursor = cursor.nextSibling;
       current.replaceChild(nextChild, replaced);
+      continue;
+    }
+    if (isElement(cursor) && cursor.hasAttribute(INLINE_EDIT_ATTRIBUTE)) {
+      cursor = cursor.nextSibling;
       continue;
     }
     if (isElement(cursor) && isElement(nextChild)) {

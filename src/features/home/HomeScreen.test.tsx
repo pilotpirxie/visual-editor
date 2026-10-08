@@ -35,9 +35,30 @@ async function renderHome(): Promise<HTMLDivElement> {
     await Promise.resolve();
   });
   await vi.waitFor(() => {
-    if (container.textContent?.includes('Loading')) throw new Error('Still loading');
+    if (container.textContent?.includes('Loading your projects')) throw new Error('Still loading');
   });
   return container;
+}
+
+function starterNames(container: HTMLElement): string[] {
+  const names: string[] = [];
+  for (const name of container.querySelectorAll('.ve-home-starters .ve-starter-name')) {
+    names.push(name.textContent ?? '');
+  }
+  return names;
+}
+
+async function waitForHomeStarters(container: HTMLElement): Promise<HTMLElement> {
+  return vi.waitFor(
+    () => {
+      const section = container.querySelector<HTMLElement>('.ve-home-starters');
+      if (section === null || starterNames(container).length < 2) {
+        throw new Error('The starters are still loading');
+      }
+      return section;
+    },
+    { timeout: STARTERS_LOAD_TIMEOUT_MS },
+  );
 }
 
 function savedProjects(): Project[] {
@@ -65,10 +86,77 @@ describe('HomeScreen', () => {
     expect(container.textContent).toContain('Edited just now');
   });
 
-  it('invites the user to create a first project when there are none', async () => {
+  it('opens straight on starting a new site when there are no projects', async () => {
     vi.mocked(listProjects).mockResolvedValue([]);
     const container = await renderHome();
-    expect(container.textContent).toContain('You have no projects yet.');
+    expect(container.querySelector('h1')?.textContent).toBe('Start a new site');
+    expect(container.querySelector('.ve-home-grid')).toBeNull();
+    expect(container.querySelector('.ve-home-section-title')).toBeNull();
+    await waitForHomeStarters(container);
+    expect(starterNames(container)[0]).toBe('Blank site');
+  });
+
+  it('lists the projects first and the starters below them', async () => {
+    const container = await renderHome();
+    expect(container.querySelector('h1')?.textContent).toBe('My projects');
+    expect(container.querySelector('.ve-home-section-title')?.textContent).toBe('Start a new site');
+    await waitForHomeStarters(container);
+    expect(starterNames(container)).toContain('Startup waitlist');
+  });
+
+  it('opens the new project dialog from the blank site card', async () => {
+    const container = await renderHome();
+    const starters = await waitForHomeStarters(container);
+    click(getButton(starters, 'Start blank'));
+    click(await vi.waitFor(() => getButton(container, 'Start with Midnight')));
+    await vi.waitFor(() => expect(savedProjects()).toHaveLength(1));
+    expect(savedProjects()[0].designSystem.presetId).toBe('midnight');
+  });
+
+  it('starts a project from a starter on the home screen under the starter’s name', async () => {
+    const container = await renderHome();
+    const starters = await waitForHomeStarters(container);
+    click(getButton(starters, 'Use this starter: Startup waitlist'));
+    await vi.waitFor(() => expect(savedProjects()).toHaveLength(1));
+    const created = savedProjects()[0];
+    expect(created.starterId).toBe('waitlist');
+    expect(created.settings.title).toBe('Orbit');
+    expect(window.location.pathname).toBe(`/p/${created.id}/${created.pages.homePageId}`);
+  });
+
+  it('explains when a starter cannot be saved and stays on the home screen', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.mocked(putProject).mockRejectedValueOnce(new Error('Quota exceeded'));
+    const container = await renderHome();
+    const starters = await waitForHomeStarters(container);
+    click(getButton(starters, 'Use this starter: Startup waitlist'));
+    await vi.waitFor(() =>
+      expect(container.querySelector('[role="alert"] p')?.textContent).toBe(
+        'Could not create a project: Quota exceeded',
+      ),
+    );
+    expect(window.location.pathname).toBe('/');
+    expect(getButton(starters, 'Use this starter: Startup waitlist').disabled).toBe(false);
+  });
+
+  it('shows a live thumbnail of each project’s home page', async () => {
+    const container = await renderHome();
+    await vi.waitFor(() =>
+      expect(container.querySelector('.ve-home-card .ve-page-thumbnail iframe')).not.toBeNull(),
+    );
+    expect(getProject).toHaveBeenCalledWith(stored.id);
+  });
+
+  it('keeps an empty thumbnail box when a project cannot be read', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.mocked(getProject).mockRejectedValue(new Error('Storage is locked'));
+    const container = await renderHome();
+    await vi.waitFor(() => expect(consoleError).toHaveBeenCalled());
+    expect(consoleError.mock.calls[0]?.[0]).toBe(
+      `Could not load the thumbnail of project ${stored.id}`,
+    );
+    expect(container.querySelector('.ve-home-card .ve-page-thumbnail')).not.toBeNull();
+    expect(container.querySelector('.ve-home-card iframe')).toBeNull();
   });
 
   it('explains when the projects cannot be read and lets the user try again', async () => {

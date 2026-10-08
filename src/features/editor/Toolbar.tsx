@@ -3,14 +3,10 @@ import {
   designSheetToggled,
   deviceChanged,
   dialogOpened,
-  LIBRARY_DRAWER_QUERY,
-  libraryDrawerToggled,
   panelToggled,
   previewToggled,
   type DeviceMode,
-  type PanelSide,
 } from '../../app/editorSlice';
-import type { SaveStatus } from '../../persistence/autosave';
 import { redo, undo } from '../../app/history';
 import { followLink, HOME_PATH } from '../../app/router';
 import { dispatch, useStore } from '../../app/store';
@@ -22,17 +18,11 @@ import {
   Icon,
   IconButton,
   MenuButton,
-  useMediaQuery,
   useTooltip,
   type MenuItem,
 } from '../../../packages/ui/src';
 import { DeviceMenu, DeviceToggle } from './DeviceToggle';
 import { SHORTCUT_KEYS } from './shortcutList';
-
-const PANEL_TOGGLES: Record<PanelSide, { name: string; icon: string }> = {
-  left: { name: 'library panel', icon: 'panel-left' },
-  right: { name: 'properties panel', icon: 'panel-right' },
-};
 
 function EditMenu({ isReadOnly }: { isReadOnly: boolean }): JSX.Element {
   const selectedBlockId = useStore((state) => state.editor.selectedBlockId);
@@ -97,85 +87,20 @@ function EditMenu({ isReadOnly }: { isReadOnly: boolean }): JSX.Element {
   return <MenuButton label="Edit" icon="clipboard" items={items} disabled={isReadOnly} />;
 }
 
-function PanelToggle({ side }: { side: PanelSide }): JSX.Element {
-  const isOpen = useStore((state) => !state.editor.panels[side].collapsed);
-  const { name, icon } = PANEL_TOGGLES[side];
+function PropertiesToggle(): JSX.Element {
+  const isOpen = useStore((state) => !state.editor.panels.right.collapsed);
   return (
     <IconButton
       className="ve-wide-only"
-      label={isOpen ? `Hide ${name}` : `Show ${name}`}
-      icon={icon}
+      label={isOpen ? 'Hide properties panel' : 'Show properties panel'}
+      icon="panel-right"
       isPressed={isOpen}
-      onClick={() => dispatch(panelToggled(side))}
-    />
-  );
-}
-
-function LibraryToggle(): JSX.Element {
-  const isDrawer = useMediaQuery(LIBRARY_DRAWER_QUERY);
-  const isDrawerOpen = useStore((state) => state.editor.isLibraryDrawerOpen);
-  if (!isDrawer) return <PanelToggle side="left" />;
-  return (
-    <IconButton
-      id="ve-library-toggle"
-      className="ve-wide-only"
-      label="Library"
-      icon="panel-left"
-      aria-expanded={isDrawerOpen}
-      aria-controls="ve-library"
-      onClick={() => dispatch(libraryDrawerToggled(!isDrawerOpen))}
+      onClick={() => dispatch(panelToggled('right'))}
     />
   );
 }
 
 const DEVICE_MODES: DeviceMode[] = ['responsive', 'desktop', 'tablet', 'phone'];
-
-const SAVE_STATES: Record<SaveStatus, { label: string; icon: string }> = {
-  saved: { label: 'All changes saved', icon: 'cloud-check' },
-  saving: { label: 'Saving…', icon: 'cloud-upload' },
-  error: { label: 'Changes not saved', icon: 'cloud-alert' },
-};
-
-function ProjectName({ isReadOnly }: { isReadOnly: boolean }): JSX.Element {
-  const title = useStore((state) => state.project.settings.title);
-  const { triggerProps, tooltip } = useTooltip({ text: 'Project settings' });
-  return (
-    <>
-      <button
-        type="button"
-        className="ve-project-name"
-        aria-label={`${title}, project settings`}
-        aria-haspopup="dialog"
-        disabled={isReadOnly}
-        {...triggerProps}
-        onClick={() => dispatch(dialogOpened({ kind: 'settings' }))}
-      >
-        {title}
-      </button>
-      {tooltip}
-    </>
-  );
-}
-
-function SaveState(): JSX.Element {
-  const status = useStore((state) => state.editor.saveStatus);
-  const { label, icon } = SAVE_STATES[status];
-  const { triggerProps, tooltip } = useTooltip({ text: label });
-  return (
-    <>
-      <span
-        className="ve-save-state"
-        role="img"
-        aria-label={label}
-        data-status={status}
-        {...triggerProps}
-      >
-        <Icon name={icon} />
-      </span>
-      {tooltip}
-    </>
-  );
-}
 
 function LogoLink(): JSX.Element {
   const { triggerProps, tooltip } = useTooltip({ text: 'My projects' });
@@ -227,12 +152,7 @@ export function Toolbar(): JSX.Element {
   return (
     <header className="ve-toolbar">
       <div className="ve-toolbar-group ve-toolbar-start">
-        <LibraryToggle />
         <LogoLink />
-        <div className="ve-project">
-          <ProjectName isReadOnly={isReadOnly} />
-          <SaveState />
-        </div>
         <FileMenu />
         <EditMenu isReadOnly={isReadOnly} />
       </div>
@@ -278,13 +198,17 @@ export function Toolbar(): JSX.Element {
           aria-haspopup="dialog"
           onClick={() => dispatch(dialogOpened({ kind: 'help' }))}
         />
-        <IconButton
-          label="Design system"
+        <Button
+          variant="ghost"
           icon="palette"
+          aria-label="Design"
+          id="ve-design-toggle"
+          aria-pressed={isDesignSheetOpen}
           disabled={isReadOnly}
-          isPressed={isDesignSheetOpen}
           onClick={() => dispatch(designSheetToggled(!isDesignSheetOpen))}
-        />
+        >
+          <span className="ve-wide-only">Design</span>
+        </Button>
         <PreviewButton isDisabled={isReadOnly} />
         <Button
           variant="primary"
@@ -295,7 +219,7 @@ export function Toolbar(): JSX.Element {
         >
           <span className="ve-wide-only">Export</span>
         </Button>
-        <PanelToggle side="right" />
+        <PropertiesToggle />
       </div>
     </header>
   );

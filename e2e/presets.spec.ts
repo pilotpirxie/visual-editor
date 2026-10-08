@@ -25,8 +25,7 @@ function fontsHref(page: Page): Promise<string | null> {
 }
 
 async function openPresets(page: Page): Promise<void> {
-  await page.getByRole('button', { name: 'Design system' }).click();
-  await page.locator('.ve-design-sheet summary', { hasText: 'Presets' }).click();
+  await page.getByRole('button', { name: 'Design', exact: true }).click();
 }
 
 test.beforeEach(async ({ page }) => {
@@ -34,11 +33,11 @@ test.beforeEach(async ({ page }) => {
   await insertBlock(page, 'Headers', 'Hero, centered text');
 });
 
-test('presets are a collapsed list that applies by group in one undo step', async ({ page }) => {
-  await page.getByRole('button', { name: 'Design system' }).click();
+test('presets open first in the design panel and apply by group in one undo step', async ({
+  page,
+}) => {
+  await page.getByRole('button', { name: 'Design', exact: true }).click();
   const list = page.getByRole('list', { name: 'Presets' });
-  await expect(list).toBeHidden();
-  await page.locator('.ve-design-sheet summary', { hasText: 'Presets' }).click();
   await expect(list.getByRole('listitem')).toHaveCount(12);
   await expect(page.getByRole('button', { name: 'Save current as preset…' })).toHaveCount(0);
 
@@ -74,7 +73,7 @@ test('a heading font with one weight is never faked bold and loads only that wei
 });
 
 test('the heading weight comes from the weights the heading font offers', async ({ page }) => {
-  await page.getByRole('button', { name: 'Design system' }).click();
+  await page.getByRole('button', { name: 'Design', exact: true }).click();
   const weight = page.getByLabel('Heading weight');
   await expect(weight.locator('option')).toHaveCount(9);
   await weight.selectOption('900');

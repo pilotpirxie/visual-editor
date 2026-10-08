@@ -56,11 +56,12 @@ export function canvasViewport(
   device: DeviceMode,
   responsiveWidth: number | null,
   available: Size,
+  minFitWidth = MIN_RESPONSIVE_WIDTH,
 ): DeviceViewport {
   if (device !== 'responsive') return DEVICE_VIEWPORTS[device];
   const maxWidth = Math.max(Math.floor(available.width), MIN_RESPONSIVE_WIDTH);
-  const width = clamp(responsiveWidth ?? maxWidth, MIN_RESPONSIVE_WIDTH, maxWidth);
-  return { width, height: null };
+  if (responsiveWidth === null) return { width: Math.max(maxWidth, minFitWidth), height: null };
+  return { width: clamp(responsiveWidth, MIN_RESPONSIVE_WIDTH, maxWidth), height: null };
 }
 
 export function fitDevice(viewport: DeviceViewport, available: Size): DeviceFit {

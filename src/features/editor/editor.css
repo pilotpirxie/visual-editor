@@ -102,46 +102,6 @@
     min-width: 0;
   }
 
-  .ve-project {
-    display: flex;
-    align-items: center;
-    gap: var(--ve-space-1);
-    min-width: 0;
-    margin-inline-end: var(--ve-space-3);
-  }
-
-  .ve-project-name {
-    min-width: 0;
-    max-width: 18ch;
-    min-height: var(--ve-target);
-    padding-inline: var(--ve-space-3);
-    overflow: hidden;
-    border: 0;
-    border-radius: var(--ve-radius);
-    background: none;
-    font-weight: 600;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    cursor: pointer;
-  }
-
-  .ve-project-name:hover:enabled {
-    background: var(--ve-surface);
-  }
-
-  .ve-project-name:disabled {
-    cursor: default;
-  }
-
-  .ve-save-state {
-    display: inline-flex;
-    color: var(--ve-muted);
-  }
-
-  .ve-save-state[data-status='error'] {
-    color: var(--ve-danger);
-  }
-
   .ve-toolbar-center {
     flex: 0 1 auto;
     justify-content: center;
@@ -157,8 +117,7 @@
 
   @media (width < 520px) {
     .ve-device-toggle,
-    .ve-help-button,
-    .ve-project-name {
+    .ve-help-button {
       display: none;
     }
   }
@@ -223,6 +182,49 @@
     border-right: 1px solid var(--ve-border);
   }
 
+  .ve-panel-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ve-space-1);
+    padding: var(--ve-space-2) var(--ve-space-4);
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-panel-heading {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ve-space-3);
+    min-width: 0;
+  }
+
+  .ve-panel-heading > .ui-title {
+    min-width: 0;
+    overflow: hidden;
+    line-height: var(--ve-target);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ve-panel-detail {
+    flex: none;
+    max-width: 50%;
+    overflow: hidden;
+    color: var(--ve-muted);
+    font-size: var(--ve-text-sm);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ve-panel-heading > .ui-icon-button {
+    align-self: center;
+    margin-inline-start: auto;
+  }
+
+  .ve-panel-header .ui-switch {
+    min-height: var(--ve-control-height);
+    font-size: var(--ve-text-sm);
+  }
+
   .ve-properties {
     border-left: 1px solid var(--ve-border);
   }
@@ -279,8 +281,8 @@
     border-radius: 999px;
   }
 
-  @media (width >= 1280px) {
-    .ve-shell[data-left-collapsed] :is(.ve-library, .ve-resize-handle[data-side='left']) {
+  @media (width >= 1700px) {
+    .ve-shell[data-left-collapsed] :is(.ve-library-content, .ve-resize-handle[data-side='left']) {
       display: none;
     }
   }
@@ -295,21 +297,16 @@
     display: none;
   }
 
-  @media (1024px <= width < 1280px) {
-    .ve-shell {
-      grid-template-columns: 0 0 minmax(0, 1fr) 0 var(--ve-right-width);
-    }
-
+  @media (1024px <= width < 1700px) {
     .ve-shell .ve-resize-handle[data-side='left'],
-    .ve-shell:not([data-library-drawer]) .ve-library {
+    .ve-shell:not([data-library-drawer]) .ve-library-content {
       display: none;
     }
 
     .ve-shell[data-library-drawer] .ve-library {
-      grid-area: canvas;
       z-index: 6;
       justify-self: start;
-      width: min(var(--ve-drawer-width), 100%);
+      width: calc(var(--ve-rail-width) + var(--ve-drawer-width));
       box-shadow: 12px 0 32px rgb(17 24 39 / 0.12);
     }
 
@@ -320,9 +317,14 @@
       background: rgb(17 24 39 / 0.12);
     }
 
-    .ve-shell[data-dragging] :is(.ve-library, .ve-drawer-scrim) {
-      opacity: 0;
-      pointer-events: none;
+    .ve-shell[data-dragging] .ve-drawer-scrim,
+    .ve-shell[data-dragging] .ve-library-content {
+      display: none;
+    }
+
+    .ve-shell[data-dragging][data-library-drawer] .ve-library {
+      width: var(--ve-rail-width);
+      box-shadow: none;
     }
   }
 
@@ -375,10 +377,6 @@
 
     .ve-toolbar-center {
       flex: 1 1 0;
-    }
-
-    .ve-project {
-      margin-inline-end: 0;
     }
 
     .ve-toasts {

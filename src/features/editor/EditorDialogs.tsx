@@ -8,7 +8,6 @@ import {
   HelpDialog,
   LicensesDialog,
   NewProjectDialog,
-  ProjectSettingsDialog,
   SaveBlockDialog,
   SnapshotsDialog,
 } from '../../app/lazyDialogs';
@@ -34,8 +33,6 @@ function useFocusReturn(isOpen: boolean): void {
 function DialogFor({ dialog }: { dialog: EditorDialog }): JSX.Element | null {
   if (dialog.kind === 'export') {
     return <ExportDialog onClose={closeDialog} />;
-  } else if (dialog.kind === 'settings') {
-    return <ProjectSettingsDialog onClose={closeDialog} />;
   } else if (dialog.kind === 'licenses') {
     return <LicensesDialog onClose={closeDialog} />;
   } else if (dialog.kind === 'new-project') {

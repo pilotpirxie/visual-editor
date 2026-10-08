@@ -138,10 +138,10 @@ export function PageSettingsPanel(): JSX.Element {
 
   return (
     <div className="ve-page-settings" key={page.id}>
-      <header className="ve-properties-header">
-        <div className="ve-properties-heading">
+      <header className="ve-panel-header">
+        <div className="ve-panel-heading">
           <Title>Page settings</Title>
-          <span className="ve-properties-detail">
+          <span className="ve-panel-detail">
             {page.name} · {pageFileName(page, homePageId)}
           </span>
         </div>

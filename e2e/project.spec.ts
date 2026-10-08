@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { createProject, openProjectSettings, storedProject } from './editor';
+import { closeLibraryDrawer, createProject, openProjectSettings, storedProject } from './editor';
 
 test('project settings change the site title for every page and survive a reload', async ({
   page,
@@ -10,7 +10,7 @@ test('project settings change the site title for every page and survive a reload
   await dialog.getByLabel('Description').fill('Customer interviews, tagged.');
   await dialog.getByLabel('Language').selectOption('pl');
   await dialog.getByLabel('Base URL').fill('https://acme.example');
-  await dialog.getByRole('button', { name: 'Done' }).click();
+  await closeLibraryDrawer(page);
 
   await expect(page).toHaveTitle(/ · Acme Research – Visual Editor$/);
   const canvasLanguage = page.frameLocator('.ve-canvas-frame').locator('html').getAttribute('lang');

@@ -2,7 +2,7 @@ import { useDeferredValue, useMemo, useState, type FormEvent, type JSX } from 'r
 import {
   blockSelected,
   dialogClosed,
-  dialogOpened,
+  libraryOpened,
   fieldFocusRequested,
   noticeShown,
 } from '../../app/editorSlice';
@@ -78,7 +78,7 @@ function showMatch(match: FindMatch): void {
   const { location } = match;
   dispatch(dialogClosed());
   if (location.kind === 'setting') {
-    dispatch(dialogOpened({ kind: 'settings' }));
+    dispatch(libraryOpened('settings'));
   } else if (location.kind === 'page-seo') {
     dispatch(openPage(location.pageId));
     dispatch(blockSelected(null));

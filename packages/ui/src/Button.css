@@ -56,11 +56,12 @@
     background: color-mix(in oklab, var(--ve-danger), black 12%);
   }
 
-  :is(.ui-button--secondary, .ui-button--ghost, .ui-icon-button):is(
-    :hover:enabled,
-    [aria-expanded='true']
-  ) {
+  :is(.ui-button--ghost, .ui-icon-button):is(:hover:enabled, [aria-expanded='true']) {
     background: color-mix(in oklab, currentColor 9%, transparent);
+  }
+
+  .ui-button--secondary:is(:hover:enabled, [aria-expanded='true']) {
+    background: color-mix(in oklab, currentColor 9%, var(--ve-bg));
   }
 
   .ui-icon-button[aria-pressed='true'] {

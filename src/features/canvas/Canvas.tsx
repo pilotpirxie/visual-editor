@@ -9,7 +9,12 @@ import {
   type RefObject,
 } from 'react';
 import { visibleBlockLists } from '../../app/blockLists';
-import { blockSelected, fieldFocusRequested } from '../../app/editorSlice';
+import {
+  blockSelected,
+  fieldFocusRequested,
+  MIN_RESPONSIVE_WIDTH,
+  WIDE_LAYOUT_QUERY,
+} from '../../app/editorSlice';
 import {
   dispatch,
   selectCanvasRenderContext,
@@ -30,6 +35,7 @@ import { dragController, type DragPayload } from './dragController';
 import {
   autoScrollDelta,
   canvasViewport,
+  DESKTOP_MIN_WIDTH_PX,
   deviceForWidth,
   dropIndexFromSpans,
   fitDevice,
@@ -48,11 +54,17 @@ import {
   isElementTarget,
   pageRootTop,
 } from './frameDom';
+import { hasOnlyText, inlineTextField, isInsideInlineEdit, startInlineEdit } from './inlineEdit';
 import { canvasLinkTarget } from './links';
 import { Overlay } from './Overlay';
 import { ResponsiveHandles } from './ResponsiveHandles';
 import './canvas.css';
-import { closeOpenPopovers, useElementSize, type MenuPoint } from '../../../packages/ui/src';
+import {
+  closeOpenPopovers,
+  useElementSize,
+  useMediaQuery,
+  type MenuPoint,
+} from '../../../packages/ui/src';
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
@@ -118,6 +130,7 @@ function useCanvasPointer(doc: Document | null, isPreview: boolean): string | nu
         }
       }
       if (isCloseCommand(event)) event.preventDefault();
+      if (isInsideInlineEdit(event.target)) return;
       const blockId = blockIdFromEvent(event);
       const path = fieldPathFromEvent(event);
       if (blockId !== null && path !== null) {
@@ -125,6 +138,18 @@ function useCanvasPointer(doc: Document | null, isPreview: boolean): string | nu
         return;
       }
       dispatch(blockSelected(blockId));
+    }
+    function onDoubleClick(event: MouseEvent): void {
+      const view = doc?.defaultView ?? null;
+      if (isPreview || view === null || !isElementTarget(event.target)) return;
+      const fieldElement = event.target.closest('[data-field]');
+      const blockId = blockIdFromEvent(event);
+      const path = fieldPathFromEvent(event);
+      if (!(fieldElement instanceof view.HTMLElement) || blockId === null || path === null) return;
+      const field = inlineTextField(store.getState().project, blockId, path);
+      if (field === null || !hasOnlyText(fieldElement)) return;
+      event.preventDefault();
+      startInlineEdit(fieldElement, { blockId, field }, { x: event.clientX, y: event.clientY });
     }
     function onPreviewClick(event: MouseEvent): void {
       const link = linkFromEvent(event);
@@ -139,12 +164,14 @@ function useCanvasPointer(doc: Document | null, isPreview: boolean): string | nu
     doc.addEventListener('pointermove', onPointerMove);
     doc.documentElement.addEventListener('pointerleave', onPointerLeave);
     doc.addEventListener('click', onClick, true);
+    doc.addEventListener('dblclick', onDoubleClick);
     view?.addEventListener('click', onPreviewClick);
     doc.addEventListener('submit', onSubmit, true);
     return () => {
       doc.removeEventListener('pointermove', onPointerMove);
       doc.documentElement.removeEventListener('pointerleave', onPointerLeave);
       doc.removeEventListener('click', onClick, true);
+      doc.removeEventListener('dblclick', onDoubleClick);
       view?.removeEventListener('click', onPreviewClick);
       doc.removeEventListener('submit', onSubmit, true);
     };
@@ -172,6 +199,7 @@ function useCanvasBlockDrag(
     function onPointerDown(event: PointerEvent): void {
       const blockId = blockIdFromEvent(event);
       if (event.pointerType === 'touch' || blockId === null) return;
+      if (isInsideInlineEdit(event.target)) return;
       const state = store.getState();
       const block = state.project.blocks.entities[blockId];
       const isPageBlock = selectCurrentPage(state).blockIds.includes(blockId);
@@ -261,6 +289,8 @@ function useCanvasDropTarget(
         const viewport = viewportRef.current;
         if (viewport === null || !isShown(viewport)) return null;
         if (!isPointInBox(point, viewport.getBoundingClientRect(), 0)) return null;
+        const topElement = document.elementFromPoint(point.x, point.y);
+        if (topElement === null || !viewport.contains(topElement)) return null;
         const frameTop = iframe.getBoundingClientRect().top;
         return dropIndexFromSpans(blockSpans(doc), (point.y - frameTop) / scale);
       },
@@ -345,7 +375,9 @@ export function Canvas(): JSX.Element {
   const available = useElementSize(viewportRef);
   const [frame, setFrame] = useState<CanvasFrameHandle | null>(null);
   const hoveredId = useCanvasPointer(frame?.doc ?? null, isPreview);
-  const viewport = canvasViewport(device, responsiveWidth, available);
+  const isWideLayout = useMediaQuery(WIDE_LAYOUT_QUERY);
+  const minFitWidth = isWideLayout ? DESKTOP_MIN_WIDTH_PX : MIN_RESPONSIVE_WIDTH;
+  const viewport = canvasViewport(device, responsiveWidth, available, minFitWidth);
   const fit = fitDevice(viewport, available);
   const pageDevice = deviceForWidth(fit.frame.width);
   const hiddenIds = useShownBlockIds((block) => block.hideOn.includes(pageDevice));

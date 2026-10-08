@@ -7,7 +7,6 @@ import {
   linkedFileOutdated,
   panelToggled,
   previewToggled,
-  saveStatusChanged,
 } from '../../app/editorSlice';
 import { blockValueSet } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
@@ -54,44 +53,19 @@ describe('Toolbar', () => {
     expect(store.getState().editor.device).toBe('responsive');
   });
 
-  it('shows the project name and a quiet save state that follows autosave', () => {
-    const { container } = render(
-      <>
-        <Toolbar />
-        <EditorDialogs />
-      </>,
-    );
-    const name = container.querySelector<HTMLButtonElement>('.ve-project-name');
-    expect(name?.textContent).toBe('Fieldnote');
-    expect(name?.getAttribute('aria-label')).toBe('Fieldnote, project settings');
-    const saveState = container.querySelector('.ve-save-state');
-    runInAct(() => dispatch(saveStatusChanged('saving')));
-    expect(saveState?.getAttribute('aria-label')).toBe('Saving…');
-    runInAct(() => dispatch(saveStatusChanged('error')));
-    expect(saveState?.getAttribute('data-status')).toBe('error');
-    expect(saveState?.getAttribute('aria-label')).toBe('Changes not saved');
-    runInAct(() => dispatch(saveStatusChanged('saved')));
-    expect(saveState?.getAttribute('aria-label')).toBe('All changes saved');
-    expect(container.querySelector('[role="status"]')).toBeNull();
-    click(name);
-    expect(store.getState().editor.openDialog).toEqual({ kind: 'settings' });
+  it('leaves the project name and save state out of the toolbar', () => {
+    const { container } = render(<Toolbar />);
+    expect(container.textContent).not.toContain('Fieldnote');
+    expect(container.querySelector('[aria-label="All changes saved"]')).toBeNull();
   });
 
-  it('opens the project settings from the File menu', async () => {
-    const { container } = render(
-      <>
-        <Toolbar />
-        <EditorDialogs />
-      </>,
-    );
+  it('opens the project settings in the library from the File menu', () => {
+    const { container } = render(<Toolbar />);
     const fileMenu = container.querySelector('[role="menu"][aria-label="File"]');
     if (fileMenu === null) throw new Error('Expected the File menu');
-    click(getButton(fileMenu, 'Project settings…'));
-    await vi.waitFor(() =>
-      expect(container.querySelector('#ve-project-settings-title')?.textContent).toBe(
-        'Project settings',
-      ),
-    );
+    click(getButton(fileMenu, 'Project settings'));
+    expect(store.getState().editor.libraryTab).toBe('settings');
+    expect(store.getState().editor.isLibraryDrawerOpen).toBe(true);
   });
 
   it('marks the File menu when the linked file misses the latest changes', () => {
@@ -136,19 +110,21 @@ describe('Toolbar', () => {
     expect(getButton(container, 'Redo').disabled).toBe(false);
   });
 
-  it('toggles a side panel and updates its label', () => {
+  it('toggles the properties panel and updates its label', () => {
     const { container } = render(<Toolbar />);
-    click(getButton(container, 'Hide library panel'));
-    expect(store.getState().editor.panels.left.collapsed).toBe(true);
-    expect(getButton(container, 'Show library panel').getAttribute('aria-pressed')).toBe('false');
+    click(getButton(container, 'Hide properties panel'));
+    expect(store.getState().editor.panels.right.collapsed).toBe(true);
+    expect(getButton(container, 'Show properties panel').getAttribute('aria-pressed')).toBe(
+      'false',
+    );
   });
 
   it('opens and closes the design system sheet', () => {
     const { container } = render(<Toolbar />);
-    click(getButton(container, 'Design system'));
+    click(getButton(container, 'Design'));
     expect(store.getState().editor.isDesignSheetOpen).toBe(true);
-    expect(getButton(container, 'Design system').getAttribute('aria-pressed')).toBe('true');
-    click(getButton(container, 'Design system'));
+    expect(getButton(container, 'Design').getAttribute('aria-pressed')).toBe('true');
+    click(getButton(container, 'Design'));
     expect(store.getState().editor.isDesignSheetOpen).toBe(false);
   });
 

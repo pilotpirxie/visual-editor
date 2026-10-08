@@ -19,14 +19,13 @@ test('applying a preset takes a snapshot, and a restore can be undone', async ({
   await manual.getByRole('button', { name: 'Close' }).click();
   await insertBlock(page, 'Features', 'Features grid, 3 columns');
 
-  await page.getByRole('button', { name: 'Design system' }).click();
-  await page.locator('.ve-design-sheet summary', { hasText: 'Presets' }).click();
+  await page.getByRole('button', { name: 'Design', exact: true }).click();
   await page.getByRole('button', { name: 'Apply Midnight' }).click();
   await page
     .getByRole('dialog', { name: 'Apply Midnight' })
     .getByRole('button', { name: 'Apply', exact: true })
     .click();
-  await page.getByRole('button', { name: 'Close design system' }).click();
+  await page.getByRole('button', { name: 'Close design' }).click();
 
   const dialog = await openSnapshots(page);
   const auto = dialog.getByRole('listitem').filter({ hasText: 'Before applying Midnight' });

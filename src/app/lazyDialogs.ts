@@ -40,8 +40,8 @@ export const HelpDialog = lazy(async () => ({
   default: (await import('../features/help/HelpDialog')).HelpDialog,
 }));
 
-export const ProjectSettingsDialog = lazy(async () => ({
-  default: (await import('../features/project/ProjectSettingsDialog')).ProjectSettingsDialog,
+export const ProjectSettingsPanel = lazy(async () => ({
+  default: (await import('../features/project/ProjectSettingsPanel')).ProjectSettingsPanel,
 }));
 
 export const SaveBlockDialog = lazy(async () => ({

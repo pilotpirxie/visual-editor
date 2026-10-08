@@ -20,7 +20,7 @@ async function exportedFiles(page: Page): Promise<Map<string, Buffer>> {
   const downloadPromise = page.waitForEvent('download');
   await page
     .getByRole('dialog', { name: 'Export site' })
-    .getByRole('button', { name: /Download zip|Export anyway/ })
+    .getByRole('button', { name: 'Download zip' })
     .click();
   return readZip(await readFile(await (await downloadPromise).path()));
 }
@@ -68,8 +68,8 @@ test('dark section colors are edited in the design system and follow into themed
   await chooseTheme(page, 'Dark');
   const cta = page.frameLocator('.ve-canvas-frame').locator('[data-component="cta-centered"]');
 
-  await page.getByRole('button', { name: 'Design system' }).click();
-  const sheet = page.getByRole('complementary', { name: 'Design system' });
+  await page.getByRole('button', { name: 'Design', exact: true }).click();
+  const sheet = page.getByRole('complementary', { name: 'Design' });
   await sheet.getByRole('heading', { name: 'Dark sections' }).click();
   await sheet.locator('[id="ve-token---theme-dark-background"]').fill('#000000');
   await expect(cta).toHaveCSS('background-color', 'rgb(0, 0, 0)');

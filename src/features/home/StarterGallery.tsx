@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState, type JSX } from 'react';
+import { useEffect, useMemo, useRef, useState, type JSX, type ReactNode } from 'react';
 import { describeError } from '../../app/errors';
 import type { Project } from '../../app/types';
-import { builtInComponents } from '../../components/registry';
+import { componentsFor } from '../../components/registry';
 import { renderStandalonePage } from '../../render/exportSite';
 import {
   loadStarter,
@@ -43,6 +43,7 @@ function startersFor(starters: LoadedStarter[], filter: UseCaseFilter): LoadedSt
 
 type StarterGalleryProps = {
   isDisabled: boolean;
+  leadingCard?: ReactNode;
   onUse(starter: StarterInfo, project: Project): void;
 };
 
@@ -61,18 +62,18 @@ function pageNamesOf(project: Project): string[] {
   return names;
 }
 
-function StarterThumbnail({ project }: { project: Project }): JSX.Element {
+export function PageThumbnail({ project }: { project: Project }): JSX.Element {
   const boxRef = useRef<HTMLDivElement>(null);
   const { width } = useElementSize(boxRef);
   const html = useMemo(
     () =>
-      renderStandalonePage(project, project.pages.homePageId, builtInComponents, {
+      renderStandalonePage(project, project.pages.homePageId, componentsFor(project), {
         shouldLinkFonts: true,
       }),
     [project],
   );
   return (
-    <div className="ve-starter-thumbnail" ref={boxRef}>
+    <div className="ve-page-thumbnail" ref={boxRef}>
       <iframe
         sandbox=""
         srcDoc={html}
@@ -89,7 +90,11 @@ function StarterThumbnail({ project }: { project: Project }): JSX.Element {
   );
 }
 
-export function StarterGallery({ isDisabled, onUse }: StarterGalleryProps): JSX.Element {
+export function StarterGallery({
+  isDisabled,
+  leadingCard,
+  onUse,
+}: StarterGalleryProps): JSX.Element {
   const [starters, setStarters] = useState<LoadedStarter[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [previewing, setPreviewing] = useState<LoadedStarter | null>(null);
@@ -131,6 +136,7 @@ export function StarterGallery({ isDisabled, onUse }: StarterGalleryProps): JSX.
     <>
       <SegmentedControl
         legend="Use case"
+        isLegendHidden
         name="ve-starter-use-case"
         className="ve-starter-filter"
         options={USE_CASE_OPTIONS}
@@ -138,11 +144,12 @@ export function StarterGallery({ isDisabled, onUse }: StarterGalleryProps): JSX.
         onChange={(value) => setUseCase(filterFromValue(value))}
       />
       <ul className="ve-starter-grid" aria-label="Starters">
+        {leadingCard !== undefined && <li className="ve-starter-card">{leadingCard}</li>}
         {startersFor(starters, useCase).map((loaded) => {
           const { starter, project } = loaded;
           return (
             <li key={starter.id} className="ve-starter-card">
-              <StarterThumbnail project={project} />
+              <PageThumbnail project={project} />
               <h3 className="ve-starter-name">{starter.name}</h3>
               <p className="ui-muted">{starter.description}</p>
               <p className="ve-starter-pages">{pageNamesOf(project).join(' · ')}</p>

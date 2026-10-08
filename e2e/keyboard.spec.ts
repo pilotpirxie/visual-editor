@@ -26,10 +26,15 @@ test('a whole page can be built and exported with the keyboard alone', async ({
   await page.keyboard.press('Enter');
   await expect(page.locator('.ve-toolbar')).toBeVisible();
 
+  const blocksTab = page.locator('.ve-library').getByRole('tab', { name: 'Blocks' });
   const search = page.getByRole('searchbox', { name: 'Search blocks' });
+  await blocksTab.focus();
+  await page.keyboard.press('Enter');
   await search.focus();
   await page.keyboard.type('features grid 3');
   await page.keyboard.press(tabKey);
+  await page.keyboard.press('Enter');
+  await blocksTab.focus();
   await page.keyboard.press('Enter');
   await search.fill('hero centered');
   await search.focus();

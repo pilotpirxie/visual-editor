@@ -4,8 +4,10 @@ import { pathToFileURL } from 'node:url';
 import { expect, test, type Page } from '@playwright/test';
 import {
   addPage,
+  closeLibraryDrawer,
   createProject,
   insertBlock,
+  openLibraryTab,
   openPage,
   openProjectSettings,
   readZip,
@@ -15,7 +17,7 @@ async function buildSite(page: Page): Promise<void> {
   await createProject(page);
   const settings = await openProjectSettings(page);
   await settings.getByLabel('Description').fill('Customer interviews, tagged and searchable.');
-  await settings.getByRole('button', { name: 'Done' }).click();
+  await closeLibraryDrawer(page);
   await insertBlock(page, 'Navigations', 'Navigation, logo left');
   await insertBlock(page, 'Headers', 'Hero, centered text');
   await insertBlock(page, 'Features', 'Features grid, 3 columns');
@@ -26,12 +28,15 @@ async function downloadExport(page: Page): Promise<Map<string, Buffer>> {
   await page.getByRole('button', { name: 'Export', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Export site' });
   await expect(dialog.getByRole('note')).toHaveText(
-    /^Check these before you publishSite: No social image on Home\. .*$/,
+    /^Before you publishNo social image on Home\. .*Fix$/,
   );
   const downloadPromise = page.waitForEvent('download');
-  await dialog.getByRole('button', { name: 'Export anyway' }).click();
+  await dialog.getByRole('button', { name: 'Download zip' }).click();
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toMatch(/^untitled-site-\d{4}-\d{2}-\d{2}\.zip$/);
+  const done = page.getByRole('dialog', { name: 'Site exported' });
+  await expect(done.getByRole('status')).toContainText(`Saved ${download.suggestedFilename()} (`);
+  await expect(done.getByRole('button', { name: 'Close' })).toBeFocused();
   return readZip(await readFile(await download.path()));
 }
 
@@ -70,23 +75,34 @@ test('the exported zip holds pages, one CSS file, one JS file and works from dis
   await expect(page.locator('.b-menu').getByRole('link', { name: 'Features' })).toBeVisible();
 });
 
-test('the export dialog lists warnings first and still lets the user export', async ({ page }) => {
+test('the export dialog lists warnings, fixes one in place and still lets the user export', async ({
+  page,
+}) => {
   await createProject(page);
   await addPage(page, 'About');
   await insertBlock(page, 'Headers', 'Hero, centered text');
   await page.locator('[id="ve-field-primaryButton-link-type"]').selectOption({ label: 'Page' });
   await page.locator('[id="ve-field-primaryButton-link-page"]').selectOption({ label: 'Home' });
   await openPage(page, 'Home');
+  await openLibraryTab(page, 'Pages');
   await page.getByRole('button', { name: 'More actions for About' }).click();
   await page.getByRole('menuitem', { name: 'Set as home page' }).click();
   await page.getByRole('button', { name: 'More actions for Home' }).click();
   await page.getByRole('menuitem', { name: 'Delete…' }).click();
   await page.getByRole('button', { name: 'Delete page' }).click();
+  await addPage(page, 'Contact');
   await page.getByRole('button', { name: 'Export', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Export site' });
-  await expect(dialog).toContainText('“Primary button” links to a page that was deleted');
+  const warning = dialog.getByRole('listitem').filter({
+    hasText: '“Primary button” links to a page that was deleted',
+  });
+  await warning.getByRole('button', { name: 'Fix' }).click();
+  await expect(dialog).toBeHidden();
+  await expect(page.locator('.ve-panel-heading')).toContainText('Hero, centered text');
+
+  await page.getByRole('button', { name: 'Export', exact: true }).click();
   const downloadPromise = page.waitForEvent('download');
-  await dialog.getByRole('button', { name: 'Export anyway' }).click();
+  await dialog.getByRole('button', { name: 'Download zip' }).click();
   expect((await downloadPromise).suggestedFilename()).toMatch(/\.zip$/);
 });
 
@@ -97,9 +113,12 @@ test('exporting the same project twice gives byte-identical zips', async ({ page
     await page.getByRole('button', { name: 'Export', exact: true }).click();
     const dialog = page.getByRole('dialog', { name: 'Export site' });
     const downloadPromise = page.waitForEvent('download');
-    await dialog.getByRole('button', { name: 'Export anyway' }).click();
+    await dialog.getByRole('button', { name: 'Download zip' }).click();
     const download = await downloadPromise;
     zips.push(await readFile(await download.path()));
+    const done = page.getByRole('dialog', { name: 'Site exported' });
+    await done.getByRole('button', { name: 'Close' }).click();
+    await expect(done).toBeHidden();
   }
   expect(zips[0]?.equals(zips[1] ?? Buffer.alloc(0))).toBe(true);
 });

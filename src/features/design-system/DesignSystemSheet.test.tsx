@@ -92,7 +92,7 @@ describe('DesignSystemSheet', () => {
     pressKey(input(container, '#ve-token---radius-md') ?? container, 'Escape');
     expect(store.getState().editor.isDesignSheetOpen).toBe(false);
     runInAct(() => dispatch(designSheetToggled(true)));
-    click(getButton(container, 'Close design system'));
+    click(getButton(container, 'Close design'));
     expect(store.getState().editor.isDesignSheetOpen).toBe(false);
   });
 });

@@ -1,6 +1,7 @@
 @layer components {
   .ve-canvas {
     position: relative;
+    isolation: isolate;
     display: flex;
     justify-content: center;
     min-width: 0;
@@ -143,6 +144,15 @@
     font-size: 11px;
     font-weight: 600;
     white-space: nowrap;
+  }
+
+  .ve-add-here {
+    position: absolute;
+    z-index: 2;
+    translate: -50% -50%;
+    border-radius: 999px;
+    box-shadow: var(--ve-shadow);
+    pointer-events: auto;
   }
 
   .ve-outline-label {

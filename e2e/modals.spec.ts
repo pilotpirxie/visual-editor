@@ -19,7 +19,7 @@ async function exportToFolder(page: Page, testInfo: TestInfo): Promise<Map<strin
   await page.getByRole('button', { name: 'Export', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Export site' });
   const downloadPromise = page.waitForEvent('download');
-  await dialog.getByRole('button', { name: /Download zip|Export anyway/ }).click();
+  await dialog.getByRole('button', { name: 'Download zip' }).click();
   const files = readZip(await readFile(await (await downloadPromise).path()));
   const folder = testInfo.outputPath('site');
   for (const [path, content] of files) {

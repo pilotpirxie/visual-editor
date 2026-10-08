@@ -10,6 +10,8 @@ export function blockRoot(doc: Document, blockId: string): Element | null {
 
 export const PAGE_ROOT_ID = 've-page';
 
+export const INLINE_EDIT_ATTRIBUTE = 'data-ve-inline-edit';
+
 export const CANVAS_ID = 've-canvas';
 
 export function focusCanvas(): void {

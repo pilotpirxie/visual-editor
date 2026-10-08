@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { expect, test, type Page } from '@playwright/test';
-import { createProject, insertBlock, readZip } from './editor';
+import { createProject, insertBlock, readZip, showAllBlockCategories } from './editor';
 import { bylinePack, hostilePack, invalidPack, validPack } from './fixtures/packs';
 
 test.beforeEach(async ({ page }) => {
@@ -15,6 +15,7 @@ function canvas(page: Page) {
 }
 
 async function choosePack(page: Page, pack: Promise<Buffer>): Promise<void> {
+  await showAllBlockCategories(page);
   const chooserPromise = page.waitForEvent('filechooser');
   await page.locator('.ve-blocks').getByRole('button', { name: 'Load block pack' }).click();
   const chooser = await chooserPromise;
@@ -60,7 +61,7 @@ test('a valid pack previews at three widths and its blocks join the library', as
   await page.getByRole('button', { name: 'Export', exact: true }).click();
   const exportDialog = page.getByRole('dialog', { name: 'Export site' });
   const downloadPromise = page.waitForEvent('download');
-  await exportDialog.getByRole('button', { name: /Download zip|Export anyway/ }).click();
+  await exportDialog.getByRole('button', { name: 'Download zip' }).click();
   const files = readZip(await readFile(await (await downloadPromise).path()));
   const html = files.get('index.html')?.toString('utf8') ?? '';
   const css = files.get('assets/css/site.css')?.toString('utf8') ?? '';

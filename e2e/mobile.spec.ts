@@ -133,8 +133,7 @@ test('block actions are reachable from the Layers list without a right-click', a
 
 test('the design system, project settings and export work on a phone', async ({ page }) => {
   await startOnPhone(page);
-  await page.getByRole('button', { name: 'Design system' }).tap();
-  await page.locator('.ve-design-sheet summary', { hasText: 'Presets' }).tap();
+  await page.getByRole('button', { name: 'Design', exact: true }).tap();
   await page.getByRole('button', { name: 'Apply Midnight' }).tap();
   await page
     .getByRole('dialog', { name: 'Apply Midnight' })
@@ -144,15 +143,14 @@ test('the design system, project settings and export work on a phone', async ({ 
   await page.getByLabel('Heading weight').selectOption('500');
   await expect(page.getByLabel('Heading weight')).toHaveValue('500');
   expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
-  await page.getByRole('button', { name: 'Close design system' }).tap();
+  await page.getByRole('button', { name: 'Close design' }).tap();
 
   await page.getByRole('button', { name: /^File/ }).tap();
-  await page.getByRole('menuitem', { name: 'Project settings…' }).tap();
-  const settings = page.getByRole('dialog', { name: 'Project settings' });
+  await page.getByRole('menuitem', { name: 'Project settings' }).tap();
+  const settings = page.getByRole('tabpanel', { name: 'Settings' });
   await settings.getByLabel('Site title').fill('Pocket site');
   const settingsBox = await settings.boundingBox();
   expect(settingsBox?.width ?? 0).toBeLessThanOrEqual(page.viewportSize()?.width ?? 0);
-  await settings.getByRole('button', { name: 'Done' }).tap();
   await expect(page).toHaveTitle(/ · Pocket site – Visual Editor$/);
 
   await page.getByRole('button', { name: 'Export' }).tap();
@@ -161,7 +159,7 @@ test('the design system, project settings and export work on a phone', async ({ 
 
 test('the home screen fits a phone screen', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'My projects' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Start a new site' })).toBeVisible();
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
   );

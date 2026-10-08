@@ -53,14 +53,21 @@ function useDocumentTitle(pageName: string, projectTitle: string): void {
   }, [pageName, projectTitle]);
 }
 
-function isDragActive(): boolean {
-  return dragController.getSnapshot() !== null;
+function libraryColumnWidth(isPreview: boolean, isContentHidden: boolean, width: number): string {
+  if (isPreview) return '0px';
+  if (isContentHidden) return 'var(--ve-rail-width)';
+  return `calc(var(--ve-rail-width) + ${width}px)`;
 }
 
-function isFocusInLibraryOrLost(): boolean {
+function isNewBlockDragActive(): boolean {
+  return dragController.getSnapshot()?.payload.kind === 'new';
+}
+
+function isFocusInLibraryContentOrLost(): boolean {
   const active = document.activeElement;
   if (active === null || active === document.body) return true;
-  return document.getElementById(LIBRARY_ID)?.contains(active) === true;
+  const content = document.querySelector(`#${LIBRARY_ID} .ve-library-content`);
+  return content?.contains(active) === true;
 }
 
 function useLibraryDrawerFocus(isOpen: boolean): void {
@@ -74,7 +81,7 @@ function useLibraryDrawerFocus(isOpen: boolean): void {
         ?.focus();
       return;
     }
-    if (isFocusInLibraryOrLost()) focusCanvas();
+    if (isFocusInLibraryContentOrLost()) focusCanvas();
   }, [isOpen]);
 }
 
@@ -87,17 +94,17 @@ export function EditorShell(): JSX.Element {
   const { left, right } = useStore((state) => state.editor.panels);
   const isDrawerMode = useMediaQuery(LIBRARY_DRAWER_QUERY);
   const isDrawerRequested = useStore((state) => state.editor.isLibraryDrawerOpen);
-  const isDragging = useSyncExternalStore(dragController.subscribe, isDragActive);
+  const isDraggingNewBlock = useSyncExternalStore(dragController.subscribe, isNewBlockDragActive);
   const compactView = useStore((state) => state.editor.compactView);
   const isDesignSheetOpen = useStore((state) => state.editor.isDesignSheetOpen);
   const isPreview = useStore((state) => state.editor.isPreview);
   const isReadOnly = useStore((state) => state.editor.isReadOnly);
-  const isLeftHidden = left.collapsed || isPreview;
+  const isLeftContentHidden = left.collapsed || isDrawerMode;
   const isRightHidden = right.collapsed || isPreview;
   const isDrawerOpen = isDrawerMode && isDrawerRequested && !isPreview;
   useLibraryDrawerFocus(isDrawerOpen);
   const panelWidths: CSSProperties = {
-    '--ve-left-width': isLeftHidden ? '0px' : `${left.width}px`,
+    '--ve-left-width': libraryColumnWidth(isPreview, isLeftContentHidden, left.width),
     '--ve-right-width': isRightHidden ? '0px' : `${right.width}px`,
     '--ve-drawer-width': `${left.width}px`,
   };
@@ -107,12 +114,13 @@ export function EditorShell(): JSX.Element {
       className="ve-shell"
       style={panelWidths}
       data-compact-view={compactView}
-      data-left-collapsed={isLeftHidden || undefined}
+      data-left-collapsed={left.collapsed || undefined}
       data-right-collapsed={isRightHidden || undefined}
       data-preview={isPreview || undefined}
       data-read-only={isReadOnly || undefined}
       data-library-drawer={isDrawerOpen || undefined}
-      data-dragging={isDragging || undefined}
+      data-design-open={isDesignSheetOpen || undefined}
+      data-dragging={isDraggingNewBlock || undefined}
     >
       <a className="ve-skip-link" href={`#${CANVAS_ID}`} onClick={skipToCanvas}>
         Skip to canvas

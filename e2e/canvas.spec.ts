@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { boxOf, createProject, insertBlock } from './editor';
+import { boxOf, createProject, insertBlock, showBlockCategory } from './editor';
 
 const CANVAS_PADDING_PX = 24;
 const TOLERANCE_PX = 1;
@@ -79,4 +79,32 @@ test('phone and tablet previews keep the real screen proportions and fit the can
     expect(device.bottom).toBeLessThanOrEqual(canvas.bottom);
     expect(device.right).toBeLessThanOrEqual(canvas.right);
   }
+});
+
+test('double-clicking a heading edits it in place as one undo step', async ({ page }) => {
+  await insertBlock(page, 'Headers', 'Hero, centered text');
+  const heading = page.frameLocator('.ve-canvas-frame').locator('h1');
+  const original = await heading.textContent();
+  await heading.dblclick();
+  await expect(heading).toHaveAttribute('contenteditable', 'plaintext-only');
+  await page.keyboard.press('ControlOrMeta+A');
+  await page.keyboard.type('Bread baked before sunrise');
+  await expect(page.locator('#ve-field-title')).toHaveValue('Bread baked before sunrise');
+  await page.keyboard.press('Enter');
+  await expect(heading).not.toHaveAttribute('contenteditable');
+  await expect(heading).toHaveText('Bread baked before sunrise');
+  await page.keyboard.press('ControlOrMeta+Z');
+  await expect(heading).toHaveText(original ?? '');
+});
+
+test('the Add block button inserts right after the selected block', async ({ page }) => {
+  await insertBlock(page, 'Navigations', 'Navigation, logo left');
+  await insertBlock(page, 'Footers', 'Footer, simple');
+  const blocks = page.frameLocator('.ve-canvas-frame').locator('[data-component]');
+  await blocks.first().click({ position: { x: 4, y: 4 } });
+  await page.getByRole('button', { name: 'Add block' }).click();
+  await showBlockCategory(page, 'Headers');
+  await page.locator('.ve-library').getByRole('button', { name: 'Hero, centered text' }).click();
+  await expect(blocks).toHaveCount(3);
+  await expect(blocks.nth(1)).toHaveAttribute('data-component', 'hero-centered');
 });

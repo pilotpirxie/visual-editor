@@ -19,7 +19,7 @@ test('every block fits from 320 to 1440 pixels wide in the exported site', async
   const downloadPromise = page.waitForEvent('download');
   await page
     .getByRole('dialog', { name: 'Export site' })
-    .getByRole('button', { name: /Download zip|Export anyway/ })
+    .getByRole('button', { name: 'Download zip' })
     .click();
   const files = readZip(await readFile(await (await downloadPromise).path()));
   expect(files.get('index.html')?.toString('utf8')).toContain(

@@ -3,7 +3,14 @@ import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { expect, test, type Page, type TestInfo } from '@playwright/test';
 import { checkAccessibility, type Violation } from './a11y';
-import { createProject, insertBlock, openLibraryTab, openProjectSettings, readZip } from './editor';
+import {
+  closeLibraryDrawer,
+  createProject,
+  insertBlock,
+  openLibraryTab,
+  openProjectSettings,
+  readZip,
+} from './editor';
 
 const STARTERS_LOAD_TIMEOUT_MS = 15_000;
 const MVP_STARTERS = ['SaaS product', 'Mobile app launch', 'Startup waitlist'];
@@ -32,7 +39,7 @@ async function exportSite(page: Page, testInfo: TestInfo, folderName: string): P
   await page.getByRole('button', { name: 'Export', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Export site' });
   const downloadPromise = page.waitForEvent('download');
-  await dialog.getByRole('button', { name: /Download zip|Export anyway/ }).click();
+  await dialog.getByRole('button', { name: 'Download zip' }).click();
   const files = readZip(await readFile(await (await downloadPromise).path()));
   const folder = testInfo.outputPath(folderName);
   for (const [path, content] of files) {
@@ -60,7 +67,7 @@ async function startFromStarter(page: Page, name: string): Promise<void> {
 
 test('the home screen and the new project dialog are accessible', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByText('You have no projects yet.')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Start a new site' })).toBeVisible();
   await expectAccessible(page);
   await page.getByRole('button', { name: 'New project' }).click();
   await expectAccessible(page);
@@ -84,7 +91,7 @@ test('the editor panels and tabs are accessible', async ({ page }) => {
   await expectAccessible(page);
   await openLibraryTab(page, 'Pages');
   await expectAccessible(page);
-  await page.getByRole('button', { name: 'Design system' }).click();
+  await page.getByRole('button', { name: 'Design', exact: true }).click();
   await expectAccessible(page);
 });
 
@@ -99,7 +106,7 @@ test('the editor dialogs are accessible', async ({ page }) => {
 
   await expect(await openProjectSettings(page)).toBeVisible();
   await expectAccessible(page);
-  await closeDialog(page);
+  await closeLibraryDrawer(page);
 
   for (const [menu, item] of [
     ['File', 'Snapshots…'],
@@ -142,7 +149,7 @@ test('an Arabic site exports right to left and still meets the checks', async ({
   await startFromStarter(page, 'Startup waitlist');
   const settings = await openProjectSettings(page);
   await settings.getByLabel('Language').selectOption('ar');
-  await settings.getByRole('button', { name: 'Done' }).click();
+  await closeLibraryDrawer(page);
   const home = await exportSite(page, testInfo, 'arabic');
   await page.goto(home);
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');

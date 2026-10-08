@@ -3,37 +3,59 @@ import { createProject } from './editor';
 
 test.use({ viewport: { width: 1100, height: 800 } });
 
-test('between 1024 and 1279 px the library opens over the canvas and closes after use', async ({
+test('below 1700 px the rail opens the library over the canvas and it closes after use', async ({
   page,
 }) => {
   await createProject(page);
-  const library = page.locator('#ve-library');
-  const toggle = page.getByRole('button', { name: 'Library', exact: true });
-  await expect(library).toBeHidden();
-  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  const content = page.locator('.ve-library-content');
+  const blocksTab = page.locator('.ve-library').getByRole('tab', { name: 'Blocks' });
+  await expect(blocksTab).toBeVisible();
+  await expect(content).toBeHidden();
   const canvasWidth = await page.locator('.ve-canvas').evaluate((element) => element.clientWidth);
   expect(canvasWidth).toBeGreaterThan(700);
 
-  await toggle.click();
-  await expect(library).toBeVisible();
-  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-  await expect(library.getByRole('tab', { name: 'Blocks' })).toBeFocused();
-  await library.locator('.ve-categories button', { hasText: 'Headers' }).click();
-  await library.getByRole('button', { name: 'Hero, centered text' }).click();
-  await expect(library).toBeHidden();
+  await blocksTab.click();
+  await expect(content).toBeVisible();
+  await expect(blocksTab).toBeFocused();
+  await content.locator('.ve-categories button', { hasText: 'Headers' }).click();
+  await content.getByRole('button', { name: 'Hero, centered text' }).click();
+  await expect(content).toBeHidden();
   await expect(page.frameLocator('.ve-canvas-frame').locator('h1')).toBeVisible();
 
-  await toggle.click();
-  await expect(library).toBeVisible();
+  await blocksTab.click();
+  await expect(content).toBeVisible();
   await page.keyboard.press('Escape');
-  await expect(library).toBeHidden();
-  await expect(toggle).toBeFocused();
+  await expect(content).toBeHidden();
+  await expect(blocksTab).toBeFocused();
+
+  await blocksTab.click();
+  await expect(content).toBeVisible();
+  await blocksTab.click();
+  await expect(content).toBeHidden();
+});
+
+test('the canvas shows the desktop layout by default and scales it to fit', async ({ page }) => {
+  await createProject(page);
+  await expect(page.locator('.ve-canvas-width')).toHaveText('1024 px');
+  await expect(page.locator('.ve-canvas-zoom')).toBeVisible();
+});
+
+test('from 1700 px the library stays docked and the rail collapses it', async ({ page }) => {
+  await page.setViewportSize({ width: 1800, height: 900 });
+  await createProject(page);
+  const content = page.locator('.ve-library-content');
+  const blocksTab = page.locator('.ve-library').getByRole('tab', { name: 'Blocks' });
+  await expect(content).toBeVisible();
+  await blocksTab.click();
+  await expect(content).toBeHidden();
+  await blocksTab.click();
+  await expect(content).toBeVisible();
 });
 
 test('the empty page offers a button that opens the block library', async ({ page }) => {
   await createProject(page);
   await page.getByRole('button', { name: 'Add a block' }).click();
-  await expect(page.locator('#ve-library')).toBeVisible();
+  await expect(page.locator('.ve-library-content')).toBeVisible();
   await expect(page.locator('.ve-blocks-search input')).toBeFocused();
 });
 

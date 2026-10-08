@@ -15,7 +15,7 @@ import type { Device, Project } from './types';
 
 export type DeviceMode = 'responsive' | Device;
 export type PanelSide = 'left' | 'right';
-export type LibraryTab = 'blocks' | 'layers' | 'pages';
+export type LibraryTab = 'blocks' | 'layers' | 'pages' | 'settings';
 export type PropertiesTab = 'content' | 'style' | 'advanced' | 'code';
 export type CompactView = 'library' | 'canvas' | 'properties';
 export type CompactTab = LibraryTab | 'canvas' | 'properties';
@@ -29,7 +29,9 @@ export const DEVICE_VIEWPORTS: Record<Device, DeviceViewport> = {
 
 export const MIN_RESPONSIVE_WIDTH = 320;
 
-export const LIBRARY_DRAWER_QUERY = '(1024px <= width < 1280px)';
+export const WIDE_LAYOUT_QUERY = '(width >= 1024px)';
+
+export const LIBRARY_DRAWER_QUERY = '(1024px <= width < 1700px)';
 
 export const PANEL_LIMITS: Record<PanelSide, { min: number; max: number; initial: number }> = {
   left: { min: 240, max: 400, initial: 280 },
@@ -51,7 +53,6 @@ export type LinkedFile = {
 
 export type EditorDialog =
   | { kind: 'export' }
-  | { kind: 'settings' }
   | { kind: 'licenses' }
   | { kind: 'new-project' }
   | { kind: 'snapshots' }
@@ -183,8 +184,8 @@ export const editorSlice = createSlice({
     libraryDrawerToggled(state, action: PayloadAction<boolean>) {
       state.isLibraryDrawerOpen = action.payload;
     },
-    blockLibraryOpened(state) {
-      state.libraryTab = 'blocks';
+    libraryOpened(state, action: PayloadAction<LibraryTab>) {
+      state.libraryTab = action.payload;
       state.compactView = 'library';
       state.panels.left.collapsed = false;
       state.isLibraryDrawerOpen = true;
@@ -192,11 +193,23 @@ export const editorSlice = createSlice({
     libraryTabChanged(state, action: PayloadAction<LibraryTab>) {
       state.libraryTab = action.payload;
     },
+    libraryRailClicked(state, action: PayloadAction<{ tab: LibraryTab; isDrawer: boolean }>) {
+      const { tab, isDrawer } = action.payload;
+      const isShowing = isDrawer ? state.isLibraryDrawerOpen : !state.panels.left.collapsed;
+      const shouldHide = isShowing && state.libraryTab === tab;
+      state.libraryTab = tab;
+      if (isDrawer) {
+        state.isLibraryDrawerOpen = !shouldHide;
+      } else {
+        state.panels.left.collapsed = shouldHide;
+      }
+    },
     propertiesTabChanged(state, action: PayloadAction<PropertiesTab>) {
       state.propertiesTab = action.payload;
     },
     designSheetToggled(state, action: PayloadAction<boolean>) {
       state.isDesignSheetOpen = action.payload;
+      if (action.payload) state.panels.right.collapsed = false;
     },
     sectionToggled(state, action: PayloadAction<{ id: string; isOpen: boolean }>) {
       state.sectionStates[action.payload.id] = action.payload.isOpen;
@@ -226,11 +239,11 @@ export const editorSlice = createSlice({
     },
     compactTabSelected(state, action: PayloadAction<CompactTab>) {
       const tab = action.payload;
-      if (tab === 'blocks' || tab === 'layers' || tab === 'pages') {
+      if (tab === 'canvas' || tab === 'properties') {
+        state.compactView = tab;
+      } else {
         state.libraryTab = tab;
         state.compactView = 'library';
-      } else {
-        state.compactView = tab;
       }
     },
     saveStatusChanged(state, action: PayloadAction<SaveStatus>) {
@@ -320,8 +333,9 @@ export const {
   panelResized,
   panelToggled,
   libraryDrawerToggled,
-  blockLibraryOpened,
+  libraryOpened,
   libraryTabChanged,
+  libraryRailClicked,
   propertiesTabChanged,
   designSheetToggled,
   compactTabSelected,

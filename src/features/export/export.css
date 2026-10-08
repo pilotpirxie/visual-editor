@@ -1,0 +1,34 @@
+@layer components {
+  .ve-export-warnings {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ve-space-3);
+    padding: var(--ve-space-4);
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    background: var(--ve-surface);
+  }
+
+  .ve-export-warnings-title {
+    font-size: var(--ve-text-md);
+  }
+
+  .ve-export-warnings ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ve-space-2);
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .ve-export-warnings li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ve-space-4);
+  }
+
+  .ve-export-warnings li .ui-button {
+    flex: none;
+  }
+}

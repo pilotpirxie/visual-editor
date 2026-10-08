@@ -65,7 +65,9 @@ describe('EditorShell', () => {
     const { container } = render(<EditorShell />);
     const shell = container.querySelector<HTMLElement>('.ve-shell');
     expect(shell?.dataset.compactView).toBe('canvas');
-    expect(shell?.style.getPropertyValue('--ve-left-width')).toBe('280px');
+    expect(shell?.style.getPropertyValue('--ve-left-width')).toBe(
+      'calc(var(--ve-rail-width) + 280px)',
+    );
     expect(shell?.style.getPropertyValue('--ve-right-width')).toBe('320px');
   });
 
@@ -74,7 +76,7 @@ describe('EditorShell', () => {
     runInAct(() => dispatch(panelToggled('left')));
     const shell = container.querySelector<HTMLElement>('.ve-shell');
     expect(shell?.dataset.leftCollapsed).toBe('true');
-    expect(shell?.style.getPropertyValue('--ve-left-width')).toBe('0px');
+    expect(shell?.style.getPropertyValue('--ve-left-width')).toBe('var(--ve-rail-width)');
     expect(container.querySelector('.ve-library')).not.toBeNull();
   });
 

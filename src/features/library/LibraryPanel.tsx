@@ -1,16 +1,25 @@
-import type { JSX, KeyboardEvent } from 'react';
-import { libraryDrawerToggled, libraryTabChanged, type LibraryTab } from '../../app/editorSlice';
+import { Suspense, type JSX, type KeyboardEvent } from 'react';
+import {
+  LIBRARY_DRAWER_QUERY,
+  libraryDrawerToggled,
+  libraryRailClicked,
+  type LibraryTab,
+} from '../../app/editorSlice';
+import { ProjectSettingsPanel } from '../../app/lazyDialogs';
 import { dispatch, useStore } from '../../app/store';
 import { BlocksTab } from './BlocksTab';
 import { PagesTab } from '../pages/PagesTab';
 import { LayersTab } from './LayersTab';
-import { TabPanel, Tabs } from '../../../packages/ui/src';
+import { TabPanel, Tabs, useMediaQuery } from '../../../packages/ui/src';
 import './library.css';
 
-const TABS: { id: LibraryTab; label: string }[] = [
-  { id: 'blocks', label: 'Blocks' },
-  { id: 'layers', label: 'Layers' },
-  { id: 'pages', label: 'Pages' },
+const ID_PREFIX = 've-library';
+
+const TABS: { id: LibraryTab; label: string; icon: string }[] = [
+  { id: 'blocks', label: 'Blocks', icon: 'layout-grid' },
+  { id: 'layers', label: 'Layers', icon: 'layers' },
+  { id: 'pages', label: 'Pages', icon: 'file' },
+  { id: 'settings', label: 'Settings', icon: 'settings' },
 ];
 
 function closeDrawerOnEscape(event: KeyboardEvent<HTMLElement>): void {
@@ -20,34 +29,45 @@ function closeDrawerOnEscape(event: KeyboardEvent<HTMLElement>): void {
   event.preventDefault();
   event.stopPropagation();
   dispatch(libraryDrawerToggled(false));
-  document.getElementById('ve-library-toggle')?.focus();
+  event.currentTarget.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]')?.focus();
 }
 
 export function LibraryPanel(): JSX.Element {
   const activeTab = useStore((state) => state.editor.libraryTab);
+  const isDrawer = useMediaQuery(LIBRARY_DRAWER_QUERY);
+  const isDrawerOpen = useStore((state) => state.editor.isLibraryDrawerOpen);
+  const isCollapsed = useStore((state) => state.editor.panels.left.collapsed);
+  const isOpen = isDrawer ? isDrawerOpen : !isCollapsed;
 
   return (
     <aside
-      id="ve-library"
+      id={ID_PREFIX}
       className="ve-panel ve-library"
       aria-label="Library"
+      data-open={isOpen || undefined}
       onKeyDown={closeDrawerOnEscape}
     >
       <Tabs
         label="Library"
-        idPrefix="ve-library"
+        idPrefix={ID_PREFIX}
         className="ve-library-tabs"
+        orientation="vertical"
         tabs={TABS}
         activeId={activeTab}
         onChange={(id) => {
           const tab = TABS.find((item) => item.id === id);
-          if (tab !== undefined) dispatch(libraryTabChanged(tab.id));
+          if (tab !== undefined) dispatch(libraryRailClicked({ tab: tab.id, isDrawer }));
         }}
       />
-      <TabPanel idPrefix="ve-library" activeId={activeTab}>
+      <TabPanel idPrefix={ID_PREFIX} activeId={activeTab} className="ve-library-content">
         {activeTab === 'blocks' && <BlocksTab />}
         {activeTab === 'layers' && <LayersTab />}
         {activeTab === 'pages' && <PagesTab />}
+        {activeTab === 'settings' && (
+          <Suspense fallback={null}>
+            <ProjectSettingsPanel />
+          </Suspense>
+        )}
       </TabPanel>
     </aside>
   );

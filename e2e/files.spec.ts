@@ -1,11 +1,12 @@
 import { readFile } from 'node:fs/promises';
 import { expect, test, type Page } from '@playwright/test';
 import {
+  closeLibraryDrawer,
   createProject,
   insertBlock,
   openProjectSettings,
   storedProject,
-  waitForSaved,
+  waitForStoredText,
 } from './editor';
 
 async function saveByDownload(page: Page): Promise<string> {
@@ -30,7 +31,7 @@ test('a project saved to disk opens again identical after it was deleted', async
   await createProject(page);
   const settings = await openProjectSettings(page);
   await settings.getByLabel('Site title').fill('Acme Research');
-  await page.getByRole('button', { name: 'Done' }).click();
+  await closeLibraryDrawer(page);
   await insertBlock(page, 'Headers', 'Hero, centered text');
   await page.locator('#ve-field-title').fill('Saved to disk');
   await expect.poll(async () => (await storedProject(page))?.settings.title).toBe('Acme Research');
@@ -40,7 +41,7 @@ test('a project saved to disk opens again identical after it was deleted', async
   await page.locator('#ve-field-title').fill('Changed after saving');
   await expect(page.getByRole('button', { name: 'File, changes not saved to file' })).toBeVisible();
 
-  await waitForSaved(page);
+  await waitForStoredText(page, 'Changed after saving');
   await page.goto('/');
   await page.getByRole('button', { name: 'Delete Acme Research' }).click();
   await page.getByRole('dialog').getByRole('button', { name: 'Delete project' }).click();
@@ -66,7 +67,7 @@ test('opening a file of a project the browser already has offers a copy', async 
   await createProject(page);
   const settings = await openProjectSettings(page);
   await settings.getByLabel('Site title').fill('Acme Research');
-  await page.getByRole('button', { name: 'Done' }).click();
+  await closeLibraryDrawer(page);
   const savedText = await saveByDownload(page);
   await insertBlock(page, 'Headers', 'Hero, centered text');
   await expect
@@ -98,5 +99,5 @@ test('a file that is not a project shows an error and changes nothing', async ({
     buffer: Buffer.from('{}'),
   });
   await expect(page.getByRole('alert')).toContainText('Opening the file failed');
-  await expect(page.getByRole('heading', { name: 'My projects' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Start a new site' })).toBeVisible();
 });

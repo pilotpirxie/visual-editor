@@ -11,8 +11,8 @@ export async function createProject(page: Page): Promise<void> {
   await expect(page.frameLocator('.ve-canvas-frame').locator('#ve-page')).toBeAttached();
 }
 
-export async function waitForSaved(page: Page): Promise<void> {
-  await expect(page.locator('.ve-save-state')).toHaveAttribute('data-status', 'saved');
+export async function waitForStoredText(page: Page, text: string): Promise<void> {
+  await expect.poll(async () => JSON.stringify(await storedProject(page))).toContain(text);
 }
 
 export type LibraryTab = 'Blocks' | 'Layers' | 'Pages';
@@ -24,7 +24,32 @@ export type StoredProject = {
 };
 
 export async function openLibraryTab(page: Page, name: LibraryTab): Promise<void> {
-  await page.locator('.ve-library [role="tab"]', { hasText: name }).click();
+  const tab = page.locator('.ve-library [role="tab"]', { hasText: name });
+  const isShown = (await page.locator('.ve-library[data-open]').count()) > 0;
+  const isSelected = (await tab.getAttribute('aria-selected')) === 'true';
+  if (isShown && isSelected) return;
+  await tab.click();
+}
+
+export async function closeLibraryDrawer(page: Page): Promise<void> {
+  if ((await page.locator('.ve-shell[data-library-drawer]').count()) === 0) return;
+  await page.locator('.ve-library [role="tab"][aria-selected="true"]').focus();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.ve-shell[data-library-drawer]')).toHaveCount(0);
+}
+
+export async function showAllBlockCategories(page: Page): Promise<void> {
+  const library = page.locator('.ve-library');
+  if (await library.locator('[role="tab"]').first().isVisible()) {
+    await openLibraryTab(page, 'Blocks');
+  }
+  const allCategories = library.getByRole('button', { name: 'All categories' });
+  if (await allCategories.isVisible()) await allCategories.click();
+}
+
+export async function showBlockCategory(page: Page, category: string): Promise<void> {
+  await showAllBlockCategories(page);
+  await page.locator('.ve-library .ve-categories button', { hasText: category }).click();
 }
 
 function pageRowButton(page: Page, name: string): Locator {
@@ -36,6 +61,7 @@ function pageRowButton(page: Page, name: string): Locator {
 export async function expectCurrentPage(page: Page, name: string): Promise<void> {
   await openLibraryTab(page, 'Pages');
   await expect(pageRowButton(page, name)).toHaveAttribute('aria-current', 'page');
+  await closeLibraryDrawer(page);
 }
 
 export async function addPage(page: Page, name: string): Promise<void> {
@@ -55,8 +81,8 @@ export async function openPage(page: Page, name: string): Promise<void> {
 
 export async function openProjectSettings(page: Page): Promise<Locator> {
   await page.getByRole('button', { name: /^File/ }).click();
-  await page.getByRole('menuitem', { name: 'Project settings…' }).click();
-  return page.getByRole('dialog', { name: 'Project settings' });
+  await page.getByRole('menuitem', { name: 'Project settings' }).click();
+  return page.getByRole('tabpanel', { name: 'Settings' });
 }
 
 export function storedProject(page: Page): Promise<StoredProject | null> {
@@ -80,18 +106,15 @@ export function storedProject(page: Page): Promise<StoredProject | null> {
 }
 
 export async function insertBlock(page: Page, category: string, blockName: string): Promise<void> {
-  const library = page.locator('.ve-library');
-  if (await library.locator('[role="tab"]').first().isVisible())
-    await openLibraryTab(page, 'Blocks');
-  await library.locator('.ve-categories button', { hasText: category }).click();
-  await library.getByRole('button', { name: blockName }).click();
-  await library.getByRole('button', { name: 'All categories' }).click();
+  await showBlockCategory(page, category);
+  await page.locator('.ve-library').getByRole('button', { name: blockName }).click();
+  await closeLibraryDrawer(page);
 }
 
 export async function layerNames(page: Page): Promise<string[]> {
   await openLibraryTab(page, 'Layers');
   const names = await page.locator('.ve-layer-name').allTextContents();
-  await openLibraryTab(page, 'Blocks');
+  await closeLibraryDrawer(page);
   return names;
 }
 
@@ -131,17 +154,18 @@ export function readZip(buffer: Buffer): Map<string, Buffer> {
 
 export async function insertEveryBlock(page: Page): Promise<number> {
   const library = page.locator('.ve-library');
+  await openLibraryTab(page, 'Blocks');
   const categories = await library.locator('.ve-categories button').allTextContents();
   let count = 0;
-  for (const index of categories.keys()) {
-    await library.locator('.ve-categories button').nth(index).click();
-    const cards = library.locator('.ve-component-card');
-    const total = await cards.count();
+  for (const category of categories) {
+    await showBlockCategory(page, category);
+    const total = await library.locator('.ve-component-card').count();
     for (let card = 0; card < total; card += 1) {
-      await cards.nth(card).click();
+      await showBlockCategory(page, category);
+      await library.locator('.ve-component-card').nth(card).click();
       count += 1;
     }
-    await library.getByRole('button', { name: 'All categories' }).click();
   }
+  await closeLibraryDrawer(page);
   return count;
 }

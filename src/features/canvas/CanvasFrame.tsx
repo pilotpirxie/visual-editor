@@ -52,6 +52,7 @@ export const EDITOR_CSS = [
   `html[data-ve-editing] ${LIVE_ONLY_DIALOGS} { display: block; position: relative; inset: auto; opacity: 1; }`,
   'html[data-ve-editing] [data-behavior~="modal"] { display: block; padding-block: 2rem; }',
   'html[data-ve-editing] #ve-page [data-block-id] { cursor: grab; -webkit-user-select: none; user-select: none; }',
+  'html[data-ve-editing] [data-ve-inline-edit] { cursor: text; -webkit-user-select: text; user-select: text; outline: 2px solid #2f5bea; outline-offset: 4px; }',
   'html.is-dragging, html.is-dragging * { cursor: grabbing !important; }',
 ].join('\n');
 

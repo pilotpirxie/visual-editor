@@ -68,7 +68,7 @@ test('the same blocks work in the exported site opened from disk', async ({ page
   const downloadPromise = page.waitForEvent('download');
   await page
     .getByRole('dialog', { name: 'Export site' })
-    .getByRole('button', { name: /Download zip|Export anyway/ })
+    .getByRole('button', { name: 'Download zip' })
     .click();
   const files = readZip(await readFile(await (await downloadPromise).path()));
   const siteJs = files.get('assets/js/site.js')?.toString('utf8') ?? '';

@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import { dialogOpened, type EditorDialog } from '../../app/editorSlice';
+import { dialogOpened, libraryOpened, type EditorDialog } from '../../app/editorSlice';
 import { dispatch, useStore } from '../../app/store';
 import { canUseFileSystemAccess } from './fileAccess';
 import { setDiskAutosave } from './fileActions';
@@ -44,9 +44,9 @@ export function FileMenu(): JSX.Element {
     { id: 'project-separator', isSeparator: true },
     {
       id: 'settings',
-      label: 'Project settings…',
+      label: 'Project settings',
       disabled: isReadOnly,
-      onSelect: openDialog({ kind: 'settings' }),
+      onSelect: () => dispatch(libraryOpened('settings')),
     },
     { id: 'export', label: 'Export site…', onSelect: openDialog({ kind: 'export' }) },
     {

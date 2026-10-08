@@ -182,7 +182,7 @@ function ApplyPresetDialog({
 }
 
 export function PresetsSection(): JSX.Element {
-  const section = useSection('design:presets', false);
+  const section = useSection('design:presets', true);
   const currentPresetId = useStore((state) => state.project.designSystem.presetId);
   const [applying, setApplying] = useState<DesignSystemPreset | null>(null);
 

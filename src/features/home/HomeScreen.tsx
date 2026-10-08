@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useRef, useState, type JSX, type KeyboardEvent } from 'react';
 import { describeError } from '../../app/errors';
-import { followLink, projectPath } from '../../app/router';
+import { editorPath, followLink, navigate, projectPath } from '../../app/router';
 import { autosave } from '../../app/store';
 import type { Project } from '../../app/types';
 import {
@@ -14,13 +14,17 @@ import {
 } from '../../persistence/db';
 import { isProjectOpenElsewhere } from '../../persistence/projectLocks';
 import { subscribeTabMessages } from '../../persistence/tabChannel';
+import { ensurePackBlocks } from '../../components/registry';
+import { instantiateStarter, type StarterInfo } from '../../starters/starters';
 import { canUseFileSystemAccess } from '../files/fileAccess';
 import { fileCommands } from '../files/fileCommands';
+import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import { LicensesDialog, NewProjectDialog } from '../../app/lazyDialogs';
 import { DeleteProjectDialog } from './DeleteProjectDialog';
 import { duplicateProject, formatLastEdit, withTitle } from './projects';
+import { PageThumbnail, StarterGallery } from './StarterGallery';
 import './home.css';
-import { Button, IconButton, TextInput, Title } from '../../../packages/ui/src';
+import { Button, Icon, IconButton, TextInput, Title } from '../../../packages/ui/src';
 
 async function requireProject(id: string): Promise<Project> {
   const project = await getProject(id);
@@ -33,6 +37,60 @@ type ProjectList = { summaries: ProjectSummary[]; recentFiles: FileLink[]; liste
 type RenameExit = 'keyboard' | 'blur';
 
 type PendingDelete = { summary: ProjectSummary; isOpenElsewhere: boolean };
+
+const TITLE_ID = 've-home-title';
+const STARTERS_TITLE_ID = 've-home-starters-title';
+
+async function loadThumbnailProject(projectId: string): Promise<Project | null> {
+  const project = await getProject(projectId);
+  if (project === null) return null;
+  await Promise.all([
+    ensureProjectIconSets(project),
+    ensurePackBlocks(Object.values(project.packBlocks)),
+  ]);
+  return project;
+}
+
+function ProjectThumbnail({ summary }: { summary: ProjectSummary }): JSX.Element {
+  const [project, setProject] = useState<Project | null>(null);
+  const { id, updatedAt } = summary;
+
+  useEffect(() => {
+    let isCancelled = false;
+    async function load(): Promise<void> {
+      try {
+        const loaded = await loadThumbnailProject(id);
+        if (!isCancelled) setProject(loaded);
+      } catch (loadError) {
+        console.error(`Could not load the thumbnail of project ${id}`, loadError);
+      }
+    }
+    void load();
+    return () => {
+      isCancelled = true;
+    };
+  }, [id, updatedAt]);
+
+  if (project === null) return <div className="ve-page-thumbnail" />;
+  return <PageThumbnail project={project} />;
+}
+
+function BlankSiteCard({ onStart }: { onStart(): void }): JSX.Element {
+  return (
+    <>
+      <div className="ve-page-thumbnail ve-blank-thumbnail">
+        <Icon name="plus" />
+      </div>
+      <h3 className="ve-starter-name">Blank site</h3>
+      <p className="ui-muted">Pick a design preset, then add blocks one by one.</p>
+      <div className="ve-starter-actions">
+        <Button aria-haspopup="dialog" onClick={onStart}>
+          Start blank
+        </Button>
+      </div>
+    </>
+  );
+}
 
 async function loadProjectList(): Promise<ProjectList> {
   await autosave.flush();
@@ -101,6 +159,7 @@ export function HomeScreen(): JSX.Element {
   const [isLicensesOpen, setIsLicensesOpen] = useState(false);
   const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
   const [deleting, setDeleting] = useState<PendingDelete | null>(null);
+  const [isCreating, setIsCreating] = useState(false);
   const newProjectRef = useRef<HTMLButtonElement>(null);
   const gridRef = useRef<HTMLUListElement>(null);
   const renameButtonsRef = useRef(new Map<string, HTMLButtonElement>());
@@ -160,6 +219,21 @@ export function HomeScreen(): JSX.Element {
     });
   }
 
+  async function startFromStarter(starter: StarterInfo, project: Project): Promise<void> {
+    setError(null);
+    setIsCreating(true);
+    const created = instantiateStarter(starter, project, project.settings.title);
+    try {
+      await putProject(created);
+    } catch (createError) {
+      console.error('Could not create a project from a starter', createError);
+      setError(`Could not create a project: ${describeError(createError)}`);
+      setIsCreating(false);
+      return;
+    }
+    navigate(editorPath(created.id, created.pages.homePageId));
+  }
+
   async function askToRemove(summary: ProjectSummary): Promise<void> {
     const isOpenElsewhere = await isProjectOpenElsewhere(summary.id);
     setDeleting({ summary, isOpenElsewhere });
@@ -177,10 +251,12 @@ export function HomeScreen(): JSX.Element {
     requestAnimationFrame(() => focusCardAt(index));
   }
 
+  const hasProjects = projectList !== null && projectList.summaries.length > 0;
+  const isEmpty = projectList !== null && projectList.summaries.length === 0;
   return (
     <main className="ve-home">
       <header className="ve-home-header">
-        <h1>My projects</h1>
+        <h1 id={TITLE_ID}>{isEmpty ? 'Start a new site' : 'My projects'}</h1>
         <div className="ve-home-actions">
           <Button icon="folder-open" onClick={fileCommands.openFromDisk}>
             Open from disk
@@ -217,18 +293,13 @@ export function HomeScreen(): JSX.Element {
           Loading your projects…
         </p>
       )}
-      {projectList !== null && projectList.summaries.length === 0 && (
-        <p className="ve-home-empty">
-          You have no projects yet. Create one to start building a site.
-        </p>
-      )}
-
       {projectList !== null && <RecentFiles links={projectList.recentFiles} />}
 
-      {projectList !== null && projectList.summaries.length > 0 && (
+      {projectList !== null && hasProjects && (
         <ul ref={gridRef} className="ve-home-grid" aria-label="Projects">
           {projectList.summaries.map((summary) => (
             <li key={summary.id} className="ve-home-card">
+              <ProjectThumbnail summary={summary} />
               {renamingId === summary.id ? (
                 <RenameInput
                   summary={summary}
@@ -272,10 +343,31 @@ export function HomeScreen(): JSX.Element {
           ))}
         </ul>
       )}
+      {projectList !== null && (
+        <section
+          className="ve-home-starters"
+          aria-labelledby={hasProjects ? STARTERS_TITLE_ID : TITLE_ID}
+        >
+          {hasProjects && (
+            <h2 id={STARTERS_TITLE_ID} className="ve-home-section-title">
+              Start a new site
+            </h2>
+          )}
+          <StarterGallery
+            isDisabled={isCreating}
+            leadingCard={<BlankSiteCard onStart={() => setIsNewProjectOpen(true)} />}
+            onUse={(starter, project) => void startFromStarter(starter, project)}
+          />
+        </section>
+      )}
       <footer className="ve-home-footer">
-        <Button variant="ghost" onClick={() => setIsLicensesOpen(true)}>
+        <button
+          type="button"
+          className="ve-home-footer-link"
+          onClick={() => setIsLicensesOpen(true)}
+        >
           Open-source licenses
-        </Button>
+        </button>
       </footer>
       <Suspense fallback={null}>
         {isLicensesOpen && <LicensesDialog onClose={() => setIsLicensesOpen(false)} />}

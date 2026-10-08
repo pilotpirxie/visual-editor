@@ -21,6 +21,7 @@ test('a saved block keeps its content and can be added to another project', asyn
     'Launch faster with Fieldnote',
   );
 
+  await openLibraryTab(page, 'Blocks');
   await page.getByRole('button', { name: 'More actions for “Launch hero”' }).click();
   await page.getByRole('menuitem', { name: 'Delete' }).click();
   await page

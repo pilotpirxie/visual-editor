@@ -1,6 +1,12 @@
-import { useEffect, useState, type JSX } from 'react';
+import { useEffect, useId, useRef, useState, type JSX } from 'react';
 import { behaviors, core } from 'virtual:site-runtime';
-import { noticeShown } from '../../app/editorSlice';
+import {
+  blockSelected,
+  designSheetToggled,
+  dialogClosed,
+  libraryOpened,
+  noticeShown,
+} from '../../app/editorSlice';
 import { describeError } from '../../app/errors';
 import { slugify } from '../../app/slugs';
 import { dispatch, store } from '../../app/store';
@@ -8,12 +14,14 @@ import { componentsFor, ensurePackBlocks } from '../../components/registry';
 import type { ExportResult } from '../../render/assembleSite';
 import { prepareExportInput } from '../../render/exportSite';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
+import { openPage } from '../pages/pageActions';
 import { downloadBlob } from './download';
 import { assembleExport, writeExportFolder } from './exportClient';
 import { canExportToFolder, pickExportFolder } from './exportFolder';
 import type { AssembledExport } from './exportJob';
 import { collectExportWarnings, type ExportWarning } from './exportWarnings';
-import { closeDialogOf, Dialog } from '../../../packages/ui/src';
+import { Button, closeDialogOf, Dialog } from '../../../packages/ui/src';
+import './export.css';
 
 const TITLE_ID = 've-export-title';
 const BYTES_PER_KILOBYTE = 1024;
@@ -54,25 +62,95 @@ export function exportFileName(title: string, date: Date): string {
   return `${slugify(title)}-${date.getFullYear()}-${month}-${day}.zip`;
 }
 
-function warningPlace(warning: ExportWarning): string {
-  const { project } = store.getState();
-  if (warning.pageId === null && warning.blockId === null) return 'Site';
-  if (warning.pageId === null) return 'Shared blocks';
-  return project.pages.entities[warning.pageId]?.name ?? 'A page';
+function selectOnPage(pageId: string | null, blockId: string | null): void {
+  const { editor } = store.getState();
+  if (pageId === null || editor.currentPageId === pageId) {
+    dispatch(blockSelected(blockId));
+    return;
+  }
+  const fromPageId = editor.currentPageId;
+  const unsubscribe = store.subscribe(() => {
+    const { currentPageId } = store.getState().editor;
+    if (currentPageId === fromPageId) return;
+    unsubscribe();
+    if (currentPageId === pageId) dispatch(blockSelected(blockId));
+  });
+  dispatch(openPage(pageId));
 }
 
-async function downloadZip({ zip }: AssembledExport): Promise<void> {
-  downloadBlob(zip, exportFileName(store.getState().project.settings.title, new Date()));
+function fixWarning(warning: ExportWarning): void {
+  dispatch(dialogClosed());
+  if (warning.blockId !== null || warning.pageId !== null) {
+    selectOnPage(warning.pageId, warning.blockId);
+  } else if (warning.siteArea === 'design') {
+    dispatch(designSheetToggled(true));
+  } else {
+    dispatch(libraryOpened('settings'));
+  }
 }
 
-async function saveToFolder({ result }: AssembledExport): Promise<boolean> {
+async function downloadZip({ zip }: AssembledExport): Promise<string> {
+  const fileName = exportFileName(store.getState().project.settings.title, new Date());
+  downloadBlob(zip, fileName);
+  return `Saved ${fileName} (${formatBytes(zip.size)}).`;
+}
+
+async function saveToFolder({ result }: AssembledExport): Promise<string | null> {
   const folder = await pickExportFolder();
-  if (folder === null) return false;
+  if (folder === null) return null;
   await writeExportFolder(folder, result.files);
-  dispatch(
-    noticeShown('info', `Exported ${Object.keys(result.files).length} files to ${folder.name}.`),
+  return 'Saved to the folder you chose.';
+}
+
+function WarningList({ warnings }: { warnings: ExportWarning[] }): JSX.Element {
+  const idPrefix = useId();
+  return (
+    <section className="ve-export-warnings" role="note" aria-labelledby={`${idPrefix}-title`}>
+      <h3 id={`${idPrefix}-title`} className="ve-export-warnings-title">
+        Before you publish
+      </h3>
+      <ul>
+        {warnings.map((warning, index) => {
+          const textId = `${idPrefix}-${index}`;
+          return (
+            <li key={`${warning.blockId ?? warning.pageId ?? 'site'}-${index}`}>
+              <span id={textId}>{warning.text}</span>
+              <Button variant="ghost" aria-describedby={textId} onClick={() => fixWarning(warning)}>
+                Fix
+              </Button>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
   );
-  return true;
+}
+
+function ExportDone({ message }: { message: string }): JSX.Element {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    closeRef.current?.focus();
+  }, []);
+  return (
+    <div className="ui-dialog-body">
+      <h2 id={TITLE_ID} className="ui-title">
+        Site exported
+      </h2>
+      <p role="status">{message}</p>
+      <p className="ui-muted">
+        To publish, upload these files to any static host. To view it now, open index.html.
+      </p>
+      <div className="ui-dialog-actions">
+        <Button
+          ref={closeRef}
+          variant="primary"
+          onClick={(event) => closeDialogOf(event.currentTarget)}
+        >
+          Close
+        </Button>
+      </div>
+    </div>
+  );
 }
 
 function Summary({ result }: { result: ExportResult }): JSX.Element {
@@ -113,6 +191,7 @@ function Summary({ result }: { result: ExportResult }): JSX.Element {
 export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
   const [preparation, setPreparation] = useState<Preparation>({ kind: 'preparing' });
   const [isBusy, setIsBusy] = useState(false);
+  const [doneMessage, setDoneMessage] = useState<string | null>(null);
 
   useEffect(() => {
     let isCancelled = false;
@@ -127,20 +206,27 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
   }, []);
 
   async function run(
-    action: (assembled: AssembledExport) => Promise<boolean | void>,
-    element: Element,
+    action: (assembled: AssembledExport) => Promise<string | null>,
   ): Promise<void> {
     if (preparation.kind !== 'ready') return;
     setIsBusy(true);
     try {
-      const isDone = await action(preparation.assembled);
-      if (isDone !== false) closeDialogOf(element);
+      const message = await action(preparation.assembled);
+      if (message !== null) setDoneMessage(message);
     } catch (error) {
       console.error('Export failed', error);
       dispatch(noticeShown('error', `Export failed: ${describeError(error)}`));
     } finally {
       setIsBusy(false);
     }
+  }
+
+  if (doneMessage !== null) {
+    return (
+      <Dialog labelId={TITLE_ID} size="wide" onClose={onClose}>
+        <ExportDone message={doneMessage} />
+      </Dialog>
+    );
   }
 
   const hasWarnings = preparation.kind === 'ready' && preparation.warnings.length > 0;
@@ -161,16 +247,7 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
           </p>
         )}
         {preparation.kind === 'ready' && hasWarnings && (
-          <div className="ui-dialog-note" role="note">
-            <strong>Check these before you publish</strong>
-            <ul>
-              {preparation.warnings.map((warning, index) => (
-                <li key={`${warning.blockId ?? 'page'}-${index}`}>
-                  {warningPlace(warning)}: {warning.text}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <WarningList warnings={preparation.warnings} />
         )}
         {preparation.kind === 'ready' && !hasWarnings && (
           <p>
@@ -192,7 +269,7 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
               type="button"
               className="ui-button ui-button--secondary"
               disabled={isBusy}
-              onClick={(event) => void run(saveToFolder, event.currentTarget)}
+              onClick={() => void run(saveToFolder)}
             >
               Save to folder…
             </button>
@@ -202,9 +279,9 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
               type="button"
               className="ui-button ui-button--primary"
               disabled={isBusy}
-              onClick={(event) => void run(downloadZip, event.currentTarget)}
+              onClick={() => void run(downloadZip)}
             >
-              {hasWarnings ? 'Export anyway' : 'Download zip'}
+              Download zip
             </button>
           )}
         </div>

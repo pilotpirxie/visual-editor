@@ -126,11 +126,13 @@ describe('searchEngineWarnings', () => {
         pageId: null,
         blockId: null,
         text: 'No meta description on Home. Add one in Project settings or in each page’s settings.',
+        siteArea: 'settings',
       },
       {
         pageId: null,
         blockId: null,
         text: 'No social image on Home and About. Add a default one in Project settings or one per page.',
+        siteArea: 'settings',
       },
     ]);
   });

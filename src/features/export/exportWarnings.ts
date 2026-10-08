@@ -12,7 +12,14 @@ import {
   resolveColor,
 } from '../design-system/colors';
 
-export type ExportWarning = { pageId: string | null; blockId: string | null; text: string };
+export type SiteArea = 'settings' | 'design';
+
+export type ExportWarning = {
+  pageId: string | null;
+  blockId: string | null;
+  text: string;
+  siteArea?: SiteArea;
+};
 
 const FORM_ACTION_FIELD = 'formAction';
 const RESERVED_ANCHOR = 'main';
@@ -137,8 +144,8 @@ function hasSocialImage(project: Project, page: Page): boolean {
   return assetId !== undefined && project.assets[assetId] !== undefined;
 }
 
-function siteWarning(text: string): ExportWarning {
-  return { pageId: null, blockId: null, text };
+function siteWarning(text: string, siteArea: SiteArea): ExportWarning {
+  return { pageId: null, blockId: null, text, siteArea };
 }
 
 const CONTRAST_ADVICE = `Aim for at least ${MIN_TEXT_CONTRAST}:1.`;
@@ -164,6 +171,7 @@ export function designContrastWarnings(project: Project): ExportWarning[] {
     warnings.push(
       siteWarning(
         `${foreground.label} on ${background.label} has a contrast of ${formatRatio(ratio)}. ${CONTRAST_ADVICE}`,
+        'design',
       ),
     );
   }
@@ -185,6 +193,7 @@ export function searchEngineWarnings(project: Project): ExportWarning[] {
     warnings.push(
       siteWarning(
         `No meta description on ${pages}. Add one in Project settings or in each page’s settings.`,
+        'settings',
       ),
     );
   }
@@ -193,6 +202,7 @@ export function searchEngineWarnings(project: Project): ExportWarning[] {
     warnings.push(
       siteWarning(
         `No social image on ${pages}. Add a default one in Project settings or one per page.`,
+        'settings',
       ),
     );
   }

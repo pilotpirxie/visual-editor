@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState, type CSSProperties, type JSX } from 'react';
-import { blockLibraryOpened, compactTabSelected } from '../../app/editorSlice';
+import { compactTabSelected, libraryOpened } from '../../app/editorSlice';
 import { findBlockList, sharedSlotOf } from '../../app/blockLists';
 import { dispatch, store, useStore } from '../../app/store';
 import type { Device } from '../../app/types';
@@ -13,7 +13,7 @@ import { Button, focusNeighbour, IconButton, MenuButton } from '../../../package
 const FINE_POINTER_QUERY = '(pointer: fine)';
 
 function openBlockLibrary(): void {
-  dispatch(blockLibraryOpened());
+  dispatch(libraryOpened('blocks'));
   if (!window.matchMedia(FINE_POINTER_QUERY).matches) return;
   requestAnimationFrame(() => {
     document.querySelector<HTMLInputElement>('.ve-blocks-search input')?.focus();
@@ -109,6 +109,19 @@ function useElementRect(doc: Document, selector: string | null, scale: number): 
 
 function useIsShared(blockId: string | null): boolean {
   return useStore((state) => blockId !== null && sharedSlotOf(state.project, blockId) !== null);
+}
+
+function useIsInFooter(blockId: string | null): boolean {
+  return useStore((state) => blockId !== null && sharedSlotOf(state.project, blockId) === 'footer');
+}
+
+function AddBlockButton({ rect }: { rect: Rect }): JSX.Element {
+  const style: CSSProperties = { top: rect.top + rect.height, left: rect.left + rect.width / 2 };
+  return (
+    <Button className="ve-add-here" icon="plus" style={style} onClick={openBlockLibrary}>
+      Add block
+    </Button>
+  );
 }
 
 function SharedBadge(): JSX.Element {
@@ -235,12 +248,16 @@ export function Overlay({
   const selectedName = useBlockName(selectedId);
   const isHoverShared = useIsShared(visibleHoverId);
   const isSelectedShared = useIsShared(selectedId);
-  const emptyRect = useElementRect(doc, isEmpty ? `#${PAGE_ROOT_ID}` : null, scale);
+  const isSelectedInFooter = useIsInFooter(selectedId);
+  const isPageRectNeeded = isEmpty || selectedId === null;
+  const pageRect = useElementRect(doc, isPageRectNeeded ? `#${PAGE_ROOT_ID}` : null, scale);
+  const isAddHidden = isEmpty || dropY !== null || movingId !== null || isSelectedInFooter;
+  const addRect = selectedId === null ? pageRect : selectedRect;
 
   return (
     <div className="ve-overlay">
-      {isEmpty && emptyRect !== null && (
-        <div className="ve-empty-area" style={boxStyle(emptyRect)}>
+      {isEmpty && pageRect !== null && (
+        <div className="ve-empty-area" style={boxStyle(pageRect)}>
           <div className="ve-empty">
             <Button variant="primary" icon="plus" onClick={openBlockLibrary}>
               Add a block
@@ -283,6 +300,7 @@ export function Overlay({
           />
         </>
       )}
+      {!isAddHidden && addRect !== null && <AddBlockButton rect={addRect} />}
       {dropY !== null && (
         <div
           className="ve-drop-line"

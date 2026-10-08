@@ -41,7 +41,7 @@ describe('PropertiesPanel', () => {
     const { container } = render(<PropertiesPanel />);
     select(1);
     expect(container.querySelector('.ui-title')?.textContent).toBe('Hero, centered text');
-    expect(container.querySelector('header .ve-properties-detail')?.textContent).toBe('Headers');
+    expect(container.querySelector('header .ve-panel-detail')?.textContent).toBe('Headers');
     expect(container.querySelectorAll('.ui-section-title').length).toBeGreaterThan(0);
   });
 

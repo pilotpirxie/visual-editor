@@ -28,7 +28,7 @@ test('icons come from any set, and switching the default set swaps only default 
   await insertBlock(page, 'Features', 'Features grid, 3 columns');
   const lucideIcon = await svgOf(page, '.b-features-grid-3 .b-icon svg');
 
-  await page.getByRole('button', { name: 'Design system' }).click();
+  await page.getByRole('button', { name: 'Design', exact: true }).click();
   await page.getByLabel('Default icon set').selectOption({ label: 'Remix Icon' });
   await expect.poll(() => svgOf(page, '.b-features-grid-3 .b-icon svg')).not.toBe(lucideIcon);
   expect(await svgOf(page, '.b-toggle svg')).toBe(pickedIcon);
@@ -38,7 +38,7 @@ test('icons come from any set, and switching the default set swaps only default 
   const downloadPromise = page.waitForEvent('download');
   await page
     .getByRole('dialog', { name: 'Export site' })
-    .getByRole('button', { name: /Download zip|Export anyway/ })
+    .getByRole('button', { name: 'Download zip' })
     .click();
   const files = readZip(await readFile(await (await downloadPromise).path()));
   const html = files.get('index.html')?.toString('utf8') ?? '';

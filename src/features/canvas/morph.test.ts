@@ -28,6 +28,16 @@ describe('morphChildren', () => {
     expect(link?.hasAttribute('title')).toBe(false);
   });
 
+  it('leaves an element that is being edited on the page untouched', () => {
+    const target = host('<section><h2 data-ve-inline-edit="">Typing</h2><p>Old</p></section>');
+    const heading = target.querySelector('h2');
+    morphChildren(target, '<section><h2>Saved</h2><p>New</p></section>');
+    expect(target.querySelector('h2')).toBe(heading);
+    expect(heading?.textContent).toBe('Typing');
+    expect(heading?.hasAttribute('data-ve-inline-edit')).toBe(true);
+    expect(target.querySelector('p')?.textContent).toBe('New');
+  });
+
   it('appends and removes children', () => {
     const target = host('<ul><li>1</li><li>2</li></ul>');
     morphChildren(target, '<ul><li>1</li><li>2</li><li>3</li></ul>');

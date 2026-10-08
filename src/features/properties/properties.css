@@ -1,42 +1,4 @@
 @layer components {
-  .ve-properties-header {
-    display: flex;
-    flex-direction: column;
-    gap: var(--ve-space-1);
-    padding: var(--ve-space-3) var(--ve-space-4);
-    border-bottom: 1px solid var(--ve-border);
-  }
-
-  .ve-properties-heading {
-    display: flex;
-    align-items: baseline;
-    gap: var(--ve-space-3);
-    min-width: 0;
-    min-height: var(--ve-space-6);
-  }
-
-  .ve-properties-heading > .ui-title {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .ve-properties-detail {
-    flex: none;
-    max-width: 50%;
-    overflow: hidden;
-    color: var(--ve-muted);
-    font-size: var(--ve-text-sm);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .ve-properties-header .ui-switch {
-    min-height: var(--ve-control-height);
-    font-size: var(--ve-text-sm);
-  }
-
   .ve-properties-empty {
     padding: var(--ve-space-5);
   }

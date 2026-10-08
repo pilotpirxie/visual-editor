@@ -34,7 +34,7 @@ beforeEach(() => {
 describe('PageSettingsPanel', () => {
   it('names the page and the file it is exported as', () => {
     const { container } = render(<PageSettingsPanel />);
-    expect(container.querySelector('header .ve-properties-detail')?.textContent).toBe(
+    expect(container.querySelector('header .ve-panel-detail')?.textContent).toBe(
       'Home · index.html',
     );
   });

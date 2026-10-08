@@ -69,9 +69,9 @@ function categoryLabelOf(definition: ComponentDefinition): string | null {
 
 function PanelHeading({ title, detail }: { title: string; detail: string | null }): JSX.Element {
   return (
-    <div className="ve-properties-heading">
+    <div className="ve-panel-heading">
       <Title>{title}</Title>
-      {detail !== null && <span className="ve-properties-detail">{detail}</span>}
+      {detail !== null && <span className="ve-panel-detail">{detail}</span>}
     </div>
   );
 }
@@ -164,7 +164,7 @@ export function PropertiesPanel(): JSX.Element {
   if (block.kind === 'html') {
     return (
       <aside className="ve-panel ve-properties" aria-label="Properties">
-        <header className="ve-properties-header">
+        <header className="ve-panel-header">
           <PanelHeading
             title="HTML block"
             detail={definition === null ? null : `From ${definition.name}`}
@@ -190,7 +190,7 @@ export function PropertiesPanel(): JSX.Element {
 
   return (
     <aside className="ve-panel ve-properties" aria-label="Properties">
-      <header className="ve-properties-header">
+      <header className="ve-panel-header">
         <PanelHeading title={title} detail={categoryLabel} />
         {definition !== null && <SharedSwitch blockId={block.id} definition={definition} />}
       </header>

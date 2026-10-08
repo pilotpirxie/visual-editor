@@ -20,8 +20,8 @@ test('a design token or a type scale change updates every block at once', async 
   const heading = canvas.locator('[data-component="hero-centered"] h1');
   const headingSizeBefore = await heading.evaluate((element) => getComputedStyle(element).fontSize);
 
-  await page.getByRole('button', { name: 'Design system' }).click();
-  const sheet = page.getByRole('complementary', { name: 'Design system' });
+  await page.getByRole('button', { name: 'Design', exact: true }).click();
+  const sheet = page.getByRole('complementary', { name: 'Design' });
   await sheet.locator('[id="ve-token---color-primary"]').fill('#ff0000');
   await expect(heroButton).toHaveCSS('background-color', RED);
   await expect(ctaButton).toHaveCSS('background-color', RED);

@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createSampleProject } from '../../app/projectFactory';
-import { noticeDismissed } from '../../app/editorSlice';
+import { designSheetToggled, dialogOpened, noticeDismissed } from '../../app/editorSlice';
 import { dispatch, store } from '../../app/store';
 import type { ButtonValue } from '../../components/types';
 import type { Project } from '../../app/types';
@@ -141,7 +141,7 @@ describe('ExportDialog', () => {
     const container = await renderReady();
     expect(container.textContent).toContain('Everything looks ready.');
     expect(container.querySelector('[role="note"]')).toBeNull();
-    expect(queryButton(container, 'Export anyway')).toBeNull();
+    expect(getButton(container, 'Download zip')).toBeDefined();
   });
 
   it('lists the files that will be written with their total size', async () => {
@@ -156,18 +156,22 @@ describe('ExportDialog', () => {
     expect(listed).toContain('assets/css/site.css');
   });
 
-  it('lists warnings with the page name and asks to export anyway', async () => {
+  it('lists warnings without a place prefix and still offers the download', async () => {
     const project = createSampleProject();
     componentBlockOf(project, heroIdOf(project)).values.title = '';
-    loadIntoAppStore(project);
+    loadIntoAppStore(withSearchDetails(project));
     const container = await renderReady();
-    const warnings = container.querySelector('[role="note"]')?.textContent ?? '';
-    expect(warnings).toContain('Home: Hero, centered text: “Title” is required but empty.');
-    expect(getButton(container, 'Export anyway')).toBeDefined();
-    expect(queryButton(container, 'Download zip')).toBeNull();
+    const note = container.querySelector('[role="note"]');
+    expect(note?.querySelector('h3')?.textContent).toBe('Before you publish');
+    const texts: string[] = [];
+    for (const item of note?.querySelectorAll('li > span') ?? [])
+      texts.push(item.textContent ?? '');
+    expect(texts).toEqual(['Hero, centered text: “Title” is required but empty.']);
+    expect(getButton(container, 'Download zip')).toBeDefined();
+    expect(queryButton(container, 'Export anyway')).toBeNull();
   });
 
-  it('names shared blocks as the place of their warnings', async () => {
+  it('selects the block a warning is about when the user picks Fix', async () => {
     const { navId } = shareNavAndFooter();
     const nav = componentBlockOf(store.getState().project, navId);
     const cta: ButtonValue = {
@@ -185,13 +189,37 @@ describe('ExportDialog', () => {
         },
       },
     });
+    dispatch(dialogOpened({ kind: 'export' }));
     const container = await renderReady();
-    expect(container.querySelector('[role="note"]')?.textContent).toContain(
-      'Shared blocks: Navigation, logo left: “Button” links to a page that was deleted.',
+    expect(container.querySelector('[role="note"] li > span')?.textContent).toBe(
+      'Navigation, logo left: “Button” links to a page that was deleted.',
     );
+    click(getButton(container, 'Fix'));
+    expect(store.getState().editor.selectedBlockId).toBe(navId);
+    expect(store.getState().editor.openDialog).toBeNull();
   });
 
-  it('downloads a zip named after the site and the day, then closes', async () => {
+  it('opens project settings to fix a missing description or social image', async () => {
+    loadIntoAppStore(createSampleProject());
+    const container = await renderReady();
+    click(getButton(container, 'Fix'));
+    expect(store.getState().editor.openDialog).toBeNull();
+    expect(store.getState().editor.libraryTab).toBe('settings');
+  });
+
+  it('opens the design system to fix colors that are too close to read', async () => {
+    const project = withSearchDetails(createSampleProject());
+    const muted = project.designSystem.tokens['--color-text-muted'];
+    if (muted === undefined) throw new Error('No muted text token');
+    muted.value = '#eeeeee';
+    loadIntoAppStore(project);
+    dispatch(designSheetToggled(false));
+    const container = await renderReady();
+    click(getButton(container, 'Fix'));
+    expect(store.getState().editor.isDesignSheetOpen).toBe(true);
+  });
+
+  it('downloads a zip named after the site and the day, then says where it went', async () => {
     vi.useFakeTimers({ toFake: ['Date'] });
     vi.setSystemTime(new Date(2026, 9, 7, 12, 0));
     const onClose = vi.fn();
@@ -202,8 +230,18 @@ describe('ExportDialog', () => {
     expect(fileName).toBe('fieldnote-2026-10-07.zip');
     expect(zip.type).toBe('application/zip');
     expect(zip.size).toBeGreaterThan(0);
-    await vi.waitFor(() => expect(onClose).toHaveBeenCalled());
-    expect(isDialogOpen(container)).toBe(false);
+    await vi.waitFor(() =>
+      expect(container.querySelector('h2')?.textContent).toBe('Site exported'),
+    );
+    expect(container.querySelector('[role="status"]')?.textContent).toBe(
+      `Saved fieldnote-2026-10-07.zip (${formatBytes(zip.size)}).`,
+    );
+    expect(onClose).not.toHaveBeenCalled();
+    expect(isDialogOpen(container)).toBe(true);
+    const close = getButton(container, 'Close');
+    expect(document.activeElement).toBe(close);
+    click(close);
+    expect(onClose).toHaveBeenCalled();
   });
 
   it('keeps the dialog open and shows a notice when the download fails', async () => {
@@ -246,16 +284,20 @@ describe('ExportDialog saving into a folder', () => {
     expect(queryButton(container, 'Save to folder…')).toBeNull();
   });
 
-  it('writes every file into the chosen folder, reports it and closes', async () => {
+  it('writes every file into the chosen folder and says so', async () => {
     const written: WrittenFiles = new Map();
     setDirectoryPicker(async () => fakeFolder('my-site', written));
     const onClose = vi.fn();
     const container = await renderReady(onClose);
     click(getButton(container, 'Save to folder…'));
-    await vi.waitFor(() => expect(onClose).toHaveBeenCalled());
+    await vi.waitFor(() =>
+      expect(container.querySelector('[role="status"]')?.textContent).toBe(
+        'Saved to the folder you chose.',
+      ),
+    );
     expect(written.has('index.html')).toBe(true);
     expect(written.has('assets/css/site.css')).toBe(true);
-    expect(noticeTexts()).toContain(`Exported ${written.size} files to my-site.`);
+    expect(onClose).not.toHaveBeenCalled();
     expect(downloadBlob).not.toHaveBeenCalled();
   });
 

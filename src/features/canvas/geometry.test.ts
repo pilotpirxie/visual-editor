@@ -271,4 +271,13 @@ describe('canvasViewport', () => {
   it('never goes below 320 px, even when the canvas is narrower', () => {
     expect(canvasViewport('responsive', null, { width: 0, height: 0 }).width).toBe(320);
   });
+
+  it('shows the desktop layout by default when given a minimum fit width', () => {
+    expect(canvasViewport('responsive', null, available, 1024).width).toBe(1024);
+    expect(canvasViewport('responsive', null, { width: 1300, height: 700 }, 1024).width).toBe(1300);
+  });
+
+  it('lets a resized width go below the minimum fit width', () => {
+    expect(canvasViewport('responsive', 500, available, 1024).width).toBe(500);
+  });
 });

@@ -1,5 +1,12 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
-import { blockBoundaryOnScreen, boxOf, createProject, insertBlock, layerNames } from './editor';
+import {
+  blockBoundaryOnScreen,
+  boxOf,
+  createProject,
+  insertBlock,
+  layerNames,
+  showBlockCategory,
+} from './editor';
 
 const DROP_LINE_TOLERANCE_PX = 3;
 const DRAG_STEPS = 12;
@@ -9,9 +16,8 @@ function canvasBlocks(page: Page): Locator {
 }
 
 async function startDraggingCard(page: Page, category: string, blockName: string): Promise<void> {
-  const library = page.locator('.ve-library');
-  await library.locator('.ve-categories button', { hasText: category }).click();
-  const cardButton = library.getByRole('button', { name: blockName });
+  await showBlockCategory(page, category);
+  const cardButton = page.locator('.ve-library').getByRole('button', { name: blockName });
   await cardButton.scrollIntoViewIfNeeded();
   const card = await boxOf(cardButton);
   await page.mouse.move((card.left + card.right) / 2, (card.top + card.bottom) / 2);

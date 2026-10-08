@@ -112,25 +112,22 @@
   }
 
   .ve-design-sheet {
-    grid-area: canvas;
+    grid-area: right;
     z-index: 3;
-    justify-self: end;
     display: flex;
     flex-direction: column;
-    width: min(560px, 100%);
+    min-width: 0;
     min-height: 0;
     border-left: 1px solid var(--ve-border);
     background: var(--ve-bg);
-    box-shadow: -12px 0 32px rgb(17 24 39 / 0.12);
   }
 
-  .ve-design-sheet-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 8px 8px 8px 16px;
-    border-bottom: 1px solid var(--ve-border);
+  .ve-design-sheet:focus-visible {
+    outline-offset: -2px;
+  }
+
+  .ve-shell[data-design-open] .ve-properties {
+    visibility: hidden;
   }
 
   .ve-design-sheet-body {

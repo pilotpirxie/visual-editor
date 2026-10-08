@@ -23,9 +23,36 @@
   }
 
   .ve-home-footer {
-    margin-top: 32px;
-    padding-top: 16px;
-    border-top: 1px solid var(--ve-border);
+    margin-top: 48px;
+  }
+
+  .ve-home-footer-link {
+    min-height: 24px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ve-muted);
+    font-size: var(--ve-text-sm);
+    cursor: pointer;
+  }
+
+  .ve-home-footer-link:hover {
+    color: var(--ve-text);
+    text-decoration: underline;
+  }
+
+  .ve-home-starters {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ve-space-4);
+  }
+
+  .ve-home-grid + .ve-home-starters {
+    margin-top: 40px;
+  }
+
+  .ve-home-section-title {
+    font-size: 18px;
   }
 
   .ve-home-actions {
@@ -60,14 +87,6 @@
     margin-top: 8px;
   }
 
-  .ve-home-empty {
-    padding: 48px;
-    border: 1px dashed var(--ve-border-strong);
-    border-radius: var(--ve-radius);
-    color: var(--ve-muted);
-    text-align: center;
-  }
-
   .ve-home-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
@@ -79,7 +98,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--ve-space-2);
-    padding: var(--ve-space-4) var(--ve-space-5);
+    padding: var(--ve-space-4);
     border: 1px solid var(--ve-border);
     border-radius: var(--ve-radius);
     background: var(--ve-bg);
@@ -159,10 +178,6 @@
     .ve-notice {
       padding: 24px 16px;
     }
-
-    .ve-home-empty {
-      padding: 32px 16px;
-    }
   }
 
   .ve-new-project-panel {
@@ -173,6 +188,31 @@
 
   .ve-starter-filter .ui-segmented-options {
     flex-wrap: wrap;
+    gap: var(--ve-space-2);
+    padding: 0;
+    border-bottom: 1px solid var(--ve-border);
+    border-radius: 0;
+    background: none;
+  }
+
+  .ve-starter-filter .ui-segment {
+    flex: none;
+    min-height: var(--ve-target);
+    padding-inline: var(--ve-space-3);
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .ve-starter-filter .ui-segment:hover {
+    color: var(--ve-text);
+  }
+
+  .ve-starter-filter .ui-segment:has(input:checked) {
+    border-bottom-color: var(--ve-accent);
+    background: none;
+    box-shadow: none;
   }
 
   .ve-starter-grid {
@@ -202,7 +242,7 @@
     font-size: 12px;
   }
 
-  .ve-starter-thumbnail {
+  .ve-page-thumbnail {
     position: relative;
     aspect-ratio: 16 / 10;
     overflow: hidden;
@@ -211,7 +251,24 @@
     background: var(--ve-surface);
   }
 
-  .ve-starter-thumbnail iframe {
+  .ve-home-card .ve-page-thumbnail {
+    margin-bottom: var(--ve-space-2);
+  }
+
+  .ve-blank-thumbnail {
+    display: grid;
+    place-items: center;
+    border-style: dashed;
+    border-color: var(--ve-border-strong);
+    color: var(--ve-muted);
+  }
+
+  .ve-blank-thumbnail .ve-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .ve-page-thumbnail iframe {
     position: absolute;
     inset-block-start: 0;
     inset-inline-start: 0;

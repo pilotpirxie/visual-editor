@@ -2,7 +2,14 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { expect, test, type Page } from '@playwright/test';
-import { createProject, storedProject } from '../editor';
+import {
+  closeLibraryDrawer,
+  createProject,
+  openLibraryTab,
+  showAllBlockCategories,
+  showBlockCategory,
+  storedProject,
+} from '../editor';
 
 const CPU_SLOWDOWN = 4;
 const READY_BUDGET_MS = 3000;
@@ -21,18 +28,20 @@ async function slowDownCpu(page: Page): Promise<void> {
 
 async function insertBlocks(page: Page, count: number): Promise<void> {
   const library = page.locator('.ve-library');
+  await showAllBlockCategories(page);
+  const categories = await library.locator('.ve-categories button').allTextContents();
   let inserted = 0;
-  const categoryCount = await library.locator('.ve-categories button').count();
-  for (let category = 0; category < categoryCount && inserted < count; category += 1) {
-    await library.locator('.ve-categories button').nth(category).click();
-    const cards = library.locator('.ve-component-card');
-    const total = await cards.count();
+  for (const category of categories) {
+    if (inserted >= count) break;
+    await showBlockCategory(page, category);
+    const total = await library.locator('.ve-component-card').count();
     for (let card = 0; card < total && inserted < count; card += 1) {
-      await cards.nth(card).click();
+      await showBlockCategory(page, category);
+      await library.locator('.ve-component-card').nth(card).click();
       inserted += 1;
     }
-    await library.getByRole('button', { name: 'All categories' }).click();
   }
+  await closeLibraryDrawer(page);
 }
 
 async function waitForSave(page: Page, blockCount: number): Promise<void> {
@@ -101,7 +110,7 @@ test('a field edit reaches the canvas in under 100 ms on a 30-block page', async
 test('a design token change reaches the canvas in under 200 ms', async ({ page }) => {
   await createProject(page);
   await insertBlocks(page, BLOCK_COUNT);
-  await page.getByRole('button', { name: 'Design system' }).click();
+  await page.getByRole('button', { name: 'Design', exact: true }).click();
   await expect(page.getByLabel('Primary: pick a color')).toBeAttached();
   await slowDownCpu(page);
   const elapsed = await page.evaluate(async () => {
@@ -143,8 +152,8 @@ test('a design token change reaches the canvas in under 200 ms', async ({ page }
 test('a 10-page site exports in under 5 seconds', async ({ page }) => {
   await createProject(page);
   await insertBlocks(page, BLOCK_COUNT);
-  await page.locator('.ve-library [role="tab"]', { hasText: 'Pages' }).click();
   for (let copy = 1; copy < 10; copy += 1) {
+    await openLibraryTab(page, 'Pages');
     await page.getByRole('button', { name: 'More actions for Home', exact: true }).click();
     await page.getByRole('menuitem', { name: 'Duplicate' }).click();
   }

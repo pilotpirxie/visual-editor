@@ -1,9 +1,10 @@
 import type { JSX, KeyboardEvent, ReactNode } from 'react';
 import { classNames } from './classNames';
-import { rovingIndex } from './roving';
+import { Icon } from './Icon';
+import { rovingIndex, type RovingOrientation } from './roving';
 import './Tabs.css';
 
-export type TabItem = { id: string; label: string };
+export type TabItem = { id: string; label: string; icon?: string };
 
 type TabsProps = {
   label: string;
@@ -11,6 +12,7 @@ type TabsProps = {
   tabs: readonly TabItem[];
   activeId: string;
   className?: string;
+  orientation?: RovingOrientation;
   onChange(id: string): void;
 };
 
@@ -28,11 +30,12 @@ export function Tabs({
   tabs,
   activeId,
   className,
+  orientation = 'horizontal',
   onChange,
 }: TabsProps): JSX.Element {
   function moveFocus(event: KeyboardEvent<HTMLDivElement>): void {
     const current = tabs.findIndex((tab) => tab.id === activeId);
-    const next = rovingIndex(event.key, current, tabs.length, 'horizontal');
+    const next = rovingIndex(event.key, current, tabs.length, orientation);
     const nextTab = next === null ? undefined : tabs[next];
     if (nextTab === undefined) return;
     event.preventDefault();
@@ -45,6 +48,7 @@ export function Tabs({
       className={classNames('ui-tabs', className)}
       role="tablist"
       aria-label={label}
+      aria-orientation={orientation}
       onKeyDown={moveFocus}
     >
       {tabs.map((tab) => {
@@ -60,7 +64,8 @@ export function Tabs({
             tabIndex={isActive ? 0 : -1}
             onClick={() => onChange(tab.id)}
           >
-            {tab.label}
+            {tab.icon !== undefined && <Icon name={tab.icon} />}
+            <span>{tab.label}</span>
           </button>
         );
       })}

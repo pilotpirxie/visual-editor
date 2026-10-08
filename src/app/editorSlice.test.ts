@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { createSampleProject } from './projectFactory';
 import { createTestStore, homePage } from '../test/fixtures';
 import {
-  blockLibraryOpened,
   blockSelected,
   compactTabSelected,
   designSheetToggled,
@@ -11,6 +10,8 @@ import {
   fieldFocusRequested,
   focusRequestHandled,
   libraryDrawerToggled,
+  libraryOpened,
+  libraryRailClicked,
   libraryTabChanged,
   pageAnchorRequested,
   pageOpened,
@@ -198,6 +199,43 @@ describe('panelToggled', () => {
   });
 });
 
+describe('libraryRailClicked', () => {
+  it('opens the drawer on the clicked tab and closes it when the open tab is clicked again', () => {
+    let editor = editorSlice.reducer(
+      initialEditor(),
+      libraryRailClicked({ tab: 'layers', isDrawer: true }),
+    );
+    expect(editor.libraryTab).toBe('layers');
+    expect(editor.isLibraryDrawerOpen).toBe(true);
+    editor = editorSlice.reducer(editor, libraryRailClicked({ tab: 'pages', isDrawer: true }));
+    expect(editor.libraryTab).toBe('pages');
+    expect(editor.isLibraryDrawerOpen).toBe(true);
+    editor = editorSlice.reducer(editor, libraryRailClicked({ tab: 'pages', isDrawer: true }));
+    expect(editor.isLibraryDrawerOpen).toBe(false);
+  });
+
+  it('collapses and expands the docked panel the same way', () => {
+    let editor = editorSlice.reducer(
+      initialEditor(),
+      libraryRailClicked({ tab: 'blocks', isDrawer: false }),
+    );
+    expect(editor.panels.left.collapsed).toBe(true);
+    editor = editorSlice.reducer(editor, libraryRailClicked({ tab: 'layers', isDrawer: false }));
+    expect(editor.libraryTab).toBe('layers');
+    expect(editor.panels.left.collapsed).toBe(false);
+    expect(editor.isLibraryDrawerOpen).toBe(false);
+  });
+});
+
+describe('designSheetToggled', () => {
+  it('opens a collapsed properties column so the design panel has room', () => {
+    let editor = editorSlice.reducer(initialEditor(), panelToggled('right'));
+    editor = editorSlice.reducer(editor, designSheetToggled(true));
+    expect(editor.isDesignSheetOpen).toBe(true);
+    expect(editor.panels.right.collapsed).toBe(false);
+  });
+});
+
 describe('libraryTabChanged', () => {
   it('switches between blocks and layers', () => {
     const editor = editorSlice.reducer(initialEditor(), libraryTabChanged('layers'));
@@ -306,12 +344,22 @@ describe('sectionToggled', () => {
 });
 
 describe('library drawer', () => {
+  it('opens project settings in the library', () => {
+    const store = createTestStore();
+    store.dispatch(panelToggled('left'));
+    store.dispatch(libraryOpened('settings'));
+    const editor = store.getState().editor;
+    expect(editor.libraryTab).toBe('settings');
+    expect(editor.isLibraryDrawerOpen).toBe(true);
+    expect(editor.panels.left.collapsed).toBe(false);
+  });
+
   it('starts closed and opens on the Blocks tab when asked to add a block', () => {
     const store = createTestStore();
     store.dispatch(libraryTabChanged('layers'));
     store.dispatch(panelToggled('left'));
     expect(store.getState().editor.isLibraryDrawerOpen).toBe(false);
-    store.dispatch(blockLibraryOpened());
+    store.dispatch(libraryOpened('blocks'));
     const editor = store.getState().editor;
     expect(editor.isLibraryDrawerOpen).toBe(true);
     expect(editor.libraryTab).toBe('blocks');

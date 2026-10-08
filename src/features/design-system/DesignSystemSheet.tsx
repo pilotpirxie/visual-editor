@@ -1,4 +1,4 @@
-import type { JSX, KeyboardEvent, ReactNode } from 'react';
+import { useEffect, useRef, type JSX, type KeyboardEvent, type ReactNode } from 'react';
 import { designSheetToggled } from '../../app/editorSlice';
 import { tokenSet, tokensSet, type EditKind } from '../../app/projectSlice';
 import { isThemeToken, themeFamilyTokenNames, type ThemeFamily } from '../../app/sectionThemes';
@@ -181,6 +181,7 @@ function ShadowPresetPicker({ tokens }: { tokens: Record<string, Token> }): JSX.
 
 function closeSheet(): void {
   dispatch(designSheetToggled(false));
+  document.getElementById('ve-design-toggle')?.focus();
 }
 
 function closeOnEscape(event: KeyboardEvent<HTMLElement>): void {
@@ -192,13 +193,26 @@ function closeOnEscape(event: KeyboardEvent<HTMLElement>): void {
 export function DesignSystemSheet(): JSX.Element {
   const tokens = useStore((state) => state.project.designSystem.tokens);
   const generators = useStore((state) => state.project.designSystem.generators);
+  const sheetRef = useRef<HTMLElement>(null);
   const spacing = spacingSplit(tokens);
 
+  useEffect(() => {
+    sheetRef.current?.focus();
+  }, []);
+
   return (
-    <aside className="ve-design-sheet" aria-labelledby={TITLE_ID} onKeyDown={closeOnEscape}>
-      <header className="ve-design-sheet-header">
-        <Title id={TITLE_ID}>Design system</Title>
-        <IconButton label="Close design system" icon="x" onClick={closeSheet} />
+    <aside
+      ref={sheetRef}
+      className="ve-design-sheet"
+      aria-labelledby={TITLE_ID}
+      tabIndex={-1}
+      onKeyDown={closeOnEscape}
+    >
+      <header className="ve-panel-header">
+        <div className="ve-panel-heading">
+          <Title id={TITLE_ID}>Design</Title>
+          <IconButton label="Close design" icon="x" onClick={closeSheet} />
+        </div>
       </header>
       <div className="ve-design-sheet-body">
         <PresetsSection />
@@ -206,32 +220,32 @@ export function DesignSystemSheet(): JSX.Element {
           <ContrastNotes tokens={tokens} />
           <TokenList tokens={tokens} shown={baseColorTokens(tokens)} />
         </DesignSection>
-        <DesignSection id="theme-dark" title="Dark sections" defaultOpen={false}>
-          <TokenList tokens={tokens} shown={themeColorTokens(tokens, 'dark')} />
-        </DesignSection>
-        <DesignSection id="theme-primary" title="Primary sections" defaultOpen={false}>
-          <TokenList tokens={tokens} shown={themeColorTokens(tokens, 'primary')} />
-        </DesignSection>
         <TypographySection />
-        <DesignSection id="spacing" title="Spacing">
+        <DesignSection id="icons" title="Icons">
+          <IconSetPicker />
+        </DesignSection>
+        <DesignSection id="spacing" title="Spacing" defaultOpen={false}>
           <SpacingUnitControl generators={generators} tokens={tokens} />
           <TokenList tokens={tokens} shown={spacing.layout} />
         </DesignSection>
         <DesignSection id="space-steps" title="Space steps" defaultOpen={false}>
           <TokenList tokens={tokens} shown={spacing.steps} />
         </DesignSection>
-        <DesignSection id="shape" title="Shape and elevation">
+        <DesignSection id="shape" title="Shape and elevation" defaultOpen={false}>
           <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'shape')} />
           <ShadowPresetPicker tokens={tokens} />
         </DesignSection>
-        <DesignSection id="components" title="Components">
+        <DesignSection id="theme-dark" title="Dark sections" defaultOpen={false}>
+          <TokenList tokens={tokens} shown={themeColorTokens(tokens, 'dark')} />
+        </DesignSection>
+        <DesignSection id="theme-primary" title="Primary sections" defaultOpen={false}>
+          <TokenList tokens={tokens} shown={themeColorTokens(tokens, 'primary')} />
+        </DesignSection>
+        <DesignSection id="components" title="Components" defaultOpen={false}>
           <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'component')} />
         </DesignSection>
-        <DesignSection id="motion" title="Motion">
+        <DesignSection id="motion" title="Motion" defaultOpen={false}>
           <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'motion')} />
-        </DesignSection>
-        <DesignSection id="icons" title="Icons">
-          <IconSetPicker />
         </DesignSection>
       </div>
     </aside>

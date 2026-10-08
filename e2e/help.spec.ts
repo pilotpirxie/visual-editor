@@ -7,14 +7,14 @@ test('icon buttons show their name as a tooltip on hover and keyboard focus', as
 }) => {
   const tabKey = browserName === 'webkit' ? 'Alt+Tab' : 'Tab';
   await createProject(page);
-  const designButton = page.getByRole('button', { name: 'Design system' });
-  await designButton.hover();
+  const helpButton = page.getByRole('button', { name: 'Help' });
+  await helpButton.hover();
   const tooltip = page.locator('.ui-tooltip');
-  await expect(tooltip).toHaveText('Design system');
+  await expect(tooltip).toContainText('Help');
   await page.mouse.move(0, 400);
   await expect(tooltip).toHaveCount(0);
 
-  await designButton.focus();
+  await page.getByRole('button', { name: 'Design', exact: true }).focus();
   await page.keyboard.press(`Shift+${tabKey}`);
   await expect(page.getByRole('button', { name: 'Help' })).toBeFocused();
   await expect(page.locator('.ui-tooltip')).toContainText('Help');

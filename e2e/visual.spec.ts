@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { createProject, insertEveryBlock, openProjectSettings } from './editor';
+import { closeLibraryDrawer, createProject, insertEveryBlock, openProjectSettings } from './editor';
 
 const PRESET_GROUPS = [
   ['Clean', 'Midnight', 'Playful', 'Corporate'],
@@ -64,7 +64,8 @@ async function overflowingBlocks(page: Page): Promise<string[]> {
 }
 
 async function applyPreset(page: Page, preset: string): Promise<void> {
-  await page.getByRole('button', { name: 'Design system' }).click();
+  await page.getByRole('button', { name: 'Design', exact: true }).click();
+  await expect(page.getByRole('complementary', { name: 'Design' })).toBeVisible();
   const presets = page.getByRole('list', { name: 'Presets' });
   if (!(await presets.isVisible())) {
     await page.locator('.ve-design-sheet summary', { hasText: 'Presets' }).click();
@@ -74,7 +75,7 @@ async function applyPreset(page: Page, preset: string): Promise<void> {
     .getByRole('dialog', { name: `Apply ${preset}` })
     .getByRole('button', { name: 'Apply', exact: true })
     .click();
-  await page.getByRole('button', { name: 'Close design system' }).click();
+  await page.getByRole('button', { name: 'Close design' }).click();
 }
 
 async function expectEveryWidthFits(page: Page, label: string): Promise<void> {
@@ -103,7 +104,7 @@ test('long site titles and long link words still fit on a phone', async ({ page 
   await settings
     .getByLabel('Site title')
     .fill('Northwind Analytics International Consulting Groupwideunbreakablename');
-  await settings.getByRole('button', { name: 'Done' }).click();
+  await closeLibraryDrawer(page);
   expect(await insertEveryBlock(page)).toBeGreaterThanOrEqual(80);
   await page.getByRole('button', { name: /^Edit/ }).click();
   await page.getByRole('menuitem', { name: 'Find and replace…' }).click();
@@ -121,7 +122,7 @@ test('every block fits in a right-to-left site', async ({ page }) => {
   await createProject(page);
   const settings = await openProjectSettings(page);
   await settings.getByLabel('Language').selectOption('ar');
-  await settings.getByRole('button', { name: 'Done' }).click();
+  await closeLibraryDrawer(page);
   await expect(page.frameLocator('.ve-canvas-frame').locator('html')).toHaveAttribute('dir', 'rtl');
   expect(await insertEveryBlock(page)).toBeGreaterThanOrEqual(80);
   for (const width of [375, 1440] as const) {
