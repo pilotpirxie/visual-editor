@@ -1,0 +1,22 @@
+<section class="b-stats-split section"{{#if countUp}} data-behavior="counter"{{/if}}>
+  <div class="container b-layout">
+    <div class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      {{#if showButton}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+      {{/if}}
+    </div>
+    <dl class="b-stats">
+      {{#each stats}}
+      <div class="b-stat" data-field="stats.{{@index}}">
+        <dt class="b-label">{{label}}</dt>
+        <dd class="b-value"{{#if ../countUp}} data-count{{/if}}>{{value}}</dd>
+      </div>
+      {{/each}}
+    </dl>
+  </div>
+</section>

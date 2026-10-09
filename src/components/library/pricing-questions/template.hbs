@@ -1,0 +1,33 @@
+<section class="b-pricing-questions section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-layout">
+      <article class="card stack b-plan">
+        <h3 data-field="planName">{{planName}}</h3>
+        <p><span class="b-amount" data-field="price">{{price}}</span> <span class="b-muted" data-field="period">{{period}}</span></p>
+        <ul class="b-checks" role="list">
+          {{#each features}}
+          <li data-field="features.{{@index}}">{{svgIcon "check"}}<span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        {{#if note}}<p class="b-muted b-note" data-field="note">{{note}}</p>{{/if}}
+      </article>
+      <div class="stack b-questions">
+        <h3 data-field="questionsTitle">{{questionsTitle}}</h3>
+        <div class="b-list">
+          {{#each questions}}
+          <details class="b-item" name="{{../block.id}}-billing" {{#if @first}}open{{/if}} data-field="questions.{{@index}}">
+            <summary class="b-question"><span>{{question}}</span><span class="b-icon">{{svgIcon ../expandIcon}}</span></summary>
+            <div class="prose b-answer">{{richText answer}}</div>
+          </details>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

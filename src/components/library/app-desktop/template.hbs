@@ -1,0 +1,22 @@
+<section class="b-app-desktop section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <ul class="cluster b-downloads" role="list">
+        {{#each downloads}}
+        <li><a class="btn {{#if @first}}btn-primary{{else}}btn-secondary{{/if}}" href="{{href link}}" {{linkAttrs link}} data-field="downloads.{{@index}}">{{svgIcon icon}}<span>{{label}}</span></a></li>
+        {{/each}}
+      </ul>
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </header>
+    <div class="b-window" data-field="screenshot">
+      <div class="b-bar">
+        <span class="b-lights" aria-hidden="true"><span></span><span></span><span></span></span>
+        {{#if windowTitle}}<span class="b-title" data-field="windowTitle">{{windowTitle}}</span>{{/if}}
+      </div>
+      <div class="media b-screen" style="--media-ratio: {{screenshot.width}} / {{screenshot.height}}">{{img screenshot}}</div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,182 @@
+{
+  "name": "Pricing, plan with add-ons",
+  "category": "pricing",
+  "description": "One base plan next to a list of optional add-ons with their own prices.",
+  "tags": ["pricing", "plan", "add-ons", "extras", "modular", "upsell", "options"],
+  "fieldGroups": ["Heading", "Plan", "Add-ons"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Pricing",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "One plan, extras when you need them",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Online bookings, table plans and guest notes are all in the base plan. Add only what your venue uses.",
+      "group": "Heading"
+    },
+    {
+      "name": "planName",
+      "label": "Plan name",
+      "type": "text",
+      "default": "Restaurant",
+      "group": "Plan"
+    },
+    {
+      "name": "price",
+      "label": "Price",
+      "type": "text",
+      "default": "$49",
+      "group": "Plan"
+    },
+    {
+      "name": "period",
+      "label": "Period",
+      "type": "text",
+      "default": "per venue, per month",
+      "group": "Plan"
+    },
+    {
+      "name": "planDescription",
+      "label": "Description",
+      "type": "textarea",
+      "default": "Everything you need to take bookings and seat guests.",
+      "group": "Plan"
+    },
+    {
+      "name": "features",
+      "label": "Included",
+      "type": "list",
+      "minItems": 0,
+      "maxItems": 10,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "What is included"
+        }
+      ],
+      "default": [
+        {
+          "text": "Unlimited online bookings"
+        },
+        {
+          "text": "Drag-and-drop table plan"
+        },
+        {
+          "text": "Guest notes and allergies"
+        },
+        {
+          "text": "Booking widget for your website"
+        }
+      ],
+      "group": "Plan"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start 30-day trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Plan"
+    },
+    {
+      "name": "planNote",
+      "label": "Note",
+      "type": "text",
+      "default": "No setup fee. Cancel any time.",
+      "group": "Plan"
+    },
+    {
+      "name": "addonsTitle",
+      "label": "Add-ons title",
+      "type": "text",
+      "default": "Optional add-ons",
+      "group": "Add-ons"
+    },
+    {
+      "name": "addons",
+      "label": "Add-ons",
+      "type": "list",
+      "group": "Add-ons",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "plus"
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Add-on"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "What it adds."
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "+$9 / month"
+        }
+      ],
+      "default": [
+        {
+          "icon": "message",
+          "name": "Text message reminders",
+          "description": "Cut no-shows with a reminder the day before.",
+          "price": "+$12 / month"
+        },
+        {
+          "icon": "credit-card",
+          "name": "Deposits and card holds",
+          "description": "Take a deposit for large groups and busy nights.",
+          "price": "+$19 / month"
+        },
+        {
+          "icon": "gift",
+          "name": "Gift vouchers",
+          "description": "Sell vouchers on your website and redeem them at the table.",
+          "price": "+$9 / month"
+        },
+        {
+          "icon": "map-pin",
+          "name": "Extra venue",
+          "description": "Manage another location from the same account.",
+          "price": "+$29 / month"
+        }
+      ]
+    }
+  ]
+}

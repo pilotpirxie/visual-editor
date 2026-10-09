@@ -1,0 +1,103 @@
+{
+  "name": "How it works, sticky image",
+  "category": "how-it-works",
+  "description": "An image that stays in view beside a long list of numbered steps.",
+  "tags": ["steps", "process", "how", "sticky", "image", "onboarding", "switching"],
+  "fieldGroups": ["Heading", "Steps", "Image", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Switching banks",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Moving your business banking takes one afternoon",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We handle the paperwork with your old bank. You keep trading the whole time.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "title": "Open your account online",
+          "text": "Answer a few questions about your business on your phone or laptop. Most accounts are approved within ten minutes, and your new card ships the same day."
+        },
+        {
+          "title": "Verify who you are",
+          "text": "Take a photo of your passport or driving licence and record a short selfie video. Directors can each verify from their own phone."
+        },
+        {
+          "title": "Move your payments across",
+          "text": "Tell us your old account details and we copy over every standing order and direct debit. Customers who pay you are redirected automatically for three years."
+        },
+        {
+          "title": "Close the old account",
+          "text": "When the switch completes on day seven we close your old account and move the remaining balance. You get an email with a full record of what moved."
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "group": "Image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A café owner checking the new business account app at the counter",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "photo"
+        }
+      }
+    },
+    {
+      "name": "imageSide",
+      "label": "Image side on desktop",
+      "type": "segmented",
+      "default": "start",
+      "group": "Layout",
+      "options": [
+        { "value": "start", "label": "Start", "icon": "panel-left" },
+        { "value": "end", "label": "End", "icon": "panel-right" }
+      ]
+    }
+  ]
+}

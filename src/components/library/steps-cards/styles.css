@@ -1,0 +1,60 @@
+@layer components {
+  @scope (.b-steps-cards) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-intro,
+    .b-step p {
+      color: var(--color-text-muted);
+    }
+
+    .b-steps {
+      --grid-min: 14rem;
+      counter-reset: step;
+    }
+
+    .b-step {
+      --stack-gap: var(--space-3);
+      counter-increment: step;
+    }
+
+    .b-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-block-end: var(--space-3);
+    }
+
+    .b-top::after {
+      content: counter(step, decimal-leading-zero);
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-heading);
+      line-height: 1;
+      color: color-mix(in oklab, var(--color-primary) 35%, transparent);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+  }
+}

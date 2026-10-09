@@ -1,0 +1,105 @@
+{
+  "name": "Features, with testimonial",
+  "category": "features",
+  "description": "A two-by-two grid of features with icons next to a customer quote card.",
+  "tags": ["features", "testimonial", "quote", "proof", "grid", "icons", "customer"],
+  "fieldGroups": ["Heading", "Items", "Quote"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Why clinics switch",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Less time on admin, more time with patients",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Carely handles bookings, notes and billing for independent physiotherapy and osteopathy clinics.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "icon", "label": "Icon", "type": "icon", "default": "check" },
+        { "name": "title", "label": "Title", "type": "text", "default": "Feature title" },
+        { "name": "text", "label": "Text", "type": "textarea", "default": "One sentence about it." }
+      ],
+      "default": [
+        {
+          "icon": "calendar",
+          "title": "Patients book themselves",
+          "text": "Online booking that knows each therapist's hours, rooms and treatment lengths."
+        },
+        {
+          "icon": "pencil",
+          "title": "Notes in half the time",
+          "text": "Templates for every assessment, with body charts you tap instead of draw."
+        },
+        {
+          "icon": "credit-card",
+          "title": "Paid on the day",
+          "text": "Card payments at the desk and insurer claims sent from the same screen."
+        },
+        {
+          "icon": "bell",
+          "title": "Fewer no-shows",
+          "text": "Text reminders 24 hours ahead cut missed appointments by a third."
+        }
+      ]
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "We got back two hours a day at the front desk. Our receptionist now spends that time with patients instead of the phone.",
+      "group": "Quote"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Dr. Amara Okafor",
+      "group": "Quote"
+    },
+    {
+      "name": "role",
+      "label": "Role and company",
+      "type": "text",
+      "default": "Clinical director, Riverside Physio",
+      "group": "Quote"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Dr. Amara Okafor",
+        "decorative": false,
+        "width": 400,
+        "height": 400,
+        "placeholder": { "ratio": "1:1", "subject": "person" }
+      },
+      "group": "Quote"
+    }
+  ]
+}

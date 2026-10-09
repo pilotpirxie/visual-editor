@@ -1,0 +1,50 @@
+@layer components {
+  @scope (.b-features-icon-row) {
+    :scope {
+      --section-padding-y: var(--space-8);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      color: var(--color-text-muted);
+    }
+
+    .b-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .b-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--space-4) var(--space-8);
+      }
+    }
+  }
+}

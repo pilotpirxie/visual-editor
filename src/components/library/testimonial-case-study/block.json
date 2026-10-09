@@ -1,0 +1,158 @@
+{
+  "name": "Testimonial, case study",
+  "category": "testimonials",
+  "description": "A customer story with logo, quote, three result numbers and a link to the full case study.",
+  "tags": ["testimonial", "case study", "customer story", "results", "metrics", "b2b", "logo"],
+  "fieldGroups": ["Heading", "Quote", "Results", "Link"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "logo",
+      "label": "Company logo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Meridian Logistics",
+        "decorative": false,
+        "width": 1200,
+        "height": 514,
+        "placeholder": {
+          "ratio": "21:9",
+          "subject": "logo"
+        }
+      },
+      "group": "Heading"
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Case study",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How Meridian Logistics cut late deliveries by 38%",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Meridian drivers loading a van at the depot",
+        "decorative": false,
+        "width": 1200,
+        "height": 900,
+        "placeholder": {
+          "ratio": "4:3",
+          "subject": "photo"
+        }
+      },
+      "group": "Heading"
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "Our planners used to rebuild routes by hand every time a driver called in sick. Routewise does it in seconds, and our customers noticed within a month.",
+      "group": "Quote",
+      "required": true
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Ingrid Solberg",
+      "group": "Quote"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Head of Operations, Meridian Logistics",
+      "group": "Quote"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Ingrid Solberg",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Quote"
+    },
+    {
+      "name": "metrics",
+      "label": "Results",
+      "type": "list",
+      "group": "Results",
+      "minItems": 0,
+      "maxItems": 3,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Value",
+          "type": "text",
+          "default": "0",
+          "maxLength": 12
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "What changed"
+        }
+      ],
+      "default": [
+        {
+          "value": "38%",
+          "label": "fewer late deliveries"
+        },
+        {
+          "value": "4×",
+          "label": "faster route planning"
+        },
+        {
+          "value": "$1.1M",
+          "label": "saved in the first year"
+        }
+      ]
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link label",
+      "type": "text",
+      "default": "Read the case study",
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Link"
+    }
+  ]
+}

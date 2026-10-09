@@ -1,0 +1,85 @@
+{
+  "name": "Numbers, milestones",
+  "category": "numbers",
+  "description": "A year-by-year timeline where each milestone has a headline number and a short story.",
+  "tags": ["numbers", "milestones", "timeline", "history", "years", "growth", "nonprofit", "story"],
+  "fieldGroups": ["Heading", "Milestones"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our story",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Ten years of getting the city on two wheels",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Cityloop started with 40 bikes and one dock outside the central library. Here is how it grew.",
+      "group": "Heading"
+    },
+    {
+      "name": "milestones",
+      "label": "Milestones",
+      "type": "list",
+      "group": "Milestones",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "year",
+      "itemFields": [
+        {
+          "name": "year",
+          "label": "Year",
+          "type": "text",
+          "default": "2026",
+          "maxLength": 12
+        },
+        {
+          "name": "value",
+          "label": "Headline number",
+          "type": "text",
+          "default": "1,000 members"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happened this year."
+        }
+      ],
+      "default": [
+        {
+          "year": "2016",
+          "value": "40 bikes",
+          "text": "A pilot with one dock, funded by 312 neighbours on a community crowdfunder."
+        },
+        {
+          "year": "2019",
+          "value": "85 docks",
+          "text": "The city council made Cityloop part of the public transport pass."
+        },
+        {
+          "year": "2022",
+          "value": "1 million rides",
+          "text": "E-bikes joined the fleet and opened up the hill districts."
+        },
+        {
+          "year": "2026",
+          "value": "9,400 tonnes",
+          "text": "Of CO₂ avoided this year compared with the same trips by car."
+        }
+      ]
+    }
+  ]
+}

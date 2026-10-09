@@ -1,0 +1,118 @@
+@layer components {
+  @scope (.b-steps-carousel) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-track {
+      display: grid;
+      grid-auto-columns: min(85%, 22rem);
+      grid-auto-flow: column;
+      gap: var(--space-6);
+      padding-block: var(--space-1) var(--space-4);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      counter-reset: step;
+    }
+
+    .b-slide {
+      position: relative;
+      overflow: hidden;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+      scroll-snap-align: start;
+      counter-increment: step;
+    }
+
+    .b-slide::before {
+      content: counter(step);
+      position: absolute;
+      z-index: 1;
+      inset-block-start: var(--space-3);
+      inset-inline-start: var(--space-3);
+      display: grid;
+      place-items: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-media {
+      --media-radius: 0;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-2);
+      padding: var(--space-6);
+    }
+
+    .b-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .b-dots {
+      display: contents;
+    }
+
+    .b-arrow {
+      --button-padding-x: var(--space-3);
+    }
+
+    .b-arrow:disabled {
+      opacity: 0.4;
+    }
+
+    .b-dots button {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 0;
+      background: none;
+    }
+
+    .b-dots button::before {
+      content: '';
+      width: 0.625rem;
+      height: 0.625rem;
+      border-radius: var(--radius-full);
+      background: var(--color-border);
+    }
+
+    .b-dots button[aria-current='true']::before {
+      background: var(--color-primary);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: end;
+      }
+
+      .b-track {
+        grid-column: 1 / -1;
+      }
+
+      .b-controls {
+        grid-area: 1 / 2;
+      }
+    }
+  }
+}

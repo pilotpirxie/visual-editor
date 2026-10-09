@@ -1,0 +1,204 @@
+{
+  "name": "Testimonials, ratings summary",
+  "category": "testimonials",
+  "description": "An average star rating with a breakdown by stars and a few written reviews.",
+  "tags": [
+    "testimonials",
+    "reviews",
+    "ratings",
+    "stars",
+    "score",
+    "e-commerce",
+    "store",
+    "local business"
+  ],
+  "fieldGroups": ["Heading", "Rating", "Reviews", "Link"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Reviews",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What owners say about the Oakline desk",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "score",
+      "label": "Average rating",
+      "type": "number",
+      "default": 4.8,
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "group": "Rating"
+    },
+    {
+      "name": "scoreLabel",
+      "label": "Rating note",
+      "type": "text",
+      "default": "Based on 2,314 reviews",
+      "group": "Rating"
+    },
+    {
+      "name": "bars",
+      "label": "Breakdown",
+      "type": "list",
+      "group": "Rating",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "5 stars"
+        },
+        {
+          "name": "percent",
+          "label": "Share of reviews (%)",
+          "type": "number",
+          "default": 0,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      ],
+      "default": [
+        {
+          "label": "5 stars",
+          "percent": 84
+        },
+        {
+          "label": "4 stars",
+          "percent": 11
+        },
+        {
+          "label": "3 stars",
+          "percent": 3
+        },
+        {
+          "label": "2 stars",
+          "percent": 1
+        },
+        {
+          "label": "1 star",
+          "percent": 1
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "label": "Reviews",
+      "type": "list",
+      "group": "Reviews",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "rating",
+          "label": "Stars",
+          "type": "select",
+          "default": "5",
+          "options": [
+            {
+              "value": "5",
+              "label": "5 stars"
+            },
+            {
+              "value": "4",
+              "label": "4 stars"
+            },
+            {
+              "value": "3",
+              "label": "3 stars"
+            },
+            {
+              "value": "2",
+              "label": "2 stars"
+            },
+            {
+              "value": "1",
+              "label": "1 star"
+            }
+          ]
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Review title"
+        },
+        {
+          "name": "text",
+          "label": "Review",
+          "type": "textarea",
+          "default": "What the customer wrote."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        }
+      ],
+      "default": [
+        {
+          "rating": "5",
+          "title": "Rock solid at full height",
+          "text": "No wobble even with two monitors at 120 cm. Assembly took me 25 minutes on my own.",
+          "name": "Jonas K.",
+          "date": "2026-09-14"
+        },
+        {
+          "rating": "5",
+          "title": "Quiet motor, great memory presets",
+          "text": "I switch between sitting and standing four times a day now because it takes one press.",
+          "name": "Aisha R.",
+          "date": "2026-08-30"
+        },
+        {
+          "rating": "4",
+          "title": "Lovely oak top, slow delivery",
+          "text": "The desk is beautiful and sturdy. It arrived a week later than promised, but support kept me posted.",
+          "name": "Peter W.",
+          "date": "2026-08-21"
+        }
+      ]
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link label",
+      "type": "text",
+      "default": "Read all 2,314 reviews",
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Link"
+    }
+  ]
+}

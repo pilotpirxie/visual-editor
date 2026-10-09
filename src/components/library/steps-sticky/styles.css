@@ -1,0 +1,82 @@
+@layer components {
+  @scope (.b-steps-sticky) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-intro,
+    .b-step p {
+      color: var(--color-text-muted);
+    }
+
+    .b-media {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-steps {
+      display: grid;
+      gap: var(--space-8);
+      counter-reset: step;
+    }
+
+    .b-step {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-6);
+      padding-block-start: var(--space-8);
+      border-block-start: var(--border-width) solid var(--color-border);
+      counter-increment: step;
+    }
+
+    .b-step::before {
+      content: counter(step, decimal-leading-zero);
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      color: var(--color-primary);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-2);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-areas: 'media head' 'media steps';
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: auto 1fr;
+        gap: var(--space-12) var(--space-16);
+      }
+
+      :scope[data-image='end'] .b-inner {
+        grid-template-areas: 'head media' 'steps media';
+      }
+
+      .b-head {
+        grid-area: head;
+      }
+
+      .b-steps {
+        grid-area: steps;
+      }
+
+      .b-media {
+        position: sticky;
+        inset-block-start: var(--space-8);
+        grid-area: media;
+        align-self: start;
+      }
+    }
+  }
+}

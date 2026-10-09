@@ -1,0 +1,148 @@
+{
+  "name": "Testimonials, featured and two more",
+  "category": "testimonials",
+  "description": "One large dark quote card beside two smaller quote cards.",
+  "tags": ["testimonials", "featured", "quotes", "reviews", "social proof", "homepage"],
+  "fieldGroups": ["Heading", "Featured quote", "More quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "What freelancers say",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Bookkeeping that finally keeps up with you",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "I used to lose two Sundays every quarter to receipts and VAT. Pennywise matches my bank feed while I work, and my accountant gets a clean file the day the quarter ends.",
+      "group": "Featured quote",
+      "required": true
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Elena Petrova",
+      "group": "Featured quote"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Brand designer, self-employed since 2019",
+      "group": "Featured quote"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Elena Petrova",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Featured quote"
+    },
+    {
+      "name": "items",
+      "label": "Quotes",
+      "type": "list",
+      "group": "More quotes",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "What the customer said."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "Invoices go out with a payment link, and I get paid nine days sooner on average.",
+          "name": "Samuel Adeyemi",
+          "role": "Videographer",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Samuel Adeyemi",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "The tax estimate on the home screen means April no longer comes as a surprise.",
+          "name": "Chloé Martin",
+          "role": "Translator",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Chloé Martin",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

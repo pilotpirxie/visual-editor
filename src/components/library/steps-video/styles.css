@@ -1,0 +1,86 @@
+@layer components {
+  @scope (.b-steps-video) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-inner > * {
+      width: 100%;
+      max-width: 64rem;
+      margin-inline: auto;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      text-align: center;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-player {
+      position: relative;
+    }
+
+    .b-media {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-play {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius-lg);
+    }
+
+    .b-play-icon {
+      --icon-size: 1.75rem;
+      display: grid;
+      place-items: center;
+      width: 4.5rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-play:hover .b-play-icon {
+      scale: 1.08;
+    }
+
+    .b-duration {
+      --badge-bg: var(--theme-dark-background);
+      --badge-color: var(--theme-dark-text);
+      position: absolute;
+      inset-block-end: var(--space-3);
+      inset-inline-end: var(--space-3);
+    }
+
+    .b-steps {
+      --grid-min: 14rem;
+      --grid-gap: var(--space-8);
+      counter-reset: step;
+    }
+
+    .b-step {
+      --stack-gap: var(--space-2);
+      padding-block-start: var(--space-4);
+      border-block-start: 2px solid var(--color-border);
+      counter-increment: step;
+    }
+
+    .b-step::before {
+      content: counter(step, decimal-leading-zero);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+  }
+}

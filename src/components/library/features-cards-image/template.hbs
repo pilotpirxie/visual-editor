@@ -1,0 +1,21 @@
+<section class="b-features-cards-image section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="grid b-grid" style="--cols: {{columns}}">
+      {{#each items}}
+      <article class="card b-card" data-field="items.{{@index}}">
+        <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}">{{img image}}</div>
+        <div class="stack b-body">
+          <h3>{{title}}</h3>
+          <p class="b-text">{{nl2br text}}</p>
+          {{#if linkLabel}}<a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{linkLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+        </div>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

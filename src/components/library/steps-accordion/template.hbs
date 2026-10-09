@@ -1,0 +1,28 @@
+<section class="b-steps-accordion section">
+  <div class="container b-inner">
+    <div class="stack b-main">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      <ol class="b-steps" role="list">
+        {{#each steps}}
+        <li class="b-step" data-field="steps.{{@index}}">
+          <details name="{{../block.id}}-steps"{{#if @first}} open{{/if}}>
+            <summary class="b-summary">
+              <span class="b-label"><span class="b-title">{{title}}</span>{{#if duration}}<span class="badge b-duration">{{svgIcon "clock"}}{{duration}}</span>{{/if}}</span>
+              <span class="b-chevron">{{svgIcon "chevron-down"}}</span>
+            </summary>
+            <div class="stack b-body">
+              <p>{{nl2br text}}</p>
+              {{#if linkLabel}}<a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{linkLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+            </div>
+          </details>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+    <div class="media b-media" data-field="image" style="--media-ratio: {{image.width}} / {{image.height}}">{{img image}}</div>
+  </div>
+</section>

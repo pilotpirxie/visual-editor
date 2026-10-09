@@ -1,0 +1,82 @@
+@layer components {
+  @scope (.b-features-integrations) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro,
+    .b-category {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .b-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-3);
+      min-width: 0;
+      padding: var(--space-3);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-background);
+    }
+
+    .b-logo {
+      --icon-size: 1.5rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+    }
+
+    .b-copy {
+      display: grid;
+      min-width: 0;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-category {
+      font-size: var(--text-sm);
+    }
+
+    .b-actions {
+      justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+      .b-tile {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+}

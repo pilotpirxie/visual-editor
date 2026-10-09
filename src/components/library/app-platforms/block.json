@@ -1,0 +1,150 @@
+{
+  "name": "Applications, every platform",
+  "category": "applications",
+  "description": "Linked cards for each platform the app runs on, with system requirements.",
+  "tags": [
+    "app",
+    "download",
+    "platforms",
+    "ios",
+    "android",
+    "macos",
+    "windows",
+    "web",
+    "cross-platform",
+    "cards"
+  ],
+  "fieldGroups": ["Heading", "Platforms"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Downloads",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your vault on every device you own",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Install Keyring wherever you sign in. Passwords sync end to end encrypted, and one plan covers all of them.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Platforms",
+      "type": "list",
+      "group": "Platforms",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Logo",
+          "type": "icon",
+          "default": "download",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "name",
+          "label": "Platform",
+          "type": "text",
+          "default": "Platform",
+          "maxLength": 24
+        },
+        {
+          "name": "note",
+          "label": "Requirements",
+          "type": "text",
+          "default": "Latest version",
+          "maxLength": 48
+        },
+        {
+          "name": "linkLabel",
+          "label": "Link label",
+          "type": "text",
+          "default": "Download",
+          "maxLength": 24
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:apple",
+          "name": "iOS",
+          "note": "iPhone and iPad, iOS 17 or later",
+          "linkLabel": "App Store",
+          "link": {
+            "type": "url",
+            "url": "https://apps.apple.com",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:android",
+          "name": "Android",
+          "note": "Android 10 or later",
+          "linkLabel": "Google Play",
+          "link": {
+            "type": "url",
+            "url": "https://play.google.com",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:apple",
+          "name": "macOS",
+          "note": "macOS 13 Ventura or later",
+          "linkLabel": "Download",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "simple-icons:windows",
+          "name": "Windows",
+          "note": "Windows 10 and 11, 64-bit",
+          "linkLabel": "Download",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "globe",
+          "name": "Web",
+          "note": "Any modern browser, nothing to install",
+          "linkLabel": "Open web app",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

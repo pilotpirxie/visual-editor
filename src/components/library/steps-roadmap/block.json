@@ -1,0 +1,107 @@
+{
+  "name": "How it works, project phases",
+  "category": "how-it-works",
+  "description": "Project phases along a track, each with its duration and deliverables, plus the total time and a button.",
+  "tags": ["steps", "phases", "process", "roadmap", "project", "agency", "consulting"],
+  "fieldGroups": ["Heading", "Phases", "Summary"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our process",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How a website project runs with us",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Fixed phases, a fixed price and one weekly call. You always know what happens next and what it costs.",
+      "group": "Heading"
+    },
+    {
+      "name": "phases",
+      "label": "Phases",
+      "type": "list",
+      "group": "Phases",
+      "minItems": 2,
+      "maxItems": 5,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "duration",
+          "label": "Duration",
+          "type": "text",
+          "default": "Week 1",
+          "maxLength": 20
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Phase"
+        },
+        {
+          "name": "text",
+          "label": "Deliverables",
+          "type": "textarea",
+          "default": "What you get at the end of this phase."
+        }
+      ],
+      "default": [
+        {
+          "duration": "Week 1",
+          "title": "Discovery",
+          "text": "Stakeholder interviews, a review of your analytics and a written brief we both sign off."
+        },
+        {
+          "duration": "Weeks 2 to 4",
+          "title": "Design",
+          "text": "Sitemap, wireframes and full designs for every page, with two rounds of changes."
+        },
+        {
+          "duration": "Weeks 5 to 8",
+          "title": "Build",
+          "text": "A fast, accessible site on a staging link you can click through every Friday."
+        },
+        {
+          "duration": "Week 9",
+          "title": "Launch and training",
+          "text": "Go-live, redirects from your old site and a recorded session on editing pages."
+        }
+      ]
+    },
+    {
+      "name": "total",
+      "label": "Total time",
+      "type": "text",
+      "default": "About nine weeks from kickoff to launch",
+      "group": "Summary"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book a discovery call",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Summary"
+    }
+  ]
+}

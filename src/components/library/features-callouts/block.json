@@ -1,0 +1,110 @@
+{
+  "name": "Features, annotated screenshot",
+  "category": "features",
+  "description": "A screenshot with numbered markers and a matching numbered list that explains each part.",
+  "tags": ["features", "screenshot", "tour", "walkthrough", "annotated", "markers", "product"],
+  "fieldGroups": ["Heading", "Screenshot", "Items"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Product tour",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Everything on one screen, nothing you have to hunt for",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The project workspace keeps the recording, the transcript and your team's highlights side by side.",
+      "group": "Heading"
+    },
+    {
+      "name": "image",
+      "label": "Screenshot",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Fieldnote project workspace with a sidebar, a live transcript, highlight tags and a clip player",
+        "decorative": false,
+        "width": 1200,
+        "height": 900,
+        "placeholder": { "ratio": "4:3", "subject": "screenshot" }
+      },
+      "group": "Screenshot"
+    },
+    {
+      "name": "items",
+      "label": "Callouts",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "title", "label": "Title", "type": "text", "default": "Part of the screen" },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What this part does, in one sentence."
+        },
+        {
+          "name": "x",
+          "label": "Marker from the left (%)",
+          "type": "range",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "name": "y",
+          "label": "Marker from the top (%)",
+          "type": "range",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      ],
+      "default": [
+        {
+          "title": "Project sidebar",
+          "text": "Every study, interview and highlight reel, grouped by team.",
+          "x": 12,
+          "y": 24
+        },
+        {
+          "title": "Live transcript",
+          "text": "Follows the recording word by word, with each speaker labelled.",
+          "x": 52,
+          "y": 20
+        },
+        {
+          "title": "Highlight tags",
+          "text": "Select a sentence, add a tag, and it joins the themes board.",
+          "x": 84,
+          "y": 46
+        },
+        {
+          "title": "Clip player",
+          "text": "Trim a quote to the second and share it with one link.",
+          "x": 46,
+          "y": 82
+        }
+      ]
+    }
+  ]
+}

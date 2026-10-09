@@ -1,0 +1,31 @@
+@layer components {
+  @scope (.b-stats-single) {
+    .b-inner {
+      --stack-gap: var(--space-4);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-value {
+      font-family: var(--font-heading);
+      font-size: calc(var(--text-5xl) * 2.4);
+      font-weight: var(--font-weight-heading);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--color-primary);
+      font-variant-numeric: tabular-nums;
+      overflow-wrap: anywhere;
+    }
+
+    .b-title {
+      max-width: 40rem;
+      font-size: var(--text-3xl);
+    }
+
+    .b-source {
+      margin-block-start: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+  }
+}

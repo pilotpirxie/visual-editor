@@ -1,0 +1,198 @@
+{
+  "name": "Applications, app store reviews",
+  "category": "applications",
+  "description": "An overall app rating with an award line, store buttons and three review cards.",
+  "tags": [
+    "app",
+    "mobile",
+    "reviews",
+    "ratings",
+    "stars",
+    "app store",
+    "google play",
+    "social proof"
+  ],
+  "fieldGroups": ["Heading", "Rating", "Stores", "Reviews"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Loved by light sleepers",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "38,000 people rate Drift five stars for a reason",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Soundscapes, a gentle alarm and a sleep diary that actually spots patterns. Here is what people say after their first month.",
+      "group": "Heading"
+    },
+    {
+      "name": "rating",
+      "label": "Rating out of 5",
+      "type": "number",
+      "default": 4.9,
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "group": "Rating"
+    },
+    {
+      "name": "starsLabel",
+      "label": "Read-aloud rating label",
+      "type": "text",
+      "default": "out of 5 stars",
+      "help": "Screen readers hear the rating followed by this text.",
+      "maxLength": 32,
+      "group": "Rating"
+    },
+    {
+      "name": "ratingNote",
+      "label": "Rating note",
+      "type": "text",
+      "default": "38,000 ratings on the App Store and Google Play",
+      "maxLength": 80,
+      "group": "Rating"
+    },
+    {
+      "name": "award",
+      "label": "Award",
+      "type": "text",
+      "default": "App of the Day in 24 countries",
+      "maxLength": 60,
+      "group": "Rating"
+    },
+    {
+      "name": "stores",
+      "label": "Store buttons",
+      "type": "list",
+      "group": "Stores",
+      "minItems": 0,
+      "maxItems": 3,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Store logo",
+          "type": "icon",
+          "default": "simple-icons:apple",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "App Store"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:apple",
+          "label": "App Store",
+          "link": {
+            "type": "url",
+            "url": "https://apps.apple.com",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:googleplay",
+          "label": "Google Play",
+          "link": {
+            "type": "url",
+            "url": "https://play.google.com",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "reviews",
+      "label": "Reviews",
+      "type": "list",
+      "group": "Reviews",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "rating",
+          "label": "Stars",
+          "type": "number",
+          "default": 5,
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Review title"
+        },
+        {
+          "name": "text",
+          "label": "Review",
+          "type": "textarea",
+          "default": "What the reviewer said, in their words."
+        },
+        {
+          "name": "author",
+          "label": "Author",
+          "type": "text",
+          "default": "Reviewer name"
+        },
+        {
+          "name": "meta",
+          "label": "Source and date",
+          "type": "text",
+          "default": "App Store"
+        }
+      ],
+      "default": [
+        {
+          "rating": 5,
+          "title": "First app that fixed my 4am wake-ups",
+          "text": "The sleep diary showed my late coffee was the problem. Two weeks later I sleep through most nights.",
+          "author": "Hannah K.",
+          "meta": "App Store · August 2026"
+        },
+        {
+          "rating": 5,
+          "title": "The rain sound is the real thing",
+          "text": "No loop you can hear after ten minutes. I travel a lot and it makes every hotel room feel the same.",
+          "author": "Marcus O.",
+          "meta": "Google Play · July 2026"
+        },
+        {
+          "rating": 4,
+          "title": "Gentle alarm, no more jolting awake",
+          "text": "It wakes me in a light sleep phase within a 20-minute window. I wish the widget showed tomorrow’s alarm.",
+          "author": "Priya S.",
+          "meta": "App Store · June 2026"
+        }
+      ]
+    }
+  ]
+}

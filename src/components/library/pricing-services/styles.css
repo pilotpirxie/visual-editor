@@ -1,0 +1,80 @@
+@layer components {
+  @scope (.b-pricing-services) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-packages {
+      --grid-min: 17rem;
+    }
+
+    .b-package {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-meta {
+      display: grid;
+      gap: var(--space-2);
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-duration,
+    .b-checks li {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .b-duration {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-checks {
+      display: grid;
+      flex: 1;
+      align-content: start;
+      gap: var(--space-2);
+    }
+
+    .b-checks .icon {
+      margin-block: 0.125em;
+      color: var(--color-primary);
+    }
+  }
+}

@@ -1,0 +1,68 @@
+@layer components {
+  @scope (.b-stats-cards) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-stats {
+      --grid-min: 13rem;
+      --grid-gap: var(--space-4);
+    }
+
+    .b-stat {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: inline-grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-block-end: var(--space-4);
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-value {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      font-variant-numeric: tabular-nums;
+      overflow-wrap: anywhere;
+    }
+
+    .b-label {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-trend {
+      --icon-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-block-start: auto;
+      padding-block-start: var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-trend .icon {
+      color: var(--color-primary);
+    }
+  }
+}

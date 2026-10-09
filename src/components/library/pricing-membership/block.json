@@ -1,0 +1,258 @@
+{
+  "name": "Pricing, membership tiers",
+  "category": "pricing",
+  "description": "Membership tiers with a photo, a monthly price, perks and a join button.",
+  "tags": ["pricing", "membership", "tiers", "club", "gym", "community", "creator", "subscription"],
+  "fieldGroups": ["Heading", "Tiers"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Memberships",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Climb as often as you like",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every membership includes gear hire on your first visit and a free intro session with a coach.",
+      "group": "Heading"
+    },
+    {
+      "name": "featuredLabel",
+      "label": "Label on the featured tier",
+      "type": "text",
+      "default": "Most chosen",
+      "group": "Tiers"
+    },
+    {
+      "name": "tiers",
+      "label": "Tiers",
+      "type": "list",
+      "group": "Tiers",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A climber on a bouldering wall",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Tier name",
+          "type": "text",
+          "default": "Tier"
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$0"
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": "per month"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "Who this tier is for."
+        },
+        {
+          "name": "features",
+          "label": "Perks",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 8,
+          "itemLabel": "text",
+          "itemFields": [
+            {
+              "name": "text",
+              "label": "Text",
+              "type": "text",
+              "default": "What is included"
+            }
+          ],
+          "default": [
+            {
+              "text": "First perk"
+            },
+            {
+              "text": "Second perk"
+            }
+          ]
+        },
+        {
+          "name": "featured",
+          "label": "Featured",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Join",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A quiet bouldering hall on a weekday morning",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "name": "Off-peak",
+          "price": "$39",
+          "period": "per month",
+          "description": "Weekdays before 4 pm and all day on Sundays.",
+          "features": [
+            {
+              "text": "Bouldering and top rope"
+            },
+            {
+              "text": "One guest pass a month"
+            },
+            {
+              "text": "10% off at the café"
+            }
+          ],
+          "featured": false,
+          "button": {
+            "label": "Join off-peak",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A climber reaching for a hold on an overhanging wall",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "name": "Unlimited",
+          "price": "$69",
+          "period": "per month",
+          "description": "Climb any time, with classes included.",
+          "features": [
+            {
+              "text": "Open all hours, every day"
+            },
+            {
+              "text": "Weekly technique classes"
+            },
+            {
+              "text": "Yoga and strength studio"
+            },
+            {
+              "text": "Two guest passes a month"
+            }
+          ],
+          "featured": true,
+          "button": {
+            "label": "Join unlimited",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A parent belaying a child on a beginner wall",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "name": "Family",
+          "price": "$129",
+          "period": "per month",
+          "description": "Two adults and up to three kids under 16.",
+          "features": [
+            {
+              "text": "Unlimited climbing for everyone"
+            },
+            {
+              "text": "Kids club on Saturdays"
+            },
+            {
+              "text": "Free shoe hire for kids"
+            }
+          ],
+          "featured": false,
+          "button": {
+            "label": "Join as a family",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ]
+    }
+  ]
+}

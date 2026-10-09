@@ -1,0 +1,22 @@
+<section class="b-logos-sponsors section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    {{#each tiers}}
+    <div class="b-tier" data-size="{{size}}" data-field="tiers.{{@index}}">
+      <h3 class="b-name">{{name}}</h3>
+      <ul class="b-logos" role="list">
+        {{#each logos}}
+        <li class="b-logo" data-field="tiers.{{@../index}}.logos.{{@index}}">{{img image}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    {{/each}}
+    {{#if showButton}}
+    <p><a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a></p>
+    {{/if}}
+  </div>
+</section>

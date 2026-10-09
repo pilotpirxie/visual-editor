@@ -1,0 +1,101 @@
+@layer components {
+  @scope (.b-steps-zigzag) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-intro,
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-steps {
+      position: relative;
+      display: grid;
+      gap: var(--space-6);
+      padding-inline-start: 3.5rem;
+      counter-reset: step;
+    }
+
+    .b-steps::before {
+      content: '';
+      position: absolute;
+      inset-block: var(--space-6);
+      inset-inline-start: calc(1.25rem - 1px);
+      width: 2px;
+      background: var(--color-border);
+    }
+
+    .b-step {
+      --stack-gap: var(--space-2);
+      position: relative;
+      counter-increment: step;
+    }
+
+    .b-step::before {
+      content: counter(step);
+      position: absolute;
+      inset-block-start: var(--space-6);
+      inset-inline-start: calc(-3.5rem - var(--border-width));
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-weight: var(--font-weight-bold);
+      box-shadow: 0 0 0 var(--space-1) var(--color-background);
+    }
+
+    .b-label {
+      color: var(--color-primary);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-4) 5rem;
+        padding-inline-start: 0;
+      }
+
+      .b-steps::before {
+        inset-inline-start: calc(50% - 1px);
+      }
+
+      .b-step {
+        grid-row: calc(var(--i) + 1) / span 2;
+      }
+
+      .b-step:nth-child(odd) {
+        grid-column: 1;
+        text-align: end;
+      }
+
+      .b-step:nth-child(odd)::before {
+        inset-inline: auto calc(-3.75rem - var(--border-width));
+      }
+
+      .b-step:nth-child(even) {
+        grid-column: 2;
+      }
+
+      .b-step:nth-child(even)::before {
+        inset-inline-start: calc(-3.75rem - var(--border-width));
+      }
+    }
+  }
+}

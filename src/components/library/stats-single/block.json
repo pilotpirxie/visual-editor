@@ -1,0 +1,49 @@
+{
+  "name": "Numbers, one big number",
+  "category": "numbers",
+  "description": "One giant number with a statement and a small source note.",
+  "tags": ["numbers", "stat", "big number", "claim", "statement", "survey", "proof"],
+  "fieldGroups": ["Number", "Statement"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Why teams switch",
+      "group": "Statement"
+    },
+    {
+      "name": "value",
+      "label": "Number",
+      "type": "text",
+      "default": "87%",
+      "required": true,
+      "maxLength": 12,
+      "group": "Number"
+    },
+    {
+      "name": "countUp",
+      "label": "Count up when visible",
+      "type": "boolean",
+      "default": true,
+      "group": "Number"
+    },
+    {
+      "name": "title",
+      "label": "Statement",
+      "type": "text",
+      "default": "of product teams shipped a change backed by customer evidence in their first month with Fieldnote",
+      "required": true,
+      "maxLength": 120,
+      "group": "Statement"
+    },
+    {
+      "name": "source",
+      "label": "Source note",
+      "type": "text",
+      "default": "Source: 2025 customer survey, 1,204 respondents",
+      "group": "Statement"
+    }
+  ]
+}

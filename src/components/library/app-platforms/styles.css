@@ -1,0 +1,79 @@
+@layer components {
+  @scope (.b-app-platforms) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      --grid-min: 11rem;
+      --grid-gap: var(--space-4);
+    }
+
+    .b-card {
+      --card-padding: var(--space-4);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-1) var(--space-4);
+      height: 100%;
+      color: inherit;
+      text-decoration: none;
+      transition: border-color var(--transition-fast);
+    }
+
+    .b-card:hover {
+      border-color: var(--color-primary);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: inline-grid;
+      grid-row: span 3;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+    }
+
+    .b-card h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-note {
+      flex: 1;
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-link {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        --card-padding: var(--space-6);
+        display: flex;
+      }
+
+      .b-icon {
+        margin-block-end: var(--space-2);
+      }
+    }
+  }
+}

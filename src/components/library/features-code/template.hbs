@@ -1,0 +1,31 @@
+<section class="b-features-code section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      <ul class="stack b-list" role="list">
+        {{#each items}}
+        <li class="b-item" data-field="items.{{@index}}">
+          <span class="b-icon">{{svgIcon icon}}</span>
+          <div class="stack b-text">
+            <h3>{{title}}</h3>
+            <p class="b-muted">{{nl2br text}}</p>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+      {{#if showButton}}
+      <div class="cluster">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+      {{/if}}
+    </div>
+    <figure class="b-editor">
+      <figcaption class="b-file" id="{{block.id}}-file" data-field="fileName">{{svgIcon "file"}}{{fileName}}</figcaption>
+      <pre class="b-code" dir="ltr" tabindex="0" aria-labelledby="{{block.id}}-file" data-field="code"><code>{{code}}</code></pre>
+    </figure>
+  </div>
+</section>

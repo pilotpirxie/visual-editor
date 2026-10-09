@@ -1,0 +1,31 @@
+<section class="b-app-carousel section" data-behavior="carousel">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      <div class="b-controls" data-carousel-controls hidden>
+        <button type="button" class="btn btn-secondary b-arrow" data-carousel-previous>{{svgIcon "arrow-left"}}<span class="visually-hidden">Previous screen</span></button>
+        <div class="b-dots" data-carousel-dots="Screen"></div>
+        <button type="button" class="btn btn-secondary b-arrow" data-carousel-next>{{svgIcon "arrow-right"}}<span class="visually-hidden">Next screen</span></button>
+      </div>
+    </div>
+    <div class="b-track" data-carousel-track role="region" aria-label="{{title}}" tabindex="0">
+      {{#each items}}
+      <figure class="stack b-slide" data-carousel-slide data-field="items.{{@index}}">
+        <div class="b-frame">
+          <div class="device b-phone">
+            <div class="media device-screen">{{img image}}</div>
+          </div>
+        </div>
+        <figcaption class="stack b-caption">
+          <h3>{{title}}</h3>
+          {{#if text}}<p>{{nl2br text}}</p>{{/if}}
+        </figcaption>
+      </figure>
+      {{/each}}
+    </div>
+  </div>
+</section>

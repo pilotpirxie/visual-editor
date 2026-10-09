@@ -1,0 +1,33 @@
+<section class="b-testimonial-case-study section">
+  <div class="container b-layout">
+    <div class="media b-image" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
+    <div class="stack b-story">
+      <div class="b-logo" data-field="logo">{{img logo}}</div>
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      <figure class="stack b-figure">
+        <blockquote class="b-quote" data-field="quote"><p>{{nl2br quote}}</p></blockquote>
+        <figcaption class="b-person">
+          <div class="media b-photo" data-field="photo">{{img photo}}</div>
+          <div>
+            <p class="b-name" data-field="name">{{name}}</p>
+            {{#if role}}<p class="b-muted" data-field="role">{{role}}</p>{{/if}}
+          </div>
+        </figcaption>
+      </figure>
+      {{#if metrics}}
+      <dl class="b-metrics">
+        {{#each metrics}}
+        <div class="b-metric" data-field="metrics.{{@index}}">
+          <dt class="b-muted">{{label}}</dt>
+          <dd class="b-value">{{value}}</dd>
+        </div>
+        {{/each}}
+      </dl>
+      {{/if}}
+      {{#if linkLabel}}<a class="btn btn-secondary b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,40 @@
+<section class="b-pricing-usage section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-layout">
+      <div class="stack b-tiers">
+        <div class="b-scroller" role="region" aria-label="{{title}}" tabindex="0">
+          <table class="b-table">
+            <caption class="visually-hidden">{{title}}</caption>
+            <thead>
+              <tr>
+                <th scope="col" data-field="rangeLabel">{{rangeLabel}}</th>
+                <th scope="col" data-field="priceLabel">{{priceLabel}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each tiers}}
+              <tr data-field="tiers.{{@index}}">
+                <th scope="row">{{range}}</th>
+                <td>{{price}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+        {{#if note}}<p class="b-muted b-small" data-field="note">{{nl2br note}}</p>{{/if}}
+      </div>
+      <aside class="card stack b-example">
+        {{#if exampleLabel}}<p class="badge" data-field="exampleLabel">{{exampleLabel}}</p>{{/if}}
+        <h3 data-field="exampleTitle">{{exampleTitle}}</h3>
+        <p><span class="b-amount" data-field="examplePrice">{{examplePrice}}</span> <span class="b-muted" data-field="examplePeriod">{{examplePeriod}}</span></p>
+        {{#if exampleText}}<p class="b-muted" data-field="exampleText">{{nl2br exampleText}}</p>{{/if}}
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </aside>
+    </div>
+  </div>
+</section>

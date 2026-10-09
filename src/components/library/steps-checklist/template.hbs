@@ -1,0 +1,30 @@
+<section class="b-steps-checklist section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="card stack b-card">
+      <div class="b-top">
+        <p class="b-card-title" data-field="cardTitle">{{cardTitle}}</p>
+        <p class="b-count" data-field="completed"><strong>{{completed}}/{{total}}</strong> {{progressLabel}}</p>
+      </div>
+      <div class="b-bar" style="--done: {{completed}}; --total: {{total}}"></div>
+      <ol class="b-steps" role="list">
+        {{#each steps}}
+        <li class="b-step"{{#if done}} data-done{{/if}} data-field="steps.{{@index}}">
+          <span class="b-check">{{#if done}}{{svgIcon "check-circle"}}{{/if}}</span>
+          <div class="stack b-body">
+            <h3>{{#if done}}<span class="visually-hidden">{{../doneLabel}} </span>{{/if}}{{title}}</h3>
+            <p>{{nl2br text}}</p>
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+      <div class="cluster">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+    </div>
+  </div>
+</section>

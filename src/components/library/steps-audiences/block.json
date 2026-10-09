@@ -1,0 +1,176 @@
+{
+  "name": "How it works, for two sides",
+  "category": "how-it-works",
+  "description": "Two columns of steps side by side, one for each side of a marketplace, each with its own button.",
+  "tags": [
+    "steps",
+    "process",
+    "marketplace",
+    "two sides",
+    "buyers and sellers",
+    "hosts",
+    "guests",
+    "audiences"
+  ],
+  "fieldGroups": ["Heading", "First side", "Second side"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How it works",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Whether you host or travel, it takes three steps",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Staywell connects people who have a spare room with people who need a quiet place for a week or a month.",
+      "group": "Heading"
+    },
+    {
+      "name": "firstIcon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "house",
+      "group": "First side"
+    },
+    {
+      "name": "firstTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "For hosts",
+      "required": true,
+      "group": "First side"
+    },
+    {
+      "name": "firstSteps",
+      "label": "Steps",
+      "type": "list",
+      "group": "First side",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "title": "List your room",
+          "text": "Add photos, house rules and the dates you are free. It takes about ten minutes."
+        },
+        {
+          "title": "Choose your guests",
+          "text": "Read each guest's profile and verified reviews before you say yes."
+        },
+        {
+          "title": "Get paid",
+          "text": "The money reaches your bank account 24 hours after check-in."
+        }
+      ]
+    },
+    {
+      "name": "firstButton",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "List your room",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "First side"
+    },
+    {
+      "name": "secondIcon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "map-pin",
+      "group": "Second side"
+    },
+    {
+      "name": "secondTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "For guests",
+      "required": true,
+      "group": "Second side"
+    },
+    {
+      "name": "secondSteps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Second side",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "title": "Search by neighborhood",
+          "text": "Filter by commute time, quiet hours and whether pets are welcome."
+        },
+        {
+          "title": "Book and say hello",
+          "text": "Pay securely and message your host before you arrive."
+        },
+        {
+          "title": "Settle in",
+          "text": "Check in with a door code, and reach our team any time, day or night."
+        }
+      ]
+    },
+    {
+      "name": "secondButton",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Find a stay",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Second side"
+    }
+  ]
+}

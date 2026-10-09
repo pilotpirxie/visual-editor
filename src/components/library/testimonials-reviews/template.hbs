@@ -1,0 +1,39 @@
+<section class="b-testimonials-reviews section">
+  <div class="container b-layout">
+    <div class="stack b-summary">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      <div class="b-score" data-field="score">
+        <p class="b-value">{{score}}</p>
+        <div>
+          <p class="b-rating"><span class="b-stars" style="--rating: {{score}}" aria-hidden="true">★★★★★</span><span class="visually-hidden">Rated {{score}} out of 5</span></p>
+          {{#if scoreLabel}}<p class="b-note" data-field="scoreLabel">{{scoreLabel}}</p>{{/if}}
+        </div>
+      </div>
+      {{#if bars}}
+      <ul class="stack b-bars">
+        {{#each bars}}
+        <li class="b-bar" data-field="bars.{{@index}}">
+          <span>{{label}}</span>
+          <span class="b-track"><span class="b-fill" style="--value: {{percent}}"></span></span>
+          <span class="b-note">{{percent}}%</span>
+        </li>
+        {{/each}}
+      </ul>
+      {{/if}}
+      {{#if linkLabel}}<a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+    </div>
+    <div class="stack b-reviews">
+      {{#each items}}
+      <article class="card stack b-review" data-field="items.{{@index}}">
+        <p class="b-rating"><span class="b-stars" style="--rating: {{rating}}" aria-hidden="true">★★★★★</span><span class="visually-hidden">Rated {{rating}} out of 5</span></p>
+        <h3>{{title}}</h3>
+        <p class="b-text">{{nl2br text}}</p>
+        <p class="b-note"><span class="b-name">{{name}}</span> · <time datetime="{{date}}">{{formatDate date}}</time></p>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

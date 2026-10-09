@@ -1,0 +1,23 @@
+<section class="b-features-carousel section" data-behavior="carousel">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-track" data-carousel-track role="region" aria-label="{{title}}" tabindex="0">
+      {{#each items}}
+      <article class="card stack b-slide" data-carousel-slide data-field="items.{{@index}}">
+        <span class="b-icon">{{svgIcon icon}}</span>
+        <h3>{{title}}</h3>
+        <p class="b-text">{{nl2br text}}</p>
+      </article>
+      {{/each}}
+    </div>
+    <div class="b-controls" data-carousel-controls hidden>
+      <button type="button" class="btn btn-secondary b-arrow" data-carousel-previous>{{svgIcon "arrow-left"}}<span class="visually-hidden">Previous feature</span></button>
+      <div class="b-dots" data-carousel-dots="Feature"></div>
+      <button type="button" class="btn btn-secondary b-arrow" data-carousel-next>{{svgIcon "arrow-right"}}<span class="visually-hidden">Next feature</span></button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,143 @@
+{
+  "name": "Applications, features around a phone",
+  "category": "applications",
+  "description": "A phone showing the app in the middle with short features on both sides.",
+  "tags": ["app", "mobile", "phone", "mockup", "features", "icons", "centered"],
+  "fieldGroups": ["Heading", "Screenshot", "Features"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The Larder app",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Dinner sorted for the week in five minutes",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Pick the meals you like, and Larder builds the plan, the shopping list and a use-it-up idea for whatever is left on Friday.",
+      "group": "Heading"
+    },
+    {
+      "name": "screenshot",
+      "label": "Screenshot",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Larder app showing a weekly dinner plan with five recipes",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Screenshot"
+    },
+    {
+      "name": "startItems",
+      "label": "Features before the phone",
+      "type": "list",
+      "group": "Features",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Feature title"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one sentence."
+        }
+      ],
+      "default": [
+        {
+          "icon": "calendar",
+          "title": "A plan that fits your week",
+          "text": "Quick dinners on busy evenings, something slower on Sunday."
+        },
+        {
+          "icon": "shopping-cart",
+          "title": "List sorted by aisle",
+          "text": "Ingredients grouped the way your supermarket lays them out."
+        },
+        {
+          "icon": "leaf",
+          "title": "Less food in the bin",
+          "text": "Leftover ideas for half a cabbage or the last of the cream."
+        }
+      ]
+    },
+    {
+      "name": "endItems",
+      "label": "Features after the phone",
+      "type": "list",
+      "group": "Features",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Feature title"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one sentence."
+        }
+      ],
+      "default": [
+        {
+          "icon": "users",
+          "title": "Shared with the household",
+          "text": "Everyone sees the plan and ticks things off the same list."
+        },
+        {
+          "icon": "heart",
+          "title": "Diets and dislikes",
+          "text": "Vegetarian, gluten-free or no mushrooms, ever. Set it once."
+        },
+        {
+          "icon": "wifi",
+          "title": "Works without signal",
+          "text": "Your list stays on your phone, even in the basement aisles."
+        }
+      ]
+    }
+  ]
+}

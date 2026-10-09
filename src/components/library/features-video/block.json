@@ -1,0 +1,101 @@
+{
+  "name": "Features, video and list",
+  "category": "features",
+  "description": "A video with a play button and running time beside a short list of features with icons.",
+  "tags": ["features", "video", "demo", "tour", "play", "list", "icons"],
+  "fieldGroups": ["Heading", "Video", "Items"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "See it in action",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From messy notes to a clear plan in one meeting",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Watch a product team run their weekly planning in Orbit, start to finish.",
+      "group": "Heading"
+    },
+    {
+      "name": "image",
+      "label": "Video cover",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A product manager sharing an Orbit planning board on a video call",
+        "decorative": false,
+        "width": 1600,
+        "height": 900,
+        "placeholder": { "ratio": "16:9", "subject": "screenshot" }
+      },
+      "group": "Video"
+    },
+    {
+      "name": "videoLink",
+      "label": "Video link",
+      "type": "link",
+      "default": { "type": "url", "url": "#", "newTab": true },
+      "group": "Video"
+    },
+    {
+      "name": "videoLabel",
+      "label": "Play button label",
+      "type": "text",
+      "default": "Play video: a weekly planning meeting in Orbit",
+      "help": "Read out by screen readers.",
+      "group": "Video"
+    },
+    {
+      "name": "duration",
+      "label": "Running time",
+      "type": "text",
+      "default": "3:42",
+      "group": "Video"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "icon", "label": "Icon", "type": "icon", "default": "check" },
+        { "name": "title", "label": "Title", "type": "text", "default": "Feature title" },
+        { "name": "text", "label": "Text", "type": "textarea", "default": "One sentence about it." }
+      ],
+      "default": [
+        {
+          "icon": "layers",
+          "title": "Every request in one place",
+          "text": "Ideas from support, sales and customers land on one board, already deduplicated."
+        },
+        {
+          "icon": "target",
+          "title": "Score what matters",
+          "text": "Weigh reach, impact and effort together, so the loudest voice no longer wins."
+        },
+        {
+          "icon": "send",
+          "title": "Close the loop",
+          "text": "When something ships, everyone who asked for it gets a note automatically."
+        }
+      ]
+    }
+  ]
+}

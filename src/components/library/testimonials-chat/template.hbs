@@ -1,0 +1,23 @@
+<section class="b-testimonials-chat section">
+  <div class="container b-layout">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-panel">
+      {{#if chatTitle}}<p class="b-bar" data-field="chatTitle">{{svgIcon "users"}}<span>{{chatTitle}}</span></p>{{/if}}
+      <ol class="stack b-thread">
+        {{#each items}}
+        <li class="b-message" data-field="items.{{@index}}">
+          <div class="media b-photo">{{img photo}}</div>
+          <figure class="b-bubble">
+            <figcaption class="b-meta"><span class="b-name">{{name}}</span> <span>{{time}}</span></figcaption>
+            <blockquote><p>{{nl2br message}}</p></blockquote>
+          </figure>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </div>
+</section>

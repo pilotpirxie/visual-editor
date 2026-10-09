@@ -1,0 +1,179 @@
+{
+  "name": "Logo cloud, with a big number",
+  "category": "logo-clouds",
+  "description": "A large customer count with a star rating beside a row of customer logos.",
+  "tags": [
+    "logos",
+    "customers",
+    "trusted by",
+    "stat",
+    "number",
+    "rating",
+    "reviews",
+    "social proof"
+  ],
+  "fieldGroups": ["Heading", "Rating", "Logos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "value",
+      "label": "Big number",
+      "type": "text",
+      "default": "4,000+",
+      "maxLength": 16,
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "product teams run their customer research in Fieldnote",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "rating",
+      "label": "Rating out of 5",
+      "type": "number",
+      "default": 4.9,
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "group": "Rating"
+    },
+    {
+      "name": "ratingText",
+      "label": "Rating text",
+      "type": "text",
+      "default": "average from 1,200 reviews",
+      "group": "Rating"
+    },
+    {
+      "name": "logos",
+      "label": "Logos",
+      "type": "list",
+      "group": "Logos",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "company",
+      "itemFields": [
+        {
+          "name": "company",
+          "label": "Company",
+          "type": "text",
+          "default": "Company"
+        },
+        {
+          "name": "image",
+          "label": "Logo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Company logo",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "company": "Northwind",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Northwind",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Brightpath",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Brightpath",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Ledgerly",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ledgerly",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Lumen Health",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Lumen Health",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Orbit Labs",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Orbit Labs",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Copperline",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Copperline",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

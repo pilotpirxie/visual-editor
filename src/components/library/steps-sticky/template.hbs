@@ -1,0 +1,20 @@
+<section class="b-steps-sticky section" data-image="{{imageSide}}">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="media b-media" data-field="image" style="--media-ratio: {{image.width}} / {{image.height}}">{{img image}}</div>
+    <ol class="b-steps" role="list">
+      {{#each steps}}
+      <li class="b-step" data-field="steps.{{@index}}">
+        <div class="stack b-body">
+          <h3>{{title}}</h3>
+          <p>{{nl2br text}}</p>
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

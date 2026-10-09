@@ -1,0 +1,82 @@
+@layer components {
+  @scope (.b-features-security) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-grid {
+      --grid-min: 14rem;
+    }
+
+    .b-tile {
+      --stack-gap: var(--space-3);
+      padding: var(--space-6);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-shield {
+      --icon-size: 1.375rem;
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      height: 3.5rem;
+      padding-block-end: var(--space-2);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      clip-path: polygon(50% 0, 100% 14%, 100% 58%, 50% 100%, 0 58%, 0 14%);
+    }
+
+    .b-tile h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-bar {
+      --cluster-justify: center;
+      --cluster-gap: var(--space-4) var(--space-6);
+      padding-block-start: var(--space-8);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-label {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-certs {
+      --cluster-gap: var(--space-2);
+    }
+
+    .b-cert {
+      --badge-bg: var(--color-surface);
+      --badge-color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-cert svg {
+      color: var(--color-primary);
+    }
+
+    .b-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+    }
+  }
+}

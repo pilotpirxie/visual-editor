@@ -1,0 +1,13 @@
+<section class="b-stats-band section"{{#if countUp}} data-behavior="counter"{{/if}}>
+  <div class="container b-inner">
+    <h2 class="{{#if showTitle}}b-title{{else}}visually-hidden{{/if}}" data-field="title">{{title}}</h2>
+    <dl class="b-stats">
+      {{#each stats}}
+      <div class="b-stat" data-field="stats.{{@index}}">
+        <dt class="b-label">{{label}}</dt>
+        <dd class="b-value"{{#if ../countUp}} data-count{{/if}}>{{value}}</dd>
+      </div>
+      {{/each}}
+    </dl>
+  </div>
+</section>

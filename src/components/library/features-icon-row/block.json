@@ -1,0 +1,103 @@
+{
+  "name": "Features, compact icon row",
+  "category": "features",
+  "description": "A slim row of small icons with one-line labels, for perks such as free delivery or easy returns.",
+  "tags": ["features", "perks", "icons", "row", "strip", "shop", "benefits", "compact"],
+  "fieldGroups": ["Heading", "Items"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "showHeading",
+      "label": "Show heading",
+      "type": "boolean",
+      "default": false,
+      "group": "Heading"
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Why shop with us",
+      "group": "Heading",
+      "visibleWhen": {
+        "field": "showHeading",
+        "equals": true
+      }
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Small things that make a big difference",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading",
+      "visibleWhen": {
+        "field": "showHeading",
+        "equals": true
+      }
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "",
+      "group": "Heading",
+      "visibleWhen": {
+        "field": "showHeading",
+        "equals": true
+      }
+    },
+    {
+      "name": "items",
+      "label": "Perks",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Perk",
+          "required": true,
+          "maxLength": 40
+        }
+      ],
+      "default": [
+        {
+          "icon": "globe",
+          "label": "Ships to 30 countries"
+        },
+        {
+          "icon": "refresh",
+          "label": "30-day free returns"
+        },
+        {
+          "icon": "shield",
+          "label": "2-year guarantee"
+        },
+        {
+          "icon": "credit-card",
+          "label": "Pay in 3, interest free"
+        },
+        {
+          "icon": "leaf",
+          "label": "Plastic-free packaging"
+        },
+        {
+          "icon": "support",
+          "label": "Real people on chat"
+        }
+      ]
+    }
+  ]
+}

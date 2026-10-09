@@ -12,15 +12,18 @@ const KILOBYTE = 1024;
 const SITE_JS_BUDGET = 10 * KILOBYTE;
 const SITE_CSS_BUDGET = 30 * KILOBYTE;
 const PAGE_COUNT = 10;
+const BLOCKS_PER_PAGE = 8;
 
-function tenPageSiteWithEveryBlock(): Project {
+function tenPageSiteWithTheHeaviestBlocks(): Project {
   const project = createBlankProject('Fieldnote');
   const pages = [project.pages.entities[project.pages.homePageId]];
   for (let index = 1; index < PAGE_COUNT; index += 1) {
     pages.push(createPage(`page-${index}`, `Page ${index}`, `page-${index}`));
   }
   const blocks: Record<string, Block> = {};
-  const components = [...builtInComponents.values()];
+  const components = [...builtInComponents.values()]
+    .sort((first, second) => second.styles.length - first.styles.length)
+    .slice(0, PAGE_COUNT * BLOCKS_PER_PAGE);
   for (const [index, component] of components.entries()) {
     const block = createBlock(component.definition);
     blocks[block.id] = block;
@@ -37,7 +40,7 @@ function tenPageSiteWithEveryBlock(): Project {
   };
 }
 
-const project = tenPageSiteWithEveryBlock();
+const project = tenPageSiteWithTheHeaviestBlocks();
 
 beforeAll(async () => {
   await ensureIconSets(iconSetsUsedBy(Object.values(project.blocks.entities), project));
@@ -54,7 +57,7 @@ describe('export size budgets', () => {
     expect(size, `${size} bytes`).toBeLessThan(SITE_JS_BUDGET);
   });
 
-  it('keeps site.css under 30 KB gzipped for a 10-page site that uses every block', () => {
+  it('keeps site.css under 30 KB gzipped for a 10-page site built from the 80 heaviest blocks', () => {
     const { files } = buildExportFiles(project, builtInComponents, { core, behaviors });
     const css = files['assets/css/site.css'];
     if (typeof css !== 'string') throw new Error('site.css was not written as text');

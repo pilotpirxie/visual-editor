@@ -1,0 +1,155 @@
+{
+  "name": "How it works, expandable steps",
+  "category": "how-it-works",
+  "description": "Numbered steps that open one at a time to show details and a link, beside an image.",
+  "tags": ["steps", "process", "how", "accordion", "expandable", "details", "guide"],
+  "fieldGroups": ["Heading", "Steps", "Image"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Skilled worker visa",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your visa application, one step at a time",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Our caseworkers prepare every form with you. Open a step to see what it involves and how long it takes.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "duration",
+          "label": "Duration",
+          "type": "text",
+          "default": "1 day",
+          "maxLength": 20
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        },
+        {
+          "name": "linkLabel",
+          "label": "Link text",
+          "type": "text",
+          "default": "",
+          "help": "Leave empty to hide the link."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "title": "Check you are eligible",
+          "duration": "15 min",
+          "text": "Answer ten questions about your job offer, salary and English level. We tell you straight away whether you qualify and which route fits.",
+          "linkLabel": "Take the eligibility check",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Gather your documents",
+          "duration": "1 to 2 weeks",
+          "text": "You get a personal checklist: passport, certificate of sponsorship, proof of savings and any translations. Upload each one as you find it.",
+          "linkLabel": "See a sample checklist",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "We submit your application",
+          "duration": "1 hour",
+          "text": "Your caseworker reviews every page with you on a video call, then files the application and pays the fees on your behalf.",
+          "linkLabel": "",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Give your fingerprints and photo",
+          "duration": "30 min",
+          "text": "Book a biometrics appointment at a centre near you. We send directions and a list of what to bring the day before.",
+          "linkLabel": "",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Get your decision",
+          "duration": "3 to 8 weeks",
+          "text": "Most decisions arrive within three weeks. We track your case daily and call you the moment it lands.",
+          "linkLabel": "",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "group": "Image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A caseworker going through documents with a client at a desk",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "photo"
+        }
+      }
+    }
+  ]
+}

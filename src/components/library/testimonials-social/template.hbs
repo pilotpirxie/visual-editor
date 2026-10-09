@@ -1,0 +1,22 @@
+<section class="b-testimonials-social section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="grid b-grid">
+      {{#each items}}
+      <figure class="stack b-post" data-field="items.{{@index}}">
+        <figcaption class="b-author">
+          <div class="media b-photo">{{img photo}}</div>
+          <p class="b-who"><span class="b-name">{{name}}</span><span class="b-muted">{{handle}}</span></p>
+          <span class="b-platform">{{svgIcon icon}}<span class="visually-hidden">{{platform}}</span></span>
+        </figcaption>
+        <blockquote><p>{{nl2br post}}</p></blockquote>
+        <a class="b-muted b-date" href="{{href link}}" {{linkAttrs link}}><span class="visually-hidden">View post by {{name}}, </span><time datetime="{{date}}">{{formatDate date}}</time>{{svgIcon "external-link"}}</a>
+      </figure>
+      {{/each}}
+    </div>
+  </div>
+</section>

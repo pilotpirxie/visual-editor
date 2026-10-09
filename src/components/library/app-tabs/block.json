@@ -1,0 +1,142 @@
+{
+  "name": "Applications, screen tour",
+  "category": "applications",
+  "description": "Tabs that switch between app screens, each in a phone frame with a short explanation.",
+  "tags": ["app", "mobile", "tabs", "tour", "screens", "phone", "screenshots", "walkthrough"],
+  "fieldGroups": ["Heading", "Screens"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Take the tour",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Everything a runner needs, three taps away",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Pick a screen to see how Pace fits into your week.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Screens",
+      "type": "list",
+      "group": "Screens",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "smartphone"
+        },
+        {
+          "name": "label",
+          "label": "Tab label",
+          "type": "text",
+          "default": "Screen",
+          "maxLength": 24
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "What this screen does"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Explain what people can do here in one or two sentences."
+        },
+        {
+          "name": "screenshot",
+          "label": "Screenshot",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A screen from the app",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "screenshot"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "target",
+          "label": "Track",
+          "title": "Live pace, splits and heart rate on one screen",
+          "text": "Big numbers you can read mid-stride, and a gentle buzz when you drift outside today’s target pace.",
+          "screenshot": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Pace tracking a run at 5:12 per kilometre with splits below",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "screenshot"
+            }
+          }
+        },
+        {
+          "icon": "calendar",
+          "label": "Plan",
+          "title": "A training week that moves when you do",
+          "text": "Miss Tuesday’s intervals and Pace reshuffles the rest of the week, so your long run still lands on Sunday.",
+          "screenshot": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Pace weekly plan with an easy run, intervals and a long run",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "screenshot"
+            }
+          }
+        },
+        {
+          "icon": "share",
+          "label": "Share",
+          "title": "Your club sees the run, not your whole life",
+          "text": "Share a route card with your club or a friend. Start and finish points near home stay hidden by default.",
+          "screenshot": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Pace route card ready to share with a running club",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "screenshot"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

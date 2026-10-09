@@ -1,0 +1,229 @@
+{
+  "name": "Pricing, four tiers",
+  "category": "pricing",
+  "description": "Four compact plans in one panel, from a starter tier to a custom enterprise price.",
+  "tags": ["pricing", "plans", "tiers", "enterprise", "saas", "four plans", "compact"],
+  "fieldGroups": ["Heading", "Plans"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Plans and pricing",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A plan for every stage of your support team",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "All plans include the shared inbox, live chat and a help center. Prices are per agent, billed yearly.",
+      "group": "Heading"
+    },
+    {
+      "name": "featuredLabel",
+      "label": "Label on the featured plan",
+      "type": "text",
+      "default": "Most popular",
+      "group": "Plans"
+    },
+    {
+      "name": "plans",
+      "label": "Plans",
+      "type": "list",
+      "group": "Plans",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Plan name",
+          "type": "text",
+          "default": "Plan"
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$0"
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": "per agent, per month"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "Who this plan is for."
+        },
+        {
+          "name": "features",
+          "label": "Included",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 8,
+          "itemLabel": "text",
+          "itemFields": [
+            {
+              "name": "text",
+              "label": "Text",
+              "type": "text",
+              "default": "What is included"
+            }
+          ],
+          "default": [
+            {
+              "text": "First feature"
+            },
+            {
+              "text": "Second feature"
+            }
+          ]
+        },
+        {
+          "name": "featured",
+          "label": "Featured",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Choose plan",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "Starter",
+          "price": "$12",
+          "period": "per agent, per month",
+          "description": "For small teams answering their first tickets.",
+          "features": [
+            {
+              "text": "Shared inbox"
+            },
+            {
+              "text": "Live chat widget"
+            },
+            {
+              "text": "2 automations"
+            }
+          ],
+          "featured": false,
+          "button": {
+            "label": "Start free trial",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        {
+          "name": "Team",
+          "price": "$29",
+          "period": "per agent, per month",
+          "description": "For growing teams with several channels.",
+          "features": [
+            {
+              "text": "Email, chat and social"
+            },
+            {
+              "text": "Unlimited automations"
+            },
+            {
+              "text": "Reports and CSAT"
+            }
+          ],
+          "featured": true,
+          "button": {
+            "label": "Start free trial",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "name": "Business",
+          "price": "$59",
+          "period": "per agent, per month",
+          "description": "For support teams across time zones.",
+          "features": [
+            {
+              "text": "Skills-based routing"
+            },
+            {
+              "text": "Service level targets"
+            },
+            {
+              "text": "Sandbox workspace"
+            }
+          ],
+          "featured": false,
+          "button": {
+            "label": "Start free trial",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom",
+          "period": "billed yearly",
+          "description": "For large teams with security reviews.",
+          "features": [
+            {
+              "text": "Single sign-on and SCIM"
+            },
+            {
+              "text": "Data residency in the EU"
+            },
+            {
+              "text": "Dedicated success manager"
+            }
+          ],
+          "featured": false,
+          "button": {
+            "label": "Talk to sales",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ]
+    }
+  ]
+}

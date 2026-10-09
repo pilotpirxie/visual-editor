@@ -1,0 +1,77 @@
+@layer components {
+  @scope (.b-stats-milestones) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-timeline {
+      display: grid;
+    }
+
+    .b-milestone {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      padding-block: 0 var(--space-8);
+      padding-inline: var(--space-8) 0;
+      border-inline-start: 2px solid var(--color-border);
+    }
+
+    .b-milestone::before {
+      content: '';
+      position: absolute;
+      inset-block-start: var(--space-1);
+      inset-inline-start: calc(-0.5rem - 1px);
+      width: 1rem;
+      height: 1rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      box-shadow: 0 0 0 0.25rem var(--color-background);
+    }
+
+    .b-year {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      color: var(--color-primary);
+    }
+
+    .b-value {
+      font-size: var(--text-2xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-timeline {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+      }
+
+      .b-milestone {
+        padding-block: var(--space-8) 0;
+        padding-inline: 0 var(--space-6);
+        border-inline-start: 0;
+        border-block-start: 2px solid var(--color-border);
+      }
+
+      .b-milestone::before {
+        inset-block-start: calc(-0.5rem - 1px);
+        inset-inline-start: 0;
+      }
+    }
+  }
+}

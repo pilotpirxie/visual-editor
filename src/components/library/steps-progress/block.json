@@ -1,0 +1,96 @@
+{
+  "name": "How it works, stepper",
+  "category": "how-it-works",
+  "description": "Numbered circles joined by a line, like a progress stepper, with finished steps ticked.",
+  "tags": ["steps", "stepper", "progress", "status", "process", "how", "application"],
+  "fieldGroups": ["Heading", "Steps", "Accessibility"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Your mortgage",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From application to keys in about six weeks",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "You can follow every stage in the app. Most people finish the first two on the day they apply.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "complete",
+          "label": "Show as finished",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "complete": true,
+          "title": "Apply online",
+          "text": "Twenty minutes, with no paperwork to post."
+        },
+        {
+          "complete": true,
+          "title": "Upload documents",
+          "text": "Payslips and bank statements, straight from your phone."
+        },
+        {
+          "complete": false,
+          "title": "Valuation",
+          "text": "A surveyor visits the home within five working days."
+        },
+        {
+          "complete": false,
+          "title": "Mortgage offer",
+          "text": "Your formal offer arrives by email, valid for six months."
+        },
+        {
+          "complete": false,
+          "title": "Completion",
+          "text": "Funds go to your solicitor and you collect the keys."
+        }
+      ]
+    },
+    {
+      "name": "completeLabel",
+      "label": "Finished label for screen readers",
+      "type": "text",
+      "default": "Finished:",
+      "group": "Accessibility"
+    }
+  ]
+}

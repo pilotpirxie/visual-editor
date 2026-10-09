@@ -1,0 +1,88 @@
+@layer components {
+  @scope (.b-features-orbit) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro,
+    .b-item p {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-layout,
+    .b-list {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-visual {
+      order: -1;
+      justify-self: center;
+      width: min(100%, 26rem);
+      padding: var(--space-6);
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 10%, transparent);
+    }
+
+    .b-media {
+      --media-radius: var(--radius-full);
+    }
+
+    .b-item {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      display: inline-grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    @media (min-width: 768px) {
+      .b-layout {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-visual {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) minmax(0, 1fr);
+        align-items: center;
+        gap: var(--space-12);
+      }
+
+      .b-visual {
+        order: 0;
+        grid-column: auto;
+      }
+
+      .b-start {
+        text-align: end;
+      }
+
+      .b-start .b-item {
+        align-items: flex-end;
+      }
+    }
+  }
+}

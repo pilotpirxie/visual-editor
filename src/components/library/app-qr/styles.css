@@ -1,0 +1,114 @@
+@layer components {
+  @scope (.b-app-qr) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-card {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+      background: var(--color-surface);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-qr {
+      display: none;
+    }
+
+    .b-code {
+      --media-ratio: 1;
+      --media-radius: var(--radius-md);
+      flex: none;
+      width: 8rem;
+      padding: var(--space-2);
+      border: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+    }
+
+    .b-qr-label {
+      --icon-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-qr-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-badges {
+      --cluster-gap: var(--space-3);
+    }
+
+    .b-badge {
+      --icon-size: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: 3.25rem;
+      padding: var(--space-2) var(--space-6) var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-text);
+      color: var(--color-background);
+      text-decoration: none;
+    }
+
+    .b-badge-text {
+      display: grid;
+      line-height: var(--line-height-tight);
+    }
+
+    .b-badge-small {
+      font-size: var(--text-xs);
+    }
+
+    .b-badge-label {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-device {
+      display: grid;
+      place-items: center;
+    }
+
+    .b-phone {
+      --device-width: 12rem;
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        --card-padding: var(--space-8);
+      }
+
+      .b-qr {
+        display: flex;
+        align-items: center;
+        gap: var(--space-4);
+        margin-block: var(--space-2);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 3fr 2fr;
+        gap: var(--space-12);
+      }
+
+      .b-card {
+        --card-padding: var(--space-12);
+      }
+
+      .b-phone {
+        --device-width: 16rem;
+      }
+    }
+  }
+}

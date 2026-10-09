@@ -1,0 +1,167 @@
+{
+  "name": "Features, spec sheet",
+  "category": "features",
+  "description": "A product photo beside grouped technical specifications, with a link to download the full spec sheet.",
+  "tags": ["features", "specs", "specifications", "tech specs", "hardware", "product", "table"],
+  "fieldGroups": ["Heading", "Image", "Specs", "Link"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Tech specs",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Tide One at a glance",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "A speaker the size of a water bottle that plays a full day and survives a drop in the lake.",
+      "group": "Heading"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Tide One speaker in sea green, standing upright on a rock",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "product"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "groups",
+      "label": "Spec groups",
+      "type": "list",
+      "group": "Specs",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Group title",
+          "type": "text",
+          "default": "Group",
+          "required": true
+        },
+        {
+          "name": "rows",
+          "label": "Specs",
+          "type": "list",
+          "minItems": 1,
+          "maxItems": 10,
+          "itemLabel": "label",
+          "itemFields": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "text",
+              "default": "Label",
+              "required": true
+            },
+            {
+              "name": "value",
+              "label": "Value",
+              "type": "text",
+              "default": "Value",
+              "required": true
+            }
+          ],
+          "default": [
+            {
+              "label": "Label",
+              "value": "Value"
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "title": "Sound",
+          "rows": [
+            {
+              "label": "Drivers",
+              "value": "Two 20 mm tweeters, one 90 mm woofer"
+            },
+            {
+              "label": "Frequency response",
+              "value": "55 Hz to 20 kHz"
+            },
+            {
+              "label": "Pairing",
+              "value": "Two speakers as a stereo pair"
+            }
+          ]
+        },
+        {
+          "title": "Battery",
+          "rows": [
+            {
+              "label": "Playtime",
+              "value": "Up to 18 hours"
+            },
+            {
+              "label": "Charging",
+              "value": "USB-C, full in 2.5 hours"
+            }
+          ]
+        },
+        {
+          "title": "Build",
+          "rows": [
+            {
+              "label": "Size",
+              "value": "21 × 9 × 9 cm"
+            },
+            {
+              "label": "Weight",
+              "value": "980 g"
+            },
+            {
+              "label": "Water and dust",
+              "value": "IP67, floats in water"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "Download the full spec sheet",
+      "help": "Leave empty to hide the link.",
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Link"
+    }
+  ]
+}

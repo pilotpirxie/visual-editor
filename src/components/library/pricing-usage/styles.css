@@ -1,0 +1,95 @@
+@layer components {
+  @scope (.b-pricing-usage) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-layout {
+      --stack-gap: var(--space-4);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    .b-scroller {
+      overflow-x: auto;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+    }
+
+    .b-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .b-table :is(th, td) {
+      padding: var(--space-4);
+      text-align: start;
+    }
+
+    .b-table thead {
+      background: var(--color-surface);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-table tbody tr {
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-table tbody th {
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-table td {
+      font-weight: var(--font-weight-bold);
+      text-align: end;
+      white-space: nowrap;
+    }
+
+    .b-example {
+      --card-padding: var(--space-8);
+      --card-shadow: var(--shadow-lg);
+      border-color: var(--color-primary);
+    }
+
+    .b-example .badge {
+      align-self: flex-start;
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-small {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        gap: var(--space-12);
+      }
+    }
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "name": "How it works, swipeable steps",
+  "category": "how-it-works",
+  "description": "Step cards with screenshots that scroll sideways, with buttons and dots.",
+  "tags": ["steps", "process", "carousel", "slider", "swipe", "app", "onboarding", "screenshots"],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Getting started",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your family calendar, set up before the kettle boils",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Swipe through the five steps. Most families finish them on the first evening.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 10,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "App screenshot",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "screenshot"
+            }
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The Tandem sign-in screen asking for a phone number",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "screenshot"
+            }
+          },
+          "title": "Download Tandem",
+          "text": "Free on iPhone and Android. Sign in with your phone number, no password to remember."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "An invite screen listing four family members",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "screenshot"
+            }
+          },
+          "title": "Invite your household",
+          "text": "Send a link by text. Children under 13 join through a parent's account."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A list of connected calendars with school and football club switched on",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "screenshot"
+            }
+          },
+          "title": "Import your calendars",
+          "text": "Bring in school, work and club calendars, so nothing is typed in twice."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A week view with events colored by family member",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "screenshot"
+            }
+          },
+          "title": "Give everyone a color",
+          "text": "The week view then shows who is where at a glance."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A notification preview listing tomorrow's pickups and practice",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "screenshot"
+            }
+          },
+          "title": "Turn on the evening digest",
+          "text": "At 8 pm Tandem sends tomorrow's plan to everyone who has something on."
+        }
+      ]
+    }
+  ]
+}

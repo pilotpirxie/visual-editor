@@ -1,0 +1,81 @@
+@layer components {
+  @scope (.b-app-whats-new) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+    }
+
+    .b-intro {
+      max-width: 36rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-notes {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      width: 100%;
+      margin-block: var(--space-2);
+    }
+
+    .b-note {
+      display: grid;
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
+      gap: var(--space-4);
+      align-items: start;
+      padding-block: var(--space-3);
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-tag {
+      --icon-size: 0.875rem;
+      justify-self: start;
+      margin-block-start: 0.125rem;
+    }
+
+    .b-tag[data-type='improved'] {
+      --badge-bg: var(--color-surface);
+      --badge-color: var(--color-text);
+    }
+
+    .b-tag[data-type='fixed'] {
+      --badge-bg: transparent;
+      --badge-color: var(--color-text-muted);
+      box-shadow: inset 0 0 0 var(--border-width) var(--color-border);
+    }
+
+    .b-device {
+      display: grid;
+      place-items: center;
+      padding: var(--space-8) var(--space-4);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--color-primary) 14%, transparent),
+        transparent
+      );
+    }
+
+    .b-phone {
+      --device-width: 13rem;
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 3fr 2fr;
+        gap: var(--space-16);
+      }
+
+      .b-phone {
+        --device-width: 16rem;
+      }
+    }
+  }
+}

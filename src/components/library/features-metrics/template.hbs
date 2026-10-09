@@ -1,0 +1,19 @@
+<section class="b-features-metrics section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="grid b-grid">
+      {{#each items}}
+      <article class="card stack b-card" data-field="items.{{@index}}">
+        <p class="b-metric"><strong>{{metric}}</strong>{{#if metricLabel}} <span>{{metricLabel}}</span>{{/if}}</p>
+        <h3>{{title}}</h3>
+        <p class="b-text">{{nl2br text}}</p>
+      </article>
+      {{/each}}
+    </div>
+    {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+  </div>
+</section>

@@ -1,0 +1,63 @@
+@layer components {
+  @scope (.b-stats-bars) {
+    .b-layout {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 36rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-bars {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-4);
+      margin-block-end: var(--space-2);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-value {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      color: var(--color-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .b-track {
+      height: var(--space-3);
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+      overflow: hidden;
+    }
+
+    .b-track::before {
+      content: '';
+      display: block;
+      width: min(100%, calc(var(--value) * 1%));
+      height: 100%;
+      border-radius: inherit;
+      background: var(--color-primary);
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+        align-items: center;
+      }
+    }
+  }
+}

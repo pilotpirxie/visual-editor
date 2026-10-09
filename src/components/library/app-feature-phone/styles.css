@@ -1,0 +1,102 @@
+@layer components {
+  @scope (.b-app-feature-phone) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-device {
+      display: grid;
+      place-items: center;
+      padding-block: var(--space-4);
+      background: radial-gradient(
+        closest-side,
+        color-mix(in oklab, var(--color-primary) 18%, transparent),
+        transparent
+      );
+    }
+
+    .b-phone {
+      --device-width: 13rem;
+    }
+
+    .b-list {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-item {
+      display: flex;
+      gap: var(--space-4);
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-copy h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-copy p {
+      margin-block-start: var(--space-1);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .b-head,
+      .b-device {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 19rem 1fr;
+        align-items: center;
+        gap: var(--space-12) var(--space-8);
+      }
+
+      .b-device {
+        grid-area: 2 / 2;
+      }
+
+      .b-start {
+        grid-area: 2 / 1;
+      }
+
+      .b-start .b-item {
+        flex-direction: row-reverse;
+        text-align: end;
+      }
+
+      .b-phone {
+        --device-width: 16rem;
+      }
+    }
+  }
+}

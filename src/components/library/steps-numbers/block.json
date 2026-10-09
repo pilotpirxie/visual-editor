@@ -1,0 +1,78 @@
+{
+  "name": "How it works, oversized numbers",
+  "category": "how-it-works",
+  "description": "Editorial steps with huge numbers, each step on its own row between dividers.",
+  "tags": ["steps", "process", "editorial", "numbers", "studio", "architect", "stages"],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our process",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How a house goes from first sketch to the keys in your hand",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every project at Atelier Nord follows the same five stages, so you always know what comes next and what it costs.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Stage"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this stage."
+        }
+      ],
+      "default": [
+        {
+          "title": "Listening",
+          "text": "We visit the site, walk through how you live today and agree on a brief and a budget ceiling."
+        },
+        {
+          "title": "Concept",
+          "text": "Three hand-drawn directions, then one scale model we refine with you over two workshops."
+        },
+        {
+          "title": "Planning and permits",
+          "text": "Detailed drawings, structural engineering and the permit application, all handled by our team."
+        },
+        {
+          "title": "Build",
+          "text": "We choose the contractor with you and visit the site every week until the last tile is set."
+        },
+        {
+          "title": "Handover",
+          "text": "A walkthrough, a binder with every material and supplier, and a check-in one year later."
+        }
+      ]
+    }
+  ]
+}

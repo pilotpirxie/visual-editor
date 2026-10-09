@@ -1,0 +1,96 @@
+@layer components {
+  @scope (.b-testimonials-featured) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-6);
+    }
+
+    .b-side {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-card {
+      flex: 1;
+      font-size: var(--text-lg);
+    }
+
+    .b-card .b-person {
+      font-size: var(--text-base);
+    }
+
+    .b-card,
+    .b-featured {
+      --stack-gap: var(--space-6);
+      justify-content: space-between;
+    }
+
+    .b-featured {
+      --color-background: var(--theme-dark-background);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --card-padding: var(--space-8);
+      color: var(--color-text);
+    }
+
+    .b-mark {
+      --icon-size: 2.5rem;
+      color: var(--theme-dark-accent);
+    }
+
+    .b-quote {
+      flex: 1;
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      line-height: var(--line-height-tight);
+      overflow-wrap: break-word;
+      text-wrap: pretty;
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3rem;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: 3fr 2fr;
+      }
+
+      .b-featured {
+        --card-padding: var(--space-12);
+      }
+
+      .b-quote {
+        font-size: var(--text-3xl);
+      }
+    }
+  }
+}

@@ -1,0 +1,114 @@
+@layer components {
+  @scope (.b-steps-tabs) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-intro,
+    .b-copy p {
+      color: var(--color-text-muted);
+    }
+
+    .b-tablist {
+      display: flex;
+      overflow-x: auto;
+      counter-reset: tab;
+    }
+
+    .b-tab {
+      display: flex;
+      flex: 1 0 auto;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: 2.75rem;
+      padding: var(--space-4) var(--space-3);
+      border: 0;
+      border-block-start: 3px solid var(--color-border);
+      background: none;
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-bold);
+      text-align: start;
+      white-space: nowrap;
+      cursor: pointer;
+      counter-increment: tab;
+    }
+
+    .b-tab::before {
+      content: counter(tab);
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      border: 2px solid currentColor;
+      border-radius: var(--radius-full);
+    }
+
+    .b-tab:hover,
+    .b-tab[aria-selected='true'] {
+      color: var(--color-text);
+    }
+
+    .b-tab[aria-selected='true'] {
+      border-color: var(--color-primary);
+    }
+
+    .b-tab[aria-selected='true']::before {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-panels {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-panel {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+      padding: var(--space-6);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-copy h3 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-media {
+      --media-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (min-width: 768px) {
+      .b-tab {
+        flex-basis: 0;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-panel {
+        grid-template-columns: 2fr 3fr;
+        gap: var(--space-12);
+        padding: var(--space-12);
+      }
+    }
+  }
+}

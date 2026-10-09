@@ -1,0 +1,26 @@
+<section class="b-app-qr section">
+  <div class="container b-inner">
+    <div class="card stack b-card">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="b-qr">
+        <div class="media b-code" data-field="qrCode">{{img qrCode}}</div>
+        <div class="b-qr-copy">
+          {{#if qrLabel}}<p class="b-qr-label" data-field="qrLabel">{{svgIcon "smartphone"}}<span>{{qrLabel}}</span></p>{{/if}}
+          {{#if qrNote}}<p class="b-qr-note" data-field="qrNote">{{qrNote}}</p>{{/if}}
+        </div>
+      </div>
+      <ul class="cluster b-badges" role="list">
+        {{#each badges}}
+        <li><a class="b-badge" href="{{href link}}" {{linkAttrs link}} data-field="badges.{{@index}}">{{svgIcon icon}}<span class="b-badge-text"><span class="b-badge-small">{{smallLabel}}</span> <span class="b-badge-label">{{label}}</span></span></a></li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="b-device" data-field="screenshot">
+      <div class="device b-phone">
+        <div class="media device-screen">{{img screenshot}}</div>
+      </div>
+    </div>
+  </div>
+</section>

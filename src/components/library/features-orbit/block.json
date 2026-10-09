@@ -1,0 +1,145 @@
+{
+  "name": "Features, around an image",
+  "category": "features",
+  "description": "A product photo in the middle with features arranged on both sides, for hardware or a single hero product.",
+  "tags": ["features", "product", "hardware", "image", "centered", "device"],
+  "fieldGroups": ["Heading", "Image", "Start side", "End side"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Ember thermostat",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Warm rooms, smaller bills",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Ember learns when you are home and heats only the rooms you use, so most homes save a fifth on heating in the first winter.",
+      "group": "Heading"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The round Ember thermostat on a living room wall",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "product"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "startItems",
+      "label": "Features",
+      "type": "list",
+      "group": "Start side",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "zap"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Feature title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one or two sentences."
+        }
+      ],
+      "default": [
+        {
+          "icon": "clock",
+          "title": "Learns your week",
+          "text": "After seven days it knows when to warm up before you wake and wind down when you leave."
+        },
+        {
+          "icon": "map-pin",
+          "title": "Knows when you are out",
+          "text": "Your phone tells Ember when the last person leaves, so the heating never runs for an empty house."
+        },
+        {
+          "icon": "house",
+          "title": "Room by room",
+          "text": "Pair radiator valves to heat the office at nine and the bedrooms at ten."
+        }
+      ]
+    },
+    {
+      "name": "endItems",
+      "label": "Features",
+      "type": "list",
+      "group": "End side",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "zap"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Feature title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one or two sentences."
+        }
+      ],
+      "default": [
+        {
+          "icon": "chart",
+          "title": "A monthly energy report",
+          "text": "See what each room cost and where a degree lower would save the most."
+        },
+        {
+          "icon": "smartphone",
+          "title": "One app for the house",
+          "text": "Everyone in the household can adjust their own rooms without fighting over the dial."
+        },
+        {
+          "icon": "wifi",
+          "title": "Works offline",
+          "text": "If the internet drops, your schedule keeps running from the device itself."
+        }
+      ]
+    }
+  ]
+}

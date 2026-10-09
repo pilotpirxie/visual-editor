@@ -1,0 +1,118 @@
+{
+  "name": "How it works, with booking card",
+  "category": "how-it-works",
+  "description": "Three icon steps followed by a highlighted card with a booking button.",
+  "tags": [
+    "steps",
+    "process",
+    "booking",
+    "call to action",
+    "coach",
+    "clinic",
+    "consultant",
+    "services"
+  ],
+  "fieldGroups": ["Heading", "Steps", "Card"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How it works",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three steps to a training plan that fits your week",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "No gym contract and no app to learn. Just a coach who plans around your job, your kids and your knees.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "icon": "calendar",
+          "title": "Book a call",
+          "text": "Pick a 20-minute slot. We ask about your goals, old injuries and how much time you really have."
+        },
+        {
+          "icon": "target",
+          "title": "Get your plan",
+          "text": "Within two days you get a 12-week plan with every session, from warm-up to stretch."
+        },
+        {
+          "icon": "zap",
+          "title": "Start training",
+          "text": "Log each session in your shared sheet. Your coach adjusts the plan every Sunday."
+        }
+      ]
+    },
+    {
+      "name": "cardTitle",
+      "label": "Card title",
+      "type": "text",
+      "default": "Your first call is free",
+      "required": true,
+      "group": "Card"
+    },
+    {
+      "name": "cardText",
+      "label": "Card text",
+      "type": "textarea",
+      "default": "Twenty minutes with a certified coach. No card needed and no obligation to sign up.",
+      "group": "Card"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book a free call",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Card"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+@layer components {
+  @scope (.b-app-carousel) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-controls {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .b-arrow {
+      --button-padding-x: var(--space-3);
+      --btn-radius: var(--radius-full);
+    }
+
+    .b-arrow:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .b-dots {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .b-dots button {
+      display: grid;
+      place-items: center;
+      width: 1.75rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
+
+    .b-dots button::before {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: var(--radius-full);
+      background: var(--color-border);
+    }
+
+    .b-dots button[aria-current='true']::before {
+      width: 1.25rem;
+      background: var(--color-primary);
+    }
+
+    .b-track {
+      display: grid;
+      grid-auto-columns: min(80%, 18rem);
+      grid-auto-flow: column;
+      gap: var(--space-6);
+      padding-block-end: var(--space-4);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+    }
+
+    .b-slide {
+      --stack-gap: var(--space-4);
+      scroll-snap-align: start;
+    }
+
+    .b-frame {
+      display: grid;
+      place-items: center;
+      padding: var(--space-8) var(--space-6) 0;
+      overflow: clip;
+      border-radius: var(--radius-lg);
+      background: color-mix(in oklab, var(--color-primary) 12%, var(--color-surface));
+    }
+
+    .b-phone {
+      --device-width: 12rem;
+      --device-shadow: var(--shadow-md);
+      margin-block-end: -25%;
+    }
+
+    .b-caption {
+      --stack-gap: var(--space-1);
+    }
+
+    .b-caption h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-caption p {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-track {
+        grid-auto-columns: calc((100% - 3 * var(--space-6)) / 3.5);
+      }
+    }
+  }
+}

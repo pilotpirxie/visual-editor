@@ -1,0 +1,176 @@
+{
+  "name": "Features, image cards",
+  "category": "features",
+  "description": "Cards with a photo on top, a title, a short text and an optional link, for services or product areas.",
+  "tags": ["features", "cards", "images", "photos", "services", "overview"],
+  "fieldGroups": ["Heading", "Items", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Services",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From a first sketch to a garden that grows in",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We design, plant and look after gardens around Bristol, from city courtyards to an acre of meadow.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Cards",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 9,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A photo of the service",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Service title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe what the reader gets in one or two sentences."
+        },
+        {
+          "name": "linkLabel",
+          "label": "Link text",
+          "type": "text",
+          "default": "Learn more",
+          "help": "Leave empty to hide the link."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A sketched garden plan with planting notes on a drawing table",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Garden design",
+          "text": "Two site visits, a measured survey and a scaled plan you can build from, with or without us.",
+          "linkLabel": "How design works",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Rows of young perennials in pots waiting to be planted",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Planting plans",
+          "text": "Plants chosen for your soil, light and time, with a list your local nursery can fill in one order.",
+          "linkLabel": "See sample plans",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A gardener mulching a newly planted border in autumn",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Build and aftercare",
+          "text": "Our own crew lays paths and plants borders, then visits each season for the first two years.",
+          "linkLabel": "Book a site visit",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "columns",
+      "label": "Columns on desktop",
+      "type": "select",
+      "default": "3",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ]
+    }
+  ]
+}

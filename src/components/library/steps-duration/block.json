@@ -1,0 +1,118 @@
+{
+  "name": "How it works, with time estimates",
+  "category": "how-it-works",
+  "description": "Steps with how long each one takes, a total and a button to start.",
+  "tags": ["steps", "setup", "onboarding", "time", "duration", "minutes", "quick start"],
+  "fieldGroups": ["Heading", "Steps", "Total"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Setup",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From sign-up to your first recorded call in about 15 minutes",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "No sales call and no setup fee. Here is exactly where the time goes.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        },
+        {
+          "name": "duration",
+          "label": "Time it takes",
+          "type": "text",
+          "default": "5 min",
+          "maxLength": 16
+        }
+      ],
+      "default": [
+        {
+          "title": "Create your workspace",
+          "text": "Sign up with Google or Microsoft and give your workspace a name.",
+          "duration": "2 min"
+        },
+        {
+          "title": "Connect your calendar",
+          "text": "Choose which meetings Fieldnote may join. You can change this at any time.",
+          "duration": "3 min"
+        },
+        {
+          "title": "Invite your team",
+          "text": "Paste a list of email addresses. Viewers are free and never count as seats.",
+          "duration": "4 min"
+        },
+        {
+          "title": "Run a test call",
+          "text": "Record five minutes with a colleague and watch the transcript appear.",
+          "duration": "6 min"
+        }
+      ]
+    },
+    {
+      "name": "total",
+      "label": "Total",
+      "type": "text",
+      "default": "Live in about 15 minutes",
+      "group": "Total"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Total"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start the setup",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Total"
+    }
+  ]
+}

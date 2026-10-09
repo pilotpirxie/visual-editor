@@ -1,0 +1,54 @@
+@layer components {
+  @scope (.b-features-pills) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-cloud {
+      --cluster-gap: var(--space-2);
+      --cluster-justify: center;
+      max-width: 56rem;
+    }
+
+    .b-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      box-shadow: var(--shadow-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-pill svg {
+      color: var(--color-primary);
+    }
+
+    .b-more {
+      border-style: dashed;
+      background: transparent;
+      box-shadow: none;
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-cloud {
+        --cluster-gap: var(--space-3);
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+@layer components {
+  @scope (.b-app-two-phones) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+    }
+
+    .b-text {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-list {
+      display: grid;
+      gap: var(--space-3);
+      margin-block: var(--space-2);
+    }
+
+    .b-item {
+      --icon-size: 1.25rem;
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .b-item .icon {
+      margin-block-start: 0.125em;
+      color: var(--color-primary);
+    }
+
+    .b-phones {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      width: min(100%, 24rem);
+      margin-inline: auto;
+      padding: var(--space-6) var(--space-4);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(
+        160deg,
+        color-mix(in oklab, var(--color-primary) 16%, transparent),
+        transparent
+      );
+    }
+
+    .b-phone {
+      grid-row: 1;
+      align-self: start;
+    }
+
+    .b-back {
+      grid-column: 1 / 7;
+      --device-shadow: var(--shadow-md);
+    }
+
+    .b-front {
+      grid-column: 5 / 11;
+      margin-block-start: var(--space-16);
+      rotate: 4deg;
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+
+      .b-phones {
+        width: min(100%, 30rem);
+        padding: var(--space-8);
+      }
+    }
+  }
+}

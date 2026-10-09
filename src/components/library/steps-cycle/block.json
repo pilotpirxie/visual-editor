@@ -1,0 +1,101 @@
+{
+  "name": "How it works, repeating cycle",
+  "category": "how-it-works",
+  "description": "Four steps arranged around a loop with a repeat icon in the middle.",
+  "tags": [
+    "steps",
+    "process",
+    "cycle",
+    "loop",
+    "iteration",
+    "agile",
+    "continuous improvement",
+    "coaching"
+  ],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How we work",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A loop, not a launch",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every two weeks we run the same cycle with your team, and each turn starts from what the last one taught us.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 4,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "help": "Four steps, read clockwise from the top.",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "icon": "target",
+          "title": "Plan",
+          "text": "Pick one question worth answering and agree how you will know the answer."
+        },
+        {
+          "icon": "puzzle",
+          "title": "Build",
+          "text": "Make the smallest version that can answer it, usually in less than a week."
+        },
+        {
+          "icon": "chart",
+          "title": "Measure",
+          "text": "Put it in front of real customers and collect numbers and quotes side by side."
+        },
+        {
+          "icon": "lightbulb",
+          "title": "Learn",
+          "text": "Decide together what to keep, change or drop, and write it down for the next turn."
+        }
+      ]
+    },
+    {
+      "name": "loopNote",
+      "label": "Closing note",
+      "type": "text",
+      "default": "Then the loop starts again, with a sharper question each time.",
+      "group": "Steps"
+    }
+  ]
+}

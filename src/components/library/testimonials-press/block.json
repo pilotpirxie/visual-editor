@@ -1,0 +1,99 @@
+{
+  "name": "Testimonials, press quotes",
+  "category": "testimonials",
+  "description": "Short quotes from reviews and articles, each signed with the publication name.",
+  "tags": ["testimonials", "press", "reviews", "critics", "media", "quotes", "restaurant", "book"],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "In the press",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What the critics wrote about Salt & Ember",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "items",
+      "label": "Quotes",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "publication",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "What the publication wrote.",
+          "maxLength": 200
+        },
+        {
+          "name": "publication",
+          "label": "Publication",
+          "type": "text",
+          "default": "Publication"
+        },
+        {
+          "name": "linkLabel",
+          "label": "Link label",
+          "type": "text",
+          "default": "Read the review",
+          "help": "Leave empty to hide the link."
+        },
+        {
+          "name": "link",
+          "label": "Link to the article",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "The best wood-fired lamb in the city, and a wine list that rewards curiosity.",
+          "publication": "The Morning Ledger",
+          "linkLabel": "Read the review",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "quote": "Book the counter seats and watch the kitchen work. It is dinner and theatre in one.",
+          "publication": "Northside Weekly",
+          "linkLabel": "Read the review",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "quote": "A neighbourhood restaurant that cooks like a destination one.",
+          "publication": "Table & Town",
+          "linkLabel": "",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ]
+    }
+  ]
+}

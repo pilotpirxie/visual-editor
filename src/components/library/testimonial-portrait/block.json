@@ -1,0 +1,66 @@
+{
+  "name": "Testimonial, portrait and quote",
+  "category": "testimonials",
+  "description": "A large portrait beside one big editorial quote with name and role.",
+  "tags": [
+    "testimonial",
+    "quote",
+    "portrait",
+    "editorial",
+    "story",
+    "nonprofit",
+    "school",
+    "personal"
+  ],
+  "fieldGroups": ["Quote", "Person"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Graduate story",
+      "group": "Quote"
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "I was stocking shelves at night and learning to code at dawn. Twelve weeks later I shipped my first feature at a bank, and I still use the habits my mentor taught me.",
+      "group": "Quote",
+      "required": true
+    },
+    {
+      "name": "photo",
+      "label": "Portrait",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Rafael Mendes smiling at his desk",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "person"
+        }
+      },
+      "group": "Person"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Rafael Mendes",
+      "group": "Person"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Junior developer, class of 2025",
+      "group": "Person"
+    }
+  ]
+}

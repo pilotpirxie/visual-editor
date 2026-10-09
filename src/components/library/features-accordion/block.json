@@ -1,0 +1,123 @@
+{
+  "name": "Features, accordion with image",
+  "category": "features",
+  "description": "Features that expand one at a time beside a large image, built on native HTML so it works without JavaScript.",
+  "tags": ["features", "accordion", "expand", "details", "image", "product tour"],
+  "fieldGroups": ["Heading", "Items", "Image", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "For clinics",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Bookings, reminders and payments in one calendar",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Calla replaces the paper diary, the reminder texts and the card machine queue at the front desk.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "help": "The first feature starts open.",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Feature title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one or two sentences."
+        }
+      ],
+      "default": [
+        {
+          "icon": "calendar",
+          "title": "Online booking that respects your rules",
+          "text": "Patients book the right appointment length with the right practitioner, and buffers between sessions are kept for you."
+        },
+        {
+          "icon": "bell",
+          "title": "Reminders that cut no-shows",
+          "text": "A text two days before and an email the morning of. Clinics using both see about a third fewer missed visits."
+        },
+        {
+          "icon": "credit-card",
+          "title": "Payment at booking",
+          "text": "Take a deposit or the full fee when the patient books, and refund in one click if you cancel."
+        },
+        {
+          "icon": "file",
+          "title": "Notes that stay with the patient",
+          "text": "Treatment notes, forms and invoices sit on one record, visible only to the people who need them."
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Calla calendar showing a day of appointments for three practitioners",
+        "decorative": false,
+        "width": 1200,
+        "height": 900,
+        "placeholder": {
+          "ratio": "4:3",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "imageSide",
+      "label": "Image side",
+      "type": "segmented",
+      "default": "right",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left",
+          "icon": "panel-left"
+        },
+        {
+          "value": "right",
+          "label": "Right",
+          "icon": "panel-right"
+        }
+      ]
+    }
+  ]
+}

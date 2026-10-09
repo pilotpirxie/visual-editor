@@ -1,0 +1,205 @@
+{
+  "name": "Pricing, event tickets",
+  "category": "pricing",
+  "description": "Ticket-shaped cards with a price, sale window and perks; any ticket can be marked as sold out.",
+  "tags": [
+    "pricing",
+    "tickets",
+    "event",
+    "conference",
+    "festival",
+    "early bird",
+    "sold out",
+    "passes"
+  ],
+  "fieldGroups": ["Heading", "Tickets"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Tickets",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Get your pass for Frontline 2027",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Two days of talks and workshops in Lisbon, 14 and 15 May. Prices include VAT and lunch on both days.",
+      "group": "Heading"
+    },
+    {
+      "name": "soldOutLabel",
+      "label": "Sold out label",
+      "type": "text",
+      "default": "Sold out",
+      "group": "Tickets"
+    },
+    {
+      "name": "tickets",
+      "label": "Tickets",
+      "type": "list",
+      "group": "Tickets",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Ticket name",
+          "type": "text",
+          "default": "Ticket"
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$0"
+        },
+        {
+          "name": "window",
+          "label": "Sale window",
+          "type": "text",
+          "default": "Until 31 May"
+        },
+        {
+          "name": "features",
+          "label": "Perks",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 8,
+          "itemLabel": "text",
+          "itemFields": [
+            {
+              "name": "text",
+              "label": "Text",
+              "type": "text",
+              "default": "What is included"
+            }
+          ],
+          "default": [
+            {
+              "text": "First perk"
+            },
+            {
+              "text": "Second perk"
+            }
+          ]
+        },
+        {
+          "name": "soldOut",
+          "label": "Sold out",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Buy ticket",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "Early bird",
+          "price": "€290",
+          "window": "Until 31 January",
+          "features": [
+            {
+              "text": "Both conference days"
+            },
+            {
+              "text": "Lunch and coffee"
+            },
+            {
+              "text": "Talk recordings"
+            }
+          ],
+          "soldOut": true,
+          "button": {
+            "label": "Buy early bird",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        {
+          "name": "Regular",
+          "price": "€390",
+          "window": "Until 30 April",
+          "features": [
+            {
+              "text": "Both conference days"
+            },
+            {
+              "text": "Lunch and coffee"
+            },
+            {
+              "text": "Talk recordings"
+            },
+            {
+              "text": "Evening party"
+            }
+          ],
+          "soldOut": false,
+          "button": {
+            "label": "Buy regular",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "name": "Workshop pass",
+          "price": "€640",
+          "window": "Only 60 seats",
+          "features": [
+            {
+              "text": "Everything in Regular"
+            },
+            {
+              "text": "One full-day workshop"
+            },
+            {
+              "text": "Reserved front seats"
+            }
+          ],
+          "soldOut": false,
+          "button": {
+            "label": "Buy workshop pass",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ]
+    }
+  ]
+}

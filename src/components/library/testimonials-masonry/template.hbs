@@ -1,0 +1,23 @@
+<section class="b-testimonials-masonry section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-wall">
+      {{#each items}}
+      <figure class="card stack b-card" data-field="items.{{@index}}">
+        <blockquote><p>{{nl2br quote}}</p></blockquote>
+        <figcaption class="b-person">
+          <div class="media b-photo">{{img photo}}</div>
+          <div>
+            <p class="b-name">{{name}}</p>
+            {{#if role}}<p class="b-role">{{role}}</p>{{/if}}
+          </div>
+        </figcaption>
+      </figure>
+      {{/each}}
+    </div>
+  </div>
+</section>

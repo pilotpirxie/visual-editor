@@ -1,0 +1,68 @@
+@layer components {
+  @scope (.b-steps-numbers) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 44rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-steps {
+      counter-reset: step;
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-step {
+      display: grid;
+      gap: var(--space-2);
+      padding-block: var(--space-8);
+      border-block-start: var(--border-width) solid var(--color-border);
+      counter-increment: step;
+    }
+
+    .b-step::before {
+      content: counter(step, decimal-leading-zero);
+      margin-block-end: var(--space-2);
+      font-family: var(--font-heading);
+      font-size: calc(var(--text-5xl) * 1.5);
+      font-weight: var(--font-weight-heading);
+      font-variant-numeric: tabular-nums;
+      line-height: 0.85;
+      color: color-mix(in oklab, var(--color-text-muted) 60%, transparent);
+    }
+
+    @media (min-width: 768px) {
+      .b-step {
+        grid-template-columns: 10rem minmax(0, 1fr);
+        column-gap: var(--space-8);
+      }
+
+      .b-step::before {
+        grid-row: span 2;
+        margin: 0;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-step {
+        grid-template-columns: 11rem minmax(0, 1fr) minmax(0, 1.5fr);
+        align-items: start;
+      }
+
+      .b-step::before {
+        grid-row: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+<section class="b-app-two-phones section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <ul class="b-list" role="list">
+        {{#each items}}
+        <li class="b-item" data-field="items.{{@index}}">{{svgIcon "check-circle"}}<span>{{text}}</span></li>
+        {{/each}}
+      </ul>
+      {{#if showButton}}<a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>{{/if}}
+    </div>
+    <div class="b-phones">
+      <div class="device b-phone b-back" data-field="firstScreenshot">
+        <div class="media device-screen">{{img firstScreenshot}}</div>
+      </div>
+      <div class="device b-phone b-front" data-field="secondScreenshot">
+        <div class="media device-screen">{{img secondScreenshot}}</div>
+      </div>
+    </div>
+  </div>
+</section>

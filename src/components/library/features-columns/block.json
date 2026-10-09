@@ -1,0 +1,83 @@
+{
+  "name": "Features, editorial columns",
+  "category": "features",
+  "description": "Text-only columns divided by thin rules, each with a small label, for studios and consultancies.",
+  "tags": [
+    "features",
+    "services",
+    "columns",
+    "editorial",
+    "text only",
+    "studio",
+    "consulting",
+    "minimal"
+  ],
+  "fieldGroups": ["Heading", "Items"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "What we do",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three disciplines, one small senior team",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Northlight Studio has worked with museums, publishers and city councils since 2011. The people you meet are the people who do the work.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Columns",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "label", "label": "Label", "type": "text", "default": "01 · Discipline" },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "What you do, in one line"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "How you do it, in two or three sentences."
+        }
+      ],
+      "default": [
+        {
+          "label": "01 · Strategy",
+          "title": "We find the one thing your brand should say",
+          "text": "Interviews with your audience, staff and board, distilled into a position everyone can repeat in a sentence."
+        },
+        {
+          "label": "02 · Identity",
+          "title": "Then we give it a face and a voice",
+          "text": "Name, logo, typography and tone of voice, with guidelines your team will actually open."
+        },
+        {
+          "label": "03 · Digital",
+          "title": "And build the places people meet it",
+          "text": "Websites, exhibition screens and campaigns, designed and built in-house and handed over with training."
+        }
+      ]
+    }
+  ]
+}

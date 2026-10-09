@@ -1,0 +1,82 @@
+{
+  "name": "How it works, compact band",
+  "category": "how-it-works",
+  "description": "A slim colored band with three or four short numbered steps and one button.",
+  "tags": ["steps", "process", "band", "strip", "compact", "inline", "meal kit", "subscription"],
+  "fieldGroups": ["Heading", "Steps", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How it works",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "showTitle",
+      "label": "Show title",
+      "type": "boolean",
+      "default": true,
+      "help": "When off, the title is still read out by screen readers.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Step",
+          "type": "text",
+          "default": "A short step",
+          "maxLength": 60
+        }
+      ],
+      "default": [
+        {
+          "text": "Pick a box for two or four"
+        },
+        {
+          "text": "Choose five recipes a week"
+        },
+        {
+          "text": "Cook dinner in 30 minutes"
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Choose your box",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

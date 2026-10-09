@@ -1,0 +1,88 @@
+{
+  "name": "Features, feature cloud",
+  "category": "features",
+  "description": "A centered cloud of small feature chips with icons that shows how much is included.",
+  "tags": ["features", "chips", "pills", "tags", "cloud", "everything included", "all features"],
+  "fieldGroups": ["Heading", "Items", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "All included",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "One app for the whole front desk",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Salons, clinics and studios run bookings, payments and reminders from Bookwell. Every plan includes all of it.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 24,
+      "itemLabel": "label",
+      "itemFields": [
+        { "name": "icon", "label": "Icon", "type": "icon", "default": "check" },
+        { "name": "label", "label": "Label", "type": "text", "default": "Feature" }
+      ],
+      "default": [
+        { "icon": "calendar", "label": "Online booking" },
+        { "icon": "message", "label": "Text reminders" },
+        { "icon": "credit-card", "label": "Deposits" },
+        { "icon": "hourglass", "label": "Waitlist" },
+        { "icon": "gift", "label": "Gift cards" },
+        { "icon": "tag", "label": "Packages and memberships" },
+        { "icon": "users", "label": "Staff rotas" },
+        { "icon": "star", "label": "Review requests" },
+        { "icon": "file", "label": "Intake forms" },
+        { "icon": "dollar", "label": "Card payments" },
+        { "icon": "chart", "label": "Reports" },
+        { "icon": "refresh", "label": "Calendar sync" },
+        { "icon": "map-pin", "label": "Multiple locations" },
+        { "icon": "globe", "label": "Your own booking page" }
+      ]
+    },
+    {
+      "name": "more",
+      "label": "Last chip",
+      "type": "text",
+      "default": "and 40 more",
+      "group": "Items"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See every feature",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "secondary"
+      },
+      "visibleWhen": { "field": "showButton", "equals": true },
+      "group": "Button"
+    }
+  ]
+}

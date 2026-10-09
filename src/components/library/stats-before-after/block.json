@@ -1,0 +1,114 @@
+{
+  "name": "Numbers, before and after",
+  "category": "numbers",
+  "description": "A table of results where each row shows a before value, an arrow and an after value.",
+  "tags": [
+    "numbers",
+    "stats",
+    "before",
+    "after",
+    "comparison",
+    "results",
+    "case study",
+    "consulting"
+  ],
+  "fieldGroups": ["Heading", "Columns", "Rows"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Case study · Northwind Logistics",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Six months after we rebuilt their warehouse operations",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Measured at their Rotterdam site, comparing the quarter before the project with the quarter after go-live.",
+      "group": "Heading"
+    },
+    {
+      "name": "metricHeading",
+      "label": "First column heading",
+      "type": "text",
+      "default": "Measure",
+      "group": "Columns"
+    },
+    {
+      "name": "beforeHeading",
+      "label": "Before heading",
+      "type": "text",
+      "default": "Before",
+      "group": "Columns"
+    },
+    {
+      "name": "afterHeading",
+      "label": "After heading",
+      "type": "text",
+      "default": "After six months",
+      "group": "Columns"
+    },
+    {
+      "name": "rows",
+      "label": "Rows",
+      "type": "list",
+      "group": "Rows",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Measure",
+          "type": "text",
+          "default": "Measure"
+        },
+        {
+          "name": "before",
+          "label": "Before",
+          "type": "text",
+          "default": "10"
+        },
+        {
+          "name": "after",
+          "label": "After",
+          "type": "text",
+          "default": "20"
+        }
+      ],
+      "default": [
+        {
+          "label": "Order to dispatch time",
+          "before": "26 hrs",
+          "after": "7 hrs"
+        },
+        {
+          "label": "Picking errors per 1,000 orders",
+          "before": "14",
+          "after": "2.5"
+        },
+        {
+          "label": "Orders shipped per shift",
+          "before": "3,100",
+          "after": "4,850"
+        },
+        {
+          "label": "Onboarding time for new staff",
+          "before": "14 days",
+          "after": "3 days"
+        }
+      ]
+    }
+  ]
+}

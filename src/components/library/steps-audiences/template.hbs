@@ -1,0 +1,37 @@
+<section class="b-steps-audiences section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-sides">
+      <div class="card stack b-side">
+        <span class="b-icon" data-field="firstIcon">{{svgIcon firstIcon}}</span>
+        <h3 data-field="firstTitle">{{firstTitle}}</h3>
+        <ol class="stack b-steps" role="list">
+          {{#each firstSteps}}
+          <li class="b-step" data-field="firstSteps.{{@index}}">
+            <h4>{{title}}</h4>
+            <p class="b-muted">{{nl2br text}}</p>
+          </li>
+          {{/each}}
+        </ol>
+        <a class="btn btn-{{firstButton.variant}} b-action" href="{{href firstButton.link}}" {{linkAttrs firstButton.link}} data-field="firstButton">{{firstButton.label}}</a>
+      </div>
+      <div class="card stack b-side b-dark">
+        <span class="b-icon" data-field="secondIcon">{{svgIcon secondIcon}}</span>
+        <h3 data-field="secondTitle">{{secondTitle}}</h3>
+        <ol class="stack b-steps" role="list">
+          {{#each secondSteps}}
+          <li class="b-step" data-field="secondSteps.{{@index}}">
+            <h4>{{title}}</h4>
+            <p class="b-muted">{{nl2br text}}</p>
+          </li>
+          {{/each}}
+        </ol>
+        <a class="btn btn-{{secondButton.variant}} b-action" href="{{href secondButton.link}}" {{linkAttrs secondButton.link}} data-field="secondButton">{{secondButton.label}}</a>
+      </div>
+    </div>
+  </div>
+</section>

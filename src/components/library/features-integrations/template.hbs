@@ -1,0 +1,18 @@
+<section class="b-features-integrations section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-grid" role="list">
+      {{#each items}}
+      <li class="b-tile" data-field="items.{{@index}}">
+        <span class="b-logo">{{svgIcon icon}}</span>
+        <span class="b-copy"><span class="b-name">{{name}}</span>{{#if category}}<span class="b-category">{{category}}</span>{{/if}}</span>
+      </li>
+      {{/each}}
+    </ul>
+    {{#if showButton}}<div class="cluster b-actions"><a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}{{svgIcon "arrow-right"}}</a></div>{{/if}}
+  </div>
+</section>

@@ -1,0 +1,69 @@
+@layer components {
+  @scope (.b-features-audiences) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-grid {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-card {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-card[data-featured] {
+      --card-shadow: var(--shadow-lg);
+      border-color: var(--color-primary);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      color: var(--color-primary);
+    }
+
+    .b-points {
+      --stack-gap: var(--space-2);
+      padding-block: var(--space-4);
+      border-block: var(--border-width) solid var(--color-border);
+    }
+
+    .b-points li {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .b-points svg {
+      margin-block-start: 0.125em;
+      color: var(--color-primary);
+    }
+
+    .b-button {
+      align-self: flex-start;
+      margin-block-start: auto;
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-auto-columns: minmax(0, 1fr);
+        grid-auto-flow: column;
+      }
+    }
+  }
+}

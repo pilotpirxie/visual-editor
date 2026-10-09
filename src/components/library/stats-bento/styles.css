@@ -1,0 +1,113 @@
+@layer components {
+  @scope (.b-stats-bento) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-tiles {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .b-tile {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: var(--space-2);
+      min-height: 10rem;
+      padding: var(--space-6);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-photo,
+    .b-dark {
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-primary: var(--theme-dark-accent);
+      grid-column: 1 / -1;
+      background: var(--theme-dark-background);
+      color: var(--color-text);
+    }
+
+    .b-photo {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 20rem;
+    }
+
+    .b-photo img {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .b-photo::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(
+        to top,
+        color-mix(in oklab, var(--theme-dark-background) 92%, transparent),
+        transparent 75%
+      );
+    }
+
+    .b-value {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      color: var(--color-primary);
+      font-variant-numeric: tabular-nums;
+      overflow-wrap: anywhere;
+    }
+
+    .b-photo .b-value {
+      font-size: var(--text-5xl);
+      color: var(--color-text);
+    }
+
+    .b-label {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-tiles {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-auto-flow: dense;
+      }
+
+      .b-photo {
+        grid-column: span 2;
+        grid-row: span 2;
+        min-height: 28rem;
+      }
+
+      .b-dark {
+        grid-column: span 2;
+      }
+    }
+  }
+}

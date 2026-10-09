@@ -1,0 +1,61 @@
+@layer components {
+  @scope (.b-testimonials-masonry) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro,
+    .b-role {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-wall {
+      columns: 18rem 3;
+      column-gap: var(--space-6);
+    }
+
+    .b-card {
+      --stack-gap: var(--space-6);
+      break-inside: avoid;
+      margin-block-end: var(--space-6);
+    }
+
+    .b-card:nth-child(3n + 2) {
+      --card-shadow: var(--shadow-md);
+      font-size: var(--text-lg);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-base);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 2.75rem;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+    }
+  }
+}

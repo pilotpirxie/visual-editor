@@ -1,0 +1,17 @@
+<section class="b-testimonials-press section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-list">
+      {{#each items}}
+      <figure class="stack b-item" data-field="items.{{@index}}">
+        <figcaption><cite class="b-publication">{{publication}}</cite></figcaption>
+        <blockquote class="b-quote"><p>“{{quote}}”</p></blockquote>
+        {{#if linkLabel}}<a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{linkLabel}}<span class="visually-hidden"> in {{publication}}</span>{{svgIcon "arrow-up-right"}}</a>{{/if}}
+      </figure>
+      {{/each}}
+    </div>
+  </div>
+</section>

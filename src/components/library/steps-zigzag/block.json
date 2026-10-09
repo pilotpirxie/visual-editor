@@ -1,0 +1,89 @@
+{
+  "name": "How it works, zigzag timeline",
+  "category": "how-it-works",
+  "description": "Numbered steps on a center line, alternating sides from one step to the next.",
+  "tags": ["steps", "timeline", "process", "how", "zigzag", "story", "journey"],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Made to order",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From a sketch on paper to a table in your kitchen",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every piece is built by one maker in our Sheffield workshop. Here is how it comes together.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Week 1"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "label": "Week 1",
+          "title": "We visit your space",
+          "text": "A maker measures the room, talks through how you live in it and brings timber samples to hold in the light."
+        },
+        {
+          "label": "Week 2",
+          "title": "You approve the drawings",
+          "text": "Scaled drawings and a fixed quote arrive by email. Change anything you like before a single board is cut."
+        },
+        {
+          "label": "Weeks 3 to 8",
+          "title": "Built by hand in Sheffield",
+          "text": "Your maker sends photos at each stage, from the rough-sawn boards to the final coat of oil."
+        },
+        {
+          "label": "Week 9",
+          "title": "Delivered and fitted",
+          "text": "Two of the team carry it in, level it and take every scrap of packaging away with them."
+        },
+        {
+          "label": "For life",
+          "title": "Cared for after",
+          "text": "Bring it back for a free refinish whenever it needs one. Scratches are part of the story, not the end of it."
+        }
+      ]
+    }
+  ]
+}

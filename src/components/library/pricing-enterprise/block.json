@@ -1,0 +1,235 @@
+{
+  "name": "Pricing, plans plus enterprise",
+  "category": "pricing",
+  "description": "Plan cards followed by a wide enterprise strip with perks and a sales button.",
+  "tags": ["pricing", "plans", "enterprise", "sales", "b2b", "contact sales", "custom"],
+  "fieldGroups": ["Heading", "Plans", "Enterprise"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Pricing",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Start self-serve, scale with a plan built for you",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Try any plan free for 14 days. Upgrade, downgrade or cancel from your workspace settings.",
+      "group": "Heading"
+    },
+    {
+      "name": "featuredLabel",
+      "label": "Label on the featured plan",
+      "type": "text",
+      "default": "Most popular",
+      "group": "Plans"
+    },
+    {
+      "name": "plans",
+      "label": "Plans",
+      "type": "list",
+      "group": "Plans",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Plan name",
+          "type": "text",
+          "default": "Plan"
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$0"
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": "per seat, per month"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "Who this plan is for."
+        },
+        {
+          "name": "features",
+          "label": "Included",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 8,
+          "itemLabel": "text",
+          "itemFields": [
+            {
+              "name": "text",
+              "label": "Text",
+              "type": "text",
+              "default": "What is included"
+            }
+          ],
+          "default": [
+            {
+              "text": "First feature"
+            },
+            {
+              "text": "Second feature"
+            }
+          ]
+        },
+        {
+          "name": "featured",
+          "label": "Featured",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Choose plan",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "Team",
+          "price": "$18",
+          "period": "per seat, per month",
+          "description": "For teams moving their roadmap out of spreadsheets.",
+          "features": [
+            {
+              "text": "Unlimited roadmaps"
+            },
+            {
+              "text": "Feedback portal"
+            },
+            {
+              "text": "Jira and Linear sync"
+            }
+          ],
+          "featured": false,
+          "button": {
+            "label": "Start free trial",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        {
+          "name": "Growth",
+          "price": "$36",
+          "period": "per seat, per month",
+          "description": "For product orgs planning across several teams.",
+          "features": [
+            {
+              "text": "Everything in Team"
+            },
+            {
+              "text": "Portfolio views and OKRs"
+            },
+            {
+              "text": "Custom fields and formulas"
+            }
+          ],
+          "featured": true,
+          "button": {
+            "label": "Start free trial",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        }
+      ]
+    },
+    {
+      "name": "enterpriseTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "Enterprise",
+      "group": "Enterprise"
+    },
+    {
+      "name": "enterpriseText",
+      "label": "Text",
+      "type": "textarea",
+      "default": "For companies with 200 or more seats, strict security reviews or their own hosting rules. We tailor the contract, the rollout and the price.",
+      "group": "Enterprise"
+    },
+    {
+      "name": "perks",
+      "label": "Perks",
+      "type": "list",
+      "group": "Enterprise",
+      "minItems": 0,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Perk",
+          "type": "text",
+          "default": "Perk"
+        }
+      ],
+      "default": [
+        {
+          "text": "SAML single sign-on"
+        },
+        {
+          "text": "Audit log export"
+        },
+        {
+          "text": "EU or US data residency"
+        },
+        {
+          "text": "Named success manager"
+        }
+      ]
+    },
+    {
+      "name": "enterpriseButton",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Talk to sales",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Enterprise"
+    }
+  ]
+}

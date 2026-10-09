@@ -1,0 +1,126 @@
+@layer components {
+  @scope (.b-steps-accordion) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-main {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-intro,
+    .b-body p {
+      color: var(--color-text-muted);
+    }
+
+    .b-steps {
+      border-block-start: var(--border-width) solid var(--color-border);
+      counter-reset: step;
+    }
+
+    .b-step {
+      border-block-end: var(--border-width) solid var(--color-border);
+      counter-increment: step;
+    }
+
+    .b-summary {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: var(--space-4);
+      min-height: 2.75rem;
+      padding-block: var(--space-4);
+      font-weight: var(--font-weight-bold);
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .b-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .b-summary::before {
+      content: counter(step);
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+      color: var(--color-primary);
+    }
+
+    [open] .b-summary::before {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-label {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-1) var(--space-3);
+    }
+
+    .b-title {
+      flex: 1 1 12rem;
+      font-size: var(--text-lg);
+    }
+
+    .b-duration {
+      --icon-size: 0.875rem;
+    }
+
+    .b-chevron {
+      --icon-size: 1.25rem;
+      color: var(--color-text-muted);
+      transition: rotate var(--transition-normal);
+    }
+
+    [open] .b-chevron {
+      rotate: 180deg;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-3);
+      padding-block-end: var(--space-6);
+      padding-inline-start: 3.25rem;
+    }
+
+    .b-link {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-media {
+      inline-size: 100%;
+      max-block-size: 20rem;
+    }
+
+    @media (min-width: 1024px) {
+      .b-media {
+        max-block-size: none;
+      }
+
+      .b-inner {
+        grid-template-columns: 3fr 2fr;
+        gap: var(--space-16);
+        align-items: start;
+      }
+    }
+  }
+}

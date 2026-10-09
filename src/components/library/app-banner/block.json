@@ -1,0 +1,140 @@
+{
+  "name": "Applications, download banner",
+  "category": "applications",
+  "description": "A dark or brand-colored download card with store badges and a phone peeking out of its bottom edge.",
+  "tags": [
+    "app",
+    "mobile",
+    "download",
+    "banner",
+    "call to action",
+    "app store",
+    "google play",
+    "phone",
+    "dark"
+  ],
+  "fieldGroups": ["Content", "Badges", "Screenshot", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Fieldnote mobile",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your research, in your pocket",
+      "required": true,
+      "maxLength": 120,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Record customer visits, tag highlights on the train home and find everything synced to your team’s workspace. Free with every plan.",
+      "group": "Content"
+    },
+    {
+      "name": "badges",
+      "label": "Download badges",
+      "type": "list",
+      "group": "Badges",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Store logo",
+          "type": "icon",
+          "default": "simple-icons:apple",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "smallLabel",
+          "label": "Small label",
+          "type": "text",
+          "default": "Download on the"
+        },
+        {
+          "name": "label",
+          "label": "Store name",
+          "type": "text",
+          "default": "App Store"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:apple",
+          "smallLabel": "Download on the",
+          "label": "App Store",
+          "link": {
+            "type": "url",
+            "url": "https://apps.apple.com",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:googleplay",
+          "smallLabel": "Get it on",
+          "label": "Google Play",
+          "link": {
+            "type": "url",
+            "url": "https://play.google.com",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "label": "Screenshot",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Fieldnote app home screen with three recent interviews",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Screenshot"
+    },
+    {
+      "name": "theme",
+      "label": "Card color",
+      "type": "select",
+      "default": "dark",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "primary",
+          "label": "Brand color"
+        }
+      ]
+    }
+  ]
+}

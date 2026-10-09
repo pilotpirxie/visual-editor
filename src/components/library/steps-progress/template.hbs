@@ -1,0 +1,20 @@
+<section class="b-steps-progress section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ol class="b-steps" role="list">
+      {{#each steps}}
+      <li class="b-step"{{#if complete}} data-complete{{/if}} data-field="steps.{{@index}}">
+        <span class="b-dot">{{#if complete}}{{svgIcon "check"}}{{/if}}</span>
+        <div class="stack b-body">
+          <h3>{{#if complete}}<span class="visually-hidden">{{../completeLabel}} </span>{{/if}}{{title}}</h3>
+          <p>{{nl2br text}}</p>
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

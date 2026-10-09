@@ -1,0 +1,121 @@
+{
+  "name": "Features, security and compliance",
+  "category": "features",
+  "description": "Security features in shield tiles, a row of certifications and a link to your trust center.",
+  "tags": [
+    "features",
+    "security",
+    "compliance",
+    "trust",
+    "enterprise",
+    "certifications",
+    "privacy"
+  ],
+  "fieldGroups": ["Heading", "Items", "Certifications"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Security",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Security your IT team will sign off on",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Customer interviews are sensitive. We protect them with the same controls banks and hospitals ask for.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "icon", "label": "Icon", "type": "icon", "default": "shield" },
+        { "name": "title", "label": "Title", "type": "text", "default": "Security feature" },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "How it protects your data."
+        }
+      ],
+      "default": [
+        {
+          "icon": "lock",
+          "title": "Encrypted everywhere",
+          "text": "AES-256 at rest and TLS 1.3 in transit, with keys rotated every 90 days."
+        },
+        {
+          "icon": "key",
+          "title": "Single sign-on",
+          "text": "SAML and SCIM with Okta, Entra ID and Google, so access ends when a contract does."
+        },
+        {
+          "icon": "file",
+          "title": "Full audit log",
+          "text": "Every view, export and permission change is recorded and kept for two years."
+        },
+        {
+          "icon": "globe",
+          "title": "Data residency",
+          "text": "Keep recordings in the EU, the US or Australia, and never move them without asking."
+        }
+      ]
+    },
+    {
+      "name": "certificationsLabel",
+      "label": "Certifications label",
+      "type": "text",
+      "default": "Independently audited",
+      "group": "Certifications"
+    },
+    {
+      "name": "certifications",
+      "label": "Certifications",
+      "type": "list",
+      "group": "Certifications",
+      "minItems": 0,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        { "name": "label", "label": "Name", "type": "text", "default": "Certification" }
+      ],
+      "default": [
+        { "label": "SOC 2 Type II" },
+        { "label": "ISO 27001" },
+        { "label": "GDPR" },
+        { "label": "HIPAA" }
+      ]
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "Visit the trust center",
+      "group": "Certifications"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": { "type": "url", "url": "#", "newTab": false },
+      "group": "Certifications"
+    }
+  ]
+}

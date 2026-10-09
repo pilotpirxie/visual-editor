@@ -1,0 +1,24 @@
+<section class="b-features-accordion section" data-image-side="{{imageSide}}">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-layout">
+      <div class="b-list">
+        {{#each items}}
+        <details class="b-item" name="{{../block.id}}-features" {{#if @first}}open{{/if}} data-field="items.{{@index}}">
+          <summary class="b-summary">
+            <span class="b-icon">{{svgIcon icon}}</span>
+            <h3>{{title}}</h3>
+            <span class="b-chevron">{{svgIcon "chevron-down"}}</span>
+          </summary>
+          <p class="b-text">{{nl2br text}}</p>
+        </details>
+        {{/each}}
+      </div>
+      <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
+    </div>
+  </div>
+</section>

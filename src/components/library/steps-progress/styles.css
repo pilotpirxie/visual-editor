@@ -1,0 +1,113 @@
+@layer components {
+  @scope (.b-steps-progress) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-intro,
+    .b-body p {
+      color: var(--color-text-muted);
+    }
+
+    .b-steps {
+      display: grid;
+      counter-reset: step;
+    }
+
+    .b-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      gap: var(--space-4);
+      padding-block-end: var(--space-6);
+      counter-increment: step;
+    }
+
+    .b-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      inset-block: 2.5rem 0;
+      inset-inline-start: calc(1.25rem - 1px);
+      width: 2px;
+      background: var(--color-border);
+    }
+
+    .b-step[data-complete]::after {
+      background: var(--color-primary);
+    }
+
+    .b-dot {
+      --icon-size: 1.25rem;
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-step:not([data-complete]) .b-dot::before {
+      content: counter(step);
+    }
+
+    [data-complete] + :not([data-complete]) .b-dot {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    [data-complete] .b-dot {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-1);
+      padding-block-start: var(--space-2);
+    }
+
+    .b-body h3 {
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 768px) {
+      .b-steps {
+        grid-auto-columns: minmax(0, 1fr);
+        grid-auto-flow: column;
+        text-align: center;
+      }
+
+      .b-step {
+        grid-template-columns: none;
+        align-content: start;
+        justify-items: center;
+        padding: 0 var(--space-2);
+      }
+
+      .b-step:not(:last-child)::after {
+        inset-block: calc(1.25rem - 1px) auto;
+        inset-inline: calc(50% + 1.25rem) calc(-50% + 1.25rem);
+        width: auto;
+        height: 2px;
+      }
+
+      .b-body {
+        padding: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+@layer components {
+  @scope (.b-testimonials-chat) {
+    .b-layout {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-panel {
+      overflow: hidden;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+      box-shadow: var(--card-shadow);
+    }
+
+    .b-bar {
+      --icon-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-6);
+      border-block-end: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-thread {
+      list-style: none;
+      padding: var(--space-6) var(--space-4);
+    }
+
+    .b-message {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--space-2);
+      max-width: 88%;
+    }
+
+    .b-message:nth-child(even) {
+      flex-direction: row-reverse;
+      align-self: flex-end;
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 2.25rem;
+    }
+
+    .b-bubble {
+      min-width: 0;
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-lg);
+      border-end-start-radius: var(--radius-sm);
+      background: var(--color-background);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .b-message:nth-child(even) .b-bubble {
+      border-end-start-radius: var(--radius-lg);
+      border-end-end-radius: var(--radius-sm);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-4);
+      font-size: var(--text-xs);
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: 2fr 3fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

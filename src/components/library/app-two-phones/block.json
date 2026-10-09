@@ -1,0 +1,135 @@
+{
+  "name": "Applications, two phones",
+  "category": "applications",
+  "description": "Two overlapping phone screenshots next to a heading, text and a checklist.",
+  "tags": [
+    "app",
+    "mobile",
+    "phone",
+    "mockup",
+    "screenshots",
+    "two screens",
+    "dark mode",
+    "checklist"
+  ],
+  "fieldGroups": ["Heading", "Checklist", "Screenshots", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Tandem for iOS and Android",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Practise a language with someone who speaks it",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Tandem matches you with a native speaker who wants to learn your language. Chat, send voice notes and correct each other as you go.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Checklist",
+      "type": "list",
+      "group": "Checklist",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "One clear benefit"
+        }
+      ],
+      "default": [
+        {
+          "text": "Partners matched by interests and time zone"
+        },
+        {
+          "text": "Tap any message to suggest a correction"
+        },
+        {
+          "text": "Voice notes with slow playback"
+        },
+        {
+          "text": "Free for your first 30 conversations"
+        }
+      ]
+    },
+    {
+      "name": "firstScreenshot",
+      "label": "Back screenshot",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Tandem profile of a language partner from Madrid who is learning English",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Screenshots"
+    },
+    {
+      "name": "secondScreenshot",
+      "label": "Front screenshot",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Tandem chat in Spanish with a suggested correction under one message",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Screenshots"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Find a partner",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

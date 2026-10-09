@@ -1,0 +1,104 @@
+@layer components {
+  @scope (.b-testimonials-tabs) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-tablist {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-tab {
+      --icon-size: 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 3rem;
+      padding: var(--space-2) var(--space-3);
+      border: 0;
+      border-block-end: 0.1875rem solid transparent;
+      margin-block-end: calc(-1 * var(--border-width));
+      background: none;
+      color: var(--color-text-muted);
+      font-family: var(--font-heading);
+      font-weight: var(--font-weight-bold);
+      cursor: pointer;
+      transition: color var(--transition-fast);
+    }
+
+    .b-tab:hover,
+    .b-tab[aria-selected='true'] {
+      color: var(--color-text);
+    }
+
+    .b-tab[aria-selected='true'] {
+      border-color: var(--color-primary);
+    }
+
+    .b-panels {
+      display: grid;
+      gap: var(--space-16);
+      max-width: 52rem;
+    }
+
+    .b-panel {
+      --stack-gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-panel:focus-visible {
+      outline-offset: var(--space-2);
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      line-height: var(--line-height-tight);
+      text-wrap: balance;
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      text-align: start;
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3rem;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-tab {
+        padding-inline: var(--space-4);
+        font-size: var(--text-lg);
+      }
+
+      .b-quote {
+        font-size: var(--text-3xl);
+      }
+    }
+  }
+}

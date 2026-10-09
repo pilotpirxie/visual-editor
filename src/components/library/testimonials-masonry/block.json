@@ -1,0 +1,183 @@
+{
+  "name": "Testimonials, wall of love",
+  "category": "testimonials",
+  "description": "A masonry wall of customer quotes of different lengths, with photos.",
+  "tags": ["testimonials", "wall of love", "masonry", "quotes", "reviews", "customers", "courses"],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Wall of love",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Loved by 3,000 independent teachers",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Notes from teachers who moved their courses, students and payments to Tutorly.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Quotes",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "What the customer said."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "I launched my watercolour course on a Sunday evening and had 40 students by Monday lunch.",
+          "name": "Hannah Moreau",
+          "role": "Watercolour teacher",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Hannah Moreau",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Before Tutorly I glued together a video host, a payment page and a newsletter tool, and students got lost between them. Now there is one link. Refund requests dropped to almost zero and I finally stopped answering “where do I log in?” emails.",
+          "name": "Daniel Osei",
+          "role": "Excel and finance trainer",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Daniel Osei",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "The drip schedule keeps my cohort together. Nobody binges week six on day one any more.",
+          "name": "Priya Natarajan",
+          "role": "Yoga teacher training",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Priya Natarajan",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Payouts arrive every Friday. That alone made it worth switching.",
+          "name": "Lukas Brandt",
+          "role": "Guitar teacher",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Lukas Brandt",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "My students are mostly retirees. The lesson player has big buttons and remembers where they stopped, so my support inbox went quiet.",
+          "name": "Margaret Doyle",
+          "role": "Family history courses",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Margaret Doyle",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "I moved 600 students over in an afternoon with the import tool, and their progress came along with them.",
+          "name": "Kenji Watanabe",
+          "role": "Japanese for beginners",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Kenji Watanabe",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

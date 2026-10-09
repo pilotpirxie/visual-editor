@@ -1,0 +1,89 @@
+@layer components {
+  @scope (.b-features-callouts) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro,
+    .b-copy p {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-body {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-shot,
+    .b-list {
+      position: relative;
+      counter-reset: callout;
+    }
+
+    .b-media {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-num {
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      counter-increment: callout;
+    }
+
+    .b-num::before {
+      content: counter(callout);
+    }
+
+    .b-marker {
+      position: absolute;
+      top: calc(var(--y) * 1%);
+      left: calc(var(--x) * 1%);
+      translate: -50% -50%;
+      box-shadow: 0 0 0 0.375rem color-mix(in oklab, var(--color-primary) 30%, transparent);
+    }
+
+    .b-list {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-item {
+      display: flex;
+      gap: var(--space-4);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-1);
+      padding-block-start: var(--space-1);
+    }
+
+    .b-copy h3 {
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 1024px) {
+      .b-body {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        gap: var(--space-12);
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+@layer components {
+  @scope (.b-logos-sponsors) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+      text-align: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-tier {
+      --logo-width: 8rem;
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-tier[data-size='large'] {
+      --logo-width: 13rem;
+    }
+
+    .b-tier[data-size='small'] {
+      --logo-width: 6rem;
+    }
+
+    .b-name {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .b-name::before,
+    .b-name::after {
+      content: '';
+      flex: 1;
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-6);
+    }
+
+    .b-logo {
+      flex: 0 1 var(--logo-width);
+    }
+
+    .b-logo img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-logos {
+        gap: var(--space-8) var(--space-12);
+      }
+    }
+  }
+}

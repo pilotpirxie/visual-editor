@@ -1,0 +1,91 @@
+{
+  "name": "Numbers, progress bars",
+  "category": "numbers",
+  "description": "Heading beside labelled percentages, each with a horizontal bar.",
+  "tags": [
+    "numbers",
+    "stats",
+    "percent",
+    "bars",
+    "survey",
+    "results",
+    "skills",
+    "goals",
+    "progress"
+  ],
+  "fieldGroups": ["Heading", "Bars"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "2026 remote work survey",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What 2,600 remote employees told us they need",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Share of respondents who rated each item as important or very important. Survey run in March 2026 across 31 countries.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Bars",
+      "type": "list",
+      "group": "Bars",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        },
+        {
+          "name": "percent",
+          "label": "Percent",
+          "type": "number",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      ],
+      "default": [
+        {
+          "label": "Flexible working hours",
+          "percent": 91
+        },
+        {
+          "label": "A budget for a home office",
+          "percent": 78
+        },
+        {
+          "label": "Fewer recurring meetings",
+          "percent": 72
+        },
+        {
+          "label": "Yearly in-person team retreats",
+          "percent": 54
+        },
+        {
+          "label": "A coworking space membership",
+          "percent": 31
+        }
+      ]
+    }
+  ]
+}

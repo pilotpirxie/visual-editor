@@ -1,0 +1,26 @@
+<section class="b-app-whats-new section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if version}}<p class="badge" data-field="version">{{version}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      <ul class="b-notes" role="list">
+        {{#each notes}}
+        <li class="b-note" data-field="notes.{{@index}}">
+          <span class="badge b-tag" data-type="{{type}}">{{#if (eq type "new")}}{{svgIcon "sparkles"}}{{../newLabel}}{{/if}}{{#if (eq type "improved")}}{{svgIcon "trending-up"}}{{../improvedLabel}}{{/if}}{{#if (eq type "fixed")}}{{svgIcon "check"}}{{../fixedLabel}}{{/if}}</span>
+          <span>{{text}}</span>
+        </li>
+        {{/each}}
+      </ul>
+      <div class="cluster">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        {{#if showSecondary}}<a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>{{/if}}
+      </div>
+    </div>
+    <div class="b-device" data-field="screenshot">
+      <div class="device b-phone">
+        <div class="media device-screen">{{img screenshot}}</div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<section class="b-features-security section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="grid b-grid" role="list">
+      {{#each items}}
+      <li class="stack b-tile" data-field="items.{{@index}}">
+        <span class="b-shield">{{svgIcon icon}}</span>
+        <h3>{{title}}</h3>
+        <p class="b-muted">{{nl2br text}}</p>
+      </li>
+      {{/each}}
+    </ul>
+    <div class="cluster b-bar">
+      {{#if certificationsLabel}}<p class="b-label" data-field="certificationsLabel">{{certificationsLabel}}</p>{{/if}}
+      <ul class="cluster b-certs" role="list">
+        {{#each certifications}}
+        <li class="badge b-cert" data-field="certifications.{{@index}}">{{svgIcon "check-circle"}}{{label}}</li>
+        {{/each}}
+      </ul>
+      {{#if linkLabel}}<a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+    </div>
+  </div>
+</section>

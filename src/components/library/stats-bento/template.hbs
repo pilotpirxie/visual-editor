@@ -1,0 +1,27 @@
+<section class="b-stats-bento section"{{#if countUp}} data-behavior="counter"{{/if}}>
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-tiles">
+      <div class="b-tile b-photo" data-field="image">
+        {{img image}}
+        <p class="b-value" data-field="heroValue"{{#if countUp}} data-count{{/if}}>{{heroValue}}</p>
+        <p class="b-label" data-field="heroLabel">{{heroLabel}}</p>
+      </div>
+      <div class="b-tile b-dark">
+        <p class="b-value" data-field="darkValue"{{#if countUp}} data-count{{/if}}>{{darkValue}}</p>
+        <p class="b-label" data-field="darkLabel">{{darkLabel}}</p>
+        {{#if darkText}}<p class="b-note" data-field="darkText">{{darkText}}</p>{{/if}}
+      </div>
+      {{#each stats}}
+      <div class="b-tile" data-field="stats.{{@index}}">
+        <p class="b-value"{{#if ../countUp}} data-count{{/if}}>{{value}}</p>
+        <p class="b-label">{{label}}</p>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

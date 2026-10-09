@@ -1,0 +1,111 @@
+@layer components {
+  @scope (.b-pricing-rows) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-rows {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-row {
+      display: grid;
+      gap: var(--space-4) var(--space-6);
+      align-items: center;
+      padding: var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-background);
+      box-shadow: var(--card-shadow);
+    }
+
+    .b-row[data-featured] {
+      border-color: var(--color-primary);
+      outline: 1px solid var(--color-primary);
+    }
+
+    .b-name {
+      --stack-gap: var(--space-1);
+    }
+
+    .b-plan-head {
+      --cluster-gap: var(--space-2);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-checks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2) var(--space-4);
+      font-size: var(--text-sm);
+    }
+
+    .b-checks li {
+      display: flex;
+      gap: var(--space-1);
+    }
+
+    .b-checks .icon {
+      margin-block: 0.125em;
+      color: var(--color-primary);
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-button {
+      width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .b-row {
+        grid-template-columns: minmax(0, 1fr) auto 12rem;
+      }
+
+      .b-checks {
+        grid-row: 2;
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-row {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) 9rem 12rem;
+      }
+
+      .b-checks {
+        grid-row: auto;
+        grid-column: auto;
+      }
+
+      .b-price .b-muted {
+        display: block;
+        font-size: var(--text-sm);
+      }
+    }
+  }
+}

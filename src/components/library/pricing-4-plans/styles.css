@@ -1,0 +1,97 @@
+@layer components {
+  @scope (.b-pricing-4-plans) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-plans {
+      display: grid;
+      gap: var(--border-width);
+      overflow: hidden;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-border);
+      box-shadow: var(--card-shadow);
+    }
+
+    .b-plan {
+      --stack-gap: var(--space-4);
+      padding: var(--space-6);
+      background: var(--color-background);
+      font-size: var(--text-sm);
+    }
+
+    .b-plan[data-featured] {
+      background: color-mix(in oklab, var(--color-primary) 7%, var(--color-background));
+    }
+
+    .b-plan-head {
+      --cluster-justify: space-between;
+      --cluster-gap: var(--space-2);
+    }
+
+    .b-plan h3 {
+      font-size: var(--text-xl);
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-features {
+      display: grid;
+      flex: 1;
+      align-content: start;
+      gap: var(--space-2);
+    }
+
+    .b-features li {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .b-features .icon {
+      margin-block: 0.125em;
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-plans {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-plan:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-plans {
+        grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+      }
+
+      .b-plan:last-child:nth-child(odd) {
+        grid-column: auto;
+      }
+    }
+  }
+}

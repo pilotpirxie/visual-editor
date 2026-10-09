@@ -1,0 +1,134 @@
+{
+  "name": "Features, integrations",
+  "category": "features",
+  "description": "A grid of integration tiles with brand logos, names and categories, plus a link to the full directory.",
+  "tags": ["features", "integrations", "apps", "connections", "logos", "brands", "saas"],
+  "fieldGroups": ["Heading", "Items", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Integrations",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Works with the tools your team already uses",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Send clips where conversations happen and keep findings next to the tickets they inform.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Integrations",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 16,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Logo",
+          "type": "icon",
+          "default": "simple-icons:slack",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "App name",
+          "required": true,
+          "maxLength": 30
+        },
+        {
+          "name": "category",
+          "label": "Category",
+          "type": "text",
+          "default": "Category",
+          "maxLength": 30
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:slack",
+          "name": "Slack",
+          "category": "Messaging"
+        },
+        {
+          "icon": "simple-icons:notion",
+          "name": "Notion",
+          "category": "Docs"
+        },
+        {
+          "icon": "simple-icons:figma",
+          "name": "Figma",
+          "category": "Design"
+        },
+        {
+          "icon": "simple-icons:jira",
+          "name": "Jira",
+          "category": "Issues"
+        },
+        {
+          "icon": "simple-icons:zoom",
+          "name": "Zoom",
+          "category": "Calls"
+        },
+        {
+          "icon": "simple-icons:googlecalendar",
+          "name": "Google Calendar",
+          "category": "Scheduling"
+        },
+        {
+          "icon": "simple-icons:linear",
+          "name": "Linear",
+          "category": "Issues"
+        },
+        {
+          "icon": "simple-icons:hubspot",
+          "name": "HubSpot",
+          "category": "CRM"
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See all 120 integrations",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

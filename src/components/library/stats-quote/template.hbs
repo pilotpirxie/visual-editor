@@ -1,0 +1,29 @@
+<section class="b-stats-quote section"{{#if countUp}} data-behavior="counter"{{/if}}>
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-layout">
+      <dl class="b-stats">
+        {{#each stats}}
+        <div class="b-stat" data-field="stats.{{@index}}">
+          <dt class="b-label">{{label}}</dt>
+          <dd class="b-value"{{#if ../countUp}} data-count{{/if}}>{{value}}</dd>
+        </div>
+        {{/each}}
+      </dl>
+      <figure class="stack b-quote">
+        <span class="b-mark">{{svgIcon "quote"}}</span>
+        <blockquote class="b-text" data-field="quote"><p>{{nl2br quote}}</p></blockquote>
+        <figcaption class="b-person">
+          <div class="media b-photo" data-field="photo">{{img photo}}</div>
+          <div>
+            <p class="b-name" data-field="name">{{name}}</p>
+            {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+          </div>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

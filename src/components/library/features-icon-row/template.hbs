@@ -1,0 +1,16 @@
+<section class="b-features-icon-row section">
+  <div class="container stack b-inner">
+    {{#if showHeading}}
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    {{/if}}
+    <ul class="b-list" role="list">
+      {{#each items}}
+      <li class="b-item" data-field="items.{{@index}}"><span class="b-icon">{{svgIcon icon}}</span>{{label}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

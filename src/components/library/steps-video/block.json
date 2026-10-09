@@ -1,0 +1,116 @@
+{
+  "name": "How it works, video",
+  "category": "how-it-works",
+  "description": "A video preview with a play button on top and numbered steps in columns below.",
+  "tags": ["steps", "process", "video", "explainer", "tour", "demo", "onboarding"],
+  "fieldGroups": ["Heading", "Video", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How it works",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "See a customer call become a shareable insight",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Watch the two-minute tour, then follow the same three steps with your next interview.",
+      "group": "Heading"
+    },
+    {
+      "name": "image",
+      "label": "Video preview image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Fieldnote playing back a customer interview next to its highlighted quotes",
+        "decorative": false,
+        "width": 1200,
+        "height": 675,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Video"
+    },
+    {
+      "name": "videoLink",
+      "label": "Video link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": true
+      },
+      "group": "Video"
+    },
+    {
+      "name": "videoLabel",
+      "label": "Play button label",
+      "type": "text",
+      "default": "Play video: the Fieldnote product tour",
+      "help": "Read out by screen readers.",
+      "required": true,
+      "group": "Video"
+    },
+    {
+      "name": "duration",
+      "label": "Duration",
+      "type": "text",
+      "default": "2:14",
+      "maxLength": 12,
+      "group": "Video"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "title": "Record the call",
+          "text": "Fieldnote joins Zoom, Meet or Teams and writes the transcript while you talk."
+        },
+        {
+          "title": "Highlight the moments",
+          "text": "Select any sentence to clip it, tag it and add it to a theme."
+        },
+        {
+          "title": "Share the reel",
+          "text": "Send a short reel of customer clips to the people deciding what to build next."
+        }
+      ]
+    }
+  ]
+}

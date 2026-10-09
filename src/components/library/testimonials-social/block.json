@@ -1,0 +1,260 @@
+{
+  "name": "Testimonials, social posts",
+  "category": "testimonials",
+  "description": "Customer posts shown as social media cards with handle, platform and date.",
+  "tags": ["testimonials", "social", "posts", "tweets", "mentions", "creators", "app"],
+  "fieldGroups": ["Heading", "Posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Spotted online",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "People keep posting about their streaks",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "A few of our favourite posts from people building habits with Brightloop.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 9,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Platform icon",
+          "type": "icon",
+          "default": "simple-icons:x",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "platform",
+          "label": "Platform name",
+          "type": "text",
+          "default": "X"
+        },
+        {
+          "name": "photo",
+          "label": "Avatar",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Avatar",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Display name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "handle",
+          "label": "Handle",
+          "type": "text",
+          "default": "@handle"
+        },
+        {
+          "name": "post",
+          "label": "Post",
+          "type": "textarea",
+          "default": "What they posted."
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "link",
+          "label": "Link to the post",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:x",
+          "platform": "X",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Maya Chen",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Maya Chen",
+          "handle": "@mayabuilds",
+          "post": "Day 100 of morning pages. Brightloop sent one gentle nudge at 7:30 and that was all I needed.",
+          "date": "2026-09-18",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:instagram",
+          "platform": "Instagram",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leo Santos",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Leo Santos",
+          "handle": "@leo.runs",
+          "post": "Ran every day in August. The streak calendar is now my favourite screen on my phone.",
+          "date": "2026-09-01",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:threads",
+          "platform": "Threads",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Nadia Haddad",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Nadia Haddad",
+          "handle": "@nadia.reads",
+          "post": "Finished my 12th book this year. Tiny goals of ten pages a night actually work.",
+          "date": "2026-08-27",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:bluesky",
+          "platform": "Bluesky",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Oskar Nilsson",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Oskar Nilsson",
+          "handle": "@oskar.dev",
+          "post": "Skipping a day no longer resets everything, so I do not give up after one bad Tuesday.",
+          "date": "2026-08-19",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:linkedin",
+          "platform": "LinkedIn",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Fatima Zahra",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Fatima Zahra",
+          "handle": "Product manager",
+          "post": "Our team shares a Brightloop group for no-meeting focus blocks. Three months in, we still keep it up.",
+          "date": "2026-08-11",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:tiktok",
+          "platform": "TikTok",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Jade Okoro",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Jade Okoro",
+          "handle": "@jadestretches",
+          "post": "Ten minutes of stretching, 60 days straight. My back says thank you.",
+          "date": "2026-08-02",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ]
+    }
+  ]
+}

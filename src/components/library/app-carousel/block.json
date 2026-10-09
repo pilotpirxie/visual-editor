@@ -1,0 +1,156 @@
+{
+  "name": "Applications, screenshot carousel",
+  "category": "applications",
+  "description": "Captioned app screens in phone frames that visitors swipe or step through with arrows and dots.",
+  "tags": ["app", "mobile", "screenshots", "carousel", "slider", "phone", "swipe", "tour"],
+  "fieldGroups": ["Heading", "Screens"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Inside Wayfare",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "One app for the whole trip, from tickets to the bill",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Swipe through the screens travellers open most, before, during and after the journey.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Screens",
+      "type": "list",
+      "group": "Screens",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Screenshot",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A screen from the app",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "screenshot"
+            }
+          }
+        },
+        {
+          "name": "title",
+          "label": "Caption title",
+          "type": "text",
+          "default": "Screen name",
+          "maxLength": 48
+        },
+        {
+          "name": "text",
+          "label": "Caption text",
+          "type": "textarea",
+          "default": "What people do on this screen."
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Wayfare itinerary for four days in Lisbon with trains and hotel check-ins",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "screenshot"
+            }
+          },
+          "title": "Every booking in one timeline",
+          "text": "Forward confirmation emails and Wayfare builds the itinerary."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Wayfare offline map of Alfama with saved cafés and a walking route",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "screenshot"
+            }
+          },
+          "title": "Maps that work offline",
+          "text": "Download the city before you land and skip roaming charges."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Wayfare shared expenses for three friends with who owes whom",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "screenshot"
+            }
+          },
+          "title": "Split costs as you go",
+          "text": "Snap a receipt and it is shared fairly, in any currency."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Wayfare packing list for a beach trip with items ticked off",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "screenshot"
+            }
+          },
+          "title": "Packing lists by trip type",
+          "text": "Beach, city or hiking lists that learn what you forgot last time."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Wayfare trip summary with photos, distance walked and countries visited",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "screenshot"
+            }
+          },
+          "title": "A trip worth remembering",
+          "text": "A summary of the trip with photos, routes and the places you loved."
+        }
+      ]
+    }
+  ]
+}

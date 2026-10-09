@@ -1,0 +1,110 @@
+@layer components {
+  @scope (.b-app-reviews) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+    }
+
+    .b-intro {
+      max-width: 36rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-stores {
+      --icon-size: 1.125rem;
+      margin-block-start: var(--space-2);
+    }
+
+    .b-score {
+      --stack-gap: var(--space-2);
+      --card-padding: var(--space-8);
+      background: var(--color-surface);
+    }
+
+    .b-value {
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-stars {
+      --direction: to right;
+      background: linear-gradient(
+        var(--direction),
+        var(--color-primary) calc(var(--rating) * 20%),
+        color-mix(in oklab, var(--color-text) 20%, transparent) 0
+      );
+      background-clip: text;
+      color: transparent;
+    }
+
+    .b-stars:dir(rtl) {
+      --direction: to left;
+    }
+
+    .b-score .b-stars {
+      font-size: var(--text-2xl);
+    }
+
+    .b-muted {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-award {
+      --icon-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-block-start: var(--space-2);
+      padding-block-start: var(--space-4);
+      border-block-start: var(--border-width) solid var(--color-border);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-award .icon {
+      color: var(--color-primary);
+    }
+
+    .b-reviews {
+      --grid-min: 16rem;
+    }
+
+    .b-review {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-review h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-text {
+      flex: 1;
+      color: var(--color-text-muted);
+    }
+
+    .b-author {
+      color: var(--color-text);
+    }
+
+    @media (min-width: 1024px) {
+      .b-top {
+        grid-template-columns: minmax(0, 1fr) 22rem;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

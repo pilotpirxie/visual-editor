@@ -1,0 +1,134 @@
+{
+  "name": "How it works, step tabs",
+  "category": "how-it-works",
+  "description": "Numbered step tabs that each open a screenshot with a short explanation.",
+  "tags": ["steps", "tabs", "process", "how", "walkthrough", "tour", "screenshots"],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How it works",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Take bookings online in three steps",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Pick a step to see what your clients and your team see.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Tab label",
+          "type": "text",
+          "default": "Step",
+          "required": true,
+          "maxLength": 24
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step title"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        },
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Product screenshot",
+            "decorative": false,
+            "width": 1600,
+            "height": 900,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "screenshot"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Add services",
+          "title": "List what you offer, with prices and times",
+          "text": "Add cuts, colours and treatments with their length and price. Set which stylist does what and when each one works.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The services screen with a haircut, a colour and a treatment listed with prices",
+            "decorative": false,
+            "width": 1600,
+            "height": 900,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "screenshot"
+            }
+          }
+        },
+        {
+          "label": "Share your link",
+          "title": "Put your booking page wherever clients look",
+          "text": "Add the link to Instagram, Google and your website. Clients pick a time without calling you mid-appointment.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A salon booking page on a phone showing open slots for Saturday",
+            "decorative": false,
+            "width": 1600,
+            "height": 900,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "screenshot"
+            }
+          }
+        },
+        {
+          "label": "Get booked",
+          "title": "Wake up to a full day and fewer no-shows",
+          "text": "Bookings land in your calendar with a deposit taken. Text reminders go out the day before, so chairs stay filled.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A day calendar with eight bookings and deposits marked as paid",
+            "decorative": false,
+            "width": 1600,
+            "height": 900,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "screenshot"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

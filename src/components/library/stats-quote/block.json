@@ -1,0 +1,110 @@
+{
+  "name": "Numbers, with a quote",
+  "category": "numbers",
+  "description": "Three stacked numbers beside a pull quote with a photo, name and role.",
+  "tags": ["numbers", "stats", "quote", "testimonial", "impact", "nonprofit", "case study"],
+  "fieldGroups": ["Heading", "Numbers", "Quote"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our impact",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Every hour of tutoring shows up in the classroom",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "stats",
+      "label": "Numbers",
+      "type": "list",
+      "group": "Numbers",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Number",
+          "type": "text",
+          "default": "100"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        }
+      ],
+      "default": [
+        {
+          "value": "18,400",
+          "label": "Children now reading at grade level"
+        },
+        {
+          "value": "2,300",
+          "label": "Trained volunteer tutors"
+        },
+        {
+          "value": "89%",
+          "label": "Of families stay for the full school year"
+        }
+      ]
+    },
+    {
+      "name": "countUp",
+      "label": "Count up when visible",
+      "type": "boolean",
+      "default": true,
+      "group": "Numbers"
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "By spring, kids who used to hide their books were asking to read aloud. The tutors gave them an adult who listens every single week, and the teachers noticed within a month.",
+      "required": true,
+      "group": "Quote"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Denise Okafor",
+      "group": "Quote"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Principal, Eastside Elementary",
+      "group": "Quote"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Denise Okafor",
+        "decorative": false,
+        "width": 400,
+        "height": 400,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Quote"
+    }
+  ]
+}

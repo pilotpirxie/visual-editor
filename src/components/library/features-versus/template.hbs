@@ -1,0 +1,28 @@
+<section class="b-features-versus section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-panels">
+      <div class="stack b-panel">
+        <h3 data-field="beforeTitle">{{beforeTitle}}</h3>
+        <ul class="stack b-list" role="list">
+          {{#each beforeItems}}
+          <li class="b-item" data-field="beforeItems.{{@index}}"><span class="b-mark">{{svgIcon "x"}}</span>{{text}}</li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="stack b-panel b-after">
+        <h3 data-field="afterTitle">{{afterTitle}}</h3>
+        <ul class="stack b-list" role="list">
+          {{#each afterItems}}
+          <li class="b-item" data-field="afterItems.{{@index}}"><span class="b-mark">{{svgIcon "check"}}</span>{{text}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+    {{#if showButton}}<div class="cluster b-actions"><a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a></div>{{/if}}
+  </div>
+</section>

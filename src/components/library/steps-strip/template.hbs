@@ -1,0 +1,20 @@
+<section class="b-steps-strip section">
+  <div class="container b-inner">
+    {{#if showTitle}}
+    <h2 class="b-title" data-field="title">{{title}}</h2>
+    {{else}}
+    <h2 class="visually-hidden" data-field="title">{{title}}</h2>
+    {{/if}}
+    <ol class="b-steps" role="list">
+      {{#each steps}}
+      <li class="b-step" data-field="steps.{{@index}}">
+        <p>{{text}}</p>
+        {{#unless @last}}{{svgIcon "chevron-right"}}{{/unless}}
+      </li>
+      {{/each}}
+    </ol>
+    {{#if showButton}}
+    <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    {{/if}}
+  </div>
+</section>

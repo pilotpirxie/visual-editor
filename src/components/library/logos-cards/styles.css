@@ -1,0 +1,67 @@
+@layer components {
+  @scope (.b-logos-cards) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-cards {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .b-logo {
+      padding-block-end: var(--space-4);
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-logo img {
+      width: 8rem;
+      height: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+    }
+
+    .b-result {
+      font-size: var(--text-xl);
+      text-wrap: balance;
+    }
+
+    .b-link {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      margin-block-start: auto;
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
+}

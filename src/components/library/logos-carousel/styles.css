@@ -1,0 +1,121 @@
+@layer components {
+  @scope (.b-logos-carousel) {
+    .b-inner {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      color: var(--color-text-muted);
+    }
+
+    .b-track {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+    }
+
+    .b-track:focus-visible {
+      outline-offset: var(--space-1);
+    }
+
+    .b-logos {
+      display: grid;
+      grid-auto-columns: calc((100% - 2 * var(--space-4)) / 2.5);
+      grid-auto-flow: column;
+      gap: var(--space-4);
+      padding-block-end: var(--space-2);
+    }
+
+    .b-logo {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 3 / 2;
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      scroll-snap-align: start;
+    }
+
+    .b-logo img {
+      width: 100%;
+      max-width: 8rem;
+      height: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      opacity: 0.8;
+    }
+
+    .b-controls {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--space-2);
+    }
+
+    .b-arrow {
+      --button-padding-x: var(--space-3);
+    }
+
+    .b-arrow:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .b-dots {
+      display: none;
+      flex-wrap: wrap;
+      margin-inline-end: auto;
+    }
+
+    .b-dots button {
+      display: grid;
+      place-items: center;
+      width: 1.5rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
+
+    .b-dots button::before {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: var(--radius-full);
+      background: var(--color-border);
+    }
+
+    .b-dots button[aria-current='true']::before {
+      background: var(--color-primary);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-track {
+        scroll-behavior: smooth;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .b-logos {
+        grid-auto-columns: calc((100% - 3 * var(--space-4)) / 4);
+      }
+
+      .b-dots {
+        display: flex;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-logos {
+        grid-auto-columns: calc((100% - 5 * var(--space-4)) / 6);
+      }
+    }
+  }
+}

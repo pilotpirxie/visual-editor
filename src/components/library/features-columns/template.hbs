@@ -1,0 +1,20 @@
+<section class="b-features-columns section">
+  <div class="container stack b-inner">
+    <header class="b-head">
+      <div class="stack b-title">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </div>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-columns">
+      {{#each items}}
+      <article class="stack b-column" data-field="items.{{@index}}">
+        {{#if label}}<p class="b-label">{{label}}</p>{{/if}}
+        <h3>{{title}}</h3>
+        <p class="b-muted">{{nl2br text}}</p>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

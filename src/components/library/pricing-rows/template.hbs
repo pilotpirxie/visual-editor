@@ -1,0 +1,29 @@
+<section class="b-pricing-rows section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-rows">
+      {{#each plans}}
+      <article class="b-row" {{#if featured}}data-featured{{/if}} data-field="plans.{{@index}}">
+        <div class="stack b-name">
+          <div class="cluster b-plan-head">
+            <h3>{{name}}</h3>
+            {{#if featured}}{{#if ../featuredLabel}}<p class="badge">{{../featuredLabel}}</p>{{/if}}{{/if}}
+          </div>
+          {{#if description}}<p class="b-muted">{{nl2br description}}</p>{{/if}}
+        </div>
+        <ul class="b-checks" role="list">
+          {{#each features}}
+          <li data-field="plans.{{@../index}}.features.{{@index}}">{{svgIcon "check"}}<span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+        <p class="b-price"><span class="b-amount">{{price}}</span> <span class="b-muted">{{period}}</span></p>
+        <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

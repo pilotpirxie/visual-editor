@@ -1,0 +1,21 @@
+<section class="b-stats-cards section"{{#if countUp}} data-behavior="counter"{{/if}}>
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="grid b-stats">
+      {{#each stats}}
+      <li class="card b-stat" data-field="stats.{{@index}}">
+        <span class="b-icon">{{svgIcon icon}}</span>
+        <p class="b-value"{{#if ../countUp}} data-count{{/if}}>{{value}}</p>
+        <p class="b-label">{{label}}</p>
+        {{#if trendText}}
+        <p class="b-trend">{{#if (eq trend "up")}}{{svgIcon "arrow-up"}}{{/if}}{{#if (eq trend "down")}}{{svgIcon "arrow-down"}}{{/if}}<span>{{trendText}}</span></p>
+        {{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,145 @@
+{
+  "name": "How it works, setup checklist",
+  "category": "how-it-works",
+  "description": "A heading beside a setup checklist card with a progress bar and ticked-off steps.",
+  "tags": ["steps", "checklist", "onboarding", "setup", "progress", "how", "app"],
+  "fieldGroups": ["Heading", "Checklist", "Steps", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Guided setup",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your shop is ready to sell in five steps",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The checklist remembers where you stopped, so you can add products tonight and set up shipping tomorrow.",
+      "group": "Heading"
+    },
+    {
+      "name": "cardTitle",
+      "label": "Checklist title",
+      "type": "text",
+      "default": "Set up your shop",
+      "group": "Checklist"
+    },
+    {
+      "name": "completed",
+      "label": "Steps done",
+      "type": "number",
+      "default": 2,
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "group": "Checklist"
+    },
+    {
+      "name": "total",
+      "label": "Steps in total",
+      "type": "number",
+      "default": 5,
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "group": "Checklist"
+    },
+    {
+      "name": "progressLabel",
+      "label": "Progress label",
+      "type": "text",
+      "default": "steps done",
+      "group": "Checklist"
+    },
+    {
+      "name": "doneLabel",
+      "label": "Done label for screen readers",
+      "type": "text",
+      "default": "Done:",
+      "group": "Checklist"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "done",
+          "label": "Done",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "done": true,
+          "title": "Add your first product",
+          "text": "Photos, a price and how many you have in stock."
+        },
+        {
+          "done": true,
+          "title": "Pick a theme",
+          "text": "Start from one of twelve themes and add your logo and colours."
+        },
+        {
+          "done": false,
+          "title": "Connect payments",
+          "text": "Accept cards, Apple Pay and Google Pay. Payouts arrive in two working days."
+        },
+        {
+          "done": false,
+          "title": "Set shipping rates",
+          "text": "Flat rates, free shipping over a total, or live carrier prices."
+        },
+        {
+          "done": false,
+          "title": "Open your doors",
+          "text": "Remove the password page and share your shop with the world."
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start your free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Button"
+    }
+  ]
+}

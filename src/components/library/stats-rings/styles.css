@@ -1,0 +1,70 @@
+@layer components {
+  @scope (.b-stats-rings) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      align-items: center;
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-rings {
+      --grid-min: 8rem;
+      --grid-gap: var(--space-8) var(--space-4);
+    }
+
+    .b-item {
+      --stack-gap: var(--space-2);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-ring {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 8rem;
+      aspect-ratio: 1;
+      margin-block-end: var(--space-2);
+      border-radius: var(--radius-full);
+      background: conic-gradient(
+        var(--color-primary) calc(var(--value) * 1%),
+        color-mix(in oklab, var(--color-primary) 14%, transparent) 0
+      );
+    }
+
+    .b-ring::before {
+      content: '';
+      position: absolute;
+      inset: var(--space-3);
+      border-radius: inherit;
+      background: var(--color-background);
+    }
+
+    .b-number {
+      position: relative;
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-heading);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .b-label {
+      font-size: var(--text-lg);
+    }
+
+    .b-text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+  }
+}

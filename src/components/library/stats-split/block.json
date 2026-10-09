@@ -1,0 +1,107 @@
+{
+  "name": "Numbers, heading and grid",
+  "category": "numbers",
+  "description": "Heading, text and a button on one side, four numbers in a divided grid on the other.",
+  "tags": ["numbers", "stats", "about", "company", "grid", "split", "two columns"],
+  "fieldGroups": ["Heading", "Button", "Numbers"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "About Harbor & Pine",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A small studio with a long track record",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We have designed and built homes along the coast since 2009. Every project is led by one of our three founders, from the first sketch to the day you get the keys.",
+      "group": "Heading"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Meet the studio",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "stats",
+      "label": "Numbers",
+      "type": "list",
+      "group": "Numbers",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Number",
+          "type": "text",
+          "default": "100"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        }
+      ],
+      "default": [
+        {
+          "value": "17",
+          "label": "Years in practice"
+        },
+        {
+          "value": "140+",
+          "label": "Homes completed"
+        },
+        {
+          "value": "9",
+          "label": "Regional design awards"
+        },
+        {
+          "value": "96%",
+          "label": "Clients who would hire us again"
+        }
+      ]
+    },
+    {
+      "name": "countUp",
+      "label": "Count up when visible",
+      "type": "boolean",
+      "default": true,
+      "group": "Numbers"
+    }
+  ]
+}

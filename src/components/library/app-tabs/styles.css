@@ -1,0 +1,101 @@
+@layer components {
+  @scope (.b-app-tabs) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro,
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-tablist {
+      display: flex;
+      gap: var(--space-2);
+      max-width: 100%;
+      margin-inline: auto;
+      overflow-x: auto;
+    }
+
+    .b-tab {
+      --icon-size: 1.125rem;
+      display: inline-flex;
+      flex: none;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      padding: var(--space-2) var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: none;
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-bold);
+      cursor: pointer;
+      transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .b-tab[aria-selected='true'] {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-panels {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-panel {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+      max-width: 56rem;
+      margin-inline: auto;
+    }
+
+    .b-panel:focus-visible {
+      outline-offset: var(--space-2);
+    }
+
+    .b-device {
+      display: grid;
+      place-items: center;
+      padding: var(--space-8) var(--space-4);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+    }
+
+    .b-phone {
+      --device-width: 12rem;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-copy h3 {
+      font-size: var(--text-2xl);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-12);
+      }
+
+      .b-phone {
+        --device-width: 15rem;
+      }
+    }
+  }
+}

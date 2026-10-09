@@ -1,0 +1,24 @@
+<section class="b-features-audiences section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-grid">
+      {{#each items}}
+      <article class="card stack b-card" {{#if featured}}data-featured{{/if}} data-field="items.{{@index}}">
+        <span class="b-icon">{{svgIcon icon}}</span>
+        <h3>{{title}}</h3>
+        <p class="b-muted">{{nl2br text}}</p>
+        {{#if points.length}}
+        <ul class="stack b-points" role="list">
+          {{#each points}}<li>{{svgIcon "check"}}<span>{{text}}</span></li>{{/each}}
+        </ul>
+        {{/if}}
+        <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

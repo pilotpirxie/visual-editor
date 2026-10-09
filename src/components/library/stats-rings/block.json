@@ -1,0 +1,87 @@
+{
+  "name": "Numbers, percentage rings",
+  "category": "numbers",
+  "description": "Percentages shown as filled rings with the value in the middle and a label below.",
+  "tags": ["numbers", "stats", "percent", "rings", "circles", "satisfaction", "uptime", "metrics"],
+  "fieldGroups": ["Heading", "Rings"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Support you can count on",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How our help desk performed over the last 12 months",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Measured across 182,000 conversations with Parcelpoint customers between October 2025 and September 2026.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Rings",
+      "type": "list",
+      "group": "Rings",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "percent",
+          "label": "Percent",
+          "type": "number",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 0.1
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "percent": 94,
+          "label": "Customer satisfaction",
+          "text": "Rated good or great after a chat"
+        },
+        {
+          "percent": 99.9,
+          "label": "Tracking uptime",
+          "text": "Across web, app and API"
+        },
+        {
+          "percent": 81,
+          "label": "Solved in one reply",
+          "text": "No back and forth needed"
+        },
+        {
+          "percent": 68,
+          "label": "Answered in 5 minutes",
+          "text": "During business hours"
+        }
+      ]
+    }
+  ]
+}

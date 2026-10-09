@@ -1,0 +1,29 @@
+<section class="b-features-spotlight section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <article class="b-spot">
+      <div class="stack b-spot-copy">
+        {{#if spotEyebrow}}<p class="badge" data-field="spotEyebrow">{{spotEyebrow}}</p>{{/if}}
+        <h3 class="b-spot-title" data-field="spotTitle">{{spotTitle}}</h3>
+        {{#if spotText}}<p class="b-muted" data-field="spotText">{{nl2br spotText}}</p>{{/if}}
+        {{#if spotLinkLabel}}<a class="b-link" href="{{href spotLink}}" {{linkAttrs spotLink}} data-field="spotLinkLabel">{{spotLinkLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+      </div>
+      <div class="media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
+    </article>
+    {{#if items.length}}
+    <ul class="grid b-grid" role="list">
+      {{#each items}}
+      <li class="stack b-item" data-field="items.{{@index}}">
+        <span class="b-icon">{{svgIcon icon}}</span>
+        <h3>{{title}}</h3>
+        <p class="b-muted">{{nl2br text}}</p>
+      </li>
+      {{/each}}
+    </ul>
+    {{/if}}
+  </div>
+</section>

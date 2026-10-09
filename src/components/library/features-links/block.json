@@ -1,0 +1,100 @@
+{
+  "name": "Features, linked cards",
+  "category": "features",
+  "description": "Cards that each link to a product area or a section of your docs, with an arrow.",
+  "tags": ["features", "cards", "links", "docs", "help", "product areas", "explore"],
+  "fieldGroups": ["Heading", "Items", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Explore",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Find your way around Fieldnote",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Guides for every part of the product, written by the people who build it.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Cards",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "title", "label": "Title", "type": "text", "default": "Product area" },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What people find behind this link."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": { "type": "url", "url": "#", "newTab": false }
+        }
+      ],
+      "default": [
+        {
+          "title": "Getting started",
+          "text": "Invite your team, connect a calendar and run your first recorded interview.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "title": "Interview guides",
+          "text": "Write discussion guides, share them for review and reuse them across studies.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "title": "Tags and analysis",
+          "text": "Build a shared tag list, cluster highlights into themes and spot patterns.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "title": "Reports and sharing",
+          "text": "Turn themes into a report with clips, and choose exactly who can see it.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "title": "Integrations",
+          "text": "Send highlights to Slack, Jira and Notion, or pull recordings from Zoom.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "title": "Security and admin",
+          "text": "Single sign-on, roles, retention rules and the audit log for workspace owners.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        }
+      ]
+    },
+    {
+      "name": "columns",
+      "label": "Columns on desktop",
+      "type": "select",
+      "default": "3",
+      "group": "Layout",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ]
+    }
+  ]
+}

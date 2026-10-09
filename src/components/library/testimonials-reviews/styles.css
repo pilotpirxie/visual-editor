@@ -1,0 +1,110 @@
+@layer components {
+  @scope (.b-testimonials-reviews) {
+    .b-layout {
+      display: grid;
+      gap: var(--space-12);
+      align-items: start;
+    }
+
+    .b-summary {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-score {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .b-value {
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-heading);
+      line-height: 1;
+    }
+
+    .b-stars {
+      display: inline-block;
+      background: linear-gradient(
+        to right,
+        var(--color-primary) calc(var(--rating) * 20%),
+        color-mix(in oklab, var(--color-text) 20%, transparent) 0
+      );
+      background-clip: text;
+      color: transparent;
+      font-size: var(--text-lg);
+      letter-spacing: 0.1em;
+    }
+
+    .b-stars:dir(rtl) {
+      scale: -1 1;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-bars {
+      --stack-gap: var(--space-2);
+      list-style: none;
+      padding: 0;
+      font-size: var(--text-sm);
+    }
+
+    .b-bar {
+      display: grid;
+      grid-template-columns: 4.5rem 1fr 2.5rem;
+      gap: var(--space-3);
+      align-items: center;
+    }
+
+    .b-track {
+      height: var(--space-2);
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+      box-shadow: inset 0 0 0 var(--border-width) var(--color-border);
+    }
+
+    .b-fill {
+      display: block;
+      width: calc(var(--value) * 1%);
+      height: 100%;
+      border-radius: inherit;
+      background: var(--color-primary);
+    }
+
+    .b-bar > :last-child {
+      text-align: end;
+    }
+
+    .b-link {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-review {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-name {
+      color: var(--color-text);
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: 1fr 2fr;
+      }
+    }
+  }
+}

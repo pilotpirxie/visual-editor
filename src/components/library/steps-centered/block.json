@@ -1,0 +1,74 @@
+{
+  "name": "How it works, minimal centered",
+  "category": "how-it-works",
+  "description": "A centered heading and a compact row of icon steps joined by a dashed line.",
+  "tags": ["steps", "process", "minimal", "compact", "icons", "shop", "delivery", "order"],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Made to order",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Order today, wear it by Friday",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 5,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "title",
+          "label": "Label",
+          "type": "text",
+          "default": "Step",
+          "maxLength": 40
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "One short line about this step.",
+          "maxLength": 90
+        }
+      ],
+      "default": [
+        {
+          "icon": "shopping-cart",
+          "title": "Order",
+          "text": "Choose your size and check out in a minute."
+        },
+        {
+          "icon": "send",
+          "title": "Ship",
+          "text": "We sew it to order and send it within two days."
+        },
+        {
+          "icon": "smile",
+          "title": "Enjoy",
+          "text": "Free returns for 30 days if the fit is not right."
+        }
+      ]
+    }
+  ]
+}

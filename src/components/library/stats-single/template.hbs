@@ -1,0 +1,8 @@
+<section class="b-stats-single section"{{#if countUp}} data-behavior="counter"{{/if}}>
+  <div class="container stack b-inner">
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <p class="b-value" data-field="value"{{#if countUp}} data-count{{/if}}>{{value}}</p>
+    <h2 class="b-title" data-field="title">{{title}}</h2>
+    {{#if source}}<p class="b-source" data-field="source">{{source}}</p>{{/if}}
+  </div>
+</section>

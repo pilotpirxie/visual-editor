@@ -1,0 +1,97 @@
+{
+  "name": "Features, developer API",
+  "category": "features",
+  "description": "A code sample in a dark editor card beside a list of API features and a docs button.",
+  "tags": ["features", "developers", "api", "code", "sdk", "docs", "technical"],
+  "fieldGroups": ["Heading", "Items", "Code", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "For developers",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Send your first invoice in ten lines of code",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "A REST API and typed SDKs for Node, Python and Go, with test keys that never touch real money.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "icon", "label": "Icon", "type": "icon", "default": "code" },
+        { "name": "title", "label": "Title", "type": "text", "default": "Feature title" },
+        { "name": "text", "label": "Text", "type": "textarea", "default": "One sentence about it." }
+      ],
+      "default": [
+        {
+          "icon": "terminal",
+          "title": "Typed SDKs",
+          "text": "Autocomplete for every endpoint, generated from the same spec as our docs."
+        },
+        {
+          "icon": "workflow",
+          "title": "Webhooks you can replay",
+          "text": "Every event is signed, retried for three days and replayable from the dashboard."
+        },
+        {
+          "icon": "key",
+          "title": "Test mode by default",
+          "text": "Separate keys and data for testing, so a typo never bills a real customer."
+        }
+      ]
+    },
+    {
+      "name": "fileName",
+      "label": "File name",
+      "type": "text",
+      "default": "send-invoice.ts",
+      "group": "Code"
+    },
+    {
+      "name": "code",
+      "label": "Code",
+      "type": "textarea",
+      "default": "import { Ledgerly } from '@ledgerly/node';\n\nconst ledgerly = new Ledgerly(process.env.LEDGERLY_KEY);\n\nconst invoice = await ledgerly.invoices.create({\n  customer: 'cus_8fK2',\n  currency: 'eur',\n  lines: [{ description: 'Pro plan, October', amount: 4900 }],\n  send: true,\n});\n\nconsole.log(invoice.status);",
+      "group": "Code"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Read the docs",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "primary"
+      },
+      "visibleWhen": { "field": "showButton", "equals": true },
+      "group": "Button"
+    }
+  ]
+}

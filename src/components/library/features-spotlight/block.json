@@ -1,0 +1,114 @@
+{
+  "name": "Features, spotlight",
+  "category": "features",
+  "description": "One flagship feature in a large panel with an image, followed by a row of three smaller features.",
+  "tags": ["features", "spotlight", "flagship", "launch", "new", "highlight", "image"],
+  "fieldGroups": ["Heading", "Spotlight", "Items"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "What's new",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Plan the whole trip in one shared itinerary",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Wayfare 5 brings flights, stays and plans for the group into one place everyone can edit.",
+      "group": "Heading"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A shared trip itinerary with flights, a hotel and day plans on a map",
+        "decorative": false,
+        "width": 1600,
+        "height": 900,
+        "placeholder": { "ratio": "16:9", "subject": "screenshot" }
+      },
+      "group": "Spotlight"
+    },
+    {
+      "name": "spotEyebrow",
+      "label": "Spotlight label",
+      "type": "text",
+      "default": "New in Wayfare 5",
+      "group": "Spotlight"
+    },
+    {
+      "name": "spotTitle",
+      "label": "Spotlight title",
+      "type": "text",
+      "default": "Live itineraries the whole group can edit",
+      "group": "Spotlight"
+    },
+    {
+      "name": "spotText",
+      "label": "Spotlight text",
+      "type": "textarea",
+      "default": "Forward a booking email and it appears on the day it belongs to. Changes show up for everyone instantly, even offline.",
+      "group": "Spotlight"
+    },
+    {
+      "name": "spotLinkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "See how it works",
+      "group": "Spotlight"
+    },
+    {
+      "name": "spotLink",
+      "label": "Link",
+      "type": "link",
+      "default": { "type": "url", "url": "#", "newTab": false },
+      "group": "Spotlight"
+    },
+    {
+      "name": "items",
+      "label": "Smaller features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "icon", "label": "Icon", "type": "icon", "default": "check" },
+        { "name": "title", "label": "Title", "type": "text", "default": "Feature title" },
+        { "name": "text", "label": "Text", "type": "textarea", "default": "One sentence about it." }
+      ],
+      "default": [
+        {
+          "icon": "dollar",
+          "title": "Split costs fairly",
+          "text": "Log who paid for what and settle up in any currency at the end."
+        },
+        {
+          "icon": "map-pin",
+          "title": "Offline maps",
+          "text": "Every saved place is on a map that works without a signal."
+        },
+        {
+          "icon": "bell",
+          "title": "Gate and delay alerts",
+          "text": "Know about changes before the airport screens do."
+        }
+      ]
+    }
+  ]
+}

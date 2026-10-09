@@ -1,0 +1,84 @@
+{
+  "name": "How it works, numbered cards",
+  "category": "how-it-works",
+  "description": "A heading and a grid of numbered step cards, each with an icon.",
+  "tags": ["steps", "process", "how", "cards", "icons", "setup", "onboarding"],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Getting started",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Send your first invoice before lunch",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Four short steps take you from sign-up to getting paid. No accountant needed.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "icon": "credit-card",
+          "title": "Connect your bank",
+          "text": "Link your business account so payments are matched to invoices automatically."
+        },
+        {
+          "icon": "users",
+          "title": "Import your clients",
+          "text": "Upload a spreadsheet or pull contacts from Gmail. Addresses and tax numbers come along."
+        },
+        {
+          "icon": "send",
+          "title": "Send your first invoice",
+          "text": "Pick a template, add your logo and email it with a pay-now link in one click."
+        },
+        {
+          "icon": "bell",
+          "title": "Get paid on time",
+          "text": "Polite reminders go out for you three days before and after the due date."
+        }
+      ]
+    }
+  ]
+}

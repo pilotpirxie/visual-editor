@@ -1,0 +1,331 @@
+{
+  "name": "Logo cloud, sponsor tiers",
+  "category": "logo-clouds",
+  "description": "Sponsor logos grouped by tier, larger for higher tiers, with a button to become a sponsor.",
+  "tags": ["logos", "sponsors", "partners", "tiers", "event", "conference", "open source"],
+  "fieldGroups": ["Heading", "Tiers", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Sponsors",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Made possible by our sponsors",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Northside Dev Days is run by volunteers. These companies cover the venue, travel grants and the free livestream.",
+      "group": "Heading"
+    },
+    {
+      "name": "tiers",
+      "label": "Tiers",
+      "type": "list",
+      "group": "Tiers",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Tier name",
+          "type": "text",
+          "default": "Tier"
+        },
+        {
+          "name": "size",
+          "label": "Logo size",
+          "type": "select",
+          "default": "medium",
+          "options": [
+            {
+              "value": "large",
+              "label": "Large"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            }
+          ]
+        },
+        {
+          "name": "logos",
+          "label": "Logos",
+          "type": "list",
+          "minItems": 1,
+          "maxItems": 12,
+          "itemLabel": "company",
+          "itemFields": [
+            {
+              "name": "company",
+              "label": "Company",
+              "type": "text",
+              "default": "Company"
+            },
+            {
+              "name": "image",
+              "label": "Logo",
+              "type": "image",
+              "default": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Company logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ],
+          "default": [
+            {
+              "company": "Company",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Company",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "name": "Platinum",
+          "size": "large",
+          "logos": [
+            {
+              "company": "Northwind",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Northwind",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Orbit Labs",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Orbit Labs",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Gold",
+          "size": "medium",
+          "logos": [
+            {
+              "company": "Ledgerly",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ledgerly",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Brightpath",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Brightpath",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Copperline",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Copperline",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Community",
+          "size": "small",
+          "logos": [
+            {
+              "company": "Fernway",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Fernway",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Tidewater",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tidewater",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Kestrel Air",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Kestrel Air",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Lumen Health",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Lumen Health",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Halcyon Bank",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Halcyon Bank",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Pinecrest",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Pinecrest",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "group": "Button",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "default": {
+        "label": "Become a sponsor",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      }
+    }
+  ]
+}

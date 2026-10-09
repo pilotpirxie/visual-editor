@@ -1,0 +1,28 @@
+<section class="b-pricing-services section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="grid b-packages">
+      {{#each packages}}
+      <article class="card stack b-package" data-field="packages.{{@index}}">
+        <span class="b-icon">{{svgIcon icon}}</span>
+        <h3>{{name}}</h3>
+        {{#if description}}<p class="b-muted">{{nl2br description}}</p>{{/if}}
+        <div class="b-meta">
+          <p>{{#if ../fromLabel}}<span class="b-muted">{{../fromLabel}}</span> {{/if}}<span class="b-amount">{{price}}</span>{{#if period}} <span class="b-muted">{{period}}</span>{{/if}}</p>
+          {{#if duration}}<p class="b-duration">{{svgIcon "clock"}}<span><span class="visually-hidden">{{../durationLabel}}: </span>{{duration}}</span></p>{{/if}}
+        </div>
+        <ul class="b-checks" role="list">
+          {{#each features}}
+          <li data-field="packages.{{@../index}}.features.{{@index}}">{{svgIcon "check"}}<span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

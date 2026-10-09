@@ -1,0 +1,125 @@
+{
+  "name": "Features, by audience",
+  "category": "features",
+  "description": "One card per audience, each with what it gets, a short checklist and its own button.",
+  "tags": ["features", "audiences", "segments", "use cases", "who it is for", "cards", "personas"],
+  "fieldGroups": ["Heading", "Items"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Who it's for",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Built for every way you bill for your time",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Tally tracks hours, sends invoices and chases late payments, whether you work alone or with forty people.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Audiences",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "icon", "label": "Icon", "type": "icon", "default": "user" },
+        { "name": "title", "label": "Title", "type": "text", "default": "For someone" },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What this audience gets."
+        },
+        {
+          "name": "points",
+          "label": "Checklist",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 6,
+          "itemLabel": "text",
+          "itemFields": [
+            { "name": "text", "label": "Text", "type": "text", "default": "Included" }
+          ],
+          "default": []
+        },
+        { "name": "featured", "label": "Highlight this card", "type": "boolean", "default": false },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Learn more",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "user",
+          "title": "For freelancers",
+          "text": "Track time from your phone and get paid before the next project starts.",
+          "points": [
+            { "text": "One-tap timer" },
+            { "text": "Invoices in your own branding" },
+            { "text": "Card and bank payments" }
+          ],
+          "featured": false,
+          "button": {
+            "label": "Start free",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          }
+        },
+        {
+          "icon": "users",
+          "title": "For agencies",
+          "text": "See every client's budget burn and bill retainers without spreadsheets.",
+          "points": [
+            { "text": "Budgets per project" },
+            { "text": "Retainer and milestone billing" },
+            { "text": "Profitability reports" }
+          ],
+          "featured": true,
+          "button": {
+            "label": "Book a demo",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "primary"
+          }
+        },
+        {
+          "icon": "briefcase",
+          "title": "For in-house teams",
+          "text": "Charge time back to departments and keep finance happy at month end.",
+          "points": [
+            { "text": "Cost centers and approvals" },
+            { "text": "Single sign-on" },
+            { "text": "Exports to your ERP" }
+          ],
+          "featured": false,
+          "button": {
+            "label": "Talk to sales",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          }
+        }
+      ]
+    }
+  ]
+}

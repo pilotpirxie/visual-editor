@@ -1,0 +1,104 @@
+@layer components {
+  @scope (.b-pricing-enterprise) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin: 0 auto var(--space-4);
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-plans {
+      --grid-min: 18rem;
+    }
+
+    .b-plan {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-plan[data-featured] {
+      --card-shadow: var(--shadow-lg);
+      border-color: var(--color-primary);
+      outline: 1px solid var(--color-primary);
+    }
+
+    .b-plan-head {
+      --cluster-justify: space-between;
+      --cluster-gap: var(--space-2);
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-checks {
+      display: grid;
+      flex: 1;
+      align-content: start;
+      gap: var(--space-2) var(--space-6);
+    }
+
+    .b-checks li {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .b-checks .icon {
+      margin-block: 0.125em;
+      color: var(--color-primary);
+    }
+
+    .b-enterprise {
+      --color-background: var(--theme-dark-background);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      display: grid;
+      gap: var(--space-6);
+      align-items: center;
+      padding: var(--space-8);
+      border-radius: var(--card-radius);
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-perks {
+      margin-top: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .b-perks {
+        grid-template-columns: repeat(2, max-content);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-enterprise {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: var(--space-12);
+        padding: var(--space-12);
+      }
+    }
+  }
+}

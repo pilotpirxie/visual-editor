@@ -1,0 +1,95 @@
+{
+  "name": "Features, card carousel",
+  "category": "features",
+  "description": "Feature cards in a swipeable row with previous and next buttons and dots, for long feature lists on phones.",
+  "tags": ["features", "carousel", "slider", "swipe", "cards", "mobile"],
+  "fieldGroups": ["Heading", "Items"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Features",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Small details that save hours every week",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Swipe through the features research teams mention most when they tell us why they stayed.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 2,
+      "maxItems": 12,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "sparkles"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Feature title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one or two sentences."
+        }
+      ],
+      "default": [
+        {
+          "icon": "search",
+          "title": "Search every call",
+          "text": "Find each time a customer mentioned a competitor, across years of interviews."
+        },
+        {
+          "icon": "globe",
+          "title": "30 languages",
+          "text": "Interview in Portuguese, read in English, quote in both."
+        },
+        {
+          "icon": "users",
+          "title": "Observer rooms",
+          "text": "Stakeholders watch live and leave timestamped notes without joining the call."
+        },
+        {
+          "icon": "lock",
+          "title": "Automatic redaction",
+          "text": "Names, emails and card numbers are blurred from transcripts before anyone reads them."
+        },
+        {
+          "icon": "layers",
+          "title": "Study templates",
+          "text": "Start a usability test or a churn interview from a template your team agreed on."
+        },
+        {
+          "icon": "download",
+          "title": "Export anything",
+          "text": "Transcripts, clips and tags leave as plain files whenever you want them."
+        }
+      ]
+    }
+  ]
+}

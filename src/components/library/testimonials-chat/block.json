@@ -1,0 +1,157 @@
+{
+  "name": "Testimonials, chat messages",
+  "category": "testimonials",
+  "description": "Quotes shown as a chat thread with bubbles, avatars and times.",
+  "tags": ["testimonials", "chat", "messages", "conversation", "community", "coaching", "quotes"],
+  "fieldGroups": ["Heading", "Chat"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "From the group chat",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Messages our coaching clients send us",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every client gets a weekly check-in with their coach. Here is what lands in our inbox.",
+      "group": "Heading"
+    },
+    {
+      "name": "chatTitle",
+      "label": "Chat title",
+      "type": "text",
+      "default": "Strong Start, autumn group",
+      "group": "Chat"
+    },
+    {
+      "name": "items",
+      "label": "Messages",
+      "type": "list",
+      "group": "Chat",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Avatar",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Avatar",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "time",
+          "label": "Time",
+          "type": "text",
+          "default": "9:00",
+          "maxLength": 16
+        },
+        {
+          "name": "message",
+          "label": "Message",
+          "type": "textarea",
+          "default": "What they wrote."
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Bea Lindqvist",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Bea",
+          "time": "7:12",
+          "message": "Deadlift PR this morning, 85 kg! Six months ago I could not touch my toes."
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Marco Ricci",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Marco",
+          "time": "7:40",
+          "message": "Slept eight hours three nights in a row. The evening routine is working."
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Yasmin Khalil",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Yasmin",
+          "time": "12:05",
+          "message": "Climbed the stairs to my office on the 5th floor without stopping. Small win, big smile."
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tom Becker",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Tom",
+          "time": "18:31",
+          "message": "My doctor asked what I changed. I showed her the plan you wrote me."
+        }
+      ]
+    }
+  ]
+}

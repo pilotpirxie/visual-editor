@@ -1,0 +1,186 @@
+{
+  "name": "Applications, what’s new",
+  "category": "applications",
+  "description": "Release notes for a new app version, tagged new, improved or fixed, next to a phone screenshot.",
+  "tags": [
+    "app",
+    "mobile",
+    "release notes",
+    "changelog",
+    "update",
+    "version",
+    "what's new",
+    "phone"
+  ],
+  "fieldGroups": ["Heading", "Notes", "Labels", "Screenshot", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "version",
+      "label": "Version badge",
+      "type": "text",
+      "default": "Version 4.2 · 12 September 2026",
+      "maxLength": 48,
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Race week, planned for you",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Pace 4.2 tapers your training before race day and brings the most requested fixes from our runners’ forum.",
+      "group": "Heading"
+    },
+    {
+      "name": "notes",
+      "label": "Release notes",
+      "type": "list",
+      "group": "Notes",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "type",
+          "label": "Type",
+          "type": "select",
+          "default": "new",
+          "options": [
+            {
+              "value": "new",
+              "label": "New"
+            },
+            {
+              "value": "improved",
+              "label": "Improved"
+            },
+            {
+              "value": "fixed",
+              "label": "Fixed"
+            }
+          ]
+        },
+        {
+          "name": "text",
+          "label": "Note",
+          "type": "text",
+          "default": "What changed, in one line.",
+          "maxLength": 120
+        }
+      ],
+      "default": [
+        {
+          "type": "new",
+          "text": "Race week mode cuts volume, keeps intensity and plans your pre-race meals"
+        },
+        {
+          "type": "new",
+          "text": "Lock screen widget with today’s session and target pace"
+        },
+        {
+          "type": "improved",
+          "text": "GPS locks on twice as fast in tall city streets"
+        },
+        {
+          "type": "improved",
+          "text": "Splits now show elevation gain for every kilometre"
+        },
+        {
+          "type": "fixed",
+          "text": "Heart rate straps no longer disconnect after 40 minutes"
+        }
+      ]
+    },
+    {
+      "name": "newLabel",
+      "label": "New label",
+      "type": "text",
+      "default": "New",
+      "maxLength": 16,
+      "group": "Labels"
+    },
+    {
+      "name": "improvedLabel",
+      "label": "Improved label",
+      "type": "text",
+      "default": "Improved",
+      "maxLength": 16,
+      "group": "Labels"
+    },
+    {
+      "name": "fixedLabel",
+      "label": "Fixed label",
+      "type": "text",
+      "default": "Fixed",
+      "maxLength": 16,
+      "group": "Labels"
+    },
+    {
+      "name": "screenshot",
+      "label": "Screenshot",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Pace race week plan with a shorter long run and a carb-loading reminder",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Screenshot"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Update now",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "All release notes",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "ghost"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    }
+  ]
+}

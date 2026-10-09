@@ -46,15 +46,22 @@ describe('filterComponents', () => {
       'nav-topbar',
     ]);
     expect(ids('call to action')).toEqual([
+      'app-banner',
       'cta-banner',
       'cta-centered',
       'cta-image',
       'cta-two-buttons',
+      'steps-cta',
     ]);
   });
 
   it('requires every word to match', () => {
-    expect(ids('grid icons')).toEqual(['features-bento', 'features-grid-3']);
+    expect(ids('grid icons')).toEqual([
+      'features-bento',
+      'features-grid-3',
+      'features-quote',
+      'steps-cards',
+    ]);
     expect(ids('grid pricing')).toEqual([]);
   });
 });

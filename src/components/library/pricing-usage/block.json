@@ -1,0 +1,149 @@
+{
+  "name": "Pricing, usage based",
+  "category": "pricing",
+  "description": "A table of volume tiers with a worked example of what a typical month costs.",
+  "tags": ["pricing", "usage", "volume", "pay as you go", "metered", "api", "table", "tiers"],
+  "fieldGroups": ["Heading", "Tiers", "Example"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Pay as you send",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Only pay for the emails you send",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every account gets 10,000 emails a month for free. After that, the price per email drops as you send more.",
+      "group": "Heading"
+    },
+    {
+      "name": "rangeLabel",
+      "label": "Volume column heading",
+      "type": "text",
+      "default": "Emails per month",
+      "group": "Tiers"
+    },
+    {
+      "name": "priceLabel",
+      "label": "Price column heading",
+      "type": "text",
+      "default": "Price",
+      "group": "Tiers"
+    },
+    {
+      "name": "tiers",
+      "label": "Tiers",
+      "type": "list",
+      "group": "Tiers",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "range",
+      "itemFields": [
+        {
+          "name": "range",
+          "label": "Volume",
+          "type": "text",
+          "default": "Up to 1,000"
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$1 per 1,000"
+        }
+      ],
+      "default": [
+        {
+          "range": "First 10,000",
+          "price": "Free"
+        },
+        {
+          "range": "10,001 – 100,000",
+          "price": "$0.80 per 1,000"
+        },
+        {
+          "range": "100,001 – 1 million",
+          "price": "$0.60 per 1,000"
+        },
+        {
+          "range": "1 million – 10 million",
+          "price": "$0.40 per 1,000"
+        },
+        {
+          "range": "More than 10 million",
+          "price": "Volume pricing"
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note under the table",
+      "type": "textarea",
+      "default": "Prices in US dollars. No minimum spend, and you can set a monthly limit.",
+      "group": "Tiers"
+    },
+    {
+      "name": "exampleLabel",
+      "label": "Example label",
+      "type": "text",
+      "default": "Example",
+      "group": "Example"
+    },
+    {
+      "name": "exampleTitle",
+      "label": "Example title",
+      "type": "text",
+      "default": "Sending 50,000 emails a month",
+      "group": "Example"
+    },
+    {
+      "name": "examplePrice",
+      "label": "Example price",
+      "type": "text",
+      "default": "$32",
+      "group": "Example"
+    },
+    {
+      "name": "examplePeriod",
+      "label": "Example period",
+      "type": "text",
+      "default": "per month",
+      "group": "Example"
+    },
+    {
+      "name": "exampleText",
+      "label": "Example breakdown",
+      "type": "textarea",
+      "default": "The first 10,000 emails are free. The next 40,000 cost $0.80 per 1,000.",
+      "group": "Example"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get an API key",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Example"
+    }
+  ]
+}

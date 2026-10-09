@@ -1,0 +1,109 @@
+@layer components {
+  @scope (.b-pricing-tickets) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-tickets {
+      --grid-min: 17rem;
+    }
+
+    .b-ticket {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+      box-shadow: var(--card-shadow);
+    }
+
+    .b-stub {
+      --stack-gap: var(--space-2);
+      padding: var(--space-6);
+    }
+
+    .b-ticket-head {
+      --cluster-justify: space-between;
+      --cluster-gap: var(--space-2);
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    [data-sold-out] .b-amount {
+      color: var(--color-text-muted);
+      text-decoration: line-through;
+    }
+
+    .b-window,
+    .b-checks li {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .b-window {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-6);
+      position: relative;
+      flex: 1;
+      padding: var(--space-6);
+      border-top: calc(var(--border-width) * 2) dashed var(--color-border);
+    }
+
+    .b-body::before,
+    .b-body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      translate: -50% -50%;
+    }
+
+    .b-body::after {
+      left: 100%;
+    }
+
+    .b-checks {
+      display: grid;
+      flex: 1;
+      align-content: start;
+      gap: var(--space-2);
+    }
+
+    .b-checks .icon {
+      margin-block: 0.125em;
+      color: var(--color-primary);
+    }
+
+    .b-disabled {
+      --btn-color: var(--color-text-muted);
+      cursor: not-allowed;
+    }
+  }
+}

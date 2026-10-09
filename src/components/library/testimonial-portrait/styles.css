@@ -1,0 +1,58 @@
+@layer components {
+  @scope (.b-testimonial-portrait) {
+    .b-layout {
+      display: grid;
+      gap: var(--space-8) var(--space-16);
+      align-items: center;
+    }
+
+    .b-photo {
+      width: min(100%, 26rem);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-mark {
+      --icon-size: 3rem;
+      color: var(--color-primary);
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      line-height: var(--line-height-tight);
+      text-wrap: pretty;
+    }
+
+    .b-person {
+      padding-block-start: var(--space-6);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .b-role {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: 2fr 3fr;
+      }
+
+      .b-photo {
+        width: 100%;
+      }
+
+      .b-quote {
+        font-size: var(--text-4xl);
+      }
+    }
+  }
+}

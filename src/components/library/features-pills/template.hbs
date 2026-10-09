@@ -1,0 +1,18 @@
+<section class="b-features-pills section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="cluster b-cloud" role="list">
+      {{#each items}}
+      <li class="b-pill" data-field="items.{{@index}}">{{svgIcon icon}}{{label}}</li>
+      {{/each}}
+      {{#if more}}<li class="b-pill b-more" data-field="more">{{more}}</li>{{/if}}
+    </ul>
+    {{#if showButton}}
+    <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    {{/if}}
+  </div>
+</section>

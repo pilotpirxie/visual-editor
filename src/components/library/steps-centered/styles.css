@@ -1,0 +1,88 @@
+@layer components {
+  @scope (.b-steps-centered) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+      max-width: 36rem;
+    }
+
+    .b-steps {
+      display: grid;
+      gap: var(--space-6);
+      width: min(100%, 56rem);
+      isolation: isolate;
+    }
+
+    .b-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 3.5rem minmax(0, 1fr);
+      column-gap: var(--space-4);
+      text-align: start;
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      grid-row: span 2;
+      display: grid;
+      place-items: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-primary);
+    }
+
+    .b-step h3 {
+      align-self: end;
+      font-size: var(--text-lg);
+    }
+
+    .b-step p {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      inset-block: 3.5rem calc(-1 * var(--space-6));
+      inset-inline-start: 1.75rem;
+      border-inline-start: 2px dashed var(--color-border);
+    }
+
+    @media (min-width: 768px) {
+      .b-steps {
+        grid-auto-columns: minmax(0, 1fr);
+        grid-auto-flow: column;
+        gap: var(--space-8);
+      }
+
+      .b-step {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        row-gap: var(--space-1);
+        text-align: center;
+      }
+
+      .b-icon {
+        grid-row: auto;
+        margin-block-end: var(--space-2);
+      }
+
+      .b-step:not(:last-child)::after {
+        inset-block: 1.75rem auto;
+        inset-inline: 50% calc(-50% - var(--space-8));
+        border-inline-start: 0;
+        border-block-start: 2px dashed var(--color-border);
+      }
+    }
+  }
+}

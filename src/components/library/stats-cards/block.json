@@ -1,0 +1,116 @@
+{
+  "name": "Numbers, cards with trends",
+  "category": "numbers",
+  "description": "Stat cards with an icon, a big number and a trend line such as +12% vs last year.",
+  "tags": ["numbers", "stats", "metrics", "kpi", "cards", "trend", "growth", "investors"],
+  "fieldGroups": ["Heading", "Numbers"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Q3 2026 at a glance",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Growing with the teams who rely on us",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Figures from our quarterly shareholder letter, compared with the same quarter last year.",
+      "group": "Heading"
+    },
+    {
+      "name": "stats",
+      "label": "Numbers",
+      "type": "list",
+      "group": "Numbers",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "chart"
+        },
+        {
+          "name": "value",
+          "label": "Number",
+          "type": "text",
+          "default": "100"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        },
+        {
+          "name": "trend",
+          "label": "Trend",
+          "type": "select",
+          "default": "up",
+          "options": [
+            { "value": "up", "label": "Up" },
+            { "value": "down", "label": "Down" },
+            { "value": "none", "label": "No arrow" }
+          ]
+        },
+        {
+          "name": "trendText",
+          "label": "Trend text",
+          "type": "text",
+          "default": "+10% vs last year"
+        }
+      ],
+      "default": [
+        {
+          "icon": "users",
+          "value": "4,280",
+          "label": "Paying teams",
+          "trend": "up",
+          "trendText": "+31% vs Q3 2025"
+        },
+        {
+          "icon": "dollar",
+          "value": "$12.4M",
+          "label": "Annual recurring revenue",
+          "trend": "up",
+          "trendText": "+44% vs Q3 2025"
+        },
+        {
+          "icon": "repeat",
+          "value": "118%",
+          "label": "Net revenue retention",
+          "trend": "up",
+          "trendText": "+6 points vs Q3 2025"
+        },
+        {
+          "icon": "clock",
+          "value": "3.1 hrs",
+          "label": "Median support reply",
+          "trend": "down",
+          "trendText": "−38% vs Q3 2025"
+        }
+      ]
+    },
+    {
+      "name": "countUp",
+      "label": "Count up when visible",
+      "type": "boolean",
+      "default": true,
+      "group": "Numbers"
+    }
+  ]
+}

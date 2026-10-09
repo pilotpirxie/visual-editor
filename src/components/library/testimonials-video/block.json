@@ -1,0 +1,168 @@
+{
+  "name": "Testimonials, video stories",
+  "category": "testimonials",
+  "description": "Tall video thumbnails with a play button, a short quote and who is speaking.",
+  "tags": ["testimonials", "video", "stories", "customer stories", "interviews", "schools"],
+  "fieldGroups": ["Heading", "Stories"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Customer stories",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Hear it from the schools that switched",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Three short films from heads and office managers who run their school on Classbook.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Stories",
+      "type": "list",
+      "group": "Stories",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Thumbnail",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Video thumbnail",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "videoLink",
+          "label": "Video link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "name": "duration",
+          "label": "Duration",
+          "type": "text",
+          "default": "2:00",
+          "maxLength": 8
+        },
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "One sentence from the video.",
+          "maxLength": 160
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role and school",
+          "type": "text",
+          "default": "Role, School"
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Amara Nwosu in her school office",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "person"
+            }
+          },
+          "videoLink": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          },
+          "duration": "2:14",
+          "quote": "Parents get the newsletter, the lunch menu and absence alerts in one app.",
+          "name": "Amara Nwosu",
+          "role": "Head teacher, Riverside Primary"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tomás Ruiz at the front desk",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "person"
+            }
+          },
+          "videoLink": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          },
+          "duration": "1:48",
+          "quote": "Registration used to take until ten. Now it is done before the bell.",
+          "name": "Tomás Ruiz",
+          "role": "Office manager, Hillcrest Academy"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Grace Lindholm in a classroom",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "person"
+            }
+          },
+          "videoLink": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          },
+          "duration": "3:05",
+          "quote": "I write reports in half the time because the marks are already there.",
+          "name": "Grace Lindholm",
+          "role": "Year 6 teacher, Northfield School"
+        }
+      ]
+    }
+  ]
+}

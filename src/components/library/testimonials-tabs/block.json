@@ -1,0 +1,144 @@
+{
+  "name": "Testimonials, by company",
+  "category": "testimonials",
+  "description": "Company name tabs that switch between customer quotes.",
+  "tags": ["testimonials", "tabs", "customers", "companies", "quotes", "b2b", "logos"],
+  "fieldGroups": ["Heading", "Customers"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Customers",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Support teams that answer faster with Helpwell",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "items",
+      "label": "Customers",
+      "type": "list",
+      "group": "Customers",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "company",
+      "itemFields": [
+        {
+          "name": "logo",
+          "label": "Logo",
+          "type": "icon",
+          "default": "lucide:hexagon",
+          "iconPurpose": "logo"
+        },
+        {
+          "name": "company",
+          "label": "Company",
+          "type": "text",
+          "default": "Company"
+        },
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "What the customer said."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "logo": "lucide:hexagon",
+          "company": "Northwind",
+          "quote": "First replies went from four hours to eleven minutes, and we did it without hiring.",
+          "name": "Clara Johansson",
+          "role": "Support lead, Northwind",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Clara Johansson",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "logo": "lucide:triangle",
+          "company": "Halcyon Bank",
+          "quote": "Every answer is checked against our policy library before it goes out. Compliance signed off in a week.",
+          "name": "Victor Adebayo",
+          "role": "Head of Customer Care, Halcyon Bank",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Victor Adebayo",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "logo": "lucide:circle-dot",
+          "company": "Kestrel Health",
+          "quote": "Patients get help at 2 a.m. in their own language, and the night shift finally gets to rest.",
+          "name": "Dr. Mei Tanaka",
+          "role": "Patient experience, Kestrel Health",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Dr. Mei Tanaka",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

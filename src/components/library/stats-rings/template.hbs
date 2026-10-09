@@ -1,0 +1,20 @@
+<section class="b-stats-rings section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="grid b-rings">
+      {{#each items}}
+      <li class="stack b-item" data-field="items.{{@index}}">
+        <div class="b-ring" role="img" aria-label="{{percent}} percent: {{label}}" style="--value: {{percent}}">
+          <span class="b-number">{{percent}}%</span>
+        </div>
+        <h3 class="b-label">{{label}}</h3>
+        {{#if text}}<p class="b-text">{{text}}</p>{{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,171 @@
+{
+  "name": "Pricing, plan and billing questions",
+  "category": "pricing",
+  "description": "One plan card next to expandable answers about billing, refunds and invoices.",
+  "tags": [
+    "pricing",
+    "plan",
+    "billing",
+    "questions",
+    "answers",
+    "accordion",
+    "refunds",
+    "invoices"
+  ],
+  "fieldGroups": ["Heading", "Plan", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Pricing",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "One plan, and answers about paying for it",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Bookkeeping for freelancers, with every feature included from day one.",
+      "group": "Heading"
+    },
+    {
+      "name": "planName",
+      "label": "Plan name",
+      "type": "text",
+      "default": "Ledgerly",
+      "group": "Plan"
+    },
+    {
+      "name": "price",
+      "label": "Price",
+      "type": "text",
+      "default": "$15",
+      "group": "Plan"
+    },
+    {
+      "name": "period",
+      "label": "Period",
+      "type": "text",
+      "default": "per month",
+      "group": "Plan"
+    },
+    {
+      "name": "features",
+      "label": "Included",
+      "type": "list",
+      "minItems": 0,
+      "maxItems": 10,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "What is included"
+        }
+      ],
+      "default": [
+        {
+          "text": "Unlimited invoices and quotes"
+        },
+        {
+          "text": "Bank feeds from 2,400 banks"
+        },
+        {
+          "text": "Receipt scanning"
+        },
+        {
+          "text": "Quarterly tax estimates"
+        }
+      ],
+      "group": "Plan"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Try it free for 30 days",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Plan"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Or $150 a year, two months free.",
+      "group": "Plan"
+    },
+    {
+      "name": "questionsTitle",
+      "label": "Questions title",
+      "type": "text",
+      "default": "Billing questions",
+      "group": "Questions"
+    },
+    {
+      "name": "expandIcon",
+      "label": "Open and close icon",
+      "type": "icon",
+      "default": "chevron-down",
+      "group": "Questions"
+    },
+    {
+      "name": "questions",
+      "label": "Questions",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "Question"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "richtext",
+          "default": "<p>Answer.</p>"
+        }
+      ],
+      "default": [
+        {
+          "question": "Do I need a card for the free trial?",
+          "answer": "<p>No. You only add a card when you decide to keep using Ledgerly after 30 days.</p>"
+        },
+        {
+          "question": "Can I switch between monthly and yearly?",
+          "answer": "<p>Yes, from your billing settings. We credit what is left of your current period to the new one.</p>"
+        },
+        {
+          "question": "Do you offer refunds?",
+          "answer": "<p>If you cancel within 14 days of a payment, we refund it in full, no questions asked.</p>"
+        },
+        {
+          "question": "Will I get invoices with VAT for my own books?",
+          "answer": "<p>Every payment comes with an invoice showing VAT, and you can add your company details to it.</p>"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "name": "Features, before and after",
+  "category": "features",
+  "description": "Two panels compare the old way with your product: muted crosses on one side, highlighted checks on the other.",
+  "tags": ["features", "comparison", "versus", "before and after", "switching", "problem solution"],
+  "fieldGroups": ["Heading", "Before", "After", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Why teams switch",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Research without the spreadsheet of quotes",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Most teams we meet run research on a recorder, a transcription service and a shared sheet. Here is what changes.",
+      "group": "Heading"
+    },
+    {
+      "name": "beforeTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "Without Fieldnote",
+      "required": true,
+      "group": "Before"
+    },
+    {
+      "name": "beforeItems",
+      "label": "Points",
+      "type": "list",
+      "group": "Before",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "A pain point",
+          "required": true
+        }
+      ],
+      "default": [
+        {
+          "text": "Recordings scattered across laptops and drives"
+        },
+        {
+          "text": "A week of tagging before anyone sees a theme"
+        },
+        {
+          "text": "Quotes copied into slides, without the context"
+        },
+        {
+          "text": "Findings forgotten when the next study starts"
+        }
+      ]
+    },
+    {
+      "name": "afterTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "With Fieldnote",
+      "required": true,
+      "group": "After"
+    },
+    {
+      "name": "afterItems",
+      "label": "Points",
+      "type": "list",
+      "group": "After",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "A benefit",
+          "required": true
+        }
+      ],
+      "default": [
+        {
+          "text": "Every call recorded and stored in one workspace"
+        },
+        {
+          "text": "Themes suggested the same afternoon"
+        },
+        {
+          "text": "Clips that link back to the full conversation"
+        },
+        {
+          "text": "A searchable library that grows with each study"
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See how switching works",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+@layer components {
+  @scope (.b-features-versus) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-panels {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-panel {
+      --stack-gap: var(--space-6);
+      padding: var(--space-8) var(--space-6);
+      border: calc(var(--border-width) * 2) dashed var(--color-border);
+      border-radius: var(--card-radius);
+      color: var(--color-text-muted);
+    }
+
+    .b-after {
+      border-style: solid;
+      border-color: var(--color-primary);
+      background: color-mix(in oklab, var(--color-primary) 7%, var(--color-background));
+      color: var(--color-text);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-list {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-item {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .b-mark {
+      --icon-size: 0.875rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, currentColor 14%, transparent);
+    }
+
+    .b-after .b-mark {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-actions {
+      justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+      .b-panels {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  }
+}

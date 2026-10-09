@@ -1,0 +1,106 @@
+{
+  "name": "How it works, quickstart",
+  "category": "how-it-works",
+  "description": "Numbered developer steps, each with a short code snippet, and a link to the full guide.",
+  "tags": ["steps", "quickstart", "developers", "code", "sdk", "api", "cli", "docs"],
+  "fieldGroups": ["Heading", "Steps", "Link"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Quickstart",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Upload your first recording from code in five minutes",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The Fieldnote SDK runs on Node.js 18 or later. Create an API key under Settings, then Developers.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What this step does."
+        },
+        {
+          "name": "code",
+          "label": "Code",
+          "type": "textarea",
+          "default": "npm run start",
+          "help": "Shown as written, in a monospace font."
+        }
+      ],
+      "default": [
+        {
+          "title": "Install the SDK",
+          "text": "Add the package to your project with npm, pnpm or yarn.",
+          "code": "npm install @fieldnote/sdk"
+        },
+        {
+          "title": "Add your API key",
+          "text": "Keep the key in an environment variable, never in your source code.",
+          "code": "export FIELDNOTE_API_KEY=fn_live_your_key"
+        },
+        {
+          "title": "Upload a recording",
+          "text": "Fieldnote transcribes the file and emails you when the highlights are ready.",
+          "code": "import { Fieldnote } from '@fieldnote/sdk';\n\nconst fieldnote = new Fieldnote();\nawait fieldnote.recordings.upload('./interview.mp4');"
+        }
+      ]
+    },
+    {
+      "name": "showGuide",
+      "label": "Show guide link",
+      "type": "boolean",
+      "default": true,
+      "group": "Link"
+    },
+    {
+      "name": "guideButton",
+      "label": "Guide link",
+      "type": "button",
+      "default": {
+        "label": "Read the full guide",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "ghost"
+      },
+      "visibleWhen": {
+        "field": "showGuide",
+        "equals": true
+      },
+      "group": "Link"
+    }
+  ]
+}

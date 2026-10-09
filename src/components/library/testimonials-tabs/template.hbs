@@ -1,0 +1,27 @@
+<section class="b-testimonials-tabs section" data-behavior="tabs">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-tablist" role="tablist" aria-label="{{title}}" hidden>
+      {{#each items}}
+      <button type="button" class="b-tab" id="{{../block.id}}-tab-{{@index}}" aria-controls="{{../block.id}}-panel-{{@index}}" data-field="items.{{@index}}">{{#if logo}}{{svgIcon logo}}{{/if}}<span>{{company}}</span></button>
+      {{/each}}
+    </div>
+    <div class="b-panels">
+      {{#each items}}
+      <figure class="stack b-panel" id="{{../block.id}}-panel-{{@index}}" data-field="items.{{@index}}">
+        <blockquote class="b-quote"><p>{{nl2br quote}}</p></blockquote>
+        <figcaption class="b-person">
+          <div class="media b-photo">{{img photo}}</div>
+          <div>
+            <p class="b-name">{{name}}</p>
+            {{#if role}}<p class="b-role">{{role}}</p>{{/if}}
+          </div>
+        </figcaption>
+      </figure>
+      {{/each}}
+    </div>
+  </div>
+</section>

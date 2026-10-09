@@ -1,0 +1,22 @@
+<section class="b-testimonials-video section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="grid b-grid">
+      {{#each items}}
+      <figure class="b-story" data-field="items.{{@index}}">
+        <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}">{{img image}}</div>
+        <figcaption class="stack b-caption">
+          <blockquote><p>{{nl2br quote}}</p></blockquote>
+          <p><span class="b-name">{{name}}</span><br><span class="b-role">{{role}}</span></p>
+        </figcaption>
+        <a class="b-play" href="{{href videoLink}}" {{linkAttrs videoLink}}><span class="b-button">{{svgIcon "play"}}</span><span class="visually-hidden">Play video: {{name}}</span></a>
+        {{#if duration}}<span class="badge b-duration">{{duration}}</span>{{/if}}
+      </figure>
+      {{/each}}
+    </div>
+  </div>
+</section>

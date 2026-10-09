@@ -1,0 +1,17 @@
+<section class="b-stats-bars section">
+  <div class="container b-layout">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-bars">
+      {{#each items}}
+      <li class="b-item" data-field="items.{{@index}}">
+        <p class="b-row"><span class="b-label">{{label}}</span><span class="b-value">{{percent}}%</span></p>
+        <div class="b-track" role="meter" aria-label="{{label}}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{percent}}" aria-valuetext="{{percent}}%" style="--value: {{percent}}"></div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

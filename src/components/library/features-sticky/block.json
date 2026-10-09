@@ -1,0 +1,176 @@
+{
+  "name": "Features, sticky heading",
+  "category": "features",
+  "description": "A heading and button that stay in view on desktop while large feature panels with screenshots scroll past.",
+  "tags": ["features", "sticky", "scroll", "screenshots", "long form", "product tour"],
+  "fieldGroups": ["Heading", "Button", "Items"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Product tour",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Every step of research, without switching tools",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Scroll through what a week with Fieldnote looks like, from the first call on Monday to the readout on Friday.",
+      "group": "Heading"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start a free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "sparkles"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Feature title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one or two sentences."
+        },
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A screenshot of the feature",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "screenshot"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "mic",
+          "title": "Record any call",
+          "text": "Fieldnote joins Zoom, Meet and Teams calls on its own and asks every participant for consent first.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A calendar with interviews that Fieldnote will record",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "screenshot"
+            }
+          }
+        },
+        {
+          "icon": "transcript",
+          "title": "Transcripts before your coffee cools",
+          "text": "Speaker labels and timestamps in 30 languages arrive a few minutes after you hang up.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A transcript with speakers labelled and timestamps",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "screenshot"
+            }
+          }
+        },
+        {
+          "icon": "tag",
+          "title": "Themes that add up across studies",
+          "text": "One shared tag list means a pricing complaint in March counts alongside the same complaint in June.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A board of themes with quote counts for each",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "screenshot"
+            }
+          }
+        },
+        {
+          "icon": "share",
+          "title": "Readouts people actually open",
+          "text": "Send a two-minute highlight reel to Slack instead of a 40-slide deck that waits for the next all-hands.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A highlight reel being shared to a team channel",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "screenshot"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

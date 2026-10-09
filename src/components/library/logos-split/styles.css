@@ -1,0 +1,67 @@
+@layer components {
+  @scope (.b-logos-split) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+      max-width: 32rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-logos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      overflow: hidden;
+    }
+
+    .b-logo {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 3 / 2;
+      margin-block-end: calc(-1 * var(--border-width));
+      margin-inline-end: calc(-1 * var(--border-width));
+      padding: var(--space-4);
+      border-block-end: var(--border-width) solid var(--color-border);
+      border-inline-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-logo img {
+      width: 100%;
+      max-width: 8rem;
+      height: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      opacity: 0.8;
+    }
+
+    @media (min-width: 768px) {
+      .b-logos {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

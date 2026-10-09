@@ -1,0 +1,38 @@
+<section class="b-pricing-addons section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-layout">
+      <article class="card stack b-plan">
+        <h3 data-field="planName">{{planName}}</h3>
+        <p><span class="b-amount" data-field="price">{{price}}</span> <span class="b-muted" data-field="period">{{period}}</span></p>
+        {{#if planDescription}}<p class="b-muted" data-field="planDescription">{{nl2br planDescription}}</p>{{/if}}
+        <ul class="b-checks" role="list">
+          {{#each features}}
+          <li data-field="features.{{@index}}">{{svgIcon "check"}}<span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        {{#if planNote}}<p class="b-muted b-small" data-field="planNote">{{planNote}}</p>{{/if}}
+      </article>
+      <div class="stack b-addons">
+        <h3 data-field="addonsTitle">{{addonsTitle}}</h3>
+        <ul class="b-list" role="list">
+          {{#each addons}}
+          <li class="b-addon" data-field="addons.{{@index}}">
+            <span class="b-icon">{{svgIcon icon}}</span>
+            <div>
+              <p class="b-name">{{name}}</p>
+              {{#if description}}<p class="b-muted b-small">{{nl2br description}}</p>{{/if}}
+            </div>
+            <p class="b-name b-price">{{price}}</p>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

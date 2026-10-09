@@ -1,0 +1,140 @@
+{
+  "name": "Applications, desktop app",
+  "category": "applications",
+  "description": "Download buttons for each operating system above a screenshot in a desktop app window.",
+  "tags": [
+    "app",
+    "desktop",
+    "download",
+    "macos",
+    "windows",
+    "linux",
+    "window",
+    "screenshot",
+    "software"
+  ],
+  "fieldGroups": ["Heading", "Downloads", "Window"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Inkwell for desktop",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A quiet place to write the long thing",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Inkwell keeps chapters, notes and research side by side, works fully offline and saves plain files you can open anywhere.",
+      "group": "Heading"
+    },
+    {
+      "name": "downloads",
+      "label": "Downloads",
+      "type": "list",
+      "group": "Downloads",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "System logo",
+          "type": "icon",
+          "default": "download",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Download"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:apple",
+          "label": "Download for macOS",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "simple-icons:windows",
+          "label": "Windows",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "simple-icons:linux",
+          "label": "Linux",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Version 3.1 · Free for 14 days, then a one-time $49",
+      "maxLength": 80,
+      "group": "Downloads"
+    },
+    {
+      "name": "windowTitle",
+      "label": "Window title",
+      "type": "text",
+      "default": "The Salt Road · Chapter 7",
+      "maxLength": 60,
+      "group": "Window"
+    },
+    {
+      "name": "screenshot",
+      "label": "Screenshot",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Inkwell with a chapter open next to the outline and a pinned research note",
+        "decorative": false,
+        "width": 1600,
+        "height": 900,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Window"
+    }
+  ]
+}

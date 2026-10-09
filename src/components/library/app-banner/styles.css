@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-app-banner) {
+    .b-card {
+      --color-background: var(--theme-dark-background);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-primary: var(--theme-dark-accent);
+      display: grid;
+      gap: var(--space-8);
+      padding: var(--space-8) var(--space-6) 0;
+      overflow: clip;
+      border-radius: var(--radius-lg);
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    .b-card[data-theme='primary'] {
+      --color-background: var(--theme-primary-background);
+      --color-text: var(--theme-primary-text);
+      --color-text-muted: var(--theme-primary-text-muted);
+      --color-primary: var(--theme-primary-accent);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+      align-self: center;
+    }
+
+    .b-text {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-badges {
+      margin-block-start: var(--space-2);
+    }
+
+    .b-badge {
+      --icon-size: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: 3.25rem;
+      padding: var(--space-2) var(--space-6) var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-text);
+      color: var(--color-background);
+      text-decoration: none;
+    }
+
+    .b-badge-text {
+      display: grid;
+      line-height: var(--line-height-tight);
+    }
+
+    .b-badge-small {
+      font-size: var(--text-xs);
+    }
+
+    .b-badge-label {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-device {
+      display: grid;
+      justify-items: center;
+      align-self: end;
+      background: radial-gradient(
+        closest-side,
+        color-mix(in oklab, var(--color-primary) 35%, transparent),
+        transparent
+      );
+    }
+
+    .b-phone {
+      --device-width: 13rem;
+      margin-block-end: -40%;
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        grid-template-columns: 3fr 2fr;
+        padding: var(--space-12) var(--space-12) 0;
+      }
+
+      .b-copy {
+        padding-block-end: var(--space-12);
+      }
+
+      .b-phone {
+        --device-width: 15rem;
+        margin-block: var(--space-4) -45%;
+      }
+    }
+  }
+}

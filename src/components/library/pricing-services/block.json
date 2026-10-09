@@ -1,0 +1,233 @@
+{
+  "name": "Pricing, service packages",
+  "category": "pricing",
+  "description": "Fixed-scope packages with a starting price, delivery time and what each one includes.",
+  "tags": [
+    "pricing",
+    "services",
+    "packages",
+    "freelance",
+    "agency",
+    "studio",
+    "consulting",
+    "projects"
+  ],
+  "fieldGroups": ["Heading", "Packages", "Labels"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Work with me",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three ways to get your website done",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every package starts with a free 30-minute call, so we can check it is the right fit before you pay anything.",
+      "group": "Heading"
+    },
+    {
+      "name": "packages",
+      "label": "Packages",
+      "type": "list",
+      "group": "Packages",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "pencil"
+        },
+        {
+          "name": "name",
+          "label": "Package name",
+          "type": "text",
+          "default": "Package"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "What this package is for."
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$1,000"
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "duration",
+          "label": "Delivery time",
+          "type": "text",
+          "default": "2 weeks"
+        },
+        {
+          "name": "features",
+          "label": "Included",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 10,
+          "itemLabel": "text",
+          "itemFields": [
+            {
+              "name": "text",
+              "label": "Text",
+              "type": "text",
+              "default": "What is included"
+            }
+          ],
+          "default": [
+            {
+              "text": "First deliverable"
+            },
+            {
+              "text": "Second deliverable"
+            }
+          ]
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Book a call",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "pencil",
+          "name": "Brand refresh",
+          "description": "A new logo, colors and type for a business that has outgrown its first look.",
+          "price": "$2,400",
+          "period": "",
+          "duration": "2 weeks",
+          "features": [
+            {
+              "text": "Logo and wordmark"
+            },
+            {
+              "text": "Color and type system"
+            },
+            {
+              "text": "Social media templates"
+            },
+            {
+              "text": "Two rounds of changes"
+            }
+          ],
+          "button": {
+            "label": "Book a call",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        {
+          "icon": "monitor",
+          "name": "Marketing website",
+          "description": "A fast, five-page website you can edit yourself after launch.",
+          "price": "$6,500",
+          "period": "",
+          "duration": "5 weeks",
+          "features": [
+            {
+              "text": "Copy and page structure"
+            },
+            {
+              "text": "Design and build"
+            },
+            {
+              "text": "SEO basics and analytics"
+            },
+            {
+              "text": "One hour of training"
+            }
+          ],
+          "button": {
+            "label": "Book a call",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "icon": "repeat",
+          "name": "Design partner",
+          "description": "Ongoing help with campaigns, landing pages and small fixes.",
+          "price": "$3,200",
+          "period": "per month",
+          "duration": "Monthly, cancel any time",
+          "features": [
+            {
+              "text": "Up to 40 hours a month"
+            },
+            {
+              "text": "Replies within one working day"
+            },
+            {
+              "text": "Monthly planning call"
+            }
+          ],
+          "button": {
+            "label": "Book a call",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ]
+    },
+    {
+      "name": "fromLabel",
+      "label": "Text before each price",
+      "type": "text",
+      "default": "From",
+      "group": "Labels"
+    },
+    {
+      "name": "durationLabel",
+      "label": "Delivery time label for screen readers",
+      "type": "text",
+      "default": "Delivery time",
+      "group": "Labels"
+    }
+  ]
+}

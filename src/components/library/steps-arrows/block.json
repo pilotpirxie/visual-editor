@@ -1,0 +1,105 @@
+{
+  "name": "How it works, connected with arrows",
+  "category": "how-it-works",
+  "description": "Three or four steps in a row with arrows leading from one to the next.",
+  "tags": ["steps", "process", "how", "arrows", "flow", "service", "icons"],
+  "fieldGroups": ["Heading", "Steps", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Laundry, sorted",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Fresh shirts without leaving the house",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We collect, clean and deliver across the city, seven days a week.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "icon": "calendar",
+          "title": "Book a pickup",
+          "text": "Choose a one-hour slot that suits you, as early as 7 am or as late as 10 pm."
+        },
+        {
+          "icon": "sparkles",
+          "title": "We clean and press",
+          "text": "Every item is cleaned to its care label and hand-finished in our local studio."
+        },
+        {
+          "icon": "house",
+          "title": "Back at your door",
+          "text": "Your order returns within 48 hours, folded or on hangers, the way you asked."
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book your first pickup",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

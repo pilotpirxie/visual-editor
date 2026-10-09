@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-testimonials-video) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      --grid-min: 16rem;
+    }
+
+    .b-story {
+      position: relative;
+      display: grid;
+      overflow: hidden;
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
+      color: var(--theme-dark-text);
+    }
+
+    .b-story > * {
+      grid-area: 1 / 1;
+    }
+
+    .b-media {
+      --media-radius: 0;
+    }
+
+    .b-caption {
+      --stack-gap: var(--space-3);
+      align-self: end;
+      padding: var(--space-16) var(--space-6) var(--space-6);
+      background: linear-gradient(to top, var(--theme-dark-background) 55%, transparent);
+    }
+
+    .b-caption blockquote {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      color: var(--theme-dark-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .b-play {
+      display: grid;
+      place-items: center;
+      align-self: start;
+      padding-block-start: 30%;
+      color: var(--color-primary-contrast);
+    }
+
+    .b-play::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-button {
+      --icon-size: 1.5rem;
+      display: grid;
+      place-items: center;
+      width: 4rem;
+      height: 4rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      box-shadow: var(--shadow-lg);
+      transition: scale var(--transition-fast);
+    }
+
+    .b-play:hover .b-button {
+      scale: 1.08;
+    }
+
+    .b-duration {
+      --badge-bg: var(--theme-dark-background);
+      --badge-color: var(--theme-dark-text);
+      align-self: start;
+      justify-self: end;
+      margin: var(--space-4);
+    }
+  }
+}

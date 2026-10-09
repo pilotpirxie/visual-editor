@@ -1,0 +1,100 @@
+{
+  "name": "How it works, heading and list",
+  "category": "how-it-works",
+  "description": "A heading, intro and button on one side, and a numbered list of steps with dividers on the other.",
+  "tags": ["steps", "process", "how", "list", "services", "split", "compact"],
+  "fieldGroups": ["Heading", "Steps", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Switching to us",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How we take over your bookkeeping",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "No forms to fill in and no need to chase your old accountant. We do the handover for you.",
+      "group": "Heading"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get a fixed quote",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "title": "Give us read-only access",
+          "text": "Connect your bank feeds and accounting software. We never move money."
+        },
+        {
+          "title": "We tidy up last year",
+          "text": "Missing receipts, duplicate entries and unreconciled payments, sorted within two weeks."
+        },
+        {
+          "title": "Monthly close by the 5th",
+          "text": "A profit and loss, a cash forecast and a short note on anything unusual."
+        },
+        {
+          "title": "Tax returns handled",
+          "text": "VAT and year-end filings prepared, checked and submitted on time, every time."
+        }
+      ]
+    }
+  ]
+}

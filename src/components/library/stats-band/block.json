@@ -1,0 +1,75 @@
+{
+  "name": "Numbers, compact band",
+  "category": "numbers",
+  "description": "A thin brand-colored band with three or four numbers separated by dividers.",
+  "tags": ["numbers", "stats", "band", "strip", "compact", "brand", "social proof", "kpi"],
+  "fieldGroups": ["Heading", "Numbers"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Fieldnote in numbers",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "showTitle",
+      "label": "Show title",
+      "type": "boolean",
+      "default": false,
+      "help": "When hidden, the title is still read out by screen readers.",
+      "group": "Heading"
+    },
+    {
+      "name": "stats",
+      "label": "Numbers",
+      "type": "list",
+      "group": "Numbers",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Number",
+          "type": "text",
+          "default": "100"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        }
+      ],
+      "default": [
+        {
+          "value": "4,000+",
+          "label": "Research teams"
+        },
+        {
+          "value": "38",
+          "label": "Countries"
+        },
+        {
+          "value": "99.98%",
+          "label": "Uptime in 2025"
+        },
+        {
+          "value": "4.9/5",
+          "label": "Average review"
+        }
+      ]
+    },
+    {
+      "name": "countUp",
+      "label": "Count up when visible",
+      "type": "boolean",
+      "default": true,
+      "group": "Numbers"
+    }
+  ]
+}

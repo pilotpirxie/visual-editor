@@ -1,0 +1,99 @@
+{
+  "name": "Features, with results",
+  "category": "features",
+  "description": "Feature cards that lead with a measurable result, such as 3× faster, followed by what makes it possible.",
+  "tags": ["features", "results", "metrics", "outcomes", "b2b", "proof"],
+  "fieldGroups": ["Heading", "Items", "Note"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Results",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What changes in the first quarter",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Numbers from research teams who moved their interviews to Fieldnote last year.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "metric",
+          "label": "Result",
+          "type": "text",
+          "default": "2×",
+          "required": true,
+          "maxLength": 12
+        },
+        {
+          "name": "metricLabel",
+          "label": "Result label",
+          "type": "text",
+          "default": "faster",
+          "maxLength": 40
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Feature title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Explain what makes the result possible."
+        }
+      ],
+      "default": [
+        {
+          "metric": "3×",
+          "metricLabel": "faster synthesis",
+          "title": "Themes before the workshop",
+          "text": "Suggested tags and grouped quotes mean the team starts from a draft instead of a blank board."
+        },
+        {
+          "metric": "68%",
+          "metricLabel": "fewer repeat studies",
+          "title": "A library that remembers",
+          "text": "Search past interviews before booking new ones, and reuse what customers already told you."
+        },
+        {
+          "metric": "5 hrs",
+          "metricLabel": "saved per study",
+          "title": "No more manual notes",
+          "text": "Transcripts with speakers and timestamps replace the note-taker on every call."
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Source note",
+      "type": "text",
+      "default": "Based on a survey of 212 customer teams, January 2026.",
+      "group": "Note"
+    }
+  ]
+}

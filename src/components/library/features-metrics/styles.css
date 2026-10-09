@@ -1,0 +1,52 @@
+@layer components {
+  @scope (.b-features-metrics) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro,
+    .b-text,
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-grid {
+      --grid-min: 16rem;
+    }
+
+    .b-card {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-metric {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      margin-block-end: var(--space-3);
+      padding-block-end: var(--space-6);
+      border-block-end: var(--border-width) solid var(--color-border);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-metric strong {
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+  }
+}

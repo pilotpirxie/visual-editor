@@ -1,0 +1,25 @@
+<section class="b-steps-video section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-player">
+      <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
+      <a class="b-play" href="{{href videoLink}}" {{linkAttrs videoLink}} data-field="videoLink">
+        <span class="b-play-icon">{{svgIcon "play"}}</span>
+        <span class="visually-hidden" data-field="videoLabel">{{videoLabel}}</span>
+      </a>
+      {{#if duration}}<span class="badge b-duration" data-field="duration">{{svgIcon "clock"}}{{duration}}</span>{{/if}}
+    </div>
+    <ol class="grid b-steps" role="list">
+      {{#each steps}}
+      <li class="stack b-step" data-field="steps.{{@index}}">
+        <h3>{{title}}</h3>
+        <p class="b-muted">{{nl2br text}}</p>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

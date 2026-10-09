@@ -1,0 +1,28 @@
+<section class="b-features-specs section">
+  <div class="container b-inner">
+    <div class="b-visual" data-field="image">
+      <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}">{{img image}}</div>
+    </div>
+    <div class="stack b-content">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      {{#each groups}}
+      <div class="b-group" data-field="groups.{{@index}}">
+        <h3>{{title}}</h3>
+        <dl class="b-rows">
+          {{#each rows}}
+          <div class="b-row" data-field="groups.{{@../index}}.rows.{{@index}}">
+            <dt>{{label}}</dt>
+            <dd>{{value}}</dd>
+          </div>
+          {{/each}}
+        </dl>
+      </div>
+      {{/each}}
+      {{#if linkLabel}}<a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{svgIcon "download"}}{{linkLabel}}</a>{{/if}}
+    </div>
+  </div>
+</section>

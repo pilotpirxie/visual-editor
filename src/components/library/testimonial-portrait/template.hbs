@@ -1,0 +1,16 @@
+<section class="b-testimonial-portrait section">
+  <div class="container">
+    <figure class="b-layout">
+      <div class="media b-photo" style="--media-ratio: {{photo.width}} / {{photo.height}}" data-field="photo">{{img photo}}</div>
+      <div class="stack b-copy">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <span class="b-mark">{{svgIcon "quote"}}</span>
+        <blockquote class="b-quote" data-field="quote"><p>{{nl2br quote}}</p></blockquote>
+        <figcaption class="b-person">
+          <p class="b-name" data-field="name">{{name}}</p>
+          {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+        </figcaption>
+      </div>
+    </figure>
+  </div>
+</section>
