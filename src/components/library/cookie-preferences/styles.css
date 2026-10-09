@@ -1,0 +1,115 @@
+@layer components {
+  @scope (.b-cookie-preferences) {
+    .b-panel {
+      z-index: 10;
+      width: auto;
+      max-width: none;
+      max-height: 90dvh;
+      margin: 0;
+      padding: var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-lg);
+      overflow-y: auto;
+    }
+
+    .b-panel[open] {
+      position: fixed;
+      inset: auto var(--space-4) var(--space-4);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-title {
+      font: var(--font-weight-heading) var(--text-xl) / var(--line-height-tight) var(--font-heading);
+    }
+
+    .b-muted {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-prefs {
+      border-block: var(--border-width) solid var(--color-border);
+    }
+
+    .b-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .b-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .b-prefs[open] .icon {
+      rotate: 180deg;
+    }
+
+    .b-row {
+      display: flex;
+      gap: var(--space-4);
+      align-items: center;
+      padding-block: var(--space-3);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-label {
+      display: grid;
+      flex: 1;
+    }
+
+    .b-switch {
+      flex: none;
+      width: 2.75rem;
+      height: 1.5rem;
+      margin: 0;
+      padding: 0.1875rem;
+      border-radius: var(--radius-full);
+      background: var(--color-border);
+      appearance: none;
+    }
+
+    .b-switch::before {
+      content: '';
+      display: block;
+      width: 1.125rem;
+      height: 1.125rem;
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+    }
+
+    .b-switch:checked {
+      background: var(--color-primary);
+    }
+
+    .b-switch:checked::before {
+      margin-inline-start: 1.25rem;
+    }
+
+    .b-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        width: 26rem;
+      }
+
+      .b-panel[open] {
+        inset-inline-start: auto;
+      }
+    }
+  }
+}

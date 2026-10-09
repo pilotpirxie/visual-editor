@@ -1,0 +1,12 @@
+<section class="b-content-callout section">
+  <div class="container">
+    <div class="b-box" role="note" data-tone="{{tone}}">
+      {{#if icon}}<span class="b-icon" data-field="icon">{{svgIcon icon}}</span>{{/if}}
+      <div class="stack b-body">
+        <h2 class="b-title" data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+        {{#if showLink}}<a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="link"><span data-field="linkLabel">{{linkLabel}}</span>{{svgIcon "arrow-right"}}</a>{{/if}}
+      </div>
+    </div>
+  </div>
+</section>

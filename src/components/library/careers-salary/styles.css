@@ -1,0 +1,88 @@
+@layer components {
+  @scope (.b-careers-salary) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      max-width: 40rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-scale {
+      display: flex;
+      justify-content: space-between;
+      padding-block-end: var(--space-2);
+      border-block-end: var(--border-width) solid var(--color-border);
+      font-size: var(--text-sm);
+    }
+
+    .b-level {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: var(--space-2) var(--space-4);
+      padding-block: var(--space-4);
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-role {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-track {
+      grid-area: 2 / 1 / 3 / -1;
+      height: 1.25rem;
+      background: repeating-linear-gradient(90deg, var(--color-border) 0 1px, transparent 0 25%);
+    }
+
+    .b-range {
+      display: block;
+      height: 100%;
+      width: calc((var(--to) - var(--from)) / (var(--hi) - var(--lo)) * 100%);
+      margin-inline-start: calc((var(--from) - var(--lo)) / (var(--hi) - var(--lo)) * 100%);
+      border-radius: var(--radius-full);
+      background: linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--color-primary) 40%, var(--color-background)),
+        var(--color-primary)
+      );
+    }
+
+    .b-pay {
+      font-weight: var(--font-weight-bold);
+      white-space: nowrap;
+    }
+
+    .b-note {
+      display: flex;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-scale {
+        margin-inline: calc(15rem + var(--space-4)) calc(8rem + var(--space-4));
+      }
+
+      .b-level {
+        grid-template-columns: 15rem minmax(0, 1fr) 8rem;
+      }
+
+      .b-track {
+        grid-area: auto;
+      }
+
+      .b-pay {
+        text-align: end;
+      }
+    }
+  }
+}

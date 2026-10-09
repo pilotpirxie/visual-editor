@@ -1,0 +1,23 @@
+<section class="b-cta-sales section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </div>
+    <div class="card stack b-contact">
+      <div class="b-person">
+        <div class="media b-photo" data-field="photo">{{img photo}}</div>
+        <div>
+          <p class="b-name" data-field="name">{{name}}</p>
+          {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+        </div>
+      </div>
+      <ul class="stack b-channels" role="list">
+        {{#if phone}}<li data-field="phone">{{svgIcon "phone"}}<a href="tel:{{phone}}">{{phone}}</a></li>{{/if}}
+        {{#if email}}<li data-field="email">{{svgIcon "mail"}}<a href="mailto:{{email}}">{{email}}</a></li>{{/if}}
+      </ul>
+      <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{svgIcon "calendar"}}{{button.label}}</a>
+    </div>
+  </div>
+</section>

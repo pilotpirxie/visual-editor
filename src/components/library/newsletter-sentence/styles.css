@@ -1,0 +1,62 @@
+@layer components {
+  @scope (.b-newsletter-sentence) {
+    .b-inner {
+      --stack-gap: var(--space-6);
+      --container-max-width: 64rem;
+    }
+
+    .b-title {
+      --icon-size: 1.25em;
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-lg);
+      color: var(--color-primary);
+    }
+
+    .b-sentence {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-heading);
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .b-input {
+      width: min(100%, 10em);
+      padding: 0;
+      border: 0;
+      border-bottom: 0.08em solid var(--color-primary);
+      background: transparent;
+      color: var(--color-primary);
+      font: inherit;
+    }
+
+    .b-input::placeholder {
+      color: var(--color-text-muted);
+      opacity: 0.6;
+    }
+
+    .b-input:focus-visible {
+      outline: 0.125rem solid var(--color-primary);
+      outline-offset: 0.25rem;
+    }
+
+    .b-submit {
+      vertical-align: middle;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+    }
+
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-sentence {
+        font-size: var(--text-5xl);
+        line-height: 1.4;
+      }
+    }
+  }
+}

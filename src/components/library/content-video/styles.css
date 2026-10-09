@@ -1,0 +1,81 @@
+@layer components {
+  @scope (.b-content-video) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      align-items: center;
+      max-width: 44rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-video {
+      --stack-gap: var(--space-3);
+      max-width: 60rem;
+      width: 100%;
+      margin-inline: auto;
+    }
+
+    .b-player {
+      position: relative;
+    }
+
+    .b-media {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-play {
+      --icon-size: 1.75rem;
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      width: 4.5rem;
+      height: 4.5rem;
+      margin: auto;
+      padding-inline-start: 0.25rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      box-shadow:
+        0 0 0 var(--space-2) color-mix(in oklab, var(--color-background) 55%, transparent),
+        var(--shadow-lg);
+      transition: scale var(--transition-fast);
+    }
+
+    .b-play:hover {
+      scale: 1.06;
+    }
+
+    .b-caption {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-1) var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-duration {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    @media (min-width: 768px) {
+      .b-play {
+        --icon-size: 2.25rem;
+        width: 6rem;
+        height: 6rem;
+      }
+    }
+  }
+}

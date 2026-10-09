@@ -1,0 +1,108 @@
+@layer components {
+  @scope (.b-blog-numbered) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      display: grid;
+      gap: var(--space-4) var(--space-12);
+      align-items: end;
+    }
+
+    .b-heading {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro,
+    .b-excerpt {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-list {
+      display: grid;
+      gap: 0 var(--space-12);
+      counter-reset: post;
+    }
+
+    .b-post {
+      position: relative;
+      display: flex;
+      gap: var(--space-6);
+      padding-block: var(--space-6) var(--space-8);
+      border-block-start: 2px solid var(--color-text);
+      counter-increment: post;
+    }
+
+    .b-number {
+      flex: none;
+      min-width: 2ch;
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      color: var(--color-primary);
+    }
+
+    .b-number::before {
+      content: counter(post, decimal-leading-zero);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1) var(--space-3);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .b-category {
+      color: var(--color-primary);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-post:hover .b-link {
+      text-decoration: underline;
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.15em;
+    }
+
+    @media (min-width: 768px) {
+      .b-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-number {
+        font-size: var(--text-5xl);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-head {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+  }
+}

@@ -1,0 +1,120 @@
+@layer components {
+  @scope (.b-careers-locations) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      max-width: 40rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      display: grid;
+      grid-auto-rows: minmax(16rem, auto);
+      grid-auto-flow: dense;
+      gap: var(--space-4);
+    }
+
+    .b-tile {
+      position: relative;
+      display: grid;
+      overflow: hidden;
+      border-radius: var(--card-radius);
+    }
+
+    .b-tile:hover h3 {
+      text-decoration: underline;
+    }
+
+    .b-photo,
+    .b-info {
+      grid-area: 1 / 1;
+    }
+
+    .b-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .b-info {
+      --stack-gap: var(--space-1);
+      align-self: end;
+      padding: var(--space-16) var(--space-6) var(--space-6);
+      background: linear-gradient(
+        transparent,
+        color-mix(in oklab, var(--theme-dark-background) 88%, transparent)
+      );
+      color: var(--theme-dark-text);
+    }
+
+    .b-tag {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-self: flex-start;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--theme-dark-background) 55%, transparent);
+      font-size: var(--text-sm);
+    }
+
+    .b-tile h3 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-remote {
+      align-content: end;
+      gap: var(--space-2);
+      padding: var(--space-6);
+      border: 2px dashed var(--color-border);
+      background: var(--color-surface);
+    }
+
+    .b-globe {
+      --icon-size: 2rem;
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-office:first-child {
+        grid-row: span 2;
+      }
+
+      .b-remote {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .b-remote {
+        grid-column: span 2;
+      }
+    }
+  }
+}

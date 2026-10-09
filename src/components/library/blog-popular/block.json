@@ -1,0 +1,188 @@
+{
+  "name": "Blog posts, most read",
+  "category": "blog",
+  "description": "A featured post beside a numbered list of the most-read posts.",
+  "tags": ["blog", "posts", "articles", "popular", "trending", "ranking", "featured", "numbered"],
+  "fieldGroups": ["Heading", "Featured post", "Most read"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Blog",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "This month on the Fieldnote blog",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "featuredImage",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A researcher on a video call with a customer, taking notes by hand",
+        "decorative": false,
+        "width": 1600,
+        "height": 900,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "photo"
+        }
+      },
+      "group": "Featured post"
+    },
+    {
+      "name": "featuredCategory",
+      "label": "Category",
+      "type": "text",
+      "default": "Recruiting",
+      "group": "Featured post"
+    },
+    {
+      "name": "featuredTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "How to recruit customers for interviews without paying them to show up",
+      "group": "Featured post",
+      "required": true
+    },
+    {
+      "name": "featuredExcerpt",
+      "label": "Excerpt",
+      "type": "textarea",
+      "default": "Gift cards fill your calendar with the wrong people. Here is how we find customers who actually want to talk, and what we offer them instead.",
+      "group": "Featured post"
+    },
+    {
+      "name": "featuredDate",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-09-29",
+      "group": "Featured post"
+    },
+    {
+      "name": "featuredReadTime",
+      "label": "Reading time",
+      "type": "text",
+      "default": "7 min read",
+      "group": "Featured post"
+    },
+    {
+      "name": "featuredLink",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Featured post"
+    },
+    {
+      "name": "listTitle",
+      "label": "List title",
+      "type": "text",
+      "default": "Most read",
+      "group": "Most read"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Most read",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "category",
+          "label": "Category",
+          "type": "text",
+          "default": "Research"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Post title"
+        },
+        {
+          "name": "readTime",
+          "label": "Reading time",
+          "type": "text",
+          "default": "5 min read"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "category": "Interviewing",
+          "title": "The five-question guide we use for every churn interview",
+          "readTime": "5 min read",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Synthesis",
+          "title": "Tagging is not synthesis: from 40 interviews to three decisions",
+          "readTime": "9 min read",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Research ops",
+          "title": "Your sales calls are the research you are not using",
+          "readTime": "6 min read",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Customer stories",
+          "title": "How Northwind halved onboarding time with ten customer calls",
+          "readTime": "8 min read",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Interviewing",
+          "title": "Silence is your best follow-up question",
+          "readTime": "4 min read",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

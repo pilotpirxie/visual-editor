@@ -1,0 +1,28 @@
+<section class="b-careers-process section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-bar" aria-hidden="true">
+      {{#each stages}}
+      <span style="--days: {{days}}">{{title}}</span>
+      {{/each}}
+    </div>
+    <ol class="b-stages" role="list">
+      {{#each stages}}
+      <li class="stack b-stage" data-field="stages.{{@index}}">
+        <h3>{{title}}</h3>
+        <p class="b-time">{{svgIcon "clock"}}<span>{{duration}}</span></p>
+        {{#if people}}<p>{{people}}</p>{{/if}}
+        <p class="b-muted">{{nl2br text}}</p>
+      </li>
+      {{/each}}
+    </ol>
+    <div class="b-foot">
+      <p class="b-total"><span class="b-muted" data-field="totalLabel">{{totalLabel}}</span> <strong data-field="totalValue">{{totalValue}}</strong></p>
+      {{#if promise}}<p class="b-promise" data-field="promise">{{svgIcon promiseIcon}}<span>{{promise}}</span></p>{{/if}}
+    </div>
+  </div>
+</section>

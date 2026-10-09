@@ -1,0 +1,16 @@
+<section class="b-cta-card section">
+  <div class="container">
+    <div class="card stack b-card">
+      {{#if icon}}<span class="b-icon" data-field="icon">{{svgIcon icon}}</span>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+        {{/if}}
+      </div>
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+  </div>
+</section>

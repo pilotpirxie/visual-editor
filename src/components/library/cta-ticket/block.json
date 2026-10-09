@@ -1,0 +1,99 @@
+{
+  "name": "Call to action, ticket",
+  "category": "call-to-action",
+  "description": "The pitch printed on a ticket, with a perforated stub that holds a pass number and the button.",
+  "tags": ["cta", "ticket", "pass", "event", "trial", "stub", "coupon"],
+  "fieldGroups": ["Content", "Details", "Stub"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Admit one",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your pass to 14 days of Fieldnote",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Every feature, unlimited interviews and room for your whole team. Cancel before day 14 and you pay nothing.",
+      "group": "Content"
+    },
+    {
+      "name": "details",
+      "label": "Details",
+      "type": "list",
+      "group": "Details",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        },
+        {
+          "name": "value",
+          "label": "Value",
+          "type": "text",
+          "default": "Value"
+        }
+      ],
+      "default": [
+        {
+          "label": "Valid for",
+          "value": "14 days"
+        },
+        {
+          "label": "Seats",
+          "value": "Whole team"
+        },
+        {
+          "label": "Card needed",
+          "value": "None"
+        }
+      ]
+    },
+    {
+      "name": "serialLabel",
+      "label": "Pass number label",
+      "type": "text",
+      "default": "Pass no.",
+      "group": "Stub"
+    },
+    {
+      "name": "serial",
+      "label": "Pass number",
+      "type": "text",
+      "default": "FN-0414-2026",
+      "group": "Stub"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Claim your pass",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Stub"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "name": "Content, newspaper columns",
+  "category": "content",
+  "description": "A newspaper-style story with a kicker, standfirst, drop cap, columns and a pull quote across them.",
+  "tags": ["newspaper", "article", "columns", "editorial", "press", "story", "drop cap"],
+  "fieldGroups": ["Heading", "Story"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "kicker",
+      "label": "Kicker",
+      "type": "text",
+      "default": "Field report",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The team that stopped writing research reports",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "standfirst",
+      "label": "Standfirst",
+      "type": "textarea",
+      "default": "How a twelve-person product team in Toronto replaced quarterly decks with twenty-second clips, and what happened to their roadmap.",
+      "group": "Heading"
+    },
+    {
+      "name": "byline",
+      "label": "Byline",
+      "type": "text",
+      "default": "By Ingrid Solberg",
+      "group": "Heading"
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-09-22",
+      "group": "Heading"
+    },
+    {
+      "name": "body",
+      "label": "First part",
+      "type": "richtext",
+      "default": "<p>For years the research team at Northwind Logistics did what research teams do. They interviewed customers, wrote it up and presented the findings at the end of each quarter. The decks were beautiful. By the time they were shown, most of the decisions had already been made.</p><p>Last spring they tried something else. Every interview was recorded and tagged as it happened. Instead of a report, the team posted three short clips to the planning channel every Friday, each with a one-line note on why it mattered.</p>",
+      "group": "Story"
+    },
+    {
+      "name": "quote",
+      "label": "Pull quote",
+      "type": "text",
+      "default": "“Nobody argues with a customer. They argue with our summary of the customer.”",
+      "group": "Story"
+    },
+    {
+      "name": "more",
+      "label": "Second part",
+      "type": "richtext",
+      "default": "<p>The change was immediate. Engineers started quoting customers in pull requests. Designers began linking clips in their specs. The head of product, Priya Raman, now opens every planning meeting with a ninety-second reel.</p><p>Six months on, the team runs twice as many interviews and spends a third of the time writing. Their onboarding rework, decided almost entirely from clips, lifted activation by eighteen percent.</p>",
+      "group": "Story"
+    }
+  ]
+}

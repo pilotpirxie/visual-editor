@@ -1,0 +1,34 @@
+<section class="b-contact-hours section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    <div class="b-body">
+      <div class="stack b-info">
+        <ul class="stack b-details" role="list">
+          {{#if address}}<li data-field="address">{{svgIcon "map-pin"}}<address>{{nl2br address}}</address></li>{{/if}}
+          {{#if phone}}<li data-field="phone">{{svgIcon "phone"}}<a href="tel:{{phone}}">{{phone}}</a></li>{{/if}}
+          {{#if email}}<li data-field="email">{{svgIcon "mail"}}<a href="mailto:{{email}}">{{email}}</a></li>{{/if}}
+        </ul>
+        <div class="stack b-hours">
+          <h3 data-field="hoursTitle">{{hoursTitle}}</h3>
+          <dl>
+            {{#each hours}}
+            <div class="b-row" data-field="hours.{{@index}}">
+              <dt>{{days}}</dt>
+              <dd>{{time}}</dd>
+            </div>
+            {{/each}}
+          </dl>
+          {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+        </div>
+      </div>
+      <div class="stack b-location">
+        <div class="media b-map" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
+        {{#if showButton}}<a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{svgIcon "compass"}}{{button.label}}</a>{{/if}}
+      </div>
+    </div>
+  </div>
+</section>

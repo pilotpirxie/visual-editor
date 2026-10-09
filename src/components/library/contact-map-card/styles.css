@@ -1,0 +1,104 @@
+@layer components {
+  @scope (.b-contact-map-card) {
+    :scope {
+      position: relative;
+      padding-top: 0;
+    }
+
+    .b-map {
+      --road: var(--color-background);
+      position: relative;
+      height: 18rem;
+      background:
+        linear-gradient(
+          118deg,
+          transparent 46%,
+          color-mix(in oklab, var(--color-primary) 30%, var(--color-background)) 46% 48.5%,
+          transparent 48.5%
+        ),
+        radial-gradient(
+          ellipse 16% 24% at 14% 78%,
+          color-mix(in oklab, var(--color-primary) 14%, var(--color-surface)) 98%,
+          transparent
+        ),
+        repeating-linear-gradient(90deg, transparent 0 4.5rem, var(--road) 4.5rem 5rem),
+        repeating-linear-gradient(0deg, transparent 0 3.5rem, var(--road) 3.5rem 4rem),
+        var(--color-surface);
+    }
+
+    .b-pin {
+      --icon-size: 1.5rem;
+      position: absolute;
+      inset-block-start: 38%;
+      inset-inline-start: 62%;
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      box-shadow: 0 0 0 0.75rem color-mix(in oklab, var(--color-primary) 22%, transparent);
+    }
+
+    .b-card {
+      --stack-gap: var(--space-4);
+      --card-shadow: var(--shadow-lg);
+      position: relative;
+      max-width: 28rem;
+      margin-top: calc(var(--space-16) * -1);
+    }
+
+    .b-details {
+      --stack-gap: var(--space-3);
+      margin-block: var(--space-2);
+    }
+
+    .b-details li {
+      --icon-size: 1.25rem;
+      display: flex;
+      gap: var(--space-3);
+      color: var(--color-text-muted);
+    }
+
+    .b-details .icon {
+      flex: none;
+      color: var(--color-primary);
+    }
+
+    .b-details address {
+      font-style: normal;
+    }
+
+    .b-details a {
+      color: var(--color-text);
+    }
+
+    .b-card .btn {
+      align-self: start;
+    }
+
+    @media (min-width: 1024px) {
+      :scope {
+        padding-top: var(--section-padding-y);
+      }
+
+      .b-map {
+        position: absolute;
+        inset: 0;
+        height: auto;
+      }
+
+      .b-inner {
+        display: flex;
+        align-items: center;
+        min-height: 26rem;
+      }
+
+      .b-card {
+        margin-top: 0;
+        --card-padding: var(--space-8);
+      }
+    }
+  }
+}

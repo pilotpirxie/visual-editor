@@ -1,0 +1,185 @@
+{
+  "name": "How it works, recipe card",
+  "category": "how-it-works",
+  "description": "A recipe-style card with quick facts, a list of what you need and numbered method steps.",
+  "tags": ["steps", "recipe", "ingredients", "method", "process", "card"],
+  "fieldGroups": ["Heading", "Facts", "What you need", "Method"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The research sprint recipe",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Five interviews to a decision, in one week",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The method our customer success team hands every new account. Follow it once and you will never plan research from a blank page again.",
+      "group": "Heading"
+    },
+    {
+      "name": "facts",
+      "label": "Facts",
+      "type": "list",
+      "group": "Facts",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        },
+        {
+          "name": "value",
+          "label": "Value",
+          "type": "text",
+          "default": "Value"
+        }
+      ],
+      "default": [
+        {
+          "label": "Prep",
+          "value": "30 minutes"
+        },
+        {
+          "label": "Fieldwork",
+          "value": "4 days"
+        },
+        {
+          "label": "Serves",
+          "value": "One product team"
+        }
+      ]
+    },
+    {
+      "name": "needTitle",
+      "label": "List title",
+      "type": "text",
+      "default": "What you need",
+      "required": true,
+      "group": "What you need"
+    },
+    {
+      "name": "ingredients",
+      "label": "Items",
+      "type": "list",
+      "group": "What you need",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "item",
+      "itemFields": [
+        {
+          "name": "amount",
+          "label": "Amount",
+          "type": "text",
+          "default": "1"
+        },
+        {
+          "name": "item",
+          "label": "Item",
+          "type": "text",
+          "default": "Item"
+        }
+      ],
+      "default": [
+        {
+          "amount": "1",
+          "item": "Question your team can’t agree on"
+        },
+        {
+          "amount": "5",
+          "item": "Customers who felt the problem last month"
+        },
+        {
+          "amount": "45 min",
+          "item": "Per call, recorded by Fieldnote"
+        },
+        {
+          "amount": "2",
+          "item": "Teammates to watch the clips"
+        },
+        {
+          "amount": "1",
+          "item": "Shared tag set, started from a template"
+        }
+      ]
+    },
+    {
+      "name": "methodTitle",
+      "label": "Method title",
+      "type": "text",
+      "default": "Method",
+      "required": true,
+      "group": "Method"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Method",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "title": "Write the question down",
+          "text": "One sentence, pinned to the project, so every call starts from the same place."
+        },
+        {
+          "title": "Book the calls in one go",
+          "text": "Send one scheduling link. Fieldnote joins every call that lands on your calendar."
+        },
+        {
+          "title": "Tag while it’s fresh",
+          "text": "Spend ten minutes after each call marking highlights against your tag set."
+        },
+        {
+          "title": "Serve the clips, not the deck",
+          "text": "Share a two-minute reel of customer voices and let the team decide together."
+        }
+      ]
+    },
+    {
+      "name": "tipIcon",
+      "label": "Tip icon",
+      "type": "icon",
+      "default": "lightbulb",
+      "group": "Method"
+    },
+    {
+      "name": "tip",
+      "label": "Tip",
+      "type": "textarea",
+      "default": "Keep it to five calls. After the fifth, new answers mostly repeat the ones you already have.",
+      "group": "Method"
+    }
+  ]
+}

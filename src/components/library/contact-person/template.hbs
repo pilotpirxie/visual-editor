@@ -1,0 +1,21 @@
+<section class="b-contact-person section">
+  <div class="container">
+    <div class="b-panel">
+      <div class="media b-photo" data-field="photo">{{img photo}}</div>
+      <div class="stack b-content">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+        <p class="b-person"><strong data-field="name">{{name}}</strong>{{#if role}}<span data-field="role">{{role}}</span>{{/if}}</p>
+        <ul class="cluster b-direct" role="list">
+          {{#if email}}<li data-field="email">{{svgIcon "mail"}}<a href="mailto:{{email}}">{{email}}</a></li>{{/if}}
+          {{#if phone}}<li data-field="phone">{{svgIcon "phone"}}<a href="tel:{{phone}}">{{phone}}</a></li>{{/if}}
+        </ul>
+        <div class="cluster b-actions">
+          <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{svgIcon "calendar"}}{{button.label}}</a>
+          {{#if note}}<p class="b-note" data-field="note">{{svgIcon "clock"}}<span>{{note}}</span></p>{{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

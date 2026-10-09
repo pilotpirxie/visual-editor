@@ -1,0 +1,24 @@
+<div class="b-modal-share" data-behavior="modal">
+  <dialog class="modal b-dialog" id="{{block.id}}-dialog" aria-labelledby="{{block.id}}-title">
+    <button type="button" class="modal-close" command="close" commandfor="{{block.id}}-dialog" data-field="closeLabel">{{svgIcon "x"}}<span class="visually-hidden">{{closeLabel}}</span></button>
+    <div class="stack b-body">
+      <h2 id="{{block.id}}-title" data-field="title">{{title}}</h2>
+      <div class="b-preview">
+        <span class="media b-thumb" data-field="image">{{img image}}</span>
+        <span class="stack b-meta">
+          <span class="b-site" data-field="siteName">{{siteName}}</span>
+          <span class="b-page" data-field="pageTitle">{{pageTitle}}</span>
+        </span>
+      </div>
+      <ul class="b-networks" role="list">
+        {{#each networks}}
+        <li data-field="networks.{{@index}}"><a class="b-network" href="{{href link}}" {{linkAttrs link}}><span class="b-circle">{{svgIcon icon}}</span><span>{{label}}</span></a></li>
+        {{/each}}
+      </ul>
+      <div class="field b-field">
+        <label for="{{block.id}}-url" data-field="urlLabel">{{urlLabel}}</label>
+        <div class="b-url">{{svgIcon "link"}}<input id="{{block.id}}-url" type="url" value="{{url}}" readonly data-field="url"></div>
+      </div>
+    </div>
+  </dialog>
+</div>

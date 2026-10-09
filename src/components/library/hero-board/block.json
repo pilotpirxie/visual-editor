@@ -1,0 +1,172 @@
+{
+  "name": "Hero, research board",
+  "category": "headers",
+  "description": "Centered heading above a three-column board of insight cards, like a synthesis workspace.",
+  "tags": ["hero", "heading", "board", "kanban", "columns", "cards", "workspace"],
+  "fieldGroups": ["Heading", "Buttons", "Board"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Badge",
+      "type": "text",
+      "default": "Synthesis, without the sticky notes",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Go from forty interviews to three decisions",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Drag quotes into patterns, turn patterns into decisions and share the board with everyone who needs to know why.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Book a demo",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "boardLabel",
+      "label": "Board label",
+      "type": "text",
+      "default": "Example research board",
+      "group": "Board",
+      "help": "Read by screen readers."
+    },
+    {
+      "name": "columns",
+      "label": "Columns",
+      "type": "list",
+      "group": "Board",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Column"
+        },
+        {
+          "name": "cards",
+          "label": "Cards",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 4,
+          "itemLabel": "text",
+          "itemFields": [
+            {
+              "name": "text",
+              "label": "Text",
+              "type": "text",
+              "default": "Card"
+            },
+            {
+              "name": "tag",
+              "label": "Tag",
+              "type": "text",
+              "default": ""
+            }
+          ],
+          "default": [
+            {
+              "text": "Card",
+              "tag": ""
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "title": "Heard",
+          "cards": [
+            {
+              "text": "“I never know which tag to pick.”",
+              "tag": "Onboarding"
+            },
+            {
+              "text": "“Finding an old call takes forever.”",
+              "tag": "Search"
+            },
+            {
+              "text": "“My manager only reads the summary.”",
+              "tag": "Sharing"
+            }
+          ]
+        },
+        {
+          "title": "Patterns",
+          "cards": [
+            {
+              "text": "Tagging is a chore, so people skip it",
+              "tag": "18 interviews"
+            },
+            {
+              "text": "Stakeholders want clips, not reports",
+              "tag": "11 interviews"
+            }
+          ]
+        },
+        {
+          "title": "Decisions",
+          "cards": [
+            {
+              "text": "Suggest tags automatically after each call",
+              "tag": "Q3 roadmap"
+            },
+            {
+              "text": "Make highlight reels shareable by link",
+              "tag": "Shipped"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

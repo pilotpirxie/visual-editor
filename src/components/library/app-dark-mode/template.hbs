@@ -1,0 +1,32 @@
+<section class="b-app-dark-mode section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      {{#if showButton}}<div class="cluster"><a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a></div>{{/if}}
+    </div>
+    <div class="b-stage" aria-hidden="true">
+      <div class="b-phone b-light">
+        <div class="b-screen">
+          <p class="b-app-title">{{screenTitle}}</p>
+          <ul class="b-cards" role="list">
+            {{#each highlights}}
+            <li class="b-card"><span class="b-tag">{{tag}}</span><span>{{quote}}</span></li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+      <div class="b-phone b-dark">
+        <div class="b-screen">
+          <p class="b-app-title" data-field="screenTitle">{{screenTitle}}</p>
+          <ul class="b-cards" role="list">
+            {{#each highlights}}
+            <li class="b-card" data-field="highlights.{{@index}}"><span class="b-tag">{{tag}}</span><span>{{quote}}</span></li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+<footer class="b-footer-status section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <div class="stack b-brand">
+        <a class="b-logo" href="index.html">{{site.title}}</a>
+        {{#if tagline}}<p class="b-muted" data-field="tagline">{{nl2br tagline}}</p>{{/if}}
+      </div>
+      <nav class="b-columns" aria-label="Footer">
+        {{#each columns}}
+        <div class="stack b-column" data-field="columns.{{@index}}">
+          <h2 class="b-heading">{{title}}</h2>
+          <ul class="b-list" role="list">
+            {{#each links}}
+            <li><a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="columns.{{@../index}}.links.{{@index}}">{{label}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+        {{/each}}
+      </nav>
+    </div>
+    <div class="b-bar">
+      {{#if statusLabel}}<a class="b-status" href="{{href statusLink}}" {{linkAttrs statusLink}} data-field="statusLabel"><span class="b-dot" aria-hidden="true"></span>{{statusLabel}}</a>{{/if}}
+      {{#if version}}<p class="b-chip" data-field="version">{{svgIcon "code"}}{{version}}</p>{{/if}}
+      {{#if region}}<p class="b-chip" data-field="region">{{svgIcon "globe"}}{{region}}</p>{{/if}}
+      <p class="b-copy" data-field="copyright">{{copyright}}</p>
+    </div>
+  </div>
+</footer>

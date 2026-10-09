@@ -1,0 +1,277 @@
+{
+  "name": "Team, by department",
+  "category": "team",
+  "description": "People grouped under department headings, each with a short description.",
+  "tags": ["team", "people", "departments", "groups", "organization", "about"],
+  "fieldGroups": ["Heading", "Departments"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How we are organized",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three small teams, one shared backlog",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every team owns part of the product end to end, from the first interview to the release notes.",
+      "group": "Heading"
+    },
+    {
+      "name": "departments",
+      "label": "Departments",
+      "type": "list",
+      "group": "Departments",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Department",
+          "type": "text",
+          "default": "Department"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "What this team works on.",
+          "maxLength": 200
+        },
+        {
+          "name": "people",
+          "label": "People",
+          "type": "list",
+          "minItems": 1,
+          "maxItems": 16,
+          "itemLabel": "name",
+          "itemFields": [
+            {
+              "name": "photo",
+              "label": "Photo",
+              "type": "image",
+              "default": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Portrait",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "name": "name",
+              "label": "Name",
+              "type": "text",
+              "default": "Name"
+            },
+            {
+              "name": "role",
+              "label": "Role",
+              "type": "text",
+              "default": "Role"
+            }
+          ],
+          "default": [
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Name",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Name",
+              "role": "Role"
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "name": "Research and design",
+          "description": "Interviews our own customers every week, using Fieldnote, and turns what we hear into screens.",
+          "people": [
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ingrid Solberg",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Ingrid Solberg",
+              "role": "Head of research"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Yuki Tanaka",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Yuki Tanaka",
+              "role": "Senior product designer"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Mei Lin",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Mei Lin",
+              "role": "Content designer"
+            }
+          ]
+        },
+        {
+          "name": "Engineering",
+          "description": "Builds the recorder, the transcription pipeline and the web app. Nine people in six countries.",
+          "people": [
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Kwame Mensah",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Kwame Mensah",
+              "role": "Head of engineering"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Aisha Bello",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Aisha Bello",
+              "role": "Machine learning engineer"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tomás Herrera",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Tomás Herrera",
+              "role": "Backend engineer"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Felix Wagner",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Felix Wagner",
+              "role": "Data engineer"
+            }
+          ]
+        },
+        {
+          "name": "Customer success",
+          "description": "Helps research teams run their first study in their first week, and the next hundred after that.",
+          "people": [
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Daniel Novak",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Daniel Novak",
+              "role": "Customer success lead"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Grace Okafor",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Grace Okafor",
+              "role": "Account executive"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

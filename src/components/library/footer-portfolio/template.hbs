@@ -1,0 +1,21 @@
+<footer class="b-footer-portfolio section">
+  <div class="container stack b-inner">
+    <div class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 class="b-title" data-field="title">{{title}}</h2>
+      {{#if email}}<a class="b-email" href="mailto:{{email}}" data-field="email">{{email}}{{svgIcon "arrow-up-right"}}</a>{{/if}}
+    </div>
+    <div class="b-bottom">
+      <div class="b-meta">
+        <a class="b-logo" href="index.html">{{site.title}}</a>
+        {{#if location}}<p data-field="location">{{location}}</p>{{/if}}
+        <p data-field="copyright">{{copyright}}</p>
+      </div>
+      <ul class="cluster b-socials" role="list">
+        {{#each socials}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span>{{label}}</span></a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</footer>

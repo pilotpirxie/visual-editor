@@ -1,0 +1,33 @@
+<section class="b-signup-waitlist section">
+  <div class="container b-inner">
+    <div class="stack b-main">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field b-field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if note}}<p class="b-muted b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+    <div class="b-ticket" data-field="position">
+      <div class="stack b-top">
+        <p class="b-label" data-field="ticketLabel">{{ticketLabel}}</p>
+        <p class="b-number">{{position}}</p>
+        {{#if facts.length}}
+        <dl class="b-facts" data-field="facts">
+          {{#each facts}}
+          <div><dt>{{label}}</dt><dd>{{value}}</dd></div>
+          {{/each}}
+        </dl>
+        {{/if}}
+      </div>
+      <p class="b-stub" data-field="skipText">{{svgIcon skipIcon}}<span><strong>{{skipTitle}}</strong> {{skipText}}</span></p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,57 @@
+{
+  "name": "Call to action, minimal line",
+  "category": "call-to-action",
+  "description": "One large sentence and a single arrow link, with plenty of space around them.",
+  "tags": ["cta", "minimal", "simple", "link", "text"],
+  "fieldGroups": ["Content", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Got a study coming up? Let Fieldnote take the notes.",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link label",
+      "type": "text",
+      "default": "Start your free trial",
+      "group": "Content",
+      "required": true
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Content"
+    },
+    {
+      "name": "align",
+      "label": "Alignment",
+      "type": "segmented",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left",
+          "icon": "align-left"
+        },
+        {
+          "value": "center",
+          "label": "Center",
+          "icon": "align-center"
+        }
+      ],
+      "group": "Layout"
+    }
+  ]
+}

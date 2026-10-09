@@ -1,0 +1,31 @@
+<section class="b-faq-index section">
+  <div class="container b-inner">
+    <div class="stack b-side">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      <nav aria-label="{{indexLabel}}" data-field="indexLabel">
+        <ol class="b-index" role="list">
+          {{#each topics}}
+          <li><a class="b-link" href="#{{../block.id}}-topic-{{@index}}"><span class="b-link-icon">{{svgIcon icon}}</span><span>{{title}}</span><span class="b-count">{{questions.length}}</span></a></li>
+          {{/each}}
+        </ol>
+      </nav>
+    </div>
+    <div class="b-groups">
+      {{#each topics}}
+      <section class="b-group" id="{{../block.id}}-topic-{{@index}}" aria-labelledby="{{../block.id}}-topic-{{@index}}-title" data-field="topics.{{@index}}">
+        <h3 class="b-group-title" id="{{../block.id}}-topic-{{@index}}-title"><span class="b-group-icon">{{svgIcon icon}}</span>{{title}}</h3>
+        {{#each questions}}
+        <details class="b-item" name="{{../../block.id}}-faq">
+          <summary class="b-question"><span>{{question}}</span><span class="b-icon">{{svgIcon "chevron-down"}}</span></summary>
+          <div class="prose b-answer">{{richText answer}}</div>
+        </details>
+        {{/each}}
+      </section>
+      {{/each}}
+    </div>
+  </div>
+</section>

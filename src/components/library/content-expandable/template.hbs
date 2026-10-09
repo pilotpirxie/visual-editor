@@ -1,0 +1,20 @@
+<section class="b-content-expandable section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if meta}}<p class="b-meta" data-field="meta">{{svgIcon "clock"}}<span>{{meta}}</span></p>{{/if}}
+    </header>
+    <div class="b-story">
+      <div class="prose b-intro" data-field="intro">{{richText intro}}</div>
+      <details class="b-more">
+        <summary class="b-toggle">
+          <span class="b-open" data-field="moreLabel">{{moreLabel}}</span>
+          <span class="b-close" data-field="lessLabel">{{lessLabel}}</span>
+          <span class="icon b-chevron">{{svgIcon "chevron-down"}}</span>
+        </summary>
+        <div class="prose b-rest" data-field="more">{{richText more}}</div>
+      </details>
+    </div>
+  </div>
+</section>

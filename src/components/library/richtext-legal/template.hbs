@@ -1,0 +1,21 @@
+<section class="b-richtext-legal section">
+  <div class="container">
+    <article class="stack b-article">
+      <header class="stack b-head">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if updated}}<p class="b-updated" data-field="updated"><span data-field="updatedLabel">{{updatedLabel}}</span> <time datetime="{{updated}}">{{formatDate updated}}</time></p>{{/if}}
+        {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      {{#if summary}}
+      <aside class="stack b-summary" aria-labelledby="{{block.id}}-summary">
+        <h3 class="b-summary-title" id="{{block.id}}-summary" data-field="summaryTitle">{{summaryTitle}}</h3>
+        <div class="prose b-summary-body" data-field="summary">{{richText summary}}</div>
+      </aside>
+      {{/if}}
+      <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+      {{#if contactEmail}}
+      <p class="b-contact" data-field="contactEmail">{{svgIcon "mail"}}<span><span data-field="contactText">{{contactText}}</span> <a href="mailto:{{contactEmail}}">{{contactEmail}}</a></span></p>
+      {{/if}}
+    </article>
+  </div>
+</section>

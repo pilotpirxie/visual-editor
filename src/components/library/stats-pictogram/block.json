@@ -1,0 +1,93 @@
+{
+  "name": "Numbers, pictogram",
+  "category": "numbers",
+  "description": "Survey results shown as rows of ten icons, with the share that applies filled in.",
+  "tags": ["numbers", "stats", "survey", "pictogram", "infographic", "people", "percent"],
+  "fieldGroups": ["Heading", "Rows"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "State of research 2026",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What 1,200 research teams told us",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We surveyed researchers, designers and product managers about where their customer insights end up.",
+      "group": "Heading"
+    },
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "user",
+      "group": "Rows"
+    },
+    {
+      "name": "ofLabel",
+      "label": "Text after the number",
+      "type": "text",
+      "default": "in 10 teams",
+      "group": "Rows"
+    },
+    {
+      "name": "items",
+      "label": "Rows",
+      "type": "list",
+      "group": "Rows",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "count",
+          "label": "How many out of 10",
+          "type": "number",
+          "default": 5,
+          "min": 0,
+          "max": 10,
+          "step": 0.5
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What this share of people do."
+        }
+      ],
+      "default": [
+        {
+          "count": 7,
+          "text": "lose track of insights within a month of the interview."
+        },
+        {
+          "count": 4,
+          "text": "keep their research notes in more than five different tools."
+        },
+        {
+          "count": 9,
+          "text": "say decisions would be better if insights were easier to find."
+        }
+      ]
+    },
+    {
+      "name": "source",
+      "label": "Source",
+      "type": "text",
+      "default": "Fieldnote State of Research survey, January 2026, 1,204 respondents.",
+      "group": "Rows"
+    }
+  ]
+}

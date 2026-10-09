@@ -1,0 +1,138 @@
+{
+  "name": "Careers, a day in the life",
+  "category": "careers",
+  "description": "One person’s workday as a timeline of time-stamped moments, beside their photo, role and a short quote.",
+  "tags": ["careers", "culture", "day in the life", "timeline", "employee", "schedule"],
+  "fieldGroups": ["Heading", "Person", "Day"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "A day in the life",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "An ordinary Tuesday on the speech team",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Amara Okafor at her desk in the Toronto office",
+        "decorative": false,
+        "width": 800,
+        "height": 800,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Person"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Amara Okafor",
+      "required": true,
+      "group": "Person"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Machine learning engineer, Toronto",
+      "group": "Person"
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "The best part of my week is hearing a customer describe a problem I fixed, without knowing I fixed it.",
+      "group": "Person"
+    },
+    {
+      "name": "moments",
+      "label": "Moments",
+      "type": "list",
+      "group": "Day",
+      "minItems": 2,
+      "maxItems": 7,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "time",
+          "label": "Time",
+          "type": "text",
+          "default": "9:00"
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "clock"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Moment"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens."
+        }
+      ],
+      "default": [
+        {
+          "time": "8:45",
+          "icon": "coffee",
+          "title": "Coffee and the overnight queue",
+          "text": "Skim the transcripts that failed overnight and pick one to dig into."
+        },
+        {
+          "time": "10:00",
+          "icon": "users",
+          "title": "Stand-up, twelve minutes",
+          "text": "Five of us across three time zones. Cameras optional, notes in the doc."
+        },
+        {
+          "time": "11:00",
+          "icon": "cpu",
+          "title": "Deep work on speaker labels",
+          "text": "Two hours with no meetings on the calendar, by team agreement."
+        },
+        {
+          "time": "13:30",
+          "icon": "headphones",
+          "title": "Listen to a customer call",
+          "text": "Every engineer sits in on one interview a week. Today it’s a hospital."
+        },
+        {
+          "time": "15:30",
+          "icon": "code",
+          "title": "Pair on the fix",
+          "text": "Ship the change with a teammate in Berlin before their evening."
+        },
+        {
+          "time": "17:30",
+          "icon": "moon",
+          "title": "Log off",
+          "text": "No one expects replies after six. The pager rotation covers the rest."
+        }
+      ]
+    }
+  ]
+}

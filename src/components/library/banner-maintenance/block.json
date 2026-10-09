@@ -1,0 +1,103 @@
+{
+  "name": "Banner, scheduled maintenance",
+  "category": "banners",
+  "description": "A planned downtime notice with a tear-off calendar date, the time window, the affected features and a link to the status page.",
+  "tags": [
+    "maintenance",
+    "downtime",
+    "status",
+    "schedule",
+    "calendar",
+    "outage",
+    "notice",
+    "saas",
+    "banner"
+  ],
+  "fieldGroups": ["Date", "Notice", "Link"],
+  "styleOverrides": ["--color-surface", "--color-text"],
+  "fields": [
+    {
+      "name": "month",
+      "label": "Month",
+      "type": "text",
+      "default": "Oct",
+      "required": true,
+      "maxLength": 4,
+      "group": "Date"
+    },
+    {
+      "name": "day",
+      "label": "Day",
+      "type": "text",
+      "default": "18",
+      "required": true,
+      "maxLength": 2,
+      "group": "Date"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Scheduled maintenance",
+      "required": true,
+      "maxLength": 50,
+      "group": "Notice"
+    },
+    {
+      "name": "window",
+      "label": "Time window",
+      "type": "text",
+      "default": "Sat 02:00–04:00 ET",
+      "maxLength": 40,
+      "group": "Notice"
+    },
+    {
+      "name": "services",
+      "label": "Affected features",
+      "type": "list",
+      "group": "Notice",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Feature",
+          "type": "text",
+          "default": "Feature",
+          "maxLength": 24
+        }
+      ],
+      "default": [
+        {
+          "label": "Exports"
+        },
+        {
+          "label": "Zoom import"
+        },
+        {
+          "label": "Public API"
+        }
+      ]
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link label",
+      "type": "text",
+      "default": "Status page",
+      "maxLength": 24,
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "https://status.fieldnote.app",
+        "newTab": true
+      },
+      "group": "Link"
+    }
+  ]
+}

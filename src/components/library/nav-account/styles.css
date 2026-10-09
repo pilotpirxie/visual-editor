@@ -1,0 +1,118 @@
+@layer components {
+  @scope (.b-nav-account) {
+    :scope {
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    .b-bar {
+      display: flex;
+      align-items: center;
+      min-height: 4rem;
+    }
+
+    .b-logo {
+      min-width: 0;
+      margin-inline-end: auto;
+      overflow-wrap: anywhere;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-toggle {
+      order: 1;
+    }
+
+    .b-menu,
+    .b-panel {
+      border: 0;
+      background: var(--color-background);
+      color: inherit;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-menu {
+      inset: 4rem 0 auto;
+      width: auto;
+      padding: var(--space-4) var(--container-padding-x);
+    }
+
+    .b-menu a,
+    .b-panel a {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: 2.75rem;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-panel a:hover,
+    [aria-current='page'] {
+      color: var(--color-primary);
+    }
+
+    .b-round {
+      --btn-radius: var(--radius-full);
+      --button-padding-x: 0;
+      position: relative;
+      width: 2.75rem;
+    }
+
+    .b-dot {
+      position: absolute;
+      inset: 0.625rem 0.625rem auto auto;
+      padding: 0.25rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+    }
+
+    .b-round img {
+      width: 2.25rem;
+      height: 2.25rem;
+      object-fit: cover;
+      border-radius: var(--radius-full);
+    }
+
+    .b-panel {
+      position: fixed;
+      inset: auto;
+      top: anchor(bottom);
+      inset-inline-end: anchor(end);
+      width: 15rem;
+      margin: var(--space-2) 0 0;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+    }
+
+    .b-who {
+      padding-block: var(--space-2);
+      border-bottom: var(--border-width) solid var(--color-border);
+      font-size: var(--text-sm);
+    }
+
+    .b-who span {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-toggle {
+        display: none;
+      }
+
+      .b-menu,
+      .b-links {
+        position: static;
+        display: flex;
+        flex: 1;
+        gap: var(--space-6);
+        padding: 0 var(--space-4);
+        background: none;
+        box-shadow: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+@layer components {
+  @scope (.b-footer-rows) {
+    :scope {
+      --section-padding-y: var(--space-8);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3) var(--space-8);
+    }
+
+    .b-main {
+      padding-bottom: var(--space-6);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .b-meta {
+      padding-top: var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-logo {
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-links {
+      --cluster-gap: 0 var(--space-6);
+    }
+
+    .b-links a {
+      display: inline-block;
+      padding-block: var(--space-2);
+      font-weight: var(--font-weight-bold);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-legal {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0 var(--space-6);
+    }
+
+    .b-legal-links {
+      --cluster-gap: 0 var(--space-4);
+    }
+
+    .b-legal-links a {
+      display: inline-block;
+      padding-block: var(--space-2);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-socials {
+      --cluster-gap: 0;
+      margin-inline: calc(var(--space-3) * -1);
+    }
+
+    .b-socials a {
+      --icon-size: 1.25rem;
+      display: inline-grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      color: inherit;
+    }
+
+    :is(.b-links, .b-legal-links, .b-socials) a:hover {
+      color: var(--color-primary);
+    }
+  }
+}

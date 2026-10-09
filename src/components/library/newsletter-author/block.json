@@ -1,0 +1,119 @@
+{
+  "name": "Newsletter, from the author",
+  "category": "newsletters",
+  "description": "A personal newsletter signup with the writer’s photo, name and role beside the pitch.",
+  "tags": ["newsletter", "email", "subscribe", "signup", "form", "author", "personal", "creator"],
+  "fieldGroups": ["Author", "Heading", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Ingrid Solberg",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Author"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Ingrid Solberg",
+      "group": "Author",
+      "required": true
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Head of research at Fieldnote",
+      "group": "Author"
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Letters from the research desk",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "I write one honest email a month about talking to customers",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "What I tried, what went wrong and what I would do differently. No product pitches, just notes from twelve years of running interviews.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email address",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Subscribe",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Privacy note",
+      "type": "text",
+      "default": "Join 12,400 readers. Unsubscribe any time.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+@layer components {
+  @scope (.b-gallery-cards) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      --grid-min: 17rem;
+    }
+
+    .b-card {
+      --card-padding: 0;
+      overflow: clip;
+    }
+
+    .b-media {
+      --media-ratio: 4 / 3;
+      --media-radius: 0;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-2);
+      padding: var(--space-6);
+    }
+
+    .b-tag {
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+    }
+
+    .b-title {
+      font-size: var(--text-lg);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
+}

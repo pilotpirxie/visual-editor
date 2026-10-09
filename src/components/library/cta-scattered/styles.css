@@ -1,0 +1,96 @@
+@layer components {
+  @scope (.b-cta-scattered) {
+    .b-stage {
+      position: relative;
+      display: grid;
+      gap: var(--space-8);
+      justify-items: center;
+    }
+
+    .b-photos {
+      display: flex;
+      justify-content: center;
+      padding-inline-start: var(--space-3);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-md);
+      flex: 0 1 5rem;
+      min-width: 0;
+      margin-inline-start: calc(var(--space-3) * -1);
+      border: var(--space-1) solid var(--color-background);
+      box-shadow: var(--shadow-md);
+      rotate: -6deg;
+    }
+
+    .b-photo:nth-child(even) {
+      rotate: 5deg;
+      translate: 0 var(--space-2);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-items: center;
+      max-width: 34rem;
+      text-align: center;
+    }
+
+    .b-copy h2 {
+      text-wrap: balance;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+    }
+
+    @media (min-width: 1024px) {
+      .b-stage {
+        min-height: 34rem;
+        align-content: center;
+      }
+
+      .b-photos {
+        position: absolute;
+        inset: 0 var(--container-padding-x);
+        display: block;
+        padding: 0;
+      }
+
+      .b-photo {
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 11rem;
+        margin: 0;
+      }
+
+      .b-photo:nth-child(2) {
+        inset: 40% auto auto 9%;
+        width: 8rem;
+      }
+
+      .b-photo:nth-child(3) {
+        inset: auto auto 0 2%;
+      }
+
+      .b-photo:nth-child(4) {
+        inset: 0 0 auto auto;
+      }
+
+      .b-photo:nth-child(5) {
+        inset: 42% 8% auto auto;
+        width: 8rem;
+      }
+
+      .b-photo:nth-child(6) {
+        inset: auto 1% 0 auto;
+        width: 10rem;
+      }
+    }
+  }
+}

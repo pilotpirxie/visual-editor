@@ -1,0 +1,23 @@
+<section class="b-pricing-discounts section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="grid b-offers" role="list">
+      {{#each offers}}
+      <li class="b-offer" data-field="offers.{{@index}}">
+        <p class="b-percent"><span class="b-number">{{percent}}</span> {{../offLabel}}</p>
+        <div class="stack b-body">
+          <span class="b-icon">{{svgIcon icon}}</span>
+          <h3>{{title}}</h3>
+          {{#if text}}<p class="b-muted">{{nl2br text}}</p>{{/if}}
+          {{#if linkLabel}}<a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{linkLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+    {{#if note}}<p class="b-muted b-note" data-field="note">{{nl2br note}}</p>{{/if}}
+  </div>
+</section>

@@ -1,0 +1,21 @@
+<section class="b-logos-industries section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    <ul class="b-groups" role="list">
+      {{#each groups}}
+      <li class="b-group" data-field="groups.{{@index}}">
+        <h3 class="b-industry"><span class="b-icon">{{svgIcon icon}}</span>{{industry}}</h3>
+        <ul class="b-logos" role="list">
+          {{#each logos}}
+          <li class="b-logo">{{img image}}</li>
+          {{/each}}
+        </ul>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

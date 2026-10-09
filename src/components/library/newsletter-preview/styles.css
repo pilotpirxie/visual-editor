@@ -1,0 +1,104 @@
+@layer components {
+  @scope (.b-newsletter-preview) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-muted,
+    .b-date,
+    .b-snippet {
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .b-note,
+    .b-date,
+    .b-snippet {
+      font-size: var(--text-sm);
+    }
+
+    .b-inbox {
+      overflow: hidden;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-surface);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-mail {
+      display: grid;
+      grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+      gap: 0 var(--space-3);
+      padding: var(--space-4);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-mail:first-child {
+      background: color-mix(in oklab, var(--color-primary) 8%, transparent);
+      border-inline-start: var(--space-1) solid var(--color-primary);
+    }
+
+    .b-avatar {
+      grid-row: span 3;
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-from,
+    .b-subject {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-subject,
+    .b-snippet {
+      grid-column: 2 / -1;
+    }
+
+    .b-snippet {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    @media (min-width: 768px) {
+      .b-form {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        gap: var(--space-16);
+      }
+
+      .b-inbox {
+        rotate: 2deg;
+      }
+    }
+  }
+}

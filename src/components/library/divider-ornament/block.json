@@ -1,0 +1,78 @@
+{
+  "name": "Utilities, ornament divider",
+  "category": "utilities",
+  "description": "A small decorative break, like the stars or dots between chapters of a book. Suits stories, essays and menus.",
+  "tags": [
+    "divider",
+    "separator",
+    "ornament",
+    "asterism",
+    "dots",
+    "stars",
+    "decorative",
+    "utility"
+  ],
+  "fieldGroups": ["Ornament", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text-muted", "--color-primary"],
+  "fields": [
+    {
+      "name": "style",
+      "label": "Ornament",
+      "type": "select",
+      "default": "stars",
+      "group": "Ornament",
+      "options": [
+        {
+          "value": "stars",
+          "label": "Three stars"
+        },
+        {
+          "value": "dots",
+          "label": "Three dots"
+        },
+        {
+          "value": "line",
+          "label": "Line, diamond, line"
+        }
+      ]
+    },
+    {
+      "name": "tone",
+      "label": "Color",
+      "type": "select",
+      "default": "muted",
+      "group": "Ornament",
+      "options": [
+        {
+          "value": "muted",
+          "label": "Muted text"
+        },
+        {
+          "value": "primary",
+          "label": "Primary"
+        }
+      ]
+    },
+    {
+      "name": "spacing",
+      "label": "Space around",
+      "type": "select",
+      "default": "medium",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ]
+    }
+  ]
+}

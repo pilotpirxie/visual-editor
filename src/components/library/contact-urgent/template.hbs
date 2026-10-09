@@ -1,0 +1,22 @@
+<section class="b-contact-urgent section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if label}}<p class="badge b-label" data-field="label">{{label}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <a class="b-phone" href="tel:{{phone}}" data-field="phone">{{phone}}</a>
+      {{#if email}}<p class="b-email">{{emailLabel}} <a href="mailto:{{email}}" data-field="email">{{email}}</a></p>{{/if}}
+    </div>
+    <div class="b-tiles">
+      <div class="b-tile" data-field="responseTime">
+        <p class="b-value">{{responseTime}}</p>
+        <p class="b-caption" data-field="responseLabel">{{responseLabel}}</p>
+      </div>
+      <a class="b-tile b-status" href="{{href statusLink.link}}" {{linkAttrs statusLink.link}} data-field="statusLink">
+        <span class="b-dot" aria-hidden="true"></span>
+        <span class="b-caption" data-field="statusText">{{statusText}}</span>
+        <span class="b-status-link">{{statusLink.label}} {{svgIcon "arrow-up-right"}}</span>
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+<footer class="b-footer-map section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <div class="b-map" aria-hidden="true">
+        <div class="b-pin"><span class="b-marker"></span><span class="b-label">{{mapLabel}}</span></div>
+      </div>
+      <div class="stack b-info">
+        <a class="b-logo" href="index.html">{{site.title}}</a>
+        <address class="stack b-address">
+          <span data-field="address">{{nl2br address}}</span>
+          {{#if phone}}<a href="tel:{{phone}}" data-field="phone">{{phone}}</a>{{/if}}
+          {{#if email}}<a href="mailto:{{email}}" data-field="email">{{email}}</a>{{/if}}
+        </address>
+        {{#if hours}}<p class="b-muted" data-field="hours">{{svgIcon "clock"}}<span>{{nl2br hours}}</span></p>{{/if}}
+        {{#if directionsLabel}}<a class="btn btn-secondary" href="{{href directionsLink}}" {{linkAttrs directionsLink}} data-field="directionsLabel">{{svgIcon "map-pin"}}{{directionsLabel}}</a>{{/if}}
+      </div>
+    </div>
+    <div class="b-bottom b-muted">
+      <p data-field="copyright">{{copyright}}</p>
+      <nav aria-label="Footer">
+        <ul class="cluster b-links" role="list">
+          {{#each links}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+          {{/each}}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>

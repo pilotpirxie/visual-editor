@@ -1,0 +1,287 @@
+{
+  "name": "Team, directory",
+  "category": "team",
+  "description": "A searchable-looking staff table with avatars, roles, cities, time zones and email links.",
+  "tags": ["team", "directory", "table", "people", "contacts", "time zones", "remote"],
+  "fieldGroups": ["Heading", "Columns", "People"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Directory",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Who to ask about what",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Everyone at Fieldnote, where they work and when they are online. Say hello, we answer email.",
+      "group": "Heading"
+    },
+    {
+      "name": "summary",
+      "label": "Summary badge",
+      "type": "text",
+      "default": "28 people in 6 cities",
+      "group": "Heading"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name column",
+      "type": "text",
+      "default": "Name",
+      "group": "Columns"
+    },
+    {
+      "name": "roleLabel",
+      "label": "Role column",
+      "type": "text",
+      "default": "Role",
+      "group": "Columns"
+    },
+    {
+      "name": "cityLabel",
+      "label": "City column",
+      "type": "text",
+      "default": "City",
+      "group": "Columns"
+    },
+    {
+      "name": "zoneLabel",
+      "label": "Time zone column",
+      "type": "text",
+      "default": "Time zone",
+      "group": "Columns"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email label",
+      "type": "text",
+      "default": "Email",
+      "group": "Columns",
+      "help": "Read by screen readers for the email links."
+    },
+    {
+      "name": "people",
+      "label": "People",
+      "type": "list",
+      "group": "People",
+      "minItems": 1,
+      "maxItems": 40,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "city",
+          "label": "City",
+          "type": "text",
+          "default": "Toronto"
+        },
+        {
+          "name": "zone",
+          "label": "Time zone",
+          "type": "text",
+          "default": "UTC−5"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leila Haddad",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Leila Haddad",
+          "role": "Co-founder and CEO",
+          "city": "Toronto",
+          "zone": "UTC−5",
+          "email": "leila@fieldnote.example"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Mateo Ruiz",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Mateo Ruiz",
+          "role": "Co-founder and CTO",
+          "city": "Toronto",
+          "zone": "UTC−5",
+          "email": "mateo@fieldnote.example"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Ingrid Solberg",
+          "role": "Head of research",
+          "city": "Oslo",
+          "zone": "UTC+1",
+          "email": "ingrid@fieldnote.example"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Kwame Mensah",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Kwame Mensah",
+          "role": "Head of engineering",
+          "city": "Accra",
+          "zone": "UTC+0",
+          "email": "kwame@fieldnote.example"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Yuki Tanaka",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Yuki Tanaka",
+          "role": "Senior product designer",
+          "city": "Vancouver",
+          "zone": "UTC−8",
+          "email": "yuki@fieldnote.example"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Daniel Novak",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Daniel Novak",
+          "role": "Customer success lead",
+          "city": "Prague",
+          "zone": "UTC+1",
+          "email": "daniel@fieldnote.example"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Aisha Bello",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Aisha Bello",
+          "role": "Machine learning engineer",
+          "city": "Lagos",
+          "zone": "UTC+1",
+          "email": "aisha@fieldnote.example"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tomás Herrera",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Tomás Herrera",
+          "role": "Backend engineer",
+          "city": "Mexico City",
+          "zone": "UTC−6",
+          "email": "tomas@fieldnote.example"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "name": "Cookies, with categories",
+  "category": "cookies",
+  "description": "A consent card with a Manage preferences section of on/off switches for each kind of cookie, plus accept and decline buttons. It remembers the visitor’s choice.",
+  "tags": [
+    "cookies",
+    "consent",
+    "privacy",
+    "gdpr",
+    "preferences",
+    "categories",
+    "toggles",
+    "settings"
+  ],
+  "fieldGroups": ["Message", "Categories", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your privacy, your call",
+      "required": true,
+      "group": "Message"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "Fieldnote uses cookies to keep you signed in and, if you allow it, to learn which pages help.",
+      "required": true,
+      "maxLength": 200,
+      "group": "Message"
+    },
+    {
+      "name": "showPolicyLink",
+      "label": "Show policy link",
+      "type": "boolean",
+      "default": true,
+      "group": "Message"
+    },
+    {
+      "name": "policyLabel",
+      "label": "Policy link label",
+      "type": "text",
+      "default": "Cookie policy",
+      "visibleWhen": {
+        "field": "showPolicyLink",
+        "equals": true
+      },
+      "group": "Message"
+    },
+    {
+      "name": "policyLink",
+      "label": "Policy link",
+      "type": "link",
+      "default": {
+        "type": "page",
+        "newTab": false
+      },
+      "visibleWhen": {
+        "field": "showPolicyLink",
+        "equals": true
+      },
+      "group": "Message"
+    },
+    {
+      "name": "manageLabel",
+      "label": "Preferences toggle label",
+      "type": "text",
+      "default": "Manage preferences",
+      "required": true,
+      "group": "Categories"
+    },
+    {
+      "name": "expanded",
+      "label": "Show preferences open",
+      "type": "boolean",
+      "default": true,
+      "group": "Categories"
+    },
+    {
+      "name": "categories",
+      "label": "Categories",
+      "type": "list",
+      "group": "Categories",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Category"
+        },
+        {
+          "name": "text",
+          "label": "Description",
+          "type": "text",
+          "default": "What these cookies do."
+        },
+        {
+          "name": "locked",
+          "label": "Always on",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "on",
+          "label": "On by default",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        {
+          "name": "Necessary",
+          "text": "Sign-in, security and your settings. Always on.",
+          "locked": true,
+          "on": true
+        },
+        {
+          "name": "Analytics",
+          "text": "Anonymous counts of visits and clicks.",
+          "locked": false,
+          "on": false
+        },
+        {
+          "name": "Marketing",
+          "text": "Measures which ads brought you here.",
+          "locked": false,
+          "on": false
+        }
+      ]
+    },
+    {
+      "name": "acceptLabel",
+      "label": "Accept button",
+      "type": "text",
+      "default": "Accept all",
+      "required": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "showDecline",
+      "label": "Show decline button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "declineLabel",
+      "label": "Decline button",
+      "type": "text",
+      "default": "Necessary only",
+      "visibleWhen": {
+        "field": "showDecline",
+        "equals": true
+      },
+      "group": "Buttons"
+    }
+  ]
+}

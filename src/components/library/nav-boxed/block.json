@@ -1,0 +1,106 @@
+{
+  "name": "Navigation, boxed links",
+  "category": "navigations",
+  "description": "A brutalist navbar of ruled cells: the site name, each link and a filled button sit in their own boxes that invert on hover; a menu cell below 1024 px.",
+  "tags": ["menu", "navbar", "header", "brutalist", "grid", "boxes", "bordered", "bold", "studio"],
+  "fieldGroups": ["Links", "Button", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link",
+          "maxLength": 20
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Product",
+          "link": {
+            "type": "section",
+            "anchor": "features",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Method",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Pricing",
+          "link": {
+            "type": "section",
+            "anchor": "pricing",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Journal",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "showCta",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start a study",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showCta",
+        "equals": true
+      },
+      "help": "Always shown as a filled box.",
+      "group": "Button"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

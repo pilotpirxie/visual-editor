@@ -1,0 +1,29 @@
+<section class="b-testimonial-letter section">
+  <div class="container stack b-inner">
+    {{#if title}}
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    {{/if}}
+    <div class="b-desk">
+      <figure class="stack b-paper">
+        {{#if (or date stamp)}}
+        <div class="b-top">
+          <p class="b-date" data-field="date">{{date}}</p>
+          {{#if stamp}}<p class="b-stamp" data-field="stamp" aria-hidden="true">{{svgIcon "heart"}}<span>{{stamp}}</span></p>{{/if}}
+        </div>
+        {{/if}}
+        <blockquote class="stack b-letter" data-field="letter">
+          {{#if greeting}}<p data-field="greeting">{{greeting}}</p>{{/if}}
+          <p>{{nl2br letter}}</p>
+          {{#if signoff}}<p data-field="signoff">{{signoff}}</p>{{/if}}
+        </blockquote>
+        <figcaption class="b-person">
+          <span class="b-signature" data-field="name">{{name}}</span>
+          {{#if role}}<span class="b-role" data-field="role">{{role}}</span>{{/if}}
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

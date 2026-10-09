@@ -1,0 +1,20 @@
+<section class="b-content-history section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ol class="b-list" role="list">
+      {{#each milestones}}
+      <li class="b-item" data-field="milestones.{{@index}}">
+        <p class="b-year">{{year}}</p>
+        <div class="stack b-body">
+          <h3>{{title}}</h3>
+          {{#if text}}<p class="b-text">{{nl2br text}}</p>{{/if}}
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

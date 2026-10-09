@@ -1,0 +1,115 @@
+@layer components {
+  @scope (.b-steps-pipeline) {
+    .b-inner {
+      display: grid;
+      justify-items: center;
+      gap: var(--space-12);
+      text-align: center;
+    }
+
+    .b-head {
+      max-width: 40rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-flow {
+      display: grid;
+      align-items: center;
+      gap: var(--space-3);
+      width: min(100%, 24rem);
+    }
+
+    .b-chips {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-chip {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+    }
+
+    .b-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-link::before {
+      content: '';
+      block-size: var(--space-6);
+      border-inline-start: 2px dashed;
+    }
+
+    .b-right {
+      display: none;
+    }
+
+    .b-core {
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-primary: var(--theme-dark-accent);
+      align-items: center;
+      padding: var(--space-8) var(--space-6);
+      border-radius: var(--card-radius);
+      background: var(--theme-dark-background);
+      border: var(--border-width) solid var(--theme-dark-border);
+      color: var(--color-text);
+    }
+
+    .b-badge {
+      display: flex;
+      padding: var(--space-4);
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--theme-dark-accent-contrast);
+    }
+
+    .b-tasks {
+      --cluster-justify: center;
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 1024px) {
+      .b-flow {
+        grid-template-columns: 1fr auto 1.4fr auto 1fr;
+        width: 100%;
+      }
+
+      .b-link {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        min-width: 9rem;
+        padding-inline: var(--space-4);
+      }
+
+      .b-link span:first-child {
+        grid-column: span 2;
+      }
+
+      .b-link::before {
+        grid-row: 2;
+        block-size: 0;
+        border-inline-start: 0;
+        border-block-start: 2px dashed;
+      }
+
+      .b-down {
+        display: none;
+      }
+
+      .b-right {
+        display: contents;
+      }
+    }
+  }
+}

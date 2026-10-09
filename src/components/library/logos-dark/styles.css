@@ -1,0 +1,97 @@
+@layer components {
+  @scope (.b-logos-dark) {
+    :scope {
+      --section-padding-y: var(--space-12);
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      background-image: radial-gradient(
+        ellipse 50% 140% at 0 50%,
+        color-mix(in oklab, var(--color-primary) 24%, transparent),
+        transparent
+      );
+    }
+
+    :scope:dir(rtl) {
+      background-image: radial-gradient(
+        ellipse 50% 140% at 100% 50%,
+        color-mix(in oklab, var(--color-primary) 24%, transparent),
+        transparent
+      );
+    }
+
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-1);
+    }
+
+    .b-value {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      line-height: 1;
+      color: var(--color-primary);
+    }
+
+    .b-title {
+      max-width: 18rem;
+      color: var(--color-text-muted);
+    }
+
+    .b-logos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6) var(--space-8);
+      align-items: center;
+    }
+
+    .b-logo img {
+      width: 100%;
+      max-width: 8rem;
+      height: auto;
+      margin-inline: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      filter: grayscale(1);
+      opacity: 0.75;
+      transition:
+        opacity var(--transition-fast),
+        filter var(--transition-fast);
+    }
+
+    .b-logo:hover img {
+      filter: none;
+      opacity: 1;
+    }
+
+    @media (min-width: 768px) {
+      .b-logos {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 16rem minmax(0, 1fr);
+        gap: var(--space-12);
+      }
+
+      .b-head {
+        padding-inline-end: var(--space-12);
+        border-inline-end: var(--border-width) solid var(--color-border);
+      }
+
+      .b-logos {
+        grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+      }
+    }
+  }
+}

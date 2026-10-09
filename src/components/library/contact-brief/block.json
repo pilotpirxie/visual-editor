@@ -1,0 +1,170 @@
+{
+  "name": "Contact, project brief",
+  "category": "contacts",
+  "description": "A project inquiry form with service chips, budget range choices, a timeline picker and room for details.",
+  "tags": ["contact", "form", "brief", "inquiry", "agency", "budget", "quote", "project"],
+  "fieldGroups": ["Heading", "Form", "Choices"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Research services",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Tell us about your project",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Our research team runs studies for companies without a researcher of their own. Share a few details and we’ll send a plan.",
+      "group": "Heading"
+    },
+    {
+      "name": "points",
+      "label": "What they get",
+      "type": "list",
+      "group": "Heading",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "text",
+      "itemFields": [{ "name": "text", "label": "Text", "type": "text", "default": "A benefit" }],
+      "default": [
+        { "text": "A written plan and quote within 2 business days" },
+        { "text": "A named researcher from first call to final readout" },
+        { "text": "Every recording and clip stays in your workspace" }
+      ]
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Your name",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "timelineLabel",
+      "label": "Timeline field label",
+      "type": "text",
+      "default": "When do you need results?",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "detailsLabel",
+      "label": "Details field label",
+      "type": "text",
+      "default": "What do you want to learn?",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Send brief",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        { "value": "post", "label": "POST" },
+        { "value": "get", "label": "GET" }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "servicesLabel",
+      "label": "Services label",
+      "type": "text",
+      "default": "What do you need?",
+      "required": true,
+      "group": "Choices"
+    },
+    {
+      "name": "services",
+      "label": "Services",
+      "type": "list",
+      "group": "Choices",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [{ "name": "label", "label": "Label", "type": "text", "default": "Service" }],
+      "default": [
+        { "label": "Customer interviews" },
+        { "label": "Usability testing" },
+        { "label": "Survey design" },
+        { "label": "Recruiting participants" },
+        { "label": "Synthesis workshop" }
+      ]
+    },
+    {
+      "name": "budgetLabel",
+      "label": "Budget label",
+      "type": "text",
+      "default": "Budget",
+      "required": true,
+      "group": "Choices"
+    },
+    {
+      "name": "budgets",
+      "label": "Budget ranges",
+      "type": "list",
+      "group": "Choices",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [{ "name": "label", "label": "Label", "type": "text", "default": "Range" }],
+      "default": [
+        { "label": "Under $10k" },
+        { "label": "$10k–25k" },
+        { "label": "$25k–50k" },
+        { "label": "$50k+" }
+      ]
+    },
+    {
+      "name": "timelines",
+      "label": "Timeline options",
+      "type": "list",
+      "group": "Choices",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [{ "name": "label", "label": "Label", "type": "text", "default": "Option" }],
+      "default": [
+        { "label": "In the next 2 weeks" },
+        { "label": "Within a month" },
+        { "label": "This quarter" },
+        { "label": "Just exploring" }
+      ]
+    }
+  ]
+}

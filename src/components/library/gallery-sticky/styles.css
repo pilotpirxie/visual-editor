@@ -1,0 +1,96 @@
+@layer components {
+  @scope (.b-gallery-sticky) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-stack {
+      display: grid;
+      gap: var(--space-8);
+      counter-reset: card;
+    }
+
+    .b-card {
+      display: grid;
+      overflow: clip;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+      counter-increment: card;
+    }
+
+    .b-photo {
+      --media-ratio: 3 / 2;
+      --media-radius: 0;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-3);
+      padding: var(--space-6);
+    }
+
+    .b-copy::before {
+      content: counter(card, decimal-leading-zero);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-primary);
+    }
+
+    .b-title {
+      font-size: var(--text-2xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-meta {
+      margin-block-start: auto;
+      padding-block-start: var(--space-3);
+      border-block-start: var(--border-width) solid var(--color-border);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        position: sticky;
+        inset-block-start: var(--space-8);
+        grid-template-columns: 3fr 2fr;
+      }
+
+      .b-card:nth-child(2) {
+        inset-block-start: var(--space-12);
+        rotate: 1deg;
+      }
+
+      .b-card:nth-child(3) {
+        inset-block-start: var(--space-16);
+        rotate: -1deg;
+      }
+
+      .b-card:nth-child(n + 4) {
+        inset-block-start: calc(var(--space-16) + var(--space-4));
+      }
+
+      .b-photo {
+        --media-ratio: 16 / 10;
+      }
+
+      .b-copy {
+        padding: var(--space-8);
+      }
+    }
+  }
+}

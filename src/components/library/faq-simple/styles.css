@@ -1,0 +1,40 @@
+@layer components {
+  @scope (.b-faq-simple) {
+    .b-inner {
+      --container-max-width: 46rem;
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro {
+      color: var(--color-text-muted);
+    }
+
+    .b-updated {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-list {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-item {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-question {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-answer {
+      color: var(--color-text-muted);
+    }
+  }
+}

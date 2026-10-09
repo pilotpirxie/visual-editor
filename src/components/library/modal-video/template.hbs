@@ -1,0 +1,28 @@
+<div class="b-modal-video" data-behavior="modal">
+  <dialog class="modal b-dialog" id="{{block.id}}-dialog" aria-labelledby="{{block.id}}-title" data-theme="{{theme}}">
+    <button type="button" class="modal-close" command="close" commandfor="{{block.id}}-dialog" data-field="closeLabel">{{svgIcon "x"}}<span class="visually-hidden">{{closeLabel}}</span></button>
+    <a class="b-player" href="{{href videoLink}}" {{linkAttrs videoLink}} data-field="videoLink">
+      <span class="media b-media" data-field="image">{{img image}}</span>
+      <span class="b-play">{{svgIcon "play"}}</span>
+      <span class="visually-hidden">{{playLabel}}: {{title}}</span>
+      {{#if duration}}<span class="b-duration" data-field="duration">{{duration}}</span>{{/if}}
+    </a>
+    <div class="b-info">
+      <div class="stack b-copy">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 id="{{block.id}}-title" data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      </div>
+      {{#if chapters.length}}
+      <div class="stack b-chapters">
+        <p class="eyebrow" data-field="chaptersLabel">{{chaptersLabel}}</p>
+        <ol class="b-list" role="list">
+          {{#each chapters}}
+          <li class="b-chapter" data-field="chapters.{{@index}}"><span class="b-time">{{time}}</span><span>{{label}}</span></li>
+          {{/each}}
+        </ol>
+      </div>
+      {{/if}}
+    </div>
+  </dialog>
+</div>

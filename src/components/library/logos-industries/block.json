@@ -1,0 +1,290 @@
+{
+  "name": "Logo cloud, by industry",
+  "category": "logo-clouds",
+  "description": "Customer logos grouped in rows by industry, each row with an icon and label.",
+  "tags": ["logos", "customers", "industries", "groups", "sectors", "enterprise"],
+  "fieldGroups": ["Heading", "Industries"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Customers",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Trusted in every industry that talks to customers",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Regulated or fast-moving, these teams run their customer research on Fieldnote.",
+      "group": "Heading"
+    },
+    {
+      "name": "groups",
+      "label": "Industries",
+      "type": "list",
+      "group": "Industries",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "industry",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "briefcase"
+        },
+        {
+          "name": "industry",
+          "label": "Industry",
+          "type": "text",
+          "default": "Industry"
+        },
+        {
+          "name": "logos",
+          "label": "Logos",
+          "type": "list",
+          "minItems": 1,
+          "maxItems": 4,
+          "itemLabel": "company",
+          "itemFields": [
+            {
+              "name": "company",
+              "label": "Company",
+              "type": "text",
+              "default": "Company"
+            },
+            {
+              "name": "image",
+              "label": "Logo",
+              "type": "image",
+              "default": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Company logo",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ],
+          "default": [
+            {
+              "company": "Company",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Company",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "icon": "dollar",
+          "industry": "Fintech and banking",
+          "logos": [
+            {
+              "company": "Ledgerly",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ledgerly",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Halcyon Bank",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Halcyon Bank",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Mosaic Bank",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Mosaic Bank",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Tidewater",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tidewater",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "icon": "heart",
+          "industry": "Health care",
+          "logos": [
+            {
+              "company": "Lumen Health",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Lumen Health",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Kestrel Health",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Kestrel Health",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Tilda Health",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tilda Health",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "icon": "shopping-cart",
+          "industry": "Retail and logistics",
+          "logos": [
+            {
+              "company": "Northwind",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Northwind",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Freightly",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Freightly",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Copperline",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Copperline",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Fernway",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Fernway",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

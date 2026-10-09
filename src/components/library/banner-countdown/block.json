@@ -1,0 +1,95 @@
+{
+  "name": "Banner, countdown",
+  "category": "banners",
+  "description": "A dark strip with an offer, flip-clock style time tiles and a button. The numbers are set by hand.",
+  "tags": [
+    "countdown",
+    "timer",
+    "deadline",
+    "offer",
+    "sale",
+    "early bird",
+    "launch",
+    "banner",
+    "urgency"
+  ],
+  "fieldGroups": ["Message", "Time", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "Early-bird tickets for Fieldnote Live end in",
+      "required": true,
+      "maxLength": 100,
+      "group": "Message"
+    },
+    {
+      "name": "units",
+      "label": "Time left",
+      "type": "list",
+      "group": "Time",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "help": "Static numbers: update them when you publish.",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Number",
+          "type": "text",
+          "default": "00",
+          "maxLength": 3
+        },
+        {
+          "name": "label",
+          "label": "Unit",
+          "type": "text",
+          "default": "min",
+          "maxLength": 8
+        }
+      ],
+      "default": [
+        {
+          "value": "02",
+          "label": "days"
+        },
+        {
+          "value": "14",
+          "label": "hrs"
+        },
+        {
+          "value": "36",
+          "label": "min"
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get tickets",
+        "link": {
+          "type": "section",
+          "anchor": "tickets",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

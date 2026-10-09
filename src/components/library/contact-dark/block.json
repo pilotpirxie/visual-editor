@@ -1,0 +1,131 @@
+{
+  "name": "Contact, dark form",
+  "category": "contacts",
+  "description": "A dark section with a heading and what happens next on one side, and a form card on the other.",
+  "tags": ["contact", "form", "dark", "demo", "sales", "checklist"],
+  "fieldGroups": ["Heading", "Next steps", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Book a demo",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "See Fieldnote with your own interviews",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Send us one recording before the call and we will show you the highlights Fieldnote finds in it.",
+      "group": "Heading"
+    },
+    {
+      "name": "points",
+      "label": "Next steps",
+      "type": "list",
+      "default": [
+        {
+          "text": "A product specialist replies within one business day."
+        },
+        {
+          "text": "We agree on a 30-minute slot that suits your team."
+        },
+        {
+          "text": "You leave with a tagged, searchable copy of your interview."
+        }
+      ],
+      "group": "Next steps",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "What happens next."
+        }
+      ]
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Your name",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "companyLabel",
+      "label": "Company field label",
+      "type": "text",
+      "default": "Company",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "messageLabel",
+      "label": "Message field label",
+      "type": "text",
+      "default": "What do you want to learn from customers?",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Request a demo",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Note under the form",
+      "type": "text",
+      "default": "No sales sequences. One person, one reply.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "group": "Form",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ]
+    }
+  ]
+}

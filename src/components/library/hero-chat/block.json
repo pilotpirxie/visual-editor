@@ -1,0 +1,158 @@
+{
+  "name": "Hero, chat preview",
+  "category": "headers",
+  "description": "Heading and buttons beside a chat window where an assistant answers a question with sources.",
+  "tags": ["hero", "heading", "chat", "ai", "assistant", "conversation", "messages"],
+  "fieldGroups": ["Heading", "Buttons", "Chat"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Badge",
+      "type": "text",
+      "default": "Ask your research",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Ask a question, get the answer from 48 interviews",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Fieldnote reads every transcript so you don’t have to, and every answer links back to the moment a customer said it.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Try it on your calls",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See example answers",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "assistantName",
+      "label": "Assistant name",
+      "type": "text",
+      "default": "Fieldnote assistant",
+      "group": "Chat"
+    },
+    {
+      "name": "status",
+      "label": "Status",
+      "type": "text",
+      "default": "Searched 48 interviews",
+      "group": "Chat"
+    },
+    {
+      "name": "messages",
+      "label": "Messages",
+      "type": "list",
+      "group": "Chat",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "from",
+          "label": "From",
+          "type": "segmented",
+          "default": "assistant",
+          "options": [
+            {
+              "value": "user",
+              "label": "Person",
+              "icon": "user"
+            },
+            {
+              "value": "assistant",
+              "label": "Assistant",
+              "icon": "sparkles"
+            }
+          ]
+        },
+        {
+          "name": "text",
+          "label": "Message",
+          "type": "textarea",
+          "default": "Message"
+        },
+        {
+          "name": "source",
+          "label": "Source",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "from": "user",
+          "text": "Why do trial teams stop using shared notes?",
+          "source": ""
+        },
+        {
+          "from": "assistant",
+          "text": "Three reasons came up most: notes live in personal docs, nobody knows which tag to use, and finding an old quote takes too long.",
+          "source": "31 mentions across 18 interviews"
+        },
+        {
+          "from": "user",
+          "text": "Show me the strongest quote.",
+          "source": ""
+        },
+        {
+          "from": "assistant",
+          "text": "“I know someone said it in March. I just can’t find which call.”",
+          "source": "Interview 22 · 14:08"
+        }
+      ]
+    },
+    {
+      "name": "inputHint",
+      "label": "Input hint",
+      "type": "text",
+      "default": "Ask about your interviews…",
+      "group": "Chat"
+    }
+  ]
+}

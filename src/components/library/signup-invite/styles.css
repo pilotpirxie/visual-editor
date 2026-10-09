@@ -1,0 +1,102 @@
+@layer components {
+  @scope (.b-signup-invite) {
+    .b-wrap {
+      padding-block: var(--space-6);
+      background: radial-gradient(var(--color-border) 1px, transparent 1.5px) 0 0 / var(--space-6)
+        var(--space-6);
+    }
+
+    .b-card {
+      --card-padding: var(--space-6);
+      --card-shadow: var(--shadow-lg);
+      --stack-gap: var(--space-6);
+      max-width: 28rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-crest {
+      position: relative;
+      align-self: center;
+    }
+
+    .b-space {
+      display: grid;
+      place-items: center;
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: var(--radius-lg);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font: var(--font-weight-heading) var(--text-2xl) var(--font-heading);
+    }
+
+    .b-inviter,
+    .b-faces li {
+      overflow: hidden;
+      border: 3px solid var(--color-background);
+      border-radius: var(--radius-full);
+    }
+
+    .b-inviter {
+      position: absolute;
+      inset: auto -1rem -0.75rem auto;
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+
+    :is(.b-inviter, .b-faces) img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-members {
+      display: grid;
+      justify-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+    }
+
+    .b-faces {
+      display: flex;
+    }
+
+    .b-faces li {
+      width: 2.25rem;
+      height: 2.25rem;
+      margin-inline-start: calc(-1 * var(--space-2));
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+      text-align: start;
+    }
+
+    .b-email {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      overflow-wrap: anywhere;
+    }
+
+    .b-switch a {
+      font-weight: var(--font-weight-bold);
+    }
+  }
+}

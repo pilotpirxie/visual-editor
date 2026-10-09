@@ -1,0 +1,208 @@
+{
+  "name": "Sign up, with customer quote",
+  "category": "sign-up",
+  "description": "A five-star customer quote and the companies that use the product, beside a sign up card.",
+  "tags": [
+    "sign up",
+    "register",
+    "create account",
+    "trial",
+    "form",
+    "split",
+    "quote",
+    "testimonial",
+    "social proof"
+  ],
+  "fieldGroups": ["Quote", "Companies", "Heading", "Form"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-surface",
+    "--color-text",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "ratingLabel",
+      "label": "Rating (for screen readers)",
+      "type": "text",
+      "default": "Rated 5 out of 5",
+      "required": true,
+      "group": "Quote"
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "We set up Fieldnote on a Monday and shared our first highlight reel with the leadership team on Friday. Nobody has asked “do customers really want this?” since.",
+      "required": true,
+      "maxLength": 280,
+      "group": "Quote"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Jonas Becker",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Quote"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Jonas Becker",
+      "group": "Quote"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Design Lead, Brightpath",
+      "group": "Quote"
+    },
+    {
+      "name": "companiesLabel",
+      "label": "Companies label",
+      "type": "text",
+      "default": "Research teams at these companies signed up this month",
+      "group": "Companies"
+    },
+    {
+      "name": "companies",
+      "label": "Companies",
+      "type": "list",
+      "group": "Companies",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Company"
+        }
+      ],
+      "default": [
+        {
+          "name": "Northwind"
+        },
+        {
+          "name": "Brightpath"
+        },
+        {
+          "name": "Ledgerly"
+        },
+        {
+          "name": "Halcyon"
+        }
+      ]
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Start your free trial",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "14 days with every feature. No credit card needed.",
+      "group": "Heading"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Full name",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "passwordLabel",
+      "label": "Password field label",
+      "type": "text",
+      "default": "Password",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Create my account",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "termsText",
+      "label": "Terms text",
+      "type": "text",
+      "default": "By creating an account you agree to our",
+      "group": "Form"
+    },
+    {
+      "name": "termsLabel",
+      "label": "Terms link label",
+      "type": "text",
+      "default": "Terms of Service",
+      "group": "Form"
+    },
+    {
+      "name": "termsLink",
+      "label": "Terms link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Form"
+    }
+  ]
+}

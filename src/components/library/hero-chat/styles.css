@@ -1,0 +1,109 @@
+@layer components {
+  @scope (.b-hero-chat) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    .b-lead {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-chat {
+      --card-padding: var(--space-4);
+      display: grid;
+      gap: var(--space-4);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-head {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding-bottom: var(--space-4);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .b-avatar {
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-head p {
+      display: grid;
+    }
+
+    .b-status,
+    .b-source {
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+    }
+
+    .b-messages {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .b-message {
+      display: grid;
+      gap: var(--space-2);
+      max-width: 88%;
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-lg);
+      border-end-start-radius: var(--radius-sm);
+      background: var(--color-surface);
+      font-size: var(--text-sm);
+    }
+
+    .b-message[data-from='user'] {
+      justify-self: end;
+      border-end-start-radius: var(--radius-lg);
+      border-end-end-radius: var(--radius-sm);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-source {
+      --icon-size: 0.875rem;
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .b-input {
+      --icon-size: 1.125rem;
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-chat {
+        --card-padding: var(--space-6);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr minmax(0, 30rem);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@layer components {
+  @scope (.b-richtext-columns) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      max-width: 48rem;
+    }
+
+    .b-lead {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-body {
+      --prose-measure: none;
+      --prose-gap: var(--space-4);
+      --prose-item-gap: var(--space-2);
+      --prose-marker-color: var(--color-primary);
+      padding-block-start: var(--space-8);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-body > :is(h2, h3) {
+      break-after: avoid;
+    }
+
+    .b-body > :is(p, li, ul, ol) {
+      break-inside: avoid;
+    }
+
+    @media (min-width: 768px) {
+      .b-lead {
+        font-size: var(--text-xl);
+      }
+
+      .b-body {
+        columns: 2;
+        column-gap: var(--space-12);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-body {
+        column-gap: var(--space-16);
+      }
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "name": "Blog posts, text cards",
+  "category": "blog",
+  "description": "Image-free cards with a topic, title, excerpt and author, for text-first blogs.",
+  "tags": ["blog", "posts", "articles", "cards", "text", "no images", "essays"],
+  "fieldGroups": ["Heading", "Posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Essays",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Notes on doing research with a small team",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Longer pieces on how we plan studies, run interviews and turn what we hear into decisions.",
+      "group": "Heading"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 9,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "category",
+          "label": "Category",
+          "type": "text",
+          "default": "Research"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Post title"
+        },
+        {
+          "name": "excerpt",
+          "label": "Excerpt",
+          "type": "textarea",
+          "default": "One or two sentences that make readers want the rest."
+        },
+        {
+          "name": "author",
+          "label": "Author",
+          "type": "text",
+          "default": "Author name"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "category": "Research ops",
+          "title": "Your sales calls are the research you are not using",
+          "excerpt": "Every demo is a customer explaining their problem in their own words. Here is how we tag them without slowing sales down.",
+          "author": "Jonas Becker",
+          "date": "2026-08-18",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Customer stories",
+          "title": "How Northwind halved onboarding time with ten customer calls",
+          "excerpt": "Northwind’s product team stopped guessing why new admins stalled. Ten 30-minute calls showed them exactly where.",
+          "author": "Leila Haddad",
+          "date": "2026-08-04",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Interviewing",
+          "title": "Silence is your best follow-up question",
+          "excerpt": "Most interviewers rush to fill a pause. Waiting three more seconds is where the honest answers start.",
+          "author": "Daniel Novak",
+          "date": "2026-07-21",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

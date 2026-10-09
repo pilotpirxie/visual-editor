@@ -1,0 +1,91 @@
+@layer components {
+  @scope (.b-pricing-spotlight) {
+    .b-inner {
+      --stack-gap: var(--space-16);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-plans {
+      display: grid;
+      gap: var(--space-8) var(--space-6);
+      align-items: center;
+      width: 100%;
+      max-width: 68rem;
+      margin-inline: auto;
+    }
+
+    .b-plan {
+      --stack-gap: var(--space-4);
+      position: relative;
+      color: var(--color-text);
+    }
+
+    .b-plan[data-featured] {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      --card-padding: var(--space-8);
+      --card-shadow: var(--shadow-lg);
+      background-image: radial-gradient(
+        120% 50% at 50% 0,
+        color-mix(in oklab, var(--color-primary) 30%, transparent),
+        transparent
+      );
+    }
+
+    .b-badge {
+      --badge-bg: var(--color-primary);
+      --badge-color: var(--color-primary-contrast);
+      --icon-size: 0.875rem;
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline: 0;
+      width: fit-content;
+      margin: 0 auto;
+      padding-block: var(--space-2);
+      translate: 0 -50%;
+    }
+
+    .b-amount {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-features {
+      padding-block-start: var(--space-4);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    @media (min-width: 1024px) {
+      .b-plans {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+      }
+
+      .b-plan[data-featured] {
+        padding-block: var(--space-12);
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<section class="b-pricing-guarantee section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-layout">
+      <div class="grid b-plans">
+        {{#each plans}}
+        <article class="card stack b-plan" {{#if featured}}data-featured{{/if}} data-field="plans.{{@index}}">
+          <h3>{{name}}</h3>
+          <p><span class="b-amount">{{price}}</span> <span class="b-muted">{{period}}</span></p>
+          {{#if description}}<p class="b-muted">{{nl2br description}}</p>{{/if}}
+          <div class="prose b-features">{{richText features}}</div>
+          <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+        </article>
+        {{/each}}
+      </div>
+      <aside class="stack b-guarantee">
+        <p class="b-seal" aria-hidden="true"><span class="b-number" data-field="sealNumber">{{sealNumber}}</span><span data-field="sealUnit">{{sealUnit}}</span></p>
+        <h3 data-field="guaranteeTitle">{{guaranteeTitle}}</h3>
+        {{#if guaranteeText}}<p class="b-muted" data-field="guaranteeText">{{nl2br guaranteeText}}</p>{{/if}}
+      </aside>
+    </div>
+  </div>
+</section>

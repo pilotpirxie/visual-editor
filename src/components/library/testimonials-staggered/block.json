@@ -1,0 +1,182 @@
+{
+  "name": "Testimonials, staggered columns",
+  "category": "testimonials",
+  "description": "Three columns of quote cards with the middle column set lower and in the primary color.",
+  "tags": ["testimonials", "quotes", "cards", "grid", "staggered", "columns"],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Reviews",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Research that travels beyond the research team",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Product managers, designers and support leads on what changed when customer evidence became easy to share.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Quotes",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 1,
+      "maxItems": 9,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "What the customer said."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role and company",
+          "type": "text",
+          "default": "Role, Company"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "Our designers finally watch the interviews. The clips are short enough that people actually click them.",
+          "name": "Marcus Lee",
+          "role": "Design Lead, Northwind",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Marcus Lee",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "When sales asks why we built something, I send a link with three customer clips. Debate over.",
+          "name": "Tom Okafor",
+          "role": "Product Manager, Ledgerly",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tom Okafor",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Tagging used to take me a full day per study. Now I review what Fieldnote found in an hour.",
+          "name": "Sofia Alvarez",
+          "role": "UX Researcher, Brightpath",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sofia Alvarez",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Support tickets and interviews in one place means we finally spot the same patterns.",
+          "name": "Daniel Osei",
+          "role": "Support lead, Northwind",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Daniel Osei",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "We replaced a forty-slide readout with a three-minute reel. Attendance at research reviews doubled.",
+          "name": "Maya Chen",
+          "role": "Head of Research, Copperline",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Maya Chen",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "I search for a feature name and get every customer who ever mentioned it.",
+          "name": "Hannah Wright",
+          "role": "Product Director, Freightly",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Hannah Wright",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

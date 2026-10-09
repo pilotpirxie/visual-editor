@@ -1,0 +1,127 @@
+{
+  "name": "Features, stacking cards",
+  "category": "features",
+  "description": "Large feature cards that stick and pile on top of each other as visitors scroll, beside a sticky heading.",
+  "tags": ["features", "cards", "sticky", "stack", "scroll", "icons"],
+  "fieldGroups": ["Heading", "Items", "Button"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "One workspace",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From raw recording to a decision, in one place",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Each step builds on the last, so nothing gets copied between five different tools.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Cards",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "zap"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Card title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one or two sentences."
+        },
+        {
+          "name": "detail",
+          "label": "Result",
+          "type": "text",
+          "default": "One concrete result",
+          "help": "Leave empty to hide."
+        }
+      ],
+      "default": [
+        {
+          "icon": "mic",
+          "title": "Record anywhere",
+          "text": "Join calls automatically, upload files from your phone or record in person with the mobile app.",
+          "detail": "Works with Zoom, Meet and Teams"
+        },
+        {
+          "icon": "transcript",
+          "title": "Read instead of rewatch",
+          "text": "Accurate transcripts with speaker names, so you skim a 60-minute call in five.",
+          "detail": "Ready about 4 minutes after the call"
+        },
+        {
+          "icon": "tag",
+          "title": "Tag what matters",
+          "text": "Highlight a sentence, pick a theme, and it joins every other moment like it across your studies.",
+          "detail": "Shared tags for the whole team"
+        },
+        {
+          "icon": "share",
+          "title": "Share the proof",
+          "text": "Send clips and quotes to the people making the call, with a link back to the full context.",
+          "detail": "Clips play right inside Slack"
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Take the tour",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

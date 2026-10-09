@@ -1,0 +1,111 @@
+{
+  "name": "Contact, postcard",
+  "category": "contacts",
+  "description": "A message form styled as a postcard, with ruled writing lines on one side and a stamp, postmark and address lines on the other.",
+  "tags": ["contact", "form", "postcard", "letter", "playful", "message"],
+  "fieldGroups": ["Heading", "Postcard", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Write to us",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Send us a postcard",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Feedback, a feature wish or a story from the field. Every card lands on the team’s desk in Toronto.",
+      "group": "Heading"
+    },
+    {
+      "name": "stampIcon",
+      "label": "Stamp icon",
+      "type": "icon",
+      "default": "leaf",
+      "group": "Postcard"
+    },
+    {
+      "name": "stampText",
+      "label": "Stamp text",
+      "type": "text",
+      "default": "Canada",
+      "group": "Postcard"
+    },
+    {
+      "name": "postmark",
+      "label": "Postmark",
+      "type": "text",
+      "default": "TORONTO 2026",
+      "group": "Postcard"
+    },
+    {
+      "name": "messageLabel",
+      "label": "Message field label",
+      "type": "text",
+      "default": "Dear Fieldnote team,",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "From",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Reply to (email)",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "companyLabel",
+      "label": "Company field label",
+      "type": "text",
+      "default": "Company",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Send postcard",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        { "value": "post", "label": "POST" },
+        { "value": "get", "label": "GET" }
+      ],
+      "group": "Form"
+    }
+  ]
+}

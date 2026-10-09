@@ -1,0 +1,86 @@
+@layer components {
+  @scope (.b-cta-sales) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-text {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-contact {
+      --card-padding: var(--space-8) var(--space-6);
+      --stack-gap: var(--space-6);
+      background: var(--color-surface);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3.5rem;
+    }
+
+    .b-name {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      color: var(--color-text-muted);
+    }
+
+    .b-channels {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-channels li {
+      --icon-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      overflow-wrap: anywhere;
+    }
+
+    .b-channels .icon {
+      color: var(--color-primary);
+    }
+
+    .b-channels a {
+      display: inline-block;
+      padding-block: var(--space-2);
+      color: inherit;
+    }
+
+    @media (min-width: 768px) {
+      .b-contact {
+        --card-padding: var(--space-8);
+      }
+
+      .b-photo {
+        width: 4.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1.2fr 1fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

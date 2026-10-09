@@ -1,0 +1,35 @@
+<section class="b-careers-table section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 id="{{block.id}}-title" data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    {{#if positions.length}}
+    <div class="b-scroll" role="region" aria-labelledby="{{block.id}}-title" tabindex="0">
+      <table class="b-table">
+        <thead>
+          <tr>
+            <th scope="col" data-field="roleHeader">{{roleHeader}}</th>
+            <th scope="col" data-field="teamHeader">{{teamHeader}}</th>
+            <th scope="col" data-field="locationHeader">{{locationHeader}}</th>
+            <th scope="col" data-field="typeHeader">{{typeHeader}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each positions}}
+          <tr data-field="positions.{{@index}}">
+            <th scope="row"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></th>
+            <td>{{team}}</td>
+            <td>{{location}}</td>
+            <td>{{type}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    {{else}}
+    <p class="b-empty" data-field="emptyText">{{svgIcon "briefcase"}}<span>{{emptyText}}</span></p>
+    {{/if}}
+  </div>
+</section>

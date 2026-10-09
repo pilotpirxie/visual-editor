@@ -1,0 +1,35 @@
+<section class="b-pricing-volume section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-scroller" role="region" aria-label="{{title}}" tabindex="0">
+      <table class="b-table">
+        <thead>
+          <tr>
+            <th scope="col" data-field="seatsHeading">{{seatsHeading}}</th>
+            <th scope="col" data-field="priceHeading">{{priceHeading}}</th>
+            <th scope="col" data-field="savingHeading">{{savingHeading}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each tiers}}
+          <tr {{#if featured}}data-featured{{/if}} data-field="tiers.{{@index}}">
+            <th scope="row"><span class="b-seats">{{seats}}</span>{{#if featured}} <span class="badge">{{../featuredLabel}}</span>{{/if}}</th>
+            <td><span class="b-price">{{price}}</span> <span class="b-muted">{{period}}</span><span class="b-bar" style="--bar: {{bar}}"></span></td>
+            <td class="b-saving">{{saving}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    {{#if exampleText}}
+    <div class="b-example">
+      <p class="stack b-example-text"><strong data-field="exampleLabel">{{exampleLabel}}</strong><span class="b-muted" data-field="exampleText">{{nl2br exampleText}}</span></p>
+      <p class="b-total" data-field="exampleTotal">{{exampleTotal}}</p>
+    </div>
+    {{/if}}
+  </div>
+</section>

@@ -1,0 +1,100 @@
+@layer components {
+  @scope (.b-team-badges) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-badges {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 15rem));
+      justify-content: center;
+      gap: var(--space-16) var(--space-8);
+      padding-block-start: var(--space-16);
+    }
+
+    .b-badge {
+      --band: var(--color-primary);
+      --band-text: var(--color-primary-contrast);
+      position: relative;
+      display: grid;
+      justify-items: center;
+      padding: 0 var(--space-6) var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      transform-origin: top;
+      rotate: -2deg;
+    }
+
+    .b-badge:nth-child(even) {
+      rotate: 2deg;
+    }
+
+    .b-badge[data-tone='dark'] {
+      --band: var(--theme-dark-background);
+      --band-text: var(--theme-dark-text);
+    }
+
+    .b-badge::before,
+    .b-badge::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      margin-inline: auto;
+    }
+
+    .b-badge::before {
+      inset-block-end: calc(100% - var(--space-4));
+      width: var(--space-6);
+      height: calc(var(--space-16) + var(--space-4));
+      background: var(--band);
+    }
+
+    .b-badge::after {
+      inset-block-start: var(--space-3);
+      width: var(--space-12);
+      height: var(--space-2);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+    }
+
+    .b-dept {
+      justify-self: stretch;
+      margin: 0 calc(var(--space-6) * -1) var(--space-4);
+      padding: var(--space-8) var(--space-4) var(--space-2);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      background: var(--band);
+      color: var(--band-text);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-md);
+      width: 7rem;
+      margin-block-end: var(--space-3);
+    }
+
+    .b-role,
+    .b-since {
+      color: var(--color-text-muted);
+    }
+
+    .b-since {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+    }
+  }
+}

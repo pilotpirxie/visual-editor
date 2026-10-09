@@ -1,0 +1,91 @@
+{
+  "name": "Cookies, playful card",
+  "category": "cookies",
+  "description": "A friendly corner card with a bitten cookie illustration, playful copy and big buttons. Tilts slightly on desktop. It remembers the visitor’s choice.",
+  "tags": ["cookies", "consent", "privacy", "gdpr", "playful", "friendly", "illustration", "card"],
+  "fieldGroups": ["Message", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "lucide:cookie",
+      "group": "Message"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Cookies? Only the digital kind.",
+      "required": true,
+      "group": "Message"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "A few crumbs help us remember your settings and see which pages help. Nothing follows you around the web.",
+      "required": true,
+      "group": "Message"
+    },
+    {
+      "name": "showPolicyLink",
+      "label": "Show policy link",
+      "type": "boolean",
+      "default": true,
+      "group": "Message"
+    },
+    {
+      "name": "policyLabel",
+      "label": "Policy link label",
+      "type": "text",
+      "default": "What’s in the jar?",
+      "visibleWhen": {
+        "field": "showPolicyLink",
+        "equals": true
+      },
+      "group": "Message"
+    },
+    {
+      "name": "policyLink",
+      "label": "Policy link",
+      "type": "link",
+      "default": {
+        "type": "page",
+        "newTab": false
+      },
+      "visibleWhen": {
+        "field": "showPolicyLink",
+        "equals": true
+      },
+      "group": "Message"
+    },
+    {
+      "name": "acceptLabel",
+      "label": "Accept button",
+      "type": "text",
+      "default": "Sounds good",
+      "required": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "showDecline",
+      "label": "Show decline button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "declineLabel",
+      "label": "Decline button",
+      "type": "text",
+      "default": "No crumbs, thanks",
+      "visibleWhen": {
+        "field": "showDecline",
+        "equals": true
+      },
+      "group": "Buttons"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+<footer class="b-footer-social section">
+  <div class="container stack b-inner">
+    <a class="b-logo" href="index.html">{{site.title}}</a>
+    {{#if tagline}}<p class="b-tagline" data-field="tagline">{{nl2br tagline}}</p>{{/if}}
+    <ul class="cluster b-socials" role="list">
+      {{#each socials}}
+      <li><a href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}</span></a></li>
+      {{/each}}
+    </ul>
+    <nav aria-label="Footer">
+      <ul class="cluster b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+    </nav>
+    <p class="b-legal" data-field="copyright">{{copyright}}</p>
+  </div>
+</footer>

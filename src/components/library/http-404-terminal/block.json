@@ -1,0 +1,144 @@
+{
+  "name": "HTTP code, 404 terminal",
+  "category": "http-codes",
+  "description": "A “page not found” message printed in a dark terminal window, with suggested links. Name the page 404 so it exports as 404.html.",
+  "tags": ["404", "not found", "error", "terminal", "developer", "code", "dark"],
+  "fieldGroups": ["Window", "Content", "Links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "windowTitle",
+      "label": "Window title",
+      "type": "text",
+      "default": "fieldnote — zsh",
+      "group": "Window"
+    },
+    {
+      "name": "command",
+      "label": "First command",
+      "type": "text",
+      "default": "open fieldnote.app/studies/onboarding-2024",
+      "group": "Window"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Error 404: page not found",
+      "group": "Content",
+      "required": true
+    },
+    {
+      "name": "lines",
+      "label": "Output lines",
+      "type": "list",
+      "group": "Content",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Output"
+        },
+        {
+          "name": "tone",
+          "label": "Tone",
+          "type": "select",
+          "default": "muted",
+          "options": [
+            {
+              "value": "default",
+              "label": "Normal"
+            },
+            {
+              "value": "muted",
+              "label": "Muted"
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "text": "The page moved, or it never existed.",
+          "tone": "default"
+        },
+        {
+          "text": "Checked: 3 redirects, 0 matches",
+          "tone": "muted"
+        }
+      ]
+    },
+    {
+      "name": "suggestCommand",
+      "label": "Second command",
+      "type": "text",
+      "default": "fieldnote suggest",
+      "group": "Links"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Page"
+        },
+        {
+          "name": "hint",
+          "label": "Hint",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Home",
+          "hint": "/",
+          "link": {
+            "type": "url",
+            "url": "index.html",
+            "newTab": false
+          }
+        },
+        {
+          "label": "API reference",
+          "hint": "/docs/api",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "System status",
+          "hint": "status.fieldnote.app",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

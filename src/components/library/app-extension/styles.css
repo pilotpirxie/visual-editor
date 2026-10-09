@@ -1,0 +1,107 @@
+@layer components {
+  @scope (.b-app-extension) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-intro,
+    .b-note,
+    .b-url,
+    .b-popup-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-browser {
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-bar {
+      --icon-size: 1rem;
+      display: flex;
+      gap: var(--space-3);
+      align-items: center;
+      padding: var(--space-2) var(--space-3);
+      background: var(--color-surface);
+    }
+
+    .b-lights {
+      width: 2.5rem;
+      height: 0.625rem;
+      background: radial-gradient(circle, var(--color-border) 0.3rem, transparent 0.32rem) 0 0 /
+        0.875rem 100%;
+    }
+
+    .b-url {
+      flex: 1;
+      overflow: hidden;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      font-size: var(--text-xs);
+      white-space: nowrap;
+    }
+
+    .b-page {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2);
+      padding: var(--space-3);
+    }
+
+    .b-tile {
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+    }
+
+    .b-popup {
+      position: absolute;
+      top: var(--space-2);
+      inset-inline-end: var(--space-3);
+      display: grid;
+      gap: var(--space-2);
+      width: min(15rem, 80%);
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+      font-size: var(--text-xs);
+    }
+
+    .b-popup-head {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .b-rec {
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-popup-btn {
+      padding: var(--space-2);
+      text-align: center;
+      border-radius: var(--button-radius);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "name": "Gallery, polaroid wall",
+  "category": "gallery",
+  "description": "Pinned instant photos of mixed shapes, tilted at different angles, with handwritten-style captions.",
+  "tags": ["gallery", "photos", "polaroid", "pinboard", "playful", "behind the scenes", "culture"],
+  "fieldGroups": ["Heading", "Photos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Behind the scenes",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Field notes, literally",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Snapshots from customer visits, research sprints and the occasional team dinner, pinned to the wall of our Toronto office.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "caption",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "caption",
+          "label": "Caption",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg interviewing a Northwind customer at their desk",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "caption": "First visit at Northwind",
+          "date": "March 2026"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A wall of sticky notes sorted into onboarding themes",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "caption": "Affinity wall, day two",
+          "date": "April 2026"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A finance lead walking through a spreadsheet on two monitors",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "Ledgerly ride-along",
+          "date": "April 2026"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A small tripod, a microphone and printed consent forms on a table",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "caption": "The recording kit, packed",
+          "date": "May 2026"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Support agents at Brightpath wearing headsets in an open office",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "Brightpath support floor",
+          "date": "May 2026"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The team sharing dinner at a long restaurant table",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "caption": "Team dinner on Ossington",
+          "date": "June 2026"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A nurse testing a tablet prototype at a hospital station",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "caption": "Prototype test with a nurse",
+          "date": "June 2026"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "One last sticky note left on an empty whiteboard",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "Last note standing",
+          "date": "July 2026"
+        }
+      ]
+    }
+  ]
+}

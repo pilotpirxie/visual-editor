@@ -1,0 +1,62 @@
+{
+  "name": "Rich text, with pull quote",
+  "category": "rich-text",
+  "description": "An article with a large pull quote set beside the text on desktop.",
+  "tags": ["text", "article", "story", "quote", "pull quote", "case study", "prose", "long-form"],
+  "fieldGroups": ["Heading", "Article", "Pull quote"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Customer story",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How Ledgerly found the real reason month-end ran late",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "author",
+      "label": "Author",
+      "type": "text",
+      "default": "Yuki Tanaka",
+      "group": "Heading"
+    },
+    {
+      "name": "date",
+      "label": "Publish date",
+      "type": "date",
+      "default": "2026-09-22",
+      "group": "Heading"
+    },
+    {
+      "name": "body",
+      "label": "Article",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<p>For two years, Ledgerly’s product team believed month-end close ran late because reports were slow to load. They had support tickets, survey scores and a performance dashboard to prove it. So they spent a quarter making reports faster. Close still ran late.</p><h2>Ten calls in two weeks</h2><p>In August the team tried something different. They booked ten 30-minute calls with finance leads and recorded every one in Fieldnote. Two people joined each call: one to talk and one to tag highlights as they happened.</p><p>By the third call a pattern was clear. Nobody was waiting for reports. They were waiting for each other. Approvals bounced between three people over email, and nobody could see who had the file.</p><h2>From highlights to a roadmap</h2><p>The team cut a four-minute reel from the calls and played it at the next planning meeting. Within a week, approval tracking moved to the top of the roadmap.</p><ul><li>Approvals now happen inside Ledgerly, with a clear owner at each step</li><li>Finance leads get one reminder a day instead of a dozen emails</li><li>Average close time dropped from nine days to six</li></ul><p>The performance work was not wasted, but it was not the problem. Ten conversations found what two years of tickets had missed.</p>",
+      "group": "Article"
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "We had three years of support tickets, and none of them said what one 30-minute call made obvious.",
+      "group": "Pull quote"
+    },
+    {
+      "name": "quoteAuthor",
+      "label": "Quote author",
+      "type": "text",
+      "default": "Tomás Rivera, Controller at Ledgerly",
+      "group": "Pull quote"
+    }
+  ]
+}

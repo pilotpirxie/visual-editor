@@ -1,0 +1,133 @@
+{
+  "name": "HTTP code, 410 page retired",
+  "category": "http-codes",
+  "description": "A “this page was retired” message with a stamp and a list of the pages that replaced it.",
+  "tags": ["410", "gone", "retired", "removed", "error", "redirect", "page"],
+  "fieldGroups": ["Content", "Replacements"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "stamp",
+      "label": "Stamp",
+      "type": "text",
+      "default": "Retired 2026",
+      "group": "Content",
+      "maxLength": 20
+    },
+    {
+      "name": "eyebrow",
+      "label": "Code",
+      "type": "text",
+      "default": "410 · Gone",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "We retired this page",
+      "group": "Content",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Fieldnote Classic was switched off on 31 March 2026. Everything it did now lives in the new app, and your old studies came along too.",
+      "group": "Content"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Open the new app",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Content"
+    },
+    {
+      "name": "listTitle",
+      "label": "List heading",
+      "type": "text",
+      "default": "Where things went",
+      "group": "Replacements"
+    },
+    {
+      "name": "moves",
+      "label": "Replacements",
+      "type": "list",
+      "group": "Replacements",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "newLabel",
+      "itemFields": [
+        {
+          "name": "oldLabel",
+          "label": "Old page",
+          "type": "text",
+          "default": "Old page"
+        },
+        {
+          "name": "newLabel",
+          "label": "New page",
+          "type": "text",
+          "default": "New page"
+        },
+        {
+          "name": "text",
+          "label": "Description",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "oldLabel": "Classic dashboard",
+          "newLabel": "Studies",
+          "text": "All your projects, now with search.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "oldLabel": "Tag manager",
+          "newLabel": "Themes",
+          "text": "Tags are suggested for you after every call.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "oldLabel": "Export center",
+          "newLabel": "Share links",
+          "text": "Send a highlight reel instead of a PDF.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

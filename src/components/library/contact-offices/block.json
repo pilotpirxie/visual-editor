@@ -1,0 +1,149 @@
+{
+  "name": "Contact, office locations",
+  "category": "contacts",
+  "description": "Cards for each office with a photo, the address, a phone number and an email.",
+  "tags": ["contact", "offices", "locations", "address", "cities", "cards"],
+  "fieldGroups": ["Heading", "Offices"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Offices",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Come and say hello",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Most of the team works remotely, but our offices are open to customers who want to see Fieldnote in person.",
+      "group": "Heading"
+    },
+    {
+      "name": "offices",
+      "label": "Offices",
+      "type": "list",
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Brick building on King Street West with the Fieldnote office on the fourth floor",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "city": "Toronto",
+          "label": "Headquarters",
+          "address": "220 King Street West, Suite 400\nToronto, ON M5H 1K4",
+          "phone": "+1 416 555 0142",
+          "email": "toronto@fieldnote.example"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Bright co-working space with long wooden tables in Kreuzberg, Berlin",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "city": "Berlin",
+          "label": "",
+          "address": "Oranienstraße 185\n10999 Berlin, Germany",
+          "phone": "+49 30 5557 0190",
+          "email": "berlin@fieldnote.example"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Small studio on East Cesar Chavez Street in Austin with a mural on the side wall",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "city": "Austin",
+          "label": "",
+          "address": "1211 East Cesar Chavez Street\nAustin, TX 78702",
+          "phone": "+1 512 555 0178",
+          "email": "austin@fieldnote.example"
+        }
+      ],
+      "group": "Offices",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "city",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Office building",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "city",
+          "label": "City",
+          "type": "text",
+          "default": "City"
+        },
+        {
+          "name": "label",
+          "label": "Badge",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "address",
+          "label": "Address",
+          "type": "textarea",
+          "default": "Street and number\nPostcode and city"
+        },
+        {
+          "name": "phone",
+          "label": "Phone",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "text",
+          "default": ""
+        }
+      ]
+    }
+  ]
+}

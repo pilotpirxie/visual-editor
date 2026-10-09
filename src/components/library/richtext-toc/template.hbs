@@ -1,0 +1,25 @@
+<section class="b-richtext-toc section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if lead}}<p class="b-lead" data-field="lead">{{nl2br lead}}</p>{{/if}}
+    </header>
+    <nav class="stack b-toc" aria-labelledby="{{block.id}}-contents">
+      <p class="b-toc-title" id="{{block.id}}-contents" data-field="contentsTitle">{{contentsTitle}}</p>
+      <ol class="b-toc-list" role="list">
+        {{#each parts}}
+        <li><a href="#{{../block.id}}-part-{{@index}}" data-field="parts.{{@index}}">{{heading}}</a></li>
+        {{/each}}
+      </ol>
+    </nav>
+    <div class="stack b-parts">
+      {{#each parts}}
+      <section class="stack b-part" id="{{../block.id}}-part-{{@index}}" aria-labelledby="{{../block.id}}-part-{{@index}}-title" data-field="parts.{{@index}}">
+        <h3 class="b-part-title" id="{{../block.id}}-part-{{@index}}-title">{{heading}}</h3>
+        <div class="prose b-body">{{richText body}}</div>
+      </section>
+      {{/each}}
+    </div>
+  </div>
+</section>

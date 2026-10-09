@@ -1,0 +1,36 @@
+<section class="b-signin-quote section">
+  <div class="container b-inner">
+    <div class="stack b-panel">
+      <header class="stack b-head">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-password" data-field="passwordLabel">{{passwordLabel}}</label>
+          <input id="{{block.id}}-password" type="password" name="password" autocomplete="current-password" required>
+          {{#if forgotLabel}}<a class="b-forgot" href="{{href forgotLink}}" {{linkAttrs forgotLink}} data-field="forgotLink">{{forgotLabel}}</a>{{/if}}
+        </div>
+        <div class="field-check">
+          <input id="{{block.id}}-remember" type="checkbox" name="remember" value="yes">
+          <label for="{{block.id}}-remember" data-field="rememberLabel">{{rememberLabel}}</label>
+        </div>
+        <button type="submit" class="btn btn-primary b-submit" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if signUpLabel}}<p class="b-switch" data-field="signUpLink">{{signUpText}} <a href="{{href signUpLink}}" {{linkAttrs signUpLink}}>{{signUpLabel}}</a></p>{{/if}}
+    </div>
+    <figure class="b-quote" data-field="quote">
+      <span class="b-mark">{{svgIcon "quote"}}</span>
+      <blockquote class="b-words"><p>{{nl2br quote}}</p></blockquote>
+      <figcaption class="b-person">
+        <span class="media b-avatar" data-field="photo">{{img photo}}</span>
+        <span><span class="b-name" data-field="name">{{name}}</span>{{#if role}}<span class="b-role" data-field="role">{{role}}</span>{{/if}}</span>
+      </figcaption>
+      {{#if trusted}}<p class="b-trusted" data-field="trusted">{{trusted}}</p>{{/if}}
+    </figure>
+  </div>
+</section>

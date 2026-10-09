@@ -1,0 +1,119 @@
+{
+  "name": "FAQ, featured question",
+  "category": "faq",
+  "description": "The most asked question answered at length with the author’s name, beside a compact accordion of other questions.",
+  "tags": ["faq", "questions", "featured", "accordion", "answer", "author"],
+  "fieldGroups": ["Heading", "Featured question", "More questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    { "name": "eyebrow", "label": "Eyebrow", "type": "text", "default": "FAQ", "group": "Heading" },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The question everyone asks first",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "featuredLabel",
+      "label": "Label",
+      "type": "text",
+      "default": "Most asked",
+      "group": "Featured question"
+    },
+    {
+      "name": "featuredQuestion",
+      "label": "Question",
+      "type": "text",
+      "default": "Is AI going to replace our researchers?",
+      "required": true,
+      "group": "Featured question"
+    },
+    {
+      "name": "featuredAnswer",
+      "label": "Answer",
+      "type": "richtext",
+      "default": "<p>No, and we built Fieldnote so it can’t. It transcribes, tags and finds patterns across hundreds of hours, which is the part of the job nobody misses.</p><p>Deciding which questions to ask, reading between the lines and convincing a roadmap meeting still takes a person. Our customers run <strong>twice as many interviews</strong> after switching, with the same team.</p>",
+      "group": "Featured question"
+    },
+    {
+      "name": "authorPhoto",
+      "label": "Author photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Maya Chen",
+        "decorative": false,
+        "width": 400,
+        "height": 400,
+        "placeholder": { "ratio": "1:1", "subject": "person" }
+      },
+      "group": "Featured question"
+    },
+    {
+      "name": "authorName",
+      "label": "Author name",
+      "type": "text",
+      "default": "Maya Chen",
+      "group": "Featured question"
+    },
+    {
+      "name": "authorRole",
+      "label": "Author role",
+      "type": "text",
+      "default": "Co-founder and head of research",
+      "group": "Featured question"
+    },
+    {
+      "name": "moreTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "Other questions",
+      "group": "More questions"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "More questions",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "question",
+      "itemFields": [
+        { "name": "question", "label": "Question", "type": "text", "default": "A question?" },
+        { "name": "answer", "label": "Answer", "type": "richtext", "default": "<p>The answer.</p>" }
+      ],
+      "default": [
+        {
+          "question": "Do you train models on our interviews?",
+          "answer": "<p>Never. Your recordings are used only to serve your workspace.</p>"
+        },
+        {
+          "question": "How long does setup take?",
+          "answer": "<p>About ten minutes, and most teams record their first interview the same day.</p>"
+        },
+        {
+          "question": "Can we bring old research in?",
+          "answer": "<p>Yes. Upload recordings, transcripts or notes, and they are tagged like new ones.</p>"
+        },
+        {
+          "question": "Is there a plan for one researcher?",
+          "answer": "<p>Solo is $24 a month and includes 20 recorded hours.</p>"
+        }
+      ]
+    },
+    {
+      "name": "moreLink",
+      "label": "Link",
+      "type": "button",
+      "default": {
+        "label": "See all questions",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "ghost"
+      },
+      "group": "More questions"
+    }
+  ]
+}

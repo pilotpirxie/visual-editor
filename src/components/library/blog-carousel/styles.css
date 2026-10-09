@@ -1,0 +1,134 @@
+@layer components {
+  @scope (.b-blog-carousel) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+
+    .b-heading {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-track {
+      display: grid;
+      grid-auto-columns: min(85%, 22rem);
+      grid-auto-flow: column;
+      gap: var(--space-6);
+      padding-block: var(--space-2) var(--space-4);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .b-slide {
+      --card-padding: 0;
+      --stack-gap: 0;
+      position: relative;
+      overflow: hidden;
+      scroll-snap-align: start;
+    }
+
+    .b-media {
+      --media-radius: 0;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-3);
+      flex: 1;
+      align-items: flex-start;
+      padding: var(--space-6);
+    }
+
+    .b-title {
+      font-size: var(--text-lg);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-slide:hover .b-link {
+      color: var(--color-primary);
+    }
+
+    .b-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1) var(--space-3);
+      margin-block-start: auto;
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-author {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text);
+    }
+
+    .b-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+    }
+
+    .b-arrow {
+      --button-padding-x: var(--space-3);
+    }
+
+    .b-arrow:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .b-dots {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .b-dots button {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
+
+    .b-dots button::before {
+      content: '';
+      width: 0.625rem;
+      height: 0.625rem;
+      border-radius: var(--radius-full);
+      background: var(--color-border);
+    }
+
+    .b-dots button[aria-current='true']::before {
+      background: var(--color-primary);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .b-track {
+        scroll-behavior: auto;
+      }
+    }
+  }
+}

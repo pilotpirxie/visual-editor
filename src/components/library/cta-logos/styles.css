@@ -1,0 +1,54 @@
+@layer components {
+  @scope (.b-cta-logos) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-items: center;
+      max-width: 44rem;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+      margin-block-start: var(--space-2);
+    }
+
+    .b-proof {
+      --stack-gap: var(--space-6);
+      width: 100%;
+      padding-block-start: var(--space-8);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-proof-title {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-logos {
+      --cluster-gap: var(--space-6) var(--space-12);
+      --cluster-justify: center;
+    }
+
+    .b-logo {
+      --icon-size: 1.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-muted);
+      opacity: 0.8;
+    }
+  }
+}

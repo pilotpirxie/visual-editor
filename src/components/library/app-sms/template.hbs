@@ -1,0 +1,27 @@
+<section class="b-app-sms section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field b-field">
+          <label for="{{block.id}}-phone" data-field="phoneLabel">{{phoneLabel}}</label>
+          <input id="{{block.id}}-phone" type="tel" name="phone" autocomplete="tel" inputmode="tel" required placeholder="{{phonePlaceholder}}">
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{svgIcon "send"}}<span>{{buttonLabel}}</span></button>
+      </form>
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+    <div class="b-stage">
+      <div class="device b-phone">
+        <div class="media device-screen b-screen">
+          <p class="b-contact" data-field="sender"><span class="b-avatar" aria-hidden="true">{{svgIcon "message"}}</span>{{sender}}</p>
+          {{#if request}}<p class="b-bubble b-mine" data-field="request">{{request}}</p>{{/if}}
+          <p class="b-bubble" data-field="message">{{message}}</p>
+          {{#if messageLink}}<p class="b-bubble b-link" data-field="messageLink">{{svgIcon "download"}}<span>{{messageLink}}</span></p>{{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+<section class="b-newsletter-sentence section">
+  <div class="container stack b-inner">
+    <h2 class="b-title" data-field="title">{{svgIcon "mail"}}{{title}}</h2>
+    <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <p class="b-sentence">
+        <span data-field="before">{{before}}</span>
+        <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+        <input id="{{block.id}}-email" class="b-input" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+        <span data-field="after">{{after}}</span>
+        <button type="submit" class="btn btn-primary b-submit" data-field="buttonLabel">{{buttonLabel}} {{svgIcon "arrow-right"}}</button>
+      </p>
+    </form>
+    {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+  </div>
+</section>

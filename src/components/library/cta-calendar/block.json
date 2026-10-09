@@ -1,0 +1,207 @@
+{
+  "name": "Call to action, pick a time",
+  "category": "call-to-action",
+  "description": "A pitch with call details beside a week of open time slots that link to your booking page.",
+  "tags": ["cta", "calendar", "booking", "schedule", "demo", "call", "time slots"],
+  "fieldGroups": ["Content", "Calendar", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Talk to us",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Walk through your research backlog with us",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Bring a recent study. A Fieldnote research lead will show you how to turn those calls into themes your team can act on.",
+      "group": "Content"
+    },
+    {
+      "name": "facts",
+      "label": "Call details",
+      "type": "list",
+      "group": "Content",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Detail"
+        }
+      ],
+      "default": [
+        {
+          "icon": "clock",
+          "text": "30 minutes"
+        },
+        {
+          "icon": "video",
+          "text": "Video call, no install needed"
+        },
+        {
+          "icon": "globe",
+          "text": "Times shown in Toronto time"
+        }
+      ]
+    },
+    {
+      "name": "month",
+      "label": "Month",
+      "type": "text",
+      "default": "April 2026",
+      "group": "Calendar"
+    },
+    {
+      "name": "bookingLink",
+      "label": "Time slot link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Calendar",
+      "help": "Every time slot opens this booking page."
+    },
+    {
+      "name": "days",
+      "label": "Days",
+      "type": "list",
+      "group": "Calendar",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "weekday",
+      "itemFields": [
+        {
+          "name": "weekday",
+          "label": "Weekday",
+          "type": "text",
+          "default": "Mon"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "text",
+          "default": "1"
+        },
+        {
+          "name": "slots",
+          "label": "Times",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 4,
+          "itemLabel": "time",
+          "itemFields": [
+            {
+              "name": "time",
+              "label": "Time",
+              "type": "text",
+              "default": "9:00"
+            }
+          ],
+          "default": [
+            {
+              "time": "9:00"
+            },
+            {
+              "time": "13:00"
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "weekday": "Tue",
+          "date": "14",
+          "slots": [
+            {
+              "time": "9:30"
+            },
+            {
+              "time": "11:00"
+            },
+            {
+              "time": "15:30"
+            }
+          ]
+        },
+        {
+          "weekday": "Wed",
+          "date": "15",
+          "slots": [
+            {
+              "time": "10:00"
+            },
+            {
+              "time": "13:30"
+            }
+          ]
+        },
+        {
+          "weekday": "Thu",
+          "date": "16",
+          "slots": [
+            {
+              "time": "9:00"
+            },
+            {
+              "time": "12:00"
+            },
+            {
+              "time": "16:00"
+            }
+          ]
+        },
+        {
+          "weekday": "Fri",
+          "date": "17",
+          "slots": [
+            {
+              "time": "11:30"
+            },
+            {
+              "time": "14:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See all times",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons"
+    }
+  ]
+}

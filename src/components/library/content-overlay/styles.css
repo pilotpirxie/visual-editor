@@ -1,0 +1,69 @@
+@layer components {
+  @scope (.b-content-overlay) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      position: relative;
+      display: grid;
+      align-items: center;
+      min-height: 28rem;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .b-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: var(--color-background);
+    }
+
+    .b-backdrop img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .b-backdrop::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: color-mix(in oklab, var(--color-background) 72%, transparent);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+      max-width: 40rem;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: color-mix(in oklab, var(--color-text) 90%, transparent);
+    }
+
+    .b-actions {
+      margin-block-start: var(--space-2);
+    }
+
+    :scope[data-align='center'] .b-copy {
+      align-items: center;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    :scope[data-align='center'] .b-actions {
+      --cluster-justify: center;
+    }
+
+    @media (min-width: 1024px) {
+      :scope {
+        min-height: 34rem;
+      }
+    }
+  }
+}

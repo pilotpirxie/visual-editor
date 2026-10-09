@@ -1,0 +1,111 @@
+{
+  "name": "Modal, bottom sheet",
+  "category": "modals",
+  "description": "An action sheet that slides up from the bottom edge on phones, with a grab handle and a list of options. Centered on larger screens. Opens from any link to its anchor.",
+  "tags": ["modal", "dialog", "popup", "bottom sheet", "action sheet", "menu", "options", "mobile"],
+  "fieldGroups": ["Content", "Options"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Start a new project",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Pick a starting point. You can change the method later.",
+      "group": "Content"
+    },
+    {
+      "name": "closeLabel",
+      "label": "Close button label (for screen readers)",
+      "type": "text",
+      "default": "Close",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "cancelLabel",
+      "label": "Cancel button",
+      "type": "text",
+      "default": "Not now",
+      "group": "Content"
+    },
+    {
+      "name": "options",
+      "label": "Options",
+      "type": "list",
+      "group": "Options",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "sparkles"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Option"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "One line about this option."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "mic",
+          "title": "Interview study",
+          "text": "Record, transcribe and tag customer calls.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "chart",
+          "title": "Survey",
+          "text": "Send questions and spot themes in open answers.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "monitor",
+          "title": "Usability test",
+          "text": "Watch people use your product, task by task.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "name": "FAQ, with contact card",
+  "category": "faq",
+  "description": "An accordion of questions beside a “Still have questions?” card with a button.",
+  "tags": ["faq", "questions", "accordion", "support", "contact", "help"],
+  "fieldGroups": ["Heading", "Questions", "Contact card"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Support",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Common questions",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Short answers to what new teams ask most. Longer guides live in our help center.",
+      "group": "Heading"
+    },
+    {
+      "name": "expandIcon",
+      "label": "Open and close icon",
+      "type": "icon",
+      "default": "plus",
+      "group": "Questions"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "default": [
+        {
+          "question": "How long does it take to set up Fieldnote?",
+          "answer": "<p>Most teams record their first interview the same day. Connect your calendar and video tool, invite your team, and Fieldnote joins the next call you schedule.</p>"
+        },
+        {
+          "question": "Do participants know they are being recorded?",
+          "answer": "<p>Always. Fieldnote announces itself when it joins a call, and you can attach a consent form to every invite.</p>"
+        },
+        {
+          "question": "How accurate are the transcripts?",
+          "answer": "<p>Around 95% for clear audio, with a label for every speaker. You can fix any line, and Fieldnote learns your product names as you go.</p>"
+        },
+        {
+          "question": "Can we delete a recording for good?",
+          "answer": "<p>Yes. Deleting removes the video, audio and transcript right away, and our backups forget it within 30 days.</p>"
+        },
+        {
+          "question": "What happens when the trial ends?",
+          "answer": "<p>Pick a plan to keep recording, or stay on the free Starter plan to keep reading everything you already have.</p>"
+        }
+      ],
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 20,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "A question?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "richtext",
+          "default": "<p>The answer.</p>"
+        }
+      ]
+    },
+    {
+      "name": "cardIcon",
+      "label": "Card icon",
+      "type": "icon",
+      "default": "message",
+      "group": "Contact card"
+    },
+    {
+      "name": "cardTitle",
+      "label": "Card title",
+      "type": "text",
+      "default": "Still have questions?",
+      "group": "Contact card",
+      "required": true
+    },
+    {
+      "name": "cardText",
+      "label": "Card text",
+      "type": "textarea",
+      "default": "Our support team are former researchers. They reply within one business day, usually much sooner.",
+      "group": "Contact card"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Chat with support",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Contact card"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "support@fieldnote.example",
+      "group": "Contact card"
+    }
+  ]
+}

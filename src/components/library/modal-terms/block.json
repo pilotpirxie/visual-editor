@@ -1,0 +1,70 @@
+{
+  "name": "Modal, terms to accept",
+  "category": "modals",
+  "description": "A dialog with updated terms in a scrollable box and buttons to accept or decide later.",
+  "tags": ["modal", "dialog", "popup", "terms", "policy", "legal", "agreement", "accept"],
+  "fieldGroups": ["Content", "Terms", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-surface", "--color-text"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "We’ve updated our terms of service",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "dateLabel",
+      "label": "Date label",
+      "type": "text",
+      "default": "Effective from",
+      "group": "Content"
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-11-01",
+      "group": "Content"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Please read the summary below. The full terms apply from the date above.",
+      "group": "Content"
+    },
+    {
+      "name": "closeLabel",
+      "label": "Close button label (for screen readers)",
+      "type": "text",
+      "default": "Close",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "terms",
+      "label": "Terms",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<h3>1. What changes</h3><p>We have rewritten our terms in plain language and added a section on AI features. Nothing about who owns your recordings has changed: your interviews, transcripts and highlights belong to you.</p><h3>2. AI features</h3><p>Transcription, tag suggestions and summaries run on your workspace’s data only. We never use your recordings to train models shared with other customers.</p><h3>3. Where your data lives</h3><p>You choose a region when you create a workspace: the EU, the US or Canada. Recordings stay in that region, including backups.</p><h3>4. Consent from participants</h3><p>You are responsible for telling interview participants that they are being recorded. Fieldnote announces itself on every call and can send a consent note with each invite.</p><h3>5. Ending your plan</h3><p>If you cancel, you can export everything for 90 days. After that we delete your workspace and tell you when it is done.</p>",
+      "group": "Terms"
+    },
+    {
+      "name": "acceptLabel",
+      "label": "Accept button",
+      "type": "text",
+      "default": "I agree",
+      "required": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "laterLabel",
+      "label": "Later button",
+      "type": "text",
+      "default": "Remind me later",
+      "group": "Buttons"
+    }
+  ]
+}

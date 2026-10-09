@@ -1,0 +1,20 @@
+<section class="b-cta-phone section">
+  <div class="container">
+    <div class="b-panel">
+      <figure class="b-person">
+        <div class="b-ripple">
+          <div class="media b-avatar" data-field="photo">{{img photo}}</div>
+          {{#if statusLabel}}<span class="b-status" data-field="statusLabel">{{statusLabel}}</span>{{/if}}
+        </div>
+        <figcaption class="b-caption"><strong data-field="name">{{name}}</strong> <span data-field="role">{{role}}</span></figcaption>
+      </figure>
+      <div class="stack b-copy">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        <a class="b-number" href="tel:{{phone}}" data-field="phone">{{phone}}</a>
+        {{#if hours}}<p class="b-line" data-field="hours">{{svgIcon "clock"}}{{hours}}</p>{{/if}}
+        {{#if note}}<p class="b-line" data-field="note">{{svgIcon "message"}}{{note}}</p>{{/if}}
+      </div>
+    </div>
+  </div>
+</section>

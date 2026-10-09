@@ -1,0 +1,120 @@
+@layer components {
+  @scope (.b-faq-video) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      display: grid;
+      gap: var(--space-4);
+      align-items: end;
+    }
+
+    .b-title {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro,
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      max-width: 30rem;
+      font-size: var(--text-lg);
+    }
+
+    .b-grid {
+      display: grid;
+      gap: var(--space-8) var(--space-6);
+    }
+
+    .b-card {
+      --stack-gap: var(--space-2);
+      height: 100%;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-thumb {
+      position: relative;
+      display: grid;
+      place-items: center;
+      margin-bottom: var(--space-2);
+    }
+
+    .b-thumb > * {
+      grid-area: 1 / 1;
+    }
+
+    .b-play {
+      --icon-size: 1.25rem;
+      display: grid;
+      place-items: center;
+      width: 3.5rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-primary);
+      box-shadow: var(--shadow-lg);
+      transition: scale var(--transition-fast);
+    }
+
+    .b-card:hover .b-play {
+      scale: 1.1;
+    }
+
+    .b-duration {
+      position: absolute;
+      inset-block-end: var(--space-3);
+      inset-inline-end: var(--space-3);
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm);
+      background: color-mix(in oklab, var(--color-text) 80%, transparent);
+      color: var(--color-background);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-question {
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-card:hover .b-question {
+      color: var(--color-primary);
+    }
+
+    .b-text {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-head {
+        grid-template-columns: 1fr auto;
+      }
+
+      .b-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      li:first-child {
+        grid-area: span 2 / span 2;
+      }
+
+      li:first-child .b-question {
+        font-size: var(--text-2xl);
+      }
+
+      li:first-child .b-play {
+        width: 5rem;
+      }
+    }
+  }
+}

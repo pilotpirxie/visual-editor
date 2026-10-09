@@ -1,0 +1,138 @@
+{
+  "name": "Testimonials, stacked cards",
+  "category": "testimonials",
+  "description": "A stack of quote cards; choosing a customer’s photo brings their card to the front, no script needed.",
+  "tags": ["testimonials", "quotes", "cards", "stack", "deck", "interactive"],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Customers",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Teams that stopped guessing",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Pick a face to hear how product, design and research teams use Fieldnote to settle debates with evidence.",
+      "group": "Heading"
+    },
+    {
+      "name": "pickerLabel",
+      "label": "Picker label for screen readers",
+      "type": "text",
+      "default": "Choose a customer",
+      "group": "Quotes"
+    },
+    {
+      "name": "items",
+      "label": "Quotes",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "What the customer said."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role and company",
+          "type": "text",
+          "default": "Role, Company"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "When sales asks why we built something, I send a link with three customer clips. Debate over.",
+          "name": "Tom Okafor",
+          "role": "Product Manager, Ledgerly",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tom Okafor",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Our designers finally watch the interviews. The clips are short enough that people actually click them.",
+          "name": "Marcus Lee",
+          "role": "Design Lead, Northwind",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Marcus Lee",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Tagging used to take me a full day per study. Now I review what Fieldnote found in an hour.",
+          "name": "Sofia Alvarez",
+          "role": "UX Researcher, Brightpath",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sofia Alvarez",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

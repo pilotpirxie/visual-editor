@@ -1,0 +1,22 @@
+<section class="b-stats-map section">
+  <div class="container stack">
+    <header class="stack">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-layout">
+      <div class="b-map" aria-hidden="true">
+        {{#each regions}}<span class="b-pin" style="--x: {{x}}; --y: {{y}}" data-field="regions.{{@index}}"></span>{{/each}}
+      </div>
+      <ol class="b-legend" role="list">
+        {{#each regions}}
+        <li class="b-region" data-field="regions.{{@index}}">
+          <p class="b-value">{{value}}</p>
+          <p><strong>{{name}}</strong>{{#if label}} <span class="b-muted">{{label}}</span>{{/if}}</p>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </div>
+</section>

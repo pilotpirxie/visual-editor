@@ -1,0 +1,13 @@
+<section class="b-cta-big-link section">
+  <div class="container b-inner">
+    {{#if kicker}}<p class="b-kicker" data-field="kicker">{{kicker}}</p>{{/if}}
+    <h2 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="label"><span class="b-label">{{label}}</span> {{svgIcon "arrow-right"}}</a></h2>
+    {{#if details.length}}
+    <ul class="b-details" role="list">
+      {{#each details}}
+      <li data-field="details.{{@index}}">{{text}}</li>
+      {{/each}}
+    </ul>
+    {{/if}}
+  </div>
+</section>

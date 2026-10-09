@@ -1,0 +1,106 @@
+@layer components {
+  @scope (.b-blog-quotes) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --cluster-justify: space-between;
+      align-items: flex-end;
+    }
+
+    .b-heading {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      padding: clamp(var(--space-6), 4vw, var(--space-8));
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+      color: var(--color-text);
+    }
+
+    .b-card:nth-child(4n + 1) {
+      --color-surface: var(--theme-primary-background);
+      --color-text: var(--theme-primary-text);
+      --color-text-muted: var(--theme-primary-text-muted);
+      --color-primary: var(--theme-primary-accent);
+    }
+
+    .b-card:nth-child(4n + 3) {
+      --color-surface: var(--theme-dark-background);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-primary: var(--theme-dark-accent);
+    }
+
+    .b-mark {
+      --icon-size: 2.5rem;
+      color: var(--color-primary);
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-source {
+      display: grid;
+      margin-block-start: auto;
+      padding-block-start: var(--space-4);
+      border-block-start: var(--border-width) solid
+        color-mix(in oklab, currentColor 20%, transparent);
+    }
+
+    .b-muted {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-title {
+      font-size: var(--text-base);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    @media (min-width: 768px) {
+      .b-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-card:is(:nth-child(4n + 1), :nth-child(4n)) {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .b-card:is(:nth-child(4n + 1), :nth-child(4n)) .b-quote {
+        font-size: var(--text-3xl);
+      }
+    }
+  }
+}

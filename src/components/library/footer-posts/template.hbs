@@ -1,0 +1,42 @@
+<footer class="b-footer-posts section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <div class="stack b-brand">
+        <a class="b-logo" href="index.html">{{site.title}}</a>
+        {{#if tagline}}<p class="b-muted" data-field="tagline">{{nl2br tagline}}</p>{{/if}}
+        <ul class="cluster b-socials" role="list">
+          {{#each socials}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}</span></a></li>
+          {{/each}}
+        </ul>
+      </div>
+      <nav class="b-columns" aria-label="Footer">
+        {{#each columns}}
+        <div class="stack b-column" data-field="columns.{{@index}}">
+          <h2 class="b-heading">{{title}}</h2>
+          <ul class="b-links" role="list">
+            {{#each links}}
+            <li><a href="{{href link}}" {{linkAttrs link}} data-field="columns.{{@../index}}.links.{{@index}}">{{label}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+        {{/each}}
+      </nav>
+      <div class="stack b-journal">
+        <h2 class="b-heading" data-field="postsTitle">{{postsTitle}}</h2>
+        <ul class="b-posts" role="list">
+          {{#each posts}}
+          <li data-field="posts.{{@index}}">
+            <a class="b-post" href="{{href link}}" {{linkAttrs link}}>
+              {{#if date}}<time class="b-muted" datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+              <span class="b-title">{{title}}</span>
+            </a>
+          </li>
+          {{/each}}
+        </ul>
+        {{#if allLabel}}<a class="b-all" href="{{href allLink}}" {{linkAttrs allLink}} data-field="allLabel">{{allLabel}}<span class="icon-mirror">{{svgIcon "arrow-right"}}</span></a>{{/if}}
+      </div>
+    </div>
+    <p class="b-muted b-legal" data-field="copyright">{{copyright}}</p>
+  </div>
+</footer>

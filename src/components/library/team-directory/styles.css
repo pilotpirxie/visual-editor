@@ -1,0 +1,102 @@
+@layer components {
+  @scope (.b-team-directory) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .b-heading {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-scroll {
+      position: relative;
+      overflow-x: auto;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+    }
+
+    .b-table {
+      width: 100%;
+      min-width: 44rem;
+      border-collapse: collapse;
+    }
+
+    .b-table :is(th, td) {
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-background);
+      text-align: start;
+      white-space: nowrap;
+    }
+
+    .b-table thead th {
+      background: var(--color-surface);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .b-table tr > :first-child {
+      position: sticky;
+      inset-inline-start: 0;
+      z-index: 1;
+      border-inline-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-table tbody tr {
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-table td {
+      color: var(--color-text-muted);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      width: 2.25rem;
+    }
+
+    .b-zone {
+      padding: var(--space-1) var(--space-2);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+    }
+
+    .b-mail {
+      --icon-size: 1.125rem;
+      display: inline-grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: var(--radius-full);
+      color: var(--color-text-muted);
+    }
+
+    .b-mail:hover {
+      background: var(--color-surface);
+      color: var(--color-primary);
+    }
+  }
+}

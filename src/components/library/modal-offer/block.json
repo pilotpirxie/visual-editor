@@ -1,0 +1,85 @@
+{
+  "name": "Modal, discount offer",
+  "category": "modals",
+  "description": "A dialog with an offer, a large discount code and a button. Opens from any link to its anchor.",
+  "tags": ["modal", "dialog", "popup", "offer", "discount", "coupon", "promo code", "sale"],
+  "fieldGroups": ["Content", "Code", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "gift",
+      "group": "Content"
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Before you go",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Take 20% off your first year",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Switch to a yearly Team plan this month and keep the discount for all twelve months.",
+      "group": "Content"
+    },
+    {
+      "name": "closeLabel",
+      "label": "Close button label (for screen readers)",
+      "type": "text",
+      "default": "Close",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "codeLabel",
+      "label": "Code label",
+      "type": "text",
+      "default": "Use this code at checkout",
+      "group": "Code"
+    },
+    {
+      "name": "code",
+      "label": "Code",
+      "type": "text",
+      "default": "FIELD20",
+      "required": true,
+      "maxLength": 24,
+      "group": "Code"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Claim my discount",
+        "link": {
+          "type": "section",
+          "anchor": "pricing",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Button"
+    },
+    {
+      "name": "note",
+      "label": "Fine print",
+      "type": "text",
+      "default": "Valid on new yearly plans until 31 October 2026.",
+      "group": "Button"
+    }
+  ]
+}

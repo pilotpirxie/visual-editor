@@ -1,0 +1,88 @@
+@layer components {
+  @scope (.b-newsletter-author) {
+    .b-card {
+      --card-padding: var(--space-8) var(--space-6);
+      display: grid;
+      gap: var(--space-8);
+      max-width: 60rem;
+      margin-inline: auto;
+      background: var(--color-surface);
+    }
+
+    .b-author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 4.5rem;
+    }
+
+    .b-who {
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    .b-name {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-heading);
+    }
+
+    .b-role,
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-copy h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-block-start: var(--space-2);
+    }
+
+    .b-field {
+      flex: 999 1 14rem;
+    }
+
+    .b-submit {
+      flex: 1 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        --card-padding: var(--space-12);
+        grid-template-columns: 12rem minmax(0, 1fr);
+        gap: var(--space-12);
+      }
+
+      .b-author {
+        flex-direction: column;
+        align-items: flex-start;
+        align-self: start;
+      }
+
+      .b-photo {
+        width: 100%;
+      }
+    }
+  }
+}

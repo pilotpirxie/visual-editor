@@ -1,0 +1,63 @@
+@layer components {
+  @scope (.b-modal-offer) {
+    .b-dialog {
+      --modal-width: 30rem;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-4);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-badge {
+      --icon-size: 1.75rem;
+      display: inline-grid;
+      place-items: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-body h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-code {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      width: 100%;
+      margin-block: var(--space-2);
+      padding: var(--space-4);
+      border: calc(var(--border-width) * 2) dashed
+        color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 6%, var(--color-background));
+      font-size: var(--text-sm);
+    }
+
+    .b-value {
+      font-family: var(--font-mono);
+      font-size: var(--text-3xl);
+      letter-spacing: 0.12em;
+      overflow-wrap: anywhere;
+      color: var(--color-primary);
+      user-select: all;
+    }
+
+    .b-body .btn {
+      width: 100%;
+    }
+
+    .b-note {
+      font-size: var(--text-xs);
+    }
+  }
+}

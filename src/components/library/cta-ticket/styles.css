@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-cta-ticket) {
+    .b-ticket {
+      --color-text: var(--theme-primary-text);
+      --color-border: var(--theme-primary-border);
+      --color-primary: var(--theme-primary-accent);
+      --color-primary-contrast: var(--theme-primary-accent-contrast);
+      display: grid;
+      max-width: 60rem;
+      margin-inline: auto;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: var(--theme-primary-background);
+      color: var(--color-text);
+    }
+
+    .b-main {
+      --stack-gap: var(--space-4);
+      padding: var(--space-8) var(--space-6);
+    }
+
+    .b-text,
+    .b-details dt,
+    .b-serial {
+      color: var(--theme-primary-text-muted);
+    }
+
+    .b-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4) var(--space-8);
+      padding-top: var(--space-4);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-details dd {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-stub {
+      position: relative;
+      display: grid;
+      gap: var(--space-4);
+      padding: var(--space-8) var(--space-6);
+      border-top: 0.125rem dashed var(--color-border);
+      background: color-mix(in oklab, var(--theme-primary-background), black 12%);
+    }
+
+    .b-stub::before,
+    .b-stub::after {
+      content: '';
+      position: absolute;
+      inset-block-start: -0.75rem;
+      inset-inline-start: -0.75rem;
+      width: 1.5rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--section-bg, var(--color-background));
+    }
+
+    .b-stub::after {
+      inset-inline: auto -0.75rem;
+    }
+
+    .b-serial {
+      display: grid;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+    }
+
+    .b-barcode {
+      height: 3rem;
+      background: repeating-linear-gradient(90deg, currentColor 0 0.2rem, transparent 0 0.45rem);
+    }
+
+    @media (min-width: 768px) {
+      .b-ticket {
+        grid-template-columns: minmax(0, 1fr) 15rem;
+      }
+
+      .b-main {
+        padding: var(--space-12);
+      }
+
+      .b-stub {
+        align-content: center;
+        border-top: 0;
+        border-inline-start: 0.125rem dashed var(--color-border);
+      }
+
+      .b-stub::after {
+        inset-block: auto -0.75rem;
+        inset-inline: -0.75rem auto;
+      }
+    }
+  }
+}

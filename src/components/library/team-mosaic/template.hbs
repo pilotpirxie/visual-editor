@@ -1,0 +1,17 @@
+<section class="b-team-mosaic section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <p class="b-number" data-field="number">{{number}}{{#if numberLabel}}<span class="b-number-label" data-field="numberLabel">{{numberLabel}}</span>{{/if}}</p>
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      {{#if showButton}}<p><a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}{{svgIcon "arrow-right"}}</a></p>{{/if}}
+    </div>
+    <ul class="b-mosaic" role="list">
+      {{#each people}}
+      <li class="media b-face" data-field="people.{{@index}}">{{img photo}}</li>
+      {{/each}}
+      {{#if more}}<li class="b-face b-more" data-field="more">{{more}}</li>{{/if}}
+    </ul>
+  </div>
+</section>

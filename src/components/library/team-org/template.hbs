@@ -1,0 +1,39 @@
+<section class="b-team-org section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-chart">
+      <div class="b-node b-lead">
+        <div class="media b-photo" data-field="leadPhoto">{{img leadPhoto}}</div>
+        <div>
+          <h3 class="b-name" data-field="leadName">{{leadName}}</h3>
+          {{#if leadRole}}<p class="b-role" data-field="leadRole">{{leadRole}}</p>{{/if}}
+        </div>
+      </div>
+      <ul class="b-teams" role="list" style="--teams: {{teams.length}}">
+        {{#each teams}}
+        <li class="b-team" data-field="teams.{{@index}}">
+          <div class="b-node">
+            <div class="media b-photo">{{img photo}}</div>
+            <div>
+              {{#if department}}<p class="eyebrow">{{department}}</p>{{/if}}
+              <h3 class="b-name">{{name}}</h3>
+              {{#if role}}<p class="b-role">{{role}}</p>{{/if}}
+            </div>
+          </div>
+          {{#if members.length}}
+          <ul class="b-members" role="list">
+            {{#each members}}
+            <li><strong>{{name}}</strong> <span class="b-role">{{role}}</span></li>
+            {{/each}}
+          </ul>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

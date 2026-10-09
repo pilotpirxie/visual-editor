@@ -1,0 +1,93 @@
+{
+  "name": "Numbers, bar chart",
+  "category": "numbers",
+  "description": "A heading beside a column chart drawn in CSS, with values on top and one bar highlighted.",
+  "tags": ["numbers", "stats", "chart", "bar chart", "graph", "data", "comparison"],
+  "fieldGroups": ["Heading", "Chart"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Time to insight",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From interview to insight in two days, not twelve",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We asked 412 research teams how long it takes before a finding reaches the people who need it.",
+      "group": "Heading"
+    },
+    {
+      "name": "chartLabel",
+      "label": "Chart title",
+      "type": "text",
+      "default": "Average days from interview to shared insight",
+      "required": true,
+      "group": "Chart"
+    },
+    {
+      "name": "bars",
+      "label": "Bars",
+      "type": "list",
+      "group": "Chart",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label",
+          "maxLength": 16
+        },
+        {
+          "name": "value",
+          "label": "Value",
+          "type": "text",
+          "default": "10"
+        },
+        {
+          "name": "height",
+          "label": "Bar height",
+          "type": "range",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "help": "Percent of the tallest possible bar."
+        },
+        {
+          "name": "highlight",
+          "label": "Highlight",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        { "label": "Docs", "value": "12 days", "height": 100, "highlight": false },
+        { "label": "Sheets", "value": "10 days", "height": 83, "highlight": false },
+        { "label": "Calls", "value": "8 days", "height": 67, "highlight": false },
+        { "label": "Fieldnote", "value": "2 days", "height": 17, "highlight": true }
+      ]
+    },
+    {
+      "name": "source",
+      "label": "Source",
+      "type": "text",
+      "default": "Source: Fieldnote research operations survey, March 2026, 412 teams.",
+      "group": "Chart"
+    }
+  ]
+}

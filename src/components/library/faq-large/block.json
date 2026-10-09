@@ -1,0 +1,63 @@
+{
+  "name": "FAQ, oversized questions",
+  "category": "faq",
+  "description": "Numbered questions in large type between bold rules, each with a round plus that turns into a cross when open.",
+  "tags": ["faq", "questions", "accordion", "editorial", "big type", "numbered"],
+  "fieldGroups": ["Heading", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Good questions",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Before you ask",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Four things every research lead wants to know before bringing Fieldnote to their team.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "question",
+      "itemFields": [
+        { "name": "question", "label": "Question", "type": "text", "default": "A question?" },
+        { "name": "answer", "label": "Answer", "type": "richtext", "default": "<p>The answer.</p>" }
+      ],
+      "default": [
+        {
+          "question": "Will it change how we interview?",
+          "answer": "<p>No. You keep your tools, your script and your style. Fieldnote listens in, then does the note taking you used to do after the call.</p>"
+        },
+        {
+          "question": "Who owns the recordings?",
+          "answer": "<p>You do, always. Export everything at any time in open formats, and delete it for good with one click.</p>"
+        },
+        {
+          "question": "How do we get people to read it?",
+          "answer": "<p>Share two-minute clips instead of forty-page reports. Teams that do read three times more of their research.</p>"
+        },
+        {
+          "question": "What does it cost to start?",
+          "answer": "<p>Nothing for the first 14 days. After that, plans start at $24 per researcher, and viewers are free.</p>"
+        }
+      ]
+    }
+  ]
+}

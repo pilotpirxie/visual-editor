@@ -1,0 +1,20 @@
+<section class="b-cta-price section">
+  <div class="container">
+    <div class="b-panel">
+      <div class="stack b-copy">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      </div>
+      <div class="stack b-offer">
+        <p class="b-price">
+          {{#if pricePrefix}}<span class="b-prefix" data-field="pricePrefix">{{pricePrefix}}</span>{{/if}}
+          <span class="b-amount" data-field="price">{{price}}</span>
+          {{#if priceSuffix}}<span class="b-suffix" data-field="priceSuffix">{{priceSuffix}}</span>{{/if}}
+        </p>
+        <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        {{#if finePrint}}<p class="b-fine" data-field="finePrint">{{finePrint}}</p>{{/if}}
+      </div>
+    </div>
+  </div>
+</section>

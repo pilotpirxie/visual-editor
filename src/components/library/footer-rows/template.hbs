@@ -1,0 +1,29 @@
+<footer class="b-footer-rows section">
+  <div class="container b-inner">
+    <div class="b-row b-main">
+      <a class="b-logo" href="index.html">{{site.title}}</a>
+      <nav aria-label="Footer">
+        <ul class="cluster b-links" role="list">
+          {{#each links}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+          {{/each}}
+        </ul>
+      </nav>
+    </div>
+    <div class="b-row b-meta">
+      <div class="b-legal">
+        <p data-field="copyright">{{copyright}}</p>
+        <ul class="cluster b-legal-links" role="list">
+          {{#each legalLinks}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="legalLinks.{{@index}}">{{label}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+      <ul class="cluster b-socials" role="list">
+        {{#each socials}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}</span></a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</footer>

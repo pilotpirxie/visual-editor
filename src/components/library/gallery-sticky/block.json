@@ -1,0 +1,148 @@
+{
+  "name": "Gallery, sticky stack",
+  "category": "gallery",
+  "description": "Large numbered photo cards with captions beside them that stick and pile up as visitors scroll.",
+  "tags": ["gallery", "photos", "sticky", "scroll", "story", "case study", "cards"],
+  "fieldGroups": ["Heading", "Photos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Case study",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How Ledgerly rebuilt month-end close",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Four moments from a twelve-week research project, in the order they happened.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Title"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": ""
+        },
+        {
+          "name": "meta",
+          "label": "Detail",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A Fieldnote researcher sitting beside a Ledgerly accountant during month-end close",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Shadowing the finance team",
+          "text": "We sat beside six accountants during close and recorded every time they switched tools.",
+          "meta": "Week 1 · 14 hours of recordings"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A wall of printed spreadsheets and sticky notes grouped by workaround",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Mapping the workarounds",
+          "text": "Every spreadsheet, sticky note and chat thread went on one wall. The patterns showed up by day two.",
+          "meta": "Week 4 · 212 highlights tagged"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A designer testing a prototype with an accountant on a laptop",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Testing the new flow",
+          "text": "Ledgerly’s designers tested three prototypes with the same six people and kept the one nobody had to explain.",
+          "meta": "Week 8 · 18 usability sessions"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The Ledgerly finance team celebrating around a laptop",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Shipping it",
+          "text": "Close now takes four days instead of seven, and nobody exports to a spreadsheet to finish it.",
+          "meta": "Week 12 · 3 days saved every month"
+        }
+      ]
+    }
+  ]
+}

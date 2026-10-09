@@ -1,0 +1,140 @@
+{
+  "name": "Applications, browser extension",
+  "category": "applications",
+  "description": "A browser window drawn in CSS with your extension’s popup open over a video call, beside install buttons for each browser.",
+  "tags": ["app", "browser extension", "chrome", "firefox", "edge", "plugin", "install"],
+  "fieldGroups": ["Heading", "Browsers", "Popup"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Browser extension",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Record any call from the tab it’s already in",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "No bot joins the meeting. The extension records your tab, and you mark highlights from the toolbar while you listen.",
+      "group": "Heading"
+    },
+    {
+      "name": "browsers",
+      "label": "Install buttons",
+      "type": "list",
+      "group": "Browsers",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Browser logo",
+          "type": "icon",
+          "default": "simple-icons:googlechrome",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Add to Chrome",
+          "required": true
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:googlechrome",
+          "label": "Add to Chrome",
+          "link": { "type": "url", "url": "https://chromewebstore.google.com", "newTab": true }
+        },
+        {
+          "icon": "simple-icons:firefoxbrowser",
+          "label": "Firefox",
+          "link": { "type": "url", "url": "https://addons.mozilla.org", "newTab": true }
+        },
+        {
+          "icon": "simple-icons:microsoftedge",
+          "label": "Edge",
+          "link": {
+            "type": "url",
+            "url": "https://microsoftedge.microsoft.com/addons",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Free with every plan. Works with Meet, Zoom on the web and Teams.",
+      "group": "Browsers"
+    },
+    {
+      "name": "url",
+      "label": "Address bar",
+      "type": "text",
+      "default": "meet.google.com/kfw-research-sync",
+      "group": "Popup"
+    },
+    {
+      "name": "popupTitle",
+      "label": "Popup title",
+      "type": "text",
+      "default": "Fieldnote",
+      "maxLength": 20,
+      "group": "Popup"
+    },
+    {
+      "name": "popupStatus",
+      "label": "Popup status",
+      "type": "text",
+      "default": "● 14:02",
+      "maxLength": 12,
+      "group": "Popup"
+    },
+    {
+      "name": "popupText",
+      "label": "Popup text",
+      "type": "text",
+      "default": "Recording this tab · 3 highlights so far",
+      "maxLength": 60,
+      "group": "Popup"
+    },
+    {
+      "name": "popupAction",
+      "label": "Popup button",
+      "type": "text",
+      "default": "Highlight last 30 seconds",
+      "maxLength": 30,
+      "group": "Popup"
+    }
+  ]
+}

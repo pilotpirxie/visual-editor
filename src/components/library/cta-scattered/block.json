@@ -1,0 +1,187 @@
+{
+  "name": "Call to action, scattered photos",
+  "category": "call-to-action",
+  "description": "A centered pitch with tilted photos scattered around it on desktop and a tidy row of them on phones.",
+  "tags": ["cta", "photos", "collage", "scattered", "polaroid", "community", "playful"],
+  "fieldGroups": ["Photos", "Content", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "photos",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A researcher interviewing a shop owner behind the counter",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sticky notes grouped into themes on a glass wall",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A product team reviewing interview clips together",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Field notebook and phone recording on a café table",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A customer walking a designer through her workflow",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Highlight reel playing on a laptop in a meeting room",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "screenshot"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Out in the field",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Join 4,200 teams who talk to customers every week",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "From shop floors to kitchen tables, Fieldnote keeps every conversation searchable and every insight shareable.",
+      "group": "Content"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See customer stories",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    }
+  ]
+}

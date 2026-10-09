@@ -1,0 +1,39 @@
+<section class="b-pricing-team-size section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      <fieldset class="b-picker">
+        <legend data-field="sizeLegend"><strong>{{sizeLegend}}</strong></legend>
+        <div class="b-options">
+          <label class="b-option" data-field="size1"><input type="radio" class="b-size-1" name="{{block.id}}-size" value="1" checked><span>{{size1}}</span></label>
+          <label class="b-option" data-field="size2"><input type="radio" class="b-size-2" name="{{block.id}}-size" value="2"><span>{{size2}}</span></label>
+          <label class="b-option" data-field="size3"><input type="radio" class="b-size-3" name="{{block.id}}-size" value="3"><span>{{size3}}</span></label>
+        </div>
+        {{#if note}}<p class="b-muted" data-field="note"><small>{{nl2br note}}</small></p>{{/if}}
+      </fieldset>
+    </header>
+    <div class="grid b-plans">
+      {{#each plans}}
+      <article class="card stack b-plan" {{#if featured}}data-featured{{/if}} data-field="plans.{{@index}}">
+        <div class="cluster">
+          <h3>{{name}}</h3>
+          {{#if featured}}<p class="badge">{{../featuredLabel}}</p>{{/if}}
+        </div>
+        <div>
+          <div class="b-prices">
+            <p class="b-price b-price-1">{{price1}}<span class="visually-hidden"> {{../size1}}</span></p>
+            <p class="b-price b-price-2">{{price2}}<span class="visually-hidden"> {{../size2}}</span></p>
+            <p class="b-price b-price-3">{{price3}}<span class="visually-hidden"> {{../size3}}</span></p>
+          </div>
+          <p class="b-muted">{{period}}</p>
+        </div>
+        {{#if description}}<p>{{nl2br description}}</p>{{/if}}
+        <div class="prose b-features">{{richText features}}</div>
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

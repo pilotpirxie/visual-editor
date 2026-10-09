@@ -1,0 +1,23 @@
+<section class="b-content-download section">
+  <div class="container">
+    <div class="b-panel">
+      <div class="media b-cover" data-field="cover">{{img cover}}</div>
+      <div class="stack b-copy">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+        {{#if contents.length}}
+        <ul class="stack b-contents" role="list">
+          {{#each contents}}
+          <li data-field="contents.{{@index}}">{{svgIcon "check"}}<span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+        {{/if}}
+        <div class="cluster b-actions">
+          <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{svgIcon "download"}}{{button.label}}</a>
+          {{#if fileMeta}}<span class="b-meta" data-field="fileMeta">{{fileMeta}}</span>{{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

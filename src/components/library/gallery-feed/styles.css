@@ -1,0 +1,97 @@
+@layer components {
+  @scope (.b-gallery-feed) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+      --container-max-width: 60rem;
+    }
+
+    .b-profile {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-4) var(--space-6);
+      align-items: center;
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      width: 5rem;
+      outline: calc(var(--border-width) * 2) solid var(--color-primary);
+      outline-offset: var(--space-1);
+    }
+
+    .b-about {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-handle {
+      font-size: var(--text-xl);
+    }
+
+    .b-name,
+    .b-bio {
+      color: var(--color-text-muted);
+    }
+
+    .b-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1) var(--space-4);
+      font-size: var(--text-sm);
+    }
+
+    .b-follow {
+      grid-column: 1 / -1;
+    }
+
+    .b-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-1);
+    }
+
+    .b-post {
+      position: relative;
+      display: block;
+      color: var(--theme-dark-text);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: 0;
+      display: block;
+    }
+
+    .b-likes {
+      --icon-size: 1rem;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-1);
+      background: color-mix(in oklab, var(--theme-dark-background) 55%, transparent);
+      font-weight: var(--font-weight-bold);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+
+    .b-post:is(:hover, :focus-visible) .b-likes {
+      opacity: 1;
+    }
+
+    @media (min-width: 768px) {
+      .b-profile {
+        grid-template-columns: auto 1fr auto;
+      }
+
+      .b-avatar {
+        width: 7rem;
+      }
+
+      .b-follow {
+        grid-column: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<section class="b-http-404-split section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="b-code" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        {{#if showSecondaryButton}}<a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>{{/if}}
+      </div>
+    </div>
+    <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
+  </div>
+</section>

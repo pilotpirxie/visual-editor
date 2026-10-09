@@ -1,0 +1,18 @@
+<section class="b-signin-code section">
+  <div class="container">
+    <div class="card stack b-card">
+      <span class="b-badge" aria-hidden="true">{{svgIcon "mail"}}</span>
+      <header class="stack b-head">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}} {{#if email}}<strong data-field="email">{{email}}</strong>{{/if}}</p>{{/if}}
+      </header>
+      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <label class="b-label" for="{{block.id}}-code" data-field="codeLabel">{{codeLabel}}</label>
+        <input class="b-code" id="{{block.id}}-code" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required dir="ltr"{{#if note}} aria-describedby="{{block.id}}-note"{{/if}}>
+        {{#if note}}<p class="b-muted b-small" id="{{block.id}}-note" data-field="note">{{note}}</p>{{/if}}
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if resendLabel}}<p class="b-muted b-alt" data-field="resendLink">{{resendText}} <a href="{{href resendLink}}" {{linkAttrs resendLink}}>{{resendLabel}}</a></p>{{/if}}
+    </div>
+  </div>
+</section>

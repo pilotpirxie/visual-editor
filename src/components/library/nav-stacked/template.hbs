@@ -1,0 +1,20 @@
+<nav class="b-nav-stacked" data-behavior="menu" aria-label="Main">
+  <div class="container b-bar">
+    <a class="b-logo" href="index.html">{{site.title}}</a>
+    {{#if tagline}}<p class="b-tagline" data-field="tagline">{{tagline}}</p>{{/if}}
+    <button type="button" class="btn btn-ghost b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+      {{svgIcon menuIcon}}<span class="visually-hidden">Menu</span>
+    </button>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+      <div class="cluster b-actions">
+        {{#if signIn.label}}<a class="btn btn-{{signIn.variant}}" href="{{href signIn.link}}" {{linkAttrs signIn.link}} data-field="signIn">{{signIn.label}}</a>{{/if}}
+        <a class="btn btn-{{cta.variant}}" href="{{href cta.link}}" {{linkAttrs cta.link}} data-field="cta">{{cta.label}}</a>
+      </div>
+    </div>
+  </div>
+</nav>

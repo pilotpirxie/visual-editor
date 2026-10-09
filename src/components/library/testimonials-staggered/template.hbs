@@ -1,0 +1,25 @@
+<section class="b-testimonials-staggered section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-grid" role="list">
+      {{#each items}}
+      <li class="b-slot" data-field="items.{{@index}}">
+        <figure class="card stack b-card">
+          <blockquote class="b-quote"><p>{{nl2br quote}}</p></blockquote>
+          <figcaption class="b-person">
+            <div class="media b-photo">{{img photo}}</div>
+            <div>
+              <p class="b-name">{{name}}</p>
+              {{#if role}}<p class="b-role">{{role}}</p>{{/if}}
+            </div>
+          </figcaption>
+        </figure>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

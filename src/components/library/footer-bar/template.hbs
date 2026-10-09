@@ -1,0 +1,12 @@
+<footer class="b-footer-bar section">
+  <div class="container b-inner">
+    <p class="b-copyright"><a class="b-logo" href="index.html">{{site.title}}</a> <span data-field="copyright">{{copyright}}</span></p>
+    <nav aria-label="Legal">
+      <ul class="cluster b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+    </nav>
+  </div>
+</footer>

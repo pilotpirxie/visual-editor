@@ -1,0 +1,102 @@
+{
+  "name": "Modal, confirm action",
+  "category": "modals",
+  "description": "A compact confirmation dialog with a ringed icon, what will be affected and a Cancel and Confirm button row. Opens from any link to its anchor.",
+  "tags": ["modal", "dialog", "popup", "confirm", "delete", "warning", "alert", "are you sure"],
+  "fieldGroups": ["Content", "Affected", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "alert",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Archive the Onboarding study?",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Everyone on your team loses access to it right away. You can restore it from Archive for 30 days.",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "closeLabel",
+      "label": "Close button label (for screen readers)",
+      "type": "text",
+      "default": "Close",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "items",
+      "label": "Affected items",
+      "type": "list",
+      "group": "Affected",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "count",
+          "label": "Number",
+          "type": "text",
+          "default": "1",
+          "maxLength": 8
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "item"
+        }
+      ],
+      "default": [
+        {
+          "count": "14",
+          "label": "interviews"
+        },
+        {
+          "count": "212",
+          "label": "highlights"
+        },
+        {
+          "count": "3",
+          "label": "reports"
+        }
+      ]
+    },
+    {
+      "name": "cancelLabel",
+      "label": "Cancel button",
+      "type": "text",
+      "default": "Keep it",
+      "required": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "button",
+      "label": "Confirm button",
+      "type": "button",
+      "default": {
+        "label": "Archive study",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+@layer components {
+  @scope (.b-share-links) {
+    :scope {
+      padding-block: var(--space-6);
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    .b-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-3) var(--space-6);
+    }
+
+    :scope[data-align='center'] .b-row {
+      flex-direction: column;
+    }
+
+    :scope[data-align='spread'] .b-row {
+      justify-content: space-between;
+      padding-block: var(--space-4);
+      border-block: var(--border-width) solid var(--color-border);
+    }
+
+    .b-label {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-list {
+      --cluster-gap: var(--space-2);
+    }
+
+    .b-link {
+      --icon-size: 1.125rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+      padding-inline: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      color: inherit;
+      text-decoration: none;
+      transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    :scope[data-style='icons'] .b-link {
+      padding: 0;
+    }
+
+    .b-link:hover {
+      border-color: var(--color-text);
+      background: var(--color-text);
+      color: var(--color-background);
+    }
+  }
+}

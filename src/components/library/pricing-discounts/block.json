@@ -1,0 +1,119 @@
+{
+  "name": "Pricing, special discounts",
+  "category": "pricing",
+  "description": "Coupon-like tiles for education, nonprofit and startup discounts, each with a big percent on its edge.",
+  "tags": ["pricing", "discount", "education", "nonprofit", "startup", "coupon", "offer"],
+  "fieldGroups": ["Heading", "Discounts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Discounts",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Research shouldn’t depend on your budget",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Classrooms, charities and early teams get the same Fieldnote for less. Apply once and the discount renews every year.",
+      "group": "Heading"
+    },
+    {
+      "name": "offLabel",
+      "label": "Word after the percent",
+      "type": "text",
+      "default": "off",
+      "group": "Discounts"
+    },
+    {
+      "name": "offers",
+      "label": "Discounts",
+      "type": "list",
+      "group": "Discounts",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "percent",
+          "label": "Percent",
+          "type": "text",
+          "default": "20%"
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "tag"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Discount"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Who qualifies and how."
+        },
+        {
+          "name": "linkLabel",
+          "label": "Link label",
+          "type": "text",
+          "default": "Apply now"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": { "type": "url", "url": "#", "newTab": false }
+        }
+      ],
+      "default": [
+        {
+          "percent": "50%",
+          "icon": "book",
+          "title": "Education",
+          "text": "Teachers, students and university research labs. Verify with a school email address.",
+          "linkLabel": "Apply with a school email",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "percent": "40%",
+          "icon": "heart",
+          "title": "Nonprofits",
+          "text": "Registered charities and nonprofits of any size, anywhere in the world.",
+          "linkLabel": "Apply as a nonprofit",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "percent": "30%",
+          "icon": "rocket",
+          "title": "Startups",
+          "text": "Teams under two years old with less than $2M raised. Valid for your first year.",
+          "linkLabel": "Apply as a startup",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "textarea",
+      "default": "Discounts apply to Team and Business plans and can’t be combined with other offers.",
+      "group": "Discounts"
+    }
+  ]
+}

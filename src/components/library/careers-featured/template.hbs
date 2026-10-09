@@ -1,0 +1,40 @@
+<section class="b-careers-featured section">
+  <div class="container b-inner">
+    <div class="stack b-main">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="roleTitle">{{roleTitle}}</h2>
+        {{#if summary}}<p class="b-summary" data-field="summary">{{nl2br summary}}</p>{{/if}}
+      </header>
+      {{#if responsibilities.length}}
+      <div class="stack b-group">
+        <h3 class="b-group-title" data-field="responsibilitiesTitle">{{responsibilitiesTitle}}</h3>
+        <ul class="stack b-list" role="list">
+          {{#each responsibilities}}
+          <li data-field="responsibilities.{{@index}}">{{svgIcon "check"}}<span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
+      {{/if}}
+      {{#if requirements.length}}
+      <div class="stack b-group">
+        <h3 class="b-group-title" data-field="requirementsTitle">{{requirementsTitle}}</h3>
+        <ul class="stack b-list" role="list">
+          {{#each requirements}}
+          <li data-field="requirements.{{@index}}">{{svgIcon "check"}}<span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
+      {{/if}}
+    </div>
+    <aside class="card stack b-details" aria-label="{{detailsLabel}}">
+      <dl class="stack b-facts">
+        {{#if salary}}<div data-field="salary"><dt>{{svgIcon "dollar"}}<span>{{salaryLabel}}</span></dt><dd>{{salary}}</dd></div>{{/if}}
+        {{#if location}}<div data-field="location"><dt>{{svgIcon "map-pin"}}<span>{{locationLabel}}</span></dt><dd>{{location}}</dd></div>{{/if}}
+        {{#if type}}<div data-field="type"><dt>{{svgIcon "clock"}}<span>{{typeLabel}}</span></dt><dd>{{type}}</dd></div>{{/if}}
+      </dl>
+      <a class="btn btn-{{button.variant}} b-apply" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </aside>
+  </div>
+</section>

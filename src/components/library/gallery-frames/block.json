@@ -1,0 +1,152 @@
+{
+  "name": "Gallery, framed prints",
+  "category": "gallery",
+  "description": "Photos hung like framed prints with a mat and frame, each with a small museum-style label.",
+  "tags": ["gallery", "photos", "frames", "exhibition", "art", "prints", "museum"],
+  "fieldGroups": ["Heading", "Prints"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Exhibition",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Overheard: three years of field work",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Yuki Tanaka’s photographs from customer visits, printed and hung in our Toronto office until the end of September.",
+      "group": "Heading"
+    },
+    {
+      "name": "frame",
+      "label": "Frame color",
+      "type": "select",
+      "default": "dark",
+      "group": "Prints",
+      "options": [
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "brand",
+          "label": "Brand color"
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "label": "Prints",
+      "type": "list",
+      "group": "Prints",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Untitled"
+        },
+        {
+          "name": "artist",
+          "label": "Artist and year",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "medium",
+          "label": "Medium",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sticky notes curling at the edges on a glass wall",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "title": "Sticky notes, day two",
+          "artist": "Yuki Tanaka, 2025",
+          "medium": "Archival pigment print, 30 × 40 cm"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Support agents at their desks in late afternoon light",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "The support floor",
+          "artist": "Yuki Tanaka, 2024",
+          "medium": "Archival pigment print, 60 × 40 cm"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A consent form and a cup of coffee on a wooden table",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "title": "Consent form and coffee",
+          "artist": "Yuki Tanaka, 2026",
+          "medium": "Silver gelatin print, 40 × 40 cm"
+        }
+      ]
+    }
+  ]
+}

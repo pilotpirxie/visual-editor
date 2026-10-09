@@ -1,0 +1,127 @@
+{
+  "name": "Features, keyboard shortcuts",
+  "category": "features",
+  "description": "A command palette drawn in CSS, listing what people can do with styled keyboard shortcuts.",
+  "tags": ["features", "keyboard", "shortcuts", "command palette", "productivity", "developer"],
+  "fieldGroups": ["Heading", "Palette", "Shortcuts"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "For power users",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Keep your hands on the keyboard",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Tag, search and share without reaching for the mouse. Press ⌘K anywhere in Fieldnote to open the command menu.",
+      "group": "Heading"
+    },
+    {
+      "name": "placeholder",
+      "label": "Search text",
+      "type": "text",
+      "default": "Type a command or search…",
+      "group": "Palette"
+    },
+    {
+      "name": "barKey",
+      "label": "Key in the search bar",
+      "type": "text",
+      "default": "esc",
+      "group": "Palette"
+    },
+    {
+      "name": "groupLabel",
+      "label": "Group label",
+      "type": "text",
+      "default": "Shortcuts",
+      "group": "Palette"
+    },
+    {
+      "name": "items",
+      "label": "Shortcuts",
+      "type": "list",
+      "group": "Shortcuts",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "action",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "zap"
+        },
+        {
+          "name": "action",
+          "label": "Action",
+          "type": "text",
+          "default": "Action",
+          "required": true
+        },
+        {
+          "name": "key1",
+          "label": "First key",
+          "type": "text",
+          "default": "⌘"
+        },
+        {
+          "name": "key2",
+          "label": "Second key",
+          "type": "text",
+          "default": "K"
+        },
+        {
+          "name": "key3",
+          "label": "Third key",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "icon": "search",
+          "action": "Search every interview",
+          "key1": "⌘",
+          "key2": "K",
+          "key3": ""
+        },
+        {
+          "icon": "bookmark",
+          "action": "Highlight the selection",
+          "key1": "H",
+          "key2": "",
+          "key3": ""
+        },
+        { "icon": "tag", "action": "Tag the highlight", "key1": "T", "key2": "", "key3": "" },
+        {
+          "icon": "arrow-down",
+          "action": "Jump to the next speaker",
+          "key1": "⌥",
+          "key2": "↓",
+          "key3": ""
+        },
+        { "icon": "share", "action": "Share a clip", "key1": "⌘", "key2": "⇧", "key3": "S" },
+        { "icon": "help", "action": "Show every shortcut", "key1": "?", "key2": "", "key3": "" }
+      ]
+    }
+  ]
+}

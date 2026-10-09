@@ -1,0 +1,138 @@
+{
+  "name": "Utilities, share links",
+  "category": "utilities",
+  "description": "A “Share this page” row of social buttons that open each network’s share screen, as round icons or labeled pills.",
+  "tags": [
+    "share",
+    "social",
+    "share buttons",
+    "linkedin",
+    "bluesky",
+    "facebook",
+    "article",
+    "utility"
+  ],
+  "fieldGroups": ["Share", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-border"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Label",
+      "type": "text",
+      "default": "Share this article",
+      "group": "Share",
+      "maxLength": 40
+    },
+    {
+      "name": "items",
+      "label": "Networks",
+      "type": "list",
+      "group": "Share",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "help": "Paste each network’s share address with your page address in it.",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "Network"
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "share",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "link",
+          "label": "Share link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "LinkedIn",
+          "icon": "simple-icons:linkedin",
+          "link": {
+            "type": "url",
+            "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffieldnote.example%2Fjournal%2Fchurn-interviews",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Bluesky",
+          "icon": "simple-icons:bluesky",
+          "link": {
+            "type": "url",
+            "url": "https://bsky.app/intent/compose?text=https%3A%2F%2Ffieldnote.example%2Fjournal%2Fchurn-interviews",
+            "newTab": true
+          }
+        },
+        {
+          "label": "X",
+          "icon": "simple-icons:x",
+          "link": {
+            "type": "url",
+            "url": "https://x.com/intent/post?url=https%3A%2F%2Ffieldnote.example%2Fjournal%2Fchurn-interviews",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Facebook",
+          "icon": "simple-icons:facebook",
+          "link": {
+            "type": "url",
+            "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffieldnote.example%2Fjournal%2Fchurn-interviews",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "style",
+      "label": "Button style",
+      "type": "select",
+      "default": "labeled",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "labeled",
+          "label": "Icons with names"
+        },
+        {
+          "value": "icons",
+          "label": "Round icons only"
+        }
+      ]
+    },
+    {
+      "name": "align",
+      "label": "Layout",
+      "type": "select",
+      "default": "start",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "start",
+          "label": "In a row"
+        },
+        {
+          "value": "center",
+          "label": "Centered, label above"
+        },
+        {
+          "value": "spread",
+          "label": "Spread between lines"
+        }
+      ]
+    }
+  ]
+}

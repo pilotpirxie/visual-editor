@@ -1,0 +1,89 @@
+{
+  "name": "Call to action, striped",
+  "category": "call-to-action",
+  "description": "A bold diagonal-stripe band in the brand color with a solid card and a round sticker on top.",
+  "tags": ["cta", "stripes", "pattern", "bold", "sticker", "card", "beta"],
+  "fieldGroups": ["Content", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "sticker",
+      "label": "Sticker",
+      "type": "text",
+      "default": "Free for 14 days",
+      "group": "Content",
+      "maxLength": 24
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Research backlog?",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Forty unwatched interviews won’t tag themselves",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Drop them into Fieldnote tonight. By morning you’ll have transcripts, themes and the five quotes your roadmap meeting needs.",
+      "group": "Content"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Clear my backlog",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "How it works",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Works with Zoom, Google Meet and Microsoft Teams recordings.",
+      "group": "Buttons"
+    }
+  ]
+}

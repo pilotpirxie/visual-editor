@@ -1,0 +1,24 @@
+<section class="b-pricing-credits section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="grid b-packs" role="list">
+      {{#each packs}}
+      <li class="card stack b-pack" {{#if best}}data-best{{/if}} data-field="packs.{{@index}}">
+        <div class="b-visual" aria-hidden="true"><span class="b-coins" style="--size: {{size}}"></span></div>
+        <div class="cluster">
+          <h3>{{credits}}</h3>
+          {{#if best}}<p class="badge">{{../bestLabel}}</p>{{/if}}
+        </div>
+        <p><span class="b-amount">{{price}}</span> <span class="b-muted">{{perCredit}}</span></p>
+        {{#if text}}<p class="b-muted b-text">{{nl2br text}}</p>{{/if}}
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+      </li>
+      {{/each}}
+    </ul>
+    {{#if note}}<p class="b-note" data-field="note">{{svgIcon "info"}}<span>{{nl2br note}}</span></p>{{/if}}
+  </div>
+</section>

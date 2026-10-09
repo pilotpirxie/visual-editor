@@ -1,0 +1,24 @@
+<section class="b-content-image-pair section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if body}}<div class="prose b-body" data-field="body">{{richText body}}</div>{{/if}}
+      {{#if showButton}}
+      <div class="cluster">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+      {{/if}}
+    </div>
+    <div class="b-pair">
+      <figure class="stack b-figure" data-field="first">
+        <div class="media b-photo">{{img first}}</div>
+        {{#if firstCaption}}<figcaption class="b-caption" data-field="firstCaption">{{firstCaption}}</figcaption>{{/if}}
+      </figure>
+      <figure class="stack b-figure" data-field="second">
+        <div class="media b-photo">{{img second}}</div>
+        {{#if secondCaption}}<figcaption class="b-caption" data-field="secondCaption">{{secondCaption}}</figcaption>{{/if}}
+      </figure>
+    </div>
+  </div>
+</section>

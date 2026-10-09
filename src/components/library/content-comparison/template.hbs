@@ -1,0 +1,27 @@
+<section class="b-content-comparison section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-columns">
+      <div class="stack b-column b-before">
+        <h3 data-field="beforeTitle">{{beforeTitle}}</h3>
+        <ul class="stack b-list" role="list">
+          {{#each beforeItems}}
+          <li data-field="beforeItems.{{@index}}"><span class="b-icon">{{svgIcon "x"}}</span><span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="stack b-column b-after">
+        <h3 data-field="afterTitle">{{afterTitle}}</h3>
+        <ul class="stack b-list" role="list">
+          {{#each afterItems}}
+          <li data-field="afterItems.{{@index}}"><span class="b-icon">{{svgIcon "check"}}</span><span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

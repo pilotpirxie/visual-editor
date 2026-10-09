@@ -1,0 +1,80 @@
+{
+  "name": "Modal, with image",
+  "category": "modals",
+  "description": "A dialog with an image beside a heading, text and buttons. Opens from any link to its anchor.",
+  "tags": ["modal", "dialog", "popup", "overlay", "image", "announcement", "webinar"],
+  "fieldGroups": ["Image", "Content", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Ingrid Solberg leading a customer interview on a video call",
+        "decorative": false,
+        "width": 1200,
+        "height": 900,
+        "placeholder": {
+          "ratio": "4:3",
+          "subject": "photo"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Live session · 22 October",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Watch a real customer interview, start to finish",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Ingrid Solberg interviews a Fieldnote customer live, then tags and shares the highlights in under 30 minutes. Bring your questions.",
+      "group": "Content"
+    },
+    {
+      "name": "closeLabel",
+      "label": "Close button label (for screen readers)",
+      "type": "text",
+      "default": "Close",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Save my seat",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "dismissLabel",
+      "label": "Dismiss button label",
+      "type": "text",
+      "default": "Maybe later",
+      "group": "Buttons"
+    }
+  ]
+}

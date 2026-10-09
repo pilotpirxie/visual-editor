@@ -1,0 +1,16 @@
+<section class="b-content-founder section">
+  <div class="container b-inner">
+    <div class="media b-photo" style="--media-ratio: {{photo.width}} / {{photo.height}}" data-field="photo">{{img photo}}</div>
+    <article class="stack b-letter">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      <div class="prose b-body" data-field="letter">{{richText letter}}</div>
+      {{#if name}}
+      <footer class="b-signature">
+        <p class="b-name" data-field="name">{{name}}</p>
+        {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+      </footer>
+      {{/if}}
+    </article>
+  </div>
+</section>

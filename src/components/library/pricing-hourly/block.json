@@ -1,0 +1,132 @@
+{
+  "name": "Pricing, hourly rates",
+  "category": "pricing",
+  "description": "Sessions priced by length, each with a time bar and its own booking button.",
+  "tags": ["pricing", "hourly", "rates", "sessions", "consulting", "coaching", "booking"],
+  "fieldGroups": ["Heading", "Sessions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Research coaching",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Book time with a Fieldnote researcher",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Our in-house researchers have run more than 3,000 interviews. Borrow their experience for an hour or an afternoon.",
+      "group": "Heading"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "textarea",
+      "default": "Prices in CAD plus HST. Sessions run on Zoom or at our Toronto studio.",
+      "group": "Heading"
+    },
+    {
+      "name": "sessions",
+      "label": "Sessions",
+      "type": "list",
+      "group": "Sessions",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Session"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "What happens in this session."
+        },
+        {
+          "name": "minutes",
+          "label": "Length in minutes",
+          "type": "number",
+          "default": 60,
+          "min": 15,
+          "max": 480,
+          "step": 15,
+          "help": "The bar fills up at 240 minutes."
+        },
+        {
+          "name": "length",
+          "label": "Length label",
+          "type": "text",
+          "default": "60 minutes"
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$150"
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Book",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "Interview guide review",
+          "description": "Send us your discussion guide and walk through our notes together.",
+          "minutes": 30,
+          "length": "30 minutes",
+          "price": "$90",
+          "button": {
+            "label": "Book",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          }
+        },
+        {
+          "name": "Synthesis coaching",
+          "description": "Bring a messy board of highlights and leave with clear themes.",
+          "minutes": 90,
+          "length": "90 minutes",
+          "price": "$240",
+          "button": {
+            "label": "Book",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "primary"
+          }
+        },
+        {
+          "name": "Research ops workshop",
+          "description": "Set up templates, tags and a repository your whole team will use.",
+          "minutes": 240,
+          "length": "Half a day",
+          "price": "$720",
+          "button": {
+            "label": "Book",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          }
+        }
+      ]
+    }
+  ]
+}

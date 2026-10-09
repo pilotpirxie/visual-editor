@@ -1,0 +1,25 @@
+<section class="b-cta-quote section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+        {{/if}}
+      </div>
+    </div>
+    <figure class="card stack b-quote">
+      <span class="b-mark">{{svgIcon "quote"}}</span>
+      <blockquote data-field="quote"><p>{{nl2br quote}}</p></blockquote>
+      <figcaption class="b-person">
+        <div class="media b-photo" data-field="photo">{{img photo}}</div>
+        <div>
+          <p class="b-name" data-field="name">{{name}}</p>
+          {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</section>

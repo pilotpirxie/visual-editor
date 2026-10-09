@@ -1,0 +1,103 @@
+@layer components {
+  @scope (.b-gallery-polaroids) {
+    :scope {
+      --section-bg: color-mix(in oklab, var(--color-surface) 70%, var(--color-border));
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-wall {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-8) var(--space-4);
+      align-items: center;
+    }
+
+    .b-item {
+      position: relative;
+      rotate: 3deg;
+      transition: rotate var(--transition-normal);
+    }
+
+    .b-item:nth-child(3n + 1) {
+      rotate: -3deg;
+    }
+
+    .b-item:nth-child(4n + 2) {
+      rotate: -1deg;
+      translate: 0 var(--space-6);
+    }
+
+    .b-item:hover {
+      z-index: 1;
+      rotate: 0deg;
+    }
+
+    .b-item::before {
+      content: '';
+      position: absolute;
+      inset: calc(var(--space-2) * -1) 0 auto;
+      z-index: 1;
+      width: var(--space-4);
+      height: var(--space-4);
+      margin-inline: auto;
+      border-radius: var(--radius-full);
+      background: radial-gradient(
+        circle at 35% 35%,
+        var(--color-background) 10%,
+        var(--color-primary) 30%
+      );
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-polaroid {
+      padding: var(--space-3) var(--space-3) var(--space-4);
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-photo {
+      --media-radius: 0;
+    }
+
+    .b-caption {
+      display: grid;
+      margin-block-start: var(--space-3);
+      font-family: var(--font-heading);
+      font-style: italic;
+      text-align: center;
+    }
+
+    .b-date {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-wall {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-12) var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-wall {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+}

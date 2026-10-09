@@ -1,0 +1,163 @@
+{
+  "name": "Gallery, before and after",
+  "category": "gallery",
+  "description": "Pairs of photos with Before and After labels, each with a title and a short description.",
+  "tags": ["gallery", "photos", "images", "before", "after", "comparison", "renovation"],
+  "fieldGroups": ["Heading", "Pairs", "Labels"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Office makeover",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How we turned a storage floor into a research studio",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We moved into 220 King Street West in January. Three rooms, before and after.",
+      "group": "Heading"
+    },
+    {
+      "name": "pairs",
+      "label": "Pairs",
+      "type": "list",
+      "group": "Pairs",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Title"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": ""
+        },
+        {
+          "name": "before",
+          "label": "Before photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Before",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "after",
+          "label": "After photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "After",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "title": "Interview booths",
+          "text": "A storage room became two soundproof booths with soft light and a good microphone.",
+          "before": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "An empty storage room with boxes and bare walls",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "after": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Two interview booths with acoustic panels and warm lighting",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "title": "The quote wall",
+          "text": "Four hundred sticky notes became one printed wall of customer quotes we update every month.",
+          "before": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A wall covered in overlapping sticky notes",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "after": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A tidy wall of printed customer quotes grouped by theme",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "beforeLabel",
+      "label": "Before label",
+      "type": "text",
+      "default": "Before",
+      "group": "Labels",
+      "required": true
+    },
+    {
+      "name": "afterLabel",
+      "label": "After label",
+      "type": "text",
+      "default": "After",
+      "group": "Labels",
+      "required": true
+    }
+  ]
+}

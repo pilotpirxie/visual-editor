@@ -1,0 +1,149 @@
+{
+  "name": "Team, group photo",
+  "category": "team",
+  "description": "One wide group photo with numbered markers on each face and a matching numbered list of names.",
+  "tags": ["team", "group photo", "people", "offsite", "numbered", "about", "culture"],
+  "fieldGroups": ["Heading", "Photo", "People"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Offsite 2026",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "All of us, in one place",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Once a year the whole team meets in person. This June we rented a farmhouse in Prince Edward County and finally put faces to chat avatars.",
+      "group": "Heading"
+    },
+    {
+      "name": "photo",
+      "label": "Group photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Fieldnote team standing in two rows in front of a red barn",
+        "decorative": false,
+        "width": 1600,
+        "height": 900,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "photo"
+        }
+      },
+      "group": "Photo"
+    },
+    {
+      "name": "caption",
+      "label": "Caption",
+      "type": "text",
+      "default": "Prince Edward County, Ontario, June 2026",
+      "group": "Photo"
+    },
+    {
+      "name": "people",
+      "label": "People",
+      "type": "list",
+      "group": "People",
+      "minItems": 1,
+      "maxItems": 20,
+      "itemLabel": "name",
+      "help": "Numbers follow the order of this list. Move each marker onto the right face.",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "x",
+          "label": "Marker across (%)",
+          "type": "number",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "name": "y",
+          "label": "Marker down (%)",
+          "type": "number",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      ],
+      "default": [
+        {
+          "name": "Leila Haddad",
+          "role": "Co-founder and CEO",
+          "x": 18,
+          "y": 44
+        },
+        {
+          "name": "Mateo Ruiz",
+          "role": "Co-founder and CTO",
+          "x": 29,
+          "y": 40
+        },
+        {
+          "name": "Ingrid Solberg",
+          "role": "Head of research",
+          "x": 40,
+          "y": 43
+        },
+        {
+          "name": "Kwame Mensah",
+          "role": "Head of engineering",
+          "x": 51,
+          "y": 38
+        },
+        {
+          "name": "Yuki Tanaka",
+          "role": "Senior product designer",
+          "x": 62,
+          "y": 44
+        },
+        {
+          "name": "Daniel Novak",
+          "role": "Customer success lead",
+          "x": 73,
+          "y": 40
+        },
+        {
+          "name": "Aisha Bello",
+          "role": "Machine learning engineer",
+          "x": 35,
+          "y": 66
+        },
+        {
+          "name": "Tomás Herrera",
+          "role": "Backend engineer",
+          "x": 57,
+          "y": 67
+        }
+      ]
+    }
+  ]
+}

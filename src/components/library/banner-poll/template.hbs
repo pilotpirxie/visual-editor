@@ -1,0 +1,11 @@
+<aside class="b-banner-poll" aria-label="Quick poll">
+  <div class="container b-bar">
+    <p class="b-question" data-field="question">{{svgIcon "message"}}<span>{{question}}</span></p>
+    <ul class="b-answers" role="list">
+      {{#each answers}}
+      <li><a class="b-answer" href="{{href link}}" {{linkAttrs link}} data-field="answers.{{@index}}">{{label}}</a></li>
+      {{/each}}
+    </ul>
+    {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+  </div>
+</aside>

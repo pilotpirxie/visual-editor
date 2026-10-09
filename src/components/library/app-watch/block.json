@@ -1,0 +1,152 @@
+{
+  "name": "Applications, smartwatch",
+  "category": "applications",
+  "description": "A smartwatch drawn in CSS with a glanceable progress ring, beside a heading and a short list of watch features.",
+  "tags": ["app", "watch", "smartwatch", "wearable", "apple watch", "device", "mobile"],
+  "fieldGroups": ["Heading", "Watch screen", "Features", "Button"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "On your wrist",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Highlight a moment without picking up your phone",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "In-person interviews go better when you keep eye contact. The watch app keeps the controls out of sight.",
+      "group": "Heading"
+    },
+    {
+      "name": "screenTime",
+      "label": "Time",
+      "type": "text",
+      "default": "9:41",
+      "group": "Watch screen"
+    },
+    {
+      "name": "progress",
+      "label": "Ring progress",
+      "type": "range",
+      "default": 66,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "group": "Watch screen"
+    },
+    {
+      "name": "ringValue",
+      "label": "Ring text",
+      "type": "text",
+      "default": "2/3",
+      "maxLength": 6,
+      "group": "Watch screen"
+    },
+    {
+      "name": "screenTitle",
+      "label": "Screen title",
+      "type": "text",
+      "default": "Interviews today",
+      "maxLength": 24,
+      "group": "Watch screen"
+    },
+    {
+      "name": "screenMeta",
+      "label": "Screen detail",
+      "type": "text",
+      "default": "Next: Priya, 10:30",
+      "maxLength": 28,
+      "group": "Watch screen"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Features",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Feature",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "icon": "bookmark",
+          "title": "Tap to highlight",
+          "text": "One tap marks the last 30 seconds as a highlight."
+        },
+        {
+          "icon": "mic",
+          "title": "Start and stop recording",
+          "text": "Your phone stays in your bag, the recording stays on."
+        },
+        {
+          "icon": "bell",
+          "title": "A nudge before each session",
+          "text": "Who you are meeting, where, and your three main questions."
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get the watch app",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

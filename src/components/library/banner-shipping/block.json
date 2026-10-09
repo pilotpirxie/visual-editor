@@ -1,0 +1,55 @@
+{
+  "name": "Banner, free shipping progress",
+  "category": "banners",
+  "description": "A store strip showing how close the cart is to free shipping, with a dashed track and a cart marker riding the progress.",
+  "tags": [
+    "shipping",
+    "free shipping",
+    "delivery",
+    "store",
+    "shop",
+    "cart",
+    "progress",
+    "ecommerce",
+    "banner"
+  ],
+  "fieldGroups": ["Message", "Progress"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "You’re $18 away from free shipping on research kits",
+      "required": true,
+      "maxLength": 100,
+      "group": "Message"
+    },
+    {
+      "name": "progress",
+      "label": "Progress toward free shipping (%)",
+      "type": "range",
+      "default": 76,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "group": "Progress"
+    },
+    {
+      "name": "goal",
+      "label": "Goal",
+      "type": "text",
+      "default": "Free shipping at $75",
+      "required": true,
+      "maxLength": 40,
+      "group": "Progress"
+    },
+    {
+      "name": "icon",
+      "label": "Marker icon",
+      "type": "icon",
+      "default": "shopping-cart",
+      "group": "Progress"
+    }
+  ]
+}

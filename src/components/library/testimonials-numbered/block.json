@@ -1,0 +1,83 @@
+{
+  "name": "Testimonials, numbered list",
+  "category": "testimonials",
+  "description": "Editorial list of quotes with large outlined numerals, separated by rules.",
+  "tags": ["testimonials", "quotes", "numbered", "editorial", "list", "minimal"],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "In their words",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Four things customers tell us after a month",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We read every review. These come up again and again.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Quotes",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "What the customer said."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role and company",
+          "type": "text",
+          "default": "Role, Company"
+        }
+      ],
+      "default": [
+        {
+          "quote": "Research stopped being a report and became a link everyone opens.",
+          "name": "Maya Chen",
+          "role": "Head of Research, Copperline"
+        },
+        {
+          "quote": "We cut synthesis from two weeks to two days without hiring anyone.",
+          "name": "Priya Natarajan",
+          "role": "Head of Product, Lumen Health"
+        },
+        {
+          "quote": "Engineers now quote customers in pull request descriptions. I did not see that coming.",
+          "name": "Jonas Becker",
+          "role": "Engineering Manager, Orbit Labs"
+        },
+        {
+          "quote": "Our support and research teams finally look at the same evidence.",
+          "name": "Daniel Osei",
+          "role": "Support lead, Northwind"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+<footer class="b-footer-contact section">
+  <div class="container stack b-inner">
+    <div class="stack b-head">
+      <a class="b-logo" href="index.html">{{site.title}}</a>
+      {{#if tagline}}<p class="b-muted" data-field="tagline">{{nl2br tagline}}</p>{{/if}}
+    </div>
+    <ul class="b-teams" role="list">
+      {{#each teams}}
+      <li class="stack b-team" data-field="teams.{{@index}}">
+        <span class="b-icon">{{svgIcon icon}}</span>
+        <h2 class="b-heading">{{title}}</h2>
+        {{#if text}}<p class="b-muted">{{text}}</p>{{/if}}
+        <ul class="stack b-channels" role="list">
+          {{#if email}}<li><a href="mailto:{{email}}">{{email}}</a></li>{{/if}}
+          {{#if phone}}<li><a href="tel:{{phone}}">{{phone}}</a></li>{{/if}}
+        </ul>
+      </li>
+      {{/each}}
+    </ul>
+    <div class="b-bottom">
+      <p class="b-muted" data-field="copyright">{{copyright}}</p>
+      <nav aria-label="Footer">
+        <ul class="cluster b-links" role="list">
+          {{#each links}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+          {{/each}}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>

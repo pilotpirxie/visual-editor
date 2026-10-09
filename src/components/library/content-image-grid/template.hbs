@@ -1,0 +1,19 @@
+<section class="b-content-image-grid section" data-image-side="{{imageSide}}">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if body}}<div class="prose b-body" data-field="body">{{richText body}}</div>{{/if}}
+      {{#if showButton}}
+      <div class="cluster">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+      {{/if}}
+    </div>
+    <div class="b-photos">
+      {{#each photos}}
+      <div class="media b-photo" data-field="photos.{{@index}}">{{img image}}</div>
+      {{/each}}
+    </div>
+  </div>
+</section>

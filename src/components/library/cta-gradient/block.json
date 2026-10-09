@@ -1,0 +1,79 @@
+{
+  "name": "Call to action, gradient",
+  "category": "call-to-action",
+  "description": "A centered pitch on a rounded panel with a soft gradient made from the primary color.",
+  "tags": ["cta", "gradient", "colorful", "panel", "trial"],
+  "fieldGroups": ["Content", "Buttons"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-primary",
+    "--color-primary-contrast",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "14-day free trial",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Bring every customer conversation into one place",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Join the research, product and design teams who turned scattered recordings into decisions everyone can trace back to a real customer.",
+      "group": "Content"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Talk to sales",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    }
+  ]
+}

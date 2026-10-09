@@ -1,0 +1,164 @@
+{
+  "name": "Testimonials, short quotes row",
+  "category": "testimonials",
+  "description": "A compact band of one-line quotes with tiny avatars that swipes on phones.",
+  "tags": ["testimonials", "quotes", "short", "band", "row", "compact", "social proof"],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Loved by research teams in 40 countries",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "rating",
+      "label": "Rating line",
+      "type": "text",
+      "default": "4.9 average from 1,200 reviews",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Quotes",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 1,
+      "maxItems": 9,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "text",
+          "default": "Short quote",
+          "maxLength": 90
+        },
+        {
+          "name": "name",
+          "label": "Name and company",
+          "type": "text",
+          "default": "Name, Company"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "The clips sell the insight for us.",
+          "name": "Tom Okafor, Ledgerly",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tom Okafor",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Synthesis in hours, not weeks.",
+          "name": "Sofia Alvarez, Brightpath",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sofia Alvarez",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Our designers watch interviews now.",
+          "name": "Marcus Lee, Northwind",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Marcus Lee",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "The search alone is worth it.",
+          "name": "Hannah Wright, Freightly",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Hannah Wright",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Every decision links to a customer.",
+          "name": "Kenji Watanabe, Orbit Labs",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Kenji Watanabe",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Finally, one home for feedback.",
+          "name": "Amara Osei, Lumen Health",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Amara Osei",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

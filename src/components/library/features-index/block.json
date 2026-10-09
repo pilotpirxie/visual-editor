@@ -1,0 +1,99 @@
+{
+  "name": "Features, use case index",
+  "category": "features",
+  "description": "An editorial index of use cases in large type, each a full-width numbered row that links to its own page.",
+  "tags": ["features", "use cases", "index", "list", "links", "editorial", "numbered", "solutions"],
+  "fieldGroups": ["Heading", "Items"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Use cases",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "One tool, many ways to listen",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Pick the work closest to yours to see how other teams set Fieldnote up for it.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Use cases",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Use case",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "One sentence about this use case."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "title": "Discovery interviews",
+          "text": "Find the problem worth solving before a single screen is designed.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "title": "Usability testing",
+          "text": "Watch where people hesitate, then clip it for the design review.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "title": "Sales call reviews",
+          "text": "Hear why deals stall, straight from the buyers who walked away.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "title": "Churn interviews",
+          "text": "Turn exit calls into a ranked list of reasons people leave.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "title": "Customer advisory boards",
+          "text": "Keep a searchable record of every promise and every request.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        }
+      ]
+    }
+  ]
+}

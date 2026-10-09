@@ -1,0 +1,27 @@
+<header class="b-hero-map section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+        {{/if}}
+      </div>
+      {{#if hours}}<p class="b-hours" data-field="hours">{{svgIcon "clock"}} <span>{{hours}}</span></p>{{/if}}
+    </div>
+    <div class="b-map">
+      {{#if mapLabel}}<p class="b-water" data-field="mapLabel">{{mapLabel}}</p>{{/if}}
+      <ul role="list">
+        {{#each pins}}
+        <li class="b-pin" style="--x: {{x}}%; --y: {{y}}%" data-field="pins.{{@index}}">
+          <span class="b-dot">{{svgIcon "map-pin"}}</span>
+          <span class="b-tag"><strong>{{label}}</strong>{{#if detail}} <span class="b-detail">{{detail}}</span>{{/if}}</span>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</header>

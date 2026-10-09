@@ -1,0 +1,12 @@
+<nav class="b-pagination" aria-label="{{label}}">
+  <div class="container b-row">
+    <a class="b-step" href="{{href previousLink}}" {{linkAttrs previousLink}} rel="prev" data-field="previousLabel"><span class="icon-mirror">{{svgIcon "arrow-left"}}</span>{{previousLabel}}</a>
+    <ol class="b-pages" role="list">
+      {{#each pages}}
+      <li data-field="pages.{{@index}}">{{#if (eq kind "gap")}}<span class="b-page b-gap" aria-hidden="true">…</span>{{else}}{{#if current}}<a class="b-page" href="{{href link}}" aria-current="page">{{label}}</a>{{else}}<a class="b-page" href="{{href link}}" {{linkAttrs link}}>{{label}}</a>{{/if}}{{/if}}</li>
+      {{/each}}
+    </ol>
+    {{#if summary}}<p class="b-summary" data-field="summary">{{summary}}</p>{{/if}}
+    <a class="b-step" href="{{href nextLink}}" {{linkAttrs nextLink}} rel="next" data-field="nextLabel">{{nextLabel}}<span class="icon-mirror">{{svgIcon "arrow-right"}}</span></a>
+  </div>
+</nav>

@@ -1,0 +1,33 @@
+<section class="b-signin-sso section">
+  <div class="container">
+    <div class="card stack b-card">
+      <span class="b-badge" aria-hidden="true">{{svgIcon "key"}}</span>
+      <header class="stack b-head">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field">
+          <label for="{{block.id}}-workspace" data-field="workspaceLabel">{{workspaceLabel}}</label>
+          <div class="b-url" dir="ltr">
+            {{svgIcon "lock"}}
+            <span class="b-prefix" data-field="prefix">{{prefix}}</span>
+            <input id="{{block.id}}-workspace" type="text" name="workspace" autocomplete="organization" autocapitalize="none" spellcheck="false" required placeholder="{{placeholder}}">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if providers.length}}
+      <div class="stack b-providers">
+        <p class="b-muted" data-field="providersLabel">{{providersLabel}}</p>
+        <ul class="cluster" role="list">
+          {{#each providers}}
+          <li class="b-provider" data-field="providers.{{@index}}">{{svgIcon icon}}<span>{{label}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
+      {{/if}}
+      {{#if altLabel}}<p class="b-muted b-alt" data-field="altLink">{{altText}} <a href="{{href altLink}}" {{linkAttrs altLink}}>{{altLabel}}</a></p>{{/if}}
+    </div>
+  </div>
+</section>

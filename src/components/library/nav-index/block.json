@@ -1,0 +1,99 @@
+{
+  "name": "Navigation, numbered links",
+  "category": "navigations",
+  "description": "A portfolio navbar with numbered links and a small mono note; on phones the menu fills the screen with large numbered links.",
+  "tags": [
+    "menu",
+    "navbar",
+    "header",
+    "portfolio",
+    "numbered",
+    "index",
+    "studio",
+    "minimal",
+    "designer"
+  ],
+  "fieldGroups": ["Note", "Links", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "meta",
+      "label": "Note",
+      "type": "text",
+      "default": "Toronto · Research studio",
+      "maxLength": 40,
+      "help": "A short line beside the name on desktop, such as your city or what you do.",
+      "group": "Note"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "help": "Links are numbered 01, 02, 03 in order.",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link",
+          "maxLength": 20
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Work",
+          "link": {
+            "type": "section",
+            "anchor": "work",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Studio",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Field notes",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Contact",
+          "link": {
+            "type": "section",
+            "anchor": "contact",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

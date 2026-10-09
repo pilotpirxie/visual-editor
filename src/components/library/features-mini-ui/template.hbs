@@ -1,0 +1,25 @@
+<section class="b-features-mini-ui section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="grid b-grid">
+      {{#each items}}
+      <article class="b-card" data-field="items.{{@index}}">
+        <div class="b-stage" aria-hidden="true">
+          {{#if (eq kind "toggle")}}<div class="b-ui b-toggle"><span>{{uiLabel}}</span><span class="b-switch"></span></div>{{/if}}
+          {{#if (eq kind "tags")}}<div class="b-ui b-tags"><span class="b-chip b-on">{{uiLabel}}</span><span class="b-chip">{{uiValue}}</span><span class="b-chip">{{svgIcon "plus"}}</span></div>{{/if}}
+          {{#if (eq kind "progress")}}<div class="b-ui b-progress" style="--value: {{percent}}"><span>{{uiLabel}}</span><strong>{{percent}}%</strong><span class="b-bar"></span></div>{{/if}}
+          {{#if (eq kind "search")}}<div class="b-ui b-search">{{svgIcon "search"}}<span>{{uiLabel}}</span><kbd>{{uiValue}}</kbd></div>{{/if}}
+        </div>
+        <div class="stack b-copy">
+          <h3>{{title}}</h3>
+          <p>{{nl2br text}}</p>
+        </div>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

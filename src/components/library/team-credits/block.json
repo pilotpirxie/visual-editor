@@ -1,0 +1,93 @@
+{
+  "name": "Team, credits",
+  "category": "team",
+  "description": "A dark, film-credits style roll of roles and names, with no photos.",
+  "tags": ["team", "credits", "names", "typography", "dark", "thanks", "about"],
+  "fieldGroups": ["Heading", "Credits"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Credits",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Fieldnote is made by",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "In order of appearance, roughly.",
+      "group": "Heading"
+    },
+    {
+      "name": "credits",
+      "label": "Credits",
+      "type": "list",
+      "group": "Credits",
+      "minItems": 1,
+      "maxItems": 16,
+      "itemLabel": "role",
+      "itemFields": [
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "names",
+          "label": "Names",
+          "type": "textarea",
+          "default": "Name",
+          "help": "One name per line."
+        }
+      ],
+      "default": [
+        {
+          "role": "Founders",
+          "names": "Leila Haddad\nMateo Ruiz"
+        },
+        {
+          "role": "Research",
+          "names": "Ingrid Solberg\nHana Kim"
+        },
+        {
+          "role": "Engineering",
+          "names": "Kwame Mensah\nAisha Bello\nTomás Herrera\nFelix Wagner"
+        },
+        {
+          "role": "Design",
+          "names": "Yuki Tanaka\nMei Lin"
+        },
+        {
+          "role": "Customer success",
+          "names": "Daniel Novak\nGrace Okafor"
+        },
+        {
+          "role": "People and operations",
+          "names": "Ruth Callahan"
+        },
+        {
+          "role": "Office dog",
+          "names": "Biscuit"
+        }
+      ]
+    },
+    {
+      "name": "closing",
+      "label": "Closing line",
+      "type": "textarea",
+      "default": "And the 312 customers who let us sit in on their calls. Thank you.",
+      "group": "Credits"
+    }
+  ]
+}

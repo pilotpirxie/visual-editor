@@ -1,0 +1,35 @@
+<section class="b-newsletter-channels section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    <div class="b-grid">
+      <form class="stack b-email" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <span class="b-icon">{{svgIcon "mail"}}</span>
+        <p class="b-name" data-field="emailTitle">{{emailTitle}}</p>
+        {{#if emailText}}<p class="b-muted" data-field="emailText">{{emailText}}</p>{{/if}}
+        <div class="b-row">
+          <div class="field">
+            <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+            <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+          </div>
+          <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+        </div>
+      </form>
+      <ul class="b-channels" role="list">
+        {{#each channels}}
+        <li data-field="channels.{{@index}}">
+          <a class="b-channel" href="{{href link}}" {{linkAttrs link}}>
+            <span class="b-icon">{{svgIcon icon}}</span>
+            <span class="b-name">{{name}}</span>
+            <span class="b-muted">{{meta}}</span>
+            {{svgIcon "arrow-up-right"}}
+          </a>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,134 @@
+{
+  "name": "Call to action, money-back guarantee",
+  "category": "call-to-action",
+  "description": "A round guarantee seal beside the pitch, a few promises, buttons and a short note.",
+  "tags": ["cta", "guarantee", "refund", "seal", "badge", "trust", "risk free"],
+  "fieldGroups": ["Seal", "Content", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "sealNumber",
+      "label": "Seal number",
+      "type": "text",
+      "default": "30",
+      "group": "Seal",
+      "required": true,
+      "maxLength": 4
+    },
+    {
+      "name": "sealUnit",
+      "label": "Seal unit",
+      "type": "text",
+      "default": "days",
+      "group": "Seal",
+      "maxLength": 12
+    },
+    {
+      "name": "sealText",
+      "label": "Seal text",
+      "type": "text",
+      "default": "Money-back guarantee",
+      "group": "Seal",
+      "maxLength": 32
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "No risk",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Try Fieldnote for a month. Keep it only if it pays off.",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "If your team hasn’t shipped a decision backed by customer evidence within 30 days, we refund every cent.",
+      "group": "Content"
+    },
+    {
+      "name": "points",
+      "label": "Promises",
+      "type": "list",
+      "group": "Content",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Promise"
+        }
+      ],
+      "default": [
+        {
+          "text": "Full refund, no questions asked"
+        },
+        {
+          "text": "Keep every transcript you exported"
+        },
+        {
+          "text": "Refunds land within two business days"
+        }
+      ]
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start your 30 days",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Read the refund policy",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "ghost"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "One email to support@fieldnote.example is all it takes.",
+      "group": "Buttons"
+    }
+  ]
+}

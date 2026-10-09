@@ -1,0 +1,37 @@
+<section class="b-contact-chat section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-window">
+      <div class="b-thread">
+        <span class="media b-avatar" data-field="photo">{{img photo}}</span>
+        <div class="stack b-messages">
+          <p class="b-name"><strong data-field="name">{{name}}</strong> <span data-field="role">{{role}}</span></p>
+          {{#each messages}}
+          <p class="b-bubble" data-field="messages.{{@index}}">{{text}}</p>
+          {{/each}}
+        </div>
+      </div>
+      <form class="b-composer" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field">
+          <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+          <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field b-wide">
+          <label for="{{block.id}}-message" data-field="messageLabel">{{messageLabel}}</label>
+          <textarea id="{{block.id}}-message" name="message" rows="3" required placeholder="{{messagePlaceholder}}"></textarea>
+        </div>
+        <div class="b-wide b-send">
+          {{#if note}}<p class="b-note" data-field="note">{{svgIcon "clock"}} {{note}}</p>{{/if}}
+          <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{svgIcon "send"}}{{buttonLabel}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

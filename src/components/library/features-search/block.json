@@ -1,0 +1,156 @@
+{
+  "name": "Features, search demo",
+  "category": "features",
+  "description": "A search field with a typed query and matching interview quotes, the matched words highlighted, beside a short pitch.",
+  "tags": ["features", "search", "demo", "results", "quotes", "product", "highlight"],
+  "fieldGroups": ["Heading", "Points", "Search"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Search",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Every word every customer ever said, one search away",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Search across years of calls the way you search your inbox, and jump straight to the moment it was said.",
+      "group": "Heading"
+    },
+    {
+      "name": "points",
+      "label": "Points",
+      "type": "list",
+      "group": "Points",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Point",
+          "required": true
+        }
+      ],
+      "default": [
+        { "icon": "sparkles", "text": "Finds “too pricey” when you search “too expensive”" },
+        { "icon": "filter", "text": "Filter by customer, plan, date or interviewer" },
+        { "icon": "play", "text": "Every result plays from the exact second" }
+      ]
+    },
+    {
+      "name": "query",
+      "label": "Search text",
+      "type": "text",
+      "default": "too expensive",
+      "group": "Search"
+    },
+    {
+      "name": "count",
+      "label": "Result count",
+      "type": "text",
+      "default": "38 moments in 21 interviews",
+      "group": "Search"
+    },
+    {
+      "name": "results",
+      "label": "Results",
+      "type": "list",
+      "group": "Search",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "source",
+      "itemFields": [
+        {
+          "name": "initials",
+          "label": "Initials",
+          "type": "text",
+          "default": "AB",
+          "maxLength": 3
+        },
+        {
+          "name": "source",
+          "label": "Source",
+          "type": "text",
+          "default": "Interview",
+          "required": true
+        },
+        {
+          "name": "time",
+          "label": "Timestamp",
+          "type": "text",
+          "default": "00:00"
+        },
+        {
+          "name": "before",
+          "label": "Text before the match",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "match",
+          "label": "Matched words",
+          "type": "text",
+          "default": "match"
+        },
+        {
+          "name": "after",
+          "label": "Text after the match",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "initials": "PS",
+          "source": "Priya S., Northwind",
+          "time": "12:41",
+          "before": "Honestly the per-seat price felt ",
+          "match": "too expensive",
+          "after": " for a team that only interviews monthly."
+        },
+        {
+          "initials": "MO",
+          "source": "Marcus O., Lumen Health",
+          "time": "04:18",
+          "before": "We almost cancelled because it got ",
+          "match": "too pricey",
+          "after": " once the agency joined."
+        },
+        {
+          "initials": "JL",
+          "source": "Jun L., Parcel & Co.",
+          "time": "31:02",
+          "before": "It’s not ",
+          "match": "expensive",
+          "after": " if it replaces the transcription service."
+        }
+      ]
+    }
+  ]
+}

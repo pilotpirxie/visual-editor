@@ -1,0 +1,157 @@
+{
+  "name": "Sign up, choose your role",
+  "category": "sign-up",
+  "description": "A sign-up card that starts with selectable role cards, then asks for email and password.",
+  "tags": ["sign up", "register", "role", "persona", "onboarding", "radio", "form"],
+  "fieldGroups": ["Heading", "Roles", "Form", "Links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Tell us what you do",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We’ll set up your first project with the right templates. You can change this later.",
+      "group": "Heading"
+    },
+    {
+      "name": "rolesLabel",
+      "label": "Roles question",
+      "type": "text",
+      "default": "I am a",
+      "required": true,
+      "group": "Roles"
+    },
+    {
+      "name": "roles",
+      "label": "Roles",
+      "type": "list",
+      "group": "Roles",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "user"
+        },
+        {
+          "name": "label",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "hint",
+          "label": "Hint",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "icon": "search",
+          "label": "Researcher",
+          "hint": "I run the interviews"
+        },
+        {
+          "icon": "pencil",
+          "label": "Designer",
+          "hint": "I turn findings into flows"
+        },
+        {
+          "icon": "target",
+          "label": "Product manager",
+          "hint": "I decide what we build"
+        },
+        {
+          "icon": "users",
+          "label": "Someone else",
+          "hint": "I want to watch and learn"
+        }
+      ]
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "passwordLabel",
+      "label": "Password field label",
+      "type": "text",
+      "default": "Password",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Create account",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "signInText",
+      "label": "Sign in text",
+      "type": "text",
+      "default": "Already have an account?",
+      "group": "Links"
+    },
+    {
+      "name": "signInLabel",
+      "label": "Sign in link label",
+      "type": "text",
+      "default": "Sign in",
+      "group": "Links"
+    },
+    {
+      "name": "signInLink",
+      "label": "Sign in link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    }
+  ]
+}

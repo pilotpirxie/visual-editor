@@ -1,0 +1,21 @@
+<header class="b-hero-browser section">
+  <div class="container stack b-inner">
+    {{#if eyebrow}}<p class="badge" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h1 data-field="title">{{title}}</h1>
+    {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+    <div class="cluster b-actions">
+      <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+      {{#if showSecondary}}
+      <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+      {{/if}}
+    </div>
+    <div class="b-window">
+      <div class="b-bar">
+        <span class="b-dots" aria-hidden="true"></span>
+        <p class="b-url" data-field="url">{{svgIcon "lock"}}<span>{{url}}</span></p>
+      </div>
+      <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
+      {{#if toast}}<p class="b-toast" data-field="toast">{{svgIcon "sparkles"}}<span>{{toast}}</span></p>{{/if}}
+    </div>
+  </div>
+</header>

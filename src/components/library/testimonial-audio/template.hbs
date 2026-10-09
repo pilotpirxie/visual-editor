@@ -1,0 +1,26 @@
+<section class="b-testimonial-audio section">
+  <div class="container b-layout">
+    <div class="stack b-player">
+      <div class="b-episode">
+        <div class="media b-cover" data-field="cover">{{img cover}}</div>
+        <div class="b-meta">
+          {{#if show}}<p class="b-show" data-field="show">{{show}}</p>{{/if}}
+          <p class="b-title" data-field="episode">{{episode}}</p>
+        </div>
+      </div>
+      <div class="b-controls">
+        <a class="b-play" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{svgIcon "play"}}<span class="visually-hidden">{{linkLabel}}: {{episode}}</span></a>
+        <span class="b-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        {{#if duration}}<span class="b-time" data-field="duration">{{duration}}</span>{{/if}}
+      </div>
+    </div>
+    <figure class="stack b-figure">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <blockquote class="b-quote" data-field="quote"><p>{{nl2br quote}}</p></blockquote>
+      <figcaption>
+        <p class="b-name" data-field="name">{{name}}</p>
+        {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+      </figcaption>
+    </figure>
+  </div>
+</section>

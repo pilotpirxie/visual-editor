@@ -1,0 +1,66 @@
+{
+  "name": "Content, sticky heading",
+  "category": "content",
+  "description": "A heading that stays in view on wide screens while long formatted text scrolls beside it.",
+  "tags": ["sticky", "long text", "policy", "article", "split", "heading"],
+  "fieldGroups": ["Heading", "Button", "Text"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Privacy",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How we look after your recordings",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Interviews hold people’s voices, faces and stories. Here is exactly what happens to them in Fieldnote.",
+      "group": "Heading"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Read the security overview",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<h3>Where it lives</h3><p>You choose a region when you create a workspace: Canada, the European Union, the United States or Australia. Recordings never leave that region, not even for backups.</p><h3>Who can see it</h3><p>Only people you invite to a project can play its recordings. Shared highlight links expire after 30 days unless you renew them.</p><h3>How long we keep it</h3><p>By default we keep recordings for 24 months and transcripts until you delete them. Admins can shorten both in workspace settings.</p><h3>When you leave</h3><p>Export everything as audio, video and text in one click. Thirty days after you close a workspace, we delete it from every server and backup.</p>",
+      "group": "Text"
+    }
+  ]
+}

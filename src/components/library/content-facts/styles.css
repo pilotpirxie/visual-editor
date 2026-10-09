@@ -1,0 +1,92 @@
+@layer components {
+  @scope (.b-content-facts) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+    }
+
+    .b-body {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-sheet {
+      overflow: hidden;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-sheet-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-1) var(--space-4);
+      padding: var(--space-4) var(--space-6);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-sm);
+    }
+
+    .b-sheet-title {
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .b-facts {
+      padding: var(--space-2) var(--space-6) var(--space-4);
+    }
+
+    .b-fact {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-2);
+      padding-block: var(--space-3);
+    }
+
+    .b-fact::after {
+      content: '';
+      order: 1;
+      flex: 1 1 var(--space-4);
+      border-block-end: calc(var(--border-width) * 2) dotted var(--color-border);
+    }
+
+    .b-fact dt {
+      color: var(--color-text-muted);
+    }
+
+    .b-fact dd {
+      flex: none;
+      order: 2;
+      max-width: 60%;
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-heading);
+      text-align: end;
+      overflow-wrap: anywhere;
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: var(--space-16);
+      }
+
+      .b-facts {
+        padding-inline: var(--space-8);
+      }
+
+      .b-fact dd {
+        font-size: var(--text-xl);
+      }
+    }
+  }
+}

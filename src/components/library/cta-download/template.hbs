@@ -1,0 +1,20 @@
+<section class="b-cta-download section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    <ul class="b-platforms" role="list">
+      {{#each platforms}}
+      <li data-field="platforms.{{@index}}">
+        <a class="b-platform" href="{{href link}}" {{linkAttrs link}}>
+          {{svgIcon icon}}
+          <span class="b-labels"><span class="b-small">{{smallLabel}}</span> <span class="b-name">{{name}}</span></span>
+        </a>
+      </li>
+      {{/each}}
+    </ul>
+    {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+  </div>
+</section>

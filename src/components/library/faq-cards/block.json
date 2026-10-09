@@ -1,0 +1,130 @@
+{
+  "name": "FAQ, answer cards",
+  "category": "faq",
+  "description": "A grid of cards with an icon, a question and its answer, always open.",
+  "tags": ["faq", "questions", "cards", "grid", "answers", "icons"],
+  "fieldGroups": ["Heading", "Questions", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "FAQ",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Quick answers before you book a demo",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The six questions we hear on almost every first call.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "default": [
+        {
+          "icon": "zap",
+          "question": "How long does it take to set up Fieldnote?",
+          "answer": "<p>Most teams record their first interview the same day. Connect your calendar and video tool, invite your team, and Fieldnote joins the next call you schedule.</p>"
+        },
+        {
+          "icon": "globe",
+          "question": "Which languages can you transcribe?",
+          "answer": "<p>Thirty-two, including French, German, Spanish, Portuguese and Japanese. Highlights translate into English in one click.</p>"
+        },
+        {
+          "icon": "lock",
+          "question": "Where do you store our recordings?",
+          "answer": "<p>In the region you pick when you sign up: Canada, the EU or the US. Everything is encrypted at rest and in transit.</p>"
+        },
+        {
+          "icon": "users",
+          "question": "Do you charge for every seat?",
+          "answer": "<p>Only for people who run interviews. Teammates who watch highlights and leave comments are free on every plan.</p>"
+        },
+        {
+          "icon": "gift",
+          "question": "How does the free trial work?",
+          "answer": "<p>You get every feature for 14 days and up to ten interviews. No credit card, and nothing is deleted when the trial ends.</p>"
+        },
+        {
+          "icon": "upload",
+          "question": "Can we import interviews we already recorded?",
+          "answer": "<p>Yes. Drop in files or connect your cloud drive, and past interviews are transcribed and tagged like new ones.</p>"
+        }
+      ],
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "help"
+        },
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "A question?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "richtext",
+          "default": "<p>The answer.</p>"
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book a 20-minute demo",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Button",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      }
+    },
+    {
+      "name": "moreText",
+      "label": "Text before the button",
+      "type": "text",
+      "default": "Still deciding?",
+      "group": "Button",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      }
+    }
+  ]
+}

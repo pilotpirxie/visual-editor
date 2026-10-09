@@ -1,0 +1,73 @@
+{
+  "name": "Banner, two messages",
+  "category": "banners",
+  "description": "A two-tone strip: a promotion on a colored half and a phone number with opening hours on the other; stacked on phones.",
+  "tags": [
+    "promo",
+    "contact",
+    "phone",
+    "hours",
+    "split",
+    "two tone",
+    "offer",
+    "banner",
+    "local business"
+  ],
+  "fieldGroups": ["Promotion", "Contact"],
+  "styleOverrides": ["--color-primary", "--color-surface", "--color-text"],
+  "fields": [
+    {
+      "name": "badge",
+      "label": "Badge",
+      "type": "text",
+      "default": "New",
+      "maxLength": 12,
+      "group": "Promotion"
+    },
+    {
+      "name": "promo",
+      "label": "Promotion",
+      "type": "text",
+      "default": "Research ops workshop, Nov 12 in Toronto",
+      "required": true,
+      "maxLength": 80,
+      "group": "Promotion"
+    },
+    {
+      "name": "promoLinkLabel",
+      "label": "Link label",
+      "type": "text",
+      "default": "Save a seat",
+      "maxLength": 24,
+      "group": "Promotion"
+    },
+    {
+      "name": "promoLink",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Promotion"
+    },
+    {
+      "name": "phone",
+      "label": "Phone number",
+      "type": "text",
+      "default": "+1 416 555 0147",
+      "required": true,
+      "maxLength": 24,
+      "group": "Contact"
+    },
+    {
+      "name": "hours",
+      "label": "Hours",
+      "type": "text",
+      "default": "Mon–Fri, 9–6 ET",
+      "maxLength": 40,
+      "group": "Contact"
+    }
+  ]
+}

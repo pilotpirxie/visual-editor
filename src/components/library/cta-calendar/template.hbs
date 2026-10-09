@@ -1,0 +1,32 @@
+<section class="b-cta-calendar section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      {{#if facts.length}}
+      <ul class="stack b-facts" role="list">
+        {{#each facts}}
+        <li data-field="facts.{{@index}}">{{svgIcon icon}}{{text}}</li>
+        {{/each}}
+      </ul>
+      {{/if}}
+    </div>
+    <div class="card stack b-calendar">
+      <p class="b-month" data-field="month">{{svgIcon "calendar"}}{{month}}</p>
+      <ul class="b-days" role="list">
+        {{#each days}}
+        <li class="stack b-day" data-field="days.{{@index}}">
+          <p class="b-date"><span class="b-muted">{{weekday}}</span> {{date}}</p>
+          <ul class="stack b-slots" role="list">
+            {{#each slots}}
+            <li><a class="b-slot" href="{{href ../../bookingLink}}" {{linkAttrs ../../bookingLink}}><span class="visually-hidden">{{../weekday}} {{../date}}, </span>{{time}}</a></li>
+            {{/each}}
+          </ul>
+        </li>
+        {{/each}}
+      </ul>
+      <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    </div>
+  </div>
+</section>

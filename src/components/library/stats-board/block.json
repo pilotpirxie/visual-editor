@@ -1,0 +1,97 @@
+{
+  "name": "Numbers, departure board",
+  "category": "numbers",
+  "description": "Key numbers on a dark split-flap board, one tile per character, with a status for each row.",
+  "tags": ["numbers", "stats", "metrics", "board", "split-flap", "live", "dark", "dashboard"],
+  "fieldGroups": ["Heading", "Board"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "This week on Fieldnote",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Research never stops boarding",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "What teams around the world did in Fieldnote over the last seven days.",
+      "group": "Heading"
+    },
+    {
+      "name": "metricLabel",
+      "label": "First column",
+      "type": "text",
+      "default": "Metric",
+      "group": "Board"
+    },
+    {
+      "name": "valueLabel",
+      "label": "Second column",
+      "type": "text",
+      "default": "Count",
+      "group": "Board"
+    },
+    {
+      "name": "statusLabel",
+      "label": "Third column",
+      "type": "text",
+      "default": "Status",
+      "group": "Board"
+    },
+    {
+      "name": "rows",
+      "label": "Rows",
+      "type": "list",
+      "group": "Board",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Metric"
+        },
+        {
+          "name": "value",
+          "label": "Value",
+          "type": "text",
+          "default": "1,000",
+          "maxLength": 8,
+          "help": "Short values look best: up to eight characters."
+        },
+        {
+          "name": "status",
+          "label": "Status",
+          "type": "text",
+          "default": "On time"
+        }
+      ],
+      "default": [
+        { "label": "Interviews recorded", "value": "18,240", "status": "Up 12%" },
+        { "label": "Hours transcribed", "value": "26,905", "status": "On time" },
+        { "label": "Insights shared", "value": "4,318", "status": "Up 8%" },
+        { "label": "Languages heard", "value": "34", "status": "New: 2" }
+      ]
+    },
+    {
+      "name": "updated",
+      "label": "Updated note",
+      "type": "text",
+      "default": "Updated every Monday at 9:00 Toronto time",
+      "group": "Board"
+    }
+  ]
+}

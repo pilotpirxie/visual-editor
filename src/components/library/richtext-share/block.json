@@ -1,0 +1,127 @@
+{
+  "name": "Rich text, with share links",
+  "category": "rich-text",
+  "description": "An article with round share buttons in a bar that stays beside the text on desktop and sits above it on phones.",
+  "tags": ["article", "share", "social", "blog", "post", "long-form", "links"],
+  "fieldGroups": ["Heading", "Share", "Article"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Blog",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three clips that changed our roadmap this quarter",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "author",
+      "label": "Author",
+      "type": "text",
+      "default": "Priya Raman",
+      "group": "Heading"
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-09-14",
+      "group": "Heading"
+    },
+    {
+      "name": "shareLabel",
+      "label": "Share label",
+      "type": "text",
+      "default": "Share",
+      "group": "Share"
+    },
+    {
+      "name": "shares",
+      "label": "Share links",
+      "type": "list",
+      "group": "Share",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Share"
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "share",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Share on LinkedIn",
+          "icon": "simple-icons:linkedin",
+          "link": {
+            "type": "url",
+            "url": "https://www.linkedin.com/sharing/share-offsite/?url=https://fieldnote.example/blog/three-clips",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Share on Bluesky",
+          "icon": "simple-icons:bluesky",
+          "link": {
+            "type": "url",
+            "url": "https://bsky.app/intent/compose?text=https://fieldnote.example/blog/three-clips",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Share on X",
+          "icon": "simple-icons:x",
+          "link": {
+            "type": "url",
+            "url": "https://x.com/intent/post?url=https://fieldnote.example/blog/three-clips",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Share on Facebook",
+          "icon": "simple-icons:facebook",
+          "link": {
+            "type": "url",
+            "url": "https://www.facebook.com/sharer/sharer.php?u=https://fieldnote.example/blog/three-clips",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "body",
+      "label": "Article",
+      "type": "richtext",
+      "default": "<p>Every research team we meet has the same drawer. It is full of recordings nobody rewatches, transcripts nobody searches and slide decks that summarise a summary. The insight was real when someone heard it. By the time it reached the roadmap, it had been flattened into a bullet point.</p><h2>Keep the customer’s own words</h2><p>The fix is not more reports. It is shorter distances. When a product manager can hear the hesitation in a customer’s voice, the argument is over before it starts. That is why we clip, tag and share the moment itself, not our description of it.</p><ul><li>Clip the 20 seconds that matter, straight from the transcript</li><li>Tag it once, so it shows up wherever the theme comes up again</li><li>Share a link that plays in any browser, no account needed</li></ul><h2>Make it a habit, not a project</h2><p>Teams that get the most out of research do not run bigger studies. They run smaller ones, every week, and they put the highlights where decisions already happen: the planning doc, the sprint review, the Monday channel. Research stops being a deliverable and becomes part of how the team thinks.</p><p>Start with one conversation this week. Tag three moments. Send them to the person who most needs to hear them. That is the whole method.</p>",
+      "group": "Article",
+      "allowHeadings": true
+    }
+  ]
+}

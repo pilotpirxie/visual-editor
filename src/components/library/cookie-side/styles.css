@@ -1,0 +1,109 @@
+@layer components {
+  @scope (.b-cookie-side) {
+    .b-panel {
+      z-index: 10;
+      width: auto;
+      max-width: none;
+      max-height: 80dvh;
+      margin: 0;
+      padding: 0;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius) var(--card-radius) 0 0;
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-lg);
+      overflow-y: auto;
+    }
+
+    .b-panel[open] {
+      position: fixed;
+      inset: auto 0 0;
+    }
+
+    .b-body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      min-height: 100%;
+      padding: var(--space-6);
+    }
+
+    .b-pattern {
+      display: grid;
+      place-items: center;
+      height: 7rem;
+      margin: calc(var(--space-6) * -1) calc(var(--space-6) * -1) 0;
+      background:
+        radial-gradient(circle, var(--color-primary) 0.08rem, transparent 0.1rem) 0 0 / 1rem 1rem,
+        color-mix(in oklab, var(--color-primary) 8%, var(--color-background));
+    }
+
+    .b-badge {
+      --icon-size: 1.75rem;
+      display: grid;
+      place-items: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: var(--radius-lg);
+      background: var(--color-background);
+      color: var(--color-primary);
+      box-shadow: var(--shadow-md);
+      rotate: -8deg;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-title {
+      font: var(--font-weight-heading) var(--text-2xl) / var(--line-height-tight)
+        var(--font-heading);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-uses {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .b-uses li {
+      --icon-size: 1.125rem;
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .b-uses .icon {
+      color: var(--color-primary);
+    }
+
+    .b-actions {
+      --stack-gap: var(--space-2);
+      margin-block-start: auto;
+    }
+
+    .b-policy {
+      align-self: center;
+      padding-block: var(--space-3);
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 1024px) {
+      .b-panel {
+        width: 22rem;
+        max-height: none;
+        border-radius: 0;
+        border-block: 0;
+        border-inline-start: 0;
+      }
+
+      .b-panel[open] {
+        inset-block: 0;
+        inset-inline: 0 auto;
+        height: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "name": "Gallery, project grid",
+  "category": "gallery",
+  "description": "Portfolio projects in an asymmetric wide and narrow grid, with category tags, years and arrow links.",
+  "tags": ["gallery", "portfolio", "projects", "case studies", "work", "agency", "grid"],
+  "fieldGroups": ["Heading", "Button", "Projects"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Selected work",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Research our customers turned into products",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "All case studies",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Button",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      }
+    },
+    {
+      "name": "projects",
+      "label": "Projects",
+      "type": "list",
+      "group": "Projects",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Project image",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Project"
+        },
+        {
+          "name": "summary",
+          "label": "Summary",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "category",
+          "label": "Category",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "year",
+          "label": "Year",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "size",
+          "label": "Width on desktop",
+          "type": "select",
+          "default": "regular",
+          "options": [
+            {
+              "value": "regular",
+              "label": "Narrow"
+            },
+            {
+              "value": "wide",
+              "label": "Wide"
+            }
+          ]
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Northwind’s new onboarding checklist on a laptop",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "title": "Northwind",
+          "summary": "Onboarding rebuilt from 40 customer interviews",
+          "category": "Onboarding",
+          "year": "2026",
+          "size": "wide",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A Ledgerly accountant reviewing a closing report",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "title": "Ledgerly",
+          "summary": "Month-end close, three days faster",
+          "category": "Finance",
+          "year": "2025",
+          "size": "regular",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A Brightpath support agent on a call",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "title": "Brightpath",
+          "summary": "A weekly research habit for the support team",
+          "category": "Support",
+          "year": "2025",
+          "size": "regular",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A nurse using the new Lumen Health intake form on a tablet",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "title": "Lumen Health",
+          "summary": "Patient intake, redesigned with nurses",
+          "category": "Health care",
+          "year": "2024",
+          "size": "wide",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

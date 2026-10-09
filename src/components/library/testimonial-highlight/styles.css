@@ -1,0 +1,73 @@
+@layer components {
+  @scope (.b-testimonial-highlight) {
+    .b-figure {
+      --stack-gap: var(--space-8);
+      max-width: 56rem;
+      margin-inline: auto;
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      text-wrap: balance;
+    }
+
+    .b-quote p::before,
+    .b-quote p::after {
+      color: var(--color-primary);
+    }
+
+    .b-quote p::before {
+      content: open-quote;
+    }
+
+    .b-quote p::after {
+      content: close-quote;
+    }
+
+    .b-mark {
+      padding-inline: 0.1em;
+      background: linear-gradient(
+        transparent 55%,
+        color-mix(in oklab, var(--color-primary) 40%, transparent) 55% 92%,
+        transparent 92%
+      );
+      color: inherit;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      text-align: start;
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3.5rem;
+    }
+
+    .b-name {
+      display: block;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-quote {
+        font-size: var(--text-4xl);
+      }
+    }
+  }
+}

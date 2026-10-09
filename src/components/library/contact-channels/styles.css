@@ -1,0 +1,82 @@
+@layer components {
+  @scope (.b-contact-channels) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-tiles {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-tile {
+      --stack-gap: var(--space-3);
+      padding: var(--space-6);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: inline-grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      margin-bottom: var(--space-2);
+      border-radius: var(--radius-md);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-text {
+      flex: 1;
+      color: var(--color-text-muted);
+    }
+
+    .b-meta {
+      --icon-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-link {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+      overflow-wrap: anywhere;
+      text-decoration: none;
+    }
+
+    .b-link:hover span {
+      text-decoration: underline;
+    }
+
+    @media (min-width: 768px) {
+      .b-tiles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-tiles {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+}

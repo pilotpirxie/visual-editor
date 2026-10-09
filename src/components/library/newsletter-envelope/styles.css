@@ -1,0 +1,99 @@
+@layer components {
+  @scope (.b-newsletter-envelope) {
+    .b-envelope {
+      position: relative;
+      max-width: 46rem;
+      margin-inline: auto;
+      padding: 7.5rem var(--space-6) var(--space-8);
+      border: 0.5rem solid;
+      border-image: repeating-linear-gradient(
+          -45deg,
+          var(--color-primary) 0 1rem,
+          var(--color-surface) 0 2rem,
+          var(--color-text) 0 3rem,
+          var(--color-surface) 0 4rem
+        )
+        8;
+      background: var(--color-surface);
+      text-align: center;
+    }
+
+    .b-envelope::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto;
+      height: 6rem;
+      background: color-mix(in oklab, var(--color-text) 8%, var(--color-surface));
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+    }
+
+    .b-seal {
+      --icon-size: 1.25rem;
+      position: absolute;
+      inset: 4.5rem 0 auto;
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      aspect-ratio: 1;
+      margin-inline: auto;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-stamp {
+      position: absolute;
+      inset-block-start: var(--space-3);
+      inset-inline-end: var(--space-3);
+      padding: var(--space-3) var(--space-2);
+      outline: 0.125rem dashed var(--color-border);
+      outline-offset: calc(var(--space-1) * -1);
+      background: var(--color-background);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      rotate: 5deg;
+    }
+
+    .b-letter {
+      --stack-gap: var(--space-4);
+      align-items: center;
+    }
+
+    .b-muted {
+      max-width: 34rem;
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      display: grid;
+      gap: var(--space-3);
+      width: 100%;
+      max-width: 30rem;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-envelope {
+        padding: 9rem var(--space-12) var(--space-12);
+      }
+
+      .b-envelope::before {
+        height: 7rem;
+      }
+
+      .b-seal {
+        top: 5.5rem;
+      }
+
+      .b-form {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+    }
+  }
+}

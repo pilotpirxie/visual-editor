@@ -1,0 +1,88 @@
+{
+  "name": "Newsletter, one sentence",
+  "category": "newsletters",
+  "description": "The signup written as one large sentence with the email field and button inside it.",
+  "tags": ["newsletter", "email", "subscribe", "signup", "form", "sentence", "big type", "minimal"],
+  "fieldGroups": ["Sentence", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Fieldnote Weekly",
+      "group": "Sentence",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "before",
+      "label": "Words before the field",
+      "type": "text",
+      "default": "Send the field notes to",
+      "group": "Sentence",
+      "required": true
+    },
+    {
+      "name": "after",
+      "label": "Words after the field",
+      "type": "text",
+      "default": "every Friday morning.",
+      "group": "Sentence"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email address",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "your@email.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Subscribe",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Privacy note",
+      "type": "text",
+      "default": "One short email a week. Unsubscribe whenever you like.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "group": "Form",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ]
+    }
+  ]
+}

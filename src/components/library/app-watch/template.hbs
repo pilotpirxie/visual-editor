@@ -1,0 +1,31 @@
+<section class="b-app-watch section">
+  <div class="container b-inner">
+    <div class="b-stage">
+      <div class="b-watch">
+        <div class="b-screen">
+          <p class="b-time" data-field="screenTime">{{screenTime}}</p>
+          <p class="b-ring" style="--value: {{progress}}" data-field="ringValue"><span>{{ringValue}}</span></p>
+          <p class="b-label" data-field="screenTitle">{{screenTitle}}</p>
+          {{#if screenMeta}}<p class="b-meta" data-field="screenMeta">{{screenMeta}}</p>{{/if}}
+        </div>
+      </div>
+    </div>
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      <ul class="b-features" role="list">
+        {{#each items}}
+        <li class="b-feature" data-field="items.{{@index}}">
+          {{svgIcon icon}}
+          <div>
+            <h3>{{title}}</h3>
+            {{#if text}}<p>{{text}}</p>{{/if}}
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+      {{#if showButton}}<div class="cluster"><a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a></div>{{/if}}
+    </div>
+  </div>
+</section>

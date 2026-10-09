@@ -1,0 +1,22 @@
+<div class="b-modal-drawer" data-behavior="modal">
+  <dialog class="b-sheet" id="{{block.id}}-dialog" aria-labelledby="{{block.id}}-title">
+    <button type="button" class="modal-close" command="close" commandfor="{{block.id}}-dialog" data-field="closeLabel">{{svgIcon "x"}}<span class="visually-hidden">{{closeLabel}}</span></button>
+    <div class="stack b-body">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 id="{{block.id}}-title" data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <ol class="b-list" role="list">
+        {{#each items}}
+        <li class="stack b-item" data-field="items.{{@index}}">
+          {{#if date}}<time class="b-muted b-date" datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+          <h3>{{title}}</h3>
+          {{#if text}}<p class="b-muted">{{nl2br text}}</p>{{/if}}
+        </li>
+        {{/each}}
+      </ol>
+      {{#if showButton}}<a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>{{/if}}
+    </div>
+  </dialog>
+</div>

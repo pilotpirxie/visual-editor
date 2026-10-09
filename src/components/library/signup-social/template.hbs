@@ -1,0 +1,36 @@
+<section class="b-signup-social section">
+  <div class="container">
+    <div class="card stack b-card">
+      <header class="stack b-head">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <div class="b-body">
+        {{#if providers.length}}
+        <ul class="stack b-providers" role="list">
+          {{#each providers}}
+          <li><a class="btn btn-secondary b-provider" href="{{href link}}" {{linkAttrs link}} data-field="providers.{{@index}}">{{svgIcon icon}}<span>{{label}}</span></a></li>
+          {{/each}}
+        </ul>
+        <p class="b-or" data-field="dividerLabel">{{dividerLabel}}</p>
+        {{/if}}
+        <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+          <div class="field">
+            <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+            <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="{{block.id}}-password" data-field="passwordLabel">{{passwordLabel}}</label>
+            <input id="{{block.id}}-password" type="password" name="password" autocomplete="new-password" required{{#if passwordHint}} aria-describedby="{{block.id}}-password-hint"{{/if}}>
+            {{#if passwordHint}}<p class="field-hint" id="{{block.id}}-password-hint" data-field="passwordHint">{{passwordHint}}</p>{{/if}}
+          </div>
+          <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+        </form>
+      </div>
+      <footer class="stack b-foot">
+        {{#if termsLabel}}<p class="b-terms" data-field="termsLink">{{termsText}} <a href="{{href termsLink}}" {{linkAttrs termsLink}}>{{termsLabel}}</a></p>{{/if}}
+        {{#if signInLabel}}<p class="b-switch" data-field="signInLink">{{signInText}} <a href="{{href signInLink}}" {{linkAttrs signInLink}}>{{signInLabel}}</a></p>{{/if}}
+      </footer>
+    </div>
+  </div>
+</section>

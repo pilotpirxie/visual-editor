@@ -1,0 +1,34 @@
+<footer class="b-footer-fineprint section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <a class="b-logo" href="index.html">{{site.title}}</a>
+      <nav class="b-columns" aria-label="Footer">
+        {{#each columns}}
+        <div class="stack b-column" data-field="columns.{{@index}}">
+          <h2 class="b-heading">{{title}}</h2>
+          <ul class="b-links" role="list">
+            {{#each links}}
+            <li><a href="{{href link}}" {{linkAttrs link}} data-field="columns.{{@../index}}.links.{{@index}}">{{label}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+        {{/each}}
+      </nav>
+    </div>
+    <section class="stack b-notice" aria-labelledby="{{block.id}}-fine">
+      <div class="b-notice-head">
+        <h2 class="b-heading" id="{{block.id}}-fine" data-field="disclosureTitle">{{disclosureTitle}}</h2>
+        {{#if updated}}<p data-field="updated">{{updatedLabel}} <time datetime="{{updated}}">{{formatDate updated}}</time></p>{{/if}}
+      </div>
+      <div class="b-fine" data-field="disclosure">{{richText disclosure}}</div>
+    </section>
+    <div class="b-bottom">
+      <p data-field="copyright">{{copyright}}</p>
+      <ul class="cluster b-legal" role="list">
+        {{#each legal}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="legal.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</footer>

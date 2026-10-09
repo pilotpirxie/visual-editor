@@ -1,0 +1,23 @@
+<section class="b-gallery-cards section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="grid b-grid" role="list">
+      {{#each items}}
+      <li class="card b-card" data-field="items.{{@index}}">
+        <figure>
+          <div class="media b-media">{{img image}}</div>
+          <figcaption class="stack b-body">
+            {{#if tag}}<span class="b-tag">{{tag}}</span>{{/if}}
+            <h3 class="b-title">{{title}}</h3>
+            {{#if text}}<p class="b-text">{{nl2br text}}</p>{{/if}}
+          </figcaption>
+        </figure>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

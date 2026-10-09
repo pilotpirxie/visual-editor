@@ -1,0 +1,53 @@
+@layer components {
+  @scope (.b-divider-label) {
+    :scope {
+      padding-block: var(--space-8);
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    :scope[data-spacing='small'] {
+      padding-block: var(--space-4);
+    }
+
+    :scope[data-spacing='large'] {
+      padding-block: var(--space-16);
+    }
+
+    .b-line {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .b-line::before,
+    .b-line::after {
+      content: '';
+      flex: 1;
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    :scope[data-align='start'] .b-line::before {
+      display: none;
+    }
+
+    .b-label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      max-width: 80%;
+      text-align: center;
+    }
+
+    .b-icon {
+      --icon-size: 1rem;
+      display: inline-flex;
+      color: var(--color-primary);
+    }
+  }
+}

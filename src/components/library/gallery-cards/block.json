@@ -1,0 +1,182 @@
+{
+  "name": "Gallery, captioned cards",
+  "category": "gallery",
+  "description": "Photos in cards with a small tag, a title and a short description under each.",
+  "tags": ["gallery", "photos", "images", "cards", "captions", "portfolio", "grid"],
+  "fieldGroups": ["Heading", "Photos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Customer stories",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Where Fieldnote gets used",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "From quiet booths to busy shop floors, a few places where our customers record their interviews.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "tag",
+          "label": "Tag",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Photo title"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A researcher interviewing a nurse in a hospital break room",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "tag": "Healthcare",
+          "title": "Night shift interviews",
+          "text": "Brightpath Health records short interviews with nurses between rounds."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A store manager talking to a researcher behind a shop counter",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "tag": "Retail",
+          "title": "On the shop floor",
+          "text": "Northwind’s team captures feedback from store managers during quiet hours."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Two people on a video call with a shared Fieldnote transcript",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "tag": "Software",
+          "title": "Remote usability tests",
+          "text": "Ledgerly runs weekly remote sessions and shares highlights the same afternoon."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A farmer showing a tablet to a researcher in a greenhouse",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "tag": "Agriculture",
+          "title": "Interviews in the field",
+          "text": "Greenway records conversations with growers, even with spotty signal."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A classroom with a teacher speaking to a small group of researchers",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "tag": "Education",
+          "title": "Teacher focus groups",
+          "text": "Clearpath Learning tags every focus group by grade and subject."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A bank branch meeting room set up for a customer interview",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "tag": "Finance",
+          "title": "Branch conversations",
+          "text": "A credit union in Halifax interviews members right after they open an account."
+        }
+      ]
+    }
+  ]
+}

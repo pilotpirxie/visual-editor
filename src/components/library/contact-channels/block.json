@@ -1,0 +1,143 @@
+{
+  "name": "Contact, channel tiles",
+  "category": "contacts",
+  "description": "Tiles for sales, support, press and partnerships, each with an icon, a reply time and a link.",
+  "tags": ["contact", "channels", "tiles", "sales", "support", "press", "partners"],
+  "fieldGroups": ["Heading", "Channels"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Contact",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Pick the fastest way to reach us",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Each inbox goes to the people who can actually help, so you never get passed around.",
+      "group": "Heading"
+    },
+    {
+      "name": "channels",
+      "label": "Channels",
+      "type": "list",
+      "default": [
+        {
+          "icon": "briefcase",
+          "title": "Sales",
+          "text": "Plans, pilots, security reviews and procurement.",
+          "meta": "Replies within 4 hours",
+          "link": {
+            "label": "Talk to sales",
+            "link": {
+              "type": "email",
+              "url": "sales@fieldnote.example",
+              "newTab": false
+            },
+            "variant": "ghost"
+          }
+        },
+        {
+          "icon": "support",
+          "title": "Support",
+          "text": "Help with recordings, transcripts and integrations.",
+          "meta": "Replies within 1 hour",
+          "link": {
+            "label": "Open a ticket",
+            "link": {
+              "type": "email",
+              "url": "support@fieldnote.example",
+              "newTab": false
+            },
+            "variant": "ghost"
+          }
+        },
+        {
+          "icon": "mic",
+          "title": "Press",
+          "text": "Interviews, logos and our research reports.",
+          "meta": "Replies within 1 day",
+          "link": {
+            "label": "Email press team",
+            "link": {
+              "type": "email",
+              "url": "press@fieldnote.example",
+              "newTab": false
+            },
+            "variant": "ghost"
+          }
+        },
+        {
+          "icon": "puzzle",
+          "title": "Partners",
+          "text": "Agencies, consultants and integration partners.",
+          "meta": "Replies within 2 days",
+          "link": {
+            "label": "Become a partner",
+            "link": {
+              "type": "email",
+              "url": "partners@fieldnote.example",
+              "newTab": false
+            },
+            "variant": "ghost"
+          }
+        }
+      ],
+      "group": "Channels",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "mail"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Title"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Who should get in touch this way."
+        },
+        {
+          "name": "meta",
+          "label": "Reply time",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "button",
+          "default": {
+            "label": "Write to us",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "ghost"
+          }
+        }
+      ]
+    }
+  ]
+}

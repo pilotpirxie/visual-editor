@@ -1,0 +1,14 @@
+<section class="b-testimonial-highlight section">
+  <div class="container">
+    <figure class="stack b-figure">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <blockquote class="b-quote">
+        <p><span data-field="before">{{before}}</span> <mark class="b-mark" data-field="highlight">{{highlight}}</mark> <span data-field="after">{{after}}</span></p>
+      </blockquote>
+      <figcaption class="b-person">
+        <div class="media b-photo" data-field="photo">{{img photo}}</div>
+        <p><span class="b-name" data-field="name">{{name}}</span>{{#if role}} <span class="b-role" data-field="role">{{role}}</span>{{/if}}</p>
+      </figcaption>
+    </figure>
+  </div>
+</section>

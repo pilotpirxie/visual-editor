@@ -1,0 +1,84 @@
+{
+  "name": "Cookies, small corner note",
+  "category": "cookies",
+  "description": "A tiny dark note in the bottom corner with one line of text and two text buttons. Stays out of the way. It remembers the visitor’s choice.",
+  "tags": ["cookies", "consent", "privacy", "gdpr", "toast", "minimal", "corner", "small"],
+  "fieldGroups": ["Message", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "lucide:cookie",
+      "group": "Message"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "We count visits with cookies. That’s it.",
+      "required": true,
+      "maxLength": 120,
+      "group": "Message"
+    },
+    {
+      "name": "showPolicyLink",
+      "label": "Show policy link",
+      "type": "boolean",
+      "default": true,
+      "group": "Message"
+    },
+    {
+      "name": "policyLabel",
+      "label": "Policy link label",
+      "type": "text",
+      "default": "Details",
+      "visibleWhen": {
+        "field": "showPolicyLink",
+        "equals": true
+      },
+      "group": "Message"
+    },
+    {
+      "name": "policyLink",
+      "label": "Policy link",
+      "type": "link",
+      "default": {
+        "type": "page",
+        "newTab": false
+      },
+      "visibleWhen": {
+        "field": "showPolicyLink",
+        "equals": true
+      },
+      "group": "Message"
+    },
+    {
+      "name": "acceptLabel",
+      "label": "Accept button",
+      "type": "text",
+      "default": "Fine by me",
+      "required": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "showDecline",
+      "label": "Show decline button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "declineLabel",
+      "label": "Decline button",
+      "type": "text",
+      "default": "No thanks",
+      "visibleWhen": {
+        "field": "showDecline",
+        "equals": true
+      },
+      "group": "Buttons"
+    }
+  ]
+}

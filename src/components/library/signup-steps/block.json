@@ -1,0 +1,179 @@
+{
+  "name": "Sign up, step indicator",
+  "category": "sign-up",
+  "description": "A centered account form under a segmented progress bar that shows which step of sign-up the visitor is on.",
+  "tags": ["sign up", "register", "create account", "onboarding", "steps", "progress", "form"],
+  "fieldGroups": ["Progress", "Heading", "Form", "Links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "progressLabel",
+      "label": "Progress label for screen readers",
+      "type": "text",
+      "default": "Sign-up progress",
+      "required": true,
+      "group": "Progress"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Progress",
+      "minItems": 2,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "state",
+          "label": "State",
+          "type": "select",
+          "default": "next",
+          "options": [
+            {
+              "value": "done",
+              "label": "Done"
+            },
+            {
+              "value": "current",
+              "label": "Current"
+            },
+            {
+              "value": "next",
+              "label": "Not started"
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "label": "Your account",
+          "state": "current"
+        },
+        {
+          "label": "Your workspace",
+          "state": "next"
+        },
+        {
+          "label": "Invite your team",
+          "state": "next"
+        }
+      ]
+    },
+    {
+      "name": "stepNote",
+      "label": "Step note",
+      "type": "text",
+      "default": "Step 1 of 3",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Create your account",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Three quick steps and your team can start recording interviews today.",
+      "group": "Heading"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Full name",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "passwordLabel",
+      "label": "Password field label",
+      "type": "text",
+      "default": "Password",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "passwordHint",
+      "label": "Password hint",
+      "type": "text",
+      "default": "At least 12 characters.",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Continue",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "signInText",
+      "label": "Sign in text",
+      "type": "text",
+      "default": "Already have an account?",
+      "group": "Links"
+    },
+    {
+      "name": "signInLabel",
+      "label": "Sign in link label",
+      "type": "text",
+      "default": "Sign in",
+      "group": "Links"
+    },
+    {
+      "name": "signInLink",
+      "label": "Sign in link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "name": "Contact, form beside photo",
+  "category": "contacts",
+  "description": "A photo on one side and a heading with a short message form on the other.",
+  "tags": ["contact", "form", "image", "photo", "split", "message"],
+  "fieldGroups": ["Heading", "Form", "Image", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Get in touch",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Questions about Fieldnote? Ask a researcher.",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Everyone who answers our inbox has run customer interviews for a living. Expect a real answer, not a script.",
+      "group": "Heading"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Your name",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "messageLabel",
+      "label": "Message field label",
+      "type": "text",
+      "default": "Your question",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Send question",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "group": "Form",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Priya Raman from the Fieldnote team smiling at her desk with headphones around her neck",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "person"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "imageSide",
+      "label": "Image side",
+      "type": "segmented",
+      "default": "left",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left",
+          "icon": "panel-left"
+        },
+        {
+          "value": "right",
+          "label": "Right",
+          "icon": "panel-right"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+<footer class="b-footer-app section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <div class="stack b-brand">
+        <a class="b-logo" href="index.html">{{site.title}}</a>
+        {{#if tagline}}<p class="b-muted" data-field="tagline">{{nl2br tagline}}</p>{{/if}}
+      </div>
+      <nav class="b-columns" aria-label="Footer">
+        {{#each columns}}
+        <div class="stack b-column" data-field="columns.{{@index}}">
+          <h2 class="b-heading">{{title}}</h2>
+          <ul class="b-links" role="list">
+            {{#each links}}
+            <li><a href="{{href link}}" {{linkAttrs link}} data-field="columns.{{@../index}}.links.{{@index}}">{{label}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+        {{/each}}
+      </nav>
+      <div class="stack b-app">
+        <h2 class="b-heading" data-field="appTitle">{{appTitle}}</h2>
+        {{#if appText}}<p class="b-muted" data-field="appText">{{nl2br appText}}</p>{{/if}}
+        <ul class="cluster b-badges" role="list">
+          {{#each badges}}
+          <li><a class="b-badge" href="{{href link}}" {{linkAttrs link}} data-field="badges.{{@index}}">{{svgIcon icon}}<span class="b-badge-text"><span class="b-small">{{smallLabel}}</span> <span class="b-store">{{label}}</span></span></a></li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+    <div class="b-bottom">
+      <p class="b-muted" data-field="copyright">{{copyright}}</p>
+      <ul class="cluster b-legal" role="list">
+        {{#each legalLinks}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="legalLinks.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</footer>

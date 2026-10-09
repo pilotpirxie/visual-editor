@@ -1,0 +1,29 @@
+<section class="b-features-search section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      <ul class="stack b-points" role="list">
+        {{#each points}}
+        <li class="b-point" data-field="points.{{@index}}"><span class="b-icon">{{svgIcon icon}}</span><span>{{text}}</span></li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="b-window">
+      <p class="b-query" data-field="query">{{svgIcon "search"}}<span>{{query}}</span></p>
+      {{#if count}}<p class="b-count" data-field="count">{{count}}</p>{{/if}}
+      <ol class="b-results" role="list">
+        {{#each results}}
+        <li class="b-result" data-field="results.{{@index}}">
+          <span class="b-avatar" aria-hidden="true">{{initials}}</span>
+          <div class="b-hit">
+            <p class="b-source">{{source}}{{#if time}} · {{time}}{{/if}}</p>
+            <p>“{{before}}<mark>{{match}}</mark>{{after}}”</p>
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </div>
+</section>

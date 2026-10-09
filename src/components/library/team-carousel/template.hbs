@@ -1,0 +1,26 @@
+<section class="b-team-carousel section" data-behavior="carousel">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-track" data-carousel-track role="region" aria-label="{{title}}" tabindex="0">
+      {{#each people}}
+      <article class="card stack b-slide" data-carousel-slide data-field="people.{{@index}}">
+        <div class="media b-photo">{{img photo}}</div>
+        <div>
+          <h3 class="b-name">{{name}}</h3>
+          {{#if role}}<p class="b-role">{{role}}</p>{{/if}}
+        </div>
+        {{#if bio}}<p class="b-bio">{{nl2br bio}}</p>{{/if}}
+      </article>
+      {{/each}}
+    </div>
+    <div class="b-controls" data-carousel-controls hidden>
+      <button type="button" class="btn btn-secondary b-arrow" data-carousel-previous>{{svgIcon "arrow-left"}}<span class="visually-hidden">Previous person</span></button>
+      <div class="b-dots" data-carousel-dots="Person"></div>
+      <button type="button" class="btn btn-secondary b-arrow" data-carousel-next>{{svgIcon "arrow-right"}}<span class="visually-hidden">Next person</span></button>
+    </div>
+  </div>
+</section>

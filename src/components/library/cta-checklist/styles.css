@@ -1,0 +1,67 @@
+@layer components {
+  @scope (.b-cta-checklist) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-text {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      margin-block-start: var(--space-2);
+    }
+
+    .b-list {
+      --card-padding: var(--space-8) var(--space-6);
+      --stack-gap: var(--space-6);
+      background: var(--color-surface);
+    }
+
+    .b-list h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-items {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-items li {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .b-check {
+      --icon-size: 0.875rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    @media (min-width: 768px) {
+      .b-list {
+        --card-padding: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1.1fr 1fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

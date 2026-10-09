@@ -1,0 +1,86 @@
+@layer components {
+  @scope (.b-features-checkerboard) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-board {
+      overflow: hidden;
+      border-radius: var(--card-radius);
+    }
+
+    .b-row {
+      display: grid;
+    }
+
+    .b-media {
+      aspect-ratio: 4 / 3;
+      background: var(--color-surface);
+    }
+
+    .b-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-3);
+      justify-content: center;
+      padding: var(--space-8) var(--space-6);
+      background: var(--color-surface);
+    }
+
+    .b-row:nth-child(even) .b-copy {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      opacity: 0.75;
+    }
+
+    .b-copy h3 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      max-width: 28rem;
+      opacity: 0.85;
+    }
+
+    @media (min-width: 768px) {
+      .b-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-row:nth-child(even) .b-media {
+        order: 2;
+      }
+
+      .b-copy {
+        padding: var(--space-12);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-copy {
+        padding: var(--space-16);
+      }
+    }
+  }
+}

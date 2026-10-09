@@ -1,0 +1,59 @@
+{
+  "name": "Utilities, shape divider",
+  "category": "utilities",
+  "description": "A slanted, curved or wavy edge between two blocks. The top takes the Surface color and the bottom the Background color, so match each to its neighbor in the Style tab.",
+  "tags": ["divider", "separator", "shape", "wave", "curve", "slant", "angle", "edge", "utility"],
+  "fieldGroups": ["Shape"],
+  "styleOverrides": ["--color-surface", "--color-background"],
+  "fields": [
+    {
+      "name": "shape",
+      "label": "Shape",
+      "type": "select",
+      "default": "wave",
+      "options": [
+        {
+          "value": "wave",
+          "label": "Wave"
+        },
+        {
+          "value": "slant",
+          "label": "Slant"
+        },
+        {
+          "value": "curve",
+          "label": "Curve"
+        }
+      ],
+      "group": "Shape"
+    },
+    {
+      "name": "size",
+      "label": "Height",
+      "type": "select",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "group": "Shape"
+    },
+    {
+      "name": "flip",
+      "label": "Mirror left to right",
+      "type": "boolean",
+      "default": false,
+      "group": "Shape"
+    }
+  ]
+}

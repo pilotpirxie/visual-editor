@@ -1,0 +1,85 @@
+{
+  "name": "Numbers, in a sentence",
+  "category": "numbers",
+  "description": "One large sentence with the key numbers marked inside it, like a headline from a report.",
+  "tags": ["numbers", "stats", "sentence", "statement", "big type", "highlight", "report"],
+  "fieldGroups": ["Heading", "Sentence", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Fieldnote in 2025",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title for screen readers",
+      "type": "text",
+      "default": "Fieldnote in numbers",
+      "required": true,
+      "help": "Not shown on the page; it names the section for assistive technology.",
+      "group": "Heading"
+    },
+    {
+      "name": "segments",
+      "label": "Parts of the sentence",
+      "type": "list",
+      "group": "Sentence",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "and"
+        },
+        {
+          "name": "number",
+          "label": "Number after the text",
+          "type": "text",
+          "default": "100"
+        }
+      ],
+      "default": [
+        { "text": "Last year", "number": "1,240" },
+        { "text": "product teams ran", "number": "38,600" },
+        { "text": "customer interviews, found", "number": "9,100" },
+        { "text": "insights and shared them with", "number": "27,000" },
+        { "text": "colleagues who never sat in on a call.", "number": "" }
+      ]
+    },
+    {
+      "name": "numberStyle",
+      "label": "Number style",
+      "type": "segmented",
+      "default": "marker",
+      "group": "Sentence",
+      "options": [
+        { "value": "marker", "label": "Marker" },
+        { "value": "pill", "label": "Pill" }
+      ]
+    },
+    {
+      "name": "source",
+      "label": "Source",
+      "type": "text",
+      "default": "From anonymous usage data across all Fieldnote workspaces, January to December 2025.",
+      "group": "Sentence"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "group": "Button",
+      "default": {
+        "label": "Read the 2025 report",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "secondary"
+      }
+    }
+  ]
+}

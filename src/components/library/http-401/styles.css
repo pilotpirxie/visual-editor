@@ -1,0 +1,70 @@
+@layer components {
+  @scope (.b-http-401) {
+    :scope {
+      background:
+        radial-gradient(circle at 50% 0, var(--color-surface), transparent 70%),
+        var(--color-background);
+    }
+
+    .b-inner {
+      --container-max-width: 32rem;
+    }
+
+    .b-card {
+      --card-padding: var(--space-8) var(--space-6);
+      --stack-gap: var(--space-4);
+      align-items: center;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+    }
+
+    .b-timer {
+      --icon-size: 1.75rem;
+      display: grid;
+      place-items: center;
+      width: 5rem;
+      aspect-ratio: 1;
+      margin-bottom: var(--space-2);
+      border-radius: var(--radius-full);
+      background:
+        radial-gradient(closest-side, var(--color-background) 80%, transparent 82%),
+        conic-gradient(var(--color-primary) 0 12%, var(--color-border) 0);
+      color: var(--color-primary);
+    }
+
+    h1 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-saved {
+      --icon-size: 1.125rem;
+      display: flex;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 10%, transparent);
+      font-size: var(--text-sm);
+      text-align: start;
+    }
+
+    .b-saved svg {
+      color: var(--color-primary);
+    }
+
+    .b-actions {
+      display: grid;
+      gap: var(--space-3);
+      width: 100%;
+      margin-top: var(--space-2);
+    }
+
+    .b-account {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<section class="b-cta-roles section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    {{#if lead}}<p class="b-lead" id="{{block.id}}-lead" data-field="lead">{{lead}}</p>{{/if}}
+    <ul class="b-roles" role="list" {{#if lead}}aria-labelledby="{{block.id}}-lead"{{/if}}>
+      {{#each roles}}
+      <li data-field="roles.{{@index}}"><a class="b-role" href="{{href link}}" {{linkAttrs link}}>{{svgIcon icon}}<span>{{label}}</span>{{svgIcon "arrow-right"}}</a></li>
+      {{/each}}
+    </ul>
+    {{#if note}}<p class="b-note" data-field="note">{{note}} <a href="{{href noteLink}}" {{linkAttrs noteLink}} data-field="noteLinkLabel">{{noteLinkLabel}}</a></p>{{/if}}
+  </div>
+</section>

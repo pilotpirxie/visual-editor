@@ -1,0 +1,307 @@
+{
+  "name": "Team, avatar mosaic",
+  "category": "team",
+  "description": "A big team number and short pitch beside a dense mosaic of round portraits.",
+  "tags": ["team", "avatars", "mosaic", "people", "hiring", "culture", "number"],
+  "fieldGroups": ["Text", "Button", "People"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our people",
+      "group": "Text"
+    },
+    {
+      "name": "number",
+      "label": "Big number",
+      "type": "text",
+      "default": "28",
+      "maxLength": 8,
+      "group": "Text"
+    },
+    {
+      "name": "numberLabel",
+      "label": "Number label",
+      "type": "text",
+      "default": "people in 6 cities",
+      "group": "Text"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A small team that talks to customers every week",
+      "required": true,
+      "group": "Text"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Researchers, engineers and designers who would rather hear it from a customer than guess. We are hiring in Toronto, Lisbon and remotely across the Americas.",
+      "group": "Text"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See open roles",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Button",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      }
+    },
+    {
+      "name": "people",
+      "label": "People",
+      "type": "list",
+      "group": "People",
+      "minItems": 1,
+      "maxItems": 30,
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leila Haddad",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Mateo Ruiz",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Kwame Mensah",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Yuki Tanaka",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Daniel Novak",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Aisha Bello",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ruth Callahan",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tomás Herrera",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Grace Okafor",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Felix Wagner",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Mei Lin",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sofia Marchetti",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Arjun Mehta",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "more",
+      "label": "Last bubble",
+      "type": "text",
+      "default": "+14",
+      "maxLength": 6,
+      "group": "People",
+      "help": "For example +12 for the people not shown."
+    }
+  ]
+}

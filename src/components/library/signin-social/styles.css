@@ -1,0 +1,93 @@
+@layer components {
+  @scope (.b-signin-social) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-card {
+      --card-padding: var(--space-6);
+      --card-shadow: var(--shadow-md);
+      --stack-gap: var(--space-6);
+      max-width: 28rem;
+      margin-inline: auto;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+      text-align: center;
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-providers {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-provider {
+      --icon-size: 1.25rem;
+      width: 100%;
+    }
+
+    .b-or {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-or::before,
+    .b-or::after {
+      content: '';
+      flex: 1;
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-forgot {
+      align-self: flex-end;
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-submit {
+      width: 100%;
+    }
+
+    .b-switch {
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    .b-switch a {
+      font-weight: var(--font-weight-bold);
+      white-space: nowrap;
+    }
+
+    :is(.b-forgot, .b-switch a) {
+      text-decoration: none;
+    }
+
+    :is(.b-forgot, .b-switch a):hover {
+      text-decoration: underline;
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        --card-padding: var(--space-8);
+      }
+    }
+  }
+}

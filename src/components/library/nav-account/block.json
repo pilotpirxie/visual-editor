@@ -1,0 +1,224 @@
+{
+  "name": "Navigation, signed-in account",
+  "category": "navigations",
+  "description": "An app navbar for signed-in visitors: links with the current page marked, a notifications button and an avatar that opens an account menu.",
+  "tags": [
+    "menu",
+    "navbar",
+    "header",
+    "account",
+    "avatar",
+    "profile",
+    "dashboard",
+    "notifications",
+    "dropdown",
+    "app"
+  ],
+  "fieldGroups": ["Links", "Notifications", "Account", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "name": "current",
+          "label": "Current page",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        {
+          "label": "Dashboard",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": true
+        },
+        {
+          "label": "Studies",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": false
+        },
+        {
+          "label": "Insights",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": false
+        },
+        {
+          "label": "Reports",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": false
+        }
+      ]
+    },
+    {
+      "name": "unread",
+      "label": "Unread count",
+      "type": "text",
+      "default": "3 unread",
+      "maxLength": 20,
+      "help": "Shows a dot on the bell and is read out to screen readers. Leave empty to hide the dot.",
+      "group": "Notifications"
+    },
+    {
+      "name": "notificationsLink",
+      "label": "Notifications link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Notifications"
+    },
+    {
+      "name": "avatar",
+      "label": "Avatar",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "",
+        "decorative": true,
+        "width": 400,
+        "height": 400,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Account"
+    },
+    {
+      "name": "userName",
+      "label": "Name",
+      "type": "text",
+      "default": "Maya Okafor",
+      "maxLength": 40,
+      "group": "Account"
+    },
+    {
+      "name": "userEmail",
+      "label": "Email",
+      "type": "text",
+      "default": "maya@northwind.co",
+      "maxLength": 60,
+      "group": "Account"
+    },
+    {
+      "name": "accountLinks",
+      "label": "Account menu",
+      "type": "list",
+      "group": "Account",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "settings"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "user",
+          "label": "Profile",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "settings",
+          "label": "Settings",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "credit-card",
+          "label": "Billing",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "arrow-right",
+          "label": "Sign out",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

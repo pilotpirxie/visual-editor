@@ -1,0 +1,202 @@
+{
+  "name": "Footer, two rows",
+  "category": "footers",
+  "description": "Logo and main links in one row, legal links and social icons in a second row.",
+  "tags": ["footer", "rows", "links", "legal", "social", "compact"],
+  "fieldGroups": ["Links", "Social", "Legal"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Features",
+          "link": {
+            "type": "section",
+            "anchor": "features",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Pricing",
+          "link": {
+            "type": "section",
+            "anchor": "pricing",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Customers",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Blog",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Contact",
+          "link": {
+            "type": "email",
+            "url": "hello@fieldnote.example",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "socials",
+      "label": "Social links",
+      "type": "list",
+      "group": "Social",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "Social network"
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "globe",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "LinkedIn",
+          "icon": "simple-icons:linkedin",
+          "link": {
+            "type": "url",
+            "url": "https://www.linkedin.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Bluesky",
+          "icon": "simple-icons:bluesky",
+          "link": {
+            "type": "url",
+            "url": "https://bsky.app",
+            "newTab": true
+          }
+        },
+        {
+          "label": "YouTube",
+          "icon": "simple-icons:youtube",
+          "link": {
+            "type": "url",
+            "url": "https://www.youtube.com",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Inc.",
+      "group": "Legal"
+    },
+    {
+      "name": "legalLinks",
+      "label": "Legal links",
+      "type": "list",
+      "group": "Legal",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Privacy",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Terms",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Cookies",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

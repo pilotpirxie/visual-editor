@@ -1,0 +1,20 @@
+<section class="b-signin-passkey section">
+  <div class="container stack b-inner">
+    <div class="b-rings" aria-hidden="true">
+      <span class="b-icon">{{svgIcon icon}}</span>
+    </div>
+    <header class="stack b-head">
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{svgIcon "key"}}<span>{{buttonLabel}}</span></button>
+      {{#if note}}<p class="b-muted b-small" data-field="note">{{note}}</p>{{/if}}
+    </form>
+    {{#if altLabel}}
+    <p class="b-or" data-field="dividerLabel">{{dividerLabel}}</p>
+    <a class="btn btn-secondary" href="{{href altLink}}" {{linkAttrs altLink}} data-field="altLink">{{svgIcon "mail"}}<span>{{altLabel}}</span></a>
+    {{/if}}
+    {{#if helpLabel}}<p class="b-muted b-small" data-field="helpLink">{{helpText}} <a href="{{href helpLink}}" {{linkAttrs helpLink}}>{{helpLabel}}</a></p>{{/if}}
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<section class="b-faq-tabs section" data-behavior="tabs">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-tablist" role="tablist" aria-label="{{title}}" hidden>
+      {{#each topics}}
+      <button type="button" class="b-tab" id="{{../block.id}}-tab-{{@index}}" aria-controls="{{../block.id}}-panel-{{@index}}" data-field="topics.{{@index}}">{{label}}</button>
+      {{/each}}
+    </div>
+    <div class="b-panels">
+      {{#each topics}}
+      <div class="b-panel" id="{{../block.id}}-panel-{{@index}}" data-field="topics.{{@index}}">
+        <h3 class="b-topic">{{label}}</h3>
+        {{#each questions}}
+        <details class="b-item" name="{{../../block.id}}-faq">
+          <summary class="b-question"><span>{{question}}</span><span class="b-icon">{{svgIcon ../../expandIcon}}</span></summary>
+          <div class="prose b-answer">{{richText answer}}</div>
+        </details>
+        {{/each}}
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,102 @@
+{
+  "name": "Content, card over image",
+  "category": "content",
+  "description": "A large image with a text card that overlaps its lower edge on wider screens.",
+  "tags": ["image", "card", "overlap", "story", "about", "photo"],
+  "fieldGroups": ["Content", "Link", "Image", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Customer story",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How Ledgerly cut its research backlog from six weeks to four days",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Ledgerly’s two researchers were drowning in recordings. With Fieldnote tagging every call, product managers now pull their own evidence and the researchers focus on the hard questions.",
+      "group": "Content"
+    },
+    {
+      "name": "showLink",
+      "label": "Show link",
+      "type": "boolean",
+      "default": true,
+      "group": "Link"
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link label",
+      "type": "text",
+      "default": "Read the full story",
+      "visibleWhen": {
+        "field": "showLink",
+        "equals": true
+      },
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "visibleWhen": {
+        "field": "showLink",
+        "equals": true
+      },
+      "group": "Link"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Ledgerly product team reviewing interview highlights on a large screen",
+        "decorative": false,
+        "width": 1200,
+        "height": 675,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "photo"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "cardSide",
+      "label": "Card side",
+      "type": "segmented",
+      "default": "start",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "start",
+          "label": "Left",
+          "icon": "panel-left"
+        },
+        {
+          "value": "end",
+          "label": "Right",
+          "icon": "panel-right"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+<section class="b-content-heading section" data-align="{{align}}">
+  <div class="container">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      {{#if showButton}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+      {{/if}}
+    </header>
+  </div>
+</section>

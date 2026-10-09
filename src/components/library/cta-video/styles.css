@@ -1,0 +1,95 @@
+@layer components {
+  @scope (.b-cta-video) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-muted,
+    .b-chapters li {
+      color: var(--color-text-muted);
+    }
+
+    .b-chapters {
+      border-inline-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-chapters li {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-1) var(--space-4);
+    }
+
+    .b-time {
+      padding-top: 0.15em;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-primary);
+    }
+
+    .b-player {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-media {
+      --media-radius: 0;
+    }
+
+    .b-play {
+      --icon-size: 1.75rem;
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      width: 4.5rem;
+      aspect-ratio: 1;
+      margin: auto;
+      padding-inline-start: 0.25rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      box-shadow: 0 0 0 var(--space-3) color-mix(in oklab, var(--color-primary) 30%, transparent);
+      transition: scale var(--transition-fast);
+    }
+
+    .b-play:hover {
+      scale: 1.08;
+    }
+
+    .b-duration {
+      position: absolute;
+      inset-block-end: var(--space-4);
+      inset-inline-end: var(--space-3);
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm);
+      background: var(--theme-dark-background);
+      color: var(--theme-dark-text);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+    }
+
+    .b-progress {
+      position: absolute;
+      inset: auto 0 0;
+      height: var(--space-1);
+      background:
+        linear-gradient(90deg, var(--color-primary) 18%, transparent 0),
+        color-mix(in oklab, var(--color-background) 50%, transparent);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

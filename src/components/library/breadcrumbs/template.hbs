@@ -1,0 +1,9 @@
+<nav class="b-breadcrumbs" aria-label="{{label}}">
+  <div class="container">
+    <ol class="b-trail" role="list">
+      {{#each items}}
+      <li class="b-item" data-field="items.{{@index}}">{{#if @last}}<span class="b-current" aria-current="page">{{label}}</span>{{else}}<a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{#if @first}}{{#if ../showHomeIcon}}{{svgIcon "house"}}{{/if}}{{/if}}<span>{{label}}</span></a><span class="b-sep icon-mirror">{{svgIcon ../separator}}</span>{{/if}}</li>
+      {{/each}}
+    </ol>
+  </div>
+</nav>

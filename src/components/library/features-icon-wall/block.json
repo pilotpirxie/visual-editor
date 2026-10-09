@@ -1,0 +1,175 @@
+{
+  "name": "Features, icon wall",
+  "category": "features",
+  "description": "A dense wall of small icon tiles listing every capability, ending in a solid tile that links to the full list.",
+  "tags": ["features", "icons", "grid", "wall", "capabilities", "all features", "dense"],
+  "fieldGroups": ["Heading", "Items", "Link"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Everything included",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "All of it, on every plan",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "No add-ons and no feature gates. The free plan has the same tools as the one our largest customers use.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Capabilities",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 36,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Capability",
+          "required": true
+        }
+      ],
+      "default": [
+        {
+          "icon": "mic",
+          "label": "In-person recording"
+        },
+        {
+          "icon": "video",
+          "label": "Video calls"
+        },
+        {
+          "icon": "transcript",
+          "label": "Transcripts"
+        },
+        {
+          "icon": "globe",
+          "label": "30 languages"
+        },
+        {
+          "icon": "audio-lines",
+          "label": "Speaker labels"
+        },
+        {
+          "icon": "bookmark",
+          "label": "Highlights"
+        },
+        {
+          "icon": "tag",
+          "label": "Shared tags"
+        },
+        {
+          "icon": "layers",
+          "label": "Themes"
+        },
+        {
+          "icon": "search",
+          "label": "Full-text search"
+        },
+        {
+          "icon": "filter",
+          "label": "Saved filters"
+        },
+        {
+          "icon": "sparkles",
+          "label": "AI summaries"
+        },
+        {
+          "icon": "share",
+          "label": "Clips and reels"
+        },
+        {
+          "icon": "link",
+          "label": "Deep links"
+        },
+        {
+          "icon": "message",
+          "label": "Slack previews"
+        },
+        {
+          "icon": "calendar",
+          "label": "Calendar sync"
+        },
+        {
+          "icon": "users",
+          "label": "Guest access"
+        },
+        {
+          "icon": "lock",
+          "label": "Redaction"
+        },
+        {
+          "icon": "shield",
+          "label": "SOC 2 Type II"
+        },
+        {
+          "icon": "key",
+          "label": "Single sign-on"
+        },
+        {
+          "icon": "database",
+          "label": "Data residency"
+        },
+        {
+          "icon": "chart",
+          "label": "Research ops reports"
+        },
+        {
+          "icon": "workflow",
+          "label": "Zapier and API"
+        },
+        {
+          "icon": "puzzle",
+          "label": "Jira and Linear"
+        }
+      ]
+    },
+    {
+      "name": "moreLabel",
+      "label": "Last tile text",
+      "type": "text",
+      "default": "See all 60 features",
+      "help": "Leave empty to hide the last tile.",
+      "group": "Link"
+    },
+    {
+      "name": "moreLink",
+      "label": "Last tile link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Link"
+    }
+  ]
+}

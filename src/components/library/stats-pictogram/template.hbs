@@ -1,0 +1,22 @@
+<section class="b-stats-pictogram section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-items" role="list">
+      {{#each items}}
+      <li class="b-item" data-field="items.{{@index}}">
+        <p class="b-count"><span class="b-number">{{count}}</span> {{../ofLabel}}</p>
+        <div class="b-people" style="--n: {{count}}" aria-hidden="true">
+          <span class="b-row">{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}</span>
+          <span class="b-row b-on">{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}{{svgIcon ../icon}}</span>
+        </div>
+        <p class="b-text">{{nl2br text}}</p>
+      </li>
+      {{/each}}
+    </ul>
+    {{#if source}}<p class="b-muted b-source" data-field="source">{{source}}</p>{{/if}}
+  </div>
+</section>

@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-testimonials-numbered) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      align-self: start;
+    }
+
+    .b-intro,
+    .b-role {
+      color: var(--color-text-muted);
+    }
+
+    .b-list {
+      counter-reset: quote;
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-4) var(--space-6);
+      padding-block: var(--space-8);
+      border-block-start: var(--border-width) solid var(--color-border);
+      counter-increment: quote;
+    }
+
+    .b-row::before {
+      content: counter(quote, decimal-leading-zero);
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      color: color-mix(in oklab, var(--color-primary) 45%, transparent);
+    }
+
+    .b-figure {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      line-height: var(--line-height-tight);
+      text-wrap: pretty;
+    }
+
+    .b-person {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 var(--space-2);
+      font-size: var(--text-sm);
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-row {
+        gap: var(--space-8);
+      }
+
+      .b-row::before {
+        min-width: 5rem;
+        font-size: var(--text-5xl);
+      }
+
+      .b-figure {
+        grid-template-columns: minmax(0, 1fr) 14rem;
+        gap: var(--space-8);
+      }
+
+      .b-person {
+        flex-direction: column;
+        padding-block-start: var(--space-2);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+        gap: var(--space-16);
+      }
+
+      .b-head {
+        position: sticky;
+        inset-block-start: var(--space-8);
+      }
+    }
+  }
+}

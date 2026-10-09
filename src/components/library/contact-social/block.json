@@ -1,0 +1,96 @@
+{
+  "name": "Contact, social channels",
+  "category": "contacts",
+  "description": "Large cards for each social channel with the brand icon, handle and a note on what you post there.",
+  "tags": ["contact", "social", "social media", "follow", "community", "links", "cards"],
+  "fieldGroups": ["Heading", "Channels"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Find us",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Come say hi where you already are",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Research tips, product news and the occasional behind-the-scenes clip. Prefer email?",
+      "group": "Heading"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "hello@fieldnote.example",
+      "group": "Heading"
+    },
+    {
+      "name": "channels",
+      "label": "Channels",
+      "type": "list",
+      "group": "Channels",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "globe",
+          "iconPurpose": "brand"
+        },
+        { "name": "name", "label": "Name", "type": "text", "default": "Channel" },
+        { "name": "handle", "label": "Handle", "type": "text", "default": "@fieldnote" },
+        { "name": "note", "label": "Note", "type": "text", "default": "" },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": { "type": "url", "url": "#", "newTab": true }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:linkedin",
+          "name": "LinkedIn",
+          "handle": "Fieldnote",
+          "note": "18k followers, research tips every Tuesday",
+          "link": { "type": "url", "url": "#", "newTab": true }
+        },
+        {
+          "icon": "simple-icons:youtube",
+          "name": "YouTube",
+          "handle": "@fieldnote",
+          "note": "Monthly webinars and two-minute tutorials",
+          "link": { "type": "url", "url": "#", "newTab": true }
+        },
+        {
+          "icon": "simple-icons:bluesky",
+          "name": "Bluesky",
+          "handle": "@fieldnote.example",
+          "note": "Product news and quick questions",
+          "link": { "type": "url", "url": "#", "newTab": true }
+        },
+        {
+          "icon": "simple-icons:instagram",
+          "name": "Instagram",
+          "handle": "@fieldnote.hq",
+          "note": "Life at the studio in Toronto",
+          "link": { "type": "url", "url": "#", "newTab": true }
+        }
+      ]
+    }
+  ]
+}

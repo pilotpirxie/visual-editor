@@ -1,0 +1,148 @@
+{
+  "name": "HTTP code, 404 with search",
+  "category": "http-codes",
+  "description": "A “page not found” message with a magnifier 404, a search box and popular pages. Name the page 404 so it exports as 404.html.",
+  "tags": ["404", "not found", "error", "missing", "search", "page"],
+  "fieldGroups": ["Content", "Search", "Links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Page not found",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "We looked everywhere for this page",
+      "group": "Content",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Maybe it moved, maybe the link has a typo. Try a search, or start from one of the pages below.",
+      "group": "Content"
+    },
+    {
+      "name": "searchLabel",
+      "label": "Search label",
+      "type": "text",
+      "default": "Search Fieldnote",
+      "group": "Search",
+      "required": true
+    },
+    {
+      "name": "searchPlaceholder",
+      "label": "Search placeholder",
+      "type": "text",
+      "default": "Search guides, features and posts",
+      "group": "Search"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Search",
+      "group": "Search",
+      "required": true
+    },
+    {
+      "name": "formAction",
+      "label": "Search page URL",
+      "type": "text",
+      "default": "",
+      "group": "Search",
+      "help": "Your site search page. Leave empty to show the box without searching."
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "get",
+      "options": [
+        {
+          "value": "get",
+          "label": "GET"
+        },
+        {
+          "value": "post",
+          "label": "POST"
+        }
+      ],
+      "group": "Search"
+    },
+    {
+      "name": "linksTitle",
+      "label": "Links heading",
+      "type": "text",
+      "default": "Popular pages",
+      "group": "Links"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Page"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Home",
+          "link": {
+            "type": "url",
+            "url": "index.html",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Pricing",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Help center",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Blog",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

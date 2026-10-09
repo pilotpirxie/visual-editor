@@ -1,0 +1,31 @@
+<footer class="b-footer-docs section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <div class="stack b-brand">
+        <p class="b-identity"><a class="b-logo" href="index.html">{{site.title}}</a>{{#if version}} <span class="b-version" data-field="version">{{version}}</span>{{/if}}</p>
+        {{#if tagline}}<p class="b-muted" data-field="tagline">{{nl2br tagline}}</p>{{/if}}
+        {{#if statusLabel}}<a class="b-status" href="{{href statusLink}}" {{linkAttrs statusLink}} data-field="statusLink"><span class="b-dot" aria-hidden="true"></span>{{statusLabel}}</a>{{/if}}
+      </div>
+      <nav class="b-columns" aria-label="Footer">
+        {{#each columns}}
+        <div class="stack b-column" data-field="columns.{{@index}}">
+          <h2 class="b-heading">{{title}}</h2>
+          <ul class="b-links" role="list">
+            {{#each links}}
+            <li><a href="{{href link}}" {{linkAttrs link}} data-field="columns.{{@../index}}.links.{{@index}}">{{label}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+        {{/each}}
+      </nav>
+    </div>
+    <div class="b-bottom">
+      <p class="b-muted" data-field="copyright">{{copyright}}</p>
+      <ul class="cluster b-socials" role="list">
+        {{#each socials}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}</span></a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</footer>

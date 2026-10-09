@@ -1,0 +1,79 @@
+@layer components {
+  @scope (.b-logos-industries) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-group {
+      display: grid;
+      gap: var(--space-4);
+      padding-block: var(--space-6);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-group:last-child {
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-industry {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-base);
+    }
+
+    .b-icon {
+      --icon-size: 1.125rem;
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 2.25rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-logos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4) var(--space-6);
+      align-items: center;
+    }
+
+    .b-logo img {
+      width: 100%;
+      max-width: 8rem;
+      height: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      opacity: 0.8;
+    }
+
+    .b-group:hover img {
+      opacity: 1;
+    }
+
+    @media (min-width: 768px) {
+      .b-group {
+        grid-template-columns: 13rem minmax(0, 1fr);
+        align-items: center;
+        gap: var(--space-8);
+      }
+
+      .b-logos {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+}

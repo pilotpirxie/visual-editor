@@ -1,0 +1,17 @@
+<section class="b-logos-press section">
+  <div class="container stack b-inner">
+    {{#if title}}<h2 class="b-title" data-field="title">{{title}}</h2>{{/if}}
+    <div class="b-frame">
+      <ul class="b-list" role="list">
+        {{#each items}}
+        <li class="b-item" data-field="items.{{@index}}">
+          <a class="stack b-link" href="{{href link}}" {{linkAttrs link}}>
+            <span class="b-name">{{publication}}</span>
+            {{#if headline}}<span class="b-headline">{{headline}}</span>{{/if}}
+          </a>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

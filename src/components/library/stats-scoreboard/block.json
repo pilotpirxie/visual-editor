@@ -1,0 +1,100 @@
+{
+  "name": "Numbers, scoreboard",
+  "category": "numbers",
+  "description": "A dark scoreboard that compares results before and after, metric by metric, with the winning side lit up.",
+  "tags": ["numbers", "stats", "scoreboard", "comparison", "before and after", "versus", "dark"],
+  "fieldGroups": ["Heading", "Scoreboard"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The final score",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Research with and without Fieldnote",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Median results from 86 teams in their first quarter after switching.",
+      "group": "Heading"
+    },
+    {
+      "name": "beforeLabel",
+      "label": "Left side",
+      "type": "text",
+      "default": "Before",
+      "required": true,
+      "group": "Scoreboard"
+    },
+    {
+      "name": "vsLabel",
+      "label": "Middle label",
+      "type": "text",
+      "default": "vs",
+      "maxLength": 4,
+      "group": "Scoreboard"
+    },
+    {
+      "name": "afterLabel",
+      "label": "Right side",
+      "type": "text",
+      "default": "Fieldnote",
+      "required": true,
+      "group": "Scoreboard"
+    },
+    {
+      "name": "metricLabel",
+      "label": "Metric column name for screen readers",
+      "type": "text",
+      "default": "Metric",
+      "group": "Scoreboard"
+    },
+    {
+      "name": "rows",
+      "label": "Rows",
+      "type": "list",
+      "group": "Scoreboard",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "metric",
+      "itemFields": [
+        {
+          "name": "metric",
+          "label": "Metric",
+          "type": "text",
+          "default": "Metric"
+        },
+        {
+          "name": "before",
+          "label": "Left score",
+          "type": "text",
+          "default": "10",
+          "maxLength": 8
+        },
+        {
+          "name": "after",
+          "label": "Right score",
+          "type": "text",
+          "default": "20",
+          "maxLength": 8
+        }
+      ],
+      "default": [
+        { "metric": "Interviews a month", "before": "6", "after": "19" },
+        { "metric": "Days to share findings", "before": "12", "after": "2" },
+        { "metric": "Hours of notes per study", "before": "9", "after": "1" },
+        { "metric": "Teams reading insights", "before": "1", "after": "5" }
+      ]
+    }
+  ]
+}

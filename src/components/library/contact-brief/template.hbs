@@ -1,0 +1,55 @@
+<section class="b-contact-brief section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      {{#if points.length}}
+      <ul class="stack b-points" role="list">
+        {{#each points}}
+        <li data-field="points.{{@index}}">{{svgIcon "check"}}<span>{{text}}</span></li>
+        {{/each}}
+      </ul>
+      {{/if}}
+    </div>
+    <form class="card stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <div class="b-row">
+        <div class="field">
+          <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+          <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+        </div>
+      </div>
+      <fieldset class="b-set">
+        <legend data-field="servicesLabel">{{servicesLabel}}</legend>
+        <div class="cluster b-chips">
+          {{#each services}}
+          <label class="b-chip" data-field="services.{{@index}}"><input type="checkbox" name="services" value="{{label}}">{{svgIcon "check"}}{{label}}</label>
+          {{/each}}
+        </div>
+      </fieldset>
+      <fieldset class="b-set">
+        <legend data-field="budgetLabel">{{budgetLabel}}</legend>
+        <div class="cluster b-chips">
+          {{#each budgets}}
+          <label class="b-chip" data-field="budgets.{{@index}}"><input type="radio" name="budget" value="{{label}}">{{label}}</label>
+          {{/each}}
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for="{{block.id}}-timeline" data-field="timelineLabel">{{timelineLabel}}</label>
+        <select id="{{block.id}}-timeline" name="timeline">
+          {{#each timelines}}<option data-field="timelines.{{@index}}">{{label}}</option>{{/each}}
+        </select>
+      </div>
+      <div class="field">
+        <label for="{{block.id}}-details" data-field="detailsLabel">{{detailsLabel}}</label>
+        <textarea id="{{block.id}}-details" name="details" rows="4"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+    </form>
+  </div>
+</section>

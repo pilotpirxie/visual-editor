@@ -1,0 +1,124 @@
+{
+  "name": "Content, awards list",
+  "category": "content",
+  "description": "An editorial list of awards with year, prize and project, each row linking out.",
+  "tags": ["awards", "recognition", "press", "agency", "portfolio", "list", "prizes"],
+  "fieldGroups": ["Heading", "Awards"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Recognition",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Awards and honours",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "summary",
+      "label": "Summary",
+      "type": "text",
+      "default": "Eleven awards since 2021, mostly for things our customers said first.",
+      "group": "Heading"
+    },
+    {
+      "name": "awards",
+      "label": "Awards",
+      "type": "list",
+      "group": "Awards",
+      "minItems": 1,
+      "maxItems": 20,
+      "itemLabel": "award",
+      "itemFields": [
+        {
+          "name": "year",
+          "label": "Year",
+          "type": "text",
+          "default": "2026"
+        },
+        {
+          "name": "award",
+          "label": "Award",
+          "type": "text",
+          "default": "Award name"
+        },
+        {
+          "name": "project",
+          "label": "Project",
+          "type": "text",
+          "default": "Project or category"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "year": "2026",
+          "award": "Webby Award",
+          "project": "Best Productivity App",
+          "link": {
+            "type": "url",
+            "url": "https://www.webbyawards.com",
+            "newTab": true
+          }
+        },
+        {
+          "year": "2025",
+          "award": "Fast Company Innovation by Design",
+          "project": "Research tools, finalist",
+          "link": {
+            "type": "url",
+            "url": "https://www.fastcompany.com",
+            "newTab": true
+          }
+        },
+        {
+          "year": "2025",
+          "award": "Canadian SaaS Awards",
+          "project": "Best customer experience",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "year": "2024",
+          "award": "UX Design Awards",
+          "project": "Highlight reels, gold",
+          "link": {
+            "type": "url",
+            "url": "https://ux-design-awards.com",
+            "newTab": true
+          }
+        },
+        {
+          "year": "2023",
+          "award": "Toronto Tech Week",
+          "project": "Startup of the year",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

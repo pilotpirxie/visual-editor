@@ -1,0 +1,33 @@
+<section class="b-content-directions section">
+  <div class="container b-inner">
+    <div class="b-map" aria-hidden="true">
+      <div class="b-marker">
+        <span class="b-pin">{{svgIcon "map-pin"}}</span>
+        {{#if pinLabel}}<span class="b-pin-label" data-field="pinLabel">{{pinLabel}}</span>{{/if}}
+      </div>
+    </div>
+    <div class="stack b-copy">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if address}}<address class="b-address" data-field="address">{{nl2br address}}</address>{{/if}}
+      </header>
+      <ul class="b-modes" role="list">
+        {{#each modes}}
+        <li class="b-mode" data-field="modes.{{@index}}">
+          <span class="icon b-icon">{{svgIcon icon}}</span>
+          <div class="b-mode-copy">
+            <h3 class="b-mode-title">{{mode}}</h3>
+            <p class="b-mode-text">{{text}}</p>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+      {{#if showButton}}
+      <div class="cluster">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,95 @@
+@layer components {
+  @scope (.b-stats-map) {
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-layout {
+      display: grid;
+      gap: var(--space-8);
+      margin-block-start: var(--space-8);
+      counter-reset: pin;
+    }
+
+    .b-map {
+      position: relative;
+      aspect-ratio: 2;
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+      counter-reset: pin;
+    }
+
+    .b-map::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(var(--color-text-muted) 35%, transparent 40%) 0 0 / 2% 4%;
+      opacity: 0.5;
+      mask:
+        radial-gradient(14% 19% at 23% 28%, black 98%, transparent),
+        radial-gradient(7% 17% at 33% 62%, black 98%, transparent),
+        radial-gradient(7% 9% at 53% 22%, black 98%, transparent),
+        radial-gradient(9% 18% at 55% 50%, black 98%, transparent),
+        radial-gradient(18% 17% at 75% 28%, black 98%, transparent),
+        radial-gradient(7% 7% at 87% 66%, black 98%, transparent);
+    }
+
+    .b-pin::before,
+    .b-region::before {
+      content: counter(pin);
+    }
+
+    .b-pin,
+    .b-region::before {
+      display: grid;
+      place-items: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-xs);
+      counter-increment: pin;
+    }
+
+    .b-pin {
+      position: absolute;
+      left: calc(var(--x) * 1%);
+      top: calc(var(--y) * 1%);
+      outline: 0.3rem solid color-mix(in oklab, var(--color-primary) 25%, transparent);
+      translate: -50% -50%;
+    }
+
+    .b-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+      align-items: start;
+      gap: var(--space-6);
+    }
+
+    .b-region {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 0 var(--space-3);
+    }
+
+    .b-region::before {
+      grid-row: span 2;
+    }
+
+    .b-value {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-heading);
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        align-items: center;
+        gap: var(--space-12);
+      }
+    }
+  }
+}

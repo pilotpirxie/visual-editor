@@ -1,0 +1,91 @@
+{
+  "name": "HTTP code, 404 with image",
+  "category": "http-codes",
+  "description": "A large 404, a message and buttons beside an image. Name the page 404 so it exports as 404.html.",
+  "tags": ["404", "not found", "error", "missing", "page", "image", "split"],
+  "fieldGroups": ["Content", "Buttons", "Image"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Code",
+      "type": "text",
+      "default": "404",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Nobody here but us empty chairs",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We looked everywhere for this page. It may have moved, or the link may have a typo. Let’s get you back to the conversation.",
+      "group": "Content"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Go to the home page",
+        "link": {
+          "type": "url",
+          "url": "index.html",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondaryButton",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Visit the help center",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondaryButton",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "An empty interview room with two chairs facing each other and a small microphone on the table",
+        "decorative": false,
+        "width": 1200,
+        "height": 900,
+        "placeholder": {
+          "ratio": "4:3",
+          "subject": "photo"
+        }
+      },
+      "group": "Image"
+    }
+  ]
+}

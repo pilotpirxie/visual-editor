@@ -1,0 +1,151 @@
+{
+  "name": "Logo cloud, dark band",
+  "category": "logo-clouds",
+  "description": "A dark strip with a big number and short line beside a row of grayscale logos.",
+  "tags": ["logos", "customers", "trusted by", "dark", "band", "social proof"],
+  "fieldGroups": ["Heading", "Logos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "value",
+      "label": "Number",
+      "type": "text",
+      "default": "2,400+",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Text",
+      "type": "text",
+      "default": "research teams run their studies on Fieldnote",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "logos",
+      "label": "Logos",
+      "type": "list",
+      "group": "Logos",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "company",
+      "itemFields": [
+        {
+          "name": "company",
+          "label": "Company",
+          "type": "text",
+          "default": "Company"
+        },
+        {
+          "name": "image",
+          "label": "Logo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Company logo",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "company": "Lumen Health",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Lumen Health",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Northwind",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Northwind",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Ledgerly",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ledgerly",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Brightpath",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Brightpath",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Copperline",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Copperline",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Orbit Labs",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Orbit Labs",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

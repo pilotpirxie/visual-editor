@@ -1,0 +1,77 @@
+{
+  "name": "FAQ, boxed accordion",
+  "category": "faq",
+  "description": "Questions in rounded boxes that open one at a time with a plus and minus button.",
+  "tags": ["faq", "questions", "accordion", "boxes", "plus", "pricing"],
+  "fieldGroups": ["Heading", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Pricing FAQ",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Questions about plans and billing",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Fourteen days, every feature, no credit card. Here is how the rest works.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "default": [
+        {
+          "question": "How does the free trial work?",
+          "answer": "<p>You get every feature for 14 days and up to ten interviews. No credit card, and nothing is deleted when the trial ends.</p>"
+        },
+        {
+          "question": "Do you charge for every seat?",
+          "answer": "<p>Only for people who run interviews. Teammates who watch highlights and leave comments are free on every plan.</p>"
+        },
+        {
+          "question": "Can we change plans later?",
+          "answer": "<p>Upgrade or downgrade whenever you like. We prorate the difference on your next invoice.</p>"
+        },
+        {
+          "question": "Do you offer discounts for nonprofits and schools?",
+          "answer": "<p>Yes, 40% off any plan for registered nonprofits, schools and universities. Write to us from your organization’s email.</p>"
+        },
+        {
+          "question": "Which payment methods do you accept?",
+          "answer": "<p>All major credit cards, and invoices paid by bank transfer on annual plans.</p>"
+        }
+      ],
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 20,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "A question?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "richtext",
+          "default": "<p>The answer.</p>"
+        }
+      ]
+    }
+  ]
+}

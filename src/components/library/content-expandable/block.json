@@ -1,0 +1,63 @@
+{
+  "name": "Content, read more",
+  "category": "content",
+  "description": "A short intro that fades out, with a button that expands the rest of the story without JavaScript.",
+  "tags": ["read more", "expand", "story", "about", "details", "collapsible", "long-form"],
+  "fieldGroups": ["Heading", "Story"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our story",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How a sigh changed our roadmap",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "meta",
+      "label": "Reading time",
+      "type": "text",
+      "default": "4 minute read",
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "richtext",
+      "default": "<p>In 2019 we were three researchers at a Toronto agency, writing reports that ran to forty pages. Clients thanked us, filed them and moved on.</p><p>Then a client watched a fifteen-second clip of a customer sighing at their checkout page. They rebuilt the page that month. We started Fieldnote the month after.</p>",
+      "group": "Story"
+    },
+    {
+      "name": "moreLabel",
+      "label": "Expand label",
+      "type": "text",
+      "default": "Read the full story",
+      "group": "Story",
+      "required": true
+    },
+    {
+      "name": "lessLabel",
+      "label": "Collapse label",
+      "type": "text",
+      "default": "Show less",
+      "group": "Story",
+      "required": true
+    },
+    {
+      "name": "more",
+      "label": "Rest of the story",
+      "type": "richtext",
+      "default": "<p>The first version was a spreadsheet of timestamps and a shared folder of video. It was clumsy, but teams used it every week, which was more than anyone had done with our reports.</p><p>We spent the next year turning that habit into a product: recordings that transcribe themselves, tags that work across studies, and clips anyone can play without an account.</p><p>Today more than twelve hundred teams use Fieldnote. The idea has not changed. Keep the customer’s own words, keep them short, and put them where decisions are made.</p>",
+      "group": "Story"
+    }
+  ]
+}

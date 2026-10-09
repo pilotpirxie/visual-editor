@@ -1,0 +1,54 @@
+@layer components {
+  @scope (.b-content-founder) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      max-width: 64rem;
+    }
+
+    .b-photo {
+      width: min(60%, 14rem);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-letter {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-body {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-signature {
+      margin-block-start: var(--space-4);
+      padding-block-start: var(--space-4);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-name {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-style: italic;
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-12);
+        align-items: start;
+      }
+
+      .b-photo {
+        width: 100%;
+        position: sticky;
+        top: var(--space-12);
+      }
+    }
+  }
+}

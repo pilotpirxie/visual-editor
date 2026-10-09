@@ -1,0 +1,39 @@
+<section class="b-team-advisors section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-groups">
+      <div class="stack b-group">
+        <h3 class="b-label" data-field="advisorsTitle">{{advisorsTitle}}</h3>
+        <ul class="b-advisors" role="list">
+          {{#each advisors}}
+          <li class="b-advisor" data-field="advisors.{{@index}}">
+            <div class="media b-photo">{{img photo}}</div>
+            <div>
+              <p class="b-name">{{name}}</p>
+              {{#if role}}<p class="b-role">{{role}}</p>{{/if}}
+              {{#if previously}}<p class="b-small">{{previously}}</p>{{/if}}
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="stack b-group b-ledger">
+        <h3 class="b-label" data-field="investorsTitle">{{investorsTitle}}</h3>
+        <ul class="b-investors" role="list">
+          {{#each investors}}
+          <li class="b-investor" data-field="investors.{{@index}}">
+            <span class="b-firm">{{name}}</span>
+            <span class="b-leader" aria-hidden="true"></span>
+            <span class="b-small">{{round}}</span>
+          </li>
+          {{/each}}
+        </ul>
+        {{#if note}}<p class="b-small" data-field="note">{{note}}</p>{{/if}}
+      </div>
+    </div>
+  </div>
+</section>

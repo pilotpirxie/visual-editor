@@ -1,0 +1,113 @@
+{
+  "name": "HTTP code, 404 with helpful links",
+  "category": "http-codes",
+  "description": "A “page not found” message with cards linking to the pages people most likely wanted. Name the page 404 so it exports as 404.html.",
+  "tags": ["404", "not found", "error", "missing", "page", "links", "help"],
+  "fieldGroups": ["Content", "Links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Code",
+      "type": "text",
+      "default": "404 · Page not found",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "This page took a different path",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "The link may be broken, or the page may have moved. One of these is a good place to pick things up again.",
+      "group": "Content"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "arrow-right"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Page name"
+        },
+        {
+          "name": "text",
+          "label": "Description",
+          "type": "text",
+          "default": "What people find there."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "house",
+          "title": "Home page",
+          "text": "See what Fieldnote does in two minutes.",
+          "link": {
+            "type": "url",
+            "url": "index.html",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "play",
+          "title": "Product tour",
+          "text": "Watch an interview go from call to highlight reel.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "support",
+          "title": "Help center",
+          "text": "Guides for recording, tagging and sharing.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "mail",
+          "title": "Contact support",
+          "text": "Tell us what you were looking for.",
+          "link": {
+            "type": "email",
+            "url": "support@fieldnote.app",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

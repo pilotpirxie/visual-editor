@@ -1,0 +1,75 @@
+@layer components {
+  @scope (.b-cta-quote) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-text {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      margin-block-start: var(--space-2);
+    }
+
+    .b-quote {
+      --card-padding: var(--space-8) var(--space-6);
+      --stack-gap: var(--space-6);
+      background: var(--color-surface);
+    }
+
+    .b-mark {
+      --icon-size: 2rem;
+      color: var(--color-primary);
+    }
+
+    .b-quote blockquote {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3.5rem;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-quote {
+        --card-padding: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

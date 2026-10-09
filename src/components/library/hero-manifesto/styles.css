@@ -1,0 +1,82 @@
+@layer components {
+  @scope (.b-hero-manifesto) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      background:
+        radial-gradient(
+          60% 50% at 0 0,
+          color-mix(in oklab, var(--color-primary) 18%, transparent),
+          transparent
+        ),
+        var(--color-background);
+    }
+
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    h1 {
+      font-size: var(--text-5xl);
+      letter-spacing: -0.02em;
+    }
+
+    .b-lead {
+      max-width: 32rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-principles {
+      counter-reset: principle;
+    }
+
+    .b-principle {
+      display: grid;
+      grid-template-columns: 3.5rem 1fr;
+      gap: var(--space-1) var(--space-4);
+      padding-block: var(--space-6);
+      border-top: var(--border-width) solid var(--color-border);
+      color: var(--color-text-muted);
+    }
+
+    .b-principle::before {
+      content: counter(principle, decimal-leading-zero);
+      counter-increment: principle;
+      grid-row: span 2;
+      color: var(--color-primary);
+      font-family: var(--font-mono);
+      font-size: var(--text-2xl);
+      line-height: 1;
+    }
+
+    .b-name {
+      color: var(--color-text);
+      font-size: var(--text-xl);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+
+      .b-copy {
+        position: sticky;
+        top: var(--space-8);
+        align-self: start;
+      }
+    }
+  }
+}

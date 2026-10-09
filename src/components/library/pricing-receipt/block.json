@@ -1,0 +1,118 @@
+{
+  "name": "Pricing, receipt",
+  "category": "pricing",
+  "description": "A torn-paper receipt that itemizes exactly what a plan costs, beside a short pitch.",
+  "tags": ["pricing", "receipt", "invoice", "breakdown", "transparent", "total"],
+  "fieldGroups": ["Heading", "Receipt", "Lines"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Pricing",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "No surprises on the bill. Ever.",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Here is what a five-person research team pays for a year of Fieldnote, line by line.",
+      "group": "Heading"
+    },
+    {
+      "name": "details",
+      "label": "Details",
+      "type": "richtext",
+      "default": "<ul><li>No setup or onboarding fees</li><li>Taxes shown before you pay</li><li>Full refund within 30 days</li></ul>",
+      "group": "Heading"
+    },
+    {
+      "name": "receiptTitle",
+      "label": "Receipt title",
+      "type": "text",
+      "default": "Fieldnote Team",
+      "required": true,
+      "group": "Receipt"
+    },
+    {
+      "name": "receiptMeta",
+      "label": "Receipt details",
+      "type": "text",
+      "default": "5 editors · billed yearly",
+      "group": "Receipt"
+    },
+    {
+      "name": "totalLabel",
+      "label": "Total label",
+      "type": "text",
+      "default": "Total a year",
+      "required": true,
+      "group": "Receipt"
+    },
+    {
+      "name": "total",
+      "label": "Total",
+      "type": "text",
+      "default": "$1,380",
+      "required": true,
+      "group": "Receipt"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "textarea",
+      "default": "That is $23 per editor, per month. Prices in CAD before tax.",
+      "group": "Receipt"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "group": "Receipt",
+      "default": {
+        "label": "Start a free trial",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "primary"
+      }
+    },
+    {
+      "name": "lines",
+      "label": "Lines",
+      "type": "list",
+      "group": "Lines",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Item",
+          "type": "text",
+          "default": "Item"
+        },
+        {
+          "name": "amount",
+          "label": "Amount",
+          "type": "text",
+          "default": "$0"
+        }
+      ],
+      "default": [
+        { "label": "5 editors × 12 months", "amount": "$1,740" },
+        { "label": "Unlimited viewers", "amount": "$0" },
+        { "label": "Transcription, 30 languages", "amount": "$0" },
+        { "label": "Onboarding call", "amount": "$0" },
+        { "label": "Yearly discount, 20%", "amount": "−$360" }
+      ]
+    }
+  ]
+}

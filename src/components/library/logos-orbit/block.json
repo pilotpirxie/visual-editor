@@ -1,0 +1,158 @@
+{
+  "name": "Logo cloud, circle",
+  "category": "logo-clouds",
+  "description": "Logos arranged in a ring around a central number and statement; a simple grid on phones.",
+  "tags": ["logos", "customers", "circle", "orbit", "ring", "integrations"],
+  "fieldGroups": ["Heading", "Logos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "value",
+      "label": "Number",
+      "type": "text",
+      "default": "2,400",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "teams hear their customers here",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Product, design and research teams across 40 countries.",
+      "group": "Heading"
+    },
+    {
+      "name": "logos",
+      "label": "Logos",
+      "type": "list",
+      "group": "Logos",
+      "minItems": 3,
+      "maxItems": 8,
+      "itemLabel": "company",
+      "itemFields": [
+        {
+          "name": "company",
+          "label": "Company",
+          "type": "text",
+          "default": "Company"
+        },
+        {
+          "name": "image",
+          "label": "Logo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Company logo",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "company": "Lumen Health",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Lumen Health",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Northwind",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Northwind",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Ledgerly",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ledgerly",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Brightpath",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Brightpath",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Copperline",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Copperline",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "company": "Orbit Labs",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Orbit Labs",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

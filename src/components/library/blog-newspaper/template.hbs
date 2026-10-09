@@ -1,0 +1,28 @@
+<section class="b-blog-newspaper section">
+  <div class="container">
+    <header>
+      <h2 class="b-name" data-field="title">{{title}}</h2>
+      <p class="b-dateline">
+        {{#if edition}}<span data-field="edition">{{edition}}</span>{{/if}}
+        {{#if issueDate}}<time datetime="{{issueDate}}" data-field="issueDate">{{formatDate issueDate}}</time>{{/if}}
+        {{#if tagline}}<span data-field="tagline">{{tagline}}</span>{{/if}}
+      </p>
+    </header>
+    <div class="b-page">
+      <article class="stack b-story b-lead">
+        <div class="media" style="--media-ratio: {{leadImage.width}} / {{leadImage.height}}" data-field="leadImage">{{img leadImage}}</div>
+        {{#if leadKicker}}<p class="b-kicker" data-field="leadKicker">{{leadKicker}}</p>{{/if}}
+        <h3 class="b-lead-title" data-field="leadTitle"><a class="b-link" href="{{href leadLink}}" {{linkAttrs leadLink}}>{{leadTitle}}</a></h3>
+        {{#if leadText}}<p class="b-lead-text" data-field="leadText">{{nl2br leadText}}</p>{{/if}}
+        {{#if leadByline}}<p class="b-muted" data-field="leadByline">{{leadByline}}</p>{{/if}}
+      </article>
+      {{#each stories}}
+      <article class="stack b-story" data-field="stories.{{@index}}">
+        {{#if kicker}}<p class="b-kicker">{{kicker}}</p>{{/if}}
+        <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+        {{#if excerpt}}<p class="b-muted">{{nl2br excerpt}}</p>{{/if}}
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

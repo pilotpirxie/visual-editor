@@ -1,0 +1,21 @@
+<section class="b-cta-email section">
+  <div class="container stack b-inner">
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h2 data-field="title">{{title}}</h2>
+    {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <div class="field b-field">
+        <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+        <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+      </div>
+      <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+    </form>
+    {{#if perks.length}}
+    <ul class="cluster b-perks" role="list">
+      {{#each perks}}
+      <li data-field="perks.{{@index}}">{{svgIcon "check"}}<span>{{text}}</span></li>
+      {{/each}}
+    </ul>
+    {{/if}}
+  </div>
+</section>

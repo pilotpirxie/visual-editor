@@ -1,0 +1,101 @@
+@layer components {
+  @scope (.b-richtext-summary) {
+    .b-article {
+      --stack-gap: var(--space-8);
+      max-width: 44rem;
+      margin-inline: auto;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-title {
+      font-size: var(--text-4xl);
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .b-meta {
+      --cluster-gap: var(--space-2) var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-author {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text);
+    }
+
+    .b-summary {
+      --stack-gap: var(--space-4);
+      padding: var(--space-6);
+      border: var(--border-width) solid
+        color-mix(in oklab, var(--color-primary) 30%, var(--color-border));
+      border-radius: var(--card-radius);
+      background: color-mix(in oklab, var(--color-primary) 7%, var(--color-background));
+    }
+
+    .b-summary-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2) var(--space-3);
+      font-size: var(--text-sm);
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      color: var(--color-primary);
+    }
+
+    .b-summary-title {
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .b-time {
+      margin-inline-start: auto;
+      color: var(--color-text-muted);
+    }
+
+    .b-points {
+      display: grid;
+      gap: var(--space-3);
+      counter-reset: point;
+    }
+
+    .b-point {
+      display: grid;
+      grid-template-columns: 1.75rem minmax(0, 1fr);
+      gap: var(--space-3);
+      counter-increment: point;
+    }
+
+    .b-point::before {
+      content: counter(point);
+      display: grid;
+      place-items: center;
+      block-size: 1.75rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-body {
+      --prose-measure: none;
+      --prose-gap: var(--space-6);
+      --prose-marker-color: var(--color-primary);
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 768px) {
+      .b-summary {
+        padding: var(--space-8);
+      }
+    }
+  }
+}

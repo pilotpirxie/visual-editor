@@ -1,0 +1,28 @@
+<section class="b-blog-numbered section">
+  <div class="container stack b-inner">
+    <div class="b-head">
+      <header class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </div>
+    <ol class="b-list" role="list">
+      {{#each posts}}
+      <li class="b-post" data-field="posts.{{@index}}">
+        <span class="b-number" aria-hidden="true"></span>
+        <div class="stack b-body">
+          {{#if (or category readingTime)}}
+          <p class="b-meta">
+            {{#if category}}<span class="b-category">{{category}}</span>{{/if}}
+            {{#if readingTime}}<span>{{readingTime}}</span>{{/if}}
+          </p>
+          {{/if}}
+          <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          {{#if excerpt}}<p class="b-excerpt">{{nl2br excerpt}}</p>{{/if}}
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

@@ -1,0 +1,199 @@
+{
+  "name": "Footer, back to top",
+  "category": "footers",
+  "description": "A round back-to-top button on a rule, then a centered logo, links, social icons and the legal line.",
+  "tags": ["footer", "back to top", "scroll up", "centered", "links", "social"],
+  "fieldGroups": ["Back to top", "Brand", "Links", "Social", "Legal"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "topLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Back to top",
+      "group": "Back to top",
+      "required": true,
+      "maxLength": 24
+    },
+    {
+      "name": "topLink",
+      "label": "Button link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Back to top",
+      "help": "Points to the top of the page. Pick a section to jump somewhere else."
+    },
+    {
+      "name": "tagline",
+      "label": "Tagline",
+      "type": "textarea",
+      "default": "Customer interviews, clips and insights for product teams. Made in Toronto.",
+      "group": "Brand"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Product",
+          "link": {
+            "type": "section",
+            "anchor": "features",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Pricing",
+          "link": {
+            "type": "section",
+            "anchor": "pricing",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Customers",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Journal",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Careers",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Help",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "socials",
+      "label": "Social links",
+      "type": "list",
+      "group": "Social",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "Social network"
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "globe",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "LinkedIn",
+          "icon": "simple-icons:linkedin",
+          "link": {
+            "type": "url",
+            "url": "https://www.linkedin.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Instagram",
+          "icon": "simple-icons:instagram",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "YouTube",
+          "icon": "simple-icons:youtube",
+          "link": {
+            "type": "url",
+            "url": "https://www.youtube.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "GitHub",
+          "icon": "simple-icons:github",
+          "link": {
+            "type": "url",
+            "url": "https://github.com",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Inc. All rights reserved.",
+      "group": "Legal"
+    }
+  ]
+}

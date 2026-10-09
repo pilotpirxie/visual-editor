@@ -1,0 +1,133 @@
+{
+  "name": "Navigation, with status",
+  "category": "navigations",
+  "description": "Site name and links with a live status pill that links to your status page, plus a button; a menu button below 1024 px.",
+  "tags": ["menu", "navbar", "header", "status", "uptime", "saas", "developer", "pill"],
+  "fieldGroups": ["Links", "Status", "Button", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Product",
+          "link": {
+            "type": "section",
+            "anchor": "features",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Docs",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "API",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Pricing",
+          "link": {
+            "type": "section",
+            "anchor": "pricing",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "statusLabel",
+      "label": "Status",
+      "type": "text",
+      "default": "All systems normal",
+      "required": true,
+      "maxLength": 40,
+      "group": "Status"
+    },
+    {
+      "name": "statusMeta",
+      "label": "Detail",
+      "type": "text",
+      "default": "99.98% uptime",
+      "maxLength": 24,
+      "help": "A short figure shown after the status, such as uptime or a version number.",
+      "group": "Status"
+    },
+    {
+      "name": "statusLink",
+      "label": "Status page link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "https://status.fieldnote.app",
+        "newTab": true
+      },
+      "group": "Status"
+    },
+    {
+      "name": "showCta",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showCta",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

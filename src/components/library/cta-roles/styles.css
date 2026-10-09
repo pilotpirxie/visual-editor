@@ -1,0 +1,89 @@
+@layer components {
+  @scope (.b-cta-roles) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-lead {
+      margin-block-end: calc(var(--space-4) * -1);
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-style: italic;
+      color: var(--color-text-muted);
+    }
+
+    .b-roles {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-3);
+      max-width: 60rem;
+    }
+
+    .b-role {
+      --icon-size: 1.25em;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: 3.5rem;
+      padding: var(--space-3) var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-text);
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+      transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    li:nth-child(3n + 1) .b-role {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    li:nth-child(3n + 2) .b-role {
+      background: var(--color-surface);
+    }
+
+    .b-role .icon:last-child {
+      opacity: 0.5;
+    }
+
+    .b-role:hover {
+      border-color: var(--color-text);
+      background: var(--color-text);
+      color: var(--color-background);
+    }
+
+    .b-role:hover .icon:last-child {
+      opacity: 1;
+    }
+
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-note a {
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-role {
+        font-size: var(--text-2xl);
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<section class="b-http-404-search section">
+  <div class="container stack b-inner">
+    <p class="b-code" aria-hidden="true"><span>4</span><span class="b-lens">{{svgIcon "search"}}</span><span>4</span></p>
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h1 data-field="title">{{title}}</h1>
+    {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    <form class="b-search" role="search" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <label class="visually-hidden" for="{{block.id}}-query" data-field="searchLabel">{{searchLabel}}</label>
+      {{svgIcon "search"}}
+      <input id="{{block.id}}-query" type="search" name="q" placeholder="{{searchPlaceholder}}">
+      <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+    </form>
+    {{#if links.length}}
+    <nav class="b-popular" aria-labelledby="{{block.id}}-popular">
+      <p id="{{block.id}}-popular" data-field="linksTitle">{{linksTitle}}</p>
+      <ul class="cluster" role="list">
+        {{#each links}}
+        <li data-field="links.{{@index}}"><a class="b-chip" href="{{href link}}" {{linkAttrs link}}>{{label}}</a></li>
+        {{/each}}
+      </ul>
+    </nav>
+    {{/if}}
+  </div>
+</section>

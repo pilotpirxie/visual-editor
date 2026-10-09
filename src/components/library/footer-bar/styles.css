@@ -1,0 +1,47 @@
+@layer components {
+  @scope (.b-footer-bar) {
+    :scope {
+      --section-padding-y: var(--space-4);
+      border-top: var(--border-width) solid var(--color-border);
+      font-size: var(--text-sm);
+    }
+
+    .b-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0 var(--space-6);
+    }
+
+    .b-copyright {
+      padding-block: var(--space-2);
+      color: var(--color-text-muted);
+    }
+
+    .b-logo {
+      overflow-wrap: anywhere;
+      margin-inline-end: var(--space-2);
+      font-family: var(--font-heading);
+      font-weight: var(--font-weight-heading);
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .b-links {
+      --cluster-gap: 0 var(--space-4);
+    }
+
+    .b-links a {
+      display: inline-block;
+      padding-block: var(--space-2);
+      color: var(--color-text-muted);
+      text-decoration: none;
+    }
+
+    .b-links a:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+  }
+}

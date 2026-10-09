@@ -1,0 +1,172 @@
+{
+  "name": "Careers, salary bands",
+  "category": "careers",
+  "description": "Pay ranges for each level drawn as bars on a shared scale, with the numbers beside them.",
+  "tags": ["careers", "salary", "pay", "compensation", "levels", "transparency", "chart"],
+  "fieldGroups": ["Heading", "Scale", "Levels", "Note"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Pay transparency",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Every salary band, in public",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Engineering bands for 2026. Everyone at the same level is paid inside the same range, whether they negotiated or not.",
+      "group": "Heading"
+    },
+    {
+      "name": "scaleMin",
+      "label": "Scale start",
+      "type": "number",
+      "default": 80,
+      "min": 0,
+      "max": 10000000,
+      "help": "Use the same unit as the level numbers, for example thousands.",
+      "group": "Scale"
+    },
+    {
+      "name": "scaleMax",
+      "label": "Scale end",
+      "type": "number",
+      "default": 250,
+      "min": 1,
+      "max": 10000000,
+      "group": "Scale"
+    },
+    {
+      "name": "scaleMinLabel",
+      "label": "Scale start label",
+      "type": "text",
+      "default": "$80k",
+      "group": "Scale"
+    },
+    {
+      "name": "scaleMaxLabel",
+      "label": "Scale end label",
+      "type": "text",
+      "default": "$250k",
+      "group": "Scale"
+    },
+    {
+      "name": "levels",
+      "label": "Levels",
+      "type": "list",
+      "group": "Levels",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "level",
+          "label": "Level",
+          "type": "text",
+          "default": "L1"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "min",
+          "label": "Lowest pay",
+          "type": "number",
+          "default": 100,
+          "min": 0,
+          "max": 10000000
+        },
+        {
+          "name": "max",
+          "label": "Highest pay",
+          "type": "number",
+          "default": 130,
+          "min": 0,
+          "max": 10000000
+        },
+        {
+          "name": "minLabel",
+          "label": "Lowest pay label",
+          "type": "text",
+          "default": "$100k"
+        },
+        {
+          "name": "maxLabel",
+          "label": "Highest pay label",
+          "type": "text",
+          "default": "$130k"
+        }
+      ],
+      "default": [
+        {
+          "level": "L1",
+          "title": "Associate engineer",
+          "min": 85,
+          "max": 105,
+          "minLabel": "$85k",
+          "maxLabel": "$105k"
+        },
+        {
+          "level": "L2",
+          "title": "Software engineer",
+          "min": 100,
+          "max": 135,
+          "minLabel": "$100k",
+          "maxLabel": "$135k"
+        },
+        {
+          "level": "L3",
+          "title": "Senior engineer",
+          "min": 130,
+          "max": 170,
+          "minLabel": "$130k",
+          "maxLabel": "$170k"
+        },
+        {
+          "level": "L4",
+          "title": "Staff engineer",
+          "min": 165,
+          "max": 205,
+          "minLabel": "$165k",
+          "maxLabel": "$205k"
+        },
+        {
+          "level": "L5",
+          "title": "Principal engineer",
+          "min": 200,
+          "max": 240,
+          "minLabel": "$200k",
+          "maxLabel": "$240k"
+        }
+      ]
+    },
+    {
+      "name": "noteIcon",
+      "label": "Note icon",
+      "type": "icon",
+      "default": "info",
+      "group": "Note"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Base salary in Canadian dollars. The same band applies anywhere in Canada, and every role includes equity.",
+      "group": "Note"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+<footer class="b-footer-cta section">
+  <div class="container stack b-inner">
+    <div class="b-panel">
+      <div class="stack b-copy">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      </div>
+      <div class="cluster b-actions">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        {{#if showSecondaryButton}}<a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>{{/if}}
+      </div>
+    </div>
+    <div class="b-bottom">
+      <a class="b-logo" href="index.html">{{site.title}}</a>
+      <nav aria-label="Footer">
+        <ul class="cluster b-links" role="list">
+          {{#each links}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+          {{/each}}
+        </ul>
+      </nav>
+      <p class="b-muted" data-field="copyright">{{copyright}}</p>
+    </div>
+  </div>
+</footer>

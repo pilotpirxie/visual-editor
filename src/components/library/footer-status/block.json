@@ -1,0 +1,203 @@
+{
+  "name": "Footer, with system status",
+  "category": "footers",
+  "description": "Link columns over a status bar with a live-status pill, the current version and where data is hosted.",
+  "tags": ["footer", "status", "uptime", "version", "saas", "developer", "links", "columns"],
+  "fieldGroups": ["Brand", "Columns", "Status bar", "Legal"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "tagline",
+      "label": "Tagline",
+      "type": "textarea",
+      "default": "The research repository for product teams. SOC 2 Type II audited.",
+      "group": "Brand"
+    },
+    {
+      "name": "columns",
+      "label": "Link columns",
+      "type": "list",
+      "group": "Columns",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Column title",
+          "type": "text",
+          "default": "Column"
+        },
+        {
+          "name": "links",
+          "label": "Links",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 8,
+          "itemLabel": "label",
+          "itemFields": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "text",
+              "default": "Link"
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link",
+              "default": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ],
+          "default": []
+        }
+      ],
+      "default": [
+        {
+          "title": "Product",
+          "links": [
+            {
+              "label": "Features",
+              "link": {
+                "type": "section",
+                "anchor": "features",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Pricing",
+              "link": {
+                "type": "section",
+                "anchor": "pricing",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Changelog",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Roadmap",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "Developers",
+          "links": [
+            {
+              "label": "API reference",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Webhooks",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "SDKs",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "Trust",
+          "links": [
+            {
+              "label": "Security",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Privacy",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Subprocessors",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "statusLabel",
+      "label": "Status label",
+      "type": "text",
+      "default": "All systems normal",
+      "group": "Status bar",
+      "help": "Leave empty to hide the status pill."
+    },
+    {
+      "name": "statusLink",
+      "label": "Status page link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "https://status.fieldnote.example",
+        "newTab": true
+      },
+      "group": "Status bar"
+    },
+    {
+      "name": "version",
+      "label": "Version",
+      "type": "text",
+      "default": "v4.12.0",
+      "group": "Status bar"
+    },
+    {
+      "name": "region",
+      "label": "Data region",
+      "type": "text",
+      "default": "Data hosted in Canada",
+      "group": "Status bar"
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Inc.",
+      "group": "Legal"
+    }
+  ]
+}

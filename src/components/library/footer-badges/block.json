@@ -1,0 +1,285 @@
+{
+  "name": "Footer, trust badges",
+  "category": "footers",
+  "description": "Link columns with a row of security and compliance badges and a legal bar.",
+  "tags": ["footer", "trust", "security", "compliance", "badges", "certifications", "gdpr"],
+  "fieldGroups": ["Brand", "Columns", "Badges", "Legal"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "tagline",
+      "label": "Tagline",
+      "type": "textarea",
+      "default": "Interviews hold your customers’ words. We protect them like it.",
+      "group": "Brand"
+    },
+    {
+      "name": "columns",
+      "label": "Link columns",
+      "type": "list",
+      "group": "Columns",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Column title",
+          "type": "text",
+          "default": "Column"
+        },
+        {
+          "name": "links",
+          "label": "Links",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 8,
+          "itemLabel": "label",
+          "itemFields": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "text",
+              "default": "Link"
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link",
+              "default": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ],
+          "default": []
+        }
+      ],
+      "default": [
+        {
+          "title": "Product",
+          "links": [
+            {
+              "label": "Features",
+              "link": {
+                "type": "section",
+                "anchor": "features",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Pricing",
+              "link": {
+                "type": "section",
+                "anchor": "pricing",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Integrations",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Changelog",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "Trust",
+          "links": [
+            {
+              "label": "Security",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Data residency",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Subprocessors",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Status",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "Company",
+          "links": [
+            {
+              "label": "About",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Careers",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Press",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "email",
+                "url": "hello@fieldnote.example",
+                "newTab": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "badges",
+      "label": "Badges",
+      "type": "list",
+      "group": "Badges",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "shield"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Certification"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "icon": "shield",
+          "title": "SOC 2 Type II",
+          "text": "Audited every year"
+        },
+        {
+          "icon": "lock",
+          "title": "GDPR ready",
+          "text": "EU data stays in the EU"
+        },
+        {
+          "icon": "award",
+          "title": "ISO 27001",
+          "text": "Certified since 2025"
+        },
+        {
+          "icon": "check-circle",
+          "title": "WCAG 2.2 AA",
+          "text": "Accessible by design"
+        }
+      ]
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Inc. All rights reserved.",
+      "group": "Legal"
+    },
+    {
+      "name": "legalLinks",
+      "label": "Legal links",
+      "type": "list",
+      "group": "Legal",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Privacy",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Terms",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "DPA",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

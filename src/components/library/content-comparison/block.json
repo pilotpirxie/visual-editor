@@ -1,0 +1,108 @@
+{
+  "name": "Content, before and after",
+  "category": "content",
+  "description": "Two columns that compare how work goes without your product and with it.",
+  "tags": ["comparison", "before", "after", "versus", "problem", "solution"],
+  "fieldGroups": ["Heading", "Before", "After"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The difference",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Research that used to take a month now takes a week",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "What changes when interviews stop living in scattered recordings and start living in one place.",
+      "group": "Heading"
+    },
+    {
+      "name": "beforeTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "Without Fieldnote",
+      "group": "Before"
+    },
+    {
+      "name": "beforeItems",
+      "label": "Points",
+      "type": "list",
+      "group": "Before",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "A pain point"
+        }
+      ],
+      "default": [
+        {
+          "text": "Recordings spread across drives, inboxes and laptops"
+        },
+        {
+          "text": "Hours spent rewinding to find one quote"
+        },
+        {
+          "text": "Insights retold from memory in planning meetings"
+        },
+        {
+          "text": "Research reports nobody outside the team reads"
+        }
+      ]
+    },
+    {
+      "name": "afterTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "With Fieldnote",
+      "group": "After"
+    },
+    {
+      "name": "afterItems",
+      "label": "Points",
+      "type": "list",
+      "group": "After",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "A benefit"
+        }
+      ],
+      "default": [
+        {
+          "text": "Every interview transcribed and searchable in one place"
+        },
+        {
+          "text": "Quotes linked to the exact second they were said"
+        },
+        {
+          "text": "Decisions backed by clips anyone can play"
+        },
+        {
+          "text": "Two-minute highlight reels the whole company watches"
+        }
+      ]
+    }
+  ]
+}

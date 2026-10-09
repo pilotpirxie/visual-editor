@@ -1,0 +1,37 @@
+<section class="b-pricing-free section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-layout">
+      <article class="card stack b-free">
+        <h3 class="eyebrow" data-field="freeLabel">{{freeLabel}}</h3>
+        <p class="b-price"><span class="b-amount" data-field="freePrice">{{freePrice}}</span> <span class="b-muted" data-field="freePeriod">{{freePeriod}}</span></p>
+        <ul class="b-checks" role="list">
+          {{#each freeItems}}
+          <li data-field="freeItems.{{@index}}">{{svgIcon "check"}}<span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </article>
+      <div class="stack b-grow">
+        <h3 data-field="growTitle">{{growTitle}}</h3>
+        {{#if growIntro}}<p class="b-muted" data-field="growIntro">{{nl2br growIntro}}</p>{{/if}}
+        <ol class="b-steps" role="list">
+          {{#each growItems}}
+          <li class="b-step" data-field="growItems.{{@index}}">
+            <span class="b-icon">{{svgIcon icon}}</span>
+            <div class="stack b-step-body">
+              <h4>{{title}}</h4>
+              {{#if text}}<p class="b-muted">{{nl2br text}}</p>{{/if}}
+              {{#if price}}<p class="badge">{{price}}</p>{{/if}}
+            </div>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,116 @@
+@layer components {
+  @scope (.b-hero-floating) {
+    .b-wrap {
+      container-type: inline-size;
+    }
+
+    .b-inner {
+      position: relative;
+      z-index: 0;
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-inner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: repeating-radial-gradient(
+        circle,
+        transparent 0 7rem,
+        color-mix(in oklab, var(--color-primary) 14%, transparent) 0 7.07rem
+      );
+      mask: radial-gradient(closest-side, black 40%, transparent);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: center;
+      max-width: 38rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-lead {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+    }
+
+    .b-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+      gap: var(--space-4);
+    }
+
+    .b-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-background);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-icon {
+      display: flex;
+      padding: var(--space-3);
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-card p {
+      display: grid;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .b-card strong {
+      color: var(--color-text);
+      font-size: var(--text-xl);
+    }
+
+    @media (min-width: 1024px) {
+      .b-cards {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @container (min-width: 66rem) {
+      .b-card {
+        position: absolute;
+        width: 14rem;
+        rotate: -4deg;
+      }
+
+      .b-card:nth-child(1) {
+        top: 0;
+        left: 0;
+      }
+
+      .b-card:nth-child(2) {
+        bottom: 0;
+        left: 3%;
+        rotate: 3deg;
+      }
+
+      .b-card:nth-child(3) {
+        top: 10%;
+        right: 0;
+        rotate: 4deg;
+      }
+
+      .b-card:nth-child(4) {
+        right: 3%;
+        bottom: 4%;
+      }
+    }
+  }
+}

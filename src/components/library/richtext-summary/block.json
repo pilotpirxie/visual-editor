@@ -1,0 +1,98 @@
+{
+  "name": "Rich text, with summary",
+  "category": "rich-text",
+  "description": "An article that opens with a numbered key takeaways box before the full text.",
+  "tags": ["article", "summary", "takeaways", "tl;dr", "key points", "blog", "report"],
+  "fieldGroups": ["Heading", "Summary", "Article"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Report",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What 1,200 teams taught us about sharing research",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "author",
+      "label": "Author",
+      "type": "text",
+      "default": "Fieldnote research team",
+      "group": "Heading"
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-09-14",
+      "group": "Heading"
+    },
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "lightbulb",
+      "group": "Summary"
+    },
+    {
+      "name": "summaryTitle",
+      "label": "Summary title",
+      "type": "text",
+      "default": "Key takeaways",
+      "group": "Summary",
+      "required": true
+    },
+    {
+      "name": "readingTime",
+      "label": "Reading time",
+      "type": "text",
+      "default": "8 min read",
+      "group": "Summary"
+    },
+    {
+      "name": "takeaways",
+      "label": "Takeaways",
+      "type": "list",
+      "group": "Summary",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Takeaway",
+          "type": "text",
+          "default": "One short takeaway."
+        }
+      ],
+      "default": [
+        {
+          "text": "Clips under thirty seconds are watched to the end nine times out of ten."
+        },
+        {
+          "text": "Teams that share every week run twice as many interviews."
+        },
+        {
+          "text": "Decisions linked to a clip are revisited far less often."
+        }
+      ]
+    },
+    {
+      "name": "body",
+      "label": "Article",
+      "type": "richtext",
+      "default": "<p>Every research team we meet has the same drawer. It is full of recordings nobody rewatches, transcripts nobody searches and slide decks that summarise a summary. The insight was real when someone heard it. By the time it reached the roadmap, it had been flattened into a bullet point.</p><h2>Keep the customer’s own words</h2><p>The fix is not more reports. It is shorter distances. When a product manager can hear the hesitation in a customer’s voice, the argument is over before it starts. That is why we clip, tag and share the moment itself, not our description of it.</p><ul><li>Clip the 20 seconds that matter, straight from the transcript</li><li>Tag it once, so it shows up wherever the theme comes up again</li><li>Share a link that plays in any browser, no account needed</li></ul><h2>Make it a habit, not a project</h2><p>Teams that get the most out of research do not run bigger studies. They run smaller ones, every week, and they put the highlights where decisions already happen: the planning doc, the sprint review, the Monday channel. Research stops being a deliverable and becomes part of how the team thinks.</p><p>Start with one conversation this week. Tag three moments. Send them to the person who most needs to hear them. That is the whole method.</p>",
+      "group": "Article",
+      "allowHeadings": true
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+@layer components {
+  @scope (.b-http-404-giant) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      container-type: inline-size;
+    }
+
+    .b-code {
+      position: relative;
+      font-family: var(--font-heading);
+      font-size: 42cqi;
+      font-weight: var(--font-weight-heading);
+      line-height: 0.8;
+      letter-spacing: -0.06em;
+      text-align: center;
+    }
+
+    .b-code > span:first-child {
+      background: linear-gradient(
+        160deg,
+        var(--color-primary),
+        color-mix(in oklab, var(--color-primary) 25%, var(--color-background))
+      );
+      background-clip: text;
+      color: transparent;
+    }
+
+    .b-sticker {
+      position: absolute;
+      inset-block-start: 55%;
+      inset-inline-start: 50%;
+      padding: 0.5em 1em;
+      border-radius: var(--radius-sm);
+      background: var(--color-text);
+      color: var(--color-background);
+      box-shadow: var(--shadow-lg);
+      font-family: var(--font-mono);
+      font-size: min(var(--text-sm), 3.5cqi);
+      letter-spacing: 0.1em;
+      line-height: var(--line-height-normal);
+      text-transform: uppercase;
+      white-space: nowrap;
+      translate: -50% -50%;
+      rotate: -6deg;
+    }
+
+    .b-sticker:dir(rtl) {
+      translate: 50% -50%;
+    }
+
+    .b-foot {
+      display: grid;
+      gap: var(--space-6);
+      padding-top: var(--space-8);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-foot {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

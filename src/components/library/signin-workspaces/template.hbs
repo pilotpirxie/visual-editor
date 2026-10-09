@@ -1,0 +1,36 @@
+<section class="b-signin-workspaces section">
+  <div class="container">
+    <div class="card stack b-card">
+      {{#if account}}
+      <p class="b-account" data-field="account">
+        {{svgIcon "user"}}
+        <span class="b-email">{{account}}</span>
+        {{#if switchLabel}}<a href="{{href switchLink}}" {{linkAttrs switchLink}} data-field="switchLink">{{switchLabel}}</a>{{/if}}
+      </p>
+      {{/if}}
+      <header class="stack b-head">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <ul class="b-list" role="list">
+        {{#each workspaces}}
+        <li class="b-row" data-field="workspaces.{{@index}}">
+          <span class="b-avatar" aria-hidden="true">{{initials}}</span>
+          <span class="b-info">
+            <a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{name}}</a>
+            {{#if meta}}<span class="b-muted b-small">{{meta}}</span>{{/if}}
+          </span>
+          <span class="b-arrow" aria-hidden="true">{{svgIcon "chevron-right"}}</span>
+        </li>
+        {{/each}}
+        {{#if createLabel}}
+        <li class="b-row b-create" data-field="createLink">
+          <span class="b-avatar" aria-hidden="true">{{svgIcon "plus"}}</span>
+          <a class="b-link" href="{{href createLink}}" {{linkAttrs createLink}}>{{createLabel}}</a>
+        </li>
+        {{/if}}
+      </ul>
+      {{#if note}}<p class="b-muted b-small b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+  </div>
+</section>

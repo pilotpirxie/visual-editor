@@ -1,0 +1,12 @@
+<section class="b-content-dark-statement section">
+  <div class="container stack b-inner">
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h2 class="b-statement"><span data-field="title">{{title}}</span>{{#if highlight}} <span class="b-highlight" data-field="highlight">{{highlight}}</span>{{/if}}</h2>
+    {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    {{#if showButton}}
+    <div class="cluster">
+      <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    </div>
+    {{/if}}
+  </div>
+</section>

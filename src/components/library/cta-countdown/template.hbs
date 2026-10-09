@@ -1,0 +1,20 @@
+<section class="b-cta-countdown section">
+  <div class="container">
+    <div class="b-panel">
+      <div class="stack b-copy">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      </div>
+      <div class="stack b-timer">
+        <ul class="b-units" role="list">
+          {{#each units}}
+          <li class="b-unit" data-field="units.{{@index}}"><span class="b-value">{{value}}</span> <span class="b-muted">{{label}}</span></li>
+          {{/each}}
+        </ul>
+        {{#if note}}<p class="b-muted b-note" data-field="note">{{note}}</p>{{/if}}
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+    </div>
+  </div>
+</section>

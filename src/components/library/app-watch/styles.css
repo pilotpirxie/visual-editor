@@ -1,0 +1,112 @@
+@layer components {
+  @scope (.b-app-watch) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-stage {
+      display: grid;
+      place-items: center;
+      padding: var(--space-16) var(--space-4);
+      border-radius: var(--radius-lg);
+      background: color-mix(in oklab, var(--color-primary) 10%, var(--color-background));
+      isolation: isolate;
+    }
+
+    .b-watch {
+      position: relative;
+      width: 11rem;
+      padding: var(--space-3);
+      border-radius: 2.75rem;
+      background: var(--theme-dark-surface);
+    }
+
+    .b-watch::before,
+    .b-watch::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      border-radius: var(--radius-sm);
+      background: var(--theme-dark-border);
+    }
+
+    .b-watch::before {
+      inset: -4rem 22%;
+      background: var(--color-primary);
+    }
+
+    .b-watch::after {
+      inset-inline-end: -0.4rem;
+      top: 28%;
+      width: 0.75rem;
+      height: 2.5rem;
+    }
+
+    .b-screen {
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      aspect-ratio: 4 / 5;
+      border-radius: 2rem;
+      background: var(--theme-dark-background);
+      color: var(--theme-dark-text);
+      font-size: var(--text-xs);
+      text-align: center;
+    }
+
+    .b-time {
+      color: var(--theme-dark-accent);
+    }
+
+    .b-ring {
+      width: 4.5rem;
+      padding: 0.4rem;
+      border-radius: var(--radius-full);
+      background: conic-gradient(
+        var(--theme-dark-accent) calc(var(--value) * 1%),
+        var(--theme-dark-border) 0
+      );
+    }
+
+    .b-ring span {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      border-radius: inherit;
+      background: var(--theme-dark-background);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-intro,
+    .b-feature p {
+      color: var(--color-text-muted);
+    }
+
+    .b-features {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-feature {
+      --icon-size: 1.25rem;
+      display: flex;
+      gap: var(--space-3);
+      color: var(--color-primary);
+    }
+
+    .b-feature h3 {
+      color: var(--color-text);
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

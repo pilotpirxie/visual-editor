@@ -1,0 +1,108 @@
+{
+  "name": "Call to action, email signup",
+  "category": "call-to-action",
+  "description": "A centered pitch with an email field, a start button and a short row of perks.",
+  "tags": ["cta", "email", "form", "signup", "trial", "lead"],
+  "fieldGroups": ["Content", "Form", "Perks"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Get started",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Try Fieldnote on your next five interviews",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Enter your work email and we’ll set up a workspace for your team. You can record your first call in minutes.",
+      "group": "Content"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Start free trial",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "perks",
+      "label": "Perks",
+      "type": "list",
+      "group": "Perks",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Perk"
+        }
+      ],
+      "default": [
+        {
+          "text": "14-day free trial"
+        },
+        {
+          "text": "No credit card"
+        },
+        {
+          "text": "Cancel any time"
+        }
+      ]
+    }
+  ]
+}

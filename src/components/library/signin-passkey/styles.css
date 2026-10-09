@@ -1,0 +1,87 @@
+@layer components {
+  @scope (.b-signin-passkey) {
+    .b-inner {
+      --container-max-width: 30rem;
+      --stack-gap: var(--space-6);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-rings {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 14rem;
+      max-width: 100%;
+      aspect-ratio: 1;
+      margin-block-end: calc(-1 * var(--space-6));
+    }
+
+    .b-rings::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-radial-gradient(
+        circle,
+        transparent 0 1.25rem,
+        color-mix(in oklab, var(--color-primary) 45%, transparent) 0 calc(1.25rem + 2px)
+      );
+      mask: radial-gradient(closest-side, currentColor 45%, transparent);
+    }
+
+    .b-icon {
+      --icon-size: 2.5rem;
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 5.5rem;
+      height: 5.5rem;
+      border-radius: var(--radius-lg);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      box-shadow: 0 0 0 0.5rem var(--color-background);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-small {
+      font-size: var(--text-sm);
+    }
+
+    .b-form,
+    .b-inner > .btn {
+      --stack-gap: var(--space-3);
+      width: 100%;
+    }
+
+    .b-or {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      width: 100%;
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-or::before,
+    .b-or::after {
+      content: '';
+      flex: 1;
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-small a {
+      font-weight: var(--font-weight-bold);
+    }
+  }
+}

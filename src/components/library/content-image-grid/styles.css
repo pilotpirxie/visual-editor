@@ -1,0 +1,50 @@
+@layer components {
+  @scope (.b-content-image-grid) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+    }
+
+    .b-body {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-photos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-lg);
+    }
+
+    @media (min-width: 768px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: var(--space-16);
+      }
+
+      .b-photos {
+        gap: var(--space-4);
+        padding-block-end: var(--space-8);
+      }
+
+      .b-photo:nth-child(even) {
+        translate: 0 var(--space-8);
+      }
+
+      :scope[data-image-side='left'] .b-photos {
+        order: -1;
+      }
+    }
+  }
+}

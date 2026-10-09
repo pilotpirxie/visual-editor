@@ -1,0 +1,115 @@
+@layer components {
+  @scope (.b-signup-quote) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-story {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-quote {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-stars {
+      font-size: var(--text-xl);
+      letter-spacing: 0.1em;
+      color: var(--color-primary);
+    }
+
+    .b-words {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3.5rem;
+    }
+
+    .b-name {
+      display: block;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-logos {
+      --stack-gap: var(--space-3);
+      font-size: var(--text-sm);
+    }
+
+    .b-names {
+      --cluster-gap: var(--space-2) var(--space-8);
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      color: var(--color-text-muted);
+    }
+
+    .b-card {
+      --card-padding: var(--space-6);
+      --card-shadow: var(--shadow-lg);
+      --stack-gap: var(--space-6);
+      width: 100%;
+      max-width: 28rem;
+      margin-inline: auto;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-small {
+      font-size: var(--text-sm);
+    }
+
+    .b-small a {
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        --card-padding: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+
+      .b-card {
+        margin-inline-end: 0;
+      }
+    }
+  }
+}

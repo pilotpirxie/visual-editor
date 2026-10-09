@@ -1,0 +1,87 @@
+{
+  "name": "HTTP code, 401 session expired",
+  "category": "http-codes",
+  "description": "A “you’ve been signed out” card with a timer icon, a saved-work note and buttons to sign back in.",
+  "tags": ["401", "unauthorized", "session", "expired", "signed out", "login", "error"],
+  "fieldGroups": ["Content"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Code",
+      "type": "text",
+      "default": "401 · Session expired",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "You’ve been signed out",
+      "group": "Content",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "For your security, Fieldnote signs you out after 12 hours without activity.",
+      "group": "Content"
+    },
+    {
+      "name": "saved",
+      "label": "Saved note",
+      "type": "text",
+      "default": "Everything you were editing was saved at 4:12 pm.",
+      "group": "Content"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Sign back in",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Content"
+    },
+    {
+      "name": "showSecondaryButton",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Content"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Use another account",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Content",
+      "visibleWhen": {
+        "field": "showSecondaryButton",
+        "equals": true
+      }
+    },
+    {
+      "name": "account",
+      "label": "Account note",
+      "type": "text",
+      "default": "Last signed in as maya@northwind.co",
+      "group": "Content"
+    }
+  ]
+}

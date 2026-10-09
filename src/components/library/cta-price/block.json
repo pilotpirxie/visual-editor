@@ -1,0 +1,77 @@
+{
+  "name": "Call to action, price teaser",
+  "category": "call-to-action",
+  "description": "A pitch next to a large starting price, a button and a line of small print.",
+  "tags": ["cta", "price", "pricing", "plan", "offer"],
+  "fieldGroups": ["Content", "Price"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Simple pricing",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "One plan for the whole research team",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Unlimited projects, transcripts in 30 languages and highlight reels for everyone who needs to hear from customers.",
+      "group": "Content"
+    },
+    {
+      "name": "pricePrefix",
+      "label": "Before the price",
+      "type": "text",
+      "default": "From",
+      "group": "Price"
+    },
+    {
+      "name": "price",
+      "label": "Price",
+      "type": "text",
+      "default": "$29",
+      "group": "Price",
+      "required": true
+    },
+    {
+      "name": "priceSuffix",
+      "label": "After the price",
+      "type": "text",
+      "default": "per seat, per month",
+      "group": "Price"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Price"
+    },
+    {
+      "name": "finePrint",
+      "label": "Small print",
+      "type": "text",
+      "default": "Billed yearly. Viewers are always free.",
+      "group": "Price"
+    }
+  ]
+}

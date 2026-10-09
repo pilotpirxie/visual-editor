@@ -1,0 +1,22 @@
+<section class="b-cta-logos section">
+  <div class="container stack b-inner">
+    <div class="stack b-copy">
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+        {{/if}}
+      </div>
+    </div>
+    <div class="stack b-proof">
+      {{#if logosTitle}}<p class="b-proof-title" data-field="logosTitle">{{logosTitle}}</p>{{/if}}
+      <ul class="cluster b-logos" role="list">
+        {{#each logos}}
+        <li class="b-logo" data-field="logos.{{@index}}">{{#if icon}}{{svgIcon icon}}{{/if}}<span>{{company}}</span></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

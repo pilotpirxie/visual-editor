@@ -1,0 +1,121 @@
+{
+  "name": "FAQ, dark",
+  "category": "faq",
+  "description": "A dark section with questions in outlined boxes and a contact line underneath.",
+  "tags": ["faq", "questions", "accordion", "dark", "support"],
+  "fieldGroups": ["Heading", "Questions", "Contact"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Security FAQ",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your customers trust you. You can trust us.",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "How Fieldnote protects interview recordings, transcripts and the people in them.",
+      "group": "Heading"
+    },
+    {
+      "name": "expandIcon",
+      "label": "Open and close icon",
+      "type": "icon",
+      "default": "chevron-down",
+      "group": "Questions"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "default": [
+        {
+          "question": "Where do you store our recordings?",
+          "answer": "<p>In the region you pick when you sign up: Canada, the EU or the US. Everything is encrypted at rest and in transit.</p>"
+        },
+        {
+          "question": "Is Fieldnote SOC 2 compliant?",
+          "answer": "<p>Yes. We pass a SOC 2 Type II audit every year and share the report under NDA as part of our security pack.</p>"
+        },
+        {
+          "question": "Who can see our interviews?",
+          "answer": "<p>Only people in your workspace. You decide who can watch full recordings and who only sees approved highlights.</p>"
+        },
+        {
+          "question": "Can we delete a recording for good?",
+          "answer": "<p>Yes. Deleting removes the video, audio and transcript right away, and our backups forget it within 30 days.</p>"
+        },
+        {
+          "question": "Do participants know they are being recorded?",
+          "answer": "<p>Always. Fieldnote announces itself when it joins a call, and you can attach a consent form to every invite.</p>"
+        }
+      ],
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 20,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "A question?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "richtext",
+          "default": "<p>The answer.</p>"
+        }
+      ]
+    },
+    {
+      "name": "showContact",
+      "label": "Show contact line",
+      "type": "boolean",
+      "default": true,
+      "group": "Contact"
+    },
+    {
+      "name": "contactText",
+      "label": "Contact text",
+      "type": "text",
+      "default": "Need our security pack?",
+      "group": "Contact",
+      "visibleWhen": {
+        "field": "showContact",
+        "equals": true
+      }
+    },
+    {
+      "name": "contactLink",
+      "label": "Contact link",
+      "type": "button",
+      "default": {
+        "label": "security@fieldnote.example",
+        "link": {
+          "type": "email",
+          "url": "security@fieldnote.example",
+          "newTab": false
+        },
+        "variant": "ghost"
+      },
+      "group": "Contact",
+      "visibleWhen": {
+        "field": "showContact",
+        "equals": true
+      }
+    }
+  ]
+}

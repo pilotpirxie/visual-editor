@@ -1,0 +1,29 @@
+<section class="b-careers-life section">
+  <div class="container b-inner">
+    <div class="b-top">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      {{#if showButton}}<a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>{{/if}}
+    </div>
+    <ul class="b-wall" role="list">
+      {{#each items}}
+      <li class="b-item" data-kind="{{kind}}" data-shape="{{shape}}" data-field="items.{{@index}}">
+        {{#if (eq kind "quote")}}
+        <figure class="b-quote">
+          <blockquote><p>{{text}}</p></blockquote>
+          <figcaption><strong>{{name}}</strong><span>{{role}}</span></figcaption>
+        </figure>
+        {{else}}
+        <figure class="b-photo">
+          {{img image}}
+          {{#if text}}<figcaption>{{text}}</figcaption>{{/if}}
+        </figure>
+        {{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

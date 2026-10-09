@@ -1,0 +1,87 @@
+@layer components {
+  @scope (.b-content-topics) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+      max-width: 60rem;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-intro {
+      max-width: 36rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .b-topic {
+      display: inline-flex;
+      align-items: baseline;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      padding: var(--space-2) var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      color: var(--color-text);
+      line-height: var(--line-height-tight);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+      transition:
+        border-color var(--transition-fast),
+        background-color var(--transition-fast);
+    }
+
+    .b-topic[data-size='medium'] {
+      padding-inline: var(--space-6);
+      background: color-mix(in oklab, var(--color-primary) 10%, transparent);
+      border-color: transparent;
+      font-size: var(--text-lg);
+    }
+
+    .b-topic:hover {
+      border-color: var(--color-primary);
+    }
+
+    .b-topic[data-size='large'] {
+      padding: var(--space-3) var(--space-8);
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+    }
+
+    .b-topic[data-size='large']:hover {
+      background: color-mix(in oklab, var(--color-primary) 85%, var(--color-text));
+    }
+
+    .b-count {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-regular);
+      opacity: 0.7;
+    }
+
+    @media (min-width: 768px) {
+      .b-topic[data-size='medium'] {
+        font-size: var(--text-xl);
+      }
+
+      .b-topic[data-size='large'] {
+        font-size: var(--text-3xl);
+      }
+    }
+  }
+}

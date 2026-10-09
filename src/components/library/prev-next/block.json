@@ -1,0 +1,115 @@
+{
+  "name": "Utilities, previous and next",
+  "category": "utilities",
+  "description": "Two cards that link to the previous and next page in a series, such as guide chapters, articles or case studies.",
+  "tags": [
+    "previous",
+    "next",
+    "pagination",
+    "series",
+    "chapters",
+    "guide",
+    "navigation",
+    "utility"
+  ],
+  "fieldGroups": ["Previous", "Next", "Accessibility"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary", "--color-border"],
+  "fields": [
+    {
+      "name": "showPrevious",
+      "label": "Show previous",
+      "type": "boolean",
+      "default": true,
+      "group": "Previous"
+    },
+    {
+      "name": "previousLabel",
+      "label": "Previous label",
+      "type": "text",
+      "default": "Previous chapter",
+      "group": "Previous",
+      "visibleWhen": {
+        "field": "showPrevious",
+        "equals": true
+      }
+    },
+    {
+      "name": "previousTitle",
+      "label": "Previous title",
+      "type": "text",
+      "default": "Recruiting the right customers to talk to",
+      "group": "Previous",
+      "visibleWhen": {
+        "field": "showPrevious",
+        "equals": true
+      }
+    },
+    {
+      "name": "previousLink",
+      "label": "Previous link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Previous",
+      "visibleWhen": {
+        "field": "showPrevious",
+        "equals": true
+      }
+    },
+    {
+      "name": "showNext",
+      "label": "Show next",
+      "type": "boolean",
+      "default": true,
+      "group": "Next"
+    },
+    {
+      "name": "nextLabel",
+      "label": "Next label",
+      "type": "text",
+      "default": "Next chapter",
+      "group": "Next",
+      "visibleWhen": {
+        "field": "showNext",
+        "equals": true
+      }
+    },
+    {
+      "name": "nextTitle",
+      "label": "Next title",
+      "type": "text",
+      "default": "Turning forty interviews into three decisions",
+      "group": "Next",
+      "visibleWhen": {
+        "field": "showNext",
+        "equals": true
+      }
+    },
+    {
+      "name": "nextLink",
+      "label": "Next link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Next",
+      "visibleWhen": {
+        "field": "showNext",
+        "equals": true
+      }
+    },
+    {
+      "name": "label",
+      "label": "Name for screen readers",
+      "type": "text",
+      "default": "More chapters",
+      "group": "Accessibility",
+      "required": true
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "name": "Gallery, one large and four small",
+  "category": "gallery",
+  "description": "A heading, one large photo and four smaller ones in a tidy grid, with short captions.",
+  "tags": ["gallery", "photos", "images", "featured", "grid", "mosaic"],
+  "fieldGroups": ["Heading", "Photos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Field visits",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A day with the Ledgerly finance team",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We spent a day watching month-end close at Ledgerly. These moments changed our roadmap.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 3,
+      "maxItems": 9,
+      "itemLabel": "caption",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "caption",
+          "label": "Caption",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A finance lead walking through a month-end report on two monitors",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "Month-end close, hour three"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sticky notes grouped into themes on a glass wall",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "Themes after lunch"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg interviewing an accountant at her desk",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "Desk-side interview"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A laptop showing tagged highlights from the morning",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "Tagged by noon"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The Ledgerly team and Fieldnote researchers at the end of the day",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "Thank-you photo"
+        }
+      ]
+    }
+  ]
+}

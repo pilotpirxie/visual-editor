@@ -1,0 +1,129 @@
+{
+  "name": "Content, data table",
+  "category": "content",
+  "description": "A heading and a table with a label column and three value columns that scrolls on small screens.",
+  "tags": ["table", "data", "specs", "comparison", "rows", "columns"],
+  "fieldGroups": ["Heading", "Columns", "Rows"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Data residency",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Where your recordings are stored",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Pick a region when you create a workspace. Recordings, transcripts and backups stay there.",
+      "group": "Heading"
+    },
+    {
+      "name": "labelHeading",
+      "label": "First column heading",
+      "type": "text",
+      "default": "Region",
+      "required": true,
+      "group": "Columns"
+    },
+    {
+      "name": "firstHeading",
+      "label": "Second column heading",
+      "type": "text",
+      "default": "Data center",
+      "group": "Columns"
+    },
+    {
+      "name": "secondHeading",
+      "label": "Third column heading",
+      "type": "text",
+      "default": "Default retention",
+      "group": "Columns"
+    },
+    {
+      "name": "thirdHeading",
+      "label": "Fourth column heading",
+      "type": "text",
+      "default": "Backups",
+      "group": "Columns"
+    },
+    {
+      "name": "rows",
+      "label": "Rows",
+      "type": "list",
+      "group": "Rows",
+      "minItems": 1,
+      "maxItems": 20,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Row"
+        },
+        {
+          "name": "first",
+          "label": "Second column",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "second",
+          "label": "Third column",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "third",
+          "label": "Fourth column",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "label": "Canada",
+          "first": "Montréal",
+          "second": "24 months",
+          "third": "Daily, kept 30 days"
+        },
+        {
+          "label": "European Union",
+          "first": "Frankfurt",
+          "second": "24 months",
+          "third": "Daily, kept 30 days"
+        },
+        {
+          "label": "United States",
+          "first": "Northern Virginia",
+          "second": "24 months",
+          "third": "Daily, kept 30 days"
+        },
+        {
+          "label": "Australia",
+          "first": "Sydney",
+          "second": "12 months",
+          "third": "Daily, kept 14 days"
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Enterprise plans can set custom retention per project.",
+      "group": "Rows"
+    }
+  ]
+}

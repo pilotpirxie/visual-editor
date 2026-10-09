@@ -1,0 +1,9 @@
+<section class="b-stats-sentence section" data-style="{{numberStyle}}">
+  <div class="container stack b-inner">
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h2 class="visually-hidden" data-field="title">{{title}}</h2>
+    <p class="b-sentence">{{#each segments}}<span data-field="segments.{{@index}}">{{text}}{{#if number}} <strong class="b-number">{{number}}</strong>{{/if}}</span> {{/each}}</p>
+    {{#if source}}<p class="b-source" data-field="source">{{source}}</p>{{/if}}
+    {{#if button.label}}<a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>{{/if}}
+  </div>
+</section>

@@ -1,0 +1,97 @@
+@layer components {
+  @scope (.b-newsletter-benefits) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-text,
+    .b-note,
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+    }
+
+    .b-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-block-start: var(--space-2);
+    }
+
+    .b-field {
+      flex: 999 1 14rem;
+    }
+
+    .b-submit {
+      flex: 1 0 auto;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    .b-benefits {
+      --stack-gap: var(--space-6);
+      padding: var(--space-8) var(--space-6);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-benefits-title {
+      font-size: var(--text-sm);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .b-list {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-benefit {
+      display: flex;
+      gap: var(--space-4);
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: var(--radius-md);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-benefit-body {
+      --stack-gap: var(--space-1);
+    }
+
+    .b-benefit-title {
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-benefits {
+        padding: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

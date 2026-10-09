@@ -1,0 +1,15 @@
+<section class="b-http-404-giant section">
+  <div class="container b-inner">
+    <p class="b-code" aria-hidden="true"><span data-field="code">{{code}}</span>{{#if sticker}}<span class="b-sticker" data-field="sticker">{{sticker}}</span>{{/if}}</p>
+    <div class="b-foot">
+      <h1 data-field="title">{{title}}</h1>
+      <div class="stack b-copy">
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+        <div class="cluster">
+          <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+          {{#if showSecondaryButton}}<a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>{{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

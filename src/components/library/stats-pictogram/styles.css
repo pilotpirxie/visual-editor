@@ -1,0 +1,88 @@
+@layer components {
+  @scope (.b-stats-pictogram) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-items {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-item {
+      display: grid;
+      align-content: start;
+      gap: var(--space-4);
+      padding-block-start: var(--space-6);
+      border-block-start: 2px solid var(--color-text);
+    }
+
+    .b-count {
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-number {
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-heading);
+      line-height: 1;
+      color: var(--color-primary);
+    }
+
+    .b-people {
+      display: grid;
+      max-width: 30rem;
+    }
+
+    .b-row {
+      grid-area: 1 / 1;
+      display: grid;
+      grid-template-columns: repeat(10, minmax(0, 1fr));
+      gap: var(--space-1);
+      color: color-mix(in oklab, var(--color-text-muted) 30%, transparent);
+    }
+
+    .b-row .icon {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+    }
+
+    .b-on {
+      color: var(--color-primary);
+      clip-path: inset(0 calc(100% - var(--n, 5) * 10%) 0 0);
+    }
+
+    .b-on:dir(rtl) {
+      clip-path: inset(0 0 0 calc(100% - var(--n, 5) * 10%));
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+    }
+
+    .b-source {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 1024px) {
+      .b-items {
+        grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      }
+    }
+  }
+}

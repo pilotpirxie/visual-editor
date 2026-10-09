@@ -1,0 +1,112 @@
+{
+  "name": "Content, getting here",
+  "category": "content",
+  "description": "A drawn map with a pin beside the address and how to get there by train, bike or car.",
+  "tags": ["directions", "map", "location", "address", "transport", "visit", "office"],
+  "fieldGroups": ["Heading", "Map", "Ways to arrive", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Visit us",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Getting to the studio",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "address",
+      "label": "Address",
+      "type": "textarea",
+      "default": "Fieldnote\n401 Richmond Street West, Suite 210\nToronto, ON M5V 3A8",
+      "group": "Heading"
+    },
+    {
+      "name": "pinLabel",
+      "label": "Pin label",
+      "type": "text",
+      "default": "Fieldnote studio",
+      "group": "Map"
+    },
+    {
+      "name": "modes",
+      "label": "Ways to arrive",
+      "type": "list",
+      "group": "Ways to arrive",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "mode",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "map-pin"
+        },
+        {
+          "name": "mode",
+          "label": "Title",
+          "type": "text",
+          "default": "By transit"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "How to get here."
+        }
+      ],
+      "default": [
+        {
+          "icon": "lucide:tram-front",
+          "mode": "By streetcar",
+          "text": "Take the 510 Spadina to Richmond Street, then walk two minutes east."
+        },
+        {
+          "icon": "lucide:train-front",
+          "mode": "By subway",
+          "text": "Osgoode station is a nine-minute walk along Queen Street West."
+        },
+        {
+          "icon": "lucide:bike",
+          "mode": "By bike",
+          "text": "Bike Share station on Peter Street, and indoor racks in the lobby."
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Open in maps",
+        "link": {
+          "type": "url",
+          "url": "https://maps.google.com/?q=401+Richmond+Street+West+Toronto",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Button",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      }
+    }
+  ]
+}

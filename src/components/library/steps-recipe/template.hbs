@@ -1,0 +1,40 @@
+<section class="b-steps-recipe section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <article class="b-card">
+      {{#if facts.length}}
+      <dl class="b-facts">
+        {{#each facts}}
+        <div class="b-fact" data-field="facts.{{@index}}"><dt>{{label}}</dt><dd>{{value}}</dd></div>
+        {{/each}}
+      </dl>
+      {{/if}}
+      <div class="b-body">
+        <div class="stack b-need">
+          <h3 data-field="needTitle">{{needTitle}}</h3>
+          <ul class="b-list" role="list">
+            {{#each ingredients}}
+            <li data-field="ingredients.{{@index}}"><span class="b-amount">{{amount}}</span><span>{{item}}</span></li>
+            {{/each}}
+          </ul>
+        </div>
+        <div class="stack b-method">
+          <h3 data-field="methodTitle">{{methodTitle}}</h3>
+          <ol class="b-steps" role="list">
+            {{#each steps}}
+            <li class="b-step" data-field="steps.{{@index}}">
+              <h4>{{title}}</h4>
+              <p class="b-muted">{{nl2br text}}</p>
+            </li>
+            {{/each}}
+          </ol>
+          {{#if tip}}<p class="b-tip" data-field="tip">{{svgIcon tipIcon}}<span>{{tip}}</span></p>{{/if}}
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

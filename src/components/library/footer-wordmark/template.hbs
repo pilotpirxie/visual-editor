@@ -1,0 +1,23 @@
+<footer class="b-footer-wordmark section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      {{#if tagline}}<p class="b-tagline" data-field="tagline">{{nl2br tagline}}</p>{{/if}}
+      <nav aria-label="Footer">
+        <ul class="b-links" role="list">
+          {{#each links}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+          {{/each}}
+        </ul>
+      </nav>
+    </div>
+    <a class="b-wordmark" href="index.html">{{site.title}}</a>
+    <div class="b-bottom">
+      <p data-field="copyright">{{copyright}}</p>
+      <ul class="cluster b-socials" role="list">
+        {{#each socials}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}</span></a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</footer>

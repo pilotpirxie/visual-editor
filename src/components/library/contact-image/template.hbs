@@ -1,0 +1,29 @@
+<section class="b-contact-image section" data-image="{{imageSide}}">
+  <div class="container b-inner">
+    <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
+    <div class="stack b-content">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="b-row">
+          <div class="field">
+            <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+            <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+            <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-message" data-field="messageLabel">{{messageLabel}}</label>
+          <textarea id="{{block.id}}-message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary b-submit" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+    </div>
+  </div>
+</section>

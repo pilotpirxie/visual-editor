@@ -1,0 +1,26 @@
+<section class="b-http-503 section">
+  <div class="b-tape" aria-hidden="true"></div>
+  <div class="container stack b-inner">
+    {{#if eyebrow}}<p class="b-code" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h1 data-field="title">{{title}}</h1>
+    {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    <div class="b-progress" data-field="progress">
+      <p><span data-field="progressLabel">{{progressLabel}}</span><strong>{{progress}}%</strong></p>
+      <div class="b-track"><span style="width: {{progress}}%"></span></div>
+    </div>
+    <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <div class="field b-field">
+        <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+        <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+      </div>
+      <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+    </form>
+    {{#if socials.length}}
+    <ul class="cluster b-socials" role="list">
+      {{#each socials}}
+      <li><a href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}</span></a></li>
+      {{/each}}
+    </ul>
+    {{/if}}
+  </div>
+</section>

@@ -1,0 +1,84 @@
+{
+  "name": "FAQ, plain list",
+  "category": "faq",
+  "description": "A narrow column of questions in bold with their answers underneath. No accordion.",
+  "tags": ["faq", "questions", "answers", "list", "simple", "text"],
+  "fieldGroups": ["Heading", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Frequently asked questions",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "If your question is not here, write to support@fieldnote.example and we will add it.",
+      "group": "Heading"
+    },
+    {
+      "name": "updatedLabel",
+      "label": "Updated label",
+      "type": "text",
+      "default": "Last updated",
+      "group": "Heading"
+    },
+    {
+      "name": "updated",
+      "label": "Updated on",
+      "type": "date",
+      "default": "2026-09-15",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "default": [
+        {
+          "question": "How long does it take to set up Fieldnote?",
+          "answer": "<p>Most teams record their first interview the same day. Connect your calendar and video tool, invite your team, and Fieldnote joins the next call you schedule.</p>"
+        },
+        {
+          "question": "How accurate are the transcripts?",
+          "answer": "<p>Around 95% for clear audio, with a label for every speaker. You can fix any line, and Fieldnote learns your product names as you go.</p>"
+        },
+        {
+          "question": "Where do you store our recordings?",
+          "answer": "<p>In the region you pick when you sign up: Canada, the EU or the US. Everything is encrypted at rest and in transit.</p>"
+        },
+        {
+          "question": "Do you charge for every seat?",
+          "answer": "<p>Only for people who run interviews. Teammates who watch highlights and leave comments are free on every plan.</p>"
+        },
+        {
+          "question": "What happens when the trial ends?",
+          "answer": "<p>Pick a plan to keep recording, or stay on the free Starter plan to keep reading everything you already have.</p>"
+        }
+      ],
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 20,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "A question?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "richtext",
+          "default": "<p>The answer.</p>"
+        }
+      ]
+    }
+  ]
+}

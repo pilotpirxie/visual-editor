@@ -1,0 +1,28 @@
+<header class="b-hero-board section">
+  <div class="container stack b-inner">
+    {{#if eyebrow}}<p class="badge" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h1 data-field="title">{{title}}</h1>
+    {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+    <div class="cluster b-actions">
+      <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+      {{#if showSecondary}}
+      <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+      {{/if}}
+    </div>
+    <div class="b-board" role="group" aria-label="{{boardLabel}}" data-field="boardLabel">
+      {{#each columns}}
+      <section class="b-column" data-field="columns.{{@index}}">
+        <h2 class="b-column-title">{{title}} <span class="b-count">{{cards.length}}</span></h2>
+        <ul class="b-cards" role="list">
+          {{#each cards}}
+          <li class="b-card" data-field="columns.{{@../index}}.cards.{{@index}}">
+            <p>{{text}}</p>
+            {{#if tag}}<p class="b-tag">{{tag}}</p>{{/if}}
+          </li>
+          {{/each}}
+        </ul>
+      </section>
+      {{/each}}
+    </div>
+  </div>
+</header>

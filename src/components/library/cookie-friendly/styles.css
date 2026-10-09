@@ -1,0 +1,100 @@
+@layer components {
+  @scope (.b-cookie-friendly) {
+    .b-panel {
+      z-index: 10;
+      width: auto;
+      max-width: none;
+      margin: 0;
+      padding: var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+    }
+
+    .b-panel[open] {
+      position: fixed;
+      inset: auto var(--space-4) var(--space-4);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-3);
+      align-items: center;
+    }
+
+    .b-art {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 6rem;
+      height: 6rem;
+    }
+
+    .b-art::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 16%, var(--color-background));
+      mask: radial-gradient(circle at 92% 14%, transparent 1.05rem, var(--color-text) 1.1rem);
+    }
+
+    .b-art::after {
+      content: '';
+      position: absolute;
+      inset: -0.5rem -0.75rem auto auto;
+      width: 2rem;
+      height: 1.5rem;
+      background:
+        radial-gradient(circle at 20% 70%, var(--color-primary) 0.16rem, transparent 0.2rem),
+        radial-gradient(circle at 70% 30%, var(--color-text-muted) 0.12rem, transparent 0.16rem),
+        radial-gradient(circle at 85% 85%, var(--color-primary) 0.1rem, transparent 0.14rem);
+    }
+
+    .b-cookie {
+      --icon-size: 2.75rem;
+      position: relative;
+      color: var(--color-primary);
+      rotate: -12deg;
+    }
+
+    .b-title {
+      font: var(--font-weight-heading) var(--text-xl) / var(--line-height-tight) var(--font-heading);
+      text-wrap: balance;
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --stack-gap: var(--space-1);
+      align-self: stretch;
+      margin-block-start: var(--space-2);
+    }
+
+    .b-policy {
+      padding-block: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        width: 20rem;
+      }
+
+      .b-panel[open] {
+        inset-inline-start: auto;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-panel[open] {
+        rotate: -2deg;
+      }
+    }
+  }
+}

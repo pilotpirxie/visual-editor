@@ -1,0 +1,25 @@
+<section class="b-team-split section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      {{#if showButton}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+      {{/if}}
+    </div>
+    <ul class="b-people" role="list">
+      {{#each people}}
+      <li class="stack b-person" data-field="people.{{@index}}">
+        <div class="media b-photo">{{img photo}}</div>
+        <div>
+          <h3 class="b-name">{{name}}</h3>
+          {{#if role}}<p class="b-role">{{role}}</p>{{/if}}
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

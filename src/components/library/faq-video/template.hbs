@@ -1,0 +1,26 @@
+<section class="b-faq-video section">
+  <div class="container stack b-inner">
+    <header class="b-head">
+      <div class="stack b-title">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </div>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-grid" role="list">
+      {{#each items}}
+      <li data-field="items.{{@index}}">
+        <a class="stack b-card" href="{{href link}}" {{linkAttrs link}}>
+          <span class="media b-thumb">
+            {{img image}}
+            <span class="b-play" aria-hidden="true">{{svgIcon "play"}}</span>
+            {{#if duration}}<span class="b-duration"><span class="visually-hidden">Video, </span>{{duration}}</span>{{/if}}
+          </span>
+          <span class="b-question">{{question}}</span>
+          {{#if text}}<span class="b-text">{{text}}</span>{{/if}}
+        </a>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

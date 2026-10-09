@@ -1,0 +1,24 @@
+<section class="b-features-shortcuts section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-stage">
+      <div class="b-palette">
+        <div class="b-bar" aria-hidden="true" data-field="placeholder">{{svgIcon "search"}}<span>{{placeholder}}</span>{{#if barKey}}<kbd class="b-key">{{barKey}}</kbd>{{/if}}</div>
+        {{#if groupLabel}}<p class="b-group" data-field="groupLabel">{{groupLabel}}</p>{{/if}}
+        <ul class="b-list" role="list">
+          {{#each items}}
+          <li class="b-row" data-field="items.{{@index}}">
+            <span class="b-icon">{{svgIcon icon}}</span>
+            <span class="b-action">{{action}}</span>
+            <kbd class="b-combo">{{#if key1}}<kbd class="b-key">{{key1}}</kbd>{{/if}}{{#if key2}}<kbd class="b-key">{{key2}}</kbd>{{/if}}{{#if key3}}<kbd class="b-key">{{key3}}</kbd>{{/if}}</kbd>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

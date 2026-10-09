@@ -1,0 +1,55 @@
+@layer components {
+  @scope (.b-content-press) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 44rem;
+    }
+
+    .b-list {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-mention {
+      --stack-gap: var(--space-4);
+      height: 100%;
+      justify-content: space-between;
+      padding-block-start: var(--space-6);
+      border-block-start: var(--space-1) solid var(--color-text);
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      line-height: var(--line-height-tight);
+      text-wrap: pretty;
+    }
+
+    .b-source a {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      min-height: 2.75rem;
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      text-decoration: none;
+    }
+
+    .b-source a:hover {
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 1024px) {
+      .b-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
+}

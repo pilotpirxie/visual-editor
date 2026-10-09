@@ -51,7 +51,11 @@ describe('groupByCategory', () => {
     expect(ids).toEqual(CATEGORIES.map(({ id }) => id));
     const navigationIds = groups[0]?.components.map((component) => component.definition.id);
     expect(navigationIds).toEqual([
+      'nav-account',
+      'nav-announcement',
       'nav-app',
+      'nav-bottom',
+      'nav-boxed',
       'nav-centered',
       'nav-contact',
       'nav-cta',
@@ -61,19 +65,25 @@ describe('groupByCategory', () => {
       'nav-edge-cta',
       'nav-editorial',
       'nav-event',
+      'nav-icons',
+      'nav-index',
       'nav-language',
       'nav-logo-image',
       'nav-mega',
       'nav-minimal',
       'nav-overlay',
       'nav-pill',
+      'nav-portfolio',
       'nav-search',
       'nav-shop',
       'nav-simple',
       'nav-social',
       'nav-split',
+      'nav-stacked',
+      'nav-status',
       'nav-sticky',
       'nav-subnav',
+      'nav-tabs',
       'nav-topbar',
     ]);
   });
@@ -91,7 +101,7 @@ describe('groupByCategory', () => {
 describe('BlocksTab', () => {
   it('lists categories with how many blocks each has', () => {
     const { container } = render(<BlocksTab />);
-    expect(categoryButton(container, 'Headers').textContent).toBe('Headers26');
+    expect(categoryButton(container, 'Headers').textContent).toBe('Headers41');
   });
 
   it('opens a category and goes back to the list', () => {
@@ -106,7 +116,7 @@ describe('BlocksTab', () => {
   it('searches by name and says when nothing matches', () => {
     const { container } = render(<BlocksTab />);
     searchFor(container, 'footer');
-    expect(container.querySelectorAll('.ve-component-card')).toHaveLength(4);
+    expect(container.querySelectorAll('.ve-component-card')).toHaveLength(30);
     searchFor(container, 'hologram');
     expect(container.textContent).toContain('No blocks match “hologram”.');
   });
@@ -119,7 +129,7 @@ describe('BlocksTab', () => {
     const { container } = render(<BlocksTab />);
     click(categoryButton(container, 'Call to action'));
     click(container.querySelector('.ve-component-card'));
-    expect(componentIds()[1]).toBe('cta-banner');
+    expect(componentIds()[1]).toBe('cta-avatars');
     expect(store.getState().editor.compactView).toBe('canvas');
   });
 

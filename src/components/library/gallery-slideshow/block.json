@@ -1,0 +1,143 @@
+{
+  "name": "Gallery, full-width slideshow",
+  "category": "gallery",
+  "description": "A full-width photo slideshow with the next and previous photos peeking in, captions, dots and arrows.",
+  "tags": ["gallery", "photos", "slideshow", "carousel", "slider", "full width", "captions"],
+  "fieldGroups": ["Heading", "Photos", "Labels"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Annual offsite",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three days in Prince Edward County",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The whole team, one farmhouse and far too many whiteboards.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 2100,
+            "height": 900,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Title"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The team walking up a gravel road towards a red barn",
+            "decorative": false,
+            "width": 2100,
+            "height": 900,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "photo"
+            }
+          },
+          "title": "Arriving at the farm",
+          "text": "Twenty-eight people, four time zones, one very long driveway."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A roadmap planning session on a farmhouse porch",
+            "decorative": false,
+            "width": 2100,
+            "height": 900,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "photo"
+            }
+          },
+          "title": "Planning the next year",
+          "text": "We sorted 300 customer quotes into the themes that became our roadmap."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The team eating dinner at a long table under string lights",
+            "decorative": false,
+            "width": 2100,
+            "height": 900,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "photo"
+            }
+          },
+          "title": "Dinner under the lights",
+          "text": "Cooked by Ruth, who also planned every minute of the trip."
+        }
+      ]
+    },
+    {
+      "name": "slideLabel",
+      "label": "Dot label",
+      "type": "text",
+      "default": "Photo",
+      "group": "Labels"
+    },
+    {
+      "name": "previousLabel",
+      "label": "Previous button",
+      "type": "text",
+      "default": "Previous photo",
+      "group": "Labels"
+    },
+    {
+      "name": "nextLabel",
+      "label": "Next button",
+      "type": "text",
+      "default": "Next photo",
+      "group": "Labels"
+    }
+  ]
+}

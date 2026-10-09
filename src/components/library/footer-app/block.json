@@ -1,0 +1,265 @@
+{
+  "name": "Footer, with app store buttons",
+  "category": "footers",
+  "description": "Link columns plus App Store and Google Play buttons and a legal bar.",
+  "tags": ["footer", "app", "mobile", "app store", "google play", "download", "links"],
+  "fieldGroups": ["Brand", "Columns", "App", "Legal"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "tagline",
+      "label": "Tagline",
+      "type": "textarea",
+      "default": "Record interviews in person with the Fieldnote app. Notes sync to your team the moment you hang up.",
+      "group": "Brand"
+    },
+    {
+      "name": "columns",
+      "label": "Link columns",
+      "type": "list",
+      "group": "Columns",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Column title",
+          "type": "text",
+          "default": "Column"
+        },
+        {
+          "name": "links",
+          "label": "Links",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 8,
+          "itemLabel": "label",
+          "itemFields": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "text",
+              "default": "Link"
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link",
+              "default": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ],
+          "default": []
+        }
+      ],
+      "default": [
+        {
+          "title": "Product",
+          "links": [
+            {
+              "label": "Features",
+              "link": {
+                "type": "section",
+                "anchor": "features",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Pricing",
+              "link": {
+                "type": "section",
+                "anchor": "pricing",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Integrations",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Changelog",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "Company",
+          "links": [
+            {
+              "label": "About",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Careers",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Press",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "email",
+                "url": "hello@fieldnote.example",
+                "newTab": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "appTitle",
+      "label": "App title",
+      "type": "text",
+      "default": "Get the app",
+      "group": "App"
+    },
+    {
+      "name": "appText",
+      "label": "App text",
+      "type": "textarea",
+      "default": "Free for iPhone, iPad and Android.",
+      "group": "App"
+    },
+    {
+      "name": "badges",
+      "label": "Store buttons",
+      "type": "list",
+      "group": "App",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "simple-icons:apple",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "smallLabel",
+          "label": "Small text",
+          "type": "text",
+          "default": "Download on the"
+        },
+        {
+          "name": "label",
+          "label": "Store name",
+          "type": "text",
+          "default": "App Store"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "https://www.apple.com/app-store/",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:apple",
+          "smallLabel": "Download on the",
+          "label": "App Store",
+          "link": {
+            "type": "url",
+            "url": "https://www.apple.com/app-store/",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:googleplay",
+          "smallLabel": "Get it on",
+          "label": "Google Play",
+          "link": {
+            "type": "url",
+            "url": "https://play.google.com/store",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Inc. All rights reserved.",
+      "group": "Legal"
+    },
+    {
+      "name": "legalLinks",
+      "label": "Legal links",
+      "type": "list",
+      "group": "Legal",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Privacy",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Terms",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

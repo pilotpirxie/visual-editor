@@ -1,0 +1,21 @@
+<section class="b-richtext-byline section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 class="b-title" data-field="title">{{title}}</h2>
+      {{#if lead}}<p class="b-lead" data-field="lead">{{nl2br lead}}</p>{{/if}}
+    </header>
+    <div class="b-author">
+      <div class="media b-avatar" data-field="avatar">{{img avatar}}</div>
+      <div class="b-who">
+        <p class="b-name" data-field="name">{{name}}</p>
+        {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+      </div>
+      <dl class="b-facts">
+        {{#if date}}<div><dt data-field="dateLabel">{{dateLabel}}</dt><dd><time datetime="{{date}}" data-field="date">{{formatDate date}}</time></dd></div>{{/if}}
+        {{#if readingTime}}<div><dt data-field="readingTimeLabel">{{readingTimeLabel}}</dt><dd data-field="readingTime">{{readingTime}}</dd></div>{{/if}}
+      </dl>
+    </div>
+    <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+  </div>
+</section>

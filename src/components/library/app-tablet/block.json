@@ -1,0 +1,134 @@
+{
+  "name": "Applications, tablet",
+  "category": "applications",
+  "description": "A landscape tablet drawn in CSS with a screenshot, a floating feature callout and app store buttons above it.",
+  "tags": ["app", "tablet", "ipad", "device", "app store", "google play", "screenshot"],
+  "fieldGroups": ["Heading", "Badges", "Tablet"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Fieldnote for iPad",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Synthesis sessions on a screen everyone can see",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Drag highlights into themes with your fingers, sketch on transcripts with a pencil and present straight from the board.",
+      "group": "Heading"
+    },
+    {
+      "name": "badges",
+      "label": "Download badges",
+      "type": "list",
+      "group": "Badges",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Store logo",
+          "type": "icon",
+          "default": "simple-icons:apple",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "smallLabel",
+          "label": "Small label",
+          "type": "text",
+          "default": "Download on the"
+        },
+        {
+          "name": "label",
+          "label": "Store name",
+          "type": "text",
+          "default": "App Store"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:apple",
+          "smallLabel": "Download on the",
+          "label": "App Store",
+          "link": {
+            "type": "url",
+            "url": "https://apps.apple.com",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:googleplay",
+          "smallLabel": "Get it on",
+          "label": "Google Play",
+          "link": {
+            "type": "url",
+            "url": "https://play.google.com",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "label": "Screenshot",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Fieldnote iPad app showing a synthesis board with highlights grouped into themes",
+        "decorative": false,
+        "width": 1600,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "4:3",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Tablet"
+    },
+    {
+      "name": "chipIcon",
+      "label": "Callout icon",
+      "type": "icon",
+      "default": "pencil",
+      "group": "Tablet"
+    },
+    {
+      "name": "chip",
+      "label": "Callout",
+      "type": "text",
+      "default": "Works with Apple Pencil",
+      "help": "Leave empty to hide the callout.",
+      "maxLength": 40,
+      "group": "Tablet"
+    }
+  ]
+}

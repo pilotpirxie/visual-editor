@@ -1,0 +1,92 @@
+@layer components {
+  @scope (.b-gallery-film) {
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: var(--container-max-width);
+      margin-block-end: var(--space-12);
+    }
+
+    .b-intro {
+      max-width: 40rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-film {
+      --hole: repeating-linear-gradient(
+        90deg,
+        var(--color-background) 0 0.75rem,
+        transparent 0 1.5rem
+      );
+      padding-block: var(--space-8);
+      background:
+        var(--hole), var(--hole), color-mix(in oklab, var(--theme-dark-background) 85%, black);
+      background-size: 100% 0.625rem;
+      background-position:
+        0 var(--space-3),
+        0 calc(100% - var(--space-3));
+      background-repeat: no-repeat;
+      color: var(--theme-dark-text-muted);
+    }
+
+    .b-stock {
+      max-width: var(--container-max-width);
+      margin: 0 auto var(--space-2);
+      padding-inline: var(--container-padding-x);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.2em;
+      color: var(--theme-dark-accent);
+    }
+
+    .b-track {
+      display: grid;
+      grid-auto-columns: 72%;
+      grid-auto-flow: column;
+      gap: var(--space-3);
+      padding-inline: var(--container-padding-x);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--container-padding-x);
+      scrollbar-width: none;
+      counter-reset: frame;
+    }
+
+    .b-frame {
+      scroll-snap-align: start;
+      counter-increment: frame;
+    }
+
+    .b-photo {
+      --media-ratio: 3 / 2;
+      --media-radius: var(--radius-sm);
+    }
+
+    .b-caption {
+      display: flex;
+      gap: var(--space-2);
+      margin-block-start: var(--space-2);
+      font-size: var(--text-xs);
+    }
+
+    .b-caption::before {
+      content: counter(frame, decimal-leading-zero) 'A';
+      font-family: var(--font-mono);
+      color: var(--theme-dark-accent);
+    }
+
+    @media (min-width: 768px) {
+      .b-track {
+        grid-auto-columns: 40%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-track {
+        grid-auto-columns: minmax(0, 1fr);
+        max-width: var(--container-max-width);
+        margin-inline: auto;
+      }
+    }
+  }
+}

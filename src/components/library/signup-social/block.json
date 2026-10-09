@@ -1,0 +1,205 @@
+{
+  "name": "Sign up, with social accounts",
+  "category": "sign-up",
+  "description": "Buttons to sign up with Google, Microsoft or Slack beside an email form, with a terms note.",
+  "tags": ["sign up", "register", "create account", "social", "google", "trial", "form"],
+  "fieldGroups": ["Heading", "Accounts", "Form", "Links"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-surface",
+    "--color-text",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Create your Fieldnote workspace",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Free for 14 days, with every feature on. No credit card needed.",
+      "group": "Heading"
+    },
+    {
+      "name": "providers",
+      "label": "Account buttons",
+      "type": "list",
+      "group": "Accounts",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Sign up with your account"
+        },
+        {
+          "name": "icon",
+          "label": "Logo",
+          "type": "icon",
+          "default": "key",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Sign up with Google",
+          "icon": "simple-icons:google",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Sign up with Microsoft",
+          "icon": "simple-icons:microsoft",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Sign up with Slack",
+          "icon": "simple-icons:slack",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "dividerLabel",
+      "label": "Divider label",
+      "type": "text",
+      "default": "or",
+      "group": "Accounts"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "passwordLabel",
+      "label": "Password field label",
+      "type": "text",
+      "default": "Create a password",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "passwordHint",
+      "label": "Password hint",
+      "type": "text",
+      "default": "At least 12 characters.",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Create workspace",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "termsText",
+      "label": "Terms text",
+      "type": "text",
+      "default": "By signing up you agree to our",
+      "group": "Links"
+    },
+    {
+      "name": "termsLabel",
+      "label": "Terms link label",
+      "type": "text",
+      "default": "Terms and Privacy Policy",
+      "group": "Links"
+    },
+    {
+      "name": "termsLink",
+      "label": "Terms link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    },
+    {
+      "name": "signInText",
+      "label": "Sign in text",
+      "type": "text",
+      "default": "Already have a workspace?",
+      "group": "Links"
+    },
+    {
+      "name": "signInLabel",
+      "label": "Sign in link label",
+      "type": "text",
+      "default": "Sign in",
+      "group": "Links"
+    },
+    {
+      "name": "signInLink",
+      "label": "Sign in link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    }
+  ]
+}

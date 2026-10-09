@@ -1,0 +1,159 @@
+{
+  "name": "HTTP code, 503 launching soon",
+  "category": "http-codes",
+  "description": "A coming-soon page with construction tape, build progress, an email sign-up and social links.",
+  "tags": ["503", "coming soon", "launch", "maintenance", "waitlist", "email", "unavailable"],
+  "fieldGroups": ["Content", "Form", "Social"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Code",
+      "type": "text",
+      "default": "503 · Launching soon",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Something new is on the way",
+      "group": "Content",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We’re rebuilding Fieldnote from the ground up. Leave your email and we’ll tell you the moment the doors open.",
+      "group": "Content"
+    },
+    {
+      "name": "progressLabel",
+      "label": "Progress label",
+      "type": "text",
+      "default": "Build progress",
+      "group": "Content"
+    },
+    {
+      "name": "progress",
+      "label": "Progress (%)",
+      "type": "range",
+      "default": 86,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "group": "Content"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Notify me",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "socials",
+      "label": "Social links",
+      "type": "list",
+      "group": "Social",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "Social network"
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "globe",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "LinkedIn",
+          "icon": "simple-icons:linkedin",
+          "link": {
+            "type": "url",
+            "url": "https://www.linkedin.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Bluesky",
+          "icon": "simple-icons:bluesky",
+          "link": {
+            "type": "url",
+            "url": "https://bsky.app",
+            "newTab": true
+          }
+        },
+        {
+          "label": "YouTube",
+          "icon": "simple-icons:youtube",
+          "link": {
+            "type": "url",
+            "url": "https://www.youtube.com",
+            "newTab": true
+          }
+        }
+      ]
+    }
+  ]
+}

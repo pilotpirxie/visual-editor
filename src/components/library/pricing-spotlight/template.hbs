@@ -1,0 +1,21 @@
+<section class="b-pricing-spotlight section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-plans">
+      {{#each plans}}
+      <article class="card stack b-plan" {{#if featured}}data-featured{{/if}} data-field="plans.{{@index}}">
+        {{#if featured}}<p class="badge b-badge">{{svgIcon "star"}}{{../featuredLabel}}</p>{{/if}}
+        <h3>{{name}}</h3>
+        {{#if description}}<p class="b-muted">{{nl2br description}}</p>{{/if}}
+        <p><span class="b-amount">{{price}}</span> <span class="b-muted">{{period}}</span></p>
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+        <div class="prose b-features">{{richText features}}</div>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

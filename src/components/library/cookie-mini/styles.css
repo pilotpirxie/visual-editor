@@ -1,0 +1,64 @@
+@layer components {
+  @scope (.b-cookie-mini) {
+    .b-panel {
+      z-index: 10;
+      width: fit-content;
+      max-width: min(100% - 2 * var(--space-4), 22rem);
+      margin: 0;
+      margin-inline-start: var(--space-4);
+      padding: var(--space-3) var(--space-4) var(--space-1);
+      border: 0;
+      border-radius: var(--radius-lg);
+      background: var(--color-text);
+      color: var(--color-background);
+      box-shadow: var(--shadow-lg);
+      font-size: var(--text-sm);
+    }
+
+    .b-panel[open] {
+      position: fixed;
+      inset-block: auto var(--space-4);
+      inset-inline: 0 auto;
+    }
+
+    .b-icon {
+      --icon-size: 1rem;
+      margin-inline-end: var(--space-2);
+      vertical-align: -0.15em;
+    }
+
+    .b-text a {
+      color: inherit;
+    }
+
+    .b-actions {
+      display: flex;
+      gap: var(--space-4);
+      margin-inline-start: calc(var(--space-2) * -1);
+    }
+
+    .b-choice {
+      min-height: 2.75rem;
+      padding-inline: var(--space-2);
+      border: 0;
+      border-radius: var(--radius-sm);
+      background: none;
+      color: inherit;
+      font: inherit;
+      font-weight: var(--font-weight-bold);
+      cursor: pointer;
+    }
+
+    .b-choice:first-child {
+      color: color-mix(in oklab, var(--color-primary) 55%, var(--color-background));
+    }
+
+    .b-choice:hover {
+      background: color-mix(in oklab, currentColor 12%, transparent);
+    }
+
+    .b-choice:focus-visible {
+      outline: 2px solid currentColor;
+    }
+  }
+}

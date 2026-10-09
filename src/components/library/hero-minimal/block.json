@@ -1,0 +1,91 @@
+{
+  "name": "Hero, one line",
+  "category": "headers",
+  "description": "A personal introduction in one large sentence with an inline link, plus location, availability and a scroll link.",
+  "tags": ["hero", "heading", "portfolio", "personal", "minimal", "intro", "freelance"],
+  "fieldGroups": ["Heading", "Details"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "I’m Mira, a product designer in Toronto helping teams turn",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "customer interviews",
+      "group": "Heading"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Heading"
+    },
+    {
+      "name": "titleEnd",
+      "label": "Text after the link",
+      "type": "text",
+      "default": "into products people keep using.",
+      "group": "Heading",
+      "maxLength": 120
+    },
+    {
+      "name": "location",
+      "label": "Location",
+      "type": "text",
+      "default": "Toronto, Canada",
+      "group": "Details"
+    },
+    {
+      "name": "availability",
+      "label": "Availability",
+      "type": "text",
+      "default": "Available for projects from June",
+      "group": "Details"
+    },
+    {
+      "name": "available",
+      "label": "Show as available",
+      "type": "boolean",
+      "default": true,
+      "group": "Details"
+    },
+    {
+      "name": "meta",
+      "label": "Extra detail",
+      "type": "text",
+      "default": "Portfolio 2027",
+      "group": "Details"
+    },
+    {
+      "name": "scrollLabel",
+      "label": "Scroll link",
+      "type": "text",
+      "default": "Selected work",
+      "group": "Details"
+    },
+    {
+      "name": "scrollLink",
+      "label": "Scroll link target",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#work",
+        "newTab": false
+      },
+      "group": "Details"
+    }
+  ]
+}

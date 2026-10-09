@@ -1,0 +1,95 @@
+@layer components {
+  @scope (.b-careers-cards) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      --grid-min: 17rem;
+    }
+
+    .b-card {
+      --stack-gap: var(--space-3);
+      position: relative;
+      align-items: flex-start;
+      transition: border-color var(--transition-fast);
+    }
+
+    .b-card:hover {
+      border-color: var(--color-primary);
+    }
+
+    .b-title {
+      font-size: var(--text-lg);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--card-radius);
+    }
+
+    .b-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2) var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-meta li {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .b-arrow {
+      --icon-size: 1.25rem;
+      margin-top: auto;
+      padding-top: var(--space-3);
+      color: var(--color-primary);
+    }
+
+    .b-empty {
+      --icon-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-8) var(--space-6);
+      border: var(--border-width) dashed var(--color-border);
+      border-radius: var(--card-radius);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
+}

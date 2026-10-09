@@ -1,0 +1,41 @@
+@layer components {
+  @scope (.b-content-dark-statement) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      --section-padding-y: var(--space-16);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    .b-statement {
+      max-width: 60rem;
+      font-size: var(--text-4xl);
+      letter-spacing: -0.02em;
+    }
+
+    .b-highlight {
+      color: var(--color-primary);
+    }
+
+    .b-text {
+      max-width: 40rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-statement {
+        font-size: var(--text-5xl);
+      }
+    }
+  }
+}

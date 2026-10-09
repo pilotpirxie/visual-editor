@@ -1,0 +1,72 @@
+@layer components {
+  @scope (.b-richtext-numbered) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+      max-width: 60rem;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      max-width: 42rem;
+    }
+
+    .b-lead {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-sections {
+      counter-reset: part;
+    }
+
+    .b-section {
+      display: grid;
+      gap: var(--space-3) var(--space-6);
+      padding-block: var(--space-8);
+      border-block-start: var(--border-width) solid var(--color-border);
+      counter-increment: part;
+    }
+
+    .b-section::before {
+      content: counter(part, decimal-leading-zero);
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-heading);
+      line-height: 1;
+      color: color-mix(in oklab, var(--color-primary) 35%, var(--color-background));
+    }
+
+    .b-heading {
+      font-size: var(--text-2xl);
+    }
+
+    .b-body {
+      --prose-measure: none;
+      --prose-marker-color: var(--color-primary);
+      color: var(--color-text-muted);
+    }
+
+    .b-body ul {
+      list-style-type: disc;
+    }
+
+    @media (min-width: 768px) {
+      .b-section {
+        grid-template-columns: 7rem minmax(0, 1fr);
+        column-gap: var(--space-8);
+      }
+
+      .b-section::before {
+        position: sticky;
+        top: var(--space-8);
+        grid-row: span 2;
+        align-self: start;
+      }
+
+      .b-body {
+        grid-column: 2;
+        font-size: var(--text-lg);
+      }
+    }
+  }
+}

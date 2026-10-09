@@ -1,0 +1,94 @@
+{
+  "name": "Call to action, two-tone split",
+  "category": "call-to-action",
+  "description": "Two edge-to-edge halves, one in the brand color and one dark, each with its own pitch and button.",
+  "tags": ["cta", "split", "two halves", "two paths", "dark", "brand color", "full width"],
+  "fieldGroups": ["First half", "Second half", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "firstIcon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "rocket",
+      "group": "First half"
+    },
+    {
+      "name": "firstTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "Start a study today",
+      "group": "First half",
+      "required": true,
+      "maxLength": 80
+    },
+    {
+      "name": "firstText",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Import your last ten calls and see the first themes before your next standup.",
+      "group": "First half"
+    },
+    {
+      "name": "firstButton",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "First half"
+    },
+    {
+      "name": "secondIcon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "users",
+      "group": "Second half"
+    },
+    {
+      "name": "secondTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "Roll it out to every team",
+      "group": "Second half",
+      "required": true,
+      "maxLength": 80
+    },
+    {
+      "name": "secondText",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Single sign-on, data residency in Canada and a research ops partner for your first 90 days.",
+      "group": "Second half"
+    },
+    {
+      "name": "secondButton",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Talk to sales",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Second half"
+    },
+    {
+      "name": "orLabel",
+      "label": "Badge between halves",
+      "type": "text",
+      "default": "or",
+      "group": "Layout",
+      "maxLength": 4
+    }
+  ]
+}

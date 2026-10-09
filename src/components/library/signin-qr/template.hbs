@@ -1,0 +1,37 @@
+<section class="b-signin-qr section">
+  <div class="container">
+    <div class="card b-card">
+      <div class="stack b-panel">
+        <header class="stack b-head">
+          <h2 data-field="title">{{title}}</h2>
+          {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+        </header>
+        <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+          <div class="field">
+            <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+            <input id="{{block.id}}-email" type="email" name="email" autocomplete="username" required>
+          </div>
+          <div class="field">
+            <label for="{{block.id}}-password" data-field="passwordLabel">{{passwordLabel}}</label>
+            <input id="{{block.id}}-password" type="password" name="password" autocomplete="current-password" required>
+          </div>
+          <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+        </form>
+        {{#if forgotLabel}}<a class="b-link" href="{{href forgotLink}}" {{linkAttrs forgotLink}} data-field="forgotLink">{{forgotLabel}}</a>{{/if}}
+      </div>
+      <div class="stack b-panel b-scan">
+        {{#if dividerLabel}}<p class="badge" data-field="dividerLabel">{{dividerLabel}}</p>{{/if}}
+        <div class="b-qr" aria-hidden="true">
+          <span></span><span></span><span></span>
+          <i>{{svgIcon "smartphone"}}</i>
+        </div>
+        <h3 class="b-scan-title" data-field="scanTitle">{{scanTitle}}</h3>
+        <ol class="b-steps">
+          {{#each steps}}
+          <li data-field="steps.{{@index}}">{{text}}</li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>

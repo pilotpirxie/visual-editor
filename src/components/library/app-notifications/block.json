@@ -1,0 +1,171 @@
+{
+  "name": "Applications, lock screen alerts",
+  "category": "applications",
+  "description": "A phone lock screen drawn in CSS, with the time, the date and a stack of your app’s notifications.",
+  "tags": ["app", "mobile", "notifications", "push", "lock screen", "phone", "alerts"],
+  "fieldGroups": ["Heading", "Points", "Lock screen", "Button"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Notifications",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Only the alerts worth looking up for",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Fieldnote stays quiet until something needs you: a transcript is ready, a teammate quotes your study, or a theme suddenly grows.",
+      "group": "Heading"
+    },
+    {
+      "name": "points",
+      "label": "Points",
+      "type": "list",
+      "group": "Points",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Point",
+          "required": true
+        }
+      ],
+      "default": [
+        { "text": "Choose alerts per project" },
+        { "text": "Quiet hours that follow your calendar" },
+        { "text": "A daily digest instead of pings, if you prefer" }
+      ]
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "text",
+      "default": "Tuesday, October 13",
+      "group": "Lock screen"
+    },
+    {
+      "name": "time",
+      "label": "Time",
+      "type": "text",
+      "default": "9:41",
+      "maxLength": 5,
+      "group": "Lock screen"
+    },
+    {
+      "name": "notifications",
+      "label": "Notifications",
+      "type": "list",
+      "group": "Lock screen",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "App icon",
+          "type": "icon",
+          "default": "bell"
+        },
+        {
+          "name": "app",
+          "label": "App name",
+          "type": "text",
+          "default": "Fieldnote",
+          "maxLength": 20
+        },
+        {
+          "name": "when",
+          "label": "When",
+          "type": "text",
+          "default": "now",
+          "maxLength": 10
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Notification",
+          "required": true,
+          "maxLength": 50
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "",
+          "maxLength": 90
+        }
+      ],
+      "default": [
+        {
+          "icon": "transcript",
+          "app": "Fieldnote",
+          "when": "now",
+          "title": "Your transcript is ready",
+          "text": "Interview with Priya S. · 48 min · 6 highlights found"
+        },
+        {
+          "icon": "quote",
+          "app": "Fieldnote",
+          "when": "12m ago",
+          "title": "Dana quoted your study",
+          "text": "“Pricing page confusion” was added to the Q4 roadmap doc."
+        },
+        {
+          "icon": "trending-up",
+          "app": "Fieldnote",
+          "when": "1h ago",
+          "title": "A theme is growing",
+          "text": "Export problems came up in 5 interviews this week."
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Download the app",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

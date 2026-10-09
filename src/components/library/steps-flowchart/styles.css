@@ -1,0 +1,106 @@
+@layer components {
+  @scope (.b-steps-flowchart) {
+    .b-inner {
+      display: grid;
+      justify-items: center;
+      gap: var(--space-12);
+      text-align: center;
+    }
+
+    .b-head {
+      max-width: 40rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-chart {
+      --gap: var(--space-8);
+      --line: 2px solid color-mix(in oklab, var(--color-primary) 45%, transparent);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--gap);
+      width: min(100%, 52rem);
+    }
+
+    :is(.b-node:not(.b-end), .b-branch)::after,
+    :is(.b-branch, .b-end)::before {
+      content: '';
+      position: absolute;
+      inset-block-start: 100%;
+      inset-inline-start: 50%;
+      block-size: var(--gap);
+      border-inline-start: var(--line);
+    }
+
+    :is(.b-branch, .b-end)::before {
+      inset-block-start: calc(-1 * var(--gap));
+    }
+
+    .b-pill {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-6);
+      border-radius: var(--radius-full);
+      background: var(--color-text);
+      color: var(--color-background);
+      font-weight: var(--font-weight-bold);
+    }
+
+    :is(.b-box, .b-decision) {
+      position: relative;
+      width: min(100%, 26rem);
+    }
+
+    .b-box {
+      align-items: center;
+    }
+
+    .b-decision {
+      isolation: isolate;
+      padding: var(--space-6) var(--space-12);
+      color: var(--color-primary-contrast);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-decision::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: var(--color-primary);
+      clip-path: polygon(8% 0, 92% 0, 100% 50%, 92% 100%, 8% 100%, 0 50%);
+    }
+
+    .b-branches {
+      position: relative;
+      display: grid;
+      justify-items: center;
+      gap: var(--gap);
+      width: 100%;
+      padding-block: var(--gap);
+    }
+
+    @media (min-width: 768px) {
+      .b-branches {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .b-branches::before,
+      .b-branches::after {
+        content: '';
+        position: absolute;
+        inset: 0 calc(25% - var(--gap) / 4) auto;
+        border-block-start: var(--line);
+      }
+
+      .b-branches::after {
+        inset-block: auto 0;
+      }
+    }
+  }
+}

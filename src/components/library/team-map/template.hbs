@@ -1,0 +1,28 @@
+<section class="b-team-map section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-map" aria-hidden="true">
+      {{#each locations}}
+      <span class="b-pin" style="--x: {{x}}; --y: {{y}}" data-field="locations.{{@index}}">
+        <span class="media b-avatar">{{img photo}}</span>
+        <span class="b-label">{{city}}</span>
+      </span>
+      {{/each}}
+    </div>
+    <ul class="b-places" role="list">
+      {{#each locations}}
+      <li class="b-place" data-field="locations.{{@index}}">
+        {{svgIcon "map-pin"}}
+        <div>
+          <h3 class="b-city">{{city}}</h3>
+          {{#if detail}}<p class="b-detail">{{detail}}</p>{{/if}}
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

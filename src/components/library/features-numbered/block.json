@@ -1,0 +1,88 @@
+{
+  "name": "Features, numbered list",
+  "category": "features",
+  "description": "Oversized 01 to 06 numerals over a ruled grid of features, with the heading and intro side by side.",
+  "tags": ["features", "numbered", "numbers", "list", "editorial", "ruled", "grid"],
+  "fieldGroups": ["Heading", "Items"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "What you get",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Six things Fieldnote does after every interview",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "You run the conversation. Fieldnote handles the hours of work that usually come after it.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Feature title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one or two sentences."
+        }
+      ],
+      "default": [
+        {
+          "title": "Transcribes every word",
+          "text": "Speaker labels, timestamps and 30 languages, ready a few minutes after you hang up."
+        },
+        {
+          "title": "Finds the highlights",
+          "text": "Moments of friction, praise and feature requests are marked before you open the file."
+        },
+        {
+          "title": "Removes personal details",
+          "text": "Names, emails and phone numbers are redacted automatically before anyone else sees them."
+        },
+        {
+          "title": "Tags by theme",
+          "text": "Highlights land in your team’s existing tags, so patterns build up across studies."
+        },
+        {
+          "title": "Cuts shareable clips",
+          "text": "Send a 40-second clip to Slack instead of asking people to watch the full hour."
+        },
+        {
+          "title": "Writes the summary",
+          "text": "A one-page recap with quotes and next steps, editable before it goes to stakeholders."
+        }
+      ]
+    }
+  ]
+}

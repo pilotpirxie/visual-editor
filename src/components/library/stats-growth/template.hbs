@@ -1,0 +1,19 @@
+<section class="b-stats-growth section">
+  <div class="container b-layout">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      {{#if highlight}}<p class="b-highlight"><span class="b-big" data-field="highlight">{{svgIcon "trending-up"}}{{highlight}}</span> <span class="b-muted" data-field="highlightLabel">{{highlightLabel}}</span></p>{{/if}}
+    </header>
+    <ol class="b-years" role="list">
+      {{#each years}}
+      <li class="b-year" data-field="years.{{@index}}">
+        <span class="b-value">{{value}}</span>
+        <span class="b-column" style="--h: {{height}}"></span>
+        <span class="b-label">{{year}}</span>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

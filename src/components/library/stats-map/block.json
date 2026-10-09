@@ -1,0 +1,89 @@
+{
+  "name": "Numbers, around the world",
+  "category": "numbers",
+  "description": "A dotted world map with numbered pins and a legend of figures for each region.",
+  "tags": ["numbers", "stats", "map", "world", "global", "regions", "locations"],
+  "fieldGroups": ["Heading", "Regions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Worldwide",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Made in Toronto, used on six continents",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Research teams in 74 countries run their interviews through Fieldnote.",
+      "group": "Heading"
+    },
+    {
+      "name": "regions",
+      "label": "Regions",
+      "type": "list",
+      "group": "Regions",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Number",
+          "type": "text",
+          "default": "100"
+        },
+        {
+          "name": "name",
+          "label": "Region",
+          "type": "text",
+          "default": "Region"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "teams"
+        },
+        {
+          "name": "x",
+          "label": "Pin across",
+          "type": "range",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "help": "0 is the left edge of the map, 100 the right edge."
+        },
+        {
+          "name": "y",
+          "label": "Pin down",
+          "type": "range",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "help": "0 is the top of the map, 100 the bottom."
+        }
+      ],
+      "default": [
+        { "value": "4,820", "name": "North America", "label": "teams", "x": 24, "y": 30 },
+        { "value": "2,310", "name": "Europe", "label": "teams", "x": 52, "y": 22 },
+        { "value": "1,450", "name": "Asia", "label": "teams", "x": 76, "y": 30 },
+        { "value": "640", "name": "South America", "label": "teams", "x": 33, "y": 62 },
+        { "value": "380", "name": "Oceania", "label": "teams", "x": 87, "y": 66 },
+        { "value": "290", "name": "Africa", "label": "teams", "x": 56, "y": 50 }
+      ]
+    }
+  ]
+}

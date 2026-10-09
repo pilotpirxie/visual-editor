@@ -1,0 +1,140 @@
+{
+  "name": "Footer, office locations",
+  "category": "footers",
+  "description": "Every office with its city, address and phone, plus links and a legal line.",
+  "tags": ["footer", "offices", "locations", "addresses", "cities", "global"],
+  "fieldGroups": ["Brand", "Offices", "Links", "Legal"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "tagline",
+      "label": "Tagline",
+      "type": "textarea",
+      "default": "A remote-first team with three studios where customers can drop in for a session.",
+      "group": "Brand"
+    },
+    {
+      "name": "offices",
+      "label": "Offices",
+      "type": "list",
+      "group": "Offices",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "city",
+      "itemFields": [
+        {
+          "name": "city",
+          "label": "City",
+          "type": "text",
+          "default": "City"
+        },
+        {
+          "name": "label",
+          "label": "Badge",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "address",
+          "label": "Address",
+          "type": "textarea",
+          "default": "Street and number\nPostal code and city"
+        },
+        {
+          "name": "phone",
+          "label": "Phone",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "city": "Toronto",
+          "label": "HQ",
+          "address": "220 King Street West\nToronto, ON M5H 1K4",
+          "phone": "+1 416 555 0142"
+        },
+        {
+          "city": "Berlin",
+          "label": "",
+          "address": "Torstraße 109\n10119 Berlin",
+          "phone": "+49 30 5557 2210"
+        },
+        {
+          "city": "Melbourne",
+          "label": "",
+          "address": "45 Flinders Lane\nMelbourne VIC 3000",
+          "phone": "+61 3 5550 1874"
+        }
+      ]
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Careers",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Press",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Privacy",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Terms",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Inc. All rights reserved.",
+      "group": "Legal"
+    }
+  ]
+}

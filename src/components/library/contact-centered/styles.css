@@ -1,0 +1,49 @@
+@layer components {
+  @scope (.b-contact-centered) {
+    .b-inner {
+      --container-max-width: 46rem;
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      text-align: center;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      --card-padding: var(--space-6);
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-3) var(--space-4);
+    }
+
+    .b-note {
+      flex: 1 1 14rem;
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-form {
+        --card-padding: var(--space-8);
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-6);
+      }
+
+      .b-wide {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+}

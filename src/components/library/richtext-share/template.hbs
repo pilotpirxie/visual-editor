@@ -1,0 +1,23 @@
+<section class="b-richtext-share section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 class="b-title" data-field="title">{{title}}</h2>
+      {{#if (or author date)}}
+      <p class="cluster b-meta">
+        {{#if author}}<span class="b-author" data-field="author">{{author}}</span>{{/if}}
+        {{#if date}}<time datetime="{{date}}" data-field="date">{{formatDate date}}</time>{{/if}}
+      </p>
+      {{/if}}
+    </header>
+    <div class="b-share">
+      <p class="b-share-label" data-field="shareLabel">{{shareLabel}}</p>
+      <ul class="cluster b-share-list" role="list">
+        {{#each shares}}
+        <li><a class="b-share-link" href="{{href link}}" {{linkAttrs link}} data-field="shares.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}</span></a></li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+  </div>
+</section>

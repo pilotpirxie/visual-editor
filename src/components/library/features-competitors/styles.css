@@ -1,0 +1,112 @@
+@layer components {
+  @scope (.b-features-competitors) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 42rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro,
+    .b-note,
+    tbody th {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-scroll {
+      position: relative;
+      overflow-x: auto;
+      padding-block-start: var(--space-4);
+    }
+
+    .b-table {
+      width: 100%;
+      min-width: 34rem;
+      border-spacing: 0;
+    }
+
+    .b-table :is(th, td) {
+      padding: var(--space-4);
+      text-align: center;
+    }
+
+    thead th {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+    }
+
+    tbody :is(th, td) {
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-table tbody th {
+      font-weight: var(--font-weight-regular);
+      text-align: start;
+    }
+
+    .b-table .b-us {
+      background: color-mix(in oklab, var(--color-primary) 8%, var(--color-background));
+    }
+
+    .b-table thead .b-us {
+      border-start-start-radius: var(--card-radius);
+      border-start-end-radius: var(--card-radius);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    tbody tr:last-child .b-us {
+      border-end-start-radius: var(--card-radius);
+      border-end-end-radius: var(--card-radius);
+    }
+
+    .b-mark {
+      --icon-size: 1rem;
+      display: inline-grid;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--radius-full);
+      color: var(--color-text-muted);
+    }
+
+    .b-mark[data-value='yes'] {
+      background: color-mix(in oklab, var(--color-primary) 16%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-us .b-mark[data-value='yes'] {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-actions {
+      --cluster-gap: var(--space-4);
+      --cluster-justify: center;
+      align-items: center;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 1024px) {
+      .b-table {
+        max-width: 60rem;
+        margin-inline: auto;
+      }
+
+      .b-table :is(th, td) {
+        padding: var(--space-4) var(--space-6);
+      }
+    }
+  }
+}

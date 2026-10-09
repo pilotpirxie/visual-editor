@@ -1,0 +1,109 @@
+@layer components {
+  @scope (.b-gallery-albums) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+
+    .b-heading {
+      --stack-gap: var(--space-3);
+      max-width: 36rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-tablist {
+      display: flex;
+      gap: var(--space-2);
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    .b-tab {
+      display: inline-flex;
+      flex: none;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      padding-inline: var(--space-4) var(--space-2);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-text);
+      font-weight: var(--font-weight-bold);
+      cursor: pointer;
+    }
+
+    .b-tab[aria-selected='true'] {
+      border-color: var(--color-text);
+      background: var(--color-text);
+      color: var(--color-background);
+    }
+
+    .b-count {
+      min-width: var(--space-6);
+      padding: 0 var(--space-2);
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, currentColor 14%, transparent);
+      font-size: var(--text-xs);
+    }
+
+    .b-panels {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-about {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: var(--space-1) var(--space-4);
+    }
+
+    :scope:has(.b-tablist:not([hidden])) .b-name {
+      position: absolute;
+      clip-path: inset(50%);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .b-photo {
+      --media-ratio: 4 / 3;
+    }
+
+    .b-photo:first-child {
+      grid-column: span 2;
+      --media-ratio: 2;
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: var(--space-4);
+      }
+
+      .b-photo:first-child {
+        grid-area: span 2 / span 2;
+        --media-ratio: 4 / 3;
+      }
+    }
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "name": "Blog posts, front page",
+  "category": "blog",
+  "description": "A newspaper front page: masthead, a lead story with image and smaller stories in ruled columns.",
+  "tags": [
+    "blog",
+    "posts",
+    "articles",
+    "news",
+    "newspaper",
+    "front page",
+    "editorial",
+    "magazine",
+    "columns"
+  ],
+  "fieldGroups": ["Masthead", "Lead story", "Stories"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Publication name",
+      "type": "text",
+      "default": "The Fieldnote Weekly",
+      "group": "Masthead",
+      "required": true
+    },
+    {
+      "name": "edition",
+      "label": "Edition",
+      "type": "text",
+      "default": "Vol. 3 · No. 41",
+      "group": "Masthead"
+    },
+    {
+      "name": "issueDate",
+      "label": "Issue date",
+      "type": "date",
+      "default": "2026-10-06",
+      "group": "Masthead"
+    },
+    {
+      "name": "tagline",
+      "label": "Tagline",
+      "type": "text",
+      "default": "Customer research, reported from Toronto",
+      "group": "Masthead"
+    },
+    {
+      "name": "leadImage",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Northwind product team in front of a wall of printed customer quotes",
+        "decorative": false,
+        "width": 1200,
+        "height": 800,
+        "placeholder": {
+          "ratio": "3:2",
+          "subject": "photo"
+        }
+      },
+      "group": "Lead story"
+    },
+    {
+      "name": "leadKicker",
+      "label": "Kicker",
+      "type": "text",
+      "default": "Customer story",
+      "group": "Lead story"
+    },
+    {
+      "name": "leadTitle",
+      "label": "Headline",
+      "type": "text",
+      "default": "Ten calls, one week: how Northwind halved onboarding time",
+      "group": "Lead story",
+      "required": true
+    },
+    {
+      "name": "leadText",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Northwind’s product team had a funnel full of numbers and no idea why new admins stalled on day two. So they stopped guessing and booked ten thirty-minute calls. By Friday, the same three moments had come up in eight of them, and the fix for the worst one shipped the following Tuesday.",
+      "group": "Lead story"
+    },
+    {
+      "name": "leadByline",
+      "label": "Byline",
+      "type": "text",
+      "default": "By Leila Haddad, research lead",
+      "group": "Lead story"
+    },
+    {
+      "name": "leadLink",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Lead story"
+    },
+    {
+      "name": "stories",
+      "label": "Stories",
+      "type": "list",
+      "group": "Stories",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "kicker",
+          "label": "Kicker",
+          "type": "text",
+          "default": "News"
+        },
+        {
+          "name": "title",
+          "label": "Headline",
+          "type": "text",
+          "default": "Story headline"
+        },
+        {
+          "name": "excerpt",
+          "label": "Excerpt",
+          "type": "textarea",
+          "default": "One sentence that sums up the story."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "kicker": "Interviewing",
+          "title": "The question we stopped asking",
+          "excerpt": "Why “Would you use this?” gets polite yeses and nothing else.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "kicker": "Product",
+          "title": "Clips now export to your slides",
+          "excerpt": "Drag any highlight into Google Slides or Keynote with captions on.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "kicker": "Recruiting",
+          "title": "Gift cards attract the wrong people",
+          "excerpt": "What we offer instead, and the reply rates that followed.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "kicker": "Opinion",
+          "title": "Researchers belong in sales calls",
+          "excerpt": "Your revenue team already talks to customers every day.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "kicker": "Events",
+          "title": "Research meetup returns to Toronto",
+          "excerpt": "Thursday, November 12, at the Fieldnote studio on Queen West.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "kicker": "Ops",
+          "title": "A consent form people actually read",
+          "excerpt": "Our plain-language template is free to copy.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

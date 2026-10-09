@@ -1,0 +1,129 @@
+{
+  "name": "Call to action, watch the demo",
+  "category": "call-to-action",
+  "description": "A video player with a play button and running time beside the pitch, its chapters and a button.",
+  "tags": ["cta", "video", "demo", "play", "chapters", "walkthrough", "product tour"],
+  "fieldGroups": ["Content", "Video", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "3-minute tour",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "See a week of interviews become one clear answer",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Watch a product team go from a pile of recordings to a decision they can defend, all inside Fieldnote.",
+      "group": "Content"
+    },
+    {
+      "name": "chapters",
+      "label": "Chapters",
+      "type": "list",
+      "group": "Content",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "time",
+          "label": "Time",
+          "type": "text",
+          "default": "0:00"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Chapter"
+        }
+      ],
+      "default": [
+        {
+          "time": "0:00",
+          "label": "Import last week’s calls"
+        },
+        {
+          "time": "1:05",
+          "label": "Let themes surface on their own"
+        },
+        {
+          "time": "2:20",
+          "label": "Share a highlight reel with the team"
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "label": "Video thumbnail",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Fieldnote showing interview themes next to a video transcript",
+        "decorative": false,
+        "width": 1600,
+        "height": 900,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Video"
+    },
+    {
+      "name": "videoLink",
+      "label": "Video link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "https://www.youtube.com",
+        "newTab": true
+      },
+      "group": "Video"
+    },
+    {
+      "name": "videoLabel",
+      "label": "Play button label",
+      "type": "text",
+      "default": "Play the 3-minute product tour",
+      "group": "Video",
+      "required": true
+    },
+    {
+      "name": "duration",
+      "label": "Running time",
+      "type": "text",
+      "default": "3:12",
+      "group": "Video"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    }
+  ]
+}

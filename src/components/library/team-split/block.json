@@ -1,0 +1,196 @@
+{
+  "name": "Team, intro beside grid",
+  "category": "team",
+  "description": "A heading, text and a button on one side and a grid of people on the other.",
+  "tags": ["team", "people", "about", "split", "grid", "hiring"],
+  "fieldGroups": ["Heading", "Button", "People"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Who we are",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Small team, many conversations",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We are researchers who learned to code and engineers who learned to interview. Most of us have worked on the other side, drowning in recordings nobody had time to watch.",
+      "group": "Heading"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See open roles",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "people",
+      "label": "People",
+      "type": "list",
+      "group": "People",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leila Haddad",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Leila Haddad",
+          "role": "Co-founder and CEO"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Mateo Ruiz",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Mateo Ruiz",
+          "role": "Co-founder and CTO"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Ingrid Solberg",
+          "role": "Head of research"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Kwame Mensah",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Kwame Mensah",
+          "role": "Head of engineering"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Yuki Tanaka",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Yuki Tanaka",
+          "role": "Senior product designer"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Daniel Novak",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Daniel Novak",
+          "role": "Customer success lead"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+<section class="b-signup-steps section">
+  <div class="container">
+    <div class="card stack b-card">
+      <ol class="b-progress" role="list" aria-label="{{progressLabel}}" data-field="steps">
+        {{#each steps}}
+        <li class="b-stage" data-state="{{state}}"{{#if (eq state "current")}} aria-current="step"{{/if}}>{{#if (eq state "done")}}{{svgIcon "check"}}{{/if}}<span>{{label}}</span></li>
+        {{/each}}
+      </ol>
+      <header class="stack b-head">
+        {{#if stepNote}}<p class="eyebrow" data-field="stepNote">{{stepNote}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field">
+          <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+          <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-password" data-field="passwordLabel">{{passwordLabel}}</label>
+          <input id="{{block.id}}-password" type="password" name="password" autocomplete="new-password" required{{#if passwordHint}} aria-describedby="{{block.id}}-password-hint"{{/if}}>
+          {{#if passwordHint}}<p class="field-hint" id="{{block.id}}-password-hint" data-field="passwordHint">{{passwordHint}}</p>{{/if}}
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}{{svgIcon "arrow-right"}}</button>
+      </form>
+      {{#if signInLabel}}<p class="b-muted b-switch" data-field="signInLink">{{signInText}} <a href="{{href signInLink}}" {{linkAttrs signInLink}}>{{signInLabel}}</a></p>{{/if}}
+    </div>
+  </div>
+</section>

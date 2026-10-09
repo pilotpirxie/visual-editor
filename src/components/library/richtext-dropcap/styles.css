@@ -1,0 +1,87 @@
+@layer components {
+  @scope (.b-richtext-dropcap) {
+    .b-article {
+      --stack-gap: var(--space-12);
+      max-width: 40rem;
+      margin-inline: auto;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-head::after {
+      content: '';
+      inline-size: 3rem;
+      block-size: calc(var(--border-width) * 3);
+      margin-block-start: var(--space-4);
+      background: var(--color-primary);
+    }
+
+    .b-title {
+      font-size: var(--text-4xl);
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .b-standfirst {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-style: italic;
+      color: var(--color-text-muted);
+    }
+
+    .b-meta {
+      --cluster-gap: var(--space-2) var(--space-4);
+      --cluster-justify: center;
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .b-body {
+      --prose-measure: none;
+      --prose-gap: var(--space-6);
+      --prose-marker-color: var(--color-primary);
+      font-size: var(--text-lg);
+      line-height: 1.75;
+      hanging-punctuation: first;
+    }
+
+    .b-body > p:first-child::first-line {
+      font-variant-caps: all-small-caps;
+      letter-spacing: 0.05em;
+    }
+
+    .b-body > p:first-child::first-letter {
+      float: inline-start;
+      margin-block-start: 0.06em;
+      margin-inline-end: var(--space-3);
+      font-family: var(--font-heading);
+      font-size: 5.3em;
+      font-variant-caps: normal;
+      font-weight: var(--font-weight-heading);
+      line-height: 0.8;
+      color: var(--color-primary);
+    }
+
+    .b-body > p:last-child::after {
+      content: '';
+      display: inline-block;
+      inline-size: 0.6em;
+      block-size: 0.6em;
+      margin-inline-start: var(--space-2);
+      background: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-title {
+        font-size: var(--text-5xl);
+      }
+    }
+  }
+}

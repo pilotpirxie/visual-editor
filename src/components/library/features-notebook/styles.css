@@ -1,0 +1,108 @@
+@layer components {
+  @scope (.b-features-notebook) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-head {
+      align-items: flex-start;
+      max-width: 32rem;
+    }
+
+    .b-intro,
+    .b-task {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-paper {
+      --line: 2rem;
+      position: relative;
+      padding: calc(var(--line) * 2) var(--space-6) var(--line) var(--space-12);
+      border-radius: var(--radius-sm);
+      background: repeating-linear-gradient(
+          transparent 0 calc(var(--line) - var(--border-width)),
+          var(--color-border) 0 var(--line)
+        )
+        var(--color-background);
+      box-shadow: var(--shadow-lg);
+      line-height: var(--line);
+      rotate: -1deg;
+    }
+
+    .b-paper::before,
+    .b-paper::after {
+      content: '';
+      position: absolute;
+    }
+
+    .b-paper::before {
+      inset-block: 0;
+      inset-inline-start: var(--space-8);
+      border-inline-start: calc(var(--border-width) * 3) double
+        color-mix(in oklab, var(--color-primary) 55%, transparent);
+    }
+
+    .b-paper::after {
+      top: calc(var(--space-3) * -1);
+      inset-inline: 0;
+      width: 7rem;
+      height: 1.75rem;
+      margin-inline: auto;
+      background: color-mix(in oklab, var(--color-primary) 22%, transparent);
+      rotate: 3deg;
+    }
+
+    .b-paper-title {
+      margin-block-end: var(--line);
+      font-size: var(--text-xl);
+      line-height: var(--line);
+    }
+
+    .b-item {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .b-check {
+      --icon-size: 1.25rem;
+      color: var(--color-primary);
+    }
+
+    .b-task {
+      text-decoration-color: var(--color-primary);
+      text-decoration-thickness: 0.12em;
+    }
+
+    .b-result {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-paper {
+        --line: 2.25rem;
+        padding-inline: var(--space-16) var(--space-12);
+        font-size: var(--text-lg);
+      }
+
+      .b-paper::before {
+        inset-inline-start: var(--space-12);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

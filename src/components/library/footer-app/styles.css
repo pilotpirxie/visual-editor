@@ -1,0 +1,111 @@
+@layer components {
+  @scope (.b-footer-app) {
+    :scope {
+      --section-padding-y: var(--space-16);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-top {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-brand,
+    .b-app,
+    .b-column {
+      --stack-gap: var(--space-3);
+      min-width: 0;
+    }
+
+    .b-logo {
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-muted,
+    :is(.b-links, .b-legal) a {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-8);
+    }
+
+    .b-heading {
+      font-size: var(--text-sm);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    :is(.b-links, .b-legal) a {
+      display: inline-block;
+      padding-block: var(--space-2);
+      text-decoration: none;
+    }
+
+    :is(.b-links, .b-legal) a:hover {
+      color: var(--color-primary);
+    }
+
+    .b-badges {
+      --cluster-gap: var(--space-2);
+    }
+
+    .b-badge {
+      --icon-size: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 3rem;
+      padding: var(--space-1) var(--space-4);
+      padding-inline-start: var(--space-3);
+      border-radius: var(--radius-md);
+      background: var(--color-text);
+      color: var(--color-background);
+      text-decoration: none;
+    }
+
+    .b-badge-text {
+      display: grid;
+      font-size: var(--text-xs);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-store {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2) var(--space-6);
+      padding-top: var(--space-6);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-legal {
+      --cluster-gap: 0 var(--space-6);
+    }
+
+    @media (min-width: 1024px) {
+      .b-top {
+        grid-template-columns: 1fr 1.4fr 1fr;
+      }
+    }
+  }
+}

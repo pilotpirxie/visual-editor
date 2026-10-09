@@ -1,0 +1,182 @@
+{
+  "name": "Sign in, with customer quote",
+  "category": "sign-in",
+  "description": "A sign in form beside a dark panel with a customer quote and the teams who use the product.",
+  "tags": [
+    "sign in",
+    "login",
+    "log in",
+    "account",
+    "password",
+    "form",
+    "split",
+    "quote",
+    "testimonial"
+  ],
+  "fieldGroups": ["Heading", "Form", "Links", "Quote"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Sign in to Fieldnote",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Good to see you again. Your workspace is just as you left it.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "passwordLabel",
+      "label": "Password field label",
+      "type": "text",
+      "default": "Password",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "rememberLabel",
+      "label": "Remember me label",
+      "type": "text",
+      "default": "Keep me signed in",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Sign in",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "forgotLabel",
+      "label": "Forgot password label",
+      "type": "text",
+      "default": "Forgot password?",
+      "group": "Links"
+    },
+    {
+      "name": "forgotLink",
+      "label": "Forgot password link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    },
+    {
+      "name": "signUpText",
+      "label": "Sign up text",
+      "type": "text",
+      "default": "No account yet?",
+      "group": "Links"
+    },
+    {
+      "name": "signUpLabel",
+      "label": "Sign up link label",
+      "type": "text",
+      "default": "Start a free trial",
+      "group": "Links"
+    },
+    {
+      "name": "signUpLink",
+      "label": "Sign up link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "We used to lose the best customer moments in someone’s notebook. Now the whole product team searches every interview before we write a single spec.",
+      "required": true,
+      "maxLength": 280,
+      "group": "Quote"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Priya Raman",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Quote"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Priya Raman",
+      "group": "Quote"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Head of Product Research, Northwind",
+      "group": "Quote"
+    },
+    {
+      "name": "trusted",
+      "label": "Line under the quote",
+      "type": "text",
+      "default": "Trusted by research teams at Northwind, Brightpath and Ledgerly",
+      "group": "Quote"
+    }
+  ]
+}

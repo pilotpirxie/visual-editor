@@ -1,0 +1,110 @@
+@layer components {
+  @scope (.b-stats-chart) {
+    .b-layout {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-head {
+      max-width: 34rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-figure {
+      --stack-gap: var(--space-6);
+      --plot: 15rem;
+      padding: var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-chart {
+      position: relative;
+      display: grid;
+      grid-auto-columns: minmax(0, 1fr);
+      grid-auto-flow: column;
+      gap: var(--space-1);
+      font-size: var(--text-xs);
+    }
+
+    .b-chart::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto;
+      height: var(--plot);
+      border-block-end: 2px solid var(--color-text);
+      background: repeating-linear-gradient(
+        to top,
+        transparent 0 calc(25% - 1px),
+        var(--color-border) 0 25%
+      );
+    }
+
+    .b-col {
+      display: grid;
+      grid-template-rows: var(--plot) auto;
+      text-align: center;
+    }
+
+    .b-plot {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      gap: var(--space-2);
+      grid-row: 1;
+    }
+
+    .b-value {
+      font-family: var(--font-heading);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-heading);
+      white-space: nowrap;
+    }
+
+    .b-bar {
+      width: min(100%, 4rem);
+      height: calc(var(--h, 50) / 100 * (var(--plot) - 2.5rem));
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      background: color-mix(in oklab, var(--color-primary) 30%, var(--color-surface));
+    }
+
+    [data-highlight] :is(.b-bar, .b-value) {
+      --color-surface: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .b-label {
+      grid-row: 2;
+      padding-block-start: var(--space-3);
+      overflow-wrap: anywhere;
+    }
+
+    @media (min-width: 768px) {
+      .b-figure {
+        --plot: 18rem;
+      }
+
+      .b-chart {
+        gap: var(--space-3);
+        font-size: var(--text-sm);
+      }
+
+      .b-value {
+        font-size: var(--text-lg);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

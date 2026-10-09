@@ -1,0 +1,110 @@
+@layer components {
+  @scope (.b-features-search) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      max-width: 32rem;
+    }
+
+    .b-intro,
+    .b-count,
+    .b-source {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-points {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-point {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      color: var(--color-primary);
+    }
+
+    .b-window {
+      display: grid;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-query {
+      --icon-size: 1.25rem;
+      display: flex;
+      gap: var(--space-3);
+      align-items: center;
+      min-height: 3.25rem;
+      padding-inline: var(--space-4);
+      border: calc(var(--border-width) * 2) solid var(--color-primary);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      font-size: var(--text-lg);
+    }
+
+    .b-count,
+    .b-source {
+      font-size: var(--text-sm);
+    }
+
+    .b-results {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .b-result {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-background);
+    }
+
+    .b-avatar {
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 16%, var(--color-background));
+      color: var(--color-primary);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-hit {
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    mark {
+      padding-inline: 0.15em;
+      border-radius: var(--radius-sm);
+      background: color-mix(in oklab, var(--color-primary) 22%, transparent);
+      color: inherit;
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

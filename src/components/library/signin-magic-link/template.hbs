@@ -1,0 +1,18 @@
+<section class="b-signin-magic-link section">
+  <div class="container stack b-inner">
+    {{#if icon}}<span class="b-badge" data-field="icon">{{svgIcon icon}}</span>{{/if}}
+    <header class="stack b-head">
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <div class="field b-field">
+        <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+        <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}"{{#if note}} aria-describedby="{{block.id}}-note"{{/if}}>
+      </div>
+      <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+    </form>
+    {{#if note}}<p class="b-note" id="{{block.id}}-note" data-field="note">{{note}}</p>{{/if}}
+    {{#if altLabel}}<p class="b-alt" data-field="altLink">{{altText}} <a href="{{href altLink}}" {{linkAttrs altLink}}>{{altLabel}}</a></p>{{/if}}
+  </div>
+</section>

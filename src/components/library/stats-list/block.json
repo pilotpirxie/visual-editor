@@ -1,0 +1,90 @@
+{
+  "name": "Numbers, editorial list",
+  "category": "numbers",
+  "description": "Numbered rows of oversized figures, each with one sentence of context, separated by thin rules.",
+  "tags": ["numbers", "stats", "editorial", "list", "report", "facts", "big type"],
+  "fieldGroups": ["Heading", "Numbers"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "2025 in review",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A year of listening, in four numbers",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every figure below comes from anonymous usage data across all Fieldnote workspaces.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Numbers",
+      "type": "list",
+      "group": "Numbers",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "value",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Number",
+          "type": "text",
+          "default": "100"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What this number means."
+        },
+        {
+          "name": "source",
+          "label": "Source",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "value": "212,000",
+          "text": "customer interviews recorded, transcribed and tagged.",
+          "source": "Up from 96,000 in 2024"
+        },
+        {
+          "value": "38",
+          "text": "languages our transcripts now understand, from Tagalog to Welsh.",
+          "source": "Eleven added this year"
+        },
+        {
+          "value": "4.2 h",
+          "text": "saved on average for every study, compared with notes by hand.",
+          "source": "Survey of 412 teams, March 2025"
+        },
+        {
+          "value": "91%",
+          "text": "of insights shared in Fieldnote were opened by someone outside research.",
+          "source": ""
+        }
+      ]
+    },
+    {
+      "name": "countUp",
+      "label": "Count up when visible",
+      "type": "boolean",
+      "default": true,
+      "group": "Numbers"
+    }
+  ]
+}

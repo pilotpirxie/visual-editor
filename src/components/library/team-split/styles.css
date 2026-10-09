@@ -1,0 +1,65 @@
+@layer components {
+  @scope (.b-team-split) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-self: start;
+      max-width: 32rem;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      margin-top: var(--space-2);
+    }
+
+    .b-people {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-8) var(--space-4);
+    }
+
+    .b-person {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+    }
+
+    .b-name {
+      font-size: var(--text-base);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-people {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-8) var(--space-6);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+
+      .b-copy {
+        position: sticky;
+        top: var(--space-8);
+      }
+    }
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "name": "Sign in, choose workspace",
+  "category": "sign-in",
+  "description": "After sign in: the signed-in account, a list of workspaces to open and a link to create one.",
+  "tags": [
+    "sign in",
+    "login",
+    "log in",
+    "account",
+    "form",
+    "workspace",
+    "teams",
+    "organization",
+    "account picker"
+  ],
+  "fieldGroups": ["Account", "Heading", "Workspaces"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--section-padding-y",
+    "--color-surface"
+  ],
+  "fields": [
+    {
+      "name": "account",
+      "label": "Signed-in email",
+      "type": "text",
+      "default": "maya@northwind.com",
+      "group": "Account"
+    },
+    {
+      "name": "switchLabel",
+      "label": "Switch account label",
+      "type": "text",
+      "default": "Not you?",
+      "group": "Account"
+    },
+    {
+      "name": "switchLink",
+      "label": "Switch account link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Account"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Choose a workspace",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "You’re a member of three workspaces. Pick one to open.",
+      "group": "Heading"
+    },
+    {
+      "name": "workspaces",
+      "label": "Workspaces",
+      "type": "list",
+      "group": "Workspaces",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "initials",
+          "label": "Initials",
+          "type": "text",
+          "default": "WS",
+          "maxLength": 3
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Workspace name"
+        },
+        {
+          "name": "meta",
+          "label": "Details",
+          "type": "text",
+          "default": "10 members"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "initials": "NW",
+          "name": "Northwind Product",
+          "meta": "42 members · Admin",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "initials": "NR",
+          "name": "Northwind Research Guild",
+          "meta": "9 members",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "initials": "TB",
+          "name": "Tally Bookkeeping",
+          "meta": "6 members · Guest",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "createLabel",
+      "label": "Create workspace label",
+      "type": "text",
+      "default": "Create a new workspace",
+      "group": "Workspaces"
+    },
+    {
+      "name": "createLink",
+      "label": "Create workspace link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Workspaces"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Looking for another team? Ask an admin to invite you.",
+      "group": "Workspaces"
+    }
+  ]
+}

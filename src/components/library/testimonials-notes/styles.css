@@ -1,0 +1,82 @@
+@layer components {
+  @scope (.b-testimonials-notes) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro,
+    .b-role {
+      color: var(--color-text-muted);
+    }
+
+    .b-board {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+      gap: var(--space-8) var(--space-6);
+      padding-block-start: var(--space-3);
+    }
+
+    .b-note {
+      --tint: 22%;
+      --tilt: -1.5deg;
+      position: relative;
+      height: 100%;
+      justify-content: space-between;
+      padding: var(--space-8) var(--space-6) var(--space-6);
+      border-radius: var(--radius-sm);
+      background: color-mix(in oklab, var(--color-primary) var(--tint), var(--color-background));
+      box-shadow: var(--shadow-md);
+      transform: rotate(var(--tilt));
+      transition: transform var(--transition-normal);
+    }
+
+    .b-slot:nth-child(3n + 2) .b-note {
+      --tint: 10%;
+      --tilt: 1.25deg;
+    }
+
+    .b-slot:nth-child(3n) .b-note {
+      --tint: 34%;
+      --tilt: -0.5deg;
+    }
+
+    .b-note::before {
+      content: '';
+      position: absolute;
+      inset-block-start: calc(-1 * var(--space-3));
+      inset-inline: 0;
+      width: 5rem;
+      margin-inline: auto;
+      height: var(--space-6);
+      background: color-mix(in oklab, var(--color-surface) 70%, transparent);
+      box-shadow: var(--shadow-sm);
+      transform: rotate(-3deg);
+    }
+
+    .b-note:hover {
+      transform: rotate(0) translateY(calc(-1 * var(--space-1)));
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-person {
+      display: grid;
+      font-size: var(--text-sm);
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+  }
+}

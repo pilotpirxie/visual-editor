@@ -1,0 +1,33 @@
+<section class="b-newsletter-count section"{{#if countUp}} data-behavior="counter"{{/if}}>
+  <div class="container b-inner">
+    <div class="stack b-proof">
+      <p class="b-count"><span class="b-number"{{#if countUp}} data-count{{/if}} data-field="count">{{count}}</span> <span class="b-label" data-field="countLabel">{{countLabel}}</span></p>
+      {{#if avatars.length}}
+      <ul class="b-avatars" role="list">
+        {{#each avatars}}
+        <li class="media b-avatar" data-field="avatars.{{@index}}">{{img photo}}</li>
+        {{/each}}
+      </ul>
+      {{/if}}
+      {{#if stats.length}}
+      <dl class="b-stats">
+        {{#each stats}}
+        <div class="b-stat" data-field="stats.{{@index}}"><dt>{{label}}</dt><dd>{{value}}</dd></div>
+        {{/each}}
+      </dl>
+      {{/if}}
+    </div>
+    <div class="card stack b-signup">
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if note}}<p class="b-muted b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+  </div>
+</section>

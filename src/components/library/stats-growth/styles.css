@@ -1,0 +1,102 @@
+@layer components {
+  @scope (.b-stats-growth) {
+    .b-layout {
+      display: grid;
+      gap: var(--space-12);
+      align-items: end;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      max-width: 34rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-highlight {
+      display: grid;
+      gap: var(--space-1);
+      margin-block-start: var(--space-4);
+    }
+
+    .b-big {
+      --icon-size: 0.6em;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-heading);
+      line-height: 1;
+      color: var(--color-primary);
+    }
+
+    .b-years {
+      display: flex;
+    }
+
+    .b-year {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: var(--space-2);
+      min-width: 0;
+      text-align: center;
+    }
+
+    .b-value {
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      overflow-wrap: anywhere;
+    }
+
+    .b-column {
+      height: calc(var(--h, 50) / 100 * 14rem);
+      margin-inline: var(--space-1);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        color-mix(in oklab, var(--color-primary) 35%, transparent) 0 0.25rem,
+        color-mix(in oklab, var(--color-primary) 12%, transparent) 0 0.6rem
+      );
+    }
+
+    .b-year:last-child .b-column {
+      background: var(--color-primary);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-year:last-child .b-value {
+      color: var(--color-primary);
+      font-size: var(--text-lg);
+    }
+
+    .b-label {
+      padding-block-start: var(--space-3);
+      border-block-start: 2px solid var(--color-text);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-value {
+        font-size: var(--text-base);
+      }
+
+      .b-column {
+        height: calc(var(--h, 50) / 100 * 20rem);
+        margin-inline: var(--space-2);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

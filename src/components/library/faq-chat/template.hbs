@@ -1,0 +1,27 @@
+<section class="b-faq-chat section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      {{#if button.label}}<p><a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{svgIcon "message"}}{{button.label}}</a></p>{{/if}}
+    </header>
+    <div class="b-window">
+      <div class="b-bar">
+        <span class="media b-avatar" data-field="agentPhoto">{{img agentPhoto}}</span>
+        <p class="b-agent"><strong data-field="agentName">{{agentName}}</strong><span data-field="agentStatus">{{agentStatus}}</span></p>
+      </div>
+      <ol class="b-thread" role="list">
+        {{#each items}}
+        <li class="stack b-pair" data-field="items.{{@index}}">
+          <p class="b-bubble b-ask">{{question}}</p>
+          <div class="b-reply">
+            <span class="media b-avatar" aria-hidden="true">{{img ../agentPhoto}}</span>
+            <p class="b-bubble">{{nl2br answer}}</p>
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </div>
+</section>

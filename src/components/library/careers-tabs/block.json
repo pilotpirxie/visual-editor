@@ -1,0 +1,221 @@
+{
+  "name": "Careers, filter by team",
+  "category": "careers",
+  "description": "Open roles grouped by team, with a tab for each team and its number of openings. Without JavaScript every team shows in one list.",
+  "tags": ["careers", "jobs", "positions", "tabs", "teams", "departments", "filter"],
+  "fieldGroups": ["Heading", "Teams"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Open roles",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Find your team",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Nine open roles across four teams. Pick a team to see what it is hiring for.",
+      "group": "Heading"
+    },
+    {
+      "name": "teams",
+      "label": "Teams",
+      "type": "list",
+      "group": "Teams",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Team",
+          "type": "text",
+          "default": "Team"
+        },
+        {
+          "name": "blurb",
+          "label": "About the team",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "roles",
+          "label": "Roles",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 20,
+          "itemLabel": "title",
+          "itemFields": [
+            {
+              "name": "title",
+              "label": "Job title",
+              "type": "text",
+              "default": "Job title"
+            },
+            {
+              "name": "location",
+              "label": "Location",
+              "type": "text",
+              "default": "Remote"
+            },
+            {
+              "name": "type",
+              "label": "Type",
+              "type": "text",
+              "default": "Full-time"
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link",
+              "default": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ],
+          "default": [
+            {
+              "title": "Job title",
+              "location": "Remote",
+              "type": "Full-time",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "name": "Engineering",
+          "blurb": "Small teams that own a part of the product from the database to the pixels.",
+          "roles": [
+            {
+              "title": "Senior backend engineer, transcription",
+              "location": "Remote, Canada",
+              "type": "Full-time",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Machine learning engineer, speech",
+              "location": "Toronto or remote",
+              "type": "Full-time",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Frontend engineer, editor",
+              "location": "Remote, Europe",
+              "type": "Full-time",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Site reliability engineer",
+              "location": "Berlin",
+              "type": "Full-time",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "Design",
+          "blurb": "Designers here run their own customer interviews. Every week.",
+          "roles": [
+            {
+              "title": "Senior product designer, research workflows",
+              "location": "Remote, Americas",
+              "type": "Full-time",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Brand designer",
+              "location": "Toronto",
+              "type": "Contract, 6 months",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "Customer success",
+          "blurb": "Help research teams get from their first call to their first decision.",
+          "roles": [
+            {
+              "title": "Customer success manager, mid-market",
+              "location": "Remote, US or Canada",
+              "type": "Full-time",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Onboarding specialist",
+              "location": "Montréal",
+              "type": "Full-time",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "Sales",
+          "blurb": "A consultative team that sells to researchers, not procurement.",
+          "roles": [
+            {
+              "title": "Account executive, enterprise",
+              "location": "Toronto",
+              "type": "Full-time",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

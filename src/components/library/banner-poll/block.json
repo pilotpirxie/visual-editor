@@ -1,0 +1,82 @@
+{
+  "name": "Banner, quick poll",
+  "category": "banners",
+  "description": "A one-question survey strip: the question and lettered answer chips that each link to your form or survey tool.",
+  "tags": ["poll", "survey", "question", "feedback", "vote", "research", "chips", "banner"],
+  "fieldGroups": ["Question", "Answers"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "question",
+      "label": "Question",
+      "type": "text",
+      "default": "How did you hear about Fieldnote?",
+      "required": true,
+      "maxLength": 80,
+      "group": "Question"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "One click, no sign-up",
+      "maxLength": 40,
+      "group": "Question"
+    },
+    {
+      "name": "answers",
+      "label": "Answers",
+      "type": "list",
+      "group": "Answers",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "help": "Each answer is a link, for example to a survey with the answer filled in.",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Answer",
+          "type": "text",
+          "default": "Answer",
+          "maxLength": 30
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "A podcast",
+          "link": {
+            "type": "url",
+            "url": "https://forms.fieldnote.app/source?answer=podcast",
+            "newTab": false
+          }
+        },
+        {
+          "label": "A colleague",
+          "link": {
+            "type": "url",
+            "url": "https://forms.fieldnote.app/source?answer=colleague",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Search",
+          "link": {
+            "type": "url",
+            "url": "https://forms.fieldnote.app/source?answer=search",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

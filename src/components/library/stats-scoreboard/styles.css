@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-stats-scoreboard) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      color: var(--color-text-muted);
+    }
+
+    .b-board {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      width: 100%;
+      max-width: 52rem;
+      margin-inline: auto;
+      padding: var(--space-6) var(--space-3);
+      border: var(--space-2) solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+      color: var(--color-text);
+    }
+
+    .b-teams {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: var(--space-3);
+      padding-block-end: var(--space-3);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .b-vs {
+      padding: var(--space-1) var(--space-2);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      color: var(--color-text-muted);
+    }
+
+    .b-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-sm);
+      text-align: center;
+    }
+
+    .b-table :is(th, td) {
+      padding: var(--space-3) var(--space-1);
+      border-block-start: var(--border-width) dashed var(--color-border);
+    }
+
+    .b-table td {
+      width: 30%;
+    }
+
+    .b-table th {
+      color: var(--color-text-muted);
+    }
+
+    .b-score {
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-sm);
+      background: var(--color-background);
+      font-family: var(--font-mono);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-win {
+      color: var(--color-primary);
+      text-shadow: 0 0 0.6em color-mix(in oklab, var(--color-primary) 60%, transparent);
+    }
+
+    @media (min-width: 768px) {
+      .b-board {
+        padding: var(--space-8);
+      }
+
+      .b-score {
+        font-size: var(--text-3xl);
+      }
+    }
+  }
+}

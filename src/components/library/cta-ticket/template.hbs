@@ -1,0 +1,23 @@
+<section class="b-cta-ticket section">
+  <div class="container">
+    <div class="b-ticket">
+      <div class="stack b-main">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+        {{#if details.length}}
+        <dl class="b-details">
+          {{#each details}}
+          <div data-field="details.{{@index}}"><dt>{{label}}</dt><dd>{{value}}</dd></div>
+          {{/each}}
+        </dl>
+        {{/if}}
+      </div>
+      <div class="b-stub">
+        <p class="b-serial"><span data-field="serialLabel">{{serialLabel}}</span> <span class="b-code" data-field="serial">{{serial}}</span></p>
+        <span class="b-barcode" aria-hidden="true"></span>
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+    </div>
+  </div>
+</section>

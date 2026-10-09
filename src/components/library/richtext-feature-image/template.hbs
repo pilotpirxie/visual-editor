@@ -1,0 +1,20 @@
+<section class="b-richtext-feature-image section">
+  <div class="container">
+    <article class="b-article">
+      <figure class="b-cover" data-field="cover">
+        <div class="media b-photo">{{img cover}}</div>
+        {{#if caption}}<figcaption class="b-caption" data-field="caption">{{caption}}</figcaption>{{/if}}
+      </figure>
+      <header class="stack b-card">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 class="b-title" data-field="title">{{title}}</h2>
+        <p class="cluster b-meta">
+          {{#if author}}<span class="b-author" data-field="author">{{author}}</span>{{/if}}
+          {{#if date}}<time datetime="{{date}}" data-field="date">{{formatDate date}}</time>{{/if}}
+          {{#if readingTime}}<span data-field="readingTime">{{readingTime}}</span>{{/if}}
+        </p>
+      </header>
+      <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+    </article>
+  </div>
+</section>

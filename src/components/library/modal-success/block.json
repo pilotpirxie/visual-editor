@@ -1,0 +1,163 @@
+{
+  "name": "Modal, thank you",
+  "category": "modals",
+  "description": "A celebratory confirmation dialog with confetti around a big check, a booking summary, next-step links and a Done button. Opens from any link to its anchor.",
+  "tags": [
+    "modal",
+    "dialog",
+    "popup",
+    "thank you",
+    "success",
+    "confirmation",
+    "booked",
+    "next steps"
+  ],
+  "fieldGroups": ["Content", "Summary", "Next steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "check",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "You’re booked in",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "A calendar invite is on its way to your inbox. Ama will walk you through Fieldnote with your own interview recordings.",
+      "group": "Content"
+    },
+    {
+      "name": "closeLabel",
+      "label": "Close button label (for screen readers)",
+      "type": "text",
+      "default": "Close",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "doneLabel",
+      "label": "Done button",
+      "type": "text",
+      "default": "Done",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "details",
+      "label": "Summary",
+      "type": "list",
+      "group": "Summary",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        },
+        {
+          "name": "value",
+          "label": "Value",
+          "type": "text",
+          "default": "Value"
+        }
+      ],
+      "default": [
+        {
+          "label": "Date",
+          "value": "Thursday, 23 October"
+        },
+        {
+          "label": "Time",
+          "value": "11:00–11:30 ET"
+        },
+        {
+          "label": "Host",
+          "value": "Ama Mensah"
+        }
+      ]
+    },
+    {
+      "name": "linksTitle",
+      "label": "Next steps heading",
+      "type": "text",
+      "default": "Before your call",
+      "group": "Next steps"
+    },
+    {
+      "name": "links",
+      "label": "Next steps",
+      "type": "list",
+      "group": "Next steps",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "arrow-right"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Next step"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "upload",
+          "label": "Upload one recorded interview",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "users",
+          "label": "Invite a teammate to join",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "book",
+          "label": "Read the 5-minute setup guide",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

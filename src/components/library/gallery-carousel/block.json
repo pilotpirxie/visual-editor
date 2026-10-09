@@ -1,0 +1,128 @@
+{
+  "name": "Gallery, carousel",
+  "category": "gallery",
+  "description": "A heading and a swipeable row of large photos with captions, previous and next buttons.",
+  "tags": ["gallery", "photos", "images", "carousel", "slider", "slideshow"],
+  "fieldGroups": ["Heading", "Photos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Retreat 2026",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A week in Lisbon with the whole team",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Twenty-eight of us, one rented house in Alfama and a lot of whiteboards.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "caption",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "caption",
+          "label": "Caption",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The Fieldnote team on the steps of a tiled building in Alfama",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "caption": "Day one, before anyone had coffee"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Kwame Mensah sketching the new upload pipeline on a whiteboard",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "caption": "Redrawing the upload pipeline"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Six people around a long table covered in printed transcripts",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "caption": "Reading a month of interviews together"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The team at dinner on a terrace overlooking the river",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "caption": "Last night, on the terrace"
+        }
+      ]
+    }
+  ]
+}

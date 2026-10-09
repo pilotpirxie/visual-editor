@@ -1,0 +1,107 @@
+@layer components {
+  @scope (.b-hero-notes) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-lead {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+    }
+
+    .b-notes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(8rem, 100%), 1fr));
+      gap: var(--space-6) var(--space-4);
+    }
+
+    .b-note {
+      display: grid;
+      align-content: space-between;
+      gap: var(--space-3);
+      padding: var(--space-6) var(--space-4) var(--space-4);
+      background: color-mix(in oklab, var(--color-primary) 16%, var(--color-background));
+      box-shadow: var(--shadow-md);
+      rotate: -2deg;
+      font-size: var(--text-sm);
+    }
+
+    .b-note:nth-child(even) {
+      background: color-mix(in oklab, var(--color-primary) 6%, var(--color-surface));
+      rotate: 2deg;
+    }
+
+    .b-note::before {
+      content: '';
+      justify-self: center;
+      width: 3.5rem;
+      height: 1rem;
+      margin-top: calc(var(--space-8) * -1);
+      background: color-mix(in oklab, var(--color-text) 14%, transparent);
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-source {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr minmax(0, 34rem) 1fr;
+        gap: var(--space-8);
+        align-items: center;
+      }
+
+      .b-copy {
+        grid-area: 1 / 2 / 3;
+      }
+
+      .b-notes {
+        display: contents;
+      }
+
+      .b-note {
+        max-width: 15rem;
+      }
+
+      .b-note:nth-child(1) {
+        grid-area: 1 / 1;
+        rotate: -6deg;
+      }
+
+      .b-note:nth-child(2) {
+        grid-area: 2 / 1;
+        justify-self: end;
+        rotate: 4deg;
+      }
+
+      .b-note:nth-child(3) {
+        grid-area: 1 / 3;
+        justify-self: end;
+        rotate: 5deg;
+      }
+
+      .b-note:nth-child(4) {
+        grid-area: 2 / 3;
+        rotate: -3deg;
+      }
+    }
+  }
+}

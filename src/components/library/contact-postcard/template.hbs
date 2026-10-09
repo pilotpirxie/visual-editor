@@ -1,0 +1,34 @@
+<section class="b-contact-postcard section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    <form class="b-card" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <div class="field b-message">
+        <label for="{{block.id}}-message" data-field="messageLabel">{{messageLabel}}</label>
+        <textarea id="{{block.id}}-message" name="message" rows="6" required></textarea>
+      </div>
+      <div class="b-stamps" aria-hidden="true">
+        <span class="b-postmark" data-field="postmark">{{postmark}}</span>
+        <span class="b-stamp"><span class="b-stamp-inner">{{svgIcon stampIcon}}<span data-field="stampText">{{stampText}}</span></span></span>
+      </div>
+      <div class="b-address">
+        <div class="field">
+          <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+          <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-company" data-field="companyLabel">{{companyLabel}}</label>
+          <input id="{{block.id}}-company" name="company" autocomplete="organization">
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{svgIcon "send"}}{{buttonLabel}}</button>
+      </div>
+    </form>
+  </div>
+</section>

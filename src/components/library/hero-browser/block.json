@@ -1,0 +1,106 @@
+{
+  "name": "Hero, browser window",
+  "category": "headers",
+  "description": "Centered heading and buttons over a browser window holding a product screenshot, with an optional notification.",
+  "tags": ["hero", "heading", "browser", "screenshot", "product", "saas", "web app"],
+  "fieldGroups": ["Heading", "Buttons", "Window"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Badge",
+      "type": "text",
+      "default": "Fieldnote 3 is out",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Every interview, searchable in one window",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Upload a call and Fieldnote transcribes it, tags the themes and pulls the quotes worth sharing. All in your browser, nothing to install.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Watch the tour",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "url",
+      "label": "Address bar",
+      "type": "text",
+      "default": "app.fieldnote.io/studies/onboarding",
+      "group": "Window"
+    },
+    {
+      "name": "image",
+      "label": "Screenshot",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Fieldnote study view with a transcript, highlights and theme tags",
+        "decorative": false,
+        "width": 1600,
+        "height": 900,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Window"
+    },
+    {
+      "name": "toast",
+      "label": "Notification",
+      "type": "text",
+      "default": "12 new highlights tagged from today’s calls",
+      "group": "Window"
+    }
+  ]
+}

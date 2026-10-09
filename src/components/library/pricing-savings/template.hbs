@@ -1,0 +1,30 @@
+<section class="b-pricing-savings section">
+  <div class="container b-layout">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      {{#if details}}<div class="prose" data-field="details">{{richText details}}</div>{{/if}}
+    </div>
+    <article class="card stack b-card">
+      {{#if ribbon}}<p class="b-ribbon" data-field="ribbon">{{ribbon}}</p>{{/if}}
+      <h3 data-field="planName">{{planName}}</h3>
+      <div>
+        <p class="b-muted"><s data-field="oldPrice">{{oldPrice}}</s> <span data-field="oldPeriod">{{oldPeriod}}</span></p>
+        <p><span class="b-amount" data-field="price">{{price}}</span> <span class="b-muted" data-field="period">{{period}}</span></p>
+      </div>
+      <dl class="b-compare">
+        <div data-field="monthlyTotal">
+          <dt>{{monthlyLabel}}</dt>
+          <dd><span>{{monthlyTotal}}</span><span class="b-bar"></span></dd>
+        </div>
+        <div class="b-yearly" data-field="yearlyTotal">
+          <dt>{{yearlyLabel}}</dt>
+          <dd><span>{{yearlyTotal}}</span><span class="b-bar" style="--bar: {{yearlyPercent}}"></span></dd>
+        </div>
+      </dl>
+      <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      {{#if note}}<p class="b-muted b-note" data-field="note">{{nl2br note}}</p>{{/if}}
+    </article>
+  </div>
+</section>

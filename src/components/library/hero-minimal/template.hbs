@@ -1,0 +1,11 @@
+<header class="b-hero-minimal section">
+  <div class="container stack b-inner">
+    <h1 class="b-title"><span data-field="title">{{title}}</span>{{#if linkLabel}} <a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}</a>{{/if}}{{#if titleEnd}} <span data-field="titleEnd">{{titleEnd}}</span>{{/if}}</h1>
+    <ul class="b-meta" role="list">
+      {{#if location}}<li data-field="location">{{svgIcon "map-pin"}}<span>{{location}}</span></li>{{/if}}
+      {{#if availability}}<li class="b-status" data-available="{{available}}" data-field="availability"><span class="b-dot" aria-hidden="true"></span><span>{{availability}}</span></li>{{/if}}
+      {{#if meta}}<li data-field="meta">{{meta}}</li>{{/if}}
+    </ul>
+    {{#if scrollLabel}}<a class="b-scroll" href="{{href scrollLink}}" {{linkAttrs scrollLink}} data-field="scrollLabel"><span>{{scrollLabel}}</span>{{svgIcon "arrow-down"}}</a>{{/if}}
+  </div>
+</header>

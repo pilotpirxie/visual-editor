@@ -1,0 +1,21 @@
+<section class="b-stats-chart section">
+  <div class="container b-layout">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <figure class="stack b-figure">
+      <figcaption data-field="chartLabel"><strong>{{chartLabel}}</strong></figcaption>
+      <ul class="b-chart" role="list">
+        {{#each bars}}
+        <li class="b-col" {{#if highlight}}data-highlight{{/if}} data-field="bars.{{@index}}">
+          <span class="b-label">{{label}}</span>
+          <span class="b-plot"><span class="b-value">{{value}}</span><span class="b-bar" style="--h: {{height}}"></span></span>
+        </li>
+        {{/each}}
+      </ul>
+      {{#if source}}<p class="b-muted" data-field="source"><small>{{source}}</small></p>{{/if}}
+    </figure>
+  </div>
+</section>

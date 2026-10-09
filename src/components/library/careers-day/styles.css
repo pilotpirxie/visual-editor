@@ -1,0 +1,100 @@
+@layer components {
+  @scope (.b-careers-day) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: start;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .b-photo {
+      flex: none;
+      width: 5rem;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: var(--radius-full);
+    }
+
+    .b-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .b-person figcaption {
+      display: grid;
+    }
+
+    .b-quote {
+      padding-inline-start: var(--space-4);
+      border-inline-start: var(--space-1) solid var(--color-primary);
+      font: var(--font-weight-heading) var(--text-xl) / var(--line-height-tight) var(--font-heading);
+    }
+
+    .b-moment {
+      position: relative;
+      display: grid;
+      grid-template-columns: 3.5rem 2.75rem minmax(0, 1fr);
+      gap: var(--space-3);
+      padding-block-end: var(--space-8);
+    }
+
+    .b-moment:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      inset-block: 2.75rem 0;
+      inset-inline-start: calc(3.5rem + var(--space-3) + 1.375rem - 1px);
+      border-inline-start: 2px dashed var(--color-border);
+    }
+
+    .b-time {
+      padding-block-start: var(--space-3);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      text-align: end;
+    }
+
+    .b-dot {
+      display: grid;
+      place-items: center;
+      height: 2.75rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-text) calc(var(--i) * 14%), var(--color-primary));
+      color: var(--color-primary-contrast);
+    }
+
+    .b-what {
+      --stack-gap: var(--space-1);
+      padding-block-start: var(--space-2);
+    }
+
+    .b-what h3 {
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 2fr 3fr;
+        gap: var(--space-16);
+      }
+
+      .b-profile {
+        position: sticky;
+        top: var(--space-8);
+      }
+
+      .b-photo {
+        width: 7rem;
+      }
+    }
+  }
+}

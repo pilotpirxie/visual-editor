@@ -1,0 +1,18 @@
+<section class="b-contact-map-card section">
+  <div class="b-map" aria-hidden="true">
+    <span class="b-pin">{{svgIcon "map-pin"}}</span>
+  </div>
+  <div class="container b-inner">
+    <div class="card stack b-card">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      <ul class="stack b-details" role="list">
+        {{#if address}}<li data-field="address">{{svgIcon "map-pin"}}<address>{{nl2br address}}</address></li>{{/if}}
+        {{#if hours}}<li data-field="hours">{{svgIcon "clock"}}<span>{{nl2br hours}}</span></li>{{/if}}
+        {{#if phone}}<li data-field="phone">{{svgIcon "phone"}}<a href="tel:{{phone}}">{{phone}}</a></li>{{/if}}
+        {{#if email}}<li data-field="email">{{svgIcon "mail"}}<a href="mailto:{{email}}">{{email}}</a></li>{{/if}}
+      </ul>
+      {{#if button.label}}<a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{svgIcon "compass"}}{{button.label}}</a>{{/if}}
+    </div>
+  </div>
+</section>

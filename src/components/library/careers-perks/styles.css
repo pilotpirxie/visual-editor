@@ -1,0 +1,72 @@
+@layer components {
+  @scope (.b-careers-perks) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 44rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-perks {
+      --grid-min: 16rem;
+      --grid-gap: var(--space-8);
+    }
+
+    .b-perk {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: inline-grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-perk-title {
+      font-size: var(--text-lg);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-cta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4) var(--space-6);
+      padding: var(--space-6);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+    }
+
+    .b-cta-text {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+    }
+
+    @media (min-width: 1024px) {
+      .b-perks {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .b-cta {
+        padding: var(--space-8);
+      }
+    }
+  }
+}

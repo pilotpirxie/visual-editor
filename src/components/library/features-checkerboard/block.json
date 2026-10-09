@@ -1,0 +1,139 @@
+{
+  "name": "Features, checkerboard",
+  "category": "features",
+  "description": "Photos and colored text tiles that swap sides on every row, forming a checkerboard on wider screens.",
+  "tags": ["features", "checkerboard", "alternating", "image", "tiles", "zigzag", "photos"],
+  "fieldGroups": ["Heading", "Items"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-surface",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "In the field",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Research that leaves the office",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Some of the best interviews happen in a warehouse, a clinic or a kitchen. Fieldnote goes with you.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Rows",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Row title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one or two sentences."
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A researcher interviewing a warehouse supervisor beside a row of shelves",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "label": "01 · Record",
+          "title": "Tap once, talk freely",
+          "text": "The mobile app records in person and keeps working without signal, then syncs when you are back online."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Notes and photos from a site visit laid out on a table",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "label": "02 · Capture",
+          "title": "Photos join the transcript",
+          "text": "Snap the whiteboard or the broken scanner and it lands at the exact minute in the conversation."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A product team watching a short interview clip together on a laptop",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "label": "03 · Share",
+          "title": "Back at your desk, already sorted",
+          "text": "Highlights and tags are waiting by the time you get back, ready for the team’s Monday review."
+        }
+      ]
+    }
+  ]
+}

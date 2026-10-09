@@ -1,0 +1,23 @@
+<section class="b-pricing-hourly section">
+  <div class="container b-layout">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      {{#if note}}<p class="b-muted b-note" data-field="note">{{svgIcon "info"}}<span>{{nl2br note}}</span></p>{{/if}}
+    </header>
+    <ol class="b-sessions" role="list">
+      {{#each sessions}}
+      <li class="b-session" data-field="sessions.{{@index}}">
+        <div class="stack b-info">
+          <h3>{{name}}</h3>
+          {{#if description}}<p class="b-muted">{{nl2br description}}</p>{{/if}}
+          <p class="b-length"><span class="b-bar" style="--minutes: {{minutes}}"></span>{{svgIcon "clock"}}<span>{{length}}</span></p>
+        </div>
+        <p class="b-price">{{price}}</p>
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

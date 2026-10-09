@@ -1,0 +1,105 @@
+@layer components {
+  @scope (.b-hero-polaroids) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    .b-lead {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-stack {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-2);
+      align-items: start;
+      padding-block: var(--space-6);
+    }
+
+    .b-photo {
+      grid-row: 1;
+      margin-top: 14%;
+      padding: var(--space-2) var(--space-2) var(--space-3);
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+      rotate: -6deg;
+      transition: rotate var(--transition-normal);
+    }
+
+    .b-photo:nth-child(2) {
+      margin-top: 0;
+      rotate: 3deg;
+    }
+
+    .b-photo:nth-child(3) {
+      margin-top: 24%;
+      rotate: -3deg;
+    }
+
+    .b-photo:hover {
+      z-index: 1;
+      rotate: 0deg;
+    }
+
+    .b-media {
+      --media-ratio: 1;
+      --media-radius: 0;
+    }
+
+    figcaption {
+      margin-top: var(--space-2);
+      font-family: var(--font-heading);
+      font-size: var(--text-xs);
+      line-height: var(--line-height-tight);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .b-photo {
+        transition: none;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .b-stack {
+        grid-template-columns: repeat(10, minmax(0, 1fr));
+        gap: 0;
+      }
+
+      .b-photo {
+        grid-column: 1 / 5;
+      }
+
+      .b-photo:nth-child(2) {
+        grid-column: 4 / 8;
+      }
+
+      .b-photo:nth-child(3) {
+        grid-column: 7 / 11;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+
+      .b-photo {
+        padding: var(--space-3) var(--space-3) var(--space-4);
+      }
+
+      figcaption {
+        font-size: var(--text-sm);
+      }
+    }
+  }
+}

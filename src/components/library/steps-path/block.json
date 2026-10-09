@@ -1,0 +1,114 @@
+{
+  "name": "How it works, winding path",
+  "category": "how-it-works",
+  "description": "Numbered step cards that alternate sides along a dashed winding path, in one column on phones.",
+  "tags": ["steps", "path", "journey", "winding", "process", "roadmap"],
+  "fieldGroups": ["Heading", "Steps", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "From sign-up to insight",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The road to your first research report",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Most teams get from an empty workspace to a shared report in under two weeks.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Day 1"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "label": "Day 1",
+          "title": "Connect your calendar",
+          "text": "Fieldnote finds the customer calls you already have booked."
+        },
+        {
+          "label": "Days 2 to 5",
+          "title": "Run five interviews",
+          "text": "Fieldnote records and transcribes while you listen."
+        },
+        {
+          "label": "Day 6",
+          "title": "Tag what you heard",
+          "text": "Mark highlights against a shared tag set in an afternoon."
+        },
+        {
+          "label": "Day 8",
+          "title": "Spot the patterns",
+          "text": "Themes rise to the top with the clips that back them up."
+        },
+        {
+          "label": "Day 10",
+          "title": "Share the report",
+          "text": "Send a link the whole team can watch in ten minutes."
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start your first project",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

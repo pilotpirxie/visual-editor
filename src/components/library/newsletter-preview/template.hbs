@@ -1,0 +1,31 @@
+<section class="b-newsletter-preview section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field b-field">
+          <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if note}}<p class="b-muted b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+    <div class="b-inbox">
+      <p class="b-bar" data-field="inboxLabel">{{svgIcon "mail"}}{{inboxLabel}}</p>
+      <ul class="b-mails" role="list">
+        {{#each issues}}
+        <li class="b-mail" data-field="issues.{{@index}}">
+          <span class="b-avatar" aria-hidden="true">{{svgIcon "audio-lines"}}</span>
+          <span class="b-from">{{../sender}}</span>
+          <span class="b-date">{{date}}</span>
+          <span class="b-subject">{{subject}}</span>
+          <span class="b-snippet">{{preview}}</span>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

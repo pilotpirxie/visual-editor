@@ -1,0 +1,99 @@
+@layer components {
+  @scope (.b-signup-role) {
+    .b-card {
+      --card-padding: var(--space-6);
+      --card-shadow: var(--shadow-lg);
+      --stack-gap: var(--space-6);
+      max-width: 34rem;
+      margin-inline: auto;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+      text-align: center;
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-roles {
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .b-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+      gap: var(--space-3);
+    }
+
+    .b-legend {
+      margin-block-end: var(--space-3);
+      padding: 0;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      position: relative;
+      display: grid;
+      gap: var(--space-1);
+      padding: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      cursor: pointer;
+      transition:
+        border-color var(--transition-fast),
+        background-color var(--transition-fast);
+    }
+
+    .b-role input {
+      position: absolute;
+      inset-block-start: var(--space-4);
+      inset-inline-end: var(--space-4);
+      width: 1.125rem;
+      height: 1.125rem;
+      margin: 0;
+      accent-color: var(--color-primary);
+    }
+
+    .b-role:has(:checked) {
+      border-color: var(--color-primary);
+      background: color-mix(in oklab, var(--color-primary) 8%, var(--color-background));
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      color: var(--color-primary);
+    }
+
+    .b-role strong {
+      font-size: var(--text-base);
+    }
+
+    .b-switch {
+      text-align: center;
+    }
+
+    .b-switch a {
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        --card-padding: var(--space-8);
+      }
+    }
+  }
+}

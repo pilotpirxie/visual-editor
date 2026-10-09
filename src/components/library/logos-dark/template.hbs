@@ -1,0 +1,13 @@
+<section class="b-logos-dark section">
+  <div class="container b-inner">
+    <div class="stack b-head">
+      {{#if value}}<p class="b-value" data-field="value">{{value}}</p>{{/if}}
+      <p class="b-title" data-field="title">{{title}}</p>
+    </div>
+    <ul class="b-logos" role="list">
+      {{#each logos}}
+      <li class="b-logo" data-field="logos.{{@index}}">{{img image}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+<section class="b-richtext-callout section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if (or author date)}}
+      <p class="b-meta">
+        {{#if author}}<span class="b-author" data-field="author">{{author}}</span>{{/if}}
+        {{#if (and author date)}}<span aria-hidden="true">·</span>{{/if}}
+        {{#if date}}<time datetime="{{date}}" data-field="date">{{formatDate date}}</time>{{/if}}
+      </p>
+      {{/if}}
+    </header>
+    <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+    {{#if quote}}
+    <figure class="stack b-quote" data-field="quote">
+      <span class="b-mark">{{svgIcon "quote"}}</span>
+      <blockquote><p>{{nl2br quote}}</p></blockquote>
+      {{#if quoteAuthor}}<figcaption class="b-cite" data-field="quoteAuthor">{{quoteAuthor}}</figcaption>{{/if}}
+    </figure>
+    {{/if}}
+  </div>
+</section>

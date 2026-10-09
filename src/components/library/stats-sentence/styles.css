@@ -1,0 +1,50 @@
+@layer components {
+  @scope (.b-stats-sentence) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+      align-items: flex-start;
+    }
+
+    .b-sentence {
+      max-width: 62rem;
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-heading);
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      text-wrap: pretty;
+    }
+
+    .b-number {
+      padding-inline: 0.15em;
+      color: var(--color-primary);
+      white-space: nowrap;
+      background: linear-gradient(
+          transparent 58%,
+          color-mix(in oklab, var(--color-primary) 22%, transparent) 0 92%,
+          transparent 0
+        )
+        no-repeat;
+      box-decoration-break: clone;
+    }
+
+    :scope[data-style='pill'] .b-number {
+      padding: 0 0.3em;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-source {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 1024px) {
+      .b-sentence {
+        font-size: var(--text-5xl);
+        line-height: 1.25;
+      }
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "name": "FAQ, chat style",
+  "category": "faq",
+  "description": "Questions as customer messages and answers as replies from a named support person, in a chat window.",
+  "tags": ["faq", "questions", "chat", "messages", "support", "conversation"],
+  "fieldGroups": ["Heading", "Support person", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Questions",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "You asked. Ana answered.",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The questions our support team hears most, answered the way we would answer them in chat.",
+      "group": "Heading"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Ask your own question",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "primary"
+      },
+      "group": "Heading"
+    },
+    {
+      "name": "agentPhoto",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Ana Ruiz",
+        "decorative": false,
+        "width": 400,
+        "height": 400,
+        "placeholder": { "ratio": "1:1", "subject": "person" }
+      },
+      "group": "Support person"
+    },
+    {
+      "name": "agentName",
+      "label": "Name",
+      "type": "text",
+      "default": "Ana Ruiz",
+      "required": true,
+      "group": "Support person"
+    },
+    {
+      "name": "agentStatus",
+      "label": "Status",
+      "type": "text",
+      "default": "Customer success, replies in minutes",
+      "group": "Support person"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "question",
+      "itemFields": [
+        { "name": "question", "label": "Question", "type": "text", "default": "A question?" },
+        { "name": "answer", "label": "Answer", "type": "textarea", "default": "The answer." }
+      ],
+      "default": [
+        {
+          "question": "Do participants have to install anything?",
+          "answer": "Nothing at all. They join your call the way they always do, and Fieldnote records from your side."
+        },
+        {
+          "question": "Can I try it on a real interview first?",
+          "answer": "Please do. The trial includes 10 recorded hours, and every highlight you make stays yours."
+        },
+        {
+          "question": "Is there a discount for nonprofits?",
+          "answer": "Yes, 50% off any plan. Send us your registration number and we’ll switch it on the same day."
+        }
+      ]
+    }
+  ]
+}

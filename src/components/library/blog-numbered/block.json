@@ -1,0 +1,145 @@
+{
+  "name": "Blog posts, numbered",
+  "category": "blog",
+  "description": "An editorial numbered list with big numerals, topic and reading time.",
+  "tags": ["blog", "posts", "articles", "news", "numbered", "editorial", "list", "reading list"],
+  "fieldGroups": ["Heading", "Posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Start here",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Six posts every new researcher should read",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Our most-saved writing on recruiting, interviewing and turning notes into decisions. Read them in order or jump to the one you need today.",
+      "group": "Heading"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "category",
+          "label": "Category",
+          "type": "text",
+          "default": "Research"
+        },
+        {
+          "name": "readingTime",
+          "label": "Reading time",
+          "type": "text",
+          "default": "5 min read"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Post title"
+        },
+        {
+          "name": "excerpt",
+          "label": "Excerpt",
+          "type": "textarea",
+          "default": "One sentence about what readers will learn."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "category": "Recruiting",
+          "readingTime": "7 min read",
+          "title": "Find customers who want to talk",
+          "excerpt": "Where to look, what to offer and how to write an invite people answer.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Interviewing",
+          "readingTime": "5 min read",
+          "title": "The five-question churn interview",
+          "excerpt": "A guide that starts with the week they signed up, not the day they left.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Interviewing",
+          "readingTime": "6 min read",
+          "title": "Follow-up questions that dig deeper",
+          "excerpt": "Twelve prompts for when a customer gives you a short, polite answer.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Synthesis",
+          "readingTime": "9 min read",
+          "title": "From 40 interviews to three decisions",
+          "excerpt": "A one-afternoon workshop that turns highlights into a roadmap call.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Research ops",
+          "readingTime": "4 min read",
+          "title": "Consent forms customers actually read",
+          "excerpt": "Plain-language templates for recording, storing and sharing calls.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Sharing",
+          "readingTime": "6 min read",
+          "title": "Highlight reels that change minds",
+          "excerpt": "Why a two-minute clip beats a forty-slide deck in every exec review.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

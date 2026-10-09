@@ -1,0 +1,33 @@
+<section class="b-careers-tabs section" data-behavior="tabs">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-body">
+      <div class="b-tablist" role="tablist" aria-label="{{title}}" hidden>
+        {{#each teams}}
+        <button type="button" class="b-tab" id="{{../block.id}}-tab-{{@index}}" aria-controls="{{../block.id}}-panel-{{@index}}" data-field="teams.{{@index}}"><span>{{name}}</span><span class="b-count">{{roles.length}}</span></button>
+        {{/each}}
+      </div>
+      <div class="b-panels">
+        {{#each teams}}
+        <div class="b-panel" id="{{../block.id}}-panel-{{@index}}" data-field="teams.{{@index}}">
+          <h3 class="b-team">{{name}}</h3>
+          {{#if blurb}}<p class="b-muted">{{blurb}}</p>{{/if}}
+          <ul class="b-roles" role="list">
+            {{#each roles}}
+            <li class="b-role">
+              <a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a>
+              <p class="b-muted">{{location}} · {{type}}</p>
+              <span class="b-arrow">{{svgIcon "arrow-right"}}</span>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</section>

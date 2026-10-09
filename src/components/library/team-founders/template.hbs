@@ -1,0 +1,24 @@
+<section class="b-team-founders section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-founders">
+      {{#each founders}}
+      <article class="card b-founder" data-field="founders.{{@index}}">
+        <div class="media b-photo">{{img photo}}</div>
+        <div class="stack b-body">
+          <div>
+            <h3 class="b-name">{{name}}</h3>
+            {{#if role}}<p class="b-role">{{role}}</p>{{/if}}
+          </div>
+          {{#if bio}}<p class="b-bio">{{nl2br bio}}</p>{{/if}}
+          {{#if quote}}<blockquote class="b-quote"><p>{{nl2br quote}}</p></blockquote>{{/if}}
+        </div>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

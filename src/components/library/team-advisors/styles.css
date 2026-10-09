@@ -1,0 +1,108 @@
+@layer components {
+  @scope (.b-team-advisors) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-groups {
+      display: grid;
+      gap: var(--space-12);
+      align-items: start;
+    }
+
+    .b-group {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-label {
+      padding-block-end: var(--space-3);
+      border-block-end: var(--border-width) solid var(--color-border);
+      font-size: var(--text-sm);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .b-advisors {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
+      gap: var(--space-6);
+    }
+
+    .b-advisor {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 4rem;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-primary);
+    }
+
+    .b-small {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-ledger {
+      padding: var(--space-6);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-investors {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-investor {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: var(--space-2);
+    }
+
+    .b-firm {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-heading);
+    }
+
+    .b-leader {
+      flex: 1 1 var(--space-6);
+      border-block-end: calc(var(--border-width) * 2) dotted var(--color-border);
+    }
+
+    @media (min-width: 1024px) {
+      .b-groups {
+        grid-template-columns: 3fr 2fr;
+      }
+
+      .b-ledger {
+        padding: var(--space-8);
+      }
+    }
+  }
+}

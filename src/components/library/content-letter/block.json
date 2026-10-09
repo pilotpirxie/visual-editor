@@ -1,0 +1,69 @@
+{
+  "name": "Content, open letter",
+  "category": "content",
+  "description": "A dated letter on a stacked paper card with a salutation, body and handwritten-style signature.",
+  "tags": ["letter", "founder", "note", "story", "paper", "signature", "about"],
+  "fieldGroups": ["Letter", "Signature"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "An open letter",
+      "group": "Letter"
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-09-30",
+      "group": "Letter"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "To every team that still writes forty-page research reports",
+      "group": "Letter",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "salutation",
+      "label": "Salutation",
+      "type": "text",
+      "default": "Dear research teams,",
+      "group": "Letter"
+    },
+    {
+      "name": "body",
+      "label": "Letter",
+      "type": "richtext",
+      "default": "<p>We know how much care goes into those reports. We wrote them too: the late nights, the perfect chart, the appendix nobody opens.</p><p>Here is what we learned the hard way. Decisions rarely change because of a summary. They change when someone hears a customer say it in their own words, with the pause and the sigh still in it.</p><p>So this year, try something smaller. Send one clip instead of one chapter. Let the customer do the convincing. We think you will be surprised by how quickly the room listens.</p>",
+      "group": "Letter"
+    },
+    {
+      "name": "signoff",
+      "label": "Sign-off",
+      "type": "text",
+      "default": "With respect and a lot of coffee,",
+      "group": "Signature"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Priya Raman",
+      "group": "Signature",
+      "required": true
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Co-founder and CEO, Fieldnote",
+      "group": "Signature"
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "name": "Newsletter, what you get",
+  "category": "newsletters",
+  "description": "A newsletter signup beside a list of what readers get in each issue, with icons.",
+  "tags": ["newsletter", "email", "subscribe", "signup", "form", "benefits", "icons", "list"],
+  "fieldGroups": ["Heading", "Form", "Benefits"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Newsletter",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Become the person your team asks about customers",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Every other Thursday we send one practical lesson from real research projects. It takes four minutes to read.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email address",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Subscribe",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Privacy note",
+      "type": "text",
+      "default": "Every two weeks. Unsubscribe any time.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "benefitsTitle",
+      "label": "Benefits title",
+      "type": "text",
+      "default": "In every issue",
+      "group": "Benefits"
+    },
+    {
+      "name": "benefits",
+      "label": "Benefits",
+      "type": "list",
+      "group": "Benefits",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Benefit"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "One sentence about it."
+        }
+      ],
+      "default": [
+        {
+          "icon": "lightbulb",
+          "title": "One technique, explained",
+          "text": "A question, exercise or habit you can try in your next interview."
+        },
+        {
+          "icon": "book",
+          "title": "A real study, taken apart",
+          "text": "How a product team planned, ran and shared one piece of research."
+        },
+        {
+          "icon": "download",
+          "title": "A template to keep",
+          "text": "Discussion guides, screeners and report outlines, free to copy."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "name": "Content, founder story",
+  "category": "content",
+  "description": "A portrait beside a personal letter, signed with a name and role.",
+  "tags": ["founder", "letter", "story", "about", "ceo", "portrait"],
+  "fieldGroups": ["Letter", "Signature"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "A note from our founder",
+      "group": "Letter"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Why I stopped writing research reports",
+      "required": true,
+      "group": "Letter"
+    },
+    {
+      "name": "letter",
+      "label": "Letter",
+      "type": "richtext",
+      "default": "<p>For six years I wrote forty-page research reports. They were thorough, well designed and almost nobody read them.</p><p>What did travel was a fifteen-second clip of a customer sighing at our checkout page. That clip changed more of the roadmap than all my reports combined.</p><p>Fieldnote exists so every team can work that way: keep the customer’s own words, share them in seconds, and let the evidence do the convincing.</p>",
+      "group": "Letter"
+    },
+    {
+      "name": "photo",
+      "label": "Portrait",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Priya Raman",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "person"
+        }
+      },
+      "group": "Signature"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Priya Raman",
+      "group": "Signature"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Co-founder and CEO, Fieldnote",
+      "group": "Signature"
+    }
+  ]
+}

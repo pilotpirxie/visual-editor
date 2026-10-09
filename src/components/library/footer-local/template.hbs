@@ -1,0 +1,40 @@
+<footer class="b-footer-local section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <div class="stack b-brand">
+        <a class="b-logo" href="index.html">{{site.title}}</a>
+        {{#if tagline}}<p class="b-muted" data-field="tagline">{{nl2br tagline}}</p>{{/if}}
+      </div>
+      <div class="stack b-column">
+        <h2 class="b-heading" data-field="visitTitle">{{svgIcon "map-pin"}}<span>{{visitTitle}}</span></h2>
+        <address class="b-muted" data-field="address">{{nl2br address}}</address>
+        {{#if directionsLabel}}<a class="b-more" href="{{href directionsLink}}" {{linkAttrs directionsLink}} data-field="directionsLink">{{directionsLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+      </div>
+      <div class="stack b-column">
+        <h2 class="b-heading" data-field="contactTitle">{{svgIcon "phone"}}<span>{{contactTitle}}</span></h2>
+        <ul class="b-contact" role="list">
+          {{#if phone}}<li data-field="phone"><a href="tel:{{phone}}">{{phone}}</a></li>{{/if}}
+          {{#if email}}<li data-field="email"><a href="mailto:{{email}}">{{email}}</a></li>{{/if}}
+        </ul>
+      </div>
+      <div class="stack b-column">
+        <h2 class="b-heading" data-field="hoursTitle">{{svgIcon "clock"}}<span>{{hoursTitle}}</span></h2>
+        <dl class="b-hours">
+          {{#each hours}}
+          <div class="b-row" data-field="hours.{{@index}}"><dt>{{days}}</dt><dd>{{time}}</dd></div>
+          {{/each}}
+        </dl>
+      </div>
+    </div>
+    <div class="b-bottom">
+      <p class="b-muted" data-field="copyright">{{copyright}}</p>
+      <nav aria-label="Footer">
+        <ul class="cluster b-links" role="list">
+          {{#each links}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+          {{/each}}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>

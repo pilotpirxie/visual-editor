@@ -1,0 +1,194 @@
+{
+  "name": "How it works, pipeline",
+  "category": "how-it-works",
+  "description": "Inputs flow into a central product node and out as results, joined by labeled arrows. Stacks top to bottom on phones and tablets.",
+  "tags": ["steps", "pipeline", "flow", "diagram", "inputs", "outputs", "integrations"],
+  "fieldGroups": ["Heading", "Inputs", "Product", "Outputs"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How it works",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Conversations in, decisions out",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Fieldnote sits between the calls you already run and the places your team already works.",
+      "group": "Heading"
+    },
+    {
+      "name": "inputsTitle",
+      "label": "Inputs title",
+      "type": "text",
+      "default": "Where it comes from",
+      "required": true,
+      "group": "Inputs"
+    },
+    {
+      "name": "inputs",
+      "label": "Inputs",
+      "type": "list",
+      "group": "Inputs",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "video"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Input"
+        }
+      ],
+      "default": [
+        {
+          "icon": "video",
+          "label": "Zoom and Meet calls"
+        },
+        {
+          "icon": "mic",
+          "label": "In-person audio"
+        },
+        {
+          "icon": "message",
+          "label": "Support tickets"
+        },
+        {
+          "icon": "file",
+          "label": "Survey answers"
+        }
+      ]
+    },
+    {
+      "name": "inLabel",
+      "label": "Arrow label in",
+      "type": "text",
+      "default": "Raw recordings",
+      "group": "Inputs"
+    },
+    {
+      "name": "coreIcon",
+      "label": "Product icon",
+      "type": "icon",
+      "default": "sparkles",
+      "group": "Product"
+    },
+    {
+      "name": "coreTitle",
+      "label": "Product name",
+      "type": "text",
+      "default": "Fieldnote",
+      "required": true,
+      "group": "Product"
+    },
+    {
+      "name": "coreText",
+      "label": "Product text",
+      "type": "textarea",
+      "default": "Turns hours of conversation into findings your team can act on.",
+      "group": "Product"
+    },
+    {
+      "name": "tasks",
+      "label": "What it does",
+      "type": "list",
+      "group": "Product",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Task"
+        }
+      ],
+      "default": [
+        {
+          "label": "Transcribe"
+        },
+        {
+          "label": "Tag"
+        },
+        {
+          "label": "Find themes"
+        }
+      ]
+    },
+    {
+      "name": "outLabel",
+      "label": "Arrow label out",
+      "type": "text",
+      "default": "Insights",
+      "group": "Outputs"
+    },
+    {
+      "name": "outputsTitle",
+      "label": "Outputs title",
+      "type": "text",
+      "default": "Where it goes",
+      "required": true,
+      "group": "Outputs"
+    },
+    {
+      "name": "outputs",
+      "label": "Outputs",
+      "type": "list",
+      "group": "Outputs",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "play"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Output"
+        }
+      ],
+      "default": [
+        {
+          "icon": "play",
+          "label": "Highlight reels"
+        },
+        {
+          "icon": "chart",
+          "label": "Theme reports"
+        },
+        {
+          "icon": "send",
+          "label": "Slack digests"
+        },
+        {
+          "icon": "flag",
+          "label": "Roadmap evidence"
+        }
+      ]
+    }
+  ]
+}

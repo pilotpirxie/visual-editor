@@ -1,0 +1,18 @@
+<section class="b-newsletter-banner section">
+  <div class="container b-inner">
+    <div class="b-copy">
+      {{#if icon}}<span class="b-icon" data-field="icon">{{svgIcon icon}}</span>{{/if}}
+      <div class="stack b-text">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{text}}</p>{{/if}}
+      </div>
+    </div>
+    <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <div class="field b-field">
+        <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+        <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+      </div>
+      <button type="submit" class="btn btn-primary b-submit" data-field="buttonLabel">{{buttonLabel}}</button>
+    </form>
+  </div>
+</section>

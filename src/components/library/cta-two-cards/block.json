@@ -1,0 +1,99 @@
+{
+  "name": "Call to action, two paths",
+  "category": "call-to-action",
+  "description": "Two side-by-side cards that send different visitors to their own next step.",
+  "tags": ["cta", "cards", "paths", "teams", "enterprise", "sales"],
+  "fieldGroups": ["Heading", "Cards"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Pick the way that suits your team",
+      "group": "Heading",
+      "maxLength": 120
+    },
+    {
+      "name": "paths",
+      "label": "Cards",
+      "type": "list",
+      "group": "Cards",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "sparkles"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Card title"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Who this is for and what happens next."
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Get started",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "name": "highlight",
+          "label": "Dark card",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        {
+          "icon": "users",
+          "title": "For product teams",
+          "text": "Start a free trial, invite your team and run your first study this week. Self-serve, no call needed.",
+          "button": {
+            "label": "Start free trial",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "highlight": false
+        },
+        {
+          "icon": "shield",
+          "title": "For larger organizations",
+          "text": "SSO, data residency in the EU or Canada, custom retention and a research lead who helps you roll out.",
+          "button": {
+            "label": "Talk to sales",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "highlight": true
+        }
+      ]
+    }
+  ]
+}

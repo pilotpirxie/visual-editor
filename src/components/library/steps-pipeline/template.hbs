@@ -1,0 +1,39 @@
+<section class="b-steps-pipeline section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-flow">
+      <div class="stack b-stage">
+        <h3 class="eyebrow" data-field="inputsTitle">{{inputsTitle}}</h3>
+        <ul class="stack b-chips" role="list">
+          {{#each inputs}}
+          <li class="b-chip" data-field="inputs.{{@index}}">{{svgIcon icon}}<span>{{label}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
+      <p class="b-link" data-field="inLabel"><span>{{inLabel}}</span><span class="b-down">{{svgIcon "arrow-down"}}</span><span class="b-right">{{svgIcon "arrow-right"}}</span></p>
+      <div class="stack b-core" data-field="coreTitle">
+        <span class="b-badge">{{svgIcon coreIcon}}</span>
+        <h3>{{coreTitle}}</h3>
+        {{#if coreText}}<p class="b-muted">{{nl2br coreText}}</p>{{/if}}
+        <ul class="cluster b-tasks" role="list">
+          {{#each tasks}}
+          <li data-field="tasks.{{@index}}">{{svgIcon "check"}}<span>{{label}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
+      <p class="b-link" data-field="outLabel"><span>{{outLabel}}</span><span class="b-down">{{svgIcon "arrow-down"}}</span><span class="b-right">{{svgIcon "arrow-right"}}</span></p>
+      <div class="stack b-stage">
+        <h3 class="eyebrow" data-field="outputsTitle">{{outputsTitle}}</h3>
+        <ul class="stack b-chips" role="list">
+          {{#each outputs}}
+          <li class="b-chip" data-field="outputs.{{@index}}">{{svgIcon icon}}<span>{{label}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

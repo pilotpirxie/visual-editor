@@ -1,0 +1,31 @@
+<section class="b-blog-timeline section">
+  <div class="container stack b-inner">
+    <div class="cluster b-head">
+      <header class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      {{#if showButton}}
+      <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      {{/if}}
+    </div>
+    <ol class="b-line" role="list">
+      {{#each posts}}
+      <li class="b-item" data-field="posts.{{@index}}">
+        <span class="b-dot" aria-hidden="true"></span>
+        {{#if date}}<time class="b-date" datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+        <article class="card stack b-card">
+          {{#if (or category readingTime)}}
+          <p class="b-meta">
+            {{#if category}}<span class="b-category">{{category}}</span>{{/if}}
+            {{#if readingTime}}<span>{{readingTime}}</span>{{/if}}
+          </p>
+          {{/if}}
+          <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          {{#if excerpt}}<p class="b-excerpt">{{nl2br excerpt}}</p>{{/if}}
+        </article>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

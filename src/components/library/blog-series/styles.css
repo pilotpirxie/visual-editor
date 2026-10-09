@@ -1,0 +1,107 @@
+@layer components {
+  @scope (.b-blog-series) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --cluster-justify: space-between;
+      align-items: flex-end;
+    }
+
+    .b-heading {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-parts {
+      display: grid;
+      gap: var(--space-8) var(--space-4);
+      counter-reset: part;
+    }
+
+    .b-part {
+      --stack-gap: var(--space-3);
+      position: relative;
+      padding-block-start: var(--space-4);
+      border-block-start: 0.375rem solid var(--color-border);
+      counter-increment: part;
+    }
+
+    .b-part[data-status='read'] {
+      border-color: var(--color-primary);
+    }
+
+    .b-part[data-status='next'] {
+      padding: var(--space-4);
+      border-color: color-mix(in oklab, var(--color-primary) 40%, var(--color-border));
+      background: color-mix(in oklab, var(--color-primary) 6%, transparent);
+    }
+
+    .b-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-marker {
+      --icon-size: 1rem;
+      display: grid;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+    }
+
+    .b-marker:empty::before {
+      content: counter(part);
+    }
+
+    [data-status='read'] .b-marker {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    [data-status='next'] .b-marker {
+      box-shadow: inset 0 0 0 2px var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .b-meta .badge {
+      margin-inline-start: auto;
+    }
+
+    [data-status='upcoming'] {
+      color: var(--color-text-muted);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-part:hover .b-link {
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 1024px) {
+      .b-parts {
+        grid-auto-columns: minmax(0, 1fr);
+        grid-auto-flow: column;
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+<section class="b-http-404-links section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="badge" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-muted b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    <ul class="b-links" role="list">
+      {{#each links}}
+      <li data-field="links.{{@index}}">
+        <a class="card b-link" href="{{href link}}" {{linkAttrs link}}>
+          <span class="b-icon">{{svgIcon icon}}</span>
+          <span class="b-copy"><span class="b-title">{{title}}</span>{{#if text}}<span class="b-muted">{{text}}</span>{{/if}}</span>
+          <span class="b-arrow icon-mirror">{{svgIcon "arrow-right"}}</span>
+        </a>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

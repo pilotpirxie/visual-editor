@@ -1,0 +1,107 @@
+@layer components {
+  @scope (.b-pricing-receipt) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-layout {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      max-width: 34rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-paper {
+      width: min(100%, 26rem);
+      margin-inline: auto;
+      filter: drop-shadow(0 1rem 1.5rem color-mix(in oklab, var(--color-text) 16%, transparent));
+    }
+
+    .b-receipt {
+      --tooth: 0.875rem;
+      --stack-gap: var(--space-6);
+      padding: calc(var(--space-8) + var(--tooth)) var(--space-6);
+      background: var(--color-background);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      mask:
+        conic-gradient(from 135deg at top, black 90deg, transparent 0) top / var(--tooth) 51%
+          repeat-x,
+        conic-gradient(from -45deg at bottom, black 90deg, transparent 0) bottom / var(--tooth) 51%
+          repeat-x;
+    }
+
+    .b-top {
+      padding-block-end: var(--space-4);
+      border-block-end: 2px dashed var(--color-border);
+      text-align: center;
+    }
+
+    .b-top h3 {
+      font-family: inherit;
+      font-size: var(--text-lg);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .b-lines {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-line {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-2);
+    }
+
+    .b-label {
+      display: flex;
+      flex: 1;
+      align-items: baseline;
+      gap: var(--space-2);
+    }
+
+    .b-label::after {
+      content: '';
+      flex: 1;
+      min-width: var(--space-4);
+      border-block-end: 2px dotted var(--color-border);
+    }
+
+    .b-total {
+      padding-block-start: var(--space-4);
+      border-block-start: 2px dashed var(--color-border);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-barcode {
+      height: 3rem;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--color-text) 0 0.125rem,
+        transparent 0 0.3rem,
+        var(--color-text) 0 0.55rem,
+        transparent 0 0.7rem
+      );
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: var(--space-16);
+      }
+
+      .b-paper {
+        rotate: 2deg;
+      }
+    }
+  }
+}

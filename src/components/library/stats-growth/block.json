@@ -1,0 +1,86 @@
+{
+  "name": "Numbers, growth by year",
+  "category": "numbers",
+  "description": "A headline growth figure beside rising columns for each year, with the latest year in full color.",
+  "tags": ["numbers", "stats", "growth", "years", "chart", "trend", "columns"],
+  "fieldGroups": ["Heading", "Years"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our growth",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Five years of teams listening to customers",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Interviews recorded in Fieldnote each year, across every workspace.",
+      "group": "Heading"
+    },
+    {
+      "name": "highlight",
+      "label": "Headline number",
+      "type": "text",
+      "default": "3.4×",
+      "group": "Heading"
+    },
+    {
+      "name": "highlightLabel",
+      "label": "Headline label",
+      "type": "text",
+      "default": "more interviews than in 2021",
+      "group": "Heading"
+    },
+    {
+      "name": "years",
+      "label": "Years",
+      "type": "list",
+      "group": "Years",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "year",
+      "itemFields": [
+        {
+          "name": "year",
+          "label": "Year",
+          "type": "text",
+          "default": "2026"
+        },
+        {
+          "name": "value",
+          "label": "Value",
+          "type": "text",
+          "default": "10,000"
+        },
+        {
+          "name": "height",
+          "label": "Column height",
+          "type": "range",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "help": "Percent of the tallest possible column."
+        }
+      ],
+      "default": [
+        { "year": "2021", "value": "62k", "height": 29 },
+        { "year": "2022", "value": "88k", "height": 41 },
+        { "year": "2023", "value": "121k", "height": 57 },
+        { "year": "2024", "value": "164k", "height": 77 },
+        { "year": "2025", "value": "212k", "height": 100 }
+      ]
+    }
+  ]
+}

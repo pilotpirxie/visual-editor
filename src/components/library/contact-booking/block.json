@@ -1,0 +1,173 @@
+{
+  "name": "Contact, book a call",
+  "category": "contacts",
+  "description": "Meeting details with the host’s photo beside a two-week calendar and bookable time slots.",
+  "tags": ["contact", "booking", "calendar", "meeting", "schedule", "demo", "call"],
+  "fieldGroups": ["Heading", "Host", "Calendar"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Book a call",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Pick a time that suits you",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "A relaxed walkthrough of Fieldnote with someone who has run hundreds of interviews. Bring a real study if you have one.",
+      "group": "Heading"
+    },
+    {
+      "name": "hostPhoto",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Daniel Okafor",
+        "decorative": false,
+        "width": 400,
+        "height": 400,
+        "placeholder": { "ratio": "1:1", "subject": "person" }
+      },
+      "group": "Host"
+    },
+    {
+      "name": "hostName",
+      "label": "Name",
+      "type": "text",
+      "default": "Daniel Okafor",
+      "group": "Host"
+    },
+    {
+      "name": "hostRole",
+      "label": "Role",
+      "type": "text",
+      "default": "Research partner, Toronto",
+      "group": "Host"
+    },
+    {
+      "name": "duration",
+      "label": "Length",
+      "type": "text",
+      "default": "30 minutes",
+      "group": "Host"
+    },
+    {
+      "name": "platform",
+      "label": "Where",
+      "type": "text",
+      "default": "Video call, link sent when you book",
+      "group": "Host"
+    },
+    {
+      "name": "timezone",
+      "label": "Time zone",
+      "type": "text",
+      "default": "Times shown in Eastern Time",
+      "group": "Host"
+    },
+    {
+      "name": "monthLabel",
+      "label": "Month",
+      "type": "text",
+      "default": "October 2026",
+      "group": "Calendar"
+    },
+    {
+      "name": "fullLabel",
+      "label": "Fully booked text",
+      "type": "text",
+      "default": "fully booked",
+      "help": "Read out by screen readers for full days.",
+      "group": "Calendar"
+    },
+    {
+      "name": "days",
+      "label": "Days",
+      "type": "list",
+      "group": "Calendar",
+      "minItems": 5,
+      "maxItems": 15,
+      "itemLabel": "date",
+      "itemFields": [
+        { "name": "weekday", "label": "Weekday", "type": "text", "default": "Mon" },
+        { "name": "date", "label": "Date", "type": "text", "default": "1" },
+        {
+          "name": "state",
+          "label": "State",
+          "type": "select",
+          "default": "open",
+          "options": [
+            { "value": "open", "label": "Open" },
+            { "value": "selected", "label": "Selected" },
+            { "value": "full", "label": "Fully booked" }
+          ]
+        }
+      ],
+      "default": [
+        { "weekday": "Mon", "date": "12", "state": "full" },
+        { "weekday": "Tue", "date": "13", "state": "selected" },
+        { "weekday": "Wed", "date": "14", "state": "open" },
+        { "weekday": "Thu", "date": "15", "state": "open" },
+        { "weekday": "Fri", "date": "16", "state": "full" },
+        { "weekday": "Mon", "date": "19", "state": "open" },
+        { "weekday": "Tue", "date": "20", "state": "open" },
+        { "weekday": "Wed", "date": "21", "state": "full" },
+        { "weekday": "Thu", "date": "22", "state": "open" },
+        { "weekday": "Fri", "date": "23", "state": "open" }
+      ]
+    },
+    {
+      "name": "slotsTitle",
+      "label": "Times title",
+      "type": "text",
+      "default": "Tuesday, October 13",
+      "group": "Calendar"
+    },
+    {
+      "name": "slots",
+      "label": "Times",
+      "type": "list",
+      "group": "Calendar",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "time",
+      "itemFields": [
+        { "name": "time", "label": "Time", "type": "text", "default": "9:00 AM" },
+        {
+          "name": "link",
+          "label": "Booking link",
+          "type": "link",
+          "default": { "type": "url", "url": "#", "newTab": false }
+        }
+      ],
+      "default": [
+        { "time": "9:30 AM", "link": { "type": "url", "url": "#", "newTab": false } },
+        { "time": "10:00 AM", "link": { "type": "url", "url": "#", "newTab": false } },
+        { "time": "11:30 AM", "link": { "type": "url", "url": "#", "newTab": false } },
+        { "time": "1:00 PM", "link": { "type": "url", "url": "#", "newTab": false } },
+        { "time": "2:30 PM", "link": { "type": "url", "url": "#", "newTab": false } },
+        { "time": "4:00 PM", "link": { "type": "url", "url": "#", "newTab": false } }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Can’t find a time? Email daniel@fieldnote.example",
+      "group": "Calendar"
+    }
+  ]
+}

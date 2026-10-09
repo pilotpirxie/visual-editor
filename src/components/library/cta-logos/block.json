@@ -1,0 +1,120 @@
+{
+  "name": "Call to action, with logos",
+  "category": "call-to-action",
+  "description": "A centered pitch with two buttons above a row of customer logos.",
+  "tags": ["cta", "logos", "customers", "trusted by", "social proof"],
+  "fieldGroups": ["Content", "Buttons", "Logos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Join the teams who never lose a customer insight",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Set up Fieldnote in an afternoon and bring every interview your team has ever recorded into one searchable library.",
+      "group": "Content"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Book a demo",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "logosTitle",
+      "label": "Text above the logos",
+      "type": "text",
+      "default": "Trusted by research teams at",
+      "group": "Logos"
+    },
+    {
+      "name": "logos",
+      "label": "Logos",
+      "type": "list",
+      "group": "Logos",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "company",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Logo mark",
+          "type": "icon",
+          "default": "lucide:hexagon",
+          "iconPurpose": "logo"
+        },
+        {
+          "name": "company",
+          "label": "Company",
+          "type": "text",
+          "default": "Company"
+        }
+      ],
+      "default": [
+        {
+          "icon": "lucide:wind",
+          "company": "Northwind"
+        },
+        {
+          "icon": "lucide:sun",
+          "company": "Brightpath"
+        },
+        {
+          "icon": "lucide:book-open",
+          "company": "Ledgerly"
+        },
+        {
+          "icon": "lucide:heart-pulse",
+          "company": "Lumen Health"
+        },
+        {
+          "icon": "lucide:orbit",
+          "company": "Orbital"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+@layer components {
+  @scope (.b-content-checklist) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-self: center;
+    }
+
+    .b-body,
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-body {
+      font-size: var(--text-lg);
+    }
+
+    .b-list {
+      --stack-gap: var(--space-6);
+      --card-padding: var(--space-6);
+    }
+
+    .b-item {
+      display: flex;
+      gap: var(--space-4);
+    }
+
+    .b-item + .b-item {
+      padding-block-start: var(--space-6);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-icon {
+      --icon-size: 1rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-item-copy {
+      --stack-gap: var(--space-1);
+    }
+
+    .b-item h3 {
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: var(--space-16);
+      }
+
+      .b-list {
+        --card-padding: var(--space-8);
+      }
+    }
+  }
+}

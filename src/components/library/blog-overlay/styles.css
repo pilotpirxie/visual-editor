@@ -1,0 +1,102 @@
+@layer components {
+  @scope (.b-blog-overlay) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+
+    .b-heading {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-grid {
+      --grid-min: 17rem;
+    }
+
+    .b-card {
+      position: relative;
+      display: grid;
+      overflow: hidden;
+      border-radius: var(--card-radius);
+      background: var(--theme-dark-background);
+      color: var(--theme-dark-text);
+      box-shadow: var(--card-shadow);
+    }
+
+    .b-media {
+      --media-radius: 0;
+      grid-area: 1 / 1;
+      min-height: 22rem;
+    }
+
+    .b-media img {
+      transition: scale var(--transition-normal);
+    }
+
+    .b-card:hover .b-media img {
+      scale: 1.04;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-3);
+      grid-area: 1 / 1;
+      z-index: 1;
+      align-self: end;
+      align-items: flex-start;
+      padding: var(--space-16) var(--space-6) var(--space-6);
+      background: linear-gradient(
+        to top,
+        color-mix(in oklab, var(--theme-dark-background) 92%, transparent) 40%,
+        transparent
+      );
+    }
+
+    .b-category {
+      --badge-bg: color-mix(in oklab, var(--theme-dark-text) 18%, transparent);
+      --badge-color: var(--theme-dark-text);
+    }
+
+    .b-title {
+      font-size: var(--text-xl);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .b-card:hover .b-link {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+
+    .b-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1) var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--theme-dark-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
+}

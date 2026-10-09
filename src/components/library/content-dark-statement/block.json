@@ -1,0 +1,65 @@
+{
+  "name": "Content, dark statement",
+  "category": "content",
+  "description": "A dark section with a large statement, a highlighted phrase, short text and a button.",
+  "tags": ["statement", "dark", "mission", "large text", "manifesto", "banner"],
+  "fieldGroups": ["Statement", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The short version",
+      "group": "Statement"
+    },
+    {
+      "name": "title",
+      "label": "Statement",
+      "type": "text",
+      "default": "Your customers have already told you what to build.",
+      "required": true,
+      "group": "Statement"
+    },
+    {
+      "name": "highlight",
+      "label": "Highlighted phrase",
+      "type": "text",
+      "default": "Fieldnote makes sure you hear it.",
+      "group": "Statement"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Record, transcribe and tag every interview, then share the moments that matter with the people who can act on them.",
+      "group": "Statement"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start a free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+<footer class="b-footer-sitemap section">
+  <div class="container stack b-inner">
+    <div class="b-head">
+      <a class="b-logo" href="index.html">{{site.title}}</a>
+      {{#if eyebrow}}<p class="b-muted" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    </div>
+    <nav aria-label="Footer">
+      <ol class="b-index" role="list">
+        {{#each pages}}
+        <li data-field="pages.{{@index}}">
+          <a class="b-row" href="{{href link}}" {{linkAttrs link}}>
+            <span class="b-title">{{label}}</span>
+            {{#if note}}<span class="b-note">{{note}}</span>{{/if}}
+            <span class="b-arrow icon-mirror">{{svgIcon "arrow-up-right"}}</span>
+          </a>
+        </li>
+        {{/each}}
+      </ol>
+    </nav>
+    <div class="b-bottom b-muted">
+      <p data-field="copyright">{{copyright}}</p>
+      <ul class="cluster b-legal" role="list">
+        {{#each legal}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="legal.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</footer>

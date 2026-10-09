@@ -1,0 +1,137 @@
+{
+  "name": "Modal, email sign-up",
+  "category": "modals",
+  "description": "A letter-style dialog with an airmail edge, a postage stamp, a short perk list and an email form. Opens from any link to its anchor.",
+  "tags": ["modal", "dialog", "popup", "newsletter", "email", "subscribe", "signup", "form"],
+  "fieldGroups": ["Content", "Perks", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Stamp icon",
+      "type": "icon",
+      "default": "mail",
+      "group": "Content"
+    },
+    {
+      "name": "stampLabel",
+      "label": "Stamp label",
+      "type": "text",
+      "default": "No. 48",
+      "maxLength": 10,
+      "group": "Content"
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The Field Notes letter",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "One good research idea, every other Thursday",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Written by our research team in Toronto for 18,000 product people who talk to customers.",
+      "group": "Content"
+    },
+    {
+      "name": "closeLabel",
+      "label": "Close button label (for screen readers)",
+      "type": "text",
+      "default": "Close",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "perks",
+      "label": "Perks",
+      "type": "list",
+      "group": "Perks",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Perk"
+        }
+      ],
+      "default": [
+        {
+          "text": "Interview scripts and templates you can copy"
+        },
+        {
+          "text": "Teardowns of real research projects"
+        },
+        {
+          "text": "Five-minute read, no fluff"
+        }
+      ]
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email address",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Subscribe",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "note",
+      "label": "Privacy note",
+      "type": "text",
+      "default": "Unsubscribe with one click. We never share your address.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    }
+  ]
+}

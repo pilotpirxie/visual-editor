@@ -1,0 +1,63 @@
+@layer components {
+  @scope (.b-hero-outline) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+      container-type: inline-size;
+    }
+
+    .b-title {
+      font-size: min(calc(var(--text-5xl) * 2.2), 13cqi);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      overflow-wrap: anywhere;
+    }
+
+    .b-title span {
+      display: block;
+    }
+
+    .b-outline {
+      color: color-mix(in oklab, var(--color-text) 30%, transparent);
+    }
+
+    @supports (-webkit-text-stroke: 1px) {
+      .b-outline {
+        color: var(--color-background);
+        -webkit-text-stroke: max(0.04em, 2px) var(--color-text);
+        paint-order: stroke fill;
+      }
+    }
+
+    .b-foot {
+      display: grid;
+      gap: var(--space-6);
+      padding-top: var(--space-8);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-lead {
+      max-width: 36rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-8);
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .b-facts strong {
+      color: var(--color-text);
+    }
+
+    @media (min-width: 1024px) {
+      .b-foot {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+    }
+  }
+}

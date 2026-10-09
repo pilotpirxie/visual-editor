@@ -1,0 +1,20 @@
+<section class="b-features-tiles section">
+  <div class="container stack b-inner">
+    <header class="b-head">
+      <div class="stack b-title">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </div>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-tiles" role="list">
+      {{#each items}}
+      <li class="b-tile" data-field="items.{{@index}}">
+        <span class="b-icon">{{svgIcon icon}}</span>
+        <h3>{{title}}</h3>
+        <p>{{nl2br text}}</p>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

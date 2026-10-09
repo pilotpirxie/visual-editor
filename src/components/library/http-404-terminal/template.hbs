@@ -1,0 +1,24 @@
+<section class="b-http-404-terminal section">
+  <div class="container b-inner">
+    <div class="b-window">
+      <div class="b-bar">
+        <span class="b-dots" aria-hidden="true"></span>
+        <p data-field="windowTitle">{{windowTitle}}</p>
+      </div>
+      <div class="stack b-screen">
+        <p class="b-command" data-field="command"><span aria-hidden="true">$</span> {{command}}</p>
+        <h1 class="b-title" data-field="title">{{title}}</h1>
+        {{#each lines}}
+        <p class="b-line" data-tone="{{tone}}" data-field="lines.{{@index}}">{{text}}</p>
+        {{/each}}
+        <p class="b-command" data-field="suggestCommand"><span aria-hidden="true">$</span> {{suggestCommand}}</p>
+        <ul class="b-links" role="list">
+          {{#each links}}
+          <li data-field="links.{{@index}}"><a href="{{href link}}" {{linkAttrs link}}><span class="icon-mirror">{{svgIcon "chevron-right"}}</span>{{label}}</a>{{#if hint}} <span class="b-hint">{{hint}}</span>{{/if}}</li>
+          {{/each}}
+        </ul>
+        <p class="b-command" aria-hidden="true"><span>$</span><span class="b-cursor"></span></p>
+      </div>
+    </div>
+  </div>
+</section>

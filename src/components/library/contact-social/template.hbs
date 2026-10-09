@@ -1,0 +1,25 @@
+<section class="b-contact-social section">
+  <div class="container stack b-inner">
+    <header class="b-head">
+      <div class="stack b-title">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </div>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}{{#if email}} <a href="mailto:{{email}}" data-field="email">{{email}}</a>{{/if}}</p>{{/if}}
+    </header>
+    <ul class="b-grid" role="list">
+      {{#each channels}}
+      <li data-field="channels.{{@index}}">
+        <a class="b-card" href="{{href link}}" {{linkAttrs link}}>
+          <span class="b-logo">{{svgIcon icon}}</span>
+          <span class="b-arrow" aria-hidden="true">{{svgIcon "arrow-up-right"}}</span>
+          <span class="b-name">{{name}}</span>
+          <span class="b-handle">{{handle}}</span>
+          {{#if note}}<span class="b-note">{{note}}</span>{{/if}}
+          <span class="b-watermark" aria-hidden="true">{{svgIcon icon}}</span>
+        </a>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+<section class="b-features-roadmap section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-columns">
+      {{#each columns}}
+      <section class="stack b-column" data-field="columns.{{@index}}">
+        <header class="b-column-head">
+          <h3><span class="b-dot" aria-hidden="true"></span>{{label}}</h3>
+          {{#if summary}}<p>{{summary}}</p>{{/if}}
+        </header>
+        <ul class="stack b-cards" role="list">
+          {{#each items}}
+          <li class="b-card" data-field="columns.{{@../index}}.items.{{@index}}">
+            <h4>{{title}}</h4>
+            {{#if text}}<p>{{text}}</p>{{/if}}
+          </li>
+          {{/each}}
+        </ul>
+      </section>
+      {{/each}}
+    </div>
+    {{#if linkLabel}}<a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+  </div>
+</section>

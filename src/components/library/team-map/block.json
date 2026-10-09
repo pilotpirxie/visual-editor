@@ -1,0 +1,202 @@
+{
+  "name": "Team, around the world",
+  "category": "team",
+  "description": "A dotted world map with team avatars pinned to their cities and a list of locations below.",
+  "tags": ["team", "map", "remote", "locations", "offices", "world", "distributed"],
+  "fieldGroups": ["Heading", "Locations"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Remote first",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "One team, six cities, three overlapping hours",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Toronto is home base. Everyone else works from where they live, and we all meet in person twice a year.",
+      "group": "Heading"
+    },
+    {
+      "name": "locations",
+      "label": "Locations",
+      "type": "list",
+      "group": "Locations",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "city",
+      "itemFields": [
+        {
+          "name": "city",
+          "label": "City",
+          "type": "text",
+          "default": "City"
+        },
+        {
+          "name": "detail",
+          "label": "Detail",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "photo",
+          "label": "Pin photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "x",
+          "label": "Pin across (%)",
+          "type": "number",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "help": "0 is the left edge of the map, 100 the right edge."
+        },
+        {
+          "name": "y",
+          "label": "Pin down (%)",
+          "type": "number",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "help": "0 is the top edge of the map, 100 the bottom edge."
+        }
+      ],
+      "default": [
+        {
+          "city": "Toronto",
+          "detail": "Head office, 14 people",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leila Haddad",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "x": 28,
+          "y": 26
+        },
+        {
+          "city": "Mexico City",
+          "detail": "Engineering, 3 people",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tomás Herrera",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "x": 23,
+          "y": 40
+        },
+        {
+          "city": "Lisbon",
+          "detail": "Design and research, 3 people",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Beatriz Costa",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "x": 47,
+          "y": 29
+        },
+        {
+          "city": "Berlin",
+          "detail": "Engineering, 4 people",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Felix Wagner",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "x": 54,
+          "y": 21
+        },
+        {
+          "city": "Lagos",
+          "detail": "Machine learning, 2 people",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Aisha Bello",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "x": 51,
+          "y": 47
+        },
+        {
+          "city": "Tokyo",
+          "detail": "Customer success, 2 people",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Yuki Tanaka",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "x": 87,
+          "y": 31
+        }
+      ]
+    }
+  ]
+}

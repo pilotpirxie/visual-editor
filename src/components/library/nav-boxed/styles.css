@@ -1,0 +1,92 @@
+@layer components {
+  @scope (.b-nav-boxed) {
+    :scope {
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    .b-bar,
+    .b-links,
+    .b-menu:popover-open {
+      display: flex;
+      gap: var(--border-width);
+    }
+
+    .b-bar,
+    .b-menu {
+      background: var(--color-text);
+    }
+
+    .b-bar {
+      border-block: var(--border-width) solid var(--color-text);
+    }
+
+    .b-cell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      min-height: 4rem;
+      padding-inline: var(--space-6);
+      border: 0;
+      background: var(--color-background);
+      color: var(--color-text);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .b-cell:hover {
+      background: var(--color-text);
+      color: var(--color-background);
+    }
+
+    .b-logo {
+      flex: 1;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      letter-spacing: -0.02em;
+      text-transform: none;
+    }
+
+    .b-cta {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-menu {
+      inset: calc(4rem + var(--border-width) * 2) 0 auto;
+      width: auto;
+      padding: 0 0 var(--border-width);
+      border: 0;
+    }
+
+    .b-menu:popover-open,
+    .b-links {
+      flex-direction: column;
+    }
+
+    @media (min-width: 1024px) {
+      .b-toggle {
+        display: none;
+      }
+
+      .b-menu {
+        position: static;
+        display: flex;
+        gap: var(--border-width);
+        padding: 0;
+        overflow: visible;
+      }
+
+      .b-links {
+        flex-direction: row;
+      }
+    }
+  }
+}

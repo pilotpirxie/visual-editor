@@ -1,0 +1,28 @@
+<section class="b-content-facts section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if body}}<div class="prose b-body" data-field="body">{{richText body}}</div>{{/if}}
+      {{#if showButton}}
+      <div class="cluster">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+      {{/if}}
+    </div>
+    <div class="b-sheet">
+      <p class="b-sheet-head">
+        <span class="b-sheet-title" data-field="sheetTitle">{{sheetTitle}}</span>
+        {{#if updated}}<span class="b-updated" data-field="updated">{{updated}}</span>{{/if}}
+      </p>
+      <dl class="b-facts">
+        {{#each facts}}
+        <div class="b-fact" data-field="facts.{{@index}}">
+          <dt>{{label}}</dt>
+          <dd>{{value}}</dd>
+        </div>
+        {{/each}}
+      </dl>
+    </div>
+  </div>
+</section>

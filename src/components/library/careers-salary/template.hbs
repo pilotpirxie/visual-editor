@@ -1,0 +1,22 @@
+<section class="b-careers-salary section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-chart" style="--lo: {{scaleMin}}; --hi: {{scaleMax}}">
+      <p class="b-scale b-muted" data-field="scaleMinLabel"><span>{{scaleMinLabel}}</span><span>{{scaleMaxLabel}}</span></p>
+      <ul class="b-levels" role="list">
+        {{#each levels}}
+        <li class="b-level" data-field="levels.{{@index}}">
+          <p class="b-role"><span class="badge">{{level}}</span><span>{{title}}</span></p>
+          <div class="b-track" aria-hidden="true"><span class="b-range" style="--from: {{min}}; --to: {{max}}"></span></div>
+          <p class="b-pay">{{minLabel}} – {{maxLabel}}</p>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+    {{#if note}}<p class="b-note b-muted" data-field="note">{{svgIcon noteIcon}}<span>{{note}}</span></p>{{/if}}
+  </div>
+</section>

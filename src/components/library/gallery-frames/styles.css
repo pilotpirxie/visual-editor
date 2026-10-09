@@ -1,0 +1,89 @@
+@layer components {
+  @scope (.b-gallery-frames) {
+    :scope {
+      --frame: var(--theme-dark-background);
+      --section-bg: color-mix(in oklab, var(--color-surface) 60%, var(--color-background));
+    }
+
+    :scope[data-frame='light'] {
+      --frame: var(--color-background);
+    }
+
+    :scope[data-frame='brand'] {
+      --frame: var(--color-primary);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-wall {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-12) var(--space-16);
+    }
+
+    .b-item {
+      width: clamp(12rem, calc(var(--w) / var(--h) * 17rem), 26rem);
+      max-width: 100%;
+    }
+
+    .b-frame {
+      padding: var(--space-6);
+      border: var(--space-3) solid var(--frame);
+      background: var(--color-background);
+      box-shadow:
+        var(--shadow-lg),
+        inset 0 0 var(--space-2) color-mix(in oklab, var(--color-text) 20%, transparent);
+    }
+
+    .b-photo {
+      --media-ratio: var(--w) / var(--h);
+      --media-radius: 0;
+    }
+
+    .b-label {
+      display: grid;
+      gap: var(--space-1);
+      width: fit-content;
+      max-width: 16rem;
+      margin-block-start: var(--space-6);
+      padding: var(--space-3) var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+    }
+
+    .b-title {
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      font-style: italic;
+      color: var(--color-text);
+    }
+
+    @media (min-width: 1024px) {
+      .b-wall {
+        flex-wrap: nowrap;
+      }
+
+      .b-item:nth-child(even) {
+        margin-block-start: var(--space-16);
+      }
+    }
+  }
+}

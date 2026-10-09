@@ -1,0 +1,165 @@
+{
+  "name": "Gallery, scrolling strip",
+  "category": "gallery",
+  "description": "A heading and a row of photos of mixed widths that scrolls sideways, without JavaScript.",
+  "tags": ["gallery", "photos", "images", "strip", "scroll", "horizontal", "filmstrip"],
+  "fieldGroups": ["Heading", "Photos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Behind the scenes",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A year of Fieldnote in photos",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Launches, retreats and a lot of interviews.",
+      "group": "Heading"
+    },
+    {
+      "name": "hint",
+      "label": "Scroll hint",
+      "type": "text",
+      "default": "Scroll for more",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 2,
+      "maxItems": 16,
+      "itemLabel": "caption",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "caption",
+          "label": "Caption",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The team cheering at the launch of highlight reels",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "Highlight reels launch, March"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leila Haddad speaking at a research conference",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "caption": "Talk at ResearchOps Toronto"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A whiteboard covered in a new onboarding flow",
+            "decorative": false,
+            "width": 1200,
+            "height": 675,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "photo"
+            }
+          },
+          "caption": "Onboarding redesign, May"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Mateo Ruiz and Aisha Bello reviewing transcription accuracy charts",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "caption": "Accuracy review"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The team hiking near Sintra during the Lisbon retreat",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "Lisbon retreat, September"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A customer interview in progress at the King Street office",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "caption": "Interview booth, October"
+        }
+      ]
+    }
+  ]
+}

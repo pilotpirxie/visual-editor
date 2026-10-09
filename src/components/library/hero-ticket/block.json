@@ -1,0 +1,143 @@
+{
+  "name": "Hero, event ticket",
+  "category": "headers",
+  "description": "Event heading and buttons beside a notched ticket with the date, venue and admission details.",
+  "tags": ["hero", "heading", "event", "ticket", "conference", "date", "venue"],
+  "fieldGroups": ["Heading", "Buttons", "Ticket"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Fieldnote Live · Toronto",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Two days of customer research, done properly",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Talks, hands-on interview clinics and a synthesis workshop with the researchers behind Fieldnote. Capped at 400 seats.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Get your ticket",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See the program",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "ticketLabel",
+      "label": "Ticket label",
+      "type": "text",
+      "default": "Admit one",
+      "group": "Ticket"
+    },
+    {
+      "name": "ticketTitle",
+      "label": "Event name",
+      "type": "text",
+      "default": "Research Week 2027",
+      "group": "Ticket"
+    },
+    {
+      "name": "ticketDate",
+      "label": "Date",
+      "type": "text",
+      "default": "May 13–14",
+      "group": "Ticket"
+    },
+    {
+      "name": "rows",
+      "label": "Details",
+      "type": "list",
+      "group": "Ticket",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        },
+        {
+          "name": "value",
+          "label": "Value",
+          "type": "text",
+          "default": "Value"
+        }
+      ],
+      "default": [
+        {
+          "label": "Venue",
+          "value": "The Great Hall, Queen St W"
+        },
+        {
+          "label": "Doors",
+          "value": "8:30 am"
+        },
+        {
+          "label": "Admission",
+          "value": "General, both days"
+        },
+        {
+          "label": "Price",
+          "value": "CA$349"
+        }
+      ]
+    },
+    {
+      "name": "ticketNumber",
+      "label": "Ticket number",
+      "type": "text",
+      "default": "No. 004812",
+      "group": "Ticket"
+    }
+  ]
+}

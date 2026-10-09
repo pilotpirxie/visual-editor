@@ -1,0 +1,101 @@
+@layer components {
+  @scope (.b-modal-video) {
+    .b-dialog {
+      --modal-width: 56rem;
+    }
+
+    .b-dialog[data-theme='dark'] {
+      --color-background: var(--theme-dark-background);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+    }
+
+    .b-dialog::backdrop {
+      background: color-mix(in oklab, var(--theme-dark-background) 85%, transparent);
+    }
+
+    .b-player {
+      position: relative;
+      display: block;
+      color: var(--color-primary-contrast);
+    }
+
+    .b-media {
+      --media-ratio: 16 / 9;
+      --media-radius: var(--radius-md);
+      display: block;
+    }
+
+    .b-play {
+      --icon-size: 1.75rem;
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      width: 4.5rem;
+      height: 4.5rem;
+      margin: auto;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      box-shadow: 0 0 0 0.75rem color-mix(in oklab, var(--color-primary) 30%, transparent);
+    }
+
+    .b-player:hover .b-play {
+      scale: 1.08;
+    }
+
+    .b-duration {
+      position: absolute;
+      inset-block-end: var(--space-3);
+      inset-inline-end: var(--space-3);
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm);
+      background: var(--theme-dark-background);
+      color: var(--theme-dark-text);
+      font: var(--text-xs) var(--font-mono);
+    }
+
+    .b-info {
+      display: grid;
+      gap: var(--space-6);
+      padding-block-start: var(--space-6);
+    }
+
+    .b-copy,
+    .b-chapters {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-copy h2 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-chapter {
+      display: flex;
+      gap: var(--space-3);
+      padding-block: var(--space-2);
+      border-block-start: var(--border-width) solid var(--color-border);
+      font-size: var(--text-sm);
+    }
+
+    .b-time {
+      min-inline-size: 3rem;
+      font-family: var(--font-mono);
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-info {
+        grid-template-columns: 3fr 2fr;
+        gap: var(--space-8);
+      }
+    }
+  }
+}

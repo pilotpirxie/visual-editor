@@ -1,0 +1,262 @@
+{
+  "name": "Footer, floating card",
+  "category": "footers",
+  "description": "The whole footer sits in a rounded card with space around it and a soft glow in one corner.",
+  "tags": ["footer", "card", "rounded", "inset", "links", "columns", "social"],
+  "fieldGroups": ["Brand", "Button", "Columns", "Social", "Legal"],
+  "styleOverrides": ["--color-background", "--color-surface", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "tagline",
+      "label": "Tagline",
+      "type": "textarea",
+      "default": "Hear from customers every week, not every quarter.",
+      "group": "Brand"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "group": "Button",
+      "default": {
+        "label": "Book a demo",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      }
+    },
+    {
+      "name": "columns",
+      "label": "Link columns",
+      "type": "list",
+      "group": "Columns",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Column title",
+          "type": "text",
+          "default": "Column"
+        },
+        {
+          "name": "links",
+          "label": "Links",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 8,
+          "itemLabel": "label",
+          "itemFields": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "text",
+              "default": "Link"
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link",
+              "default": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ],
+          "default": []
+        }
+      ],
+      "default": [
+        {
+          "title": "Product",
+          "links": [
+            {
+              "label": "Features",
+              "link": {
+                "type": "section",
+                "anchor": "features",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Pricing",
+              "link": {
+                "type": "section",
+                "anchor": "pricing",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Integrations",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Changelog",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "Company",
+          "links": [
+            {
+              "label": "About",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Careers",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Press kit",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "email",
+                "url": "hello@fieldnote.example",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "Help",
+          "links": [
+            {
+              "label": "Help center",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Research guide",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Status",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "socials",
+      "label": "Social links",
+      "type": "list",
+      "group": "Social",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "Social network"
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "globe",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "LinkedIn",
+          "icon": "simple-icons:linkedin",
+          "link": {
+            "type": "url",
+            "url": "https://www.linkedin.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "YouTube",
+          "icon": "simple-icons:youtube",
+          "link": {
+            "type": "url",
+            "url": "https://www.youtube.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Bluesky",
+          "icon": "simple-icons:bluesky",
+          "link": {
+            "type": "url",
+            "url": "https://bsky.app",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Inc. All rights reserved.",
+      "group": "Legal"
+    }
+  ]
+}

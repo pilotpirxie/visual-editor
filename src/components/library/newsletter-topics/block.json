@@ -1,0 +1,140 @@
+{
+  "name": "Newsletter, choose topics",
+  "category": "newsletters",
+  "description": "A signup form where visitors pick the topics they want to hear about.",
+  "tags": [
+    "newsletter",
+    "email",
+    "subscribe",
+    "signup",
+    "form",
+    "preferences",
+    "topics",
+    "checkboxes"
+  ],
+  "fieldGroups": ["Heading", "Form", "Topics"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Stay in the loop",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Only the emails you actually want",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Pick what you care about and we will leave out the rest. You can change your choices from any email.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Subscribe",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Privacy note",
+      "type": "text",
+      "default": "We send at most one email a week.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "topicsLabel",
+      "label": "Topics question",
+      "type": "text",
+      "default": "What should we send you?",
+      "group": "Topics",
+      "required": true
+    },
+    {
+      "name": "topics",
+      "label": "Topics",
+      "type": "list",
+      "group": "Topics",
+      "minItems": 0,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Topic"
+        }
+      ],
+      "default": [
+        {
+          "label": "Interview techniques"
+        },
+        {
+          "label": "Research ops and tools"
+        },
+        {
+          "label": "Customer stories"
+        },
+        {
+          "label": "Fieldnote product news"
+        },
+        {
+          "label": "Events and webinars"
+        },
+        {
+          "label": "Templates and guides"
+        }
+      ]
+    }
+  ]
+}

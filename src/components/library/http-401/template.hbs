@@ -1,0 +1,16 @@
+<section class="b-http-401 section">
+  <div class="container b-inner">
+    <div class="card stack b-card">
+      <div class="b-timer" aria-hidden="true">{{svgIcon "lock"}}</div>
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      {{#if saved}}<p class="b-saved" data-field="saved">{{svgIcon "check-circle"}}<span>{{saved}}</span></p>{{/if}}
+      <div class="b-actions">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        {{#if showSecondaryButton}}<a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>{{/if}}
+      </div>
+      {{#if account}}<p class="b-account" data-field="account">{{account}}</p>{{/if}}
+    </div>
+  </div>
+</section>

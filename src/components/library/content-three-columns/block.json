@@ -1,0 +1,69 @@
+{
+  "name": "Content, three text columns",
+  "category": "content",
+  "description": "A heading and short columns of text with titles, side by side on wider screens.",
+  "tags": ["columns", "text", "principles", "about", "three"],
+  "fieldGroups": ["Heading", "Columns"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How we work",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three habits behind every Fieldnote release",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We build a research tool, so we try to be the kind of team that uses one well.",
+      "group": "Heading"
+    },
+    {
+      "name": "columns",
+      "label": "Columns",
+      "type": "list",
+      "group": "Columns",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Column title"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Two or three sentences that explain the idea."
+        }
+      ],
+      "default": [
+        {
+          "title": "Listen first",
+          "text": "Every engineer joins two customer calls a month. Nobody writes a spec for a problem they have not heard a customer describe."
+        },
+        {
+          "title": "Share the raw words",
+          "text": "We pass around clips, not summaries. A fifteen-second recording settles more debates than a page of notes."
+        },
+        {
+          "title": "Decide in the open",
+          "text": "Roadmap calls happen in a shared doc with the evidence linked. Anyone can see why we chose what we chose."
+        }
+      ]
+    }
+  ]
+}

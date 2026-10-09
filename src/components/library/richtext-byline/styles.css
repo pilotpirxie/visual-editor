@@ -1,0 +1,104 @@
+@layer components {
+  @scope (.b-richtext-byline) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      max-width: 48rem;
+    }
+
+    .b-title {
+      font-size: var(--text-4xl);
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .b-lead {
+      font-size: var(--text-xl);
+      color: var(--color-text-muted);
+    }
+
+    .b-author {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-4);
+      align-items: center;
+      align-self: start;
+      padding-block: var(--space-4);
+      border-block: var(--border-width) solid var(--color-border);
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      inline-size: 3.5rem;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role,
+    .b-facts dt {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-facts {
+      display: flex;
+      flex-wrap: wrap;
+      grid-column: 1 / -1;
+      gap: var(--space-2) var(--space-8);
+    }
+
+    .b-facts dd {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-body {
+      --prose-measure: 42rem;
+      --prose-gap: var(--space-6);
+      --prose-marker-color: var(--color-primary);
+      min-width: 0;
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 15rem minmax(0, 1fr);
+        column-gap: var(--space-16);
+      }
+
+      .b-head {
+        grid-column: 2;
+      }
+
+      .b-body {
+        grid-column: 2;
+      }
+
+      .b-author {
+        grid-area: 1 / 1 / span 2;
+        position: sticky;
+        top: var(--space-8);
+        grid-template-columns: minmax(0, 1fr);
+        padding-block: var(--space-6) 0;
+        border-block-end: 0;
+      }
+
+      .b-avatar {
+        inline-size: 5rem;
+      }
+
+      .b-facts {
+        flex-direction: column;
+        gap: var(--space-4);
+        padding-block-start: var(--space-4);
+        border-block-start: var(--border-width) solid var(--color-border);
+      }
+    }
+  }
+}

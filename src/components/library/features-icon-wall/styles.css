@@ -1,0 +1,69 @@
+@layer components {
+  @scope (.b-features-icon-wall) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-wall {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(8rem, 100%), 1fr));
+      gap: var(--space-2);
+    }
+
+    .b-tile,
+    .b-more a {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      justify-content: space-between;
+      height: 100%;
+      min-height: 7.5rem;
+      padding: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      color: var(--color-primary);
+    }
+
+    .b-tile:nth-child(4n + 2) {
+      background: var(--color-surface);
+    }
+
+    .b-more a {
+      --icon-size: 1.25rem;
+      border-color: transparent;
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      text-decoration: none;
+    }
+
+    .b-more a:hover {
+      background: color-mix(in oklab, var(--color-primary) 85%, var(--color-text));
+    }
+
+    @media (min-width: 1024px) {
+      .b-wall {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: var(--space-3);
+      }
+    }
+  }
+}

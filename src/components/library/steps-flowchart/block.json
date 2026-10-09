@@ -1,0 +1,131 @@
+{
+  "name": "How it works, flowchart",
+  "category": "how-it-works",
+  "description": "A small flowchart: a start point, one step, a yes or no question with two branches, and an end point.",
+  "tags": ["steps", "flowchart", "diagram", "decision", "branches", "process"],
+  "fieldGroups": ["Heading", "Start", "Question", "Branches", "End"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Under the hood",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What happens to every interview",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "From the moment a call ends, Fieldnote sorts what customers said so nothing important waits in a recording.",
+      "group": "Heading"
+    },
+    {
+      "name": "startIcon",
+      "label": "Start icon",
+      "type": "icon",
+      "default": "mic",
+      "group": "Start"
+    },
+    {
+      "name": "startLabel",
+      "label": "Start label",
+      "type": "text",
+      "default": "Interview recorded",
+      "required": true,
+      "group": "Start"
+    },
+    {
+      "name": "stepTitle",
+      "label": "Step title",
+      "type": "text",
+      "default": "Transcribed and tagged",
+      "required": true,
+      "group": "Start"
+    },
+    {
+      "name": "stepText",
+      "label": "Step text",
+      "type": "textarea",
+      "default": "Every speaker gets a label and every highlight gets matched against your tag set.",
+      "group": "Start"
+    },
+    {
+      "name": "question",
+      "label": "Question",
+      "type": "text",
+      "default": "Does it fit a theme you already track?",
+      "required": true,
+      "group": "Question"
+    },
+    {
+      "name": "yesLabel",
+      "label": "Yes label",
+      "type": "text",
+      "default": "Yes",
+      "required": true,
+      "group": "Branches"
+    },
+    {
+      "name": "yesTitle",
+      "label": "Yes title",
+      "type": "text",
+      "default": "Added to the theme",
+      "required": true,
+      "group": "Branches"
+    },
+    {
+      "name": "yesText",
+      "label": "Yes text",
+      "type": "textarea",
+      "default": "The clip joins the theme and its count goes up, so trends show without a spreadsheet.",
+      "group": "Branches"
+    },
+    {
+      "name": "noLabel",
+      "label": "No label",
+      "type": "text",
+      "default": "No",
+      "required": true,
+      "group": "Branches"
+    },
+    {
+      "name": "noTitle",
+      "label": "No title",
+      "type": "text",
+      "default": "Flagged as something new",
+      "required": true,
+      "group": "Branches"
+    },
+    {
+      "name": "noText",
+      "label": "No text",
+      "type": "textarea",
+      "default": "You get a nudge to review it and start a new theme if more customers bring it up.",
+      "group": "Branches"
+    },
+    {
+      "name": "endIcon",
+      "label": "End icon",
+      "type": "icon",
+      "default": "send",
+      "group": "End"
+    },
+    {
+      "name": "endLabel",
+      "label": "End label",
+      "type": "text",
+      "default": "In Friday’s team digest",
+      "required": true,
+      "group": "End"
+    }
+  ]
+}

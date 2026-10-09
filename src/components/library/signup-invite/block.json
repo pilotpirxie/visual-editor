@@ -1,0 +1,233 @@
+{
+  "name": "Sign up, team invite",
+  "category": "sign-up",
+  "description": "An invitation to join a team workspace, with the workspace badge, the inviter’s photo, teammates already there and a short form.",
+  "tags": ["sign up", "invite", "invitation", "team", "workspace", "join", "form"],
+  "fieldGroups": ["Invite", "Members", "Form", "Links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "workspaceInitials",
+      "label": "Workspace initials",
+      "type": "text",
+      "default": "NR",
+      "required": true,
+      "group": "Invite",
+      "maxLength": 3
+    },
+    {
+      "name": "inviterPhoto",
+      "label": "Inviter photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Maya Chen",
+        "decorative": false,
+        "width": 400,
+        "height": 400,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Invite"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Join Northwind Research",
+      "required": true,
+      "group": "Invite"
+    },
+    {
+      "name": "invite",
+      "label": "Invite text",
+      "type": "textarea",
+      "default": "Maya Chen invited you to the team’s research workspace on Fieldnote.",
+      "group": "Invite"
+    },
+    {
+      "name": "members",
+      "label": "Teammates",
+      "type": "list",
+      "group": "Members",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "photo",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Teammate",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Teammate Jonas Weber",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Teammate Lucía Ortiz",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Teammate Kenji Mori",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Teammate Hannah Price",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "membersText",
+      "label": "Teammates text",
+      "type": "text",
+      "default": "12 teammates are already here",
+      "group": "Members"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email label",
+      "type": "text",
+      "default": "Joining as",
+      "group": "Form"
+    },
+    {
+      "name": "email",
+      "label": "Invited email",
+      "type": "text",
+      "default": "sam@northwind.example",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Full name",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "passwordLabel",
+      "label": "Password field label",
+      "type": "text",
+      "default": "Choose a password",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Accept and join",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "notYouText",
+      "label": "Wrong person text",
+      "type": "text",
+      "default": "Not Sam?",
+      "group": "Links"
+    },
+    {
+      "name": "notYouLabel",
+      "label": "Wrong person link label",
+      "type": "text",
+      "default": "Use a different email",
+      "group": "Links"
+    },
+    {
+      "name": "notYouLink",
+      "label": "Wrong person link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    }
+  ]
+}

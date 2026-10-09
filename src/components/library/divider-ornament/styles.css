@@ -1,0 +1,65 @@
+@layer components {
+  @scope (.b-divider-ornament) {
+    :scope {
+      padding-block: var(--space-8);
+      background: var(--color-background);
+      color: var(--color-text-muted);
+    }
+
+    :scope[data-spacing='small'] {
+      padding-block: var(--space-4);
+    }
+
+    :scope[data-spacing='large'] {
+      padding-block: var(--space-16);
+    }
+
+    :scope[data-tone='primary'] {
+      color: var(--color-primary);
+    }
+
+    .b-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+    }
+
+    .b-mark {
+      --icon-size: 0.875rem;
+      display: inline-grid;
+    }
+
+    .b-mark:nth-child(2) {
+      --icon-size: 1.25rem;
+    }
+
+    :scope:not([data-style='stars']) .icon {
+      display: none;
+    }
+
+    :scope:not([data-style='stars']) .b-mark {
+      inline-size: 0.375rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: currentColor;
+    }
+
+    :scope[data-style='line'] .b-row::before,
+    :scope[data-style='line'] .b-row::after {
+      content: '';
+      flex: 0 1 6rem;
+      border-block-start: var(--border-width) solid;
+    }
+
+    :scope[data-style='line'] .b-mark {
+      inline-size: 0.5rem;
+      border-radius: 0;
+      rotate: 45deg;
+    }
+
+    :scope[data-style='line'] .b-mark:not(:nth-child(2)) {
+      display: none;
+    }
+  }
+}

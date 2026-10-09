@@ -1,0 +1,97 @@
+@layer components {
+  @scope (.b-team-map) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-map {
+      position: relative;
+      container-type: inline-size;
+      aspect-ratio: 2;
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+    }
+
+    .b-map::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(var(--color-text-muted) 30%, transparent 36%) 0 0 / 1.6% 3.2%;
+      opacity: 0.5;
+      mask:
+        radial-gradient(14% 19% at 21% 31%, black 96%, transparent),
+        radial-gradient(5% 9% at 25% 50%, black 96%, transparent),
+        radial-gradient(7% 18% at 32% 72%, black 96%, transparent),
+        radial-gradient(7% 10% at 51% 28%, black 96%, transparent),
+        radial-gradient(9% 19% at 53% 60%, black 96%, transparent),
+        radial-gradient(18% 17% at 72% 33%, black 96%, transparent),
+        radial-gradient(6% 8% at 85% 73%, black 96%, transparent);
+    }
+
+    .b-pin {
+      position: absolute;
+      left: calc(var(--x) * 1%);
+      top: calc(var(--y) * 1%);
+      translate: -50% -50%;
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      display: block;
+      width: clamp(1.5rem, 6cqi, 3.25rem);
+      border: calc(var(--border-width) * 2) solid var(--color-primary);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-label {
+      position: absolute;
+      top: 50%;
+      left: calc(100% + var(--space-2));
+      display: none;
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      white-space: nowrap;
+      translate: 0 -50%;
+    }
+
+    .b-places {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+      gap: var(--space-6);
+    }
+
+    .b-place {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .b-city {
+      font-size: var(--text-base);
+    }
+
+    .b-detail {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-label {
+        display: block;
+      }
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "name": "Hero, floating cards",
+  "category": "headers",
+  "description": "Centered heading with small stat cards floating around it on large screens and lined up below it on smaller ones.",
+  "tags": ["hero", "heading", "stats", "cards", "floating", "numbers", "centered"],
+  "fieldGroups": ["Heading", "Buttons", "Cards"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Badge",
+      "type": "text",
+      "default": "Trusted by 4,200 research teams",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Every customer conversation, in one place",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Interviews, support tickets and survey answers in one searchable place, with the themes already pulled out.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Book a demo",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "cards",
+      "label": "Cards",
+      "type": "list",
+      "group": "Cards",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "star"
+        },
+        {
+          "name": "value",
+          "label": "Number",
+          "type": "text",
+          "default": "100"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        }
+      ],
+      "default": [
+        {
+          "icon": "mic",
+          "value": "12,480",
+          "label": "interviews transcribed"
+        },
+        {
+          "icon": "clock",
+          "value": "6 hrs",
+          "label": "saved per study"
+        },
+        {
+          "icon": "quote",
+          "value": "310k",
+          "label": "highlights shared"
+        },
+        {
+          "icon": "globe",
+          "value": "38",
+          "label": "languages"
+        }
+      ]
+    }
+  ]
+}

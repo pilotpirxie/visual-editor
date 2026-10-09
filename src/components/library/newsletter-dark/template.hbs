@@ -1,0 +1,20 @@
+<section class="b-newsletter-dark section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      {{#if count}}
+      <p class="b-proof"><span class="b-count" data-field="count">{{count}}</span> <span data-field="countLabel">{{countLabel}}</span></p>
+      {{/if}}
+    </div>
+    <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <div class="field">
+        <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+        <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+      </div>
+      <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </form>
+  </div>
+</section>

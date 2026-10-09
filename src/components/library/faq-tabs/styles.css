@@ -1,0 +1,95 @@
+@layer components {
+  @scope (.b-faq-tabs) {
+    .b-inner {
+      --container-max-width: 52rem;
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-tablist {
+      display: flex;
+      gap: var(--space-2);
+      max-width: 100%;
+      margin-inline: auto;
+      overflow-x: auto;
+    }
+
+    .b-tab {
+      flex: none;
+      min-height: 2.75rem;
+      padding: var(--space-2) var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: none;
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-bold);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .b-tab[aria-selected='true'] {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-panels {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-tablist:not([hidden]) + .b-panels .b-topic {
+      display: none;
+    }
+
+    .b-topic {
+      margin-bottom: var(--space-3);
+      font-size: var(--text-lg);
+    }
+
+    .b-item {
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .b-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      min-height: 2.75rem;
+      padding-block: var(--space-4);
+      font-weight: var(--font-weight-bold);
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .b-question::-webkit-details-marker {
+      display: none;
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      flex: none;
+      color: var(--color-primary);
+      transition: rotate var(--transition-normal);
+    }
+
+    .b-item[open] .b-icon {
+      rotate: 180deg;
+    }
+
+    .b-answer {
+      padding-bottom: var(--space-4);
+      color: var(--color-text-muted);
+    }
+  }
+}

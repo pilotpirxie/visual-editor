@@ -1,0 +1,94 @@
+{
+  "name": "Testimonials, customer journey",
+  "category": "testimonials",
+  "description": "One customer’s quotes from before, during and after adopting the product, on a connected line.",
+  "tags": ["testimonials", "quotes", "journey", "timeline", "before and after", "story"],
+  "fieldGroups": ["Heading", "Stages", "Person"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "One team’s story",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How Brightpath went from scattered notes to shared evidence",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "stages",
+      "label": "Stages",
+      "type": "list",
+      "group": "Stages",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Stage",
+          "type": "text",
+          "default": "Stage"
+        },
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "What the customer said at this stage."
+        }
+      ],
+      "default": [
+        {
+          "label": "Before Fieldnote",
+          "quote": "Interviews lived in six different tools. By the time I had tagged them, the decision had already been made."
+        },
+        {
+          "label": "First week",
+          "quote": "We imported last quarter’s calls on Monday. On Wednesday the team was arguing about themes instead of opinions."
+        },
+        {
+          "label": "Six months later",
+          "quote": "Every product review starts with customer clips now. Research is no longer the step we skip when we are busy."
+        }
+      ]
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Sofia Alvarez",
+      "group": "Person"
+    },
+    {
+      "name": "role",
+      "label": "Role and company",
+      "type": "text",
+      "default": "UX Researcher, Brightpath",
+      "group": "Person"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Sofia Alvarez",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Person"
+    }
+  ]
+}

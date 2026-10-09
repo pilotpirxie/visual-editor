@@ -1,0 +1,84 @@
+@layer components {
+  @scope (.b-richtext-callout) {
+    .b-inner {
+      display: grid;
+      grid-template-areas: 'head' 'body' 'quote';
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      grid-area: head;
+      max-width: 48rem;
+      padding-block-end: var(--space-8);
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-author {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text);
+    }
+
+    .b-body {
+      --prose-measure: none;
+      --prose-gap: var(--space-6);
+      --prose-marker-color: var(--color-primary);
+      grid-area: body;
+      min-width: 0;
+      max-width: 42rem;
+    }
+
+    .b-quote {
+      --stack-gap: var(--space-4);
+      grid-area: quote;
+      align-self: start;
+      padding-block: var(--space-6);
+      border-block: var(--border-width) solid var(--color-border);
+    }
+
+    .b-mark {
+      --icon-size: 2rem;
+      color: var(--color-primary);
+    }
+
+    .b-quote blockquote {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-cite {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-body {
+        font-size: var(--text-lg);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template: 'head head' 'body quote' / minmax(0, 42rem) minmax(0, 20rem);
+        justify-content: space-between;
+        column-gap: var(--space-16);
+      }
+
+      .b-quote {
+        position: sticky;
+        top: var(--space-8);
+        margin-block-start: var(--space-16);
+      }
+    }
+  }
+}

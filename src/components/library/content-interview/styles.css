@@ -1,0 +1,103 @@
+@layer components {
+  @scope (.b-content-interview) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+      max-width: 48rem;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-people {
+      --cluster-gap: var(--space-4) var(--space-8);
+      padding-block-start: var(--space-4);
+    }
+
+    .b-person {
+      --cluster-gap: var(--space-3);
+      flex-wrap: nowrap;
+    }
+
+    .b-name {
+      display: block;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-badge {
+      display: grid;
+      flex: none;
+      place-items: center;
+      inline-size: 2.75rem;
+      block-size: 2.75rem;
+      border: calc(var(--border-width) * 2) solid var(--color-text);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.04em;
+    }
+
+    [data-speaker='guest'] > .b-badge {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-transcript {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-turn {
+      display: grid;
+      grid-template-columns: 2.75rem minmax(0, 1fr);
+      gap: var(--space-4);
+      align-items: start;
+    }
+
+    .b-line {
+      padding-block-start: var(--space-2);
+      font-size: var(--text-lg);
+    }
+
+    .b-turn[data-speaker='host'] .b-line {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-turn[data-highlight] {
+      padding-block: var(--space-6);
+      border-block: var(--border-width) solid var(--color-border);
+    }
+
+    .b-turn[data-highlight] .b-line {
+      padding: 0;
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      color: var(--color-primary);
+      text-wrap: balance;
+    }
+
+    @media (min-width: 768px) {
+      .b-turn {
+        grid-template-columns: 3.5rem minmax(0, 1fr);
+        gap: var(--space-6);
+      }
+
+      .b-turn[data-highlight] .b-line {
+        font-size: var(--text-3xl);
+      }
+    }
+  }
+}

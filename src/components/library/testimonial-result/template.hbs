@@ -1,0 +1,22 @@
+<section class="b-testimonial-result section">
+  <div class="container b-layout">
+    <div class="stack b-result">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <p class="b-metric" data-field="metric">{{metric}}</p>
+      {{#if metricLabel}}<p class="b-label" data-field="metricLabel">{{metricLabel}}</p>{{/if}}
+    </div>
+    <div class="stack b-story">
+      <figure class="stack b-figure">
+        <blockquote class="b-quote" data-field="quote"><p>{{nl2br quote}}</p></blockquote>
+        <figcaption class="b-person">
+          <div class="media b-photo" data-field="photo">{{img photo}}</div>
+          <div>
+            <p class="b-name" data-field="name">{{name}}</p>
+            {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+          </div>
+        </figcaption>
+      </figure>
+      {{#if linkLabel}}<a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+    </div>
+  </div>
+</section>

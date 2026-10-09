@@ -1,0 +1,27 @@
+<section class="b-content-interview section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      <ul class="cluster b-people" role="list">
+        <li class="cluster b-person" data-field="hostName">
+          <span class="b-badge" aria-hidden="true">{{hostInitials}}</span>
+          <span><span class="b-name">{{hostName}}</span> <span class="b-role">{{hostRole}}</span></span>
+        </li>
+        <li class="cluster b-person" data-speaker="guest" data-field="guestName">
+          <span class="b-badge" aria-hidden="true">{{guestInitials}}</span>
+          <span><span class="b-name">{{guestName}}</span> <span class="b-role">{{guestRole}}</span></span>
+        </li>
+      </ul>
+    </header>
+    <div class="b-transcript">
+      {{#each turns}}
+      <div class="b-turn" data-speaker="{{speaker}}" {{#if highlight}}data-highlight{{/if}} data-field="turns.{{@index}}">
+        <span class="b-badge" aria-hidden="true">{{#if (eq speaker "guest")}}{{../guestInitials}}{{else}}{{../hostInitials}}{{/if}}</span>
+        <p class="b-line"><span class="visually-hidden">{{#if (eq speaker "guest")}}{{../guestName}}{{else}}{{../hostName}}{{/if}}: </span>{{nl2br text}}</p>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

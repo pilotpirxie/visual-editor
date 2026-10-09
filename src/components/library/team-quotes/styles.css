@@ -1,0 +1,72 @@
+@layer components {
+  @scope (.b-team-quotes) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 44rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-people {
+      --grid-min: 18rem;
+    }
+
+    .b-figure {
+      --stack-gap: var(--space-4);
+      height: 100%;
+    }
+
+    .b-mark {
+      --icon-size: 1.75rem;
+      color: var(--color-primary);
+    }
+
+    .b-quote {
+      flex: 1;
+      font-size: var(--text-lg);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding-top: var(--space-4);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3rem;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-people {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
+}

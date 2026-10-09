@@ -1,0 +1,97 @@
+@layer components {
+  @scope (.b-steps-week) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      max-width: 40rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-day {
+      display: grid;
+      grid-template-columns: 3.5rem minmax(0, 1fr);
+      gap: var(--space-4);
+      padding-block: var(--space-4);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-date {
+      display: grid;
+      justify-items: center;
+      align-content: start;
+    }
+
+    .b-date strong {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: var(--radius-full);
+      font: var(--font-weight-heading) var(--text-2xl) / 1 var(--font-heading);
+    }
+
+    .b-day:first-child strong {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-event {
+      --stack-gap: var(--space-1);
+      padding: var(--space-3) var(--space-4);
+      border-inline-start: var(--space-1) solid var(--color-primary);
+      border-radius: var(--radius-sm);
+      background: color-mix(in oklab, var(--color-primary) 9%, var(--color-background));
+    }
+
+    .b-event h3 {
+      font-size: var(--text-base);
+    }
+
+    @media (min-width: 1024px) {
+      .b-week {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+        overflow: hidden;
+        border: var(--border-width) solid var(--color-border);
+        border-radius: var(--card-radius);
+      }
+
+      .b-day {
+        display: flex;
+        flex-direction: column;
+        min-height: 24rem;
+        padding: 0 var(--space-2) var(--space-4);
+        border-block-start: 0;
+        background: repeating-linear-gradient(
+          transparent 0 3rem,
+          var(--color-border) 0 calc(3rem + 1px)
+        );
+      }
+
+      .b-day + .b-day {
+        border-inline-start: inherit;
+      }
+
+      .b-date {
+        margin-inline: calc(-1 * var(--space-2));
+        padding-block: var(--space-3);
+        background: var(--color-background);
+      }
+
+      [data-slot='midday'] .b-event {
+        margin-block-start: 6rem;
+      }
+
+      [data-slot='afternoon'] .b-event {
+        margin-block-start: 11rem;
+      }
+    }
+  }
+}

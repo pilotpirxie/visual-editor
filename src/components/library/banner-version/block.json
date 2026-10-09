@@ -1,0 +1,57 @@
+{
+  "name": "Banner, new version",
+  "category": "banners",
+  "description": "A release strip on a dotted background: a version tag, what changed in one line and a link to the changelog.",
+  "tags": [
+    "release",
+    "version",
+    "changelog",
+    "update",
+    "new",
+    "what's new",
+    "product",
+    "banner",
+    "developer"
+  ],
+  "fieldGroups": ["Release"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-surface"],
+  "fields": [
+    {
+      "name": "version",
+      "label": "Version",
+      "type": "text",
+      "default": "v4.2",
+      "required": true,
+      "maxLength": 12,
+      "group": "Release"
+    },
+    {
+      "name": "text",
+      "label": "What changed",
+      "type": "text",
+      "default": "Bulk tagging, Slack digests and 12 fixes",
+      "required": true,
+      "maxLength": 90,
+      "group": "Release"
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link label",
+      "type": "text",
+      "default": "Read the changelog",
+      "maxLength": 30,
+      "group": "Release"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Release"
+    }
+  ]
+}

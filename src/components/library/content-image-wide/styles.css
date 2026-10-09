@@ -1,0 +1,38 @@
+@layer components {
+  @scope (.b-content-image-wide) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 44rem;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-figure {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-media {
+      --media-ratio: 4 / 3;
+    }
+
+    .b-caption {
+      padding-inline-start: var(--space-3);
+      border-inline-start: var(--border-width) solid var(--color-primary);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-media {
+        --media-ratio: var(--image-ratio);
+      }
+    }
+  }
+}

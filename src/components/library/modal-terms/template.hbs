@@ -1,0 +1,17 @@
+<div class="b-modal-terms" data-behavior="modal">
+  <dialog class="modal b-dialog" id="{{block.id}}-dialog" aria-labelledby="{{block.id}}-title">
+    <button type="button" class="modal-close" command="close" commandfor="{{block.id}}-dialog" data-field="closeLabel">{{svgIcon "x"}}<span class="visually-hidden">{{closeLabel}}</span></button>
+    <div class="stack b-body">
+      <header class="stack b-head">
+        <h2 id="{{block.id}}-title" data-field="title">{{title}}</h2>
+        {{#if date}}<p class="b-muted" data-field="date">{{dateLabel}} <time datetime="{{date}}">{{formatDate date}}</time></p>{{/if}}
+        {{#if intro}}<p data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      <div class="prose b-terms" role="region" tabindex="0" aria-labelledby="{{block.id}}-title" data-field="terms">{{richText terms headings=true}}</div>
+      <form class="cluster b-actions" method="dialog">
+        <button type="submit" class="btn btn-primary" value="accepted" data-field="acceptLabel">{{acceptLabel}}</button>
+        {{#if laterLabel}}<button type="submit" class="btn btn-ghost" value="later" data-field="laterLabel">{{laterLabel}}</button>{{/if}}
+      </form>
+    </div>
+  </dialog>
+</div>

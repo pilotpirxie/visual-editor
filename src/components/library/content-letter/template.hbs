@@ -1,0 +1,20 @@
+<section class="b-content-letter section">
+  <div class="container">
+    <div class="b-stack">
+      <article class="stack b-paper">
+        <header class="cluster b-head">
+          {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+          {{#if date}}<time class="b-date" datetime="{{date}}" data-field="date">{{formatDate date}}</time>{{/if}}
+        </header>
+        <h2 class="b-title" data-field="title">{{title}}</h2>
+        {{#if salutation}}<p class="b-salutation" data-field="salutation">{{salutation}}</p>{{/if}}
+        <div class="prose b-body" data-field="body">{{richText body}}</div>
+        <footer class="b-sign">
+          {{#if signoff}}<p class="b-signoff" data-field="signoff">{{signoff}}</p>{{/if}}
+          <p class="b-name" data-field="name">{{name}}</p>
+          {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+        </footer>
+      </article>
+    </div>
+  </div>
+</section>

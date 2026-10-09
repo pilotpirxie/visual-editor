@@ -1,0 +1,210 @@
+{
+  "name": "Hero, waitlist",
+  "category": "headers",
+  "description": "Email sign-up with an avatar stack, beside a place-in-line card with progress and a referral note.",
+  "tags": ["hero", "heading", "waitlist", "email", "signup", "launch", "referral", "beta"],
+  "fieldGroups": ["Heading", "Form", "Proof", "Card"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Badge",
+      "type": "text",
+      "default": "Private beta",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Get early access to Fieldnote 3",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We’re letting in a new batch of teams every Friday. Join the list and we’ll email you when it’s your turn.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Join the waitlist",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "avatars",
+      "label": "Photos",
+      "type": "list",
+      "group": "Proof",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Person on the waitlist",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tomás Herrera",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Aisha Bello",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Kenji Watanabe",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "proof",
+      "label": "Proof text",
+      "type": "text",
+      "default": "2,481 teams are already on the list",
+      "group": "Proof"
+    },
+    {
+      "name": "passLabel",
+      "label": "Card label",
+      "type": "text",
+      "default": "Your place in line",
+      "group": "Card"
+    },
+    {
+      "name": "position",
+      "label": "Place",
+      "type": "text",
+      "default": "#2,482",
+      "group": "Card"
+    },
+    {
+      "name": "progress",
+      "label": "Progress (%)",
+      "type": "range",
+      "default": 64,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "group": "Card"
+    },
+    {
+      "name": "passNote",
+      "label": "Card note",
+      "type": "text",
+      "default": "Next batch of 150 invites goes out Friday",
+      "group": "Card"
+    },
+    {
+      "name": "invite",
+      "label": "Referral note",
+      "type": "text",
+      "default": "Move up 100 places for every teammate you invite",
+      "group": "Card"
+    }
+  ]
+}

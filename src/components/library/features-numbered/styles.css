@@ -1,0 +1,90 @@
+@layer components {
+  @scope (.b-features-numbered) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-title {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-list {
+      display: grid;
+      counter-reset: feature;
+      border-block-start: calc(var(--border-width) * 2) solid var(--color-text);
+    }
+
+    .b-item {
+      --stack-gap: var(--space-3);
+      counter-increment: feature;
+      padding-block: var(--space-8);
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-item::before {
+      content: counter(feature, decimal-leading-zero);
+      margin-block-end: var(--space-4);
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      color: var(--color-primary);
+    }
+
+    .b-item p {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-item {
+        padding: var(--space-8);
+      }
+
+      .b-item:nth-child(2n + 1) {
+        padding-inline-start: 0;
+      }
+
+      .b-item:nth-child(2n) {
+        border-inline-start: var(--border-width) solid var(--color-border);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-head {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        align-items: end;
+        gap: var(--space-16);
+      }
+
+      .b-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .b-item:nth-child(n) {
+        padding-inline-start: var(--space-8);
+        border-inline-start: var(--border-width) solid var(--color-border);
+      }
+
+      .b-item:nth-child(3n + 1) {
+        padding-inline-start: 0;
+        border-inline-start: 0;
+      }
+    }
+  }
+}

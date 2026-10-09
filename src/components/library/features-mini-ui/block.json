@@ -1,0 +1,131 @@
+{
+  "name": "Features, interface snippets",
+  "category": "features",
+  "description": "Feature cards that each show a tiny piece of interface drawn in CSS: a switch, tags, a progress bar or a search field.",
+  "tags": ["features", "cards", "interface", "ui", "illustration", "product", "grid"],
+  "fieldGroups": ["Heading", "Items"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Small details",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The little things that save the most time",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "None of these will make a launch video. All of them come up in our customer interviews.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Cards",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "kind",
+          "label": "Illustration",
+          "type": "select",
+          "default": "toggle",
+          "options": [
+            { "value": "toggle", "label": "Switch" },
+            { "value": "tags", "label": "Tags" },
+            { "value": "progress", "label": "Progress bar" },
+            { "value": "search", "label": "Search field" }
+          ]
+        },
+        {
+          "name": "uiLabel",
+          "label": "Illustration text",
+          "type": "text",
+          "default": "Setting name"
+        },
+        {
+          "name": "uiValue",
+          "label": "Second text",
+          "type": "text",
+          "default": "",
+          "help": "The second tag, or the key shown in the search field."
+        },
+        {
+          "name": "percent",
+          "label": "Progress",
+          "type": "number",
+          "default": 60,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "help": "Used by the progress bar."
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Card title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one or two sentences."
+        }
+      ],
+      "default": [
+        {
+          "kind": "toggle",
+          "uiLabel": "Redact names",
+          "uiValue": "",
+          "percent": 60,
+          "title": "Privacy with one switch",
+          "text": "Turn on redaction once per workspace and every new transcript follows it."
+        },
+        {
+          "kind": "tags",
+          "uiLabel": "Pricing",
+          "uiValue": "Onboarding",
+          "percent": 60,
+          "title": "Tags that suggest themselves",
+          "text": "Fieldnote proposes tags from your existing themes as you highlight."
+        },
+        {
+          "kind": "progress",
+          "uiLabel": "Transcribing",
+          "uiValue": "",
+          "percent": 72,
+          "title": "Know when it’s ready",
+          "text": "See progress on every upload, with a ping when the transcript lands."
+        },
+        {
+          "kind": "search",
+          "uiLabel": "“too expensive”",
+          "uiValue": "⌘K",
+          "percent": 60,
+          "title": "Search every word",
+          "text": "Find any phrase across years of calls, then jump to the second it was said."
+        }
+      ]
+    }
+  ]
+}

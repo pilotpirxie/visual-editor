@@ -1,0 +1,77 @@
+{
+  "name": "Utilities, divider with label",
+  "category": "utilities",
+  "description": "A horizontal rule with a short label, to introduce the next part of a long page.",
+  "tags": ["divider", "separator", "rule", "line", "label", "section title", "utility"],
+  "fieldGroups": ["Label", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Label",
+      "type": "text",
+      "default": "Customer stories",
+      "required": true,
+      "maxLength": 60,
+      "group": "Label"
+    },
+    {
+      "name": "showIcon",
+      "label": "Show icon",
+      "type": "boolean",
+      "default": true,
+      "group": "Label"
+    },
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "quote",
+      "visibleWhen": {
+        "field": "showIcon",
+        "equals": true
+      },
+      "group": "Label"
+    },
+    {
+      "name": "align",
+      "label": "Label position",
+      "type": "segmented",
+      "default": "center",
+      "options": [
+        {
+          "value": "start",
+          "label": "Start",
+          "icon": "align-left"
+        },
+        {
+          "value": "center",
+          "label": "Center",
+          "icon": "align-center"
+        }
+      ],
+      "group": "Layout"
+    },
+    {
+      "name": "spacing",
+      "label": "Space around",
+      "type": "select",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "group": "Layout"
+    }
+  ]
+}

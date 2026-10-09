@@ -1,0 +1,128 @@
+{
+  "name": "How it works, who does what",
+  "category": "how-it-works",
+  "description": "Numbered steps in two swimlanes, one for the customer and one for you, so it is clear who does each step. A labeled list on phones and tablets.",
+  "tags": ["steps", "swimlanes", "responsibilities", "process", "onboarding", "diagram"],
+  "fieldGroups": ["Heading", "Lanes", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Setup",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "You do two things. We handle the rest.",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Here is exactly who does what between signing up and your first shared report.",
+      "group": "Heading"
+    },
+    {
+      "name": "youIcon",
+      "label": "Customer lane icon",
+      "type": "icon",
+      "default": "user",
+      "group": "Lanes"
+    },
+    {
+      "name": "youLabel",
+      "label": "Customer lane",
+      "type": "text",
+      "default": "You",
+      "required": true,
+      "group": "Lanes"
+    },
+    {
+      "name": "usIcon",
+      "label": "Company lane icon",
+      "type": "icon",
+      "default": "sparkles",
+      "group": "Lanes"
+    },
+    {
+      "name": "usLabel",
+      "label": "Company lane",
+      "type": "text",
+      "default": "Fieldnote",
+      "required": true,
+      "group": "Lanes"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 7,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "owner",
+          "label": "Lane",
+          "type": "segmented",
+          "default": "you",
+          "options": [
+            {
+              "value": "you",
+              "label": "Customer"
+            },
+            {
+              "value": "us",
+              "label": "Company"
+            }
+          ]
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "owner": "you",
+          "title": "Connect your calendar",
+          "text": "Two clicks, and only meetings with customers count."
+        },
+        {
+          "owner": "us",
+          "title": "Join and record",
+          "text": "Fieldnote joins each call and asks for consent."
+        },
+        {
+          "owner": "us",
+          "title": "Transcribe and tag",
+          "text": "Highlights land in your project within minutes."
+        },
+        {
+          "owner": "you",
+          "title": "Pick the best clips",
+          "text": "Star the moments worth sharing with the team."
+        },
+        {
+          "owner": "us",
+          "title": "Send the digest",
+          "text": "A Friday summary goes to everyone who follows the project."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "name": "Sign in, email link",
+  "category": "sign-in",
+  "description": "Passwordless sign in: one email field and a button that sends a sign-in link.",
+  "tags": ["sign in", "login", "log in", "passwordless", "magic link", "email", "form"],
+  "fieldGroups": ["Heading", "Form", "Links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "mail",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Sign in without a password",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Enter your work email and we’ll send you a link that signs you in. Nothing to remember, nothing to reset.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Email me a link",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "note",
+      "label": "Note under the form",
+      "type": "text",
+      "default": "The link works once and expires after 15 minutes.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "altText",
+      "label": "Other option text",
+      "type": "text",
+      "default": "Your company uses single sign-on?",
+      "group": "Links"
+    },
+    {
+      "name": "altLabel",
+      "label": "Other option link label",
+      "type": "text",
+      "default": "Sign in with SSO",
+      "group": "Links"
+    },
+    {
+      "name": "altLink",
+      "label": "Other option link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    }
+  ]
+}

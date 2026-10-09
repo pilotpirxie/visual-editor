@@ -1,0 +1,103 @@
+@layer components {
+  @scope (.b-features-tiles) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-title {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      max-width: 32rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-tiles {
+      --tint: 6%;
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .b-tile {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      min-height: 15rem;
+      padding: var(--space-6);
+      border-radius: var(--card-radius);
+      background: color-mix(in oklab, var(--color-primary) var(--tint), var(--color-background));
+    }
+
+    .b-tile:nth-child(6n + 2) {
+      --tint: 12%;
+    }
+
+    .b-tile:nth-child(6n + 3) {
+      --tint: 20%;
+    }
+
+    .b-tile:nth-child(6n + 4) {
+      --tint: 30%;
+    }
+
+    .b-tile:nth-child(6n + 5) {
+      --tint: 42%;
+    }
+
+    .b-tile:nth-child(6n) {
+      --tint: 100%;
+      color: var(--color-primary-contrast);
+    }
+
+    .b-icon {
+      --icon-size: 2rem;
+      margin-block-end: auto;
+      padding-block-end: var(--space-8);
+      color: var(--color-primary);
+    }
+
+    .b-tile:nth-child(6n) .b-icon {
+      color: inherit;
+    }
+
+    .b-tile h3 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-tile p {
+      opacity: 0.8;
+    }
+
+    @media (min-width: 768px) {
+      .b-tiles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-head {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        align-items: end;
+        gap: var(--space-16);
+      }
+
+      .b-tiles {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-4);
+      }
+
+      .b-tile {
+        min-height: 18rem;
+        padding: var(--space-8);
+      }
+    }
+  }
+}

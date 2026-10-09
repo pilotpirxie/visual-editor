@@ -1,0 +1,21 @@
+<section class="b-gallery-lightbox section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-grid">
+      {{#each items}}
+      <details class="b-item" name="{{../block.id}}-photos" style="--photo-ratio: {{image.width}} / {{image.height}}" data-field="items.{{@index}}">
+        <summary class="b-thumb">
+          <span class="media b-media">{{img image}}</span>
+          <span class="b-zoom">{{svgIcon "plus"}}</span>
+          <span class="visually-hidden">{{../openLabel}}</span>
+        </summary>
+        {{#if caption}}<p class="b-caption">{{caption}}</p>{{/if}}
+      </details>
+      {{/each}}
+    </div>
+  </div>
+</section>

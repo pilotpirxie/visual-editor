@@ -1,0 +1,177 @@
+{
+  "name": "Careers, featured role",
+  "category": "careers",
+  "description": "One role in detail: summary, responsibilities, requirements, salary and an apply button.",
+  "tags": ["careers", "job", "hiring", "role", "apply", "description", "salary"],
+  "fieldGroups": ["Role", "Responsibilities", "Requirements", "Details"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Engineering · Remote, Europe",
+      "group": "Role"
+    },
+    {
+      "name": "roleTitle",
+      "label": "Job title",
+      "type": "text",
+      "default": "Senior backend engineer, transcription",
+      "group": "Role",
+      "required": true
+    },
+    {
+      "name": "summary",
+      "label": "Summary",
+      "type": "textarea",
+      "default": "You will own the pipeline that turns two million minutes of interviews a month into searchable transcripts, and make it faster without making it less accurate.",
+      "group": "Role"
+    },
+    {
+      "name": "responsibilitiesTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "What you will do",
+      "group": "Responsibilities"
+    },
+    {
+      "name": "responsibilities",
+      "label": "Responsibilities",
+      "type": "list",
+      "group": "Responsibilities",
+      "minItems": 0,
+      "maxItems": 12,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "A responsibility"
+        }
+      ],
+      "default": [
+        {
+          "text": "Cut the time from upload to first transcript from four minutes to under one."
+        },
+        {
+          "text": "Design how we split, queue and retry long recordings across regions."
+        },
+        {
+          "text": "Pair with our machine learning team to ship new speech models safely."
+        },
+        {
+          "text": "Join two customer interviews a month to hear where transcripts fall short."
+        }
+      ]
+    },
+    {
+      "name": "requirementsTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "What we look for",
+      "group": "Requirements"
+    },
+    {
+      "name": "requirements",
+      "label": "Requirements",
+      "type": "list",
+      "group": "Requirements",
+      "minItems": 0,
+      "maxItems": 12,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "A requirement"
+        }
+      ],
+      "default": [
+        {
+          "text": "Five or more years building backend systems that process media or large files."
+        },
+        {
+          "text": "Comfort with Go or Rust, queues and object storage."
+        },
+        {
+          "text": "Clear written English. Most of our decisions start as a short document."
+        }
+      ]
+    },
+    {
+      "name": "detailsLabel",
+      "label": "Details label (for screen readers)",
+      "type": "text",
+      "default": "Role details",
+      "group": "Details",
+      "required": true
+    },
+    {
+      "name": "salaryLabel",
+      "label": "Salary label",
+      "type": "text",
+      "default": "Salary",
+      "group": "Details"
+    },
+    {
+      "name": "salary",
+      "label": "Salary",
+      "type": "text",
+      "default": "€85,000 – €105,000 a year",
+      "group": "Details"
+    },
+    {
+      "name": "locationLabel",
+      "label": "Location label",
+      "type": "text",
+      "default": "Location",
+      "group": "Details"
+    },
+    {
+      "name": "location",
+      "label": "Location",
+      "type": "text",
+      "default": "Remote, Europe",
+      "group": "Details"
+    },
+    {
+      "name": "typeLabel",
+      "label": "Type label",
+      "type": "text",
+      "default": "Type",
+      "group": "Details"
+    },
+    {
+      "name": "type",
+      "label": "Type",
+      "type": "text",
+      "default": "Full-time, permanent",
+      "group": "Details"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Apply for this role",
+        "link": {
+          "type": "email",
+          "url": "jobs@fieldnote.example",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Details"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "We reply to every application within ten working days.",
+      "group": "Details"
+    }
+  ]
+}

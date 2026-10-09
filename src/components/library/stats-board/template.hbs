@@ -1,0 +1,22 @@
+<section class="b-stats-board section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-board">
+      <p class="b-row b-columns" aria-hidden="true"><span data-field="metricLabel">{{metricLabel}}</span><span data-field="valueLabel">{{valueLabel}}</span><span data-field="statusLabel">{{statusLabel}}</span></p>
+      <dl>
+        {{#each rows}}
+        <div class="b-row" data-field="rows.{{@index}}">
+          <dt>{{label}}</dt>
+          <dd class="b-value">{{value}}</dd>
+          <dd class="b-status">{{status}}</dd>
+        </div>
+        {{/each}}
+      </dl>
+      {{#if updated}}<p class="b-muted b-updated" data-field="updated">{{svgIcon "clock"}} {{updated}}</p>{{/if}}
+    </div>
+  </div>
+</section>

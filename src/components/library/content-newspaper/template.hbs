@@ -1,0 +1,22 @@
+<section class="b-content-newspaper section">
+  <div class="container">
+    <article class="b-paper">
+      <header class="stack b-head">
+        {{#if kicker}}<p class="eyebrow" data-field="kicker">{{kicker}}</p>{{/if}}
+        <h2 class="b-title" data-field="title">{{title}}</h2>
+        {{#if standfirst}}<p class="b-standfirst" data-field="standfirst">{{standfirst}}</p>{{/if}}
+        {{#if (or byline date)}}
+        <p class="b-byline">
+          {{#if byline}}<span data-field="byline">{{byline}}</span>{{/if}}
+          {{#if date}}<time datetime="{{date}}" data-field="date">{{formatDate date}}</time>{{/if}}
+        </p>
+        {{/if}}
+      </header>
+      <div class="b-columns">
+        <div class="prose b-body" data-field="body">{{richText body}}</div>
+        {{#if quote}}<blockquote class="b-quote" data-field="quote"><p>{{quote}}</p></blockquote>{{/if}}
+        {{#if more}}<div class="prose b-body" data-field="more">{{richText more}}</div>{{/if}}
+      </div>
+    </article>
+  </div>
+</section>

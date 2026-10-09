@@ -1,0 +1,14 @@
+<aside class="b-banner-split" aria-label="Offer and contact">
+  <div class="container b-bar">
+    <p class="b-promo">
+      {{#if badge}}<span class="b-badge" data-field="badge">{{badge}}</span>{{/if}}
+      <span data-field="promo">{{promo}}</span>
+      {{#if promoLinkLabel}}<a href="{{href promoLink}}" {{linkAttrs promoLink}} data-field="promoLinkLabel">{{promoLinkLabel}}</a>{{/if}}
+    </p>
+    <p class="b-contact">
+      {{svgIcon "phone"}}
+      <a href="tel:{{phone}}" dir="ltr" data-field="phone">{{phone}}</a>
+      {{#if hours}}<span class="b-hours" data-field="hours">{{hours}}</span>{{/if}}
+    </p>
+  </div>
+</aside>

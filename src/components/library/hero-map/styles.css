@@ -1,0 +1,100 @@
+@layer components {
+  @scope (.b-hero-map) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-lead {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-map {
+      --road: color-mix(in oklab, var(--color-text) 7%, transparent);
+      position: relative;
+      aspect-ratio: 1;
+      overflow: clip;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(
+          transparent 78%,
+          color-mix(in oklab, var(--color-primary) 20%, var(--color-surface)) 0
+        ),
+        linear-gradient(100deg, transparent 44%, var(--road) 0 47%, transparent 0),
+        repeating-linear-gradient(90deg, var(--road) 0 0.125rem, transparent 0 3rem),
+        repeating-linear-gradient(var(--road) 0 0.125rem, transparent 0 3rem), var(--color-surface);
+    }
+
+    .b-water {
+      position: absolute;
+      inset: auto 0 var(--space-3);
+      color: var(--color-primary);
+      font-size: var(--text-xs);
+      letter-spacing: 0.3em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .b-pin {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      display: grid;
+      justify-items: center;
+      translate: -50% -100%;
+    }
+
+    .b-tag {
+      display: grid;
+      order: -1;
+      max-width: 9rem;
+      margin-bottom: var(--space-1);
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm);
+      background: var(--color-background);
+      box-shadow: var(--shadow-md);
+      font-size: var(--text-xs);
+      text-align: center;
+    }
+
+    .b-dot {
+      --icon-size: 1.25rem;
+      display: grid;
+      place-items: center;
+      width: 2.25rem;
+      aspect-ratio: 1;
+      border: 0.1875rem solid var(--color-background);
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-detail {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .b-map {
+        aspect-ratio: 4 / 3;
+      }
+
+      .b-detail {
+        display: inline;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1.1fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<nav class="b-nav-bottom" aria-label="Main">
+  <div class="container b-bar">
+    <a class="b-logo" href="index.html" data-field="logoIcon">{{svgIcon logoIcon}}<span>{{site.title}}</span></a>
+    <ul class="b-tabs" role="list">
+      {{#each links}}
+      <li><a class="b-tab" href="{{href link}}" {{linkAttrs link}} aria-current="{{#if current}}page{{else}}false{{/if}}" data-field="links.{{@index}}">{{svgIcon icon}}<span class="b-label">{{label}}</span></a></li>
+      {{/each}}
+    </ul>
+    {{#if showCta}}
+    <a class="btn btn-{{cta.variant}} b-cta" href="{{href cta.link}}" {{linkAttrs cta.link}} data-field="cta">{{cta.label}}</a>
+    {{/if}}
+  </div>
+</nav>

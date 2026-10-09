@@ -1,0 +1,141 @@
+{
+  "name": "Careers, hiring process",
+  "category": "careers",
+  "description": "Interview stages with how long each takes, who you meet and what to expect, above a bar that shows each stage’s share of the timeline.",
+  "tags": ["careers", "hiring", "interview", "process", "stages", "timeline", "jobs"],
+  "fieldGroups": ["Heading", "Stages", "Summary"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How we hire",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Four conversations, no surprises",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We ask for the same respect we give. You know every step before it happens, and you hear back after each one.",
+      "group": "Heading"
+    },
+    {
+      "name": "stages",
+      "label": "Stages",
+      "type": "list",
+      "group": "Stages",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Stage",
+          "type": "text",
+          "default": "Stage"
+        },
+        {
+          "name": "duration",
+          "label": "Duration",
+          "type": "text",
+          "default": "30 minutes"
+        },
+        {
+          "name": "people",
+          "label": "Who you meet",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "text",
+          "label": "What to expect",
+          "type": "textarea",
+          "default": "What happens in this stage."
+        },
+        {
+          "name": "days",
+          "label": "Days on the timeline",
+          "type": "number",
+          "default": 3,
+          "min": 1,
+          "max": 30,
+          "help": "Sets the width of this stage in the timeline bar."
+        }
+      ],
+      "default": [
+        {
+          "title": "Application review",
+          "duration": "Within 5 working days",
+          "people": "Our recruiting team",
+          "text": "A person reads every application. You hear back either way.",
+          "days": 5
+        },
+        {
+          "title": "Intro call",
+          "duration": "30 minutes, video",
+          "people": "A talent partner",
+          "text": "We talk about the role, pay range and what you want next.",
+          "days": 3
+        },
+        {
+          "title": "Skills conversation",
+          "duration": "60 minutes, no take-home",
+          "people": "Hiring manager and a future teammate",
+          "text": "We work through a real problem together. Bring questions, not slides.",
+          "days": 6
+        },
+        {
+          "title": "Meet the team",
+          "duration": "Two 45-minute chats",
+          "people": "People you would work with every day",
+          "text": "Ask anything: how we disagree, how we ship, what a bad week looks like.",
+          "days": 4
+        },
+        {
+          "title": "Offer",
+          "duration": "Same week",
+          "people": "Your hiring manager",
+          "text": "A written offer with salary, equity and start date, and time to decide.",
+          "days": 2
+        }
+      ]
+    },
+    {
+      "name": "totalLabel",
+      "label": "Total label",
+      "type": "text",
+      "default": "From application to offer",
+      "group": "Summary"
+    },
+    {
+      "name": "totalValue",
+      "label": "Total",
+      "type": "text",
+      "default": "About 3 weeks",
+      "group": "Summary"
+    },
+    {
+      "name": "promiseIcon",
+      "label": "Promise icon",
+      "type": "icon",
+      "default": "heart",
+      "group": "Summary"
+    },
+    {
+      "name": "promise",
+      "label": "Promise",
+      "type": "text",
+      "default": "Every candidate who interviews gets written feedback.",
+      "group": "Summary"
+    }
+  ]
+}

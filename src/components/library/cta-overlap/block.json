@@ -1,0 +1,85 @@
+{
+  "name": "Call to action, image overlap",
+  "category": "call-to-action",
+  "description": "A primary-colored card with a pitch and a product screenshot that breaks out of the top on desktop.",
+  "tags": ["cta", "screenshot", "product", "card", "overlap"],
+  "fieldGroups": ["Content", "Buttons", "Screenshot"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "See your research come together",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Upload three recordings and Fieldnote groups what customers said into themes you can share with one link.",
+      "group": "Content"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Book a demo",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "screenshot",
+      "label": "Screenshot",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Fieldnote themes board with customer quotes grouped by topic",
+        "decorative": false,
+        "width": 1200,
+        "height": 900,
+        "placeholder": {
+          "ratio": "4:3",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Screenshot"
+    }
+  ]
+}

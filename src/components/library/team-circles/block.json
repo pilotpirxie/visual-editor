@@ -1,0 +1,270 @@
+{
+  "name": "Team, centered circles",
+  "category": "team",
+  "description": "A centered heading and round photos with names, roles and social links.",
+  "tags": ["team", "people", "about", "avatars", "social", "centered"],
+  "fieldGroups": ["Heading", "People"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Leadership",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The team steering Fieldnote",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Five people who set the direction, and who you will meet on your first call with us.",
+      "group": "Heading"
+    },
+    {
+      "name": "people",
+      "label": "People",
+      "type": "list",
+      "group": "People",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "socials",
+          "label": "Social links",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 4,
+          "itemLabel": "label",
+          "itemFields": [
+            {
+              "name": "label",
+              "label": "Name",
+              "type": "text",
+              "default": "LinkedIn"
+            },
+            {
+              "name": "icon",
+              "label": "Icon",
+              "type": "icon",
+              "default": "simple-icons:linkedin",
+              "iconPurpose": "brand"
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link",
+              "default": {
+                "type": "url",
+                "url": "https://www.linkedin.com",
+                "newTab": true
+              }
+            }
+          ],
+          "default": []
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leila Haddad",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Leila Haddad",
+          "role": "Co-founder and CEO",
+          "socials": [
+            {
+              "label": "LinkedIn",
+              "icon": "simple-icons:linkedin",
+              "link": {
+                "type": "url",
+                "url": "https://www.linkedin.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "Bluesky",
+              "icon": "simple-icons:bluesky",
+              "link": {
+                "type": "url",
+                "url": "https://bsky.app",
+                "newTab": true
+              }
+            }
+          ]
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Mateo Ruiz",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Mateo Ruiz",
+          "role": "Co-founder and CTO",
+          "socials": [
+            {
+              "label": "LinkedIn",
+              "icon": "simple-icons:linkedin",
+              "link": {
+                "type": "url",
+                "url": "https://www.linkedin.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "GitHub",
+              "icon": "simple-icons:github",
+              "link": {
+                "type": "url",
+                "url": "https://github.com",
+                "newTab": true
+              }
+            }
+          ]
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Ingrid Solberg",
+          "role": "Head of research",
+          "socials": [
+            {
+              "label": "LinkedIn",
+              "icon": "simple-icons:linkedin",
+              "link": {
+                "type": "url",
+                "url": "https://www.linkedin.com",
+                "newTab": true
+              }
+            }
+          ]
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Kwame Mensah",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Kwame Mensah",
+          "role": "Head of engineering",
+          "socials": [
+            {
+              "label": "LinkedIn",
+              "icon": "simple-icons:linkedin",
+              "link": {
+                "type": "url",
+                "url": "https://www.linkedin.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "GitHub",
+              "icon": "simple-icons:github",
+              "link": {
+                "type": "url",
+                "url": "https://github.com",
+                "newTab": true
+              }
+            }
+          ]
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Yuki Tanaka",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Yuki Tanaka",
+          "role": "Senior product designer",
+          "socials": [
+            {
+              "label": "Dribbble",
+              "icon": "simple-icons:dribbble",
+              "link": {
+                "type": "url",
+                "url": "https://dribbble.com",
+                "newTab": true
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,271 @@
+{
+  "name": "Footer, legal fine print",
+  "category": "footers",
+  "description": "Link columns over a boxed block of small print in two newspaper columns, for pricing, trademark and regulatory notes.",
+  "tags": [
+    "footer",
+    "legal",
+    "fine print",
+    "disclosure",
+    "disclaimer",
+    "terms",
+    "finance",
+    "regulated",
+    "columns"
+  ],
+  "fieldGroups": ["Columns", "Fine print", "Legal"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "columns",
+      "label": "Link columns",
+      "type": "list",
+      "group": "Columns",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Column title",
+          "type": "text",
+          "default": "Column"
+        },
+        {
+          "name": "links",
+          "label": "Links",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 8,
+          "itemLabel": "label",
+          "itemFields": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "text",
+              "default": "Link"
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link",
+              "default": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ],
+          "default": []
+        }
+      ],
+      "default": [
+        {
+          "title": "Product",
+          "links": [
+            {
+              "label": "Features",
+              "link": {
+                "type": "section",
+                "anchor": "features",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Pricing",
+              "link": {
+                "type": "section",
+                "anchor": "pricing",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Security",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "Company",
+          "links": [
+            {
+              "label": "About",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Careers",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Press",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "Support",
+          "links": [
+            {
+              "label": "Help center",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Status",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "email",
+                "url": "support@fieldnote.example",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "Legal",
+          "links": [
+            {
+              "label": "Terms of service",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Privacy policy",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Data processing",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "disclosureTitle",
+      "label": "Fine print title",
+      "type": "text",
+      "default": "Important information",
+      "group": "Fine print",
+      "required": true
+    },
+    {
+      "name": "updatedLabel",
+      "label": "Updated label",
+      "type": "text",
+      "default": "Last updated",
+      "group": "Fine print"
+    },
+    {
+      "name": "updated",
+      "label": "Updated on",
+      "type": "date",
+      "default": "2026-09-15",
+      "group": "Fine print"
+    },
+    {
+      "name": "disclosure",
+      "label": "Fine print",
+      "type": "richtext",
+      "group": "Fine print",
+      "default": "<p>Fieldnote is a registered trademark of Fieldnote Inc., 401 Richmond Street West, Toronto, Ontario. Other product and company names are trademarks of their respective owners and are used for identification only.</p><p>Prices are shown in Canadian dollars and exclude applicable taxes, including HST. Annual plans are billed upfront and renew automatically unless cancelled at least 30 days before the renewal date. Discounts cannot be combined.</p><p>Results described by customers on this site come from individual teams and are not typical or guaranteed. Recording a conversation may require the consent of everyone in it where you operate; you are responsible for asking for it.</p><p>Recordings and transcripts are stored in Canada unless your workspace chooses another region. Our SOC 2 Type II report is available on request under a non-disclosure agreement.</p>"
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Inc. Registered in Ontario, Canada.",
+      "group": "Legal"
+    },
+    {
+      "name": "legal",
+      "label": "Legal links",
+      "type": "list",
+      "group": "Legal",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Cookie settings",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Accessibility",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Sitemap",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

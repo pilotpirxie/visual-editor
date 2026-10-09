@@ -1,0 +1,153 @@
+{
+  "name": "Contact, hours and address",
+  "category": "contacts",
+  "description": "Address, phone and email with a table of opening hours beside a map image and a directions button.",
+  "tags": ["contact", "hours", "opening hours", "address", "map", "visit", "location"],
+  "fieldGroups": ["Heading", "Details", "Hours", "Map"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Visit us",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Book a session in our interview room",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Bring a customer, or watch our team run a live session. Our Toronto studio has a soundproof room and a one-way viewing window.",
+      "group": "Heading"
+    },
+    {
+      "name": "address",
+      "label": "Address",
+      "type": "textarea",
+      "default": "220 King Street West, Suite 400\nToronto, ON M5H 1K4",
+      "group": "Details"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "+1 416 555 0142",
+      "group": "Details"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "studio@fieldnote.example",
+      "group": "Details"
+    },
+    {
+      "name": "hoursTitle",
+      "label": "Hours title",
+      "type": "text",
+      "default": "Opening hours",
+      "group": "Hours",
+      "required": true
+    },
+    {
+      "name": "hours",
+      "label": "Opening hours",
+      "type": "list",
+      "default": [
+        {
+          "days": "Monday to Thursday",
+          "time": "9:00 to 18:00"
+        },
+        {
+          "days": "Friday",
+          "time": "9:00 to 16:00"
+        },
+        {
+          "days": "Saturday",
+          "time": "By appointment"
+        },
+        {
+          "days": "Sunday",
+          "time": "Closed"
+        }
+      ],
+      "group": "Hours",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "days",
+      "itemFields": [
+        {
+          "name": "days",
+          "label": "Days",
+          "type": "text",
+          "default": "Monday"
+        },
+        {
+          "name": "time",
+          "label": "Hours",
+          "type": "text",
+          "default": "9:00 to 17:00"
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Closed on Ontario statutory holidays.",
+      "group": "Hours"
+    },
+    {
+      "name": "image",
+      "label": "Map image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Map of King Street West in Toronto with the Fieldnote studio marked near John Street",
+        "decorative": false,
+        "width": 1200,
+        "height": 900,
+        "placeholder": {
+          "ratio": "4:3",
+          "subject": "photo"
+        }
+      },
+      "group": "Map"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Map"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get directions",
+        "link": {
+          "type": "url",
+          "url": "https://www.openstreetmap.org",
+          "newTab": true
+        },
+        "variant": "secondary"
+      },
+      "group": "Map",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      }
+    }
+  ]
+}

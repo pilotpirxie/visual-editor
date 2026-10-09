@@ -1,0 +1,107 @@
+{
+  "name": "Hero, two-tone split",
+  "category": "headers",
+  "description": "Full-width split: a brand-colored panel with the heading and buttons beside an edge-to-edge photo, with a round sticker on the seam.",
+  "tags": ["hero", "heading", "split", "color", "full width", "image", "sticker"],
+  "fieldGroups": ["Heading", "Buttons", "Image"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "For product and design teams",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Stop guessing what customers meant",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Record the call, get the transcript and the themes, and share a two-minute highlight reel before the next stand-up.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Try Fieldnote free",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See how it works",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Free for 14 days. No credit card.",
+      "group": "Buttons"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A product designer interviewing a customer over coffee",
+        "decorative": false,
+        "width": 1200,
+        "height": 1600,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "photo"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "sticker",
+      "label": "Sticker",
+      "type": "text",
+      "default": "New: AI theme tagging",
+      "group": "Image",
+      "maxLength": 32
+    }
+  ]
+}

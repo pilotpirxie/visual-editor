@@ -1,0 +1,150 @@
+{
+  "name": "Gallery, film strip",
+  "category": "gallery",
+  "description": "Photos framed as a full-width strip of film with sprocket holes, frame numbers and captions.",
+  "tags": ["gallery", "photos", "film", "analog", "strip", "dark", "scroll"],
+  "fieldGroups": ["Heading", "Photos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Research week",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Five days with Brightpath, frame by frame",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Yuki Tanaka brought a film camera to our week embedded with the Brightpath support team. These are the keepers.",
+      "group": "Heading"
+    },
+    {
+      "name": "stock",
+      "label": "Film label",
+      "type": "text",
+      "default": "FIELDNOTE 400 · TORONTO",
+      "group": "Photos"
+    },
+    {
+      "name": "items",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "caption",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "caption",
+          "label": "Caption",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Brightpath support agents starting their morning shift",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "caption": "Monday, 8:02 a.m."
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A headset resting on a notebook full of call notes",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "caption": "Between calls"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg listening in on a customer call with a support agent",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "caption": "Shadowing a shift"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A whiteboard covered in a map of the support workflow",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "caption": "Mapping the queue"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The Brightpath and Fieldnote teams laughing at a debrief",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "caption": "Friday debrief"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "name": "FAQ, grouped by topic",
+  "category": "faq",
+  "description": "Questions grouped under topic headings, each topic with its own accordion.",
+  "tags": ["faq", "questions", "accordion", "topics", "categories", "help center"],
+  "fieldGroups": ["Heading", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Help center",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Answers, sorted by topic",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Everything teams ask us during a trial, grouped so you can skip straight to what matters to you.",
+      "group": "Heading"
+    },
+    {
+      "name": "expandIcon",
+      "label": "Open and close icon",
+      "type": "icon",
+      "default": "chevron-down",
+      "group": "Questions"
+    },
+    {
+      "name": "topics",
+      "label": "Topics",
+      "type": "list",
+      "default": [
+        {
+          "title": "Getting started",
+          "questions": [
+            {
+              "question": "How long does it take to set up Fieldnote?",
+              "answer": "<p>Most teams record their first interview the same day. Connect your calendar and video tool, invite your team, and Fieldnote joins the next call you schedule.</p>"
+            },
+            {
+              "question": "Which video tools does Fieldnote work with?",
+              "answer": "<p>Zoom, Google Meet and Microsoft Teams. For in-person sessions, upload audio or video files from any phone or recorder.</p>"
+            },
+            {
+              "question": "Can we import interviews we already recorded?",
+              "answer": "<p>Yes. Drop in files or connect your cloud drive, and past interviews are transcribed and tagged like new ones.</p>"
+            }
+          ]
+        },
+        {
+          "title": "Privacy and security",
+          "questions": [
+            {
+              "question": "Where do you store our recordings?",
+              "answer": "<p>In the region you pick when you sign up: Canada, the EU or the US. Everything is encrypted at rest and in transit.</p>"
+            },
+            {
+              "question": "Is Fieldnote SOC 2 compliant?",
+              "answer": "<p>Yes. We pass a SOC 2 Type II audit every year and share the report under NDA as part of our security pack.</p>"
+            },
+            {
+              "question": "Who can see our interviews?",
+              "answer": "<p>Only people in your workspace. You decide who can watch full recordings and who only sees approved highlights.</p>"
+            }
+          ]
+        },
+        {
+          "title": "Plans and billing",
+          "questions": [
+            {
+              "question": "How does the free trial work?",
+              "answer": "<p>You get every feature for 14 days and up to ten interviews. No credit card, and nothing is deleted when the trial ends.</p>"
+            },
+            {
+              "question": "Can we change plans later?",
+              "answer": "<p>Upgrade or downgrade whenever you like. We prorate the difference on your next invoice.</p>"
+            },
+            {
+              "question": "Do you charge for every seat?",
+              "answer": "<p>Only for people who run interviews. Teammates who watch highlights and leave comments are free on every plan.</p>"
+            }
+          ]
+        }
+      ],
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Topic",
+          "type": "text",
+          "default": "Topic"
+        },
+        {
+          "name": "questions",
+          "label": "Questions",
+          "type": "list",
+          "default": [
+            {
+              "question": "How long does it take to set up Fieldnote?",
+              "answer": "<p>Most teams record their first interview the same day. Connect your calendar and video tool, invite your team, and Fieldnote joins the next call you schedule.</p>"
+            }
+          ],
+          "minItems": 1,
+          "maxItems": 10,
+          "itemLabel": "question",
+          "itemFields": [
+            {
+              "name": "question",
+              "label": "Question",
+              "type": "text",
+              "default": "A question?"
+            },
+            {
+              "name": "answer",
+              "label": "Answer",
+              "type": "richtext",
+              "default": "<p>The answer.</p>"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

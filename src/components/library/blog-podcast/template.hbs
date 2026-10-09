@@ -1,0 +1,36 @@
+<section class="b-blog-podcast section">
+  <div class="container b-inner">
+    <div class="stack b-show">
+      <div class="media b-cover" data-field="cover">{{img cover}}</div>
+      <header class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      {{#if platforms.length}}
+      <ul class="cluster b-platforms" role="list">
+        {{#each platforms}}
+        <li><a class="btn btn-secondary" href="{{href link}}" {{linkAttrs link}} data-field="platforms.{{@index}}">{{svgIcon icon}}<span>{{label}}</span></a></li>
+        {{/each}}
+      </ul>
+      {{/if}}
+    </div>
+    <ol class="stack b-episodes" role="list">
+      {{#each episodes}}
+      <li class="b-episode" data-field="episodes.{{@index}}">
+        <p class="b-number"><span>{{../episodeLabel}}</span>{{number}}</p>
+        <div class="stack b-body">
+          {{#if date}}<time class="b-muted" datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+          <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          {{#if guest}}<p class="b-muted">{{guest}}</p>{{/if}}
+          <p class="b-player">
+            <span class="b-play" aria-hidden="true">{{svgIcon "play"}}</span>
+            <span class="b-wave" aria-hidden="true"></span>
+            {{#if duration}}<span class="b-muted">{{duration}}</span>{{/if}}
+          </p>
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

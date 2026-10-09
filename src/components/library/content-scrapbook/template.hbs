@@ -1,0 +1,18 @@
+<section class="b-content-scrapbook section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if body}}<div class="prose b-body" data-field="body">{{richText body}}</div>{{/if}}
+    </div>
+    <div class="b-board">
+      {{#each photos}}
+      <figure class="b-snap" data-field="photos.{{@index}}">
+        <div class="media b-photo">{{img image}}</div>
+        {{#if caption}}<figcaption class="b-caption">{{caption}}</figcaption>{{/if}}
+      </figure>
+      {{/each}}
+      {{#if note}}<p class="b-note" data-field="note">{{nl2br note}}</p>{{/if}}
+    </div>
+  </div>
+</section>

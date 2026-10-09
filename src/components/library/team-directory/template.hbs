@@ -1,0 +1,36 @@
+<section class="b-team-directory section">
+  <div class="container stack b-inner">
+    <header class="b-head">
+      <div class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 id="{{block.id}}-title" data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </div>
+      {{#if summary}}<p class="badge b-summary" data-field="summary">{{svgIcon "users"}}{{summary}}</p>{{/if}}
+    </header>
+    <div class="b-scroll" role="region" aria-labelledby="{{block.id}}-title" tabindex="0">
+      <table class="b-table">
+        <thead>
+          <tr>
+            <th scope="col" data-field="nameLabel">{{nameLabel}}</th>
+            <th scope="col" data-field="roleLabel">{{roleLabel}}</th>
+            <th scope="col" data-field="cityLabel">{{cityLabel}}</th>
+            <th scope="col" data-field="zoneLabel">{{zoneLabel}}</th>
+            <th scope="col"><span class="visually-hidden">{{emailLabel}}</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each people}}
+          <tr data-field="people.{{@index}}">
+            <th scope="row"><span class="b-person"><span class="media b-avatar">{{img photo}}</span>{{name}}</span></th>
+            <td>{{role}}</td>
+            <td>{{city}}</td>
+            <td><span class="b-zone">{{zone}}</span></td>
+            <td>{{#if email}}<a class="b-mail" href="mailto:{{email}}">{{svgIcon "mail"}}<span class="visually-hidden">{{../emailLabel}} {{name}}</span></a>{{/if}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

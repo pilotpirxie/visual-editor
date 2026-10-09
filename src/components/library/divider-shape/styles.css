@@ -1,0 +1,52 @@
+@layer components {
+  @scope (.b-divider-shape) {
+    :scope {
+      --b-height: var(--space-16);
+      position: relative;
+      block-size: var(--b-height);
+      background: var(--color-surface);
+    }
+
+    :scope[data-size='small'] {
+      --b-height: var(--space-8);
+    }
+
+    :scope[data-size='large'] {
+      --b-height: calc(var(--space-16) * 2);
+    }
+
+    :scope::after {
+      --b-wave: calc(var(--b-height) / 2);
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--color-background);
+      clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    }
+
+    :scope[data-flip='true']::after {
+      scale: -1 1;
+    }
+
+    :scope[data-shape='curve']::after {
+      clip-path: ellipse(75% 100% at 50% 100%);
+    }
+
+    :scope[data-shape='wave']::after {
+      clip-path: none;
+      mask:
+        radial-gradient(
+            calc(var(--b-wave) * 1.28) at 50% calc(var(--b-wave) * 1.8),
+            black 99%,
+            transparent 101%
+          )
+          calc(50% - 2 * var(--b-wave)) 0 / calc(4 * var(--b-wave)) 100%,
+        radial-gradient(
+            calc(var(--b-wave) * 1.28) at 50% calc(var(--b-wave) * -0.8),
+            transparent 99%,
+            black 101%
+          )
+          50% var(--b-wave) / calc(4 * var(--b-wave)) 100% repeat-x;
+    }
+  }
+}

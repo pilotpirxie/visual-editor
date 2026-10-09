@@ -1,0 +1,92 @@
+@layer components {
+  @scope (.b-richtext-toc) {
+    .b-inner {
+      display: grid;
+      grid-template-areas: 'head' 'toc' 'parts';
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      grid-area: head;
+      max-width: 48rem;
+    }
+
+    .b-lead {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-toc {
+      --stack-gap: var(--space-2);
+      grid-area: toc;
+      align-self: start;
+      padding: var(--space-6);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-toc-title {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .b-toc-list a {
+      display: flex;
+      align-items: center;
+      min-height: 2.75rem;
+      padding-inline-start: var(--space-3);
+      border-inline-start: 2px solid var(--color-border);
+      color: var(--color-text-muted);
+      text-decoration: none;
+    }
+
+    .b-toc-list a:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .b-parts {
+      --stack-gap: var(--space-12);
+      grid-area: parts;
+      min-width: 0;
+      max-width: 42rem;
+    }
+
+    .b-part {
+      --stack-gap: var(--space-4);
+      scroll-margin-block-start: var(--space-8);
+    }
+
+    .b-part-title {
+      font-size: var(--text-2xl);
+    }
+
+    .b-body {
+      --prose-measure: none;
+      --prose-marker-color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-body {
+        font-size: var(--text-lg);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template: 'head head' 'toc parts' / 16rem minmax(0, 1fr);
+        column-gap: var(--space-16);
+      }
+
+      .b-toc {
+        position: sticky;
+        top: var(--space-8);
+        padding: 0;
+        background: none;
+      }
+    }
+  }
+}

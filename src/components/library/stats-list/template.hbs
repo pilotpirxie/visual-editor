@@ -1,0 +1,22 @@
+<section class="b-stats-list section"{{#if countUp}} data-behavior="counter"{{/if}}>
+  <div class="container stack b-inner">
+    <header class="b-head">
+      <div class="stack b-title">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </div>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ol class="b-rows" role="list">
+      {{#each items}}
+      <li class="b-row" data-field="items.{{@index}}">
+        <p class="b-value"{{#if ../countUp}} data-count{{/if}}>{{value}}</p>
+        <div class="stack b-copy">
+          <p class="b-text">{{nl2br text}}</p>
+          {{#if source}}<p class="b-muted b-source">{{source}}</p>{{/if}}
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

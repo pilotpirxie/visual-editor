@@ -1,0 +1,105 @@
+@layer components {
+  @scope (.b-gallery-slideshow) {
+    :scope {
+      --slide: min(var(--container-max-width) - var(--container-padding-x) * 2, 82%);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      margin-block-end: var(--space-8);
+    }
+
+    .b-intro {
+      max-width: 40rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-track {
+      display: grid;
+      grid-auto-columns: 100%;
+      grid-auto-flow: column;
+      gap: var(--space-4);
+      padding-inline: calc((100% - var(--slide)) / 2);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      counter-reset: slide;
+    }
+
+    .b-slide {
+      position: relative;
+      overflow: clip;
+      border-radius: var(--radius-lg);
+      scroll-snap-align: center;
+      counter-increment: slide;
+    }
+
+    .b-media {
+      --media-ratio: 4 / 5;
+      --media-radius: 0;
+    }
+
+    .b-caption {
+      position: absolute;
+      inset: auto 0 0;
+      display: grid;
+      gap: var(--space-1);
+      padding: var(--space-16) var(--space-6) var(--space-6);
+      background: linear-gradient(
+        transparent,
+        color-mix(in oklab, var(--theme-dark-background) 85%, transparent)
+      );
+      color: var(--theme-dark-text);
+    }
+
+    .b-caption::before {
+      content: counter(slide, decimal-leading-zero);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--theme-dark-accent);
+    }
+
+    .b-title {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-heading);
+    }
+
+    .b-text {
+      color: var(--theme-dark-text-muted);
+    }
+
+    .b-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-block-start: var(--space-6);
+    }
+
+    .b-arrow:disabled {
+      opacity: 0.4;
+    }
+
+    .b-dots button {
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 0;
+      background: linear-gradient(var(--dot, var(--color-border)) 0 0) center / var(--space-6)
+        var(--space-1) no-repeat;
+      cursor: pointer;
+    }
+
+    .b-dots button[aria-current='true'] {
+      --dot: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-media {
+        --media-ratio: 21 / 9;
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+@layer components {
+  @scope (.b-testimonial-letter) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+      --container-max-width: 46rem;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      text-align: center;
+    }
+
+    .b-desk {
+      display: grid;
+    }
+
+    .b-desk::before,
+    .b-paper {
+      grid-area: 1 / 1;
+      border-radius: var(--radius-sm);
+      background: var(--color-background);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-desk::before {
+      content: '';
+      transform: rotate(2deg);
+    }
+
+    .b-paper {
+      --stack-gap: var(--space-6);
+      position: relative;
+      padding: var(--space-8) var(--space-6);
+    }
+
+    .b-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+
+    .b-stamp {
+      --icon-size: 1.5rem;
+      flex: none;
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      gap: var(--space-1);
+      width: 5.5rem;
+      aspect-ratio: 4 / 5;
+      padding: var(--space-3);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      text-align: center;
+      text-transform: uppercase;
+      mask:
+        linear-gradient(var(--color-text) 0 0) content-box,
+        radial-gradient(circle, transparent 0.2rem, var(--color-text) 0.22rem) -0.375rem -0.375rem /
+          0.75rem 0.75rem round;
+      transform: rotate(6deg);
+    }
+
+    .b-date,
+    .b-role {
+      color: var(--color-text-muted);
+    }
+
+    .b-letter {
+      --stack-gap: var(--space-4);
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+    }
+
+    .b-person {
+      display: grid;
+      padding-block-start: var(--space-4);
+    }
+
+    .b-signature {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-style: italic;
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-paper {
+        padding: var(--space-12) var(--space-16) var(--space-16);
+      }
+
+      .b-stamp {
+        margin-inline-end: calc(-1 * var(--space-8));
+      }
+
+      .b-desk {
+        transform: rotate(-1deg);
+      }
+    }
+  }
+}

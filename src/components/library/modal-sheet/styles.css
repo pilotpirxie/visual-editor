@@ -1,0 +1,114 @@
+@layer components {
+  @scope (.b-modal-sheet) {
+    .b-sheet {
+      --b-from: 100%;
+      width: min(100%, 30rem);
+      max-width: 100%;
+      margin: auto;
+      padding: var(--space-3) var(--space-6) var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-sheet:modal {
+      width: 100%;
+      margin-block-end: 0;
+      border-radius: var(--card-radius) var(--card-radius) 0 0;
+      transition: translate var(--transition-normal);
+    }
+
+    @starting-style {
+      .b-sheet:modal {
+        translate: 0 var(--b-from);
+      }
+    }
+
+    .b-sheet::backdrop {
+      background: color-mix(in oklab, var(--color-text) 55%, transparent);
+    }
+
+    .b-handle {
+      width: 2.5rem;
+      height: 0.3rem;
+      margin: 0 auto var(--space-6);
+      border-radius: var(--radius-full);
+      background: var(--color-border);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-1);
+      padding-inline-end: var(--space-8);
+    }
+
+    .b-head h2 {
+      font-size: var(--text-xl);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-option {
+      display: flex;
+      gap: var(--space-4);
+      align-items: center;
+      padding: var(--space-3);
+      border-radius: var(--radius-md);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-icon {
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      color: var(--color-primary);
+    }
+
+    .b-copy {
+      display: grid;
+      flex: 1;
+    }
+
+    @media (min-width: 768px) {
+      .b-sheet {
+        --b-from: var(--space-8);
+      }
+
+      .b-sheet:modal {
+        width: 30rem;
+        margin-block-end: auto;
+        border-radius: var(--card-radius);
+      }
+
+      .b-handle {
+        visibility: hidden;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .b-sheet:modal {
+        transition: none;
+      }
+    }
+
+    @media (scripting: none) {
+      .b-sheet {
+        position: relative;
+        display: block;
+        margin-block: var(--space-8);
+      }
+    }
+  }
+}

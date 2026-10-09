@@ -1,0 +1,112 @@
+@layer components {
+  @scope (.b-signup-plan) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: start;
+    }
+
+    .b-main {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-pair {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-form a {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-summary {
+      --card-padding: var(--space-6);
+      --stack-gap: var(--space-4);
+      background: var(--color-surface);
+      box-shadow: none;
+    }
+
+    .b-label {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-plan,
+    .b-total {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-2) var(--space-4);
+    }
+
+    .b-plan h3 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-change {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+    }
+
+    .b-features {
+      --stack-gap: var(--space-2);
+      padding-block: var(--space-4);
+      border-block: var(--border-width) solid var(--color-border);
+    }
+
+    .b-features li {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .b-check {
+      --icon-size: 1.25rem;
+      flex: none;
+      color: var(--color-primary);
+    }
+
+    .b-total {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-pair {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .b-summary {
+        --card-padding: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 3fr 2fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

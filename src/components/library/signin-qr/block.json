@@ -1,0 +1,149 @@
+{
+  "name": "Sign in, scan with phone",
+  "category": "sign-in",
+  "description": "Email and password beside a QR code panel with steps to sign in from the mobile app.",
+  "tags": [
+    "sign in",
+    "login",
+    "log in",
+    "account",
+    "form",
+    "qr code",
+    "mobile",
+    "phone",
+    "scan",
+    "split"
+  ],
+  "fieldGroups": ["Heading", "Form", "Links", "Phone"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--section-padding-y",
+    "--color-surface"
+  ],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Welcome back",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Sign in to pick up your interviews where you left them.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "passwordLabel",
+      "label": "Password field label",
+      "type": "text",
+      "default": "Password",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Sign in",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "forgotLabel",
+      "label": "Forgot password label",
+      "type": "text",
+      "default": "Forgot your password?",
+      "group": "Links"
+    },
+    {
+      "name": "forgotLink",
+      "label": "Forgot password link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    },
+    {
+      "name": "dividerLabel",
+      "label": "Label above the code",
+      "type": "text",
+      "default": "Or use your phone",
+      "group": "Phone"
+    },
+    {
+      "name": "scanTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "Scan to sign in",
+      "group": "Phone"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Phone",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Step",
+          "type": "text",
+          "default": "Describe the step"
+        }
+      ],
+      "default": [
+        {
+          "text": "Open Fieldnote on your phone."
+        },
+        {
+          "text": "Tap your avatar, then Link a device."
+        },
+        {
+          "text": "Point your camera at this code."
+        }
+      ]
+    }
+  ]
+}

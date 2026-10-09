@@ -1,0 +1,63 @@
+@layer components {
+  @scope (.b-newsletter-topics) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      max-width: 36rem;
+    }
+
+    .b-text,
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-topics {
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .b-legend {
+      margin-block-end: var(--space-2);
+      padding: 0;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+      column-gap: var(--space-4);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-form {
+        --card-padding: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

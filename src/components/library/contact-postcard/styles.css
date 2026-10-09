@@ -1,0 +1,111 @@
+@layer components {
+  @scope (.b-contact-postcard) {
+    .b-inner {
+      --container-max-width: 60rem;
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      text-align: center;
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-card {
+      --paper: color-mix(in oklab, var(--color-surface) 60%, var(--color-background));
+      display: grid;
+      gap: var(--space-6);
+      padding: var(--space-8) var(--space-6);
+      background: var(--paper);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-card :is(input, textarea) {
+      border-width: 0 0 var(--border-width);
+      border-radius: 0;
+      background: none;
+    }
+
+    .b-message textarea {
+      flex: 1;
+      line-height: 2.5rem;
+      padding-block: 0;
+      background: repeating-linear-gradient(
+        transparent 0 calc(2.5rem - 1px),
+        var(--color-border) 0 2.5rem
+      );
+    }
+
+    .b-message label {
+      font-size: var(--text-xl);
+      font-style: italic;
+    }
+
+    .b-stamps {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+    }
+
+    .b-postmark {
+      display: grid;
+      place-items: center;
+      width: 5rem;
+      aspect-ratio: 1;
+      border: 2px solid;
+      border-radius: var(--radius-full);
+      opacity: 0.5;
+      font-size: var(--text-xs);
+      text-align: center;
+      rotate: -14deg;
+    }
+
+    .b-stamp {
+      width: 5rem;
+      height: 6rem;
+      padding: 0.5rem;
+      background:
+        radial-gradient(circle, var(--paper) 0.25rem, transparent 0.27rem) -0.5rem -0.5rem / 1rem
+          1rem,
+        var(--color-primary);
+    }
+
+    .b-stamp-inner {
+      --icon-size: 1.75rem;
+      display: grid;
+      place-content: center;
+      place-items: center;
+      height: 100%;
+      border: var(--border-width) dashed;
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-xs);
+    }
+
+    .b-address {
+      display: grid;
+      gap: var(--space-4);
+      align-content: end;
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        grid-template-columns: 3fr 2fr;
+      }
+
+      .b-message {
+        grid-row: span 2;
+        padding-inline-end: var(--space-8);
+        border-inline-end: var(--border-width) solid var(--color-border);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-card {
+        rotate: -1deg;
+      }
+    }
+  }
+}

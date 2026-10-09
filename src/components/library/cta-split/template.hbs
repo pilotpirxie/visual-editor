@@ -1,0 +1,19 @@
+<section class="b-cta-split">
+  <div class="b-half b-first">
+    <div class="stack b-content">
+      {{#if firstIcon}}<span class="b-icon" data-field="firstIcon">{{svgIcon firstIcon}}</span>{{/if}}
+      <h2 data-field="firstTitle">{{firstTitle}}</h2>
+      {{#if firstText}}<p class="b-text" data-field="firstText">{{nl2br firstText}}</p>{{/if}}
+      <a class="btn btn-{{firstButton.variant}}" href="{{href firstButton.link}}" {{linkAttrs firstButton.link}} data-field="firstButton">{{firstButton.label}}</a>
+    </div>
+  </div>
+  {{#if orLabel}}<p class="b-or" data-field="orLabel">{{orLabel}}</p>{{/if}}
+  <div class="b-half b-second">
+    <div class="stack b-content">
+      {{#if secondIcon}}<span class="b-icon" data-field="secondIcon">{{svgIcon secondIcon}}</span>{{/if}}
+      <h2 data-field="secondTitle">{{secondTitle}}</h2>
+      {{#if secondText}}<p class="b-text" data-field="secondText">{{nl2br secondText}}</p>{{/if}}
+      <a class="btn btn-{{secondButton.variant}}" href="{{href secondButton.link}}" {{linkAttrs secondButton.link}} data-field="secondButton">{{secondButton.label}}</a>
+    </div>
+  </div>
+</section>

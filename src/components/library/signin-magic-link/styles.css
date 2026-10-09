@@ -1,0 +1,73 @@
+@layer components {
+  @scope (.b-signin-magic-link) {
+    .b-inner {
+      --container-max-width: 36rem;
+      --stack-gap: var(--space-6);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-badge {
+      --icon-size: 1.75rem;
+      display: inline-grid;
+      place-items: center;
+      width: 4rem;
+      height: 4rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      width: 100%;
+    }
+
+    .b-field {
+      flex: 1;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-alt {
+      width: 100%;
+      padding-block-start: var(--space-6);
+      border-block-start: var(--border-width) solid var(--color-border);
+      color: var(--color-text-muted);
+    }
+
+    .b-alt a {
+      font-weight: var(--font-weight-bold);
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .b-alt a:hover {
+      text-decoration: underline;
+    }
+
+    @media (min-width: 768px) {
+      .b-form {
+        flex-direction: row;
+      }
+    }
+  }
+}

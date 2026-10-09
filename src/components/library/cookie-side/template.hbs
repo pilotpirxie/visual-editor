@@ -1,0 +1,24 @@
+<aside class="b-cookie-side" data-behavior="consent" aria-label="Cookie consent">
+  <dialog class="b-panel" aria-labelledby="{{block.id}}-title">
+    <div class="b-body">
+      <div class="b-pattern" aria-hidden="true"><span class="b-badge" data-field="icon">{{svgIcon icon}}</span></div>
+      <div class="stack b-copy">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <p class="b-title" id="{{block.id}}-title" data-field="title">{{title}}</p>
+        <p class="b-muted" data-field="text">{{nl2br text}}</p>
+        {{#if uses.length}}
+        <ul class="b-uses" role="list">
+          {{#each uses}}
+          <li data-field="uses.{{@index}}">{{svgIcon icon}}<span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+        {{/if}}
+      </div>
+      <div class="stack b-actions">
+        <button type="button" class="btn btn-primary" data-consent="accepted" data-field="acceptLabel">{{acceptLabel}}</button>
+        {{#if showDecline}}<button type="button" class="btn btn-secondary" data-consent="declined" data-field="declineLabel">{{declineLabel}}</button>{{/if}}
+        {{#if showPolicyLink}}<a class="b-policy" href="{{href policyLink}}" {{linkAttrs policyLink}} data-field="policyLink">{{policyLabel}}</a>{{/if}}
+      </div>
+    </div>
+  </dialog>
+</aside>

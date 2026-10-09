@@ -1,0 +1,18 @@
+<section class="b-richtext-dropcap section">
+  <div class="container">
+    <article class="stack b-article">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 class="b-title" data-field="title">{{title}}</h2>
+        {{#if standfirst}}<p class="b-standfirst" data-field="standfirst">{{nl2br standfirst}}</p>{{/if}}
+        {{#if (or author date)}}
+        <p class="cluster b-meta">
+          {{#if author}}<span data-field="author">{{author}}</span>{{/if}}
+          {{#if date}}<time datetime="{{date}}" data-field="date">{{formatDate date}}</time>{{/if}}
+        </p>
+        {{/if}}
+      </header>
+      <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+@layer components {
+  @scope (.b-cta-background) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .b-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+
+    .b-backdrop img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .b-backdrop::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: color-mix(in oklab, var(--color-background) 72%, transparent);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-6);
+      --container-max-width: 48rem;
+      align-items: center;
+      padding-block: var(--space-8);
+      text-align: center;
+    }
+
+    .b-eyebrow {
+      --badge-bg: color-mix(in oklab, var(--color-text) 16%, transparent);
+      --badge-color: var(--color-text);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: color-mix(in oklab, var(--color-text) 90%, transparent);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        padding-block: var(--space-16);
+      }
+    }
+  }
+}

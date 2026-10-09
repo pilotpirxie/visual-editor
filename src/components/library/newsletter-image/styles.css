@@ -1,0 +1,77 @@
+@layer components {
+  @scope (.b-newsletter-image) {
+    :scope {
+      --section-padding-y: var(--space-16);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .b-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: var(--theme-dark-background);
+    }
+
+    .b-backdrop img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .b-backdrop::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: color-mix(in oklab, var(--theme-dark-background) 50%, transparent);
+    }
+
+    .b-card {
+      --card-padding: var(--space-8) var(--space-6);
+      --card-shadow: var(--shadow-lg);
+      --stack-gap: var(--space-4);
+      max-width: 34rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-card h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text,
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-block-start: var(--space-2);
+    }
+
+    .b-field {
+      flex: 999 1 14rem;
+    }
+
+    .b-submit {
+      flex: 1 0 auto;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      :scope {
+        --section-padding-y: calc(var(--space-16) * 2);
+      }
+
+      .b-card {
+        --card-padding: var(--space-12);
+      }
+    }
+  }
+}

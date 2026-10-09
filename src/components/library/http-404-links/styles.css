@@ -1,0 +1,91 @@
+@layer components {
+  @scope (.b-http-404-links) {
+    .b-inner {
+      --container-max-width: 56rem;
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-head h1 {
+      font-size: var(--text-4xl);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-text {
+      max-width: 36rem;
+      font-size: var(--text-lg);
+    }
+
+    .b-links {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-link {
+      --card-padding: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      height: 100%;
+      color: inherit;
+      text-decoration: none;
+      transition: border-color var(--transition-fast);
+    }
+
+    .b-link:hover {
+      border-color: var(--color-primary);
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-copy {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      min-width: 0;
+      font-size: var(--text-sm);
+    }
+
+    .b-title {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-arrow {
+      --icon-size: 1.25rem;
+      color: var(--color-text-muted);
+    }
+
+    .b-link:hover .b-arrow {
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-links {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .b-head h1 {
+        font-size: var(--text-5xl);
+      }
+    }
+  }
+}

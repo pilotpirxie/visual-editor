@@ -1,0 +1,22 @@
+<footer class="b-footer-statement section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <div class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 class="b-statement"><span data-field="statement">{{statement}}</span> {{#if highlight}}<em class="b-mark" data-field="highlight">{{highlight}}</em>{{/if}}</h2>
+      </div>
+      {{#if ctaLabel}}<a class="b-circle" href="{{href ctaLink}}" {{linkAttrs ctaLink}} data-field="ctaLabel"><span>{{ctaLabel}}</span><span class="icon-mirror">{{svgIcon "arrow-up-right"}}</span></a>{{/if}}
+    </div>
+    <div class="b-bottom">
+      <a class="b-logo" href="index.html">{{site.title}}</a>
+      <nav aria-label="Footer">
+        <ul class="cluster b-links" role="list">
+          {{#each links}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+          {{/each}}
+        </ul>
+      </nav>
+      <p class="b-copy" data-field="copyright">{{copyright}}</p>
+    </div>
+  </div>
+</footer>

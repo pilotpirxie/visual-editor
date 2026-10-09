@@ -1,0 +1,148 @@
+{
+  "name": "Call to action, choose your role",
+  "category": "call-to-action",
+  "description": "A heading and an “I’m a…” prompt above large pill links that send each role to its own page.",
+  "tags": ["cta", "roles", "audiences", "personas", "pills", "paths", "segments"],
+  "fieldGroups": ["Content", "Roles", "Note"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Find your starting point",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Fieldnote works a little differently for every team",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "lead",
+      "label": "Prompt",
+      "type": "text",
+      "default": "I’m a…",
+      "group": "Content",
+      "maxLength": 40
+    },
+    {
+      "name": "roles",
+      "label": "Roles",
+      "type": "list",
+      "group": "Roles",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "user"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "target",
+          "label": "Product manager",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "search",
+          "label": "UX researcher",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "pencil",
+          "label": "Designer",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "rocket",
+          "label": "Founder",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "support",
+          "label": "Customer success lead",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "chart",
+          "label": "Marketer",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Not sure yet?",
+      "group": "Note"
+    },
+    {
+      "name": "noteLinkLabel",
+      "label": "Note link text",
+      "type": "text",
+      "default": "Take the two-minute tour",
+      "group": "Note"
+    },
+    {
+      "name": "noteLink",
+      "label": "Note link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Note"
+    }
+  ]
+}

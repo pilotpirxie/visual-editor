@@ -1,0 +1,76 @@
+{
+  "name": "Features, big type list",
+  "category": "features",
+  "description": "Short feature names set in giant type, alternating sides on every row, each with a one-line description.",
+  "tags": ["features", "typography", "big type", "list", "editorial", "bold", "minimal"],
+  "fieldGroups": ["Heading", "Items"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "In five words",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What Fieldnote does with every interview",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "No dashboards to configure, no templates to fill in. Just record and keep going.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Word",
+          "type": "text",
+          "default": "Word.",
+          "required": true,
+          "maxLength": 24
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "One line about it."
+        }
+      ],
+      "default": [
+        {
+          "title": "Record.",
+          "text": "Calls, uploads and in-person sessions, all in one library."
+        },
+        { "title": "Transcribe.", "text": "Speaker names and timestamps in about four minutes." },
+        { "title": "Highlight.", "text": "Save the sentence, keep the moment it was said." },
+        { "title": "Connect.", "text": "Themes link the same problem across every study." },
+        {
+          "title": "Share.",
+          "text": "Clips and summaries for people who will never open a transcript."
+        }
+      ]
+    }
+  ]
+}

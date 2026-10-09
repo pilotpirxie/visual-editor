@@ -1,0 +1,83 @@
+@layer components {
+  @scope (.b-faq-quick) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro,
+    .b-detail {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-grid {
+      --grid-min: 18rem;
+      --grid-gap: var(--space-4);
+    }
+
+    .b-card {
+      --stack-gap: var(--space-3);
+      padding: var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      border-block-start: 0.25rem solid var(--tone, var(--color-primary));
+    }
+
+    .b-question {
+      font-size: var(--text-base);
+    }
+
+    .b-answer {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      order: -1;
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-mark {
+      --icon-size: 1.25rem;
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    [data-tone='no'] {
+      --tone: var(--color-text);
+    }
+
+    [data-tone='no'] .b-mark {
+      background: var(--color-text);
+      color: var(--color-background);
+    }
+
+    [data-tone='soon'] {
+      --tone: var(--color-border);
+    }
+
+    [data-tone='soon'] .b-mark {
+      border: 2px dashed var(--color-primary);
+      background: none;
+      color: var(--color-primary);
+    }
+
+    .b-detail {
+      font-size: var(--text-sm);
+    }
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "name": "Blog posts, archive by year",
+  "category": "blog",
+  "description": "Every post grouped under a large year label that stays in view while you scroll.",
+  "tags": ["blog", "posts", "articles", "news", "archive", "years", "list", "index"],
+  "fieldGroups": ["Heading", "Years"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Archive",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Everything we have written",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Five years of interview guides, research ops playbooks and customer stories, newest first.",
+      "group": "Heading"
+    },
+    {
+      "name": "years",
+      "label": "Years",
+      "type": "list",
+      "group": "Years",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "year",
+      "itemFields": [
+        {
+          "name": "year",
+          "label": "Year",
+          "type": "text",
+          "default": "2026"
+        },
+        {
+          "name": "posts",
+          "label": "Posts",
+          "type": "list",
+          "minItems": 1,
+          "maxItems": 20,
+          "itemLabel": "title",
+          "itemFields": [
+            {
+              "name": "title",
+              "label": "Title",
+              "type": "text",
+              "default": "Post title"
+            },
+            {
+              "name": "category",
+              "label": "Category",
+              "type": "text",
+              "default": "Research"
+            },
+            {
+              "name": "date",
+              "label": "Date",
+              "type": "date",
+              "default": "2026-09-01"
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link",
+              "default": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ],
+          "default": [
+            {
+              "title": "Post title",
+              "date": "2026-09-01",
+              "category": "Research",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "year": "2026",
+          "posts": [
+            {
+              "title": "How to recruit customers for interviews without paying them to show up",
+              "date": "2026-09-29",
+              "category": "Recruiting",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "title": "The five-question guide we use for every churn interview",
+              "date": "2026-07-14",
+              "category": "Interviewing",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Tagging is not synthesis: from 40 interviews to three decisions",
+              "date": "2026-04-02",
+              "category": "Synthesis",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "year": "2025",
+          "posts": [
+            {
+              "title": "Your sales calls are the research you are not using",
+              "date": "2025-11-18",
+              "category": "Research ops",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "title": "How Northwind halved onboarding time with ten customer calls",
+              "date": "2025-08-04",
+              "category": "Customer stories",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "title": "A consent form customers actually read",
+              "date": "2025-03-11",
+              "category": "Research ops",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "year": "2024",
+          "posts": [
+            {
+              "title": "What 300 cancelled subscriptions taught us about pricing pages",
+              "date": "2024-10-22",
+              "category": "Pricing",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Introducing Fieldnote: interviews your whole team can use",
+              "date": "2024-05-07",
+              "category": "Company",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

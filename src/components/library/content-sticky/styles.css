@@ -1,0 +1,41 @@
+@layer components {
+  @scope (.b-content-sticky) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+      align-self: start;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-body {
+      --prose-measure: 42rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-body :is(h2, h3) {
+      color: var(--color-text);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+
+      .b-head {
+        position: sticky;
+        top: var(--space-12);
+      }
+    }
+  }
+}

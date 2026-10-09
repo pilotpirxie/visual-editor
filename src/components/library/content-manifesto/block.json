@@ -1,0 +1,67 @@
+{
+  "name": "Content, manifesto",
+  "category": "content",
+  "description": "Big numbered statements in alternating weights, with a heading that stays in view on desktop.",
+  "tags": ["manifesto", "principles", "beliefs", "values", "statements", "typography", "about"],
+  "fieldGroups": ["Heading", "Statements"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Manifesto",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What we believe about research",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "signature",
+      "label": "Signature",
+      "type": "text",
+      "default": "The Fieldnote team, Toronto",
+      "group": "Heading"
+    },
+    {
+      "name": "statements",
+      "label": "Statements",
+      "type": "list",
+      "group": "Statements",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Statement",
+          "type": "text",
+          "default": "A short, bold statement."
+        }
+      ],
+      "default": [
+        {
+          "text": "The customer’s words beat our summary of them."
+        },
+        {
+          "text": "Ten small conversations teach more than one big survey."
+        },
+        {
+          "text": "Research is a habit, not a project."
+        },
+        {
+          "text": "If nobody hears it, it did not happen."
+        },
+        {
+          "text": "Every decision deserves a source."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "name": "Rich text, with contents",
+  "category": "rich-text",
+  "description": "A long guide split into parts, with a contents list that links to each part and stays in view on desktop.",
+  "tags": ["text", "prose", "guide", "docs", "contents", "table of contents", "toc", "long-form"],
+  "fieldGroups": ["Heading", "Contents", "Parts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Guide",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How to run your first customer interview",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "lead",
+      "label": "Lead paragraph",
+      "type": "textarea",
+      "default": "Everything you need for a useful 30-minute conversation, from the invite to the notes you share afterwards.",
+      "group": "Heading"
+    },
+    {
+      "name": "contentsTitle",
+      "label": "Contents title",
+      "type": "text",
+      "default": "On this page",
+      "group": "Contents",
+      "required": true
+    },
+    {
+      "name": "parts",
+      "label": "Parts",
+      "type": "list",
+      "group": "Parts",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "heading",
+      "itemFields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "text",
+          "default": "Part heading"
+        },
+        {
+          "name": "body",
+          "label": "Text",
+          "type": "richtext",
+          "default": "<p>What this part covers.</p>"
+        }
+      ],
+      "default": [
+        {
+          "heading": "Before the call",
+          "body": "<p>Write down the one decision this conversation should help you make. Then pick three or four topics, not twenty questions. A short guide leaves room for the moments you did not plan.</p><ul><li>Send the invite with a consent note attached</li><li>Connect your calendar so Fieldnote records the call</li><li>Ask a colleague to take notes, so you can listen</li></ul>"
+        },
+        {
+          "heading": "Opening the conversation",
+          "body": "<p>Spend the first five minutes on the customer, not your product. Ask about their role and what a normal week looks like. People who feel heard in the first minutes speak openly for the rest of the call.</p>"
+        },
+        {
+          "heading": "Asking follow-up questions",
+          "body": "<p>The best insight usually comes from the second question, not the first. When someone says “it was frustrating”, ask what happened just before. Then wait. A few seconds of silence is often all it takes.</p><ul><li>“Tell me about the last time that happened.”</li><li>“What did you try next?”</li><li>“Why was that important to you?”</li></ul>"
+        },
+        {
+          "heading": "Closing and next steps",
+          "body": "<p>Thank them, explain what happens with what they shared, and ask whether you can follow up. Within the hour, tag your three favorite highlights so the rest of the team can find them.</p>"
+        }
+      ]
+    }
+  ]
+}

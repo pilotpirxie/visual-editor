@@ -1,0 +1,52 @@
+@layer components {
+  @scope (.b-divider-icon) {
+    :scope {
+      padding-block: var(--space-8);
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    :scope[data-spacing='small'] {
+      padding-block: var(--space-4);
+    }
+
+    :scope[data-spacing='large'] {
+      padding-block: var(--space-16);
+    }
+
+    .b-line {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .b-line::before,
+    .b-line::after {
+      content: '';
+      flex: 1;
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      display: grid;
+      place-items: center;
+      inline-size: 3rem;
+      aspect-ratio: 1;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      color: var(--color-primary);
+    }
+
+    :scope[data-style='filled'] .b-icon {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    :scope[data-style='soft'] .b-icon {
+      border-color: transparent;
+      background: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
+    }
+  }
+}

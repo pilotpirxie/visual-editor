@@ -1,0 +1,103 @@
+@layer components {
+  @scope (.b-stats-board) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-muted,
+    .b-columns {
+      color: var(--color-text-muted);
+    }
+
+    .b-board {
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+    }
+
+    .b-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-2) var(--space-4);
+      align-items: center;
+      padding: var(--space-4);
+      border-block-end: var(--border-width) dashed var(--color-border);
+    }
+
+    .b-row dt {
+      grid-column: 1 / -1;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-columns {
+      display: none;
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+    }
+
+    .b-value,
+    .b-status {
+      font-family: var(--font-mono);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-value {
+      justify-self: start;
+      padding: 0.1em 0 0.1em 0.15ch;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 1.3ch, var(--color-surface) 0 1.6ch),
+        linear-gradient(
+          color-mix(in oklab, var(--color-background), var(--color-text) 4%) 50%,
+          var(--color-surface) 0 calc(50% + 2px),
+          var(--color-background) 0
+        );
+      background-size: calc(100% - 0.45ch) 100%;
+      background-repeat: no-repeat;
+      font-size: var(--text-2xl);
+      letter-spacing: 0.6ch;
+      direction: ltr;
+    }
+
+    .b-status {
+      color: var(--color-primary);
+      text-transform: uppercase;
+    }
+
+    .b-updated {
+      padding: var(--space-4) var(--space-4) 0;
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-row {
+        grid-template-columns: minmax(0, 1fr) 14rem 9rem;
+      }
+
+      .b-row dt {
+        grid-column: auto;
+      }
+
+      .b-columns {
+        display: grid;
+      }
+
+      .b-value {
+        font-size: var(--text-3xl);
+      }
+    }
+  }
+}

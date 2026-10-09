@@ -1,0 +1,30 @@
+<section class="b-app-extension section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      <ul class="cluster b-installs" role="list">
+        {{#each browsers}}
+        <li><a class="btn {{#if @first}}btn-primary{{else}}btn-secondary{{/if}}" href="{{href link}}" {{linkAttrs link}} data-field="browsers.{{@index}}">{{svgIcon icon}}<span>{{label}}</span></a></li>
+        {{/each}}
+      </ul>
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+    <div class="b-browser" aria-hidden="true">
+      <div class="b-bar">
+        <span class="b-lights"></span>
+        <span class="b-url" data-field="url">{{url}}</span>
+        <span class="b-ext">{{svgIcon "puzzle"}}</span>
+      </div>
+      <div class="b-page">
+        <span class="b-tile"></span><span class="b-tile"></span><span class="b-tile"></span><span class="b-tile"></span>
+        <div class="b-popup" data-field="popupTitle">
+          <p class="b-popup-head"><strong>{{popupTitle}}</strong><span class="b-rec">{{popupStatus}}</span></p>
+          <p class="b-popup-text">{{popupText}}</p>
+          <span class="b-popup-btn">{{popupAction}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

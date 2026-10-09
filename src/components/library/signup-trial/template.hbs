@@ -1,0 +1,39 @@
+<section class="b-signup-trial section">
+  <div class="container b-inner">
+    <div class="stack b-main">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-password" data-field="passwordLabel">{{passwordLabel}}</label>
+          <input id="{{block.id}}-password" type="password" name="password" autocomplete="new-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if note}}<p class="b-muted b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+    <aside class="stack b-panel" aria-labelledby="{{block.id}}-trial">
+      <h3 id="{{block.id}}-trial" data-field="timelineTitle">{{timelineTitle}}</h3>
+      <ol class="b-events" role="list">
+        {{#each events}}
+        <li class="b-event" data-field="events.{{@index}}">
+          <span class="b-dot">{{svgIcon icon}}</span>
+          <div class="stack b-copy">
+            <p class="b-when">{{when}}</p>
+            <h4>{{title}}</h4>
+            <p class="b-muted">{{text}}</p>
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+      {{#if cancelNote}}<p class="b-cancel" data-field="cancelNote">{{svgIcon "check-circle"}}<span>{{cancelNote}}</span></p>{{/if}}
+    </aside>
+  </div>
+</section>

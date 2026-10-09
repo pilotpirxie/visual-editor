@@ -1,0 +1,162 @@
+{
+  "name": "Content, text and photo grid",
+  "category": "content",
+  "description": "A heading and text next to a staggered grid of four photos.",
+  "tags": ["photos", "images", "collage", "about", "team", "culture"],
+  "fieldGroups": ["Content", "Button", "Photos", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Life at Fieldnote",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A small team that talks to customers every week",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "default": "<p>We work from Toronto and Lisbon, meet in person every quarter and spend Fridays on whatever customers asked for that week.</p><p>Everyone, from engineering to finance, joins at least two customer calls a month.</p>",
+      "group": "Content"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See open roles",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "photos",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The Fieldnote team at a long table during a quarterly meetup",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leila Haddad sketching a new feature on a whiteboard",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Two engineers pairing on a laptop in the Lisbon office",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Jonas Becker on a call with a customer, headphones on",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "imageSide",
+      "label": "Photos side",
+      "type": "segmented",
+      "default": "right",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left",
+          "icon": "panel-left"
+        },
+        {
+          "value": "right",
+          "label": "Right",
+          "icon": "panel-right"
+        }
+      ]
+    }
+  ]
+}

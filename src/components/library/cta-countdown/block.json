@@ -1,0 +1,97 @@
+{
+  "name": "Call to action, offer ends",
+  "category": "call-to-action",
+  "description": "A dark panel with a limited-time offer beside flip-clock tiles showing the time left.",
+  "tags": ["cta", "countdown", "offer", "sale", "deadline", "timer", "dark"],
+  "fieldGroups": ["Content", "Countdown", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Spring offer",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Annual plans are 30% off until Friday",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Lock in this year’s price for your whole research team. Every seat you add before the deadline keeps the discount at renewal.",
+      "group": "Content"
+    },
+    {
+      "name": "units",
+      "label": "Time left",
+      "type": "list",
+      "group": "Countdown",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "help": "The numbers are fixed. Update them when you publish.",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Number",
+          "type": "text",
+          "default": "00"
+        },
+        {
+          "name": "label",
+          "label": "Unit",
+          "type": "text",
+          "default": "Unit"
+        }
+      ],
+      "default": [
+        {
+          "value": "02",
+          "label": "Days"
+        },
+        {
+          "value": "14",
+          "label": "Hours"
+        },
+        {
+          "value": "37",
+          "label": "Minutes"
+        },
+        {
+          "value": "09",
+          "label": "Seconds"
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Offer ends Friday, April 17 at midnight Toronto time.",
+      "group": "Countdown"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Claim 30% off",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    }
+  ]
+}

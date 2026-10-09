@@ -1,0 +1,142 @@
+{
+  "name": "How it works, your first week",
+  "category": "how-it-works",
+  "description": "A calendar week with one event a day, placed in the morning, at midday or in the afternoon. A day-by-day list on phones.",
+  "tags": ["steps", "calendar", "week", "schedule", "onboarding", "agenda"],
+  "fieldGroups": ["Heading", "Days"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Onboarding",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your first week, already on the calendar",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "One short session a day with your onboarding lead. By Friday your team has run real interviews.",
+      "group": "Heading"
+    },
+    {
+      "name": "days",
+      "label": "Days",
+      "type": "list",
+      "group": "Days",
+      "minItems": 2,
+      "maxItems": 7,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "day",
+          "label": "Day",
+          "type": "text",
+          "default": "Mon"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "text",
+          "default": "1"
+        },
+        {
+          "name": "slot",
+          "label": "Time of day",
+          "type": "select",
+          "default": "morning",
+          "options": [
+            {
+              "value": "morning",
+              "label": "Morning"
+            },
+            {
+              "value": "midday",
+              "label": "Midday"
+            },
+            {
+              "value": "afternoon",
+              "label": "Afternoon"
+            }
+          ]
+        },
+        {
+          "name": "time",
+          "label": "Time",
+          "type": "text",
+          "default": "10:00"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Event"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens."
+        }
+      ],
+      "default": [
+        {
+          "day": "Mon",
+          "date": "12",
+          "slot": "morning",
+          "time": "9:30",
+          "title": "Kickoff call",
+          "text": "Meet your onboarding lead and pick the question for your first study."
+        },
+        {
+          "day": "Tue",
+          "date": "13",
+          "slot": "afternoon",
+          "time": "14:00",
+          "title": "Connect your tools",
+          "text": "Calendar, Zoom and Slack, in about fifteen minutes."
+        },
+        {
+          "day": "Wed",
+          "date": "14",
+          "slot": "midday",
+          "time": "11:30",
+          "title": "First interview",
+          "text": "Run a real customer call while Fieldnote records."
+        },
+        {
+          "day": "Thu",
+          "date": "15",
+          "slot": "morning",
+          "time": "10:00",
+          "title": "Tagging workshop",
+          "text": "Build a shared tag set with your team."
+        },
+        {
+          "day": "Fri",
+          "date": "16",
+          "slot": "afternoon",
+          "time": "15:00",
+          "title": "Share the reel",
+          "text": "Show the clips to the wider team and plan next week."
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Every session is 30 minutes and recorded, so nobody misses a step.",
+      "group": "Days"
+    }
+  ]
+}

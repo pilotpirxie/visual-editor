@@ -1,0 +1,110 @@
+@layer components {
+  @scope (.b-footer-event) {
+    :scope {
+      --section-bg: var(--color-surface);
+      --section-padding-y: var(--space-16);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-top {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-event {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+    }
+
+    .b-name {
+      font-size: var(--text-4xl);
+    }
+
+    .b-facts {
+      --stack-gap: var(--space-2);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-facts li {
+      --icon-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .b-facts .icon {
+      color: var(--color-primary);
+    }
+
+    .b-sponsors {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-heading {
+      font-size: var(--text-sm);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .b-sponsor-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-2);
+    }
+
+    .b-sponsor-list li {
+      display: grid;
+      place-items: center;
+      min-height: 4rem;
+      padding: var(--space-2) var(--space-3);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-background);
+      font-family: var(--font-heading);
+      font-weight: var(--font-weight-heading);
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .b-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2) var(--space-6);
+      padding-top: var(--space-6);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-muted,
+    .b-links a {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-links {
+      --cluster-gap: 0 var(--space-6);
+    }
+
+    .b-links a {
+      display: inline-block;
+      padding-block: var(--space-2);
+      text-decoration: none;
+    }
+
+    @media (min-width: 1024px) {
+      .b-top {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+      }
+
+      .b-sponsor-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<section class="b-team-credits section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="b-eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <dl class="b-credits">
+      {{#each credits}}
+      <div class="b-credit" data-field="credits.{{@index}}">
+        <dt class="b-role">{{role}}</dt>
+        <dd class="b-names">{{nl2br names}}</dd>
+      </div>
+      {{/each}}
+    </dl>
+    {{#if closing}}<p class="b-closing" data-field="closing">{{nl2br closing}}</p>{{/if}}
+  </div>
+</section>

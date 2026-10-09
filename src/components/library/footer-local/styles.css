@@ -1,0 +1,111 @@
+@layer components {
+  @scope (.b-footer-local) {
+    :scope {
+      --section-bg: var(--color-surface);
+      --section-padding-y: var(--space-16);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-top {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+      gap: var(--space-8);
+    }
+
+    .b-brand,
+    .b-column {
+      --stack-gap: var(--space-3);
+      min-width: 0;
+    }
+
+    .b-logo {
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-muted {
+      font-size: var(--text-sm);
+      font-style: normal;
+      color: var(--color-text-muted);
+    }
+
+    .b-heading {
+      --icon-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-base);
+    }
+
+    .b-heading .icon,
+    .b-more {
+      color: var(--color-primary);
+    }
+
+    .b-more {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-contact {
+      font-size: var(--text-sm);
+    }
+
+    .b-contact a {
+      overflow-wrap: anywhere;
+      color: inherit;
+    }
+
+    .b-hours {
+      font-size: var(--text-sm);
+    }
+
+    .b-row {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-block: var(--space-2);
+      border-bottom: var(--border-width) dashed var(--color-border);
+    }
+
+    .b-row dd {
+      color: var(--color-text-muted);
+      text-align: end;
+    }
+
+    .b-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2) var(--space-6);
+      padding-top: var(--space-6);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-links {
+      --cluster-gap: 0 var(--space-6);
+    }
+
+    .b-links a {
+      display: inline-block;
+      padding-block: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      text-decoration: none;
+    }
+  }
+}

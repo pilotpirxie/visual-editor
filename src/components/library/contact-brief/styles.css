@@ -1,0 +1,126 @@
+@layer components {
+  @scope (.b-contact-brief) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: start;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-points {
+      --stack-gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+
+    .b-points li {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .b-points .icon,
+    .b-chip:has(:checked) .icon {
+      color: var(--color-primary);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-6);
+      --card-shadow: var(--shadow-lg);
+    }
+
+    .b-row {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-set {
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .b-set legend {
+      margin-bottom: var(--space-3);
+      padding: 0;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-chips {
+      --cluster-gap: var(--space-2);
+    }
+
+    .b-chip {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      min-height: 2.75rem;
+      padding-inline: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      cursor: pointer;
+    }
+
+    .b-chip input {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .b-chip .icon {
+      display: none;
+    }
+
+    .b-chip:has(:checked) {
+      border-color: var(--color-primary);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-chip:has(:checked) .icon {
+      display: inline-block;
+    }
+
+    .b-chip:has(:focus-visible) {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    .b-form > .btn {
+      align-self: start;
+    }
+
+    @media (min-width: 768px) {
+      .b-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .b-form {
+        --card-padding: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 2fr 3fr;
+        gap: var(--space-16);
+      }
+
+      .b-copy {
+        position: sticky;
+        top: var(--space-8);
+      }
+    }
+  }
+}

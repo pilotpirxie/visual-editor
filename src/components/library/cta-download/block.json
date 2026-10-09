@@ -1,0 +1,122 @@
+{
+  "name": "Call to action, download apps",
+  "category": "call-to-action",
+  "description": "A centered pitch above download buttons for each platform, with a short note.",
+  "tags": ["cta", "download", "apps", "desktop", "mobile", "platforms"],
+  "fieldGroups": ["Content", "Downloads"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Download",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Record interviews wherever they happen",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Fieldnote runs on your laptop for calls and on your phone for visits. Everything syncs to your team’s workspace.",
+      "group": "Content"
+    },
+    {
+      "name": "platforms",
+      "label": "Downloads",
+      "type": "list",
+      "group": "Downloads",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Platform logo",
+          "type": "icon",
+          "default": "simple-icons:apple",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "smallLabel",
+          "label": "Small label",
+          "type": "text",
+          "default": "Download for"
+        },
+        {
+          "name": "name",
+          "label": "Platform",
+          "type": "text",
+          "default": "Platform"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:apple",
+          "smallLabel": "Download for",
+          "name": "macOS",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "simple-icons:windows",
+          "smallLabel": "Download for",
+          "name": "Windows",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "simple-icons:appstore",
+          "smallLabel": "Download on the",
+          "name": "App Store",
+          "link": {
+            "type": "url",
+            "url": "https://apps.apple.com",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:googleplay",
+          "smallLabel": "Get it on",
+          "name": "Google Play",
+          "link": {
+            "type": "url",
+            "url": "https://play.google.com",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Requires macOS 13, Windows 11, iOS 17 or Android 12 or later.",
+      "group": "Content"
+    }
+  ]
+}

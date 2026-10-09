@@ -1,0 +1,99 @@
+@layer components {
+  @scope (.b-newsletter-count) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-proof {
+      --stack-gap: var(--space-6);
+      container-type: inline-size;
+    }
+
+    .b-count {
+      display: grid;
+    }
+
+    .b-number {
+      font-family: var(--font-heading);
+      font-size: clamp(var(--text-5xl), 24cqi, 9rem);
+      font-weight: var(--font-weight-heading);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--color-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .b-label {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-avatars {
+      display: flex;
+      padding-inline-start: var(--space-3);
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      width: 3rem;
+      margin-inline-start: calc(var(--space-3) * -1);
+      box-shadow: 0 0 0 var(--space-1) var(--color-background);
+    }
+
+    .b-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4) var(--space-8);
+    }
+
+    .b-stat {
+      display: grid;
+      padding-inline-start: var(--space-4);
+      border-inline-start: var(--space-1) solid var(--color-primary);
+    }
+
+    .b-stat dd {
+      order: -1;
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-muted,
+    .b-stat dt {
+      color: var(--color-text-muted);
+    }
+
+    .b-signup {
+      --card-padding: var(--space-8) var(--space-6);
+      --card-shadow: var(--shadow-lg);
+      --stack-gap: var(--space-4);
+    }
+
+    .b-signup h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: var(--space-16);
+      }
+
+      .b-signup {
+        --card-padding: var(--space-12);
+      }
+    }
+  }
+}

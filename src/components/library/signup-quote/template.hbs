@@ -1,0 +1,44 @@
+<section class="b-signup-quote section">
+  <div class="container b-inner">
+    <div class="stack b-story">
+      <figure class="stack b-quote" data-field="quote">
+        <p class="b-stars" data-field="ratingLabel"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">{{ratingLabel}}</span></p>
+        <blockquote class="b-words"><p>{{nl2br quote}}</p></blockquote>
+        <figcaption class="b-person">
+          <span class="media b-avatar" data-field="photo">{{img photo}}</span>
+          <span><span class="b-name" data-field="name">{{name}}</span>{{#if role}}<span class="b-muted" data-field="role">{{role}}</span>{{/if}}</span>
+        </figcaption>
+      </figure>
+      {{#if companies.length}}
+      <div class="stack b-logos">
+        {{#if companiesLabel}}<p class="b-muted" data-field="companiesLabel">{{companiesLabel}}</p>{{/if}}
+        <ul class="cluster b-names" role="list">
+          {{#each companies}}<li data-field="companies.{{@index}}">{{name}}</li>{{/each}}
+        </ul>
+      </div>
+      {{/if}}
+    </div>
+    <div class="card stack b-card">
+      <header class="stack b-head">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field">
+          <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+          <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-password" data-field="passwordLabel">{{passwordLabel}}</label>
+          <input id="{{block.id}}-password" type="password" name="password" autocomplete="new-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if termsLabel}}<p class="b-muted b-small" data-field="termsLink">{{termsText}} <a href="{{href termsLink}}" {{linkAttrs termsLink}}>{{termsLabel}}</a></p>{{/if}}
+    </div>
+  </div>
+</section>

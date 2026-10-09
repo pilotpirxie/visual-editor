@@ -1,0 +1,164 @@
+{
+  "name": "Sign in, company SSO",
+  "category": "sign-in",
+  "description": "Single sign-on with a workspace address field, supported identity providers and an email fallback.",
+  "tags": [
+    "sign in",
+    "login",
+    "log in",
+    "account",
+    "form",
+    "sso",
+    "single sign-on",
+    "saml",
+    "workspace",
+    "enterprise"
+  ],
+  "fieldGroups": ["Heading", "Form", "Providers", "Links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Sign in with your company",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Enter your team’s workspace address and we’ll send you to your identity provider.",
+      "group": "Heading"
+    },
+    {
+      "name": "workspaceLabel",
+      "label": "Workspace field label",
+      "type": "text",
+      "default": "Workspace address",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "prefix",
+      "label": "Address prefix",
+      "type": "text",
+      "default": "fieldnote.app/",
+      "group": "Form"
+    },
+    {
+      "name": "placeholder",
+      "label": "Placeholder",
+      "type": "text",
+      "default": "your-team",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Continue with SSO",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "providersLabel",
+      "label": "Providers label",
+      "type": "text",
+      "default": "Works with",
+      "group": "Providers"
+    },
+    {
+      "name": "providers",
+      "label": "Providers",
+      "type": "list",
+      "group": "Providers",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "Provider"
+        },
+        {
+          "name": "icon",
+          "label": "Logo",
+          "type": "icon",
+          "default": "key",
+          "iconPurpose": "brand"
+        }
+      ],
+      "default": [
+        {
+          "label": "Okta",
+          "icon": "simple-icons:okta"
+        },
+        {
+          "label": "Microsoft",
+          "icon": "simple-icons:microsoft"
+        },
+        {
+          "label": "Google",
+          "icon": "simple-icons:google"
+        },
+        {
+          "label": "Auth0",
+          "icon": "simple-icons:auth0"
+        }
+      ]
+    },
+    {
+      "name": "altText",
+      "label": "Other option text",
+      "type": "text",
+      "default": "Not using SSO?",
+      "group": "Links"
+    },
+    {
+      "name": "altLabel",
+      "label": "Other option link label",
+      "type": "text",
+      "default": "Sign in with email",
+      "group": "Links"
+    },
+    {
+      "name": "altLink",
+      "label": "Other option link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    }
+  ]
+}

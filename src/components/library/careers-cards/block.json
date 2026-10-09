@@ -1,0 +1,178 @@
+{
+  "name": "Careers, job cards",
+  "category": "careers",
+  "description": "A heading, an optional link to all roles and a grid of job cards with team, location and type.",
+  "tags": ["careers", "jobs", "hiring", "positions", "roles", "cards"],
+  "fieldGroups": ["Heading", "Button", "Positions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Open roles",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Come build the research tool you wish you had",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every role is open to remote candidates within three hours of Toronto time, unless it says otherwise.",
+      "group": "Heading"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "All open roles",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "positions",
+      "label": "Positions",
+      "type": "list",
+      "group": "Positions",
+      "minItems": 0,
+      "maxItems": 30,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Job title",
+          "type": "text",
+          "default": "Job title"
+        },
+        {
+          "name": "team",
+          "label": "Team",
+          "type": "text",
+          "default": "Team"
+        },
+        {
+          "name": "location",
+          "label": "Location",
+          "type": "text",
+          "default": "Remote"
+        },
+        {
+          "name": "type",
+          "label": "Type",
+          "type": "text",
+          "default": "Full-time"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "title": "Senior backend engineer, transcription",
+          "team": "Engineering",
+          "location": "Remote, Europe",
+          "type": "Full-time",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Product designer, research workflows",
+          "team": "Design",
+          "location": "Remote, Americas",
+          "type": "Full-time",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Machine learning engineer, speech",
+          "team": "Engineering",
+          "location": "Toronto or remote",
+          "type": "Full-time",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Customer success manager",
+          "team": "Customer success",
+          "location": "Remote, US or Canada",
+          "type": "Full-time",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Account executive, mid-market",
+          "team": "Sales",
+          "location": "Toronto",
+          "type": "Full-time",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Content writer, research guides",
+          "team": "Marketing",
+          "location": "Remote, anywhere",
+          "type": "Part-time",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "emptyText",
+      "label": "Text when there are no open roles",
+      "type": "text",
+      "default": "No open roles right now. Send us a note at jobs@fieldnote.example.",
+      "group": "Positions"
+    }
+  ]
+}

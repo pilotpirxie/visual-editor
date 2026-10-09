@@ -1,0 +1,56 @@
+@layer components {
+  @scope (.b-contact-image) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-media {
+      --media-radius: var(--card-radius);
+    }
+
+    .b-content {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-row {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-submit {
+      align-self: flex-start;
+    }
+
+    @media (min-width: 768px) {
+      .b-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+
+      :scope[data-image='right'] .b-media {
+        order: 1;
+      }
+    }
+  }
+}

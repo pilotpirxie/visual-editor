@@ -1,0 +1,16 @@
+<nav class="b-prev-next" aria-label="{{label}}">
+  <div class="container b-grid">
+    {{#if showPrevious}}
+    <a class="b-card" href="{{href previousLink}}" {{linkAttrs previousLink}} rel="prev" data-field="previousTitle">
+      <span class="b-kicker"><span class="b-arrow icon-mirror">{{svgIcon "arrow-left"}}</span>{{previousLabel}}</span>
+      <span class="b-title">{{previousTitle}}</span>
+    </a>
+    {{/if}}
+    {{#if showNext}}
+    <a class="b-card b-next" href="{{href nextLink}}" {{linkAttrs nextLink}} rel="next" data-field="nextTitle">
+      <span class="b-kicker">{{nextLabel}}<span class="b-arrow icon-mirror">{{svgIcon "arrow-right"}}</span></span>
+      <span class="b-title">{{nextTitle}}</span>
+    </a>
+    {{/if}}
+  </div>
+</nav>

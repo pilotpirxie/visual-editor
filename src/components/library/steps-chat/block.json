@@ -1,0 +1,125 @@
+{
+  "name": "How it works, as a conversation",
+  "category": "how-it-works",
+  "description": "Steps told as a chat: each one is a question and a reply inside a chat window, beside the heading.",
+  "tags": ["steps", "chat", "conversation", "messages", "process", "onboarding"],
+  "fieldGroups": ["Heading", "Button", "Chat", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How it works",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "You ask, Fieldnote does the busywork",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "These are the questions new teams ask in their first week, with the answers our guide gives them.",
+      "group": "Heading"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Try it free",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "botIcon",
+      "label": "Guide icon",
+      "type": "icon",
+      "default": "sparkles",
+      "group": "Chat"
+    },
+    {
+      "name": "botName",
+      "label": "Guide name",
+      "type": "text",
+      "default": "Fieldnote guide",
+      "required": true,
+      "group": "Chat"
+    },
+    {
+      "name": "botStatus",
+      "label": "Guide status",
+      "type": "text",
+      "default": "Replies in a few seconds",
+      "group": "Chat"
+    },
+    {
+      "name": "stepLabel",
+      "label": "Step label",
+      "type": "text",
+      "default": "Step",
+      "help": "The step number is added after it.",
+      "group": "Steps"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "A question?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "textarea",
+          "default": "The answer."
+        }
+      ],
+      "default": [
+        {
+          "question": "How do I get Fieldnote into my calls?",
+          "answer": "Connect your calendar. I’ll join every call that has a customer on the invite, and you can turn that off per meeting."
+        },
+        {
+          "question": "Do I have to take notes?",
+          "answer": "No. I transcribe as you talk and mark the moments that match your tags, so you can just listen."
+        },
+        {
+          "question": "How do I share what we learned?",
+          "answer": "Pick the clips that matter and I’ll build a reel with a summary. Send the link to anyone, even without a seat."
+        }
+      ]
+    }
+  ]
+}

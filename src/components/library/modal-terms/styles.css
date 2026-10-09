@@ -1,0 +1,54 @@
+@layer components {
+  @scope (.b-modal-terms) {
+    .b-dialog {
+      --modal-width: 40rem;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-head h2 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-muted {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-terms {
+      --prose-gap: var(--space-3);
+      max-height: min(22rem, 50dvh);
+      overflow-y: auto;
+      padding: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      font-size: var(--text-sm);
+    }
+
+    .b-terms h3 {
+      font-size: var(--text-base);
+    }
+
+    .b-actions {
+      --cluster-gap: var(--space-2);
+      flex-direction: row-reverse;
+    }
+
+    .b-actions .btn {
+      flex: 1 1 auto;
+    }
+
+    @media (min-width: 768px) {
+      .b-actions .btn {
+        flex: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+@layer components {
+  @scope (.b-cta-stripes) {
+    :scope {
+      --section-bg: repeating-linear-gradient(
+        -45deg,
+        var(--color-primary) 0 1.5rem,
+        color-mix(in oklab, var(--color-primary), var(--color-background) 25%) 0 3rem
+      );
+    }
+
+    .b-card {
+      --card-padding: var(--space-8) var(--space-6);
+      --card-shadow: var(--shadow-lg);
+      --stack-gap: var(--space-4);
+      position: relative;
+      align-items: center;
+      max-width: 44rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-card h2 {
+      text-wrap: balance;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    .b-sticker {
+      display: grid;
+      place-items: center;
+      width: 5rem;
+      aspect-ratio: 1;
+      padding: var(--space-2);
+      border: var(--space-1) solid var(--color-background);
+      border-radius: var(--radius-full);
+      background: var(--color-text);
+      color: var(--color-background);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      text-transform: uppercase;
+      rotate: 12deg;
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        --card-padding: var(--space-12);
+      }
+
+      .b-sticker {
+        position: absolute;
+        inset-block-start: calc(var(--space-8) * -1);
+        inset-inline-end: calc(var(--space-4) * -1);
+        width: 6rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-sticker {
+        inset-inline-end: calc(var(--space-8) * -1);
+      }
+    }
+  }
+}

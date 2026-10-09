@@ -1,0 +1,99 @@
+@layer components {
+  @scope (.b-contact-urgent) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      border-top: 0.5rem solid;
+      border-image: repeating-linear-gradient(
+          -45deg,
+          var(--color-primary) 0 1rem,
+          var(--color-background) 0 2rem
+        )
+        1;
+    }
+
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      container-type: inline-size;
+    }
+
+    .b-label {
+      align-self: start;
+    }
+
+    .b-text,
+    .b-email,
+    .b-caption {
+      color: var(--color-text-muted);
+    }
+
+    .b-phone {
+      font-family: var(--font-heading);
+      font-size: min(var(--text-5xl), 11cqi);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      color: var(--color-primary);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .b-tiles {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-tile {
+      display: grid;
+      gap: var(--space-2);
+      padding: var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-value {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-status {
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .b-dot {
+      width: 0.75rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      box-shadow: 0 0 0 0.25rem color-mix(in oklab, var(--color-primary) 30%, transparent);
+    }
+
+    .b-status-link {
+      grid-column: 1 / -1;
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 3fr 2fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

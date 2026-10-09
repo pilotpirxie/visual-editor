@@ -1,0 +1,111 @@
+@layer components {
+  @scope (.b-newsletter-issues) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-self: center;
+    }
+
+    .b-text,
+    .b-note,
+    .b-meta {
+      color: var(--color-text-muted);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+    }
+
+    .b-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-block-start: var(--space-2);
+    }
+
+    .b-field {
+      flex: 999 1 14rem;
+    }
+
+    .b-submit {
+      flex: 1 0 auto;
+    }
+
+    .b-note,
+    .b-meta {
+      font-size: var(--text-sm);
+    }
+
+    .b-issues {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-issues-title {
+      font-size: var(--text-sm);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .b-issue {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: var(--space-1) var(--space-4);
+      padding-block: var(--space-4);
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+
+    .b-number {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .b-title {
+      grid-column: 1;
+      font-size: var(--text-lg);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-arrow {
+      --icon-size: 1.25rem;
+      grid-area: 1 / 2 / span 2;
+      color: var(--color-text-muted);
+    }
+
+    .b-arrow:dir(rtl) {
+      scale: -1 1;
+    }
+
+    .b-issue:hover :is(.b-link, .b-arrow) {
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

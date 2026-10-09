@@ -1,0 +1,88 @@
+{
+  "name": "Content, with footnotes",
+  "category": "content",
+  "description": "Paragraphs with numbered footnote links that jump to a notes list and back again.",
+  "tags": ["footnotes", "notes", "references", "sources", "citations", "essay", "research"],
+  "fieldGroups": ["Heading", "Paragraphs", "Notes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Research",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Why short clips persuade better than long reports",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "paragraphs",
+      "label": "Paragraphs",
+      "type": "list",
+      "group": "Paragraphs",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Paragraph",
+          "type": "textarea",
+          "default": "Paragraph text."
+        },
+        {
+          "name": "note",
+          "label": "Footnote",
+          "type": "textarea",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "text": "People remember stories far better than statistics, and a customer describing their own frustration is a story in its smallest form.",
+          "note": "Our own test: colleagues recalled 71% of clip content a week later, against 23% of written findings."
+        },
+        {
+          "text": "Length matters too. Across 4,000 shared clips, the ones under thirty seconds were watched to the end almost every time.",
+          "note": "Fieldnote usage data, January to June 2026, across 1,200 workspaces."
+        },
+        {
+          "text": "None of this makes written analysis less important. It changes its job: from carrying the evidence to pointing at it.",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "name": "notesTitle",
+      "label": "Notes heading",
+      "type": "text",
+      "default": "Notes",
+      "group": "Notes",
+      "required": true
+    },
+    {
+      "name": "noteLabel",
+      "label": "Footnote link label",
+      "type": "text",
+      "default": "Note",
+      "group": "Notes",
+      "required": true,
+      "help": "Read by screen readers before the note number."
+    },
+    {
+      "name": "backLabel",
+      "label": "Back link label",
+      "type": "text",
+      "default": "Back to text",
+      "group": "Notes",
+      "required": true
+    }
+  ]
+}

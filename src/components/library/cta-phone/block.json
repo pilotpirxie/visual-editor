@@ -1,0 +1,88 @@
+{
+  "name": "Call to action, call us",
+  "category": "call-to-action",
+  "description": "A photo of the person who answers, a huge phone number that starts a call, and your hours.",
+  "tags": ["cta", "phone", "call", "contact", "sales", "support", "person", "avatar"],
+  "fieldGroups": ["Person", "Content"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Amara Okafor smiling at her desk",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Person"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Amara Okafor",
+      "group": "Person"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Research lead, Toronto",
+      "group": "Person"
+    },
+    {
+      "name": "statusLabel",
+      "label": "Status label",
+      "type": "text",
+      "default": "Online now",
+      "group": "Person",
+      "maxLength": 20
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Prefer to talk?",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Call a researcher, not a sales script",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "phone",
+      "label": "Phone number",
+      "type": "text",
+      "default": "+1 416 555 0142",
+      "group": "Content",
+      "required": true
+    },
+    {
+      "name": "hours",
+      "label": "Hours",
+      "type": "text",
+      "default": "Monday to Friday, 9:00 to 18:00 Toronto time",
+      "group": "Content"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Most calls are answered within three rings.",
+      "group": "Content"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+@layer components {
+  @scope (.b-team-org) {
+    :scope {
+      --line: var(--border-width) solid var(--color-border);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-node {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      border: var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--color-background);
+    }
+
+    .b-lead {
+      border-color: var(--color-primary);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3rem;
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-teams {
+      position: relative;
+      display: grid;
+      gap: var(--space-6);
+      margin-inline-start: 2.25rem;
+      padding-block-start: var(--space-6);
+      padding-inline-start: var(--space-6);
+      border-inline-start: var(--line);
+    }
+
+    .b-lead::after,
+    .b-team > .b-node::after,
+    .b-teams::before {
+      content: '';
+      position: absolute;
+    }
+
+    .b-team > .b-node::after {
+      inset-block-start: 50%;
+      inset-inline-end: 100%;
+      width: var(--space-6);
+      border-block-start: var(--line);
+    }
+
+    .b-members {
+      margin-block-start: var(--space-3);
+      padding-inline-start: var(--space-4);
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 1024px) {
+      .b-chart {
+        display: grid;
+        justify-items: center;
+      }
+
+      .b-teams {
+        grid-template-columns: repeat(var(--teams), minmax(0, 1fr));
+        width: 100%;
+        margin: var(--space-6) 0 0;
+        padding-inline: 0;
+        border: 0;
+      }
+
+      .b-teams::before {
+        inset: 0 calc((100% - (var(--teams) - 1) * var(--space-6)) / var(--teams) / 2) auto;
+        border-block-start: var(--line);
+      }
+
+      .b-lead::after,
+      .b-team > .b-node::after {
+        inset: 100% auto auto 50%;
+        width: 0;
+        height: var(--space-6);
+        border: 0;
+        border-inline-start: var(--line);
+      }
+
+      .b-team > .b-node::after {
+        inset-block: auto 100%;
+      }
+    }
+  }
+}

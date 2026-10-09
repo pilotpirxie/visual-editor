@@ -1,0 +1,35 @@
+<section class="b-contact-next-steps section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      {{#if steps.length}}
+      <h3 class="b-steps-title" data-field="stepsTitle">{{stepsTitle}}</h3>
+      <ol class="b-steps" role="list">
+        {{#each steps}}
+        <li class="b-step" data-field="steps.{{@index}}">
+          <p class="b-step-head"><strong>{{title}}</strong>{{#if time}}<span class="badge">{{time}}</span>{{/if}}</p>
+          {{#if text}}<p class="b-step-text">{{text}}</p>{{/if}}
+        </li>
+        {{/each}}
+      </ol>
+      {{/if}}
+    </div>
+    <form class="card stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <div class="field">
+        <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+        <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+        <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="{{block.id}}-message" data-field="messageLabel">{{messageLabel}}</label>
+        <textarea id="{{block.id}}-message" name="message" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}{{svgIcon "send"}}</button>
+    </form>
+  </div>
+</section>

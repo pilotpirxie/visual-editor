@@ -1,0 +1,99 @@
+@layer components {
+  @scope (.b-logos-orbit) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      justify-items: center;
+    }
+
+    .b-center {
+      --stack-gap: var(--space-3);
+      max-width: 24rem;
+      text-align: center;
+    }
+
+    .b-value {
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-heading);
+      line-height: 1;
+      color: var(--color-primary);
+    }
+
+    .b-title {
+      font-size: var(--text-2xl);
+      text-wrap: balance;
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-ring {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+      gap: var(--space-4);
+      width: 100%;
+    }
+
+    .b-logo {
+      display: grid;
+      place-items: center;
+      padding: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .b-logo img {
+      width: 100%;
+      max-width: 6rem;
+      height: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        --size: 36rem;
+        grid-template-areas: 'orbit';
+        place-items: center;
+        padding-block: var(--space-8);
+      }
+
+      .b-center,
+      .b-ring {
+        grid-area: orbit;
+      }
+
+      .b-center {
+        position: relative;
+        z-index: 1;
+        max-width: 22rem;
+      }
+
+      .b-ring {
+        position: relative;
+        display: block;
+        width: var(--size);
+        height: var(--size);
+        border: calc(var(--border-width) * 2) dashed var(--color-border);
+        border-radius: var(--radius-full);
+        box-shadow:
+          inset 0 0 0 4rem var(--color-background),
+          inset 0 0 0 4.06rem var(--color-border),
+          inset 0 0 6rem 4rem color-mix(in oklab, var(--color-primary) 12%, transparent);
+      }
+
+      .b-logo {
+        position: absolute;
+        inset: 50% auto auto 50%;
+        --turn: calc(360deg / var(--count) * var(--i) - 90deg);
+        width: 8rem;
+        transform: rotate(var(--turn)) translateX(calc(var(--size) / 2))
+          rotate(calc(-1 * var(--turn))) translate(-50%, -50%);
+      }
+    }
+  }
+}

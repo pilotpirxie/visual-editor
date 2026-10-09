@@ -1,0 +1,191 @@
+{
+  "name": "Pricing, team size picker",
+  "category": "pricing",
+  "description": "Plan cards whose prices change with the team size picked above them. Works without JavaScript.",
+  "tags": ["pricing", "plans", "seats", "team size", "calculator", "picker"],
+  "fieldGroups": ["Heading", "Team sizes", "Plans"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Pricing",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Pick your team size, see your price",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Prices are for the whole team, per month. The more people who join, the less each seat costs.",
+      "group": "Heading"
+    },
+    {
+      "name": "sizeLegend",
+      "label": "Picker label",
+      "type": "text",
+      "default": "How many people will use Fieldnote?",
+      "required": true,
+      "group": "Team sizes"
+    },
+    {
+      "name": "size1",
+      "label": "First size",
+      "type": "text",
+      "default": "5 people",
+      "required": true,
+      "group": "Team sizes"
+    },
+    {
+      "name": "size2",
+      "label": "Second size",
+      "type": "text",
+      "default": "20 people",
+      "required": true,
+      "group": "Team sizes"
+    },
+    {
+      "name": "size3",
+      "label": "Third size",
+      "type": "text",
+      "default": "50 people",
+      "required": true,
+      "group": "Team sizes"
+    },
+    {
+      "name": "featuredLabel",
+      "label": "Label on the featured plan",
+      "type": "text",
+      "default": "Most popular",
+      "group": "Plans"
+    },
+    {
+      "name": "plans",
+      "label": "Plans",
+      "type": "list",
+      "group": "Plans",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Plan name",
+          "type": "text",
+          "default": "Plan"
+        },
+        {
+          "name": "price1",
+          "label": "Price for the first size",
+          "type": "text",
+          "default": "$50"
+        },
+        {
+          "name": "price2",
+          "label": "Price for the second size",
+          "type": "text",
+          "default": "$180"
+        },
+        {
+          "name": "price3",
+          "label": "Price for the third size",
+          "type": "text",
+          "default": "$400"
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": "per month for the team"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "Who this plan is for."
+        },
+        {
+          "name": "features",
+          "label": "Included",
+          "type": "richtext",
+          "default": "<ul><li>First feature</li><li>Second feature</li></ul>"
+        },
+        {
+          "name": "featured",
+          "label": "Featured",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Choose plan",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "Team",
+          "price1": "$145",
+          "price2": "$520",
+          "price3": "$1,150",
+          "period": "per month for the team, billed yearly",
+          "description": "For product teams who talk to customers every week.",
+          "features": "<ul><li>Unlimited transcripts</li><li>Shared themes across projects</li><li>Slack and Jira exports</li></ul>",
+          "featured": true,
+          "button": {
+            "label": "Start free trial",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "name": "Business",
+          "price1": "$395",
+          "price2": "$1,420",
+          "price3": "$3,150",
+          "period": "per month for the team, billed yearly",
+          "description": "For research programs that span several teams.",
+          "features": "<ul><li>Everything in Team</li><li>Single sign-on and audit logs</li><li>Data stored in Canada or the EU</li></ul>",
+          "featured": false,
+          "button": {
+            "label": "Talk to sales",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "textarea",
+      "default": "Bigger team? Every seat after 50 is $19 a month.",
+      "group": "Plans"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+@layer components {
+  @scope (.b-team-departments) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-department {
+      display: grid;
+      gap: var(--space-6);
+      padding-block: var(--space-8);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-about {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-department-name {
+      font-size: var(--text-xl);
+    }
+
+    .b-description {
+      color: var(--color-text-muted);
+    }
+
+    .b-people {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(13rem, 100%), 1fr));
+      gap: var(--space-6);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-width: 0;
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3.5rem;
+    }
+
+    .b-identity {
+      min-width: 0;
+    }
+
+    .b-name {
+      font-size: var(--text-base);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-department {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+        gap: var(--space-12);
+      }
+    }
+  }
+}

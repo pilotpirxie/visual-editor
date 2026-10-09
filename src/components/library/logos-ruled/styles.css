@@ -1,0 +1,85 @@
+@layer components {
+  @scope (.b-logos-ruled) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-frame {
+      clip-path: inset(0 0.4rem 0.4rem 0);
+    }
+
+    .b-frame:dir(rtl) {
+      clip-path: inset(0 0 0.4rem 0.4rem);
+    }
+
+    .b-logos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-inline-end: calc(-1 * var(--border-width));
+      margin-block-end: calc(-1 * var(--border-width));
+    }
+
+    .b-cell {
+      position: relative;
+      display: grid;
+      place-items: center;
+      padding: var(--space-8) var(--space-6);
+      border-inline-end: var(--border-width) solid var(--color-border);
+      border-block-end: var(--border-width) solid var(--color-border);
+      transition: background-color var(--transition-fast);
+    }
+
+    .b-cell::after {
+      content: '';
+      position: absolute;
+      inset-block-end: -0.3rem;
+      inset-inline-end: -0.3rem;
+      width: 0.6rem;
+      height: 0.6rem;
+      background:
+        linear-gradient(var(--color-text-muted) 0 0) center / 100% var(--border-width) no-repeat,
+        linear-gradient(var(--color-text-muted) 0 0) center / var(--border-width) 100% no-repeat;
+    }
+
+    .b-cell:hover {
+      background: var(--color-surface);
+    }
+
+    .b-cell img {
+      width: 100%;
+      max-width: 8rem;
+      height: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      opacity: 0.8;
+    }
+
+    @media (min-width: 768px) {
+      .b-logos {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-logos {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .b-cell {
+        padding-block: var(--space-12);
+      }
+    }
+  }
+}

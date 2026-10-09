@@ -1,0 +1,106 @@
+@layer components {
+  @scope (.b-pricing-savings) {
+    .b-layout {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      max-width: 34rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-card {
+      --card-padding: var(--space-8);
+      --card-shadow: var(--shadow-lg);
+      --stack-gap: var(--space-6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .b-ribbon {
+      position: absolute;
+      inset-block-start: 2.25rem;
+      inset-inline-end: -3.5rem;
+      width: 14rem;
+      padding-block: var(--space-2);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      rotate: 45deg;
+    }
+
+    .b-ribbon:dir(rtl) {
+      rotate: -45deg;
+    }
+
+    .b-card h3 {
+      padding-inline-end: var(--space-16);
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-compare {
+      display: grid;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      font-size: var(--text-sm);
+    }
+
+    .b-compare div {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-1) var(--space-4);
+    }
+
+    .b-compare dd {
+      display: contents;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-bar {
+      grid-column: 1 / -1;
+      width: calc(var(--bar, 100) * 1%);
+      height: 0.5rem;
+      border-radius: var(--radius-full);
+      background: var(--color-text-muted);
+    }
+
+    .b-yearly .b-bar {
+      background: var(--color-primary);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      text-align: center;
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 28rem);
+        gap: var(--space-16);
+        justify-content: space-between;
+      }
+    }
+  }
+}

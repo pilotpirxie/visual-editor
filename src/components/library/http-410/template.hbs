@@ -1,0 +1,27 @@
+<section class="b-http-410 section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if stamp}}<p class="b-stamp" data-field="stamp">{{stamp}}</p>{{/if}}
+      {{#if eyebrow}}<p class="badge" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+    </div>
+    <div class="stack b-moves">
+      {{#if listTitle}}<h2 class="b-list-title" data-field="listTitle">{{listTitle}}</h2>{{/if}}
+      <ul class="b-list" role="list">
+        {{#each moves}}
+        <li data-field="moves.{{@index}}">
+          <a class="b-move" href="{{href link}}" {{linkAttrs link}}>
+            <span class="b-old">{{oldLabel}}</span>
+            <span class="b-new">{{newLabel}} <span class="icon-mirror">{{svgIcon "arrow-right"}}</span></span>
+            {{#if text}}<span class="b-desc">{{text}}</span>{{/if}}
+          </a>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

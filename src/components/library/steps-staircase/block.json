@@ -1,0 +1,83 @@
+{
+  "name": "How it works, staircase",
+  "category": "how-it-works",
+  "description": "Steps that climb like a staircase on desktop, each standing on a taller numbered step. A numbered list on phones.",
+  "tags": ["steps", "staircase", "growth", "levels", "progress", "process"],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Research maturity",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From one-off calls to a habit the whole company keeps",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every team climbs at its own pace. Fieldnote meets you on whichever step you stand on today.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "star"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Step"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens on this step."
+        }
+      ],
+      "default": [
+        {
+          "icon": "mic",
+          "title": "Record every call",
+          "text": "Stop losing what customers say the moment a call ends."
+        },
+        {
+          "icon": "tag",
+          "title": "Tag what matters",
+          "text": "Agree on themes so highlights mean the same thing to everyone."
+        },
+        {
+          "icon": "share",
+          "title": "Share the clips",
+          "text": "Put customer voices in front of the people making decisions."
+        },
+        {
+          "icon": "trophy",
+          "title": "Decide with evidence",
+          "text": "Every roadmap call links back to what customers actually said."
+        }
+      ]
+    }
+  ]
+}

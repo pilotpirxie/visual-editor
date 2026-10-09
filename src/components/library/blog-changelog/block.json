@@ -1,0 +1,202 @@
+{
+  "name": "Blog posts, changelog",
+  "category": "blog",
+  "description": "Release notes with a version, date, short summary and New, Improved and Fixed items.",
+  "tags": ["blog", "posts", "articles", "news", "changelog", "release notes", "updates", "product"],
+  "fieldGroups": ["Heading", "Button", "Labels", "Releases"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Changelog",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What’s new in Fieldnote",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Subscribe to updates",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "newLabel",
+      "label": "New label",
+      "type": "text",
+      "default": "New",
+      "group": "Labels"
+    },
+    {
+      "name": "improvedLabel",
+      "label": "Improved label",
+      "type": "text",
+      "default": "Improved",
+      "group": "Labels"
+    },
+    {
+      "name": "fixedLabel",
+      "label": "Fixed label",
+      "type": "text",
+      "default": "Fixed",
+      "group": "Labels"
+    },
+    {
+      "name": "releases",
+      "label": "Releases",
+      "type": "list",
+      "group": "Releases",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "version",
+          "label": "Version",
+          "type": "text",
+          "default": "v1.0"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Release title"
+        },
+        {
+          "name": "text",
+          "label": "Summary",
+          "type": "richtext",
+          "default": "<p>What changed and why it matters.</p>"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "name": "changes",
+          "label": "Changes",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 10,
+          "itemLabel": "text",
+          "itemFields": [
+            {
+              "name": "type",
+              "label": "Type",
+              "type": "select",
+              "default": "new",
+              "options": [
+                {
+                  "value": "new",
+                  "label": "New"
+                },
+                {
+                  "value": "improved",
+                  "label": "Improved"
+                },
+                {
+                  "value": "fixed",
+                  "label": "Fixed"
+                }
+              ]
+            },
+            {
+              "name": "text",
+              "label": "Text",
+              "type": "text",
+              "default": "Describe the change"
+            }
+          ],
+          "default": []
+        }
+      ],
+      "default": [
+        {
+          "version": "v4.2",
+          "date": "2026-10-06",
+          "title": "Highlight reels you can send anywhere",
+          "text": "<p>Reels now export as MP4 with burned-in captions, so a two-minute clip plays in Slack, email or a board deck without a Fieldnote account.</p>",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "changes": [
+            {
+              "type": "new",
+              "text": "Export highlight reels as MP4 with captions"
+            },
+            {
+              "type": "improved",
+              "text": "Transcripts load twice as fast on long calls"
+            },
+            {
+              "type": "fixed",
+              "text": "Speaker names no longer swap after a reconnect"
+            }
+          ]
+        },
+        {
+          "version": "v4.1",
+          "date": "2026-09-15",
+          "title": "Tags that suggest themselves",
+          "text": "<p>Fieldnote now suggests tags from your team’s past calls while you listen, and learns from the ones you <strong>reject</strong>.</p>",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "changes": [
+            {
+              "type": "new",
+              "text": "Suggested tags during live calls"
+            },
+            {
+              "type": "improved",
+              "text": "Search now matches tags and transcript text together"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

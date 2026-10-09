@@ -1,0 +1,73 @@
+@layer components {
+  @scope (.b-hero-minimal) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+      align-items: flex-start;
+    }
+
+    .b-title {
+      max-width: 60rem;
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-regular);
+      line-height: 1.15;
+      text-wrap: pretty;
+    }
+
+    .b-link {
+      color: var(--color-primary);
+      text-decoration-thickness: 0.06em;
+      text-underline-offset: 0.12em;
+      transition: color var(--transition-fast);
+    }
+
+    .b-link:hover {
+      color: var(--color-text);
+    }
+
+    .b-meta {
+      display: flex;
+      align-self: stretch;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+      padding-top: var(--space-6);
+      border-top: var(--border-width) solid var(--color-border);
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .b-meta li {
+      --icon-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .b-dot {
+      width: 0.5rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-text-muted);
+    }
+
+    .b-status[data-available='true'] .b-dot {
+      background: var(--color-primary);
+      box-shadow: 0 0 0 0.25rem color-mix(in oklab, var(--color-primary) 20%, transparent);
+    }
+
+    .b-scroll {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      color: var(--color-text);
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    @media (min-width: 1024px) {
+      .b-title {
+        font-size: var(--text-5xl);
+      }
+    }
+  }
+}

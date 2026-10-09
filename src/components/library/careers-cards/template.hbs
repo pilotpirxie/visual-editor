@@ -1,0 +1,31 @@
+<section class="b-careers-cards section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      {{#if showButton}}<a class="btn btn-{{button.variant}} b-all" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>{{/if}}
+    </div>
+    {{#if positions.length}}
+    <ul class="grid b-grid" role="list">
+      {{#each positions}}
+      <li class="card stack b-card" data-field="positions.{{@index}}">
+        {{#if team}}<p class="badge b-team">{{team}}</p>{{/if}}
+        <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+        {{#if (or location type)}}
+        <ul class="b-meta" role="list">
+          {{#if location}}<li>{{svgIcon "map-pin"}}<span>{{location}}</span></li>{{/if}}
+          {{#if type}}<li>{{svgIcon "clock"}}<span>{{type}}</span></li>{{/if}}
+        </ul>
+        {{/if}}
+        <span class="b-arrow">{{svgIcon "arrow-right"}}</span>
+      </li>
+      {{/each}}
+    </ul>
+    {{else}}
+    <p class="b-empty" data-field="emptyText">{{svgIcon "briefcase"}}<span>{{emptyText}}</span></p>
+    {{/if}}
+  </div>
+</section>

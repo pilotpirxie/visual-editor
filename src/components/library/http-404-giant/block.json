@@ -1,0 +1,82 @@
+{
+  "name": "HTTP code, giant 404",
+  "category": "http-codes",
+  "description": "Oversized 404 numerals across the full width with a tilted label, the heading, text and buttons. Name the page 404 so it exports as 404.html.",
+  "tags": ["404", "not found", "error", "big type", "missing", "page"],
+  "fieldGroups": ["Content"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "code",
+      "label": "Big number",
+      "type": "text",
+      "default": "404",
+      "group": "Content",
+      "maxLength": 4
+    },
+    {
+      "name": "sticker",
+      "label": "Label",
+      "type": "text",
+      "default": "Page not found",
+      "group": "Content",
+      "maxLength": 24
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Well, this is awkward",
+      "group": "Content",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "The page you wanted isn’t here. It may have moved when we redesigned the site, or the link may be out of date.",
+      "group": "Content"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Back to home",
+        "link": {
+          "type": "url",
+          "url": "index.html",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Content"
+    },
+    {
+      "name": "showSecondaryButton",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Content"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Contact support",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Content",
+      "visibleWhen": {
+        "field": "showSecondaryButton",
+        "equals": true
+      }
+    }
+  ]
+}

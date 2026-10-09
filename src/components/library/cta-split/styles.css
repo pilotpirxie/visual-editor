@@ -1,0 +1,87 @@
+@layer components {
+  @scope (.b-cta-split) {
+    :scope {
+      display: grid;
+      grid-template-rows: auto 0 auto;
+    }
+
+    .b-half {
+      display: grid;
+      padding: var(--section-padding-y) var(--container-padding-x);
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    .b-first {
+      --color-background: var(--theme-primary-background);
+      --color-text: var(--theme-primary-text);
+      --color-text-muted: var(--theme-primary-text-muted);
+      --color-primary: var(--theme-primary-accent);
+      --color-primary-contrast: var(--theme-primary-accent-contrast);
+    }
+
+    .b-second {
+      --color-background: var(--theme-dark-background);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+    }
+
+    .b-content {
+      --stack-gap: var(--space-4);
+      justify-self: center;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 30rem;
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: grid;
+      place-items: center;
+      width: 3.5rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-text) 12%, transparent);
+    }
+
+    .b-content h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-or {
+      z-index: 1;
+      place-self: center;
+      display: grid;
+      place-items: center;
+      width: 3.5rem;
+      aspect-ratio: 1;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-text);
+      font-weight: var(--font-weight-bold);
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (min-width: 768px) {
+      :scope {
+        grid-template-rows: none;
+        grid-template-columns: minmax(0, 1fr) 0 minmax(0, 1fr);
+      }
+
+      .b-half {
+        padding-inline: var(--space-12);
+      }
+
+      .b-content {
+        max-width: 26rem;
+      }
+    }
+  }
+}

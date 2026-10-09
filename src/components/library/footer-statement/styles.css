@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-footer-statement) {
+    :scope {
+      --section-padding-y: var(--space-16);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-16);
+    }
+
+    .b-top {
+      display: grid;
+      gap: var(--space-8);
+      align-items: end;
+      container-type: inline-size;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-statement {
+      max-width: 20ch;
+      font-size: min(var(--text-5xl), 11cqi);
+      line-height: var(--line-height-tight);
+      text-wrap: balance;
+    }
+
+    .b-mark {
+      color: var(--color-primary);
+    }
+
+    .b-circle {
+      --icon-size: 1.5rem;
+      display: grid;
+      place-content: center;
+      place-items: center;
+      gap: var(--space-2);
+      inline-size: 8rem;
+      aspect-ratio: 1;
+      padding: var(--space-4);
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      text-align: center;
+      text-decoration: none;
+      transition: scale var(--transition-normal);
+    }
+
+    .b-circle:hover {
+      scale: 1.06;
+    }
+
+    .b-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4) var(--space-8);
+      padding-top: var(--space-6);
+      border-top: var(--border-width) solid var(--color-border);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-logo {
+      overflow-wrap: anywhere;
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-heading);
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .b-links {
+      --cluster-gap: 0 var(--space-6);
+    }
+
+    .b-links a {
+      display: inline-block;
+      padding-block: var(--space-2);
+      color: inherit;
+    }
+
+    @media (min-width: 768px) {
+      .b-top {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
+      .b-circle {
+        inline-size: 10rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "name": "Newsletter, inbox preview",
+  "category": "newsletters",
+  "description": "A signup form beside a mock inbox listing the subject lines of recent issues.",
+  "tags": ["newsletter", "email", "subscribe", "signup", "form", "inbox", "issues", "preview"],
+  "fieldGroups": ["Heading", "Form", "Inbox"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Fieldnote Weekly",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The research newsletter people actually open",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Every Friday: one interview technique, one teardown of a real study and one tool worth trying. Five minutes, tops.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email address",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Subscribe",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Privacy note",
+      "type": "text",
+      "default": "Join 12,000 researchers. Unsubscribe in one click.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "group": "Form",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ]
+    },
+    {
+      "name": "inboxLabel",
+      "label": "Inbox label",
+      "type": "text",
+      "default": "Inbox",
+      "group": "Inbox"
+    },
+    {
+      "name": "sender",
+      "label": "Sender name",
+      "type": "text",
+      "default": "Fieldnote Weekly",
+      "group": "Inbox"
+    },
+    {
+      "name": "issues",
+      "label": "Issues",
+      "type": "list",
+      "group": "Inbox",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "subject",
+      "itemFields": [
+        {
+          "name": "subject",
+          "label": "Subject",
+          "type": "text",
+          "default": "Subject line"
+        },
+        {
+          "name": "preview",
+          "label": "Preview text",
+          "type": "text",
+          "default": "First line of the email"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "text",
+          "default": "Fri"
+        }
+      ],
+      "default": [
+        {
+          "subject": "The one question that ends every interview well",
+          "preview": "Plus: how a Toronto fintech runs weekly synthesis",
+          "date": "Fri"
+        },
+        {
+          "subject": "Stop asking “would you use this?”",
+          "preview": "Three better questions and the answers they unlocked",
+          "date": "Apr 3"
+        },
+        {
+          "subject": "Teardown: a 40-call pricing study",
+          "preview": "What worked, what we’d cut and the template we used",
+          "date": "Mar 27"
+        },
+        {
+          "subject": "Recruiting customers who never reply",
+          "preview": "The four-line email with a 38% response rate",
+          "date": "Mar 20"
+        }
+      ]
+    }
+  ]
+}

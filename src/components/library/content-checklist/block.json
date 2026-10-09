@@ -1,0 +1,80 @@
+{
+  "name": "Content, text and checklist",
+  "category": "content",
+  "description": "A heading and text next to a card with a checklist of points.",
+  "tags": ["checklist", "list", "benefits", "checks", "split", "text"],
+  "fieldGroups": ["Content", "Checklist"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Getting started",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your first week with Fieldnote",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "default": "<p>Most teams run their first tagged interview within an hour of signing up. By the end of the week, they have a brief they can share.</p>",
+      "group": "Content"
+    },
+    {
+      "name": "checkIcon",
+      "label": "Check icon",
+      "type": "icon",
+      "default": "check",
+      "group": "Checklist"
+    },
+    {
+      "name": "items",
+      "label": "Points",
+      "type": "list",
+      "group": "Checklist",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "A point"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "One sentence of detail."
+        }
+      ],
+      "default": [
+        {
+          "title": "Connect your calendar",
+          "text": "Fieldnote joins the calls you choose and nothing else."
+        },
+        {
+          "title": "Import past recordings",
+          "text": "Drop in audio or video files and they are transcribed within minutes."
+        },
+        {
+          "title": "Pick your tags",
+          "text": "Start from our research templates or bring your own codebook."
+        },
+        {
+          "title": "Share your first highlight",
+          "text": "Send a clip to Slack or embed it in a doc with one click."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "name": "Utilities, pagination",
+  "category": "utilities",
+  "description": "Previous and next links around numbered pages, for a blog or case study archive. Phones show “Page 3 of 12” instead of the numbers.",
+  "tags": [
+    "pagination",
+    "pages",
+    "previous",
+    "next",
+    "paging",
+    "archive",
+    "blog",
+    "navigation",
+    "utility"
+  ],
+  "fieldGroups": ["Pages", "Previous and next"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Name for screen readers",
+      "type": "text",
+      "default": "Journal pages",
+      "group": "Pages",
+      "required": true
+    },
+    {
+      "name": "pages",
+      "label": "Pages",
+      "type": "list",
+      "group": "Pages",
+      "minItems": 1,
+      "maxItems": 9,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "kind",
+          "label": "Type",
+          "type": "select",
+          "default": "page",
+          "options": [
+            {
+              "value": "page",
+              "label": "Page number"
+            },
+            {
+              "value": "gap",
+              "label": "Gap (…)"
+            }
+          ]
+        },
+        {
+          "name": "label",
+          "label": "Number",
+          "type": "text",
+          "default": "1"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "name": "current",
+          "label": "This is the current page",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        {
+          "kind": "page",
+          "label": "1",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": false
+        },
+        {
+          "kind": "page",
+          "label": "2",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": false
+        },
+        {
+          "kind": "page",
+          "label": "3",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": true
+        },
+        {
+          "kind": "page",
+          "label": "4",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": false
+        },
+        {
+          "kind": "gap",
+          "label": "…",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": false
+        },
+        {
+          "kind": "page",
+          "label": "12",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": false
+        }
+      ]
+    },
+    {
+      "name": "summary",
+      "label": "Summary on phones",
+      "type": "text",
+      "default": "Page 3 of 12",
+      "group": "Pages"
+    },
+    {
+      "name": "previousLabel",
+      "label": "Previous label",
+      "type": "text",
+      "default": "Newer",
+      "group": "Previous and next",
+      "required": true
+    },
+    {
+      "name": "previousLink",
+      "label": "Previous link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Previous and next"
+    },
+    {
+      "name": "nextLabel",
+      "label": "Next label",
+      "type": "text",
+      "default": "Older",
+      "group": "Previous and next",
+      "required": true
+    },
+    {
+      "name": "nextLink",
+      "label": "Next link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Previous and next"
+    }
+  ]
+}

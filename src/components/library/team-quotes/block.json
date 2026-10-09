@@ -1,0 +1,132 @@
+{
+  "name": "Team, people and quotes",
+  "category": "team",
+  "description": "Cards where each person says in one or two sentences why they work here.",
+  "tags": ["team", "people", "quotes", "culture", "careers", "about"],
+  "fieldGroups": ["Heading", "People"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Life at Fieldnote",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Why we work here, in our own words",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We asked the team what keeps them here. Nobody mentioned the snacks.",
+      "group": "Heading"
+    },
+    {
+      "name": "people",
+      "label": "People",
+      "type": "list",
+      "group": "People",
+      "minItems": 1,
+      "maxItems": 9,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "Why I work here.",
+          "maxLength": 240
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Yuki Tanaka",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Yuki Tanaka",
+          "role": "Senior product designer",
+          "quote": "I get to watch customers use what I designed the same week it ships. That feedback loop is rare."
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tomás Herrera",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Tomás Herrera",
+          "role": "Backend engineer",
+          "quote": "Four weeks of focus time a year means I actually finish the hard projects instead of squeezing them between meetings."
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Grace Okafor",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Grace Okafor",
+          "role": "Account executive",
+          "quote": "I sell something I would buy. Research teams light up when they see their first searchable interview."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+<section class="b-logos-orbit section">
+  <div class="container b-inner">
+    <div class="stack b-center">
+      {{#if value}}<p class="b-value" data-field="value">{{value}}</p>{{/if}}
+      <h2 class="b-title" data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </div>
+    <ul class="b-ring" role="list" style="--count: {{logos.length}}">
+      {{#each logos}}
+      <li class="b-logo" style="--i: {{@index}}" data-field="logos.{{@index}}">{{img image}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

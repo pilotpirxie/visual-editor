@@ -1,0 +1,95 @@
+{
+  "name": "FAQ, quick answers",
+  "category": "faq",
+  "description": "A grid of yes, no and coming soon answers in large type, each with a short line of detail.",
+  "tags": ["faq", "questions", "grid", "cards", "yes or no", "answers"],
+  "fieldGroups": ["Heading", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Quick answers",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The short version",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Straight answers to what people ask in the first five minutes of a demo.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "question",
+      "itemFields": [
+        { "name": "question", "label": "Question", "type": "text", "default": "A question?" },
+        { "name": "answer", "label": "Short answer", "type": "text", "default": "Yes" },
+        {
+          "name": "tone",
+          "label": "Answer type",
+          "type": "segmented",
+          "default": "yes",
+          "options": [
+            { "value": "yes", "label": "Yes", "icon": "check" },
+            { "value": "no", "label": "No", "icon": "x" },
+            { "value": "soon", "label": "Soon", "icon": "clock" }
+          ]
+        },
+        { "name": "detail", "label": "Detail", "type": "text", "default": "One line of detail." }
+      ],
+      "default": [
+        {
+          "question": "Is there a free trial?",
+          "answer": "Yes",
+          "tone": "yes",
+          "detail": "14 days with every feature and 10 recorded hours."
+        },
+        {
+          "question": "Do I need a credit card to start?",
+          "answer": "No",
+          "tone": "no",
+          "detail": "Add one only when you pick a plan."
+        },
+        {
+          "question": "Does it work with Zoom?",
+          "answer": "Yes",
+          "tone": "yes",
+          "detail": "And with Google Meet and Microsoft Teams."
+        },
+        {
+          "question": "Will it run on-premises?",
+          "answer": "No",
+          "tone": "no",
+          "detail": "We host in Canada, the US or the EU."
+        },
+        {
+          "question": "Is there a Figma plugin?",
+          "answer": "Soon",
+          "tone": "soon",
+          "detail": "In beta with 40 teams, shipping in November."
+        },
+        {
+          "question": "Can I cancel any time?",
+          "answer": "Yes",
+          "tone": "yes",
+          "detail": "Monthly plans stop at the end of the period."
+        }
+      ]
+    }
+  ]
+}

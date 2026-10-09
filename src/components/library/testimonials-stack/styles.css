@@ -1,0 +1,109 @@
+@layer components {
+  @scope (.b-testimonials-stack) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro,
+    .b-role {
+      color: var(--color-text-muted);
+    }
+
+    .b-deck {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-cards {
+      display: grid;
+    }
+
+    .b-card {
+      --stack-gap: var(--space-6);
+      --tilt: -4deg;
+      --card-shadow: var(--shadow-sm);
+      grid-area: 1 / 1;
+      background: var(--color-surface);
+      transform: translateY(calc(-1 * var(--space-2))) scale(0.96) rotate(var(--tilt));
+      transition: transform var(--transition-normal);
+    }
+
+    .b-card:nth-child(even) {
+      --tilt: 3deg;
+    }
+
+    .b-card > * {
+      opacity: var(--front, 0);
+    }
+
+    .b-deck:has(.b-pick:nth-of-type(1) :checked) .b-card:nth-child(1),
+    .b-deck:has(.b-pick:nth-of-type(2) :checked) .b-card:nth-child(2),
+    .b-deck:has(.b-pick:nth-of-type(3) :checked) .b-card:nth-child(3),
+    .b-deck:has(.b-pick:nth-of-type(4) :checked) .b-card:nth-child(4) {
+      --front: 1;
+      --card-shadow: var(--shadow-lg);
+      z-index: 1;
+      background: var(--color-background);
+      transform: none;
+    }
+
+    .b-mark {
+      --icon-size: 2rem;
+      color: var(--color-primary);
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-picker {
+      display: flex;
+      gap: var(--space-3);
+      min-inline-size: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .b-pick {
+      border-radius: var(--radius-full);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      display: block;
+      width: 3rem;
+      opacity: 0.6;
+    }
+
+    .b-pick:has(:checked) .b-photo {
+      opacity: 1;
+      outline: calc(var(--border-width) * 2) solid var(--color-primary);
+      outline-offset: 0.2rem;
+    }
+
+    .b-pick:has(:focus-visible) {
+      outline: calc(var(--border-width) * 2) solid var(--color-text);
+      outline-offset: 0.4rem;
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

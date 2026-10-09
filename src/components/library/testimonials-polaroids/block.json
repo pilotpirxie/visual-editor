@@ -1,0 +1,148 @@
+{
+  "name": "Testimonials, photo cards",
+  "category": "testimonials",
+  "description": "Customer photos as tilted instant prints with a short quote written underneath.",
+  "tags": ["testimonials", "quotes", "photos", "polaroid", "playful", "community"],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Customer snapshots",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Faces behind the feedback",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "A few of the researchers, designers and product managers who use Fieldnote every week.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Photo cards",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "What the customer said."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role and company",
+          "type": "text",
+          "default": "Role, Company"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "Finally, research the whole team reads.",
+          "name": "Maya Chen",
+          "role": "Copperline",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Maya Chen",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Our Friday clip reel is now a ritual.",
+          "name": "Leo Santos",
+          "role": "Northwind",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leo Santos",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "From two weeks of tagging to one afternoon.",
+          "name": "Sofia Alvarez",
+          "role": "Brightpath",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sofia Alvarez",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Every roadmap item links to a real customer.",
+          "name": "Kenji Watanabe",
+          "role": "Ledgerly",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Kenji Watanabe",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

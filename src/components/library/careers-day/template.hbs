@@ -1,0 +1,27 @@
+<section class="b-careers-day section">
+  <div class="container b-inner">
+    <div class="stack b-profile">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      <figure class="b-person" data-field="name">
+        <div class="b-photo">{{img photo}}</div>
+        <figcaption><strong>{{name}}</strong><span class="b-muted">{{role}}</span></figcaption>
+      </figure>
+      {{#if quote}}<blockquote class="b-quote" data-field="quote"><p>{{quote}}</p></blockquote>{{/if}}
+    </div>
+    <ol class="b-day" role="list">
+      {{#each moments}}
+      <li class="b-moment" style="--i: {{@index}}" data-field="moments.{{@index}}">
+        <p class="b-time">{{time}}</p>
+        <span class="b-dot">{{svgIcon icon}}</span>
+        <div class="stack b-what">
+          <h3>{{title}}</h3>
+          <p class="b-muted">{{nl2br text}}</p>
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

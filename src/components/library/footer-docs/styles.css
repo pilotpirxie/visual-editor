@@ -1,0 +1,119 @@
+@layer components {
+  @scope (.b-footer-docs) {
+    :scope {
+      --section-padding-y: var(--space-12);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-top {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-brand {
+      --stack-gap: var(--space-3);
+      align-items: flex-start;
+      max-width: 22rem;
+    }
+
+    .b-identity {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .b-logo {
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-version {
+      padding-inline: var(--space-2);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+    }
+
+    .b-muted,
+    .b-version,
+    :is(.b-links, .b-socials) a {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-status {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      font-size: var(--text-sm);
+      color: inherit;
+    }
+
+    .b-dot {
+      width: 0.625rem;
+      height: 0.625rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+    }
+
+    .b-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(8rem, 100%), 1fr));
+      gap: var(--space-8) var(--space-6);
+    }
+
+    .b-column {
+      --stack-gap: var(--space-2);
+      min-width: 0;
+    }
+
+    .b-heading {
+      font-size: var(--text-sm);
+    }
+
+    .b-links a {
+      display: inline-block;
+      padding-block: var(--space-1);
+      text-decoration: none;
+    }
+
+    :is(.b-links, .b-socials) a:hover {
+      color: var(--color-primary);
+    }
+
+    .b-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-socials a {
+      --icon-size: 1.25rem;
+      display: inline-grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+
+    @media (min-width: 1024px) {
+      .b-top {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      }
+    }
+  }
+}

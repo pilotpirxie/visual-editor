@@ -1,0 +1,32 @@
+<section class="b-content-table section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 id="{{block.id}}-title" data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-scroll" role="region" aria-labelledby="{{block.id}}-title" tabindex="0">
+      <table class="b-table">
+        <thead>
+          <tr>
+            <th scope="col" data-field="labelHeading">{{labelHeading}}</th>
+            <th scope="col" data-field="firstHeading">{{firstHeading}}</th>
+            <th scope="col" data-field="secondHeading">{{secondHeading}}</th>
+            <th scope="col" data-field="thirdHeading">{{thirdHeading}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each rows}}
+          <tr data-field="rows.{{@index}}">
+            <th scope="row">{{label}}</th>
+            <td>{{first}}</td>
+            <td>{{second}}</td>
+            <td>{{third}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+  </div>
+</section>

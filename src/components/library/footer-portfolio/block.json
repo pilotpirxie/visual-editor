@@ -1,0 +1,109 @@
+{
+  "name": "Footer, big email",
+  "category": "footers",
+  "description": "A large invitation to get in touch with an email link, plus social links. Suits freelancers and studios.",
+  "tags": ["footer", "portfolio", "freelancer", "email", "contact", "studio", "social"],
+  "fieldGroups": ["Invitation", "Details", "Social"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Planning a research project?",
+      "group": "Invitation"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Let’s talk to your customers together",
+      "group": "Invitation",
+      "required": true
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "studio@fieldnote.example",
+      "group": "Invitation"
+    },
+    {
+      "name": "location",
+      "label": "Location",
+      "type": "text",
+      "default": "Based in Toronto, working with teams everywhere",
+      "group": "Details"
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Studio",
+      "group": "Details"
+    },
+    {
+      "name": "socials",
+      "label": "Social links",
+      "type": "list",
+      "group": "Social",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "Social network"
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "globe",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "LinkedIn",
+          "icon": "simple-icons:linkedin",
+          "link": {
+            "type": "url",
+            "url": "https://www.linkedin.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Dribbble",
+          "icon": "simple-icons:dribbble",
+          "link": {
+            "type": "url",
+            "url": "https://dribbble.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Instagram",
+          "icon": "simple-icons:instagram",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        }
+      ]
+    }
+  ]
+}

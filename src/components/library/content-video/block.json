@@ -1,0 +1,78 @@
+{
+  "name": "Content, video placeholder",
+  "category": "content",
+  "description": "A heading and a video preview image with a play button that links to the video.",
+  "tags": ["video", "play", "demo", "tour", "media", "watch"],
+  "fieldGroups": ["Heading", "Video"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Product tour",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "See a week of interviews become one clear brief",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Jonas from our research team records, tags and shares five real customer calls in under four minutes.",
+      "group": "Heading"
+    },
+    {
+      "name": "image",
+      "label": "Preview image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Fieldnote showing a transcript with highlighted quotes and theme tags",
+        "decorative": false,
+        "width": 1200,
+        "height": 675,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Video"
+    },
+    {
+      "name": "videoLink",
+      "label": "Video link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": true
+      },
+      "group": "Video"
+    },
+    {
+      "name": "videoLabel",
+      "label": "Video caption",
+      "type": "text",
+      "default": "Watch the product tour",
+      "required": true,
+      "maxLength": 60,
+      "group": "Video"
+    },
+    {
+      "name": "duration",
+      "label": "Duration",
+      "type": "text",
+      "default": "3:48",
+      "maxLength": 12,
+      "group": "Video"
+    }
+  ]
+}

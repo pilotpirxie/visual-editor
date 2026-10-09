@@ -1,0 +1,253 @@
+{
+  "name": "Team, org chart",
+  "category": "team",
+  "description": "An org chart with one lead at the top and connected team cards, each listing its members.",
+  "tags": ["team", "org chart", "structure", "hierarchy", "departments", "people", "tree"],
+  "fieldGroups": ["Heading", "Lead", "Teams"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How we work",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Small teams, one research library",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Four teams, each with a clear owner. Everyone talks to customers at least once a month.",
+      "group": "Heading"
+    },
+    {
+      "name": "leadPhoto",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Leila Haddad",
+        "decorative": false,
+        "width": 800,
+        "height": 800,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Lead"
+    },
+    {
+      "name": "leadName",
+      "label": "Name",
+      "type": "text",
+      "default": "Leila Haddad",
+      "required": true,
+      "group": "Lead"
+    },
+    {
+      "name": "leadRole",
+      "label": "Role",
+      "type": "text",
+      "default": "Co-founder and CEO",
+      "group": "Lead"
+    },
+    {
+      "name": "teams",
+      "label": "Teams",
+      "type": "list",
+      "group": "Teams",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "department",
+      "help": "Up to four teams sit side by side on large screens.",
+      "itemFields": [
+        {
+          "name": "department",
+          "label": "Team",
+          "type": "text",
+          "default": "Team"
+        },
+        {
+          "name": "photo",
+          "label": "Team lead photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Team lead",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "members",
+          "label": "Members",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 8,
+          "itemLabel": "name",
+          "itemFields": [
+            {
+              "name": "name",
+              "label": "Name",
+              "type": "text",
+              "default": "Name"
+            },
+            {
+              "name": "role",
+              "label": "Role",
+              "type": "text",
+              "default": "Role"
+            }
+          ],
+          "default": []
+        }
+      ],
+      "default": [
+        {
+          "department": "Engineering",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Mateo Ruiz",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Mateo Ruiz",
+          "role": "Co-founder and CTO",
+          "members": [
+            {
+              "name": "Kwame Mensah",
+              "role": "Head of engineering"
+            },
+            {
+              "name": "Aisha Bello",
+              "role": "Machine learning"
+            },
+            {
+              "name": "Tomás Herrera",
+              "role": "Backend"
+            },
+            {
+              "name": "Felix Wagner",
+              "role": "Data"
+            }
+          ]
+        },
+        {
+          "department": "Research",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Ingrid Solberg",
+          "role": "Head of research",
+          "members": [
+            {
+              "name": "Yuki Tanaka",
+              "role": "Product design"
+            },
+            {
+              "name": "Mei Lin",
+              "role": "Content design"
+            },
+            {
+              "name": "Hana Kim",
+              "role": "UX research"
+            }
+          ]
+        },
+        {
+          "department": "Customers",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Daniel Novak",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Daniel Novak",
+          "role": "Customer success lead",
+          "members": [
+            {
+              "name": "Grace Okafor",
+              "role": "Account executive"
+            },
+            {
+              "name": "Lucas Moreau",
+              "role": "Solutions engineer"
+            }
+          ]
+        },
+        {
+          "department": "Operations",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ruth Callahan",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Ruth Callahan",
+          "role": "People and operations",
+          "members": [
+            {
+              "name": "Sofia Marchetti",
+              "role": "Finance"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

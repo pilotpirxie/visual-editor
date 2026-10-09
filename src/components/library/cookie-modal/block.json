@@ -1,0 +1,92 @@
+{
+  "name": "Cookies, centered dialog",
+  "category": "cookies",
+  "description": "A consent panel in the middle of the screen with an icon, a title and two equal buttons. It remembers the visitor’s choice.",
+  "tags": ["cookies", "consent", "privacy", "gdpr", "dialog", "popup", "centered"],
+  "fieldGroups": ["Message", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "lucide:cookie",
+      "group": "Message"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Cookies, but only the useful kind",
+      "required": true,
+      "group": "Message"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We use a few cookies to keep you signed in and to learn which pages help people most. No ads, no selling your data.",
+      "required": true,
+      "maxLength": 280,
+      "group": "Message"
+    },
+    {
+      "name": "showPolicyLink",
+      "label": "Show policy link",
+      "type": "boolean",
+      "default": true,
+      "group": "Message"
+    },
+    {
+      "name": "policyLabel",
+      "label": "Policy link label",
+      "type": "text",
+      "default": "Read our cookie policy",
+      "visibleWhen": {
+        "field": "showPolicyLink",
+        "equals": true
+      },
+      "group": "Message"
+    },
+    {
+      "name": "policyLink",
+      "label": "Policy link",
+      "type": "link",
+      "default": {
+        "type": "page",
+        "newTab": false
+      },
+      "visibleWhen": {
+        "field": "showPolicyLink",
+        "equals": true
+      },
+      "group": "Message"
+    },
+    {
+      "name": "acceptLabel",
+      "label": "Accept button",
+      "type": "text",
+      "default": "Accept all",
+      "required": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "showDecline",
+      "label": "Show decline button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "declineLabel",
+      "label": "Decline button",
+      "type": "text",
+      "default": "Only essential",
+      "visibleWhen": {
+        "field": "showDecline",
+        "equals": true
+      },
+      "group": "Buttons"
+    }
+  ]
+}

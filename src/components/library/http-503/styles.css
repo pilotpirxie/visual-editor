@@ -1,0 +1,105 @@
+@layer components {
+  @scope (.b-http-503) {
+    :scope {
+      position: relative;
+      overflow: clip;
+    }
+
+    .b-tape {
+      position: absolute;
+      inset-block-start: var(--space-12);
+      inset-inline: 0;
+      height: 2rem;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--color-primary) 0 1.25rem,
+        color-mix(in oklab, var(--color-primary) 25%, var(--color-background)) 0 2.5rem
+      );
+      transform: skewY(-2deg);
+    }
+
+    .b-inner {
+      --container-max-width: 40rem;
+      --stack-gap: var(--space-6);
+      align-items: center;
+      padding-top: var(--space-16);
+      text-align: center;
+    }
+
+    .b-code {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-progress {
+      display: grid;
+      gap: var(--space-2);
+      width: 100%;
+      max-width: 28rem;
+      font-size: var(--text-sm);
+    }
+
+    .b-progress p {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .b-track {
+      height: 0.75rem;
+      overflow: clip;
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+      box-shadow: inset 0 0 0 var(--border-width) var(--color-border);
+    }
+
+    .b-track span {
+      display: block;
+      height: 100%;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--color-primary) 0 0.5rem,
+        color-mix(in oklab, var(--color-primary) 70%, var(--color-background)) 0 1rem
+      );
+    }
+
+    .b-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      width: 100%;
+      max-width: 28rem;
+    }
+
+    .b-field {
+      flex: 1;
+    }
+
+    .b-socials a {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      color: var(--color-text-muted);
+    }
+
+    .b-socials a:hover {
+      background: var(--color-surface);
+      color: var(--color-text);
+    }
+
+    @media (min-width: 768px) {
+      .b-form {
+        flex-direction: row;
+      }
+    }
+  }
+}

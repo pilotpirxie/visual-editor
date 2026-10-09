@@ -1,0 +1,19 @@
+<section class="b-content-video section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    <figure class="stack b-video">
+      <div class="b-player">
+        <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
+        <a class="b-play" href="{{href videoLink}}" {{linkAttrs videoLink}} aria-labelledby="{{block.id}}-video-label" data-field="videoLink">{{svgIcon "play"}}</a>
+      </div>
+      <figcaption class="b-caption">
+        <span id="{{block.id}}-video-label" data-field="videoLabel">{{videoLabel}}</span>
+        {{#if duration}}<span class="b-duration" data-field="duration">{{svgIcon "clock"}}{{duration}}</span>{{/if}}
+      </figcaption>
+    </figure>
+  </div>
+</section>

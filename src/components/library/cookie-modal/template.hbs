@@ -1,0 +1,14 @@
+<aside class="b-cookie-modal" data-behavior="consent" aria-label="Cookie consent">
+  <dialog class="b-panel" aria-labelledby="{{block.id}}-title">
+    <div class="stack b-body">
+      {{#if icon}}<span class="b-badge" data-field="icon">{{svgIcon icon}}</span>{{/if}}
+      <p class="b-title" id="{{block.id}}-title" data-field="title">{{title}}</p>
+      <p class="b-text" data-field="text">{{nl2br text}}</p>
+      {{#if showPolicyLink}}<a class="b-policy" href="{{href policyLink}}" {{linkAttrs policyLink}} data-field="policyLink">{{policyLabel}}</a>{{/if}}
+      <div class="b-actions">
+        <button type="button" class="btn btn-primary" data-consent="accepted" data-field="acceptLabel">{{acceptLabel}}</button>
+        {{#if showDecline}}<button type="button" class="btn btn-secondary" data-consent="declined" data-field="declineLabel">{{declineLabel}}</button>{{/if}}
+      </div>
+    </div>
+  </dialog>
+</aside>

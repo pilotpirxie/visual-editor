@@ -1,0 +1,30 @@
+<header class="b-hero-chat section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="badge" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+        {{/if}}
+      </div>
+    </div>
+    <div class="card b-chat">
+      <div class="b-head">
+        <span class="b-avatar">{{svgIcon "sparkles"}}</span>
+        <p><strong data-field="assistantName">{{assistantName}}</strong>{{#if status}}<span class="b-status" data-field="status">{{status}}</span>{{/if}}</p>
+      </div>
+      <ul class="b-messages" role="list">
+        {{#each messages}}
+        <li class="b-message" data-from="{{from}}" data-field="messages.{{@index}}">
+          <p>{{nl2br text}}</p>
+          {{#if source}}<p class="b-source">{{svgIcon "quote"}}<span>{{source}}</span></p>{{/if}}
+        </li>
+        {{/each}}
+      </ul>
+      <p class="b-input" aria-hidden="true"><span data-field="inputHint">{{inputHint}}</span>{{svgIcon "send"}}</p>
+    </div>
+  </div>
+</header>

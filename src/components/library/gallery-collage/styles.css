@@ -1,0 +1,58 @@
+@layer components {
+  @scope (.b-gallery-collage) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      max-width: 32rem;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      margin-top: var(--space-2);
+    }
+
+    .b-collage {
+      display: grid;
+      grid-template: repeat(10, minmax(0, 1fr)) / repeat(10, minmax(0, 1fr));
+      aspect-ratio: 1;
+      width: min(100%, 36rem);
+      margin-inline: auto;
+    }
+
+    .b-photo {
+      --media-ratio: auto;
+      border: var(--space-1) solid var(--color-background);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-photo:nth-child(1) {
+      grid-area: 1 / 1 / 7 / 7;
+    }
+
+    .b-photo:nth-child(2) {
+      grid-area: 2 / 6 / 7 / 11;
+      z-index: 1;
+    }
+
+    .b-photo:nth-child(3) {
+      grid-area: 6 / 3 / 11 / 9;
+      z-index: 2;
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

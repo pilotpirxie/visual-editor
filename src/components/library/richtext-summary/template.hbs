@@ -1,0 +1,29 @@
+<section class="b-richtext-summary section">
+  <div class="container">
+    <article class="stack b-article">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 class="b-title" data-field="title">{{title}}</h2>
+        {{#if (or author date)}}
+        <p class="cluster b-meta">
+          {{#if author}}<span class="b-author" data-field="author">{{author}}</span>{{/if}}
+          {{#if date}}<time datetime="{{date}}" data-field="date">{{formatDate date}}</time>{{/if}}
+        </p>
+        {{/if}}
+      </header>
+      <div class="stack b-summary">
+        <p class="b-summary-head">
+          <span class="icon b-icon">{{svgIcon icon}}</span>
+          <span class="b-summary-title" data-field="summaryTitle">{{summaryTitle}}</span>
+          {{#if readingTime}}<span class="b-time" data-field="readingTime">{{readingTime}}</span>{{/if}}
+        </p>
+        <ol class="b-points" role="list">
+          {{#each takeaways}}
+          <li class="b-point" data-field="takeaways.{{@index}}">{{text}}</li>
+          {{/each}}
+        </ol>
+      </div>
+      <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+    </article>
+  </div>
+</section>

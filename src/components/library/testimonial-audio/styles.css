@@ -1,0 +1,114 @@
+@layer components {
+  @scope (.b-testimonial-audio) {
+    .b-layout {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-player {
+      --stack-gap: var(--space-8);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      padding: var(--space-6);
+      border: var(--border-width) solid var(--theme-dark-border);
+      border-radius: var(--card-radius);
+      background: var(--theme-dark-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-episode,
+    .b-controls {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .b-cover {
+      --media-ratio: 1;
+      --media-radius: var(--radius-md);
+      flex: none;
+      width: 5rem;
+    }
+
+    .b-meta {
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    .b-show,
+    .b-time,
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-title,
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-play {
+      --icon-size: 1.25rem;
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 3.5rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-wave {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      gap: 0.125rem;
+      height: 3rem;
+    }
+
+    .b-wave i {
+      flex: 1;
+      height: 30%;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-text) 30%, transparent);
+    }
+
+    .b-wave i:nth-child(-n + 12) {
+      background: var(--color-primary);
+    }
+
+    .b-wave i:nth-child(3n) {
+      height: 70%;
+    }
+
+    .b-wave i:nth-child(4n + 1) {
+      height: 50%;
+    }
+
+    .b-wave i:nth-child(5n + 2) {
+      height: 95%;
+    }
+
+    .b-quote {
+      font-size: var(--text-2xl);
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

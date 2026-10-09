@@ -1,0 +1,28 @@
+<section class="b-blog-quotes section">
+  <div class="container stack b-inner">
+    <div class="cluster b-head">
+      <header class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      {{#if showButton}}
+      <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      {{/if}}
+    </div>
+    <div class="b-grid">
+      {{#each posts}}
+      <article class="b-card" data-field="posts.{{@index}}">
+        <span class="b-mark" aria-hidden="true">{{svgIcon "quote"}}</span>
+        <blockquote class="b-quote"><p>{{nl2br quote}}</p></blockquote>
+        <div class="b-source">
+          {{#if ../fromLabel}}<p class="b-muted">{{../fromLabel}}</p>{{/if}}
+          <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          {{#if (or author date)}}
+          <p class="b-muted">{{author}}{{#if (and author date)}} · {{/if}}{{#if date}}<time datetime="{{date}}">{{formatDate date}}</time>{{/if}}</p>
+          {{/if}}
+        </div>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,13 @@
+<aside class="b-banner-holiday" aria-label="Holiday hours">
+  <div class="container b-bar">
+    <p class="b-title" data-field="title">{{svgIcon icon}}<span>{{title}}</span></p>
+    <ul class="b-days" role="list">
+      {{#each days}}
+      <li class="b-day" data-field="days.{{@index}}" {{#if closed}}data-closed{{/if}}><strong>{{date}}</strong> <span>{{hours}}</span></li>
+      {{/each}}
+    </ul>
+    {{#if linkLabel}}
+    <a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>
+    {{/if}}
+  </div>
+</aside>

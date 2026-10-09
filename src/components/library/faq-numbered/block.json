@@ -1,0 +1,81 @@
+{
+  "name": "FAQ, numbered",
+  "category": "faq",
+  "description": "Numbered questions with their answers always shown, in two columns on desktop.",
+  "tags": ["faq", "questions", "numbered", "answers", "list", "columns"],
+  "fieldGroups": ["Heading", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Before you start",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Six things teams ask in their first week",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Straight answers, so your first interviews go smoothly.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "default": [
+        {
+          "question": "Do participants know they are being recorded?",
+          "answer": "<p>Always. Fieldnote announces itself when it joins a call, and you can attach a consent form to every invite.</p>"
+        },
+        {
+          "question": "Can participants join from a phone?",
+          "answer": "<p>Yes. They join your usual video call from any device, with nothing to install.</p>"
+        },
+        {
+          "question": "Which video tools does Fieldnote work with?",
+          "answer": "<p>Zoom, Google Meet and Microsoft Teams. For in-person sessions, upload audio or video files from any phone or recorder.</p>"
+        },
+        {
+          "question": "Which languages can you transcribe?",
+          "answer": "<p>Thirty-two, including French, German, Spanish, Portuguese and Japanese. Highlights translate into English in one click.</p>"
+        },
+        {
+          "question": "Can we tag interviews with our own themes?",
+          "answer": "<p>Create your own tag sets for each project, or start from our templates for onboarding, churn and pricing research.</p>"
+        },
+        {
+          "question": "Who can see our interviews?",
+          "answer": "<p>Only people in your workspace. You decide who can watch full recordings and who only sees approved highlights.</p>"
+        }
+      ],
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "A question?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "richtext",
+          "default": "<p>The answer.</p>"
+        }
+      ]
+    }
+  ]
+}

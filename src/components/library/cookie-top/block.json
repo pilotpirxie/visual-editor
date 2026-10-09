@@ -1,0 +1,106 @@
+{
+  "name": "Cookies, top bar",
+  "category": "cookies",
+  "description": "A slim consent bar fixed to the top of the screen, in dark, brand or light colors. It remembers the visitor’s choice.",
+  "tags": ["cookies", "consent", "privacy", "gdpr", "banner", "bar", "top"],
+  "fieldGroups": ["Message", "Buttons", "Style"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "shield",
+      "group": "Message"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "We use cookies to keep Fieldnote working and to measure what helps.",
+      "required": true,
+      "maxLength": 160,
+      "group": "Message"
+    },
+    {
+      "name": "showPolicyLink",
+      "label": "Show policy link",
+      "type": "boolean",
+      "default": true,
+      "group": "Message"
+    },
+    {
+      "name": "policyLabel",
+      "label": "Policy link label",
+      "type": "text",
+      "default": "Learn more",
+      "visibleWhen": {
+        "field": "showPolicyLink",
+        "equals": true
+      },
+      "group": "Message"
+    },
+    {
+      "name": "policyLink",
+      "label": "Policy link",
+      "type": "link",
+      "default": {
+        "type": "page",
+        "newTab": false
+      },
+      "visibleWhen": {
+        "field": "showPolicyLink",
+        "equals": true
+      },
+      "group": "Message"
+    },
+    {
+      "name": "acceptLabel",
+      "label": "Accept button",
+      "type": "text",
+      "default": "Accept",
+      "required": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "showDecline",
+      "label": "Show decline button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "declineLabel",
+      "label": "Decline button",
+      "type": "text",
+      "default": "Decline",
+      "visibleWhen": {
+        "field": "showDecline",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "theme",
+      "label": "Colors",
+      "type": "select",
+      "default": "dark",
+      "options": [
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        }
+      ],
+      "help": "Light uses the block’s own background and text colors from the Style tab.",
+      "group": "Style"
+    }
+  ]
+}

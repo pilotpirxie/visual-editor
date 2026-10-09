@@ -1,0 +1,141 @@
+{
+  "name": "Pricing, yearly savings",
+  "category": "pricing",
+  "description": "One plan card with the monthly price struck through, a corner ribbon and bars comparing a year of each billing option.",
+  "tags": ["pricing", "yearly", "annual", "savings", "discount", "billing", "ribbon"],
+  "fieldGroups": ["Heading", "Plan", "Comparison"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Yearly billing",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Pay for ten months, research for twelve",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Teams that plan their research a year ahead get two months free. Same features, same support.",
+      "group": "Heading"
+    },
+    {
+      "name": "details",
+      "label": "Details",
+      "type": "richtext",
+      "default": "<ul><li>Switch to yearly at any time and keep your data</li><li>Add editors mid-year at the yearly rate</li><li>Refund for unused months if you cancel</li></ul>",
+      "group": "Heading"
+    },
+    {
+      "name": "ribbon",
+      "label": "Ribbon",
+      "type": "text",
+      "default": "Save $72 a year",
+      "maxLength": 20,
+      "group": "Plan"
+    },
+    {
+      "name": "planName",
+      "label": "Plan name",
+      "type": "text",
+      "default": "Team, billed yearly",
+      "required": true,
+      "group": "Plan"
+    },
+    {
+      "name": "oldPrice",
+      "label": "Monthly price",
+      "type": "text",
+      "default": "$29",
+      "group": "Plan"
+    },
+    {
+      "name": "oldPeriod",
+      "label": "Monthly period",
+      "type": "text",
+      "default": "per editor, billed monthly",
+      "group": "Plan"
+    },
+    {
+      "name": "price",
+      "label": "Yearly price",
+      "type": "text",
+      "default": "$23",
+      "required": true,
+      "group": "Plan"
+    },
+    {
+      "name": "period",
+      "label": "Yearly period",
+      "type": "text",
+      "default": "per editor, per month",
+      "group": "Plan"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "group": "Plan",
+      "default": {
+        "label": "Switch to yearly",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "primary"
+      }
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "textarea",
+      "default": "Prices in CAD before tax.",
+      "group": "Plan"
+    },
+    {
+      "name": "monthlyLabel",
+      "label": "Monthly label",
+      "type": "text",
+      "default": "A year on monthly billing",
+      "group": "Comparison"
+    },
+    {
+      "name": "monthlyTotal",
+      "label": "Monthly total",
+      "type": "text",
+      "default": "$348",
+      "group": "Comparison"
+    },
+    {
+      "name": "yearlyLabel",
+      "label": "Yearly label",
+      "type": "text",
+      "default": "A year on yearly billing",
+      "group": "Comparison"
+    },
+    {
+      "name": "yearlyTotal",
+      "label": "Yearly total",
+      "type": "text",
+      "default": "$276",
+      "group": "Comparison"
+    },
+    {
+      "name": "yearlyPercent",
+      "label": "Yearly bar length",
+      "type": "range",
+      "default": 79,
+      "min": 5,
+      "max": 100,
+      "step": 1,
+      "help": "The yearly total as a percent of the monthly total.",
+      "group": "Comparison"
+    }
+  ]
+}

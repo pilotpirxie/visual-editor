@@ -1,0 +1,109 @@
+@layer components {
+  @scope (.b-features-roadmap) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro,
+    .b-column-head p,
+    .b-card p {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-columns {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-column {
+      --stack-gap: var(--space-4);
+      padding: var(--space-4);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-column:last-child {
+      outline: var(--border-width) dashed var(--color-border);
+      outline-offset: calc(var(--border-width) * -1);
+      background: transparent;
+    }
+
+    .b-column-head {
+      display: grid;
+      gap: var(--space-1);
+      padding: var(--space-2);
+      font-size: var(--text-sm);
+    }
+
+    .b-column h3 {
+      display: flex;
+      gap: var(--space-2);
+      align-items: center;
+      font-size: var(--text-lg);
+    }
+
+    .b-dot {
+      width: 0.75rem;
+      aspect-ratio: 1;
+      border: calc(var(--border-width) * 2) solid var(--color-primary);
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+    }
+
+    .b-column:nth-child(2) .b-dot {
+      background: conic-gradient(var(--color-primary) 50%, transparent 0);
+    }
+
+    .b-column:nth-child(n + 3) .b-dot {
+      background: transparent;
+    }
+
+    .b-cards {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-card {
+      display: grid;
+      gap: var(--space-1);
+      padding: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-background);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .b-card h4 {
+      font-size: var(--text-base);
+    }
+
+    .b-card p {
+      font-size: var(--text-sm);
+    }
+
+    .b-link {
+      --icon-size: 1.125rem;
+      display: inline-flex;
+      gap: var(--space-2);
+      align-items: center;
+      align-self: flex-start;
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 1024px) {
+      .b-columns {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: start;
+      }
+    }
+  }
+}

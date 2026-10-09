@@ -1,0 +1,155 @@
+{
+  "name": "Newsletter, choose frequency",
+  "category": "newsletters",
+  "description": "Selectable cards for how often readers hear from you, above the email field and button.",
+  "tags": [
+    "newsletter",
+    "email",
+    "subscribe",
+    "signup",
+    "form",
+    "frequency",
+    "digest",
+    "radio",
+    "preferences"
+  ],
+  "fieldGroups": ["Heading", "Options", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Your inbox, your pace",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How often should we write?",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Same field notes, two speeds. Switch between them from any email.",
+      "group": "Heading"
+    },
+    {
+      "name": "optionsLabel",
+      "label": "Options question",
+      "type": "text",
+      "default": "Choose how often",
+      "group": "Options",
+      "required": true
+    },
+    {
+      "name": "options",
+      "label": "Options",
+      "type": "list",
+      "group": "Options",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "help": "The first option starts selected.",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "mail"
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Option"
+        },
+        {
+          "name": "cadence",
+          "label": "How often",
+          "type": "text",
+          "default": "Every week"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "icon": "zap",
+          "name": "Weekly field notes",
+          "cadence": "Every Friday morning",
+          "description": "One technique, one teardown and one tool, while they are fresh."
+        },
+        {
+          "icon": "calendar",
+          "name": "Monthly digest",
+          "cadence": "First Monday of the month",
+          "description": "The four best pieces of the month in one calm email."
+        }
+      ]
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Subscribe",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Privacy note",
+      "type": "text",
+      "default": "No spam, no sharing your address. Unsubscribe in one click.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "group": "Form",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ]
+    }
+  ]
+}

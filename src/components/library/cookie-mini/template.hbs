@@ -1,0 +1,9 @@
+<aside class="b-cookie-mini" data-behavior="consent" aria-label="Cookie consent">
+  <dialog class="b-panel">
+    <p class="b-text">{{#if icon}}<span class="b-icon" data-field="icon">{{svgIcon icon}}</span>{{/if}}<span data-field="text">{{text}}</span>{{#if showPolicyLink}} <a href="{{href policyLink}}" {{linkAttrs policyLink}} data-field="policyLink">{{policyLabel}}</a>{{/if}}</p>
+    <div class="b-actions">
+      <button type="button" class="b-choice" data-consent="accepted" data-field="acceptLabel">{{acceptLabel}}</button>
+      {{#if showDecline}}<button type="button" class="b-choice" data-consent="declined" data-field="declineLabel">{{declineLabel}}</button>{{/if}}
+    </div>
+  </dialog>
+</aside>

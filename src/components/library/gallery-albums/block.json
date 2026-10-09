@@ -1,0 +1,355 @@
+{
+  "name": "Gallery, filter by album",
+  "category": "gallery",
+  "description": "Albums as pill tabs with photo counts, each opening a grid with one large and four small photos.",
+  "tags": ["gallery", "photos", "albums", "tabs", "filter", "categories", "collections"],
+  "fieldGroups": ["Heading", "Albums"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Photo albums",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Browse by occasion",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Customer visits, team offsites and everyday life at the office, sorted into albums.",
+      "group": "Heading"
+    },
+    {
+      "name": "albums",
+      "label": "Albums",
+      "type": "list",
+      "group": "Albums",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Album name",
+          "type": "text",
+          "default": "Album"
+        },
+        {
+          "name": "text",
+          "label": "Description",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "photos",
+          "label": "Photos",
+          "type": "list",
+          "minItems": 1,
+          "maxItems": 9,
+          "itemFields": [
+            {
+              "name": "image",
+              "label": "Photo",
+              "type": "image",
+              "default": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Photo",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            }
+          ],
+          "default": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Photo",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Photo",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Photo",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "name": "Customer visits",
+          "text": "Northwind, Ledgerly and Brightpath, spring 2026",
+          "photos": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ingrid Solberg interviewing a customer at Northwind",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A Ledgerly accountant pointing at a report",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Sticky notes on a glass wall at Brightpath",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A tripod and microphone set up in a meeting room",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Two researchers comparing notes in a hallway",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Offsite 2026",
+          "text": "Three days in Prince Edward County",
+          "photos": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The team standing in front of a red barn",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A whiteboard session on a farmhouse porch",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Dinner at a long table under string lights",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Kayaks pulled up on a lake shore",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A roadmap drawn on a paper tablecloth",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "The office",
+          "text": "King Street West, Toronto",
+          "photos": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Morning light across the long table in the Toronto office",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A soundproof interview booth with two chairs",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Bookshelves full of research books",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Biscuit the office dog asleep under a desk",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Coffee cups next to a printed interview guide",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

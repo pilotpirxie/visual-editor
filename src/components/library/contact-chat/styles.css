@@ -1,0 +1,99 @@
+@layer components {
+  @scope (.b-contact-chat) {
+    .b-inner {
+      --container-max-width: 44rem;
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      text-align: center;
+    }
+
+    .b-window {
+      overflow: hidden;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-thread {
+      display: flex;
+      align-items: end;
+      gap: var(--space-3);
+      padding: var(--space-6) var(--space-4);
+      background: var(--color-surface);
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3rem;
+    }
+
+    .b-messages {
+      --stack-gap: var(--space-2);
+      align-items: start;
+    }
+
+    .b-name,
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    .b-name span,
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-bubble {
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) var(--radius-sm);
+      background: var(--color-background);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .b-bubble:dir(rtl) {
+      border-radius: var(--radius-lg) var(--radius-lg) var(--radius-sm) var(--radius-lg);
+    }
+
+    .b-composer {
+      display: grid;
+      gap: var(--space-4);
+      padding: var(--space-6) var(--space-4);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-send {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .b-send .btn {
+      margin-inline-start: auto;
+    }
+
+    .b-send .icon:dir(rtl) {
+      scale: -1 1;
+    }
+
+    @media (min-width: 768px) {
+      .b-thread,
+      .b-composer {
+        padding-inline: var(--space-8);
+      }
+
+      .b-composer {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .b-wide {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+}

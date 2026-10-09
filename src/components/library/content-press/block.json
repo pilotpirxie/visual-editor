@@ -1,0 +1,87 @@
+{
+  "name": "Content, press mentions",
+  "category": "content",
+  "description": "Short quotes from articles about you, each with the publication name and a link.",
+  "tags": ["press", "media", "quotes", "news", "mentions", "as seen in"],
+  "fieldGroups": ["Heading", "Mentions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "In the press",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What people are writing about Fieldnote",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "mentions",
+      "label": "Mentions",
+      "type": "list",
+      "group": "Mentions",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "publication",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "A short quote from the article."
+        },
+        {
+          "name": "publication",
+          "label": "Publication",
+          "type": "text",
+          "default": "Publication"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "The first research tool that product managers open without being asked.",
+          "publication": "The Product Weekly",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "quote": "Fieldnote quietly fixes the least glamorous part of research: finding the quote you know you heard.",
+          "publication": "Toronto Startup Journal",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "quote": "Highlight reels turned our quarterly research readout from a slide deck into something people asked to rewatch.",
+          "publication": "Research Ops Digest",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ]
+    }
+  ]
+}

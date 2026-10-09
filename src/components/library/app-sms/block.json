@@ -1,0 +1,122 @@
+{
+  "name": "Applications, text me the link",
+  "category": "applications",
+  "description": "A phone number form that texts visitors the download link, beside a phone showing the message they will get.",
+  "tags": ["app", "sms", "text message", "download link", "form", "phone", "mobile"],
+  "fieldGroups": ["Heading", "Form", "Phone"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Get the app",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "On your laptop? We’ll text the app to your phone",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Enter your number and you’ll get one message with a link to the right store for your phone.",
+      "group": "Heading"
+    },
+    {
+      "name": "phoneLabel",
+      "label": "Field label",
+      "type": "text",
+      "default": "Mobile number",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "phonePlaceholder",
+      "label": "Placeholder",
+      "type": "text",
+      "default": "(416) 555-0134",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button text",
+      "type": "text",
+      "default": "Text me the link",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "One message, no marketing. Standard rates may apply.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "sender",
+      "label": "Sender",
+      "type": "text",
+      "default": "Fieldnote",
+      "maxLength": 24,
+      "group": "Phone"
+    },
+    {
+      "name": "request",
+      "label": "Your message",
+      "type": "text",
+      "default": "Send me the app",
+      "maxLength": 60,
+      "group": "Phone"
+    },
+    {
+      "name": "message",
+      "label": "Reply",
+      "type": "textarea",
+      "default": "Here’s Fieldnote for your phone. Sign in with your work email and your recordings will be waiting.",
+      "group": "Phone"
+    },
+    {
+      "name": "messageLink",
+      "label": "Link in the reply",
+      "type": "text",
+      "default": "fieldnote.app/get",
+      "group": "Phone"
+    }
+  ]
+}

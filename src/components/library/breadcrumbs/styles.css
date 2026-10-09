@@ -1,0 +1,52 @@
+@layer components {
+  @scope (.b-breadcrumbs) {
+    :scope {
+      padding-block: var(--space-2);
+      border-block-end: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-trail {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      column-gap: var(--space-2);
+    }
+
+    .b-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-width: 0;
+    }
+
+    .b-link {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+    }
+
+    .b-link:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    .b-sep {
+      --icon-size: 1rem;
+      display: inline-flex;
+      color: var(--color-border);
+    }
+
+    .b-current {
+      padding-block: var(--space-2);
+      font-weight: var(--font-weight-bold);
+      overflow-wrap: anywhere;
+    }
+  }
+}

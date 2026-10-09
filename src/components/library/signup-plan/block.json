@@ -1,0 +1,243 @@
+{
+  "name": "Sign up, with plan summary",
+  "category": "sign-up",
+  "description": "An account form beside a summary of the chosen plan: price, what is included and what is due today.",
+  "tags": [
+    "sign up",
+    "register",
+    "create account",
+    "checkout",
+    "plan",
+    "pricing",
+    "trial",
+    "order summary"
+  ],
+  "fieldGroups": ["Heading", "Form", "Plan"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-surface",
+    "--color-text",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Step 1 of 2",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Create your account",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Your 14-day trial starts today. We’ll remind you three days before it ends.",
+      "group": "Heading"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Full name",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "companyLabel",
+      "label": "Company field label",
+      "type": "text",
+      "default": "Company",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "passwordLabel",
+      "label": "Password field label",
+      "type": "text",
+      "default": "Password",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "termsText",
+      "label": "Terms text",
+      "type": "text",
+      "default": "I agree to the",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "termsLabel",
+      "label": "Terms link label",
+      "type": "text",
+      "default": "Terms of Service",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "termsLink",
+      "label": "Terms link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Start free trial",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "summaryLabel",
+      "label": "Summary label",
+      "type": "text",
+      "default": "Your plan",
+      "group": "Plan"
+    },
+    {
+      "name": "planName",
+      "label": "Plan name",
+      "type": "text",
+      "default": "Team",
+      "required": true,
+      "group": "Plan"
+    },
+    {
+      "name": "changeLabel",
+      "label": "Change plan label",
+      "type": "text",
+      "default": "Change plan",
+      "group": "Plan"
+    },
+    {
+      "name": "changeLink",
+      "label": "Change plan link",
+      "type": "link",
+      "default": {
+        "type": "section",
+        "anchor": "pricing",
+        "newTab": false
+      },
+      "group": "Plan"
+    },
+    {
+      "name": "price",
+      "label": "Price",
+      "type": "text",
+      "default": "$49",
+      "group": "Plan"
+    },
+    {
+      "name": "period",
+      "label": "Price period",
+      "type": "text",
+      "default": "per editor / month, billed yearly",
+      "group": "Plan"
+    },
+    {
+      "name": "checkIcon",
+      "label": "Check icon",
+      "type": "icon",
+      "default": "check",
+      "group": "Plan"
+    },
+    {
+      "name": "features",
+      "label": "Included",
+      "type": "list",
+      "group": "Plan",
+      "minItems": 0,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Something included"
+        }
+      ],
+      "default": [
+        {
+          "text": "Unlimited interviews and transcripts"
+        },
+        {
+          "text": "Highlight reels and shared tag sets"
+        },
+        {
+          "text": "Up to 25 viewers at no extra cost"
+        },
+        {
+          "text": "Recordings stored in the EU, US or Canada"
+        }
+      ]
+    },
+    {
+      "name": "dueLabel",
+      "label": "Due today label",
+      "type": "text",
+      "default": "Due today",
+      "group": "Plan"
+    },
+    {
+      "name": "dueAmount",
+      "label": "Due today amount",
+      "type": "text",
+      "default": "$0.00",
+      "group": "Plan"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Cancel any time during the trial and you won’t be charged.",
+      "group": "Plan"
+    }
+  ]
+}

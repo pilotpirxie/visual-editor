@@ -1,0 +1,56 @@
+@layer components {
+  @scope (.b-cta-email) {
+    :scope {
+      --section-bg: color-mix(in oklab, var(--color-primary) 8%, var(--color-background));
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-4);
+      --container-max-width: 46rem;
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      width: 100%;
+      max-width: 32rem;
+      margin-block-start: var(--space-4);
+    }
+
+    .b-field {
+      flex: 1;
+    }
+
+    .b-perks {
+      --cluster-gap: var(--space-2) var(--space-6);
+      --cluster-justify: center;
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-perks li {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .b-perks .icon {
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-form {
+        flex-direction: row;
+      }
+    }
+  }
+}

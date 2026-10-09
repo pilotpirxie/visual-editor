@@ -1,0 +1,121 @@
+{
+  "name": "Content, scrapbook",
+  "category": "content",
+  "description": "Text beside taped, tilted photos and a sticky note, like a page from a team scrapbook.",
+  "tags": ["scrapbook", "photos", "collage", "culture", "story", "polaroid", "playful"],
+  "fieldGroups": ["Content", "Photos", "Note"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Field trip",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three days, nine customers, one very small car",
+      "group": "Content",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "default": "<p>Every spring the whole team leaves the office and visits customers where they work: warehouses in Mississauga, a clinic in Hamilton, a design studio above a bakery in Guelph.</p><p>We come back with hours of recordings, a few hundred highlights and a much better idea of what to build next.</p>",
+      "group": "Content"
+    },
+    {
+      "name": "photos",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "caption",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "caption",
+          "label": "Caption",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The team gathered around a warehouse packing station",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "Day one, Mississauga"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A nurse showing a researcher her scheduling screen",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "The calendar that started it all"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Coffee cups and notebooks on a café table",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "caption": "Debrief, Guelph"
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Sticky note",
+      "type": "textarea",
+      "default": "Best quote of the trip: “I didn’t know anyone was listening.”",
+      "group": "Note"
+    }
+  ]
+}

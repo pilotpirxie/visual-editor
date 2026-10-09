@@ -1,0 +1,195 @@
+{
+  "name": "Newsletter, reader quotes",
+  "category": "newsletters",
+  "description": "A signup form beside tilted speech bubbles with what readers say about the newsletter.",
+  "tags": [
+    "newsletter",
+    "email",
+    "subscribe",
+    "signup",
+    "form",
+    "quotes",
+    "testimonials",
+    "social proof"
+  ],
+  "fieldGroups": ["Heading", "Form", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Fieldnote Weekly",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Five minutes on Friday, better interviews on Monday",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "The newsletter research leads forward to their whole team.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email address",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Subscribe",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Privacy note",
+      "type": "text",
+      "default": "Free, weekly and easy to leave.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "group": "Form",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ]
+    },
+    {
+      "name": "quotes",
+      "label": "Quotes",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "What the reader said."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Reader",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "text": "The only newsletter I read the day it arrives. Half my interview guide is stolen from it.",
+          "name": "Priya Raman",
+          "role": "Research lead, Northwind",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Priya Raman",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "text": "I forward it to our PMs every week. It does my evangelism for me.",
+          "name": "Jonas Becker",
+          "role": "Head of UX, Lumen Health",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Jonas Becker",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "text": "Short, specific and never a sales pitch. Rare.",
+          "name": "Leila Haddad",
+          "role": "Founder, Cedar & Co.",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leila Haddad",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

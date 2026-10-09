@@ -1,0 +1,31 @@
+<section class="b-newsletter-benefits section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field b-field">
+          <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+        </div>
+        <button type="submit" class="btn btn-primary b-submit" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+    <div class="stack b-benefits">
+      {{#if benefitsTitle}}<h3 class="b-benefits-title" data-field="benefitsTitle">{{benefitsTitle}}</h3>{{/if}}
+      <ul class="stack b-list" role="list">
+        {{#each benefits}}
+        <li class="b-benefit" data-field="benefits.{{@index}}">
+          <span class="b-icon">{{svgIcon icon}}</span>
+          <div class="stack b-benefit-body">
+            <p class="b-benefit-title">{{title}}</p>
+            {{#if text}}<p class="b-muted">{{text}}</p>{{/if}}
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

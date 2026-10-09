@@ -1,0 +1,84 @@
+@layer components {
+  @scope (.b-team-circles) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 44rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-people {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-8);
+    }
+
+    .b-person {
+      --stack-gap: var(--space-3);
+      align-items: center;
+      width: calc(50% - var(--space-4));
+      text-align: center;
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      width: min(100%, 7rem);
+      margin-bottom: var(--space-1);
+    }
+
+    .b-name {
+      font-size: var(--text-lg);
+    }
+
+    .b-role {
+      margin-top: var(--space-1);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-socials {
+      --cluster-gap: 0;
+      --cluster-justify: center;
+    }
+
+    .b-social {
+      --icon-size: 1.125rem;
+      display: inline-grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: var(--radius-full);
+      color: var(--color-text-muted);
+    }
+
+    .b-social:hover {
+      background: color-mix(in oklab, var(--color-primary) 10%, transparent);
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-people {
+        row-gap: var(--space-12);
+      }
+
+      .b-person {
+        width: 12rem;
+      }
+
+      .b-photo {
+        width: 9rem;
+      }
+    }
+  }
+}

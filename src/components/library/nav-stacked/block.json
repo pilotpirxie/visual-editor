@@ -1,0 +1,134 @@
+{
+  "name": "Navigation, two rows",
+  "category": "navigations",
+  "description": "A navbar in two rows: site name, tagline and buttons on top, then a ruled row of links on desktop; a menu button below 1024 px.",
+  "tags": ["menu", "navbar", "header", "two rows", "tagline", "stacked", "corporate", "links"],
+  "fieldGroups": ["Brand", "Links", "Buttons", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "tagline",
+      "label": "Tagline",
+      "type": "text",
+      "default": "Customer research, from interview to insight",
+      "maxLength": 60,
+      "help": "Shown beside the site name on desktop.",
+      "group": "Brand"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Platform",
+          "link": {
+            "type": "section",
+            "anchor": "features",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Solutions",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Customers",
+          "link": {
+            "type": "section",
+            "anchor": "customers",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Resources",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Pricing",
+          "link": {
+            "type": "section",
+            "anchor": "pricing",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Company",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "signIn",
+      "label": "Sign in link",
+      "type": "button",
+      "default": {
+        "label": "Sign in",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "ghost"
+      },
+      "help": "Leave the label empty to hide it.",
+      "group": "Buttons"
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book a demo",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

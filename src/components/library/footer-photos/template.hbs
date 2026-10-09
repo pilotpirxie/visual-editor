@@ -1,0 +1,21 @@
+<footer class="b-footer-photos">
+  <div class="b-strip">
+    <ul class="b-photos" role="list">
+      {{#each photos}}
+      <li class="media b-photo" data-field="photos.{{@index}}">{{img image}}</li>
+      {{/each}}
+    </ul>
+    {{#if handle}}<a class="b-follow" href="{{href followLink}}" {{linkAttrs followLink}} data-field="handle">{{svgIcon followIcon}}<span><strong>{{handle}}</strong><span class="b-note">{{followLabel}}</span></span></a>{{/if}}
+  </div>
+  <div class="container b-bottom">
+    <a class="b-logo" href="index.html">{{site.title}}</a>
+    <nav aria-label="Footer">
+      <ul class="cluster b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+    </nav>
+    <p class="b-copy" data-field="copyright">{{copyright}}</p>
+  </div>
+</footer>

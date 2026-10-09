@@ -1,0 +1,100 @@
+{
+  "name": "Content, downloadable resource",
+  "category": "content",
+  "description": "A cover image, a short description of a guide or report, and a download button.",
+  "tags": ["download", "resource", "guide", "ebook", "report", "pdf"],
+  "fieldGroups": ["Content", "Contents", "Download"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Free guide",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The customer interview playbook",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Everything our research team learned from 3,000 customer calls, from recruiting the right people to sharing what you heard.",
+      "group": "Content"
+    },
+    {
+      "name": "contents",
+      "label": "What’s inside",
+      "type": "list",
+      "group": "Contents",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "A chapter or highlight"
+        }
+      ],
+      "default": [
+        {
+          "text": "12 interview scripts for discovery, churn and pricing"
+        },
+        {
+          "text": "A consent template your legal team will approve"
+        },
+        {
+          "text": "How to turn five calls into a one-page brief"
+        }
+      ]
+    },
+    {
+      "name": "cover",
+      "label": "Cover",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Cover of the Fieldnote customer interview playbook",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "product"
+        }
+      },
+      "group": "Download"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Download the guide",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Download"
+    },
+    {
+      "name": "fileMeta",
+      "label": "File details",
+      "type": "text",
+      "default": "PDF, 48 pages, 2.4 MB",
+      "group": "Download"
+    }
+  ]
+}

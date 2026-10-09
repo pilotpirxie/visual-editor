@@ -1,0 +1,119 @@
+{
+  "name": "Contact, request a callback",
+  "category": "contacts",
+  "description": "A ringing phone badge and opening hours beside a short form to leave a number and a preferred time.",
+  "tags": ["contact", "form", "phone", "callback", "call me", "sales", "support"],
+  "fieldGroups": ["Heading", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Prefer to talk?",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Leave your number. We’ll call you back.",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "A product specialist calls at the time you pick, answers your questions and never pushes a plan.",
+      "group": "Heading"
+    },
+    {
+      "name": "hours",
+      "label": "Hours",
+      "type": "text",
+      "default": "Calls Monday to Friday, 9 AM to 6 PM Eastern",
+      "group": "Heading"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Your name",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "phoneLabel",
+      "label": "Phone field label",
+      "type": "text",
+      "default": "Phone number",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "phonePlaceholder",
+      "label": "Phone placeholder",
+      "type": "text",
+      "default": "+1 416 555 0100",
+      "group": "Form"
+    },
+    {
+      "name": "timeLabel",
+      "label": "Time field label",
+      "type": "text",
+      "default": "Best time to call",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "times",
+      "label": "Time options",
+      "type": "list",
+      "group": "Form",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [{ "name": "label", "label": "Label", "type": "text", "default": "Option" }],
+      "default": [
+        { "label": "As soon as possible" },
+        { "label": "Morning, 9 AM to 12 PM" },
+        { "label": "Afternoon, 12 to 3 PM" },
+        { "label": "Late afternoon, 3 to 6 PM" }
+      ]
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Call me back",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "We only use your number for this call.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        { "value": "post", "label": "POST" },
+        { "value": "get", "label": "GET" }
+      ],
+      "group": "Form"
+    }
+  ]
+}

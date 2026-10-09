@@ -1,0 +1,105 @@
+{
+  "name": "Testimonials, support tickets",
+  "category": "testimonials",
+  "description": "Customer thank-yous styled as resolved support tickets with notched edges.",
+  "tags": ["testimonials", "quotes", "support", "customer service", "tickets", "help desk"],
+  "fieldGroups": ["Heading", "Tickets"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Support",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Real people answer, usually within minutes",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Our median first reply last quarter was four minutes. Here is what customers wrote back.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Tickets",
+      "type": "list",
+      "group": "Tickets",
+      "minItems": 1,
+      "maxItems": 9,
+      "itemLabel": "subject",
+      "itemFields": [
+        {
+          "name": "ticket",
+          "label": "Ticket number",
+          "type": "text",
+          "default": "#0000"
+        },
+        {
+          "name": "resolved",
+          "label": "Status",
+          "type": "text",
+          "default": "Resolved"
+        },
+        {
+          "name": "subject",
+          "label": "Subject",
+          "type": "text",
+          "default": "Subject"
+        },
+        {
+          "name": "quote",
+          "label": "Reply",
+          "type": "textarea",
+          "default": "What the customer wrote back."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Company",
+          "type": "text",
+          "default": "Company"
+        }
+      ],
+      "default": [
+        {
+          "ticket": "#4821",
+          "resolved": "Resolved in 4 min",
+          "subject": "Jira sync stopped after SSO change",
+          "quote": "Fixed before my coffee cooled. Thank you for explaining what happened, too.",
+          "name": "Jonas Becker",
+          "role": "Orbit Labs"
+        },
+        {
+          "ticket": "#4907",
+          "resolved": "Resolved in 12 min",
+          "subject": "Importing 300 Zoom recordings at once",
+          "quote": "Every single call came through with speakers labelled. You saved my whole week.",
+          "name": "Clara Johansson",
+          "role": "Brightpath"
+        },
+        {
+          "ticket": "#5013",
+          "resolved": "Resolved in 6 min",
+          "subject": "Sharing a highlight reel outside our workspace",
+          "quote": "Clear steps, a short video and a follow-up the next day. Best support I have had from a tool.",
+          "name": "Victor Adebayo",
+          "role": "Ledgerly"
+        }
+      ]
+    }
+  ]
+}

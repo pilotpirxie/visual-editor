@@ -1,0 +1,91 @@
+@layer components {
+  @scope (.b-banner-holiday) {
+    :scope {
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: color-mix(in oklab, var(--color-primary) 6%, var(--color-background));
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-bar {
+      --icon-size: 1.125rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2) var(--space-4);
+      padding-block: var(--space-2);
+    }
+
+    .b-title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-title .icon {
+      color: var(--color-primary);
+    }
+
+    .b-days {
+      display: flex;
+      flex: 1 1 100%;
+      gap: var(--space-2);
+      margin-inline: calc(var(--container-padding-x) * -1);
+      padding: var(--space-1) var(--container-padding-x);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--container-padding-x);
+      scrollbar-width: none;
+    }
+
+    .b-day {
+      flex: none;
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-background);
+      scroll-snap-align: start;
+      white-space: nowrap;
+    }
+
+    .b-day span {
+      color: var(--color-text-muted);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+    }
+
+    .b-day[data-closed] {
+      border-style: dashed;
+      background: transparent;
+    }
+
+    .b-day[data-closed] span {
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+    }
+
+    .b-link {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    @media (min-width: 1024px) {
+      .b-days {
+        flex: 0 1 auto;
+        margin: 0;
+        padding-inline: 0;
+      }
+    }
+  }
+}

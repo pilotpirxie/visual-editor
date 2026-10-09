@@ -1,0 +1,41 @@
+@layer components {
+  @scope (.b-modal-image) {
+    .b-dialog {
+      --modal-width: 52rem;
+    }
+
+    .b-layout {
+      display: grid;
+      gap: var(--space-6);
+      align-items: center;
+    }
+
+    .b-media {
+      --media-radius: var(--radius-md);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-body h2 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-gap: var(--space-2);
+      margin-block-start: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .b-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-8);
+      }
+    }
+  }
+}

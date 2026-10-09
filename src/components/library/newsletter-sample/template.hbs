@@ -1,0 +1,26 @@
+<section class="b-newsletter-sample section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-paper">
+      <article class="stack b-issue">
+        <p class="b-meta" data-field="issueMeta">{{issueMeta}}</p>
+        <h3 class="b-issue-title" data-field="issueTitle">{{issueTitle}}</h3>
+        <div class="prose b-excerpt" data-field="excerpt">{{richText excerpt}}</div>
+      </article>
+      <form class="card stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <p class="b-form-title" data-field="formTitle">{{formTitle}}</p>
+        <div class="b-row">
+          <div class="field">
+            <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+            <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+          </div>
+          <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+        </div>
+        {{#if note}}<p class="b-muted" data-field="note">{{note}}</p>{{/if}}
+      </form>
+    </div>
+  </div>
+</section>

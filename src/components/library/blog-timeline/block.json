@@ -1,0 +1,152 @@
+{
+  "name": "Blog posts, timeline",
+  "category": "blog",
+  "description": "Posts along a vertical date line, alternating sides on desktop.",
+  "tags": ["blog", "posts", "articles", "news", "timeline", "dates", "journal"],
+  "fieldGroups": ["Heading", "Button", "Posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Research journal",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A year of notes from the field",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Read the full journal",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "category",
+          "label": "Category",
+          "type": "text",
+          "default": "Research"
+        },
+        {
+          "name": "readingTime",
+          "label": "Reading time",
+          "type": "text",
+          "default": "5 min read"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Post title"
+        },
+        {
+          "name": "excerpt",
+          "label": "Excerpt",
+          "type": "textarea",
+          "default": "One or two sentences that make readers want the rest."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "date": "2026-09-29",
+          "category": "Recruiting",
+          "readingTime": "7 min read",
+          "title": "How to recruit customers for interviews without paying them to show up",
+          "excerpt": "Gift cards fill your calendar with the wrong people. Here is what we offer instead, and why it works.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "date": "2026-07-14",
+          "category": "Interviewing",
+          "readingTime": "5 min read",
+          "title": "The five-question guide we use for every churn interview",
+          "excerpt": "Start with the week they signed up, not the day they left. The rest of the guide follows from there.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "date": "2026-04-02",
+          "category": "Synthesis",
+          "readingTime": "9 min read",
+          "title": "Tagging is not synthesis: from 40 interviews to three decisions",
+          "excerpt": "A workshop format that gets a product team from highlights to a roadmap call in one afternoon.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "date": "2026-01-20",
+          "category": "Company",
+          "readingTime": "4 min read",
+          "title": "Why we moved Fieldnote’s research team to Toronto",
+          "excerpt": "Six people, one shared studio on Queen West and a standing Friday customer call.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

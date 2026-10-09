@@ -1,0 +1,80 @@
+@layer components {
+  @scope (.b-contact-person) {
+    .b-panel {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+      padding: var(--space-6);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      width: min(100%, 12rem);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-content {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-person {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .b-person span,
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-direct {
+      --cluster-gap: var(--space-1) var(--space-6);
+    }
+
+    .b-direct li,
+    .b-note {
+      --icon-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-width: 0;
+    }
+
+    .b-direct a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      color: var(--color-text);
+      overflow-wrap: anywhere;
+    }
+
+    .b-actions {
+      --cluster-gap: var(--space-3) var(--space-6);
+      margin-top: var(--space-2);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        grid-template-columns: auto 1fr;
+        gap: var(--space-12);
+        padding: var(--space-12);
+      }
+
+      .b-photo {
+        width: 14rem;
+      }
+    }
+  }
+}

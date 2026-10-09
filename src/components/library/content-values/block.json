@@ -1,0 +1,83 @@
+{
+  "name": "Content, mission and values",
+  "category": "content",
+  "description": "A mission statement beside a list of company values with icons.",
+  "tags": ["mission", "values", "culture", "about", "principles", "company"],
+  "fieldGroups": ["Mission", "Values"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Mission and values",
+      "group": "Mission"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Make every product decision start with a customer’s own words",
+      "required": true,
+      "group": "Mission"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We are 28 people in Toronto and Lisbon building the research tool we wished we had. These four values decide how we hire, what we ship and what we turn down.",
+      "group": "Mission"
+    },
+    {
+      "name": "values",
+      "label": "Values",
+      "type": "list",
+      "group": "Values",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "star"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Value"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "One or two sentences about what this value means in practice."
+        }
+      ],
+      "default": [
+        {
+          "icon": "headphones",
+          "title": "Listen before you build",
+          "text": "Every project starts with at least five customer conversations. If we cannot find them, we do not build it."
+        },
+        {
+          "icon": "quote",
+          "title": "Share the raw evidence",
+          "text": "Quotes and clips travel further than opinions. We link the source for every claim we make."
+        },
+        {
+          "icon": "shield",
+          "title": "Protect the people we record",
+          "text": "Recordings hold people’s voices and faces. Consent, privacy and deletion are never an afterthought."
+        },
+        {
+          "icon": "leaf",
+          "title": "Stay small and useful",
+          "text": "We would rather do five things well than fifty things halfway. Saying no is part of the job."
+        }
+      ]
+    }
+  ]
+}

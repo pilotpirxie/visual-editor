@@ -1,0 +1,158 @@
+{
+  "name": "Features, now, next, later",
+  "category": "features",
+  "description": "A public roadmap in three columns, with status dots and a card for each feature.",
+  "tags": ["features", "roadmap", "now next later", "coming soon", "kanban", "columns", "planned"],
+  "fieldGroups": ["Heading", "Columns", "Link"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Roadmap",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What we’re building, in the open",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every item started as a customer interview. Plans further out are more likely to change.",
+      "group": "Heading"
+    },
+    {
+      "name": "columns",
+      "label": "Columns",
+      "type": "list",
+      "group": "Columns",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Now",
+          "required": true
+        },
+        {
+          "name": "summary",
+          "label": "Summary",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "items",
+          "label": "Features",
+          "type": "list",
+          "minItems": 1,
+          "maxItems": 8,
+          "itemLabel": "title",
+          "itemFields": [
+            {
+              "name": "title",
+              "label": "Title",
+              "type": "text",
+              "default": "Feature",
+              "required": true
+            },
+            {
+              "name": "text",
+              "label": "Text",
+              "type": "text",
+              "default": ""
+            }
+          ],
+          "default": [
+            {
+              "title": "Feature",
+              "text": ""
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "label": "Now",
+          "summary": "In progress, shipping this quarter",
+          "items": [
+            {
+              "title": "Live transcripts during calls",
+              "text": "Highlight while the customer is still talking."
+            },
+            {
+              "title": "Spanish and Portuguese summaries",
+              "text": "Written in the language of the interview."
+            }
+          ]
+        },
+        {
+          "label": "Next",
+          "summary": "Designed and scheduled",
+          "items": [
+            {
+              "title": "Jira and Linear links",
+              "text": "Attach evidence to tickets in one click."
+            },
+            {
+              "title": "Participant panels",
+              "text": "Recruit from your own customer list."
+            },
+            {
+              "title": "Clip captions",
+              "text": "Burned-in subtitles for every shared clip."
+            }
+          ]
+        },
+        {
+          "label": "Later",
+          "summary": "Exploring with customers",
+          "items": [
+            {
+              "title": "Unmoderated tests",
+              "text": "Tasks people complete on their own time."
+            },
+            {
+              "title": "Offline mobile recording",
+              "text": "For research where there is no signal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "Vote on the full roadmap",
+      "help": "Leave empty to hide the link.",
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Link"
+    }
+  ]
+}

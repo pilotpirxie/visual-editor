@@ -1,0 +1,100 @@
+{
+  "name": "Features, tinted tiles",
+  "category": "features",
+  "description": "Tall feature tiles whose tint deepens step by step, ending in a solid tile in your brand color.",
+  "tags": ["features", "tiles", "grid", "icons", "color", "gradient", "cards"],
+  "fieldGroups": ["Heading", "Items"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Platform",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Each step of research, a shade further along",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Start with one recording. Six features later, you have answers the whole company can act on.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Tiles",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "zap"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Tile title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one sentence."
+        }
+      ],
+      "default": [
+        {
+          "icon": "mic",
+          "title": "Capture",
+          "text": "Record calls, upload files or bring in notes from the field."
+        },
+        {
+          "icon": "transcript",
+          "title": "Transcribe",
+          "text": "Readable transcripts with speaker names in about four minutes."
+        },
+        {
+          "icon": "bookmark",
+          "title": "Highlight",
+          "text": "Save the sentences that matter, linked to the moment they were said."
+        },
+        {
+          "icon": "layers",
+          "title": "Synthesize",
+          "text": "Group highlights into themes that grow with every new study."
+        },
+        {
+          "icon": "share",
+          "title": "Share",
+          "text": "Send clips and summaries where decisions actually get made."
+        },
+        {
+          "icon": "target",
+          "title": "Decide",
+          "text": "Link roadmap items to the evidence behind them, and keep the trail."
+        }
+      ]
+    }
+  ]
+}

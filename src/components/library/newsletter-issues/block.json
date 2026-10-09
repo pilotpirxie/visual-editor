@@ -1,0 +1,174 @@
+{
+  "name": "Newsletter, recent issues",
+  "category": "newsletters",
+  "description": "A signup form beside links to the latest issues, so visitors can see what they will get.",
+  "tags": ["newsletter", "email", "subscribe", "signup", "form", "archive", "issues"],
+  "fieldGroups": ["Heading", "Form", "Issues"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The Fieldnote letter",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Read a few issues before you subscribe",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "A monthly letter about customer research: what worked, what did not, and what we would try next time.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email address",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Subscribe",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Privacy note",
+      "type": "text",
+      "default": "Monthly. Unsubscribe any time.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "issuesTitle",
+      "label": "Issues title",
+      "type": "text",
+      "default": "Recent issues",
+      "group": "Issues"
+    },
+    {
+      "name": "issues",
+      "label": "Issues",
+      "type": "list",
+      "group": "Issues",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "number",
+          "label": "Issue number",
+          "type": "text",
+          "default": "No. 1"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Issue title"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "number": "No. 42",
+          "title": "The churn interview that changed our roadmap",
+          "date": "2026-10-05",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "number": "No. 41",
+          "title": "Five screener questions we will never ask again",
+          "date": "2026-09-07",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "number": "No. 40",
+          "title": "How to share research with engineers who hate meetings",
+          "date": "2026-08-03",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "number": "No. 39",
+          "title": "Recruiting customers in a week, not a month",
+          "date": "2026-07-06",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

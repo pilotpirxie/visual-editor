@@ -1,0 +1,101 @@
+@layer components {
+  @scope (.b-steps-path) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      text-align: center;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro,
+    .b-card h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-path {
+      --gap: var(--space-12);
+      --line: 2px dashed color-mix(in oklab, var(--color-primary) 55%, var(--color-border));
+      display: grid;
+      gap: var(--gap);
+      width: 100%;
+      max-width: 60rem;
+      counter-reset: step;
+    }
+
+    .b-step {
+      position: relative;
+      counter-increment: step;
+    }
+
+    .b-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      inset-block-start: 100%;
+      inset-inline-start: 50%;
+      block-size: var(--gap);
+      border-inline-start: var(--line);
+    }
+
+    .b-card {
+      --stack-gap: var(--space-2);
+      position: relative;
+      z-index: 1;
+      padding: var(--space-12) var(--space-6) var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: var(--color-background);
+      box-shadow: var(--card-shadow);
+      text-align: center;
+    }
+
+    .b-card::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      inset-block-start: -1.5rem;
+      inset-inline-start: calc(50% - 1.5rem);
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      box-shadow: 0 0 0 var(--space-2) var(--color-background);
+      color: var(--color-primary-contrast);
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-step {
+        width: 50%;
+      }
+
+      .b-step:nth-child(even) {
+        margin-inline-start: 50%;
+      }
+
+      .b-step:not(:last-child)::after {
+        inset-block-start: 50%;
+        inset-inline-start: 100%;
+        inline-size: 50%;
+        block-size: calc(50% + var(--gap));
+        border: var(--line);
+        border-block-end: 0;
+        border-inline-start: 0;
+        border-start-end-radius: var(--radius-lg);
+      }
+
+      .b-step:nth-child(even)::after {
+        inset-inline-start: -50%;
+        rotate: y 180deg;
+      }
+    }
+  }
+}

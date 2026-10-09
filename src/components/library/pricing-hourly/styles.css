@@ -1,0 +1,105 @@
+@layer components {
+  @scope (.b-pricing-hourly) {
+    .b-layout {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      align-self: start;
+      max-width: 34rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-note,
+    .b-length {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+    }
+
+    .b-session {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-4);
+      align-items: center;
+      padding-block: var(--space-6);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-info {
+      --stack-gap: var(--space-2);
+      grid-column: 1 / -1;
+    }
+
+    .b-length {
+      margin-block-start: var(--space-2);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-bar {
+      position: relative;
+      width: min(9rem, 40%);
+      height: 0.5rem;
+      border-radius: var(--radius-full);
+      background:
+        repeating-linear-gradient(
+          to right,
+          transparent 0 calc(12.5% - 2px),
+          var(--color-background) 0 12.5%
+        ),
+        color-mix(in oklab, var(--color-primary) 16%, transparent);
+    }
+
+    .b-bar::before {
+      content: '';
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: 0;
+      width: calc(min(var(--minutes, 60), 240) / 240 * 100%);
+      border-radius: inherit;
+      background: var(--color-primary);
+    }
+
+    .b-price {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-heading);
+    }
+
+    @media (min-width: 768px) {
+      .b-session {
+        grid-template-columns: minmax(0, 1fr) 7rem auto;
+      }
+
+      .b-info {
+        grid-column: auto;
+      }
+
+      .b-price {
+        text-align: end;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-layout {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+
+      .b-head {
+        position: sticky;
+        top: var(--space-8);
+      }
+    }
+  }
+}

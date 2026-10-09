@@ -1,0 +1,294 @@
+{
+  "name": "Careers, life at the company",
+  "category": "careers",
+  "description": "A wall of team photos in different sizes, mixed with short quotes from the people in them.",
+  "tags": ["careers", "culture", "team", "photos", "quotes", "collage", "life"],
+  "fieldGroups": ["Heading", "Button", "Wall"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Life at Fieldnote",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Small team, long lunches, real customers",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We are 42 people across three offices and eleven kitchen tables. Here is what an ordinary month looks like.",
+      "group": "Heading"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See open roles",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "items",
+      "label": "Tiles",
+      "type": "list",
+      "group": "Wall",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "kind",
+          "label": "Kind",
+          "type": "segmented",
+          "default": "photo",
+          "options": [
+            {
+              "value": "photo",
+              "label": "Photo"
+            },
+            {
+              "value": "quote",
+              "label": "Quote"
+            }
+          ]
+        },
+        {
+          "name": "shape",
+          "label": "Photo shape",
+          "type": "select",
+          "default": "square",
+          "options": [
+            {
+              "value": "square",
+              "label": "Square"
+            },
+            {
+              "value": "tall",
+              "label": "Tall"
+            },
+            {
+              "value": "wide",
+              "label": "Wide"
+            }
+          ]
+        },
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Team photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "text",
+          "label": "Caption or quote",
+          "type": "textarea",
+          "default": "Caption"
+        },
+        {
+          "name": "name",
+          "label": "Quote by",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "kind": "photo",
+          "shape": "tall",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The whole team on a dock at Georgian Bay during the summer offsite",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "text": "Summer offsite, Georgian Bay",
+          "name": "",
+          "role": ""
+        },
+        {
+          "kind": "quote",
+          "shape": "square",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "text": "I shipped to customers in my second week. Nobody made me wait for permission.",
+          "name": "Priya Raman",
+          "role": "Backend engineer, Toronto"
+        },
+        {
+          "kind": "photo",
+          "shape": "square",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Four teammates laughing during the Friday demo call",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "text": "Friday demos",
+          "name": "",
+          "role": ""
+        },
+        {
+          "kind": "photo",
+          "shape": "square",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A scruffy terrier asleep under a desk",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "text": "Biscuit, morale officer",
+          "name": "",
+          "role": ""
+        },
+        {
+          "kind": "photo",
+          "shape": "wide",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A long dinner table at a restaurant in Montréal",
+            "decorative": false,
+            "width": 1600,
+            "height": 900,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "photo"
+            }
+          },
+          "text": "Team dinner in Montréal",
+          "name": "",
+          "role": ""
+        },
+        {
+          "kind": "quote",
+          "shape": "square",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "text": "Meetings end on time, and most weeks have two afternoons with none at all.",
+          "name": "Tomás Herrera",
+          "role": "Product designer, remote"
+        },
+        {
+          "kind": "photo",
+          "shape": "square",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "An engineer interviewing a customer on a video call",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "text": "Customer day: everyone interviews",
+          "name": "",
+          "role": ""
+        },
+        {
+          "kind": "photo",
+          "shape": "square",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Five people reading on couches in the Toronto office library",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "text": "Book club, Thursdays",
+          "name": "",
+          "role": ""
+        }
+      ]
+    }
+  ]
+}

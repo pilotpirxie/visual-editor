@@ -1,0 +1,188 @@
+{
+  "name": "Newsletter, follow anywhere",
+  "category": "newsletters",
+  "description": "A bold email signup tile next to tiles for RSS, social and podcast channels.",
+  "tags": [
+    "newsletter",
+    "email",
+    "subscribe",
+    "signup",
+    "form",
+    "rss",
+    "social",
+    "podcast",
+    "channels",
+    "bento"
+  ],
+  "fieldGroups": ["Heading", "Form", "Channels"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Stay in the loop",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Follow the field notes wherever you read",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Same stories, your favourite format. Pick one or all of them.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailTitle",
+      "label": "Email tile title",
+      "type": "text",
+      "default": "In your inbox",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailText",
+      "label": "Email tile text",
+      "type": "text",
+      "default": "The full issue every Friday, with templates you can copy.",
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email address",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Subscribe",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "group": "Form",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ]
+    },
+    {
+      "name": "channels",
+      "label": "Channels",
+      "type": "list",
+      "group": "Channels",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Logo",
+          "type": "icon",
+          "default": "simple-icons:rss",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Channel"
+        },
+        {
+          "name": "meta",
+          "label": "Detail",
+          "type": "text",
+          "default": "Followers"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:rss",
+          "name": "RSS feed",
+          "meta": "Every post, no algorithm",
+          "link": {
+            "type": "url",
+            "url": "https://fieldnote.example/feed.xml",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:linkedin",
+          "name": "LinkedIn",
+          "meta": "18k followers",
+          "link": {
+            "type": "url",
+            "url": "https://www.linkedin.com",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:youtube",
+          "name": "YouTube",
+          "meta": "Weekly teardown videos",
+          "link": {
+            "type": "url",
+            "url": "https://www.youtube.com",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:spotify",
+          "name": "Podcast",
+          "meta": "Field Notes Radio",
+          "link": {
+            "type": "url",
+            "url": "https://open.spotify.com",
+            "newTab": true
+          }
+        }
+      ]
+    }
+  ]
+}

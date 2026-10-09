@@ -1,0 +1,218 @@
+{
+  "name": "Team, photo wall",
+  "category": "team",
+  "description": "Tilted instant photos of the team taped to a dotted wall, each with a name, role and a short note.",
+  "tags": ["team", "people", "polaroid", "photos", "playful", "culture", "about"],
+  "fieldGroups": ["Heading", "People"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Around the office",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The faces behind your transcripts",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Most of us work from our studio on King Street West in Toronto. The rest join from wherever the coffee is good.",
+      "group": "Heading"
+    },
+    {
+      "name": "people",
+      "label": "People",
+      "type": "list",
+      "group": "People",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "note",
+          "label": "Note",
+          "type": "text",
+          "default": "",
+          "maxLength": 60,
+          "help": "A short handwritten-style line under the role."
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leila Haddad",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Leila Haddad",
+          "role": "Co-founder and CEO",
+          "note": "Ask me about rock climbing"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Mateo Ruiz",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Mateo Ruiz",
+          "role": "Co-founder and CTO",
+          "note": "Makes the office espresso"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Ingrid Solberg",
+          "role": "Head of research",
+          "note": "900 interviews and counting"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Kwame Mensah",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Kwame Mensah",
+          "role": "Head of engineering",
+          "note": "Runs our Friday demos"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Yuki Tanaka",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Yuki Tanaka",
+          "role": "Senior product designer",
+          "note": "Sketches everything on paper first"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Daniel Novak",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Daniel Novak",
+          "role": "Customer success lead",
+          "note": "Knows every customer by name"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Aisha Bello",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Aisha Bello",
+          "role": "Machine learning engineer",
+          "note": "Trains models and a sourdough starter"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ruth Callahan",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Ruth Callahan",
+          "role": "People and operations",
+          "note": "Plans the summer offsite"
+        }
+      ]
+    }
+  ]
+}

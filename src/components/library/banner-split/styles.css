@@ -1,0 +1,97 @@
+@layer components {
+  @scope (.b-banner-split) {
+    :scope {
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-bar {
+      display: grid;
+    }
+
+    .b-bar > p {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-1) var(--space-3);
+      min-height: 2.75rem;
+      padding-block: var(--space-2);
+    }
+
+    .b-promo {
+      margin-inline: calc(var(--container-padding-x) * -1);
+      padding-inline: var(--container-padding-x);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-promo a {
+      color: inherit;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-badge {
+      padding-inline: var(--space-2);
+      border: var(--border-width) solid;
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+    }
+
+    .b-contact {
+      --icon-size: 1rem;
+      color: var(--color-text-muted);
+    }
+
+    .b-contact a {
+      color: var(--color-text);
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-hours {
+      padding-inline-start: var(--space-3);
+      border-inline-start: var(--border-width) solid var(--color-border);
+    }
+
+    @media (min-width: 768px) {
+      :scope {
+        background: linear-gradient(90deg, var(--color-primary) 50%, var(--color-surface) 50%);
+      }
+
+      :scope:dir(rtl) {
+        background: linear-gradient(-90deg, var(--color-primary) 50%, var(--color-surface) 50%);
+      }
+
+      .b-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .b-promo {
+        margin: 0;
+        padding-inline: 0 var(--space-8);
+      }
+
+      .b-contact {
+        justify-content: flex-end;
+        padding-inline-start: var(--space-8);
+      }
+
+      .b-contact::before {
+        content: '';
+        position: absolute;
+        inset-inline-start: -0.5rem;
+        top: 50%;
+        width: 1rem;
+        height: 1rem;
+        background: var(--color-primary);
+        translate: 0 -50%;
+        rotate: 45deg;
+      }
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "name": "Pricing, with guarantee",
+  "category": "pricing",
+  "description": "Two plan cards beside a stamped money-back guarantee seal.",
+  "tags": ["pricing", "plans", "guarantee", "refund", "money-back", "seal", "trust"],
+  "fieldGroups": ["Heading", "Plans", "Guarantee"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Pricing",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Try it for a month. Keep it only if it works.",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Pick a plan, run your next study in Fieldnote and decide with real results in hand.",
+      "group": "Heading"
+    },
+    {
+      "name": "plans",
+      "label": "Plans",
+      "type": "list",
+      "group": "Plans",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Plan name",
+          "type": "text",
+          "default": "Plan"
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$0"
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": "per month"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "Who this plan is for."
+        },
+        {
+          "name": "features",
+          "label": "Included",
+          "type": "richtext",
+          "default": "<ul><li>First feature</li><li>Second feature</li></ul>"
+        },
+        {
+          "name": "featured",
+          "label": "Featured",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Choose plan",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "Team",
+          "price": "$29",
+          "period": "per editor, per month",
+          "description": "For product teams who talk to customers every week.",
+          "features": "<ul><li>Unlimited transcripts</li><li>Shared themes across projects</li><li>Slack and Jira exports</li></ul>",
+          "featured": true,
+          "button": {
+            "label": "Start with Team",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "primary"
+          }
+        },
+        {
+          "name": "Business",
+          "price": "$79",
+          "period": "per editor, per month",
+          "description": "For research programs that span several teams.",
+          "features": "<ul><li>Everything in Team</li><li>Single sign-on</li><li>Audit logs and data residency</li></ul>",
+          "featured": false,
+          "button": {
+            "label": "Start with Business",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          }
+        }
+      ]
+    },
+    {
+      "name": "sealNumber",
+      "label": "Seal number",
+      "type": "text",
+      "default": "30",
+      "required": true,
+      "maxLength": 4,
+      "group": "Guarantee"
+    },
+    {
+      "name": "sealUnit",
+      "label": "Seal text",
+      "type": "text",
+      "default": "days",
+      "maxLength": 12,
+      "group": "Guarantee"
+    },
+    {
+      "name": "guaranteeTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "30-day money-back guarantee",
+      "required": true,
+      "group": "Guarantee"
+    },
+    {
+      "name": "guaranteeText",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Not the right fit? Email us within 30 days of paying and we’ll refund every cent. No forms, no questions.",
+      "group": "Guarantee"
+    }
+  ]
+}

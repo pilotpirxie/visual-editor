@@ -1,0 +1,52 @@
+{
+  "name": "Content, lead statement",
+  "category": "content",
+  "description": "One oversized statement in the heading font, with an optional attribution line.",
+  "tags": ["statement", "lead", "mission", "manifesto", "large text", "intro"],
+  "fieldGroups": ["Statement", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Why we exist",
+      "group": "Statement"
+    },
+    {
+      "name": "statement",
+      "label": "Statement",
+      "type": "textarea",
+      "default": "We started Fieldnote because the best product decisions we ever made came from one customer sentence, and we nearly lost every one of them in a recording nobody rewatched.",
+      "required": true,
+      "maxLength": 320,
+      "group": "Statement"
+    },
+    {
+      "name": "attribution",
+      "label": "Attribution",
+      "type": "text",
+      "default": "Priya Raman, co-founder",
+      "group": "Statement"
+    },
+    {
+      "name": "align",
+      "label": "Alignment",
+      "type": "segmented",
+      "default": "left",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left",
+          "icon": "align-left"
+        },
+        {
+          "value": "center",
+          "label": "Center",
+          "icon": "align-center"
+        }
+      ]
+    }
+  ]
+}

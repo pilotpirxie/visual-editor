@@ -1,0 +1,16 @@
+<aside class="b-banner-maintenance" aria-label="Scheduled maintenance">
+  <div class="container b-bar">
+    <p class="b-date"><span class="b-month" data-field="month">{{month}}</span> <span class="b-day" data-field="day">{{day}}</span></p>
+    <div class="b-body">
+      <p class="b-head"><strong data-field="title">{{title}}</strong><span class="b-window" data-field="window">{{svgIcon "clock"}}{{window}}</span></p>
+      {{#if services.length}}
+      <ul class="b-services" role="list">
+        {{#each services}}<li data-field="services.{{@index}}">{{label}}</li>{{/each}}
+      </ul>
+      {{/if}}
+    </div>
+    {{#if linkLabel}}
+    <a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-up-right"}}</a>
+    {{/if}}
+  </div>
+</aside>

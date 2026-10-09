@@ -1,0 +1,92 @@
+@layer components {
+  @scope (.b-http-410) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: start;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      position: relative;
+      align-items: flex-start;
+    }
+
+    .b-stamp {
+      align-self: flex-end;
+      padding: var(--space-2) var(--space-4);
+      border: 0.2rem solid var(--color-primary);
+      border-radius: var(--radius-md);
+      color: var(--color-primary);
+      font-family: var(--font-mono);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      rotate: 8deg;
+      opacity: 0.8;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-moves {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-list-title {
+      font-size: var(--text-sm);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .b-list {
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-move {
+      display: grid;
+      gap: var(--space-1);
+      padding: var(--space-4) var(--space-2);
+      border-bottom: var(--border-width) solid var(--color-border);
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .b-move:hover {
+      background: var(--color-surface);
+    }
+
+    .b-old {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      text-decoration: line-through;
+    }
+
+    .b-new {
+      --icon-size: 1rem;
+      color: var(--color-primary);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-desc {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1.1fr;
+        gap: var(--space-16);
+      }
+
+      .b-stamp {
+        position: absolute;
+        inset-block-end: 0;
+        inset-inline-end: var(--space-8);
+      }
+    }
+  }
+}

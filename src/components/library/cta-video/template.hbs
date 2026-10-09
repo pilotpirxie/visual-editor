@@ -1,0 +1,25 @@
+<section class="b-cta-video section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      {{#if chapters.length}}
+      <ol class="b-chapters" role="list">
+        {{#each chapters}}
+        <li data-field="chapters.{{@index}}"><span class="b-time">{{time}}</span> {{label}}</li>
+        {{/each}}
+      </ol>
+      {{/if}}
+      <div class="cluster">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+    </div>
+    <div class="b-player">
+      <div class="media b-media" data-field="image">{{img image}}</div>
+      <a class="b-play" href="{{href videoLink}}" {{linkAttrs videoLink}} data-field="videoLink">{{svgIcon "play"}}<span class="visually-hidden">{{videoLabel}}</span></a>
+      {{#if duration}}<span class="b-duration" data-field="duration">{{duration}}</span>{{/if}}
+      <span class="b-progress" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>

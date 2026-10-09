@@ -1,0 +1,52 @@
+@layer components {
+  @scope (.b-newsletter-centered) {
+    .b-inner {
+      --stack-gap: var(--space-6);
+      align-items: center;
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: inline-grid;
+      place-items: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      width: 100%;
+      max-width: 32rem;
+    }
+
+    .b-field {
+      flex: 999 1 14rem;
+    }
+
+    .b-submit {
+      flex: 1 0 auto;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+  }
+}

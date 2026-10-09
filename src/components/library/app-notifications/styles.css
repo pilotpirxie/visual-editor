@@ -1,0 +1,111 @@
+@layer components {
+  @scope (.b-app-notifications) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-intro {
+      color: var(--color-text-muted);
+    }
+
+    .b-points {
+      --stack-gap: var(--space-2);
+      --icon-size: 1.25rem;
+    }
+
+    .b-point {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .b-point .icon {
+      color: var(--color-primary);
+    }
+
+    .b-stage {
+      display: grid;
+      place-items: center;
+      padding: var(--space-8) var(--space-4);
+      border-radius: var(--radius-lg);
+      background: color-mix(in oklab, var(--color-primary) 10%, var(--color-background));
+    }
+
+    .b-phone {
+      --device-width: 16rem;
+    }
+
+    .b-screen {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+      padding: var(--space-12) var(--space-2) var(--space-4);
+      background: linear-gradient(
+        165deg,
+        color-mix(in oklab, var(--theme-dark-accent) 55%, var(--theme-dark-background)),
+        var(--theme-dark-background) 70%
+      );
+      color: var(--theme-dark-text);
+    }
+
+    .b-clock {
+      display: grid;
+      text-align: center;
+      font-size: var(--text-sm);
+    }
+
+    .b-time {
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      line-height: 1;
+    }
+
+    .b-alerts {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .b-alert {
+      padding: var(--space-3);
+      border-radius: var(--radius-lg);
+      background: color-mix(in oklab, var(--theme-dark-text) 16%, transparent);
+      backdrop-filter: blur(1rem);
+      font-size: var(--text-xs);
+    }
+
+    .b-app {
+      --icon-size: 0.75rem;
+      display: flex;
+      gap: var(--space-2);
+      align-items: center;
+      margin-block-end: var(--space-2);
+    }
+
+    .b-app-icon {
+      display: grid;
+      place-items: center;
+      width: 1.25rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-sm);
+      background: var(--theme-dark-accent);
+      color: var(--theme-dark-accent-contrast);
+    }
+
+    .b-when {
+      margin-inline-start: auto;
+      color: var(--theme-dark-text-muted);
+    }
+
+    .b-alert-title {
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

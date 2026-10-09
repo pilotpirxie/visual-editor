@@ -1,0 +1,23 @@
+<section class="b-contact-minimal section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-channels">
+      {{#if email}}
+      <div class="stack b-channel">
+        <p class="b-label" data-field="emailLabel">{{emailLabel}}</p>
+        <a class="b-big" href="mailto:{{email}}" data-field="email">{{email}}</a>
+      </div>
+      {{/if}}
+      {{#if phone}}
+      <div class="stack b-channel">
+        <p class="b-label" data-field="phoneLabel">{{phoneLabel}}</p>
+        <a class="b-big" href="tel:{{phone}}" data-field="phone">{{phone}}</a>
+      </div>
+      {{/if}}
+    </div>
+    {{#if address}}<address class="b-address" data-field="address">{{svgIcon "map-pin"}}<span>{{nl2br address}}</span></address>{{/if}}
+  </div>
+</section>

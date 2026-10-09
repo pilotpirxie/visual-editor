@@ -1,0 +1,33 @@
+<section class="b-contact-booking section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="b-host">
+        <span class="media b-avatar" data-field="hostPhoto">{{img hostPhoto}}</span>
+        <p><strong data-field="hostName">{{hostName}}</strong><span data-field="hostRole">{{hostRole}}</span></p>
+      </div>
+      <ul class="stack b-facts" role="list">
+        {{#if duration}}<li data-field="duration">{{svgIcon "clock"}}<span>{{duration}}</span></li>{{/if}}
+        {{#if platform}}<li data-field="platform">{{svgIcon "video"}}<span>{{platform}}</span></li>{{/if}}
+        {{#if timezone}}<li data-field="timezone">{{svgIcon "globe"}}<span>{{timezone}}</span></li>{{/if}}
+      </ul>
+    </div>
+    <div class="card stack b-picker">
+      <p class="b-month" data-field="monthLabel">{{svgIcon "calendar"}} {{monthLabel}}</p>
+      <ol class="b-days" role="list">
+        {{#each days}}
+        <li class="b-day" data-state="{{state}}" {{#if (eq state "selected")}}aria-current="date"{{/if}} data-field="days.{{@index}}"><span class="b-weekday">{{weekday}}</span><span class="b-date">{{date}}</span>{{#if (eq state "full")}}<span class="visually-hidden">{{../fullLabel}}</span>{{/if}}</li>
+        {{/each}}
+      </ol>
+      <h3 class="b-slots-title" data-field="slotsTitle">{{slotsTitle}}</h3>
+      <ul class="b-slots" role="list">
+        {{#each slots}}
+        <li data-field="slots.{{@index}}"><a class="b-slot" href="{{href link}}" {{linkAttrs link}}>{{time}}</a></li>
+        {{/each}}
+      </ul>
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+  </div>
+</section>

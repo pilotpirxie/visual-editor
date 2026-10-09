@@ -1,0 +1,64 @@
+@layer components {
+  @scope (.b-content-download) {
+    .b-panel {
+      display: grid;
+      gap: var(--space-8);
+      padding: var(--space-6);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-cover {
+      --media-ratio: 3 / 4;
+      --media-radius: var(--radius-md);
+      width: min(100%, 12rem);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+    }
+
+    .b-text,
+    .b-meta {
+      color: var(--color-text-muted);
+    }
+
+    .b-contents {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-contents li {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .b-contents .icon {
+      margin-block-start: 0.2em;
+      color: var(--color-primary);
+    }
+
+    .b-actions {
+      margin-block-start: var(--space-2);
+    }
+
+    .b-meta {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        grid-template-columns: 14rem minmax(0, 1fr);
+        gap: var(--space-12);
+        align-items: center;
+        padding: var(--space-12);
+      }
+
+      .b-cover {
+        width: 100%;
+        rotate: -3deg;
+      }
+    }
+  }
+}

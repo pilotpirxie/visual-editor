@@ -1,0 +1,231 @@
+{
+  "name": "Careers, offices and remote",
+  "category": "careers",
+  "description": "Photo tiles for each office with its time zone and number of open roles, plus a tile for remote work.",
+  "tags": ["careers", "offices", "locations", "remote", "cities", "jobs", "photos"],
+  "fieldGroups": ["Heading", "Offices", "Remote"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Where we work",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three offices and a lot of kitchen tables",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Work from one of our offices, from home, or a mix of both. Most teams meet in person once a quarter.",
+      "group": "Heading"
+    },
+    {
+      "name": "offices",
+      "label": "Offices",
+      "type": "list",
+      "group": "Offices",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "city",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Office",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "city",
+          "label": "City",
+          "type": "text",
+          "default": "City"
+        },
+        {
+          "name": "country",
+          "label": "Country",
+          "type": "text",
+          "default": "Country"
+        },
+        {
+          "name": "timezone",
+          "label": "Time zone",
+          "type": "text",
+          "default": "UTC"
+        },
+        {
+          "name": "roles",
+          "label": "Open roles",
+          "type": "text",
+          "default": "1 open role"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The Fieldnote office on Spadina Avenue, with a long shared table by the windows",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "city": "Toronto",
+          "country": "Canada, headquarters",
+          "timezone": "UTC−5",
+          "roles": "9 open roles",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Teammates working at the Montréal office in the Mile End",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "city": "Montréal",
+          "country": "Canada",
+          "timezone": "UTC−5",
+          "roles": "3 open roles",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A meeting room in the Berlin office in Kreuzberg",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "city": "Berlin",
+          "country": "Germany",
+          "timezone": "UTC+1",
+          "roles": "2 open roles",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "showRemote",
+      "label": "Show remote tile",
+      "type": "boolean",
+      "default": true,
+      "group": "Remote"
+    },
+    {
+      "name": "remoteIcon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "globe",
+      "group": "Remote",
+      "visibleWhen": {
+        "field": "showRemote",
+        "equals": true
+      }
+    },
+    {
+      "name": "remoteTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "Remote",
+      "group": "Remote",
+      "visibleWhen": {
+        "field": "showRemote",
+        "equals": true
+      }
+    },
+    {
+      "name": "remoteText",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Anywhere within three hours of Toronto time. We pay for a coworking desk if you want one.",
+      "group": "Remote",
+      "visibleWhen": {
+        "field": "showRemote",
+        "equals": true
+      }
+    },
+    {
+      "name": "remoteRoles",
+      "label": "Open roles",
+      "type": "text",
+      "default": "11 open roles",
+      "group": "Remote",
+      "visibleWhen": {
+        "field": "showRemote",
+        "equals": true
+      }
+    },
+    {
+      "name": "remoteLink",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Remote",
+      "visibleWhen": {
+        "field": "showRemote",
+        "equals": true
+      }
+    }
+  ]
+}

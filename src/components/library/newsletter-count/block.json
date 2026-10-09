@@ -1,0 +1,249 @@
+{
+  "name": "Newsletter, subscriber count",
+  "category": "newsletters",
+  "description": "A giant subscriber number that counts up, reader photos and open-rate stats beside the signup card.",
+  "tags": [
+    "newsletter",
+    "email",
+    "subscribe",
+    "signup",
+    "form",
+    "social proof",
+    "numbers",
+    "count up",
+    "avatars"
+  ],
+  "fieldGroups": ["Proof", "Heading", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "count",
+      "label": "Subscriber count",
+      "type": "text",
+      "default": "12,480",
+      "group": "Proof",
+      "required": true,
+      "maxLength": 12
+    },
+    {
+      "name": "countLabel",
+      "label": "Count label",
+      "type": "text",
+      "default": "researchers read it every Friday",
+      "group": "Proof"
+    },
+    {
+      "name": "countUp",
+      "label": "Count up when visible",
+      "type": "boolean",
+      "default": true,
+      "group": "Proof"
+    },
+    {
+      "name": "avatars",
+      "label": "Reader photos",
+      "type": "list",
+      "group": "Proof",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Reader",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Jonas Becker",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Priya Raman",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leila Haddad",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Mateo Alvarez",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "stats",
+      "label": "Stats",
+      "type": "list",
+      "group": "Proof",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Value",
+          "type": "text",
+          "default": "0"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        }
+      ],
+      "default": [
+        {
+          "value": "61%",
+          "label": "Open rate"
+        },
+        {
+          "value": "5 min",
+          "label": "Average read"
+        },
+        {
+          "value": "212",
+          "label": "Issues since 2021"
+        }
+      ]
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Get the Friday field notes",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "One interview technique, one real study taken apart and one tool worth trying, every week.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Join the readers",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Privacy note",
+      "type": "text",
+      "default": "Free forever. Unsubscribe in one click.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "group": "Form",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ]
+    }
+  ]
+}

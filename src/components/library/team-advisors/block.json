@@ -1,0 +1,214 @@
+{
+  "name": "Team, advisors and investors",
+  "category": "team",
+  "description": "Advisor portraits beside a ledger of investors with dotted leaders, rounds and a funding note.",
+  "tags": ["team", "advisors", "investors", "backers", "funding", "board", "about"],
+  "fieldGroups": ["Heading", "Advisors", "Investors"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Backed by",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "In good company",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "People who have built research teams, sold software and written privacy policy, and the funds that bet on us early.",
+      "group": "Heading"
+    },
+    {
+      "name": "advisorsTitle",
+      "label": "Group title",
+      "type": "text",
+      "default": "Advisors",
+      "group": "Advisors"
+    },
+    {
+      "name": "advisors",
+      "label": "Advisors",
+      "type": "list",
+      "group": "Advisors",
+      "minItems": 0,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Area",
+          "type": "text",
+          "default": "Area"
+        },
+        {
+          "name": "previously",
+          "label": "Background",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Elena Petrova",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Elena Petrova",
+          "role": "Research operations",
+          "previously": "Grew a health insurer’s research team from two people to forty"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Samuel Adeyemi",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Samuel Adeyemi",
+          "role": "Go-to-market",
+          "previously": "Took two developer tools from first customer to public listing"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Hiroshi Watanabe",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Hiroshi Watanabe",
+          "role": "Speech recognition",
+          "previously": "Ten years building speech models for underserved languages"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Clara Lindqvist",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Clara Lindqvist",
+          "role": "Privacy and compliance",
+          "previously": "Former data protection officer at a Nordic bank"
+        }
+      ]
+    },
+    {
+      "name": "investorsTitle",
+      "label": "Group title",
+      "type": "text",
+      "default": "Investors",
+      "group": "Investors"
+    },
+    {
+      "name": "investors",
+      "label": "Investors",
+      "type": "list",
+      "group": "Investors",
+      "minItems": 0,
+      "maxItems": 10,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Investor"
+        },
+        {
+          "name": "round",
+          "label": "Round",
+          "type": "text",
+          "default": "Seed"
+        }
+      ],
+      "default": [
+        {
+          "name": "Harbourfront Capital",
+          "round": "Series A lead, 2025"
+        },
+        {
+          "name": "Maple Ridge Ventures",
+          "round": "Seed lead, 2023"
+        },
+        {
+          "name": "Northbound Fund",
+          "round": "Seed, 2023"
+        },
+        {
+          "name": "Foundry Ten",
+          "round": "Pre-seed, 2022"
+        },
+        {
+          "name": "Omar Farouk",
+          "round": "Angel, 2022"
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Fieldnote has raised $11 million to date.",
+      "group": "Investors"
+    }
+  ]
+}

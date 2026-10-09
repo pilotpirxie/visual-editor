@@ -1,0 +1,25 @@
+<section class="b-blog-archive section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div>
+      {{#each years}}
+      <div class="b-year" data-field="years.{{@index}}">
+        <h3 class="b-label">{{year}}</h3>
+        <ul class="b-posts" role="list">
+          {{#each posts}}
+          <li class="b-post" data-field="years.{{@../index}}.posts.{{@index}}">
+            <a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a>
+            {{#if category}}<span class="b-muted">{{category}}</span>{{/if}}
+            {{#if date}}<time class="b-muted b-date" datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

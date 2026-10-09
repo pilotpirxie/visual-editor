@@ -1,0 +1,92 @@
+@layer components {
+  @scope (.b-cookie-dark) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+    }
+
+    .b-panel {
+      z-index: 10;
+      width: auto;
+      max-width: 64rem;
+      margin: 0 var(--space-4);
+      padding: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(
+          circle at 0 0,
+          color-mix(in oklab, var(--color-primary) 28%, transparent),
+          transparent 18rem
+        ),
+        var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-panel[open] {
+      position: fixed;
+      inset: auto 0 var(--space-4);
+    }
+
+    .b-inner {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-4);
+      align-items: center;
+    }
+
+    .b-badge {
+      --icon-size: 1.5rem;
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 22%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-title {
+      font-family: var(--font-heading);
+      font-weight: var(--font-weight-heading);
+    }
+
+    .b-text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-text a {
+      color: var(--color-text);
+    }
+
+    .b-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column: 1 / -1;
+      gap: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        margin-inline: auto;
+        padding-inline-start: var(--space-6);
+      }
+
+      .b-inner {
+        grid-template-columns: auto 1fr auto;
+        gap: var(--space-6);
+      }
+
+      .b-actions {
+        display: flex;
+        grid-column: auto;
+      }
+    }
+  }
+}

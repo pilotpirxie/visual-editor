@@ -1,0 +1,19 @@
+<nav class="b-nav-portfolio" data-behavior="menu" aria-label="Main">
+  <div class="container b-bar">
+    <div class="b-id">
+      <a class="b-logo" href="index.html">{{site.title}}</a>
+      {{#if availability}}<p class="b-status" data-field="availability"><span class="b-dot" aria-hidden="true"></span>{{availability}}</p>{{/if}}
+    </div>
+    <button type="button" class="btn btn-secondary b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+      {{svgIcon menuIcon}}<span>Menu</span>
+    </button>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+      {{#if email}}<a class="btn btn-primary b-mail" href="mailto:{{email}}" data-field="email">{{svgIcon "mail"}}<span>{{email}}</span></a>{{/if}}
+    </div>
+  </div>
+</nav>

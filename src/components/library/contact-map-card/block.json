@@ -1,0 +1,64 @@
+{
+  "name": "Contact, card over map",
+  "category": "contacts",
+  "description": "A full-width illustrated map with a location pin and a floating card with address, hours, phone and a directions button.",
+  "tags": ["contact", "map", "location", "address", "office", "directions", "hours", "visit"],
+  "fieldGroups": ["Heading", "Details"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Visit us",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Our studio on King Street",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "address",
+      "label": "Address",
+      "type": "textarea",
+      "default": "220 King Street West, 4th floor\nToronto, ON M5H 1K4",
+      "group": "Details"
+    },
+    {
+      "name": "hours",
+      "label": "Hours",
+      "type": "textarea",
+      "default": "Monday to Friday, 9 AM to 6 PM\nCoffee is on us",
+      "group": "Details"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "+1 416 555 0142",
+      "group": "Details"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "studio@fieldnote.example",
+      "group": "Details"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get directions",
+        "link": { "type": "url", "url": "#", "newTab": true },
+        "variant": "primary"
+      },
+      "group": "Details"
+    }
+  ]
+}

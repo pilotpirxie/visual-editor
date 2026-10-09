@@ -1,0 +1,18 @@
+<section class="b-faq-dark section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="stack b-list">
+      {{#each items}}
+      <details class="b-item" name="{{../block.id}}-faq" data-field="items.{{@index}}">
+        <summary class="b-question"><span>{{question}}</span><span class="b-icon">{{svgIcon ../expandIcon}}</span></summary>
+        <div class="prose b-answer">{{richText answer}}</div>
+      </details>
+      {{/each}}
+    </div>
+    {{#if showContact}}<p class="b-contact"><span data-field="contactText">{{contactText}}</span> <a href="{{href contactLink.link}}" {{linkAttrs contactLink.link}} data-field="contactLink">{{contactLink.label}}</a></p>{{/if}}
+  </div>
+</section>

@@ -1,0 +1,24 @@
+<section class="b-testimonials-support section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-grid" role="list">
+      {{#each items}}
+      <li class="b-ticket" data-field="items.{{@index}}">
+        <div class="b-top">
+          <span class="b-number">{{ticket}}</span>
+          {{#if resolved}}<span class="badge b-status">{{svgIcon "check-circle"}}{{resolved}}</span>{{/if}}
+        </div>
+        <figure class="stack b-body">
+          {{#if subject}}<p class="b-subject">{{subject}}</p>{{/if}}
+          <blockquote class="b-quote"><p>{{nl2br quote}}</p></blockquote>
+          <figcaption class="b-person"><span class="b-name">{{name}}</span>{{#if role}} · {{role}}{{/if}}</figcaption>
+        </figure>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

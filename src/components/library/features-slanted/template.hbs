@@ -1,0 +1,23 @@
+<section class="b-features-slanted section">
+  <div class="container stack b-inner">
+    <header class="b-head">
+      <div class="stack b-title">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </div>
+      <div class="stack b-side">
+        {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+        {{#if showButton}}<div class="cluster"><a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a></div>{{/if}}
+      </div>
+    </header>
+    <ul class="b-items" role="list">
+      {{#each items}}
+      <li class="stack b-item" data-field="items.{{@index}}">
+        <span class="b-icon">{{svgIcon icon}}</span>
+        <h3>{{title}}</h3>
+        <p>{{nl2br text}}</p>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

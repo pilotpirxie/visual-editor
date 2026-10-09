@@ -1,0 +1,29 @@
+<section class="b-faq-featured section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-body">
+      <article class="stack b-feature">
+        {{#if featuredLabel}}<p class="badge b-label" data-field="featuredLabel">{{svgIcon "star"}}{{featuredLabel}}</p>{{/if}}
+        <h3 class="b-feature-question" data-field="featuredQuestion">{{featuredQuestion}}</h3>
+        <div class="prose b-feature-answer" data-field="featuredAnswer">{{richText featuredAnswer}}</div>
+        <footer class="b-author">
+          <span class="media b-avatar" data-field="authorPhoto">{{img authorPhoto}}</span>
+          <p><strong data-field="authorName">{{authorName}}</strong><span data-field="authorRole">{{authorRole}}</span></p>
+        </footer>
+      </article>
+      <div class="b-more">
+        {{#if moreTitle}}<h3 class="b-more-title" data-field="moreTitle">{{moreTitle}}</h3>{{/if}}
+        {{#each items}}
+        <details class="b-item" name="{{../block.id}}-faq" data-field="items.{{@index}}">
+          <summary class="b-question"><span>{{question}}</span><span class="b-icon">{{svgIcon "plus"}}</span></summary>
+          <div class="prose b-answer">{{richText answer}}</div>
+        </details>
+        {{/each}}
+        {{#if moreLink.label}}<a class="b-link" href="{{href moreLink.link}}" {{linkAttrs moreLink.link}} data-field="moreLink">{{moreLink.label}} {{svgIcon "arrow-right"}}</a>{{/if}}
+      </div>
+    </div>
+  </div>
+</section>

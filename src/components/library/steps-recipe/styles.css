@@ -1,0 +1,113 @@
+@layer components {
+  @scope (.b-steps-recipe) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    :is(.b-muted, .b-fact dt) {
+      color: var(--color-text-muted);
+    }
+
+    .b-card {
+      overflow: hidden;
+      border: var(--border-width) solid var(--color-border);
+      border-block-start: var(--space-2) solid var(--color-primary);
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
+    }
+
+    .b-facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+      border-block-end: var(--border-width) dashed var(--color-border);
+    }
+
+    .b-fact {
+      padding: var(--space-4) var(--space-6);
+    }
+
+    .b-fact dt {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+    }
+
+    .b-fact dd {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+    }
+
+    .b-body {
+      display: grid;
+    }
+
+    :is(.b-need, .b-method) {
+      padding: var(--space-6);
+    }
+
+    .b-need {
+      background: var(--color-surface);
+    }
+
+    .b-list li {
+      display: flex;
+      gap: var(--space-3);
+      padding-block: var(--space-3);
+      border-block-end: var(--border-width) dotted var(--color-border);
+    }
+
+    .b-amount {
+      flex: none;
+      min-width: 3.75rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .b-steps {
+      display: grid;
+      gap: var(--space-6);
+      counter-reset: step;
+    }
+
+    .b-step {
+      display: grid;
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      gap: var(--space-1) var(--space-3);
+      counter-increment: step;
+    }
+
+    .b-step::before {
+      content: counter(step);
+      grid-row: span 2;
+      font: var(--font-weight-heading) var(--text-3xl) / 1 var(--font-heading);
+      color: var(--color-primary);
+    }
+
+    .b-tip {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 10%, transparent);
+    }
+
+    @media (min-width: 768px) {
+      .b-body {
+        grid-template-columns: 2fr 3fr;
+      }
+
+      :is(.b-need, .b-method) {
+        padding: var(--space-8);
+      }
+    }
+  }
+}

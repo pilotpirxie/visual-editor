@@ -1,0 +1,95 @@
+{
+  "name": "Content, text over image",
+  "category": "content",
+  "description": "A full-width photo behind a dark overlay, with a heading, text and a button on top.",
+  "tags": ["image", "background", "overlay", "photo", "dark", "story"],
+  "fieldGroups": ["Content", "Button", "Image", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Research week",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "We spend one week a quarter at our customers’ desks",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "No slides and no sales calls. The whole team sits with the people who use Fieldnote, watches how they work and comes back with a list of things to fix.",
+      "group": "Content"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Read the latest field report",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "image",
+      "label": "Background image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Two Fieldnote designers sitting beside a customer at her desk, watching her work",
+        "decorative": false,
+        "width": 1200,
+        "height": 675,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "photo"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "align",
+      "label": "Alignment",
+      "type": "segmented",
+      "default": "left",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left",
+          "icon": "align-left"
+        },
+        {
+          "value": "center",
+          "label": "Center",
+          "icon": "align-center"
+        }
+      ]
+    }
+  ]
+}

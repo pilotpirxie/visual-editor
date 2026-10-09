@@ -1,0 +1,199 @@
+{
+  "name": "Features, us versus them",
+  "category": "features",
+  "description": "A comparison table with your product’s column raised and highlighted against two alternatives.",
+  "tags": [
+    "features",
+    "comparison",
+    "versus",
+    "competitors",
+    "table",
+    "alternatives",
+    "checkmarks"
+  ],
+  "fieldGroups": ["Heading", "Columns", "Rows", "Button"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Compare",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Why research teams move off spreadsheets",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "An honest look at what you get with Fieldnote, a shared spreadsheet or a general survey tool.",
+      "group": "Heading"
+    },
+    {
+      "name": "featureLabel",
+      "label": "First column label",
+      "type": "text",
+      "default": "Feature",
+      "help": "Read by screen readers only.",
+      "group": "Columns"
+    },
+    {
+      "name": "usLabel",
+      "label": "Your product",
+      "type": "text",
+      "default": "Fieldnote",
+      "required": true,
+      "group": "Columns"
+    },
+    {
+      "name": "firstLabel",
+      "label": "Alternative 1",
+      "type": "text",
+      "default": "Spreadsheets",
+      "required": true,
+      "group": "Columns"
+    },
+    {
+      "name": "secondLabel",
+      "label": "Alternative 2",
+      "type": "text",
+      "default": "Survey tools",
+      "required": true,
+      "group": "Columns"
+    },
+    {
+      "name": "rows",
+      "label": "Rows",
+      "type": "list",
+      "group": "Rows",
+      "minItems": 1,
+      "maxItems": 15,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Feature",
+          "type": "text",
+          "default": "Feature",
+          "required": true
+        },
+        {
+          "name": "us",
+          "label": "Your product",
+          "type": "select",
+          "default": "yes",
+          "options": [
+            { "value": "yes", "label": "Yes" },
+            { "value": "partial", "label": "Partly" },
+            { "value": "no", "label": "No" }
+          ]
+        },
+        {
+          "name": "first",
+          "label": "Alternative 1",
+          "type": "select",
+          "default": "no",
+          "options": [
+            { "value": "yes", "label": "Yes" },
+            { "value": "partial", "label": "Partly" },
+            { "value": "no", "label": "No" }
+          ]
+        },
+        {
+          "name": "second",
+          "label": "Alternative 2",
+          "type": "select",
+          "default": "no",
+          "options": [
+            { "value": "yes", "label": "Yes" },
+            { "value": "partial", "label": "Partly" },
+            { "value": "no", "label": "No" }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "label": "Automatic transcripts with speaker names",
+          "us": "yes",
+          "first": "no",
+          "second": "no"
+        },
+        {
+          "label": "Highlights linked to the exact moment",
+          "us": "yes",
+          "first": "no",
+          "second": "no"
+        },
+        {
+          "label": "Shared tags across every study",
+          "us": "yes",
+          "first": "partial",
+          "second": "no"
+        },
+        {
+          "label": "Redaction of personal details",
+          "us": "yes",
+          "first": "no",
+          "second": "partial"
+        },
+        { "label": "Video clips you can share", "us": "yes", "first": "no", "second": "no" },
+        {
+          "label": "Works with structured surveys",
+          "us": "partial",
+          "first": "partial",
+          "second": "yes"
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Import your spreadsheet",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "note",
+      "label": "Note beside the button",
+      "type": "text",
+      "default": "Comparison as of October 2026.",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "name": "Contact, urgent support line",
+  "category": "contacts",
+  "description": "A dark band with a striped warning edge, a large 24/7 phone number, response time and a link to the status page.",
+  "tags": ["contact", "support", "phone", "urgent", "emergency", "status", "dark", "24/7"],
+  "fieldGroups": ["Heading", "Phone", "Status"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Label",
+      "type": "text",
+      "default": "Priority support, 24/7",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Something broken mid-study?",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Scale and Enterprise customers can call our on-call engineers any time, day or night, including holidays.",
+      "group": "Heading"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "+1 416 555 0199",
+      "required": true,
+      "group": "Phone"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email intro",
+      "type": "text",
+      "default": "Or email",
+      "group": "Phone"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "urgent@fieldnote.example",
+      "group": "Phone"
+    },
+    {
+      "name": "responseTime",
+      "label": "Response time",
+      "type": "text",
+      "default": "< 15 min",
+      "group": "Status"
+    },
+    {
+      "name": "responseLabel",
+      "label": "Response time label",
+      "type": "text",
+      "default": "Median time to a human on the line",
+      "group": "Status"
+    },
+    {
+      "name": "statusText",
+      "label": "Status",
+      "type": "text",
+      "default": "All systems operational",
+      "group": "Status"
+    },
+    {
+      "name": "statusLink",
+      "label": "Status link",
+      "type": "button",
+      "default": {
+        "label": "View status page",
+        "link": { "type": "url", "url": "#", "newTab": true },
+        "variant": "ghost"
+      },
+      "group": "Status"
+    }
+  ]
+}

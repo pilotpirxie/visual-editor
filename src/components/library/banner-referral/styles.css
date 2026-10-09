@@ -1,0 +1,53 @@
+@layer components {
+  @scope (.b-banner-referral) {
+    :scope {
+      border-bottom: var(--border-width) dashed var(--color-border);
+      background: color-mix(in oklab, var(--color-primary) 8%, var(--color-background));
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3) var(--space-4);
+      padding-block: var(--space-3);
+    }
+
+    .b-stamp {
+      --icon-size: 1.5rem;
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      padding: 0.25rem;
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      outline: var(--border-width) dashed
+        color-mix(in oklab, var(--color-primary-contrast) 55%, transparent);
+      outline-offset: -0.5rem;
+      mask:
+        linear-gradient(black 0 0) content-box,
+        radial-gradient(circle, transparent 0.125rem, black 0.14rem) -0.25rem -0.25rem / 0.5rem
+          0.5rem;
+      rotate: -6deg;
+    }
+
+    .b-text {
+      flex: 1 1 20rem;
+      max-width: 44rem;
+    }
+
+    .b-text strong {
+      color: var(--color-primary);
+    }
+
+    .b-button {
+      --button-padding-y: var(--space-2);
+      --button-padding-x: var(--space-4);
+    }
+  }
+}

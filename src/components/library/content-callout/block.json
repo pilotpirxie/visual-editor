@@ -1,0 +1,82 @@
+{
+  "name": "Content, callout box",
+  "category": "content",
+  "description": "A highlighted notice with an icon, a short message and a link.",
+  "tags": ["callout", "notice", "note", "info", "tip", "box"],
+  "fieldGroups": ["Content", "Link", "Style"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "info",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Moving from another research tool?",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Send us an export from your current tool or a shared drive. During your first month we import past interviews, tags and highlights for free.",
+      "group": "Content"
+    },
+    {
+      "name": "showLink",
+      "label": "Show link",
+      "type": "boolean",
+      "default": true,
+      "group": "Link"
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link label",
+      "type": "text",
+      "default": "Book a migration call",
+      "visibleWhen": {
+        "field": "showLink",
+        "equals": true
+      },
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "visibleWhen": {
+        "field": "showLink",
+        "equals": true
+      },
+      "group": "Link"
+    },
+    {
+      "name": "tone",
+      "label": "Tone",
+      "type": "select",
+      "default": "neutral",
+      "group": "Style",
+      "options": [
+        {
+          "value": "neutral",
+          "label": "Neutral"
+        },
+        {
+          "value": "highlight",
+          "label": "Highlight"
+        }
+      ]
+    }
+  ]
+}

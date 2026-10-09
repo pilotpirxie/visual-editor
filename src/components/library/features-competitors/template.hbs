@@ -1,0 +1,32 @@
+<section class="b-features-competitors section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 id="{{block.id}}-title" data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-scroll" role="region" aria-labelledby="{{block.id}}-title" tabindex="0">
+      <table class="b-table">
+        <thead>
+          <tr>
+            <th scope="col"><span class="visually-hidden" data-field="featureLabel">{{featureLabel}}</span></th>
+            <th scope="col" class="b-us" data-field="usLabel">{{usLabel}}</th>
+            <th scope="col" data-field="firstLabel">{{firstLabel}}</th>
+            <th scope="col" data-field="secondLabel">{{secondLabel}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each rows}}
+          <tr data-field="rows.{{@index}}">
+            <th scope="row">{{label}}</th>
+            <td class="b-us"><span class="b-mark" data-value="{{us}}">{{#if (eq us "yes")}}{{svgIcon "check"}}<span class="visually-hidden">Yes</span>{{else}}{{#if (eq us "partial")}}{{svgIcon "minus"}}<span class="visually-hidden">Partly</span>{{else}}{{svgIcon "x"}}<span class="visually-hidden">No</span>{{/if}}{{/if}}</span></td>
+            <td><span class="b-mark" data-value="{{first}}">{{#if (eq first "yes")}}{{svgIcon "check"}}<span class="visually-hidden">Yes</span>{{else}}{{#if (eq first "partial")}}{{svgIcon "minus"}}<span class="visually-hidden">Partly</span>{{else}}{{svgIcon "x"}}<span class="visually-hidden">No</span>{{/if}}{{/if}}</span></td>
+            <td><span class="b-mark" data-value="{{second}}">{{#if (eq second "yes")}}{{svgIcon "check"}}<span class="visually-hidden">Yes</span>{{else}}{{#if (eq second "partial")}}{{svgIcon "minus"}}<span class="visually-hidden">Partly</span>{{else}}{{svgIcon "x"}}<span class="visually-hidden">No</span>{{/if}}{{/if}}</span></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    {{#if showButton}}<div class="cluster b-actions"><a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>{{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}</div>{{/if}}
+  </div>
+</section>

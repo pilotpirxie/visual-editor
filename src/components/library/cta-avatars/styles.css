@@ -1,0 +1,46 @@
+@layer components {
+  @scope (.b-cta-avatars) {
+    .b-inner {
+      --stack-gap: var(--space-6);
+      --container-max-width: 46rem;
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-proof {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3) var(--space-4);
+    }
+
+    .b-avatars {
+      display: flex;
+      padding-inline-start: var(--space-3);
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      width: 3rem;
+      margin-inline-start: calc(var(--space-3) * -1);
+      box-shadow: 0 0 0 var(--space-1) var(--color-background);
+    }
+
+    .b-proof-text {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-muted);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<section class="b-content-annotated section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-rows">
+      {{#each items}}
+      <div class="b-row" data-field="items.{{@index}}">
+        <p class="b-text">{{nl2br text}}</p>
+        {{#if note}}<p class="b-note" role="note">{{nl2br note}}</p>{{/if}}
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

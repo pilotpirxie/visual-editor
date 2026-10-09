@@ -1,0 +1,76 @@
+{
+  "name": "Rich text, legal page",
+  "category": "rich-text",
+  "description": "Terms, privacy or policy text with a last updated date, a plain-language summary and a contact line.",
+  "tags": ["text", "legal", "terms", "privacy", "policy", "conditions", "prose"],
+  "fieldGroups": ["Heading", "Summary", "Text", "Contact"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Terms of service",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "updatedLabel",
+      "label": "Date label",
+      "type": "text",
+      "default": "Last updated",
+      "group": "Heading"
+    },
+    {
+      "name": "updated",
+      "label": "Last updated",
+      "type": "date",
+      "default": "2026-09-01",
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "These terms apply to everyone who uses Fieldnote, the customer research platform run by Fieldnote Inc. in Toronto, Canada.",
+      "group": "Heading"
+    },
+    {
+      "name": "summaryTitle",
+      "label": "Summary title",
+      "type": "text",
+      "default": "The short version",
+      "group": "Summary"
+    },
+    {
+      "name": "summary",
+      "label": "Summary",
+      "type": "richtext",
+      "default": "<ul><li>Your recordings and notes belong to you. We only use them to run the service.</li><li>You are responsible for getting consent from the people you interview.</li><li>You can cancel at any time and export everything before you go.</li></ul>",
+      "group": "Summary"
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<h2>1. Who we are</h2><p>Fieldnote is provided by Fieldnote Inc., 220 King Street West, Toronto, Ontario. When these terms say “we” or “us”, they mean Fieldnote Inc. “You” means the person or organization that signs up.</p><h2>2. Your account</h2><p>You need an account to use Fieldnote. Keep your sign-in details safe and tell us straight away if you think someone else has used them. Workspace admins decide who can join their workspace and what each member can see.</p><h2>3. Your content</h2><p>Recordings, transcripts, notes and tags you add stay yours. You give us permission to store, process and display them only so we can provide the service to you. We never sell your content or use it to train models for other customers.</p><h2>4. Consent from participants</h2><p>You are responsible for telling the people you record that the conversation is being recorded, and for getting any consent your local laws require. Fieldnote announces itself when it joins a call, but that does not replace your own consent process.</p><h2>5. Payment and renewal</h2><p>Paid plans renew automatically each month or year until you cancel. Prices do not change during a billing period, and we give at least 30 days’ notice before any price change.</p><h2>6. Ending the agreement</h2><p>You can cancel from your workspace settings at any time. After you cancel, you have 30 days to export your data before we delete it from our systems.</p><h2>7. Changes to these terms</h2><p>When we make meaningful changes, we email workspace admins at least 14 days before they take effect and update the date at the top of this page.</p>",
+      "group": "Text"
+    },
+    {
+      "name": "contactText",
+      "label": "Contact text",
+      "type": "text",
+      "default": "Questions about these terms? Write to",
+      "group": "Contact"
+    },
+    {
+      "name": "contactEmail",
+      "label": "Contact email",
+      "type": "text",
+      "default": "legal@fieldnote.example",
+      "group": "Contact"
+    }
+  ]
+}

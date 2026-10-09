@@ -1,0 +1,91 @@
+@layer components {
+  @scope (.b-team-credits) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      align-items: center;
+      max-width: 40rem;
+    }
+
+    .b-eyebrow,
+    .b-role {
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .b-eyebrow {
+      color: var(--color-primary);
+    }
+
+    .b-head::after {
+      content: '';
+      width: var(--space-12);
+      margin-block-start: var(--space-4);
+      border-block-start: var(--border-width) solid var(--color-primary);
+    }
+
+    .b-intro {
+      color: var(--color-text-muted);
+    }
+
+    .b-credits {
+      display: grid;
+      gap: var(--space-8);
+      width: 100%;
+      max-width: 48rem;
+    }
+
+    .b-credit {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .b-names {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      line-height: var(--line-height-normal);
+    }
+
+    .b-closing {
+      max-width: 32rem;
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-style: italic;
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-credit {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-8);
+        align-items: baseline;
+      }
+
+      .b-role {
+        text-align: end;
+      }
+
+      .b-names {
+        text-align: start;
+      }
+    }
+  }
+}

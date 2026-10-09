@@ -1,0 +1,61 @@
+@layer components {
+  @scope (.b-content-overlap-card) {
+    .b-inner {
+      display: grid;
+    }
+
+    .b-media {
+      --media-ratio: 4 / 3;
+    }
+
+    .b-card {
+      --stack-gap: var(--space-4);
+      --card-padding: var(--space-6) var(--space-4);
+      --card-shadow: var(--shadow-lg);
+      position: relative;
+      align-items: flex-start;
+      margin: calc(-1 * var(--space-12)) var(--space-3) 0;
+    }
+
+    .b-card h2 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (min-width: 768px) {
+      .b-media {
+        --media-ratio: var(--image-ratio);
+      }
+
+      .b-card {
+        --card-padding: var(--space-8);
+        width: min(100% - 2 * var(--space-12), 34rem);
+        margin: calc(-1 * var(--space-16) * 2) var(--space-12) 0;
+      }
+
+      .b-card h2 {
+        font-size: var(--text-3xl);
+      }
+
+      :scope[data-card-side='end'] .b-card {
+        justify-self: end;
+      }
+    }
+  }
+}

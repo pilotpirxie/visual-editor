@@ -1,0 +1,88 @@
+@layer components {
+  @scope (.b-content-annotated) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+      max-width: 64rem;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-rows {
+      display: grid;
+      gap: var(--space-8);
+      counter-reset: note;
+    }
+
+    .b-row {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-row:has(.b-note) {
+      counter-increment: note;
+    }
+
+    .b-text {
+      max-width: 40rem;
+      font-size: var(--text-lg);
+    }
+
+    .b-row:has(.b-note) .b-text::after,
+    .b-note::before {
+      content: counter(note);
+      display: inline-grid;
+      place-items: center;
+      inline-size: 1.5em;
+      block-size: 1.5em;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-style: normal;
+      font-weight: var(--font-weight-bold);
+      vertical-align: super;
+    }
+
+    .b-row:has(.b-note) .b-text::after {
+      margin-inline-start: var(--space-1);
+    }
+
+    .b-note {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 8%, var(--color-background));
+      font-family: var(--font-heading);
+      font-style: italic;
+      line-height: var(--line-height-normal);
+      color: var(--color-primary);
+    }
+
+    .b-note::before {
+      flex: none;
+      vertical-align: baseline;
+    }
+
+    @media (min-width: 1024px) {
+      .b-row {
+        grid-template-columns: minmax(0, 40rem) minmax(0, 1fr);
+        gap: var(--space-12);
+        align-items: start;
+      }
+
+      .b-note {
+        padding: 0;
+        padding-inline-start: var(--space-4);
+        border-inline-start: calc(var(--border-width) * 2) solid var(--color-primary);
+        border-radius: 0;
+        background: none;
+        font-size: var(--text-sm);
+      }
+    }
+  }
+}

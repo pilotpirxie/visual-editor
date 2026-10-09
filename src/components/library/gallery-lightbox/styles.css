@@ -1,0 +1,101 @@
+@layer components {
+  @scope (.b-gallery-lightbox) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-flow: dense;
+      gap: var(--space-3);
+    }
+
+    .b-item[open] {
+      grid-column: 1 / -1;
+    }
+
+    .b-thumb {
+      position: relative;
+      display: block;
+      border-radius: var(--radius-lg);
+      list-style: none;
+      cursor: zoom-in;
+    }
+
+    .b-thumb::-webkit-details-marker {
+      display: none;
+    }
+
+    .b-media {
+      --media-ratio: 1;
+      display: block;
+    }
+
+    [open] .b-thumb {
+      width: min(100%, calc(75svh * var(--photo-ratio)));
+      margin-inline: auto;
+      cursor: zoom-out;
+    }
+
+    [open] .b-media {
+      --media-ratio: var(--photo-ratio);
+    }
+
+    .b-zoom {
+      --icon-size: 1.25rem;
+      position: absolute;
+      inset-block-start: var(--space-3);
+      inset-inline-end: var(--space-3);
+      display: inline-grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-text);
+      opacity: 0;
+      transition:
+        opacity var(--transition-fast),
+        rotate var(--transition-fast);
+    }
+
+    .b-thumb:is(:hover, :focus-visible) .b-zoom,
+    [open] .b-zoom {
+      opacity: 1;
+    }
+
+    [open] .b-zoom {
+      rotate: 45deg;
+    }
+
+    .b-caption {
+      padding-block-start: var(--space-3);
+      text-align: center;
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-4);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+}

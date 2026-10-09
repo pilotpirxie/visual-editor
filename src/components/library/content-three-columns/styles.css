@@ -1,0 +1,49 @@
+@layer components {
+  @scope (.b-content-three-columns) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 44rem;
+    }
+
+    .b-intro,
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-columns {
+      display: grid;
+      gap: var(--space-8);
+      counter-reset: column;
+    }
+
+    .b-column {
+      --stack-gap: var(--space-3);
+      padding-block-start: var(--space-6);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-column::before {
+      counter-increment: column;
+      content: counter(column, decimal-leading-zero);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (min-width: 768px) {
+      .b-columns {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-12) var(--space-8);
+      }
+    }
+  }
+}

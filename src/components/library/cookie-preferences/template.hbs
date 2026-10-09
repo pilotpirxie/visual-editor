@@ -1,0 +1,23 @@
+<aside class="b-cookie-preferences" data-behavior="consent" aria-label="Cookie consent">
+  <dialog class="b-panel" aria-labelledby="{{block.id}}-title">
+    <div class="stack b-body">
+      <p class="b-title" id="{{block.id}}-title" data-field="title">{{title}}</p>
+      <p class="b-muted" data-field="text">{{text}}{{#if showPolicyLink}} <a href="{{href policyLink}}" {{linkAttrs policyLink}} data-field="policyLink">{{policyLabel}}</a>{{/if}}</p>
+      <details class="b-prefs"{{#if expanded}} open{{/if}}>
+        <summary class="b-summary" data-field="manageLabel">{{manageLabel}}{{svgIcon "chevron-down"}}</summary>
+        <ul class="b-list" role="list">
+          {{#each categories}}
+          <li class="b-row" data-field="categories.{{@index}}">
+            <label class="b-label" for="{{../block.id}}-cookie-{{@index}}"><strong>{{name}}</strong><span class="b-muted">{{text}}</span></label>
+            <input class="b-switch" id="{{../block.id}}-cookie-{{@index}}" type="checkbox" name="cookies" value="{{name}}" role="switch"{{#if locked}} checked disabled{{else}}{{#if on}} checked{{/if}}{{/if}}>
+          </li>
+          {{/each}}
+        </ul>
+      </details>
+      <div class="b-actions">
+        {{#if showDecline}}<button type="button" class="btn btn-secondary" data-consent="declined" data-field="declineLabel">{{declineLabel}}</button>{{/if}}
+        <button type="button" class="btn btn-primary" data-consent="accepted" data-field="acceptLabel">{{acceptLabel}}</button>
+      </div>
+    </div>
+  </dialog>
+</aside>

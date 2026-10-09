@@ -1,0 +1,78 @@
+{
+  "name": "Rich text, numbered sections",
+  "category": "rich-text",
+  "description": "A long guide split into sections, each with a large number that stays in view beside its text.",
+  "tags": ["guide", "sections", "numbered", "chapters", "policy", "long-form", "prose"],
+  "fieldGroups": ["Heading", "Sections"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Research guide",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Five rules for interviews people want to join",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "lead",
+      "label": "Lead paragraph",
+      "type": "textarea",
+      "default": "The guidelines our own team follows, from the first invite to the thank-you note.",
+      "group": "Heading"
+    },
+    {
+      "name": "sections",
+      "label": "Sections",
+      "type": "list",
+      "group": "Sections",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "heading",
+      "itemFields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "text",
+          "default": "Section heading"
+        },
+        {
+          "name": "body",
+          "label": "Text",
+          "type": "richtext",
+          "default": "<p>What this section covers.</p>"
+        }
+      ],
+      "default": [
+        {
+          "heading": "Ask for thirty minutes, not an hour",
+          "body": "<p>Short calls fill faster and keep everyone focused. If a conversation is going well, people are happy to stay a few extra minutes.</p>"
+        },
+        {
+          "heading": "Say what happens to the recording",
+          "body": "<p>Explain who will hear it, how long it is kept and how to ask for it to be deleted. Put it in the invite, then say it again at the start of the call.</p>"
+        },
+        {
+          "heading": "Talk about their week, not your product",
+          "body": "<p>Spend the first five minutes on their role and routine. The useful stories come from real situations, not opinions about features.</p><ul><li>“Walk me through yesterday.”</li><li>“When did that last happen?”</li></ul>"
+        },
+        {
+          "heading": "Bring someone to take notes",
+          "body": "<p>A second person tags highlights live, so you can listen properly and nobody rewatches the call later.</p>"
+        },
+        {
+          "heading": "Follow up within a week",
+          "body": "<p>Send a thank-you and one sentence on what you changed because of them. It is the best recruiting tool you have.</p>"
+        }
+      ]
+    }
+  ]
+}

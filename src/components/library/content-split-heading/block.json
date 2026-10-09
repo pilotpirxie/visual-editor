@@ -1,0 +1,58 @@
+{
+  "name": "Content, heading beside text",
+  "category": "content",
+  "description": "A large title on one side and formatted text on the other.",
+  "tags": ["heading", "split", "about", "story", "text", "two columns"],
+  "fieldGroups": ["Heading", "Text", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our approach",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your customers already told you what to build",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "default": "<p>Most teams have the answers sitting in recordings nobody has time to rewatch. A product manager hears a complaint on Tuesday, and by Friday it has turned into a half-remembered paraphrase in a planning doc.</p><p>Fieldnote keeps the customer’s own words attached to every decision. Highlights link back to the second they were said, so anyone on the team can press play and hear it for themselves.</p>",
+      "group": "Text"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Read our research guide",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

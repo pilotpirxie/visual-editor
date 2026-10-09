@@ -1,0 +1,30 @@
+<section class="b-gallery-feed section">
+  <div class="container stack b-inner">
+    <header class="b-profile">
+      <div class="media b-avatar" data-field="avatar">{{img avatar}}</div>
+      <div class="stack b-about">
+        <div class="b-names">
+          <h2 class="b-handle" data-field="handle">{{handle}}</h2>
+          {{#if name}}<p class="b-name" data-field="name">{{name}}</p>{{/if}}
+        </div>
+        {{#if stats.length}}
+        <ul class="b-stats" role="list">
+          {{#each stats}}<li data-field="stats.{{@index}}"><strong>{{value}}</strong> {{label}}</li>{{/each}}
+        </ul>
+        {{/if}}
+        {{#if bio}}<p class="b-bio" data-field="bio">{{nl2br bio}}</p>{{/if}}
+      </div>
+      <a class="btn btn-primary b-follow" href="{{href followLink}}" {{linkAttrs followLink}} data-field="followLabel">{{svgIcon network}}{{followLabel}}</a>
+    </header>
+    <ul class="b-grid" role="list">
+      {{#each posts}}
+      <li data-field="posts.{{@index}}">
+        <a class="b-post" href="{{href link}}" {{linkAttrs link}}>
+          <span class="media b-photo">{{img image}}</span>
+          {{#if likes}}<span class="b-likes">{{svgIcon "heart"}}{{likes}}<span class="visually-hidden"> {{../likesLabel}}</span></span>{{/if}}
+        </a>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

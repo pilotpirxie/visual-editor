@@ -1,0 +1,96 @@
+@layer components {
+  @scope (.b-app-dark-mode) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-stage {
+      display: grid;
+      place-items: center;
+      padding: var(--space-12) 0;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(
+        110deg,
+        color-mix(in oklab, var(--color-primary) 12%, var(--color-background)) 50%,
+        color-mix(in oklab, var(--color-primary) 30%, var(--theme-dark-background)) 50%
+      );
+      container-type: inline-size;
+    }
+
+    .b-phone {
+      grid-area: 1 / 1;
+      width: min(12rem, 40cqi);
+      padding: 0.375rem;
+      border-radius: 2.25rem;
+      background: var(--theme-dark-background);
+      box-shadow: var(--shadow-lg);
+      transform: translateX(-30%) rotate(-6deg);
+    }
+
+    .b-dark {
+      --bg: var(--theme-dark-background);
+      --fg: var(--theme-dark-text);
+      --card: var(--theme-dark-surface);
+      transform: translate(30%, 6%) rotate(5deg);
+    }
+
+    .b-light {
+      --bg: var(--theme-dark-text);
+      --fg: var(--theme-dark-background);
+      --card: color-mix(in oklab, var(--theme-dark-background) 7%, var(--theme-dark-text));
+    }
+
+    .b-screen {
+      display: grid;
+      gap: var(--space-2);
+      align-content: start;
+      aspect-ratio: 9 / 19;
+      overflow: hidden;
+      padding: var(--space-8) var(--space-2) var(--space-2);
+      border-radius: 1.875rem;
+      background: var(--bg);
+      color: var(--fg);
+      font-size: var(--text-xs);
+    }
+
+    .b-app-title {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-cards {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .b-card {
+      display: grid;
+      gap: var(--space-1);
+      padding: var(--space-2);
+      border-radius: var(--radius-md);
+      background: var(--card);
+    }
+
+    .b-tag {
+      justify-self: start;
+      padding: 0.125rem var(--space-2);
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--theme-dark-accent) 35%, transparent);
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

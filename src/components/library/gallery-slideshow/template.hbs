@@ -1,0 +1,25 @@
+<section class="b-gallery-slideshow section" data-behavior="carousel">
+  <div class="container stack b-head">
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h2 data-field="title">{{title}}</h2>
+    {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+  </div>
+  <div class="b-track" data-carousel-track role="region" aria-label="{{title}}" tabindex="0">
+    {{#each items}}
+    <figure class="b-slide" data-carousel-slide data-field="items.{{@index}}">
+      <div class="media b-media">{{img image}}</div>
+      <figcaption class="b-caption">
+        <span class="b-title">{{title}}</span>
+        {{#if text}}<span class="b-text">{{text}}</span>{{/if}}
+      </figcaption>
+    </figure>
+    {{/each}}
+  </div>
+  <div class="container b-controls" data-carousel-controls hidden>
+    <div class="b-dots" data-carousel-dots="{{slideLabel}}"></div>
+    <div class="cluster">
+      <button type="button" class="btn btn-secondary b-arrow" data-carousel-previous>{{svgIcon "arrow-left"}}<span class="visually-hidden">{{previousLabel}}</span></button>
+      <button type="button" class="btn btn-secondary b-arrow" data-carousel-next>{{svgIcon "arrow-right"}}<span class="visually-hidden">{{nextLabel}}</span></button>
+    </div>
+  </div>
+</section>

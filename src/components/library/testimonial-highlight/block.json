@@ -1,0 +1,71 @@
+{
+  "name": "Testimonial, highlighted phrase",
+  "category": "testimonials",
+  "description": "One big centered quote with its key phrase marked like a highlighter.",
+  "tags": ["testimonial", "quote", "highlight", "marker", "large", "centered"],
+  "fieldGroups": ["Quote", "Person"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Customer story",
+      "group": "Quote"
+    },
+    {
+      "name": "before",
+      "label": "Text before the highlight",
+      "type": "textarea",
+      "default": "We went from arguing about what customers might want to",
+      "group": "Quote"
+    },
+    {
+      "name": "highlight",
+      "label": "Highlighted phrase",
+      "type": "text",
+      "default": "watching them tell us in their own words",
+      "group": "Quote",
+      "required": true
+    },
+    {
+      "name": "after",
+      "label": "Text after the highlight",
+      "type": "textarea",
+      "default": "in every planning meeting.",
+      "group": "Quote"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Kenji Watanabe",
+      "group": "Person"
+    },
+    {
+      "name": "role",
+      "label": "Role and company",
+      "type": "text",
+      "default": "Product Director, Orbit Labs",
+      "group": "Person"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Kenji Watanabe",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Person"
+    }
+  ]
+}

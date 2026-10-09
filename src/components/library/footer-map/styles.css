@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-footer-map) {
+    :scope {
+      --section-padding-y: var(--space-12);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-top {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-map {
+      display: grid;
+      place-items: center;
+      min-height: 16rem;
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(115deg, transparent 46%, var(--color-background) 0 52%, transparent 0),
+        repeating-linear-gradient(transparent 0 2.5rem, var(--color-border) 0 2.625rem),
+        repeating-linear-gradient(90deg, transparent 0 3.5rem, var(--color-border) 0 3.625rem),
+        var(--color-surface);
+    }
+
+    .b-pin {
+      display: grid;
+      justify-items: center;
+      gap: var(--space-3);
+    }
+
+    .b-marker {
+      inline-size: 2.75rem;
+      aspect-ratio: 1;
+      border-radius: 50% 50% 50% 0;
+      rotate: -45deg;
+      background: radial-gradient(var(--color-primary-contrast) 22%, var(--color-primary) 24%);
+    }
+
+    .b-label {
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      box-shadow: var(--shadow-md);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-info {
+      align-items: flex-start;
+    }
+
+    .b-logo {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-heading);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-address {
+      --stack-gap: var(--space-1);
+      font-style: normal;
+    }
+
+    .b-muted {
+      --icon-size: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2) var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-bottom {
+      align-items: center;
+      justify-content: space-between;
+      padding-top: var(--space-6);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-links a {
+      display: inline-block;
+      padding-block: var(--space-2);
+      color: inherit;
+    }
+
+    @media (min-width: 768px) {
+      .b-top {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        gap: var(--space-12);
+      }
+    }
+  }
+}

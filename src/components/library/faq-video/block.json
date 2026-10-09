@@ -1,0 +1,143 @@
+{
+  "name": "FAQ, video answers",
+  "category": "faq",
+  "description": "Questions answered in short videos: a large first video and smaller ones beside it, each with a play button and length.",
+  "tags": ["faq", "questions", "video", "tutorials", "help", "grid"],
+  "fieldGroups": ["Heading", "Videos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Watch the answer",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Questions, answered in under two minutes",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Short screen recordings from our team. No sign-up needed to watch.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Videos",
+      "type": "list",
+      "group": "Videos",
+      "minItems": 1,
+      "maxItems": 9,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Thumbnail",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 1280,
+            "height": 720,
+            "placeholder": { "ratio": "16:9", "subject": "screenshot" }
+          }
+        },
+        { "name": "question", "label": "Question", "type": "text", "default": "A question?" },
+        { "name": "text", "label": "Text", "type": "text", "default": "" },
+        { "name": "duration", "label": "Length", "type": "text", "default": "1:30" },
+        {
+          "name": "link",
+          "label": "Video link",
+          "type": "link",
+          "default": { "type": "url", "url": "#", "newTab": true }
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 1280,
+            "height": 720,
+            "placeholder": { "ratio": "16:9", "subject": "screenshot" }
+          },
+          "question": "How does Fieldnote find themes across interviews?",
+          "text": "A walkthrough of tags, clusters and the evidence behind every theme.",
+          "duration": "1:52",
+          "link": { "type": "url", "url": "#", "newTab": true }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 1280,
+            "height": 720,
+            "placeholder": { "ratio": "16:9", "subject": "screenshot" }
+          },
+          "question": "How do I invite a participant?",
+          "text": "",
+          "duration": "0:48",
+          "link": { "type": "url", "url": "#", "newTab": true }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 1280,
+            "height": 720,
+            "placeholder": { "ratio": "16:9", "subject": "screenshot" }
+          },
+          "question": "Can I edit a transcript?",
+          "text": "",
+          "duration": "1:05",
+          "link": { "type": "url", "url": "#", "newTab": true }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 1280,
+            "height": 720,
+            "placeholder": { "ratio": "16:9", "subject": "screenshot" }
+          },
+          "question": "How do I share a highlight reel?",
+          "text": "",
+          "duration": "1:20",
+          "link": { "type": "url", "url": "#", "newTab": true }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 1280,
+            "height": 720,
+            "placeholder": { "ratio": "16:9", "subject": "screenshot" }
+          },
+          "question": "Where do I set our consent message?",
+          "text": "",
+          "duration": "0:57",
+          "link": { "type": "url", "url": "#", "newTab": true }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "name": "Testimonials, sticky notes",
+  "category": "testimonials",
+  "description": "Short customer quotes on slightly tilted sticky notes in tinted colors.",
+  "tags": ["testimonials", "quotes", "notes", "playful", "wall", "workshop"],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "From the research wall",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What teams wrote after their first study",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We asked customers to leave a note after their first month. These went straight onto our office wall.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Notes",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 1,
+      "maxItems": 9,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "What the customer said."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role and company",
+          "type": "text",
+          "default": "Role, Company"
+        }
+      ],
+      "default": [
+        {
+          "quote": "Our designers finally watch the interviews. The clips are short enough that people click them.",
+          "name": "Marcus Lee",
+          "role": "Design Lead, Northwind"
+        },
+        {
+          "quote": "Tagging used to take me a full day per study. Now I review what Fieldnote found in an hour.",
+          "name": "Sofia Alvarez",
+          "role": "UX Researcher, Brightpath"
+        },
+        {
+          "quote": "Sales stopped asking why we built it. I send three clips and the debate is over.",
+          "name": "Tom Okafor",
+          "role": "Product Manager, Ledgerly"
+        },
+        {
+          "quote": "The highlight reel replaced our forty-slide research readout. Nobody misses the slides.",
+          "name": "Maya Chen",
+          "role": "Head of Research, Copperline"
+        },
+        {
+          "quote": "Support tickets and interviews in one place means we finally see the same patterns.",
+          "name": "Daniel Osei",
+          "role": "Support lead, Northwind"
+        },
+        {
+          "quote": "I search for a feature name and get every customer who mentioned it. That alone sold us.",
+          "name": "Hannah Wright",
+          "role": "Product Director, Freightly"
+        }
+      ]
+    }
+  ]
+}

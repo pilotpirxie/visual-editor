@@ -1,0 +1,52 @@
+@layer components {
+  @scope (.b-cta-card) {
+    .b-card {
+      --card-padding: var(--space-8) var(--space-6);
+      --stack-gap: var(--space-4);
+      align-items: center;
+      max-width: 46rem;
+      margin-inline: auto;
+      background: var(--color-surface);
+      text-align: center;
+    }
+
+    .b-icon {
+      --icon-size: 1.75rem;
+      display: inline-grid;
+      place-items: center;
+      width: 4rem;
+      height: 4rem;
+      margin-block-end: var(--space-2);
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-card h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+      margin-block-start: var(--space-2);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        --card-padding: var(--space-12);
+      }
+    }
+  }
+}

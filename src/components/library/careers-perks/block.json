@@ -1,0 +1,130 @@
+{
+  "name": "Careers, benefits",
+  "category": "careers",
+  "description": "Perks and benefits with icons, followed by a short line and a button to see open roles.",
+  "tags": ["careers", "benefits", "perks", "culture", "hiring", "jobs"],
+  "fieldGroups": ["Heading", "Perks", "Call to action"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Benefits",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What you get when you join",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The same package for every role and every country, written down so nobody has to negotiate for it.",
+      "group": "Heading"
+    },
+    {
+      "name": "perks",
+      "label": "Perks",
+      "type": "list",
+      "group": "Perks",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "star"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Perk"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "One or two sentences about this perk."
+        }
+      ],
+      "default": [
+        {
+          "icon": "globe",
+          "title": "Work from anywhere",
+          "text": "Join from any country where we can employ you, with core hours from 11:00 to 15:00 Toronto time."
+        },
+        {
+          "icon": "house",
+          "title": "Home office budget",
+          "text": "CA$1,500 when you start and CA$500 every year after for a good chair, a better microphone or both."
+        },
+        {
+          "icon": "hourglass",
+          "title": "Four weeks of focus time",
+          "text": "On top of vacation: four meeting-free weeks a year to finish the work that needs deep attention."
+        },
+        {
+          "icon": "heart",
+          "title": "Health cover",
+          "text": "Health, dental and vision insurance for you and your family, or a stipend where private cover is not common."
+        },
+        {
+          "icon": "book",
+          "title": "Learning budget",
+          "text": "CA$2,000 a year for courses, books and conferences, plus time to attend them."
+        },
+        {
+          "icon": "users",
+          "title": "Two retreats a year",
+          "text": "The whole team meets in person twice a year. Past retreats: Lisbon, Montréal and Kyoto."
+        }
+      ]
+    },
+    {
+      "name": "showCta",
+      "label": "Show call to action",
+      "type": "boolean",
+      "default": true,
+      "group": "Call to action"
+    },
+    {
+      "name": "ctaText",
+      "label": "Text",
+      "type": "text",
+      "default": "Six open roles across engineering, design and sales.",
+      "group": "Call to action",
+      "visibleWhen": {
+        "field": "showCta",
+        "equals": true
+      }
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See open roles",
+        "link": {
+          "type": "section",
+          "anchor": "careers",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showCta",
+        "equals": true
+      },
+      "group": "Call to action"
+    }
+  ]
+}

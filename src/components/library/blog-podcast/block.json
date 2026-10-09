@@ -1,0 +1,209 @@
+{
+  "name": "Blog posts, podcast episodes",
+  "category": "blog",
+  "description": "Show artwork and platform links beside episode cards with a waveform and duration.",
+  "tags": ["blog", "posts", "articles", "news", "podcast", "episodes", "audio", "show"],
+  "fieldGroups": ["Show", "Platforms", "Episodes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "cover",
+      "label": "Show artwork",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Field Notes podcast artwork: a microphone on a desk beside a notebook",
+        "decorative": false,
+        "width": 1000,
+        "height": 1000,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "photo"
+        }
+      },
+      "group": "Show"
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The Field Notes podcast",
+      "group": "Show"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Conversations with people who talk to customers",
+      "group": "Show",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Every other Tuesday, Leila Haddad sits down with a researcher, designer or founder to unpack one interview that changed their product.",
+      "group": "Show"
+    },
+    {
+      "name": "platforms",
+      "label": "Platforms",
+      "type": "list",
+      "group": "Platforms",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Listen"
+        },
+        {
+          "name": "icon",
+          "label": "Logo",
+          "type": "icon",
+          "default": "headphones",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Apple Podcasts",
+          "icon": "simple-icons:applepodcasts",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Spotify",
+          "icon": "simple-icons:spotify",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "YouTube",
+          "icon": "simple-icons:youtube",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "episodeLabel",
+      "label": "Episode label",
+      "type": "text",
+      "default": "EP",
+      "group": "Episodes"
+    },
+    {
+      "name": "episodes",
+      "label": "Episodes",
+      "type": "list",
+      "group": "Episodes",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "number",
+          "label": "Number",
+          "type": "text",
+          "default": "1"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "duration",
+          "label": "Duration",
+          "type": "text",
+          "default": "30 min"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Episode title"
+        },
+        {
+          "name": "guest",
+          "label": "Guest",
+          "type": "text",
+          "default": "with a guest"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "number": "42",
+          "date": "2026-10-06",
+          "duration": "38 min",
+          "title": "The onboarding call that rewrote our roadmap",
+          "guest": "with Priya Raman, Head of Research at Northwind",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "number": "41",
+          "date": "2026-09-22",
+          "duration": "44 min",
+          "title": "Recruiting customers who never answer email",
+          "guest": "with Marcus Bell, founder of Tally Bookkeeping",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "number": "40",
+          "date": "2026-09-08",
+          "duration": "31 min",
+          "title": "What a pricing page interview sounds like",
+          "guest": "with Ana Costa, product designer at Lumen",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

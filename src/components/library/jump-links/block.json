@@ -1,0 +1,112 @@
+{
+  "name": "Utilities, jump links",
+  "category": "utilities",
+  "description": "An “On this page” row of links to sections further down. It can stick to the top while visitors scroll, and swipes sideways on phones.",
+  "tags": [
+    "jump links",
+    "anchor links",
+    "on this page",
+    "table of contents",
+    "sections",
+    "sticky",
+    "navigation",
+    "utility"
+  ],
+  "fieldGroups": ["Links", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Label",
+      "type": "text",
+      "default": "On this page",
+      "group": "Links",
+      "required": true,
+      "maxLength": 32
+    },
+    {
+      "name": "items",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Section"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "section",
+            "anchor": "section",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Overview",
+          "link": {
+            "type": "section",
+            "anchor": "overview",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Features",
+          "link": {
+            "type": "section",
+            "anchor": "features",
+            "newTab": false
+          }
+        },
+        {
+          "label": "How it works",
+          "link": {
+            "type": "section",
+            "anchor": "how-it-works",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Pricing",
+          "link": {
+            "type": "section",
+            "anchor": "pricing",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Customer stories",
+          "link": {
+            "type": "section",
+            "anchor": "testimonials",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Questions",
+          "link": {
+            "type": "section",
+            "anchor": "faq",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "sticky",
+      "label": "Stick to the top while scrolling",
+      "type": "boolean",
+      "default": false,
+      "group": "Layout"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+<section class="b-app-notifications section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      <ul class="stack b-points" role="list">
+        {{#each points}}
+        <li class="b-point" data-field="points.{{@index}}">{{svgIcon "check"}}<span>{{text}}</span></li>
+        {{/each}}
+      </ul>
+      {{#if showButton}}<div class="cluster"><a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a></div>{{/if}}
+    </div>
+    <div class="b-stage">
+      <div class="device b-phone">
+        <div class="media device-screen b-screen">
+          <p class="b-clock"><span data-field="date">{{date}}</span> <span class="b-time" data-field="time">{{time}}</span></p>
+          <ul class="b-alerts" role="list">
+            {{#each notifications}}
+            <li class="b-alert" data-field="notifications.{{@index}}">
+              <p class="b-app"><span class="b-app-icon">{{svgIcon icon}}</span><strong>{{app}}</strong><span class="b-when">{{when}}</span></p>
+              <p class="b-alert-title">{{title}}</p>
+              <p>{{text}}</p>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

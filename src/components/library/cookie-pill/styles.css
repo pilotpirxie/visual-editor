@@ -1,0 +1,64 @@
+@layer components {
+  @scope (.b-cookie-pill) {
+    .b-panel {
+      z-index: 10;
+      width: fit-content;
+      max-width: calc(100% - 2 * var(--space-4));
+      margin-inline: auto;
+      padding: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-panel[open] {
+      position: fixed;
+      inset: auto 0 var(--space-4);
+    }
+
+    .b-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+      text-align: center;
+    }
+
+    .b-text {
+      font-size: var(--text-sm);
+    }
+
+    .b-text a {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-actions {
+      --cluster-gap: var(--space-1);
+      --cluster-justify: center;
+    }
+
+    .b-actions .btn {
+      --btn-radius: var(--radius-full);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        padding-block: var(--space-2);
+        padding-inline: var(--space-6) var(--space-2);
+        border-radius: var(--radius-full);
+      }
+
+      .b-inner {
+        flex-direction: row;
+        gap: var(--space-6);
+        text-align: start;
+      }
+
+      .b-actions {
+        flex-wrap: nowrap;
+      }
+    }
+  }
+}

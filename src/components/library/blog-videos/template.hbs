@@ -1,0 +1,42 @@
+<section class="b-blog-videos section">
+  <div class="container stack b-inner">
+    <div class="cluster b-head">
+      <header class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      {{#if showButton}}
+      <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      {{/if}}
+    </div>
+    <div class="b-layout">
+      <article class="stack b-feature">
+        <div class="b-thumb">
+          <div class="media b-media" data-field="featuredImage">{{img featuredImage}}</div>
+          <span class="b-play" aria-hidden="true">{{svgIcon "play"}}</span>
+          {{#if featuredDuration}}<span class="b-duration" data-field="featuredDuration">{{featuredDuration}}</span>{{/if}}
+        </div>
+        {{#if featuredCategory}}<p class="badge" data-field="featuredCategory">{{featuredCategory}}</p>{{/if}}
+        <h3 class="b-feature-title" data-field="featuredTitle"><a class="b-link" href="{{href featuredLink}}" {{linkAttrs featuredLink}}>{{featuredTitle}}</a></h3>
+        {{#if featuredText}}<p class="b-muted" data-field="featuredText">{{nl2br featuredText}}</p>{{/if}}
+      </article>
+      <div class="stack b-playlist">
+        {{#if playlistLabel}}<p class="b-label" data-field="playlistLabel">{{playlistLabel}}</p>{{/if}}
+        <ol class="stack b-videos" role="list">
+          {{#each videos}}
+          <li class="b-video" data-field="videos.{{@index}}">
+            <div class="b-thumb">
+              <div class="media b-media">{{img image}}</div>
+              {{#if duration}}<span class="b-duration">{{duration}}</span>{{/if}}
+            </div>
+            <div class="stack b-body">
+              <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+              {{#if meta}}<p class="b-muted">{{meta}}</p>{{/if}}
+            </div>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>

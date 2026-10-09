@@ -1,0 +1,95 @@
+{
+  "name": "FAQ, help articles",
+  "category": "faq",
+  "description": "Questions as numbered links to help articles, each with its topic, reading time and a round arrow.",
+  "tags": ["faq", "questions", "help center", "articles", "guides", "links", "support"],
+  "fieldGroups": ["Heading", "Articles"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Guides",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Answers that take two minutes to read",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Each question links to a short guide with screenshots, written and kept current by our support team.",
+      "group": "Heading"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Browse all 212 guides",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "secondary"
+      },
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Articles",
+      "type": "list",
+      "group": "Articles",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "question",
+      "itemFields": [
+        { "name": "topic", "label": "Topic", "type": "text", "default": "Topic" },
+        { "name": "question", "label": "Question", "type": "text", "default": "A question?" },
+        { "name": "readTime", "label": "Reading time", "type": "text", "default": "2 min read" },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": { "type": "url", "url": "#", "newTab": false }
+        }
+      ],
+      "default": [
+        {
+          "topic": "Recording",
+          "question": "How do I record an in-person interview?",
+          "readTime": "3 min read",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "topic": "Consent",
+          "question": "What should our consent form say?",
+          "readTime": "4 min read",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "topic": "Highlights",
+          "question": "How do I turn a quote into a shareable clip?",
+          "readTime": "2 min read",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "topic": "Teams",
+          "question": "Who can see a project, and how do I change it?",
+          "readTime": "2 min read",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "topic": "Billing",
+          "question": "How are recorded hours counted?",
+          "readTime": "1 min read",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        }
+      ]
+    }
+  ]
+}

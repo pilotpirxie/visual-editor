@@ -1,0 +1,98 @@
+{
+  "name": "Newsletter, envelope",
+  "category": "newsletters",
+  "description": "The signup form on the back of an airmail envelope, with a sealed flap and a stamp.",
+  "tags": [
+    "newsletter",
+    "email",
+    "subscribe",
+    "signup",
+    "form",
+    "envelope",
+    "letter",
+    "airmail",
+    "playful"
+  ],
+  "fieldGroups": ["Heading", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "stamp",
+      "label": "Stamp",
+      "type": "text",
+      "default": "Toronto",
+      "group": "Heading",
+      "maxLength": 16
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Letters from the field",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Once a month we send one long letter about what 400 product teams learned from their customers. No promos, no tracking pixels.",
+      "group": "Heading"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email address",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Send me the letters",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Privacy note",
+      "type": "text",
+      "default": "One letter a month. Reply any time, a human reads it.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "group": "Form",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ]
+    }
+  ]
+}

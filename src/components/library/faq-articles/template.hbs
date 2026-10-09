@@ -1,0 +1,22 @@
+<section class="b-faq-articles section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      {{#if button.label}}<p><a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a></p>{{/if}}
+    </header>
+    <ol class="b-list" role="list">
+      {{#each items}}
+      <li data-field="items.{{@index}}">
+        <a class="b-article" href="{{href link}}" {{linkAttrs link}}>
+          {{#if topic}}<span class="b-topic">{{topic}}</span>{{/if}}
+          <span class="b-question">{{question}}</span>
+          {{#if readTime}}<span class="b-meta">{{svgIcon "clock"}} {{readTime}}</span>{{/if}}
+          <span class="b-arrow" aria-hidden="true">{{svgIcon "arrow-right"}}</span>
+        </a>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

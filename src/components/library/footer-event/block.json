@@ -1,0 +1,177 @@
+{
+  "name": "Footer, event details",
+  "category": "footers",
+  "description": "Event name, date, venue and a ticket button beside the sponsors, with links below.",
+  "tags": ["footer", "event", "conference", "tickets", "sponsors", "venue", "date"],
+  "fieldGroups": ["Event", "Button", "Sponsors", "Links", "Legal"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "See you there",
+      "group": "Event"
+    },
+    {
+      "name": "name",
+      "label": "Event name",
+      "type": "text",
+      "default": "Field Day 2026",
+      "group": "Event",
+      "required": true
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-11-12",
+      "group": "Event"
+    },
+    {
+      "name": "venue",
+      "label": "Venue",
+      "type": "text",
+      "default": "Evergreen Brick Works, Toronto",
+      "group": "Event"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get tickets",
+        "link": {
+          "type": "section",
+          "anchor": "tickets",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Button",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      }
+    },
+    {
+      "name": "sponsorsTitle",
+      "label": "Sponsors title",
+      "type": "text",
+      "default": "Thanks to our sponsors",
+      "group": "Sponsors"
+    },
+    {
+      "name": "sponsors",
+      "label": "Sponsors",
+      "type": "list",
+      "group": "Sponsors",
+      "minItems": 0,
+      "maxItems": 12,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Sponsor"
+        }
+      ],
+      "default": [
+        {
+          "name": "Northwind"
+        },
+        {
+          "name": "Brightpath"
+        },
+        {
+          "name": "Ledgerly"
+        },
+        {
+          "name": "Harbor & Co."
+        },
+        {
+          "name": "Quill Labs"
+        },
+        {
+          "name": "Atlas Health"
+        }
+      ]
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Code of conduct",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Accessibility",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "FAQ",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Contact",
+          "link": {
+            "type": "email",
+            "url": "fieldday@fieldnote.example",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Inc. Field Day is a Fieldnote event.",
+      "group": "Legal"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "name": "Contact, big email and phone",
+  "category": "contacts",
+  "description": "A short heading with an oversized email address and phone number, and an optional address.",
+  "tags": ["contact", "email", "phone", "minimal", "large", "typography", "agency"],
+  "fieldGroups": ["Heading", "Details"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Contact",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Prefer to just write? So do we.",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email label",
+      "type": "text",
+      "default": "Email",
+      "group": "Details"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "hello@fieldnote.example",
+      "group": "Details"
+    },
+    {
+      "name": "phoneLabel",
+      "label": "Phone label",
+      "type": "text",
+      "default": "Phone",
+      "group": "Details"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "+1 416 555 0142",
+      "group": "Details"
+    },
+    {
+      "name": "address",
+      "label": "Address",
+      "type": "textarea",
+      "default": "220 King Street West, Suite 400, Toronto",
+      "group": "Details"
+    }
+  ]
+}

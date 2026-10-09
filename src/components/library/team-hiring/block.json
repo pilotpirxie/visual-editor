@@ -1,0 +1,245 @@
+{
+  "name": "Team, with hiring card",
+  "category": "team",
+  "description": "A grid of people that ends with a card inviting visitors to see open roles.",
+  "tags": ["team", "people", "hiring", "careers", "jobs", "about"],
+  "fieldGroups": ["Heading", "People", "Hiring card"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our team",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Built by people who love a good interview",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We are a remote-first team with an office on King Street West for anyone who wants one.",
+      "group": "Heading"
+    },
+    {
+      "name": "people",
+      "label": "People",
+      "type": "list",
+      "group": "People",
+      "minItems": 1,
+      "maxItems": 15,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Leila Haddad",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Leila Haddad",
+          "role": "Co-founder and CEO"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Mateo Ruiz",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Mateo Ruiz",
+          "role": "Co-founder and CTO"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Ingrid Solberg",
+          "role": "Head of research"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Kwame Mensah",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Kwame Mensah",
+          "role": "Head of engineering"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Yuki Tanaka",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Yuki Tanaka",
+          "role": "Senior product designer"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Daniel Novak",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Daniel Novak",
+          "role": "Customer success lead"
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Aisha Bello",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Aisha Bello",
+          "role": "Machine learning engineer"
+        }
+      ]
+    },
+    {
+      "name": "showHiring",
+      "label": "Show hiring card",
+      "type": "boolean",
+      "default": true,
+      "group": "Hiring card"
+    },
+    {
+      "name": "hiringIcon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "plus",
+      "visibleWhen": {
+        "field": "showHiring",
+        "equals": true
+      },
+      "group": "Hiring card"
+    },
+    {
+      "name": "hiringTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "This could be you",
+      "group": "Hiring card",
+      "visibleWhen": {
+        "field": "showHiring",
+        "equals": true
+      }
+    },
+    {
+      "name": "hiringText",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We are hiring for four roles in engineering, design and sales.",
+      "group": "Hiring card",
+      "visibleWhen": {
+        "field": "showHiring",
+        "equals": true
+      }
+    },
+    {
+      "name": "hiringButton",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See open roles",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showHiring",
+        "equals": true
+      },
+      "group": "Hiring card"
+    }
+  ]
+}

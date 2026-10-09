@@ -1,0 +1,91 @@
+{
+  "name": "Utilities, breadcrumbs",
+  "category": "utilities",
+  "description": "A trail of links from the home page to the current page, for deeper pages such as guides or articles.",
+  "tags": ["breadcrumbs", "breadcrumb", "navigation", "trail", "path", "links", "utility"],
+  "fieldGroups": ["Trail"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-border"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Name for screen readers",
+      "type": "text",
+      "default": "Breadcrumb",
+      "required": true,
+      "group": "Trail"
+    },
+    {
+      "name": "showHomeIcon",
+      "label": "Show home icon on the first link",
+      "type": "boolean",
+      "default": true,
+      "group": "Trail"
+    },
+    {
+      "name": "separator",
+      "label": "Separator icon",
+      "type": "icon",
+      "default": "chevron-right",
+      "group": "Trail"
+    },
+    {
+      "name": "items",
+      "label": "Pages",
+      "type": "list",
+      "group": "Trail",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Page"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "page",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Home",
+          "link": {
+            "type": "url",
+            "url": "index.html",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Resources",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Interview guides",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "How to run your first customer interview",
+          "link": {
+            "type": "page",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

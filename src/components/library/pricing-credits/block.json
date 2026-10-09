@@ -1,0 +1,147 @@
+{
+  "name": "Pricing, credit packs",
+  "category": "pricing",
+  "description": "Buy-once credit packs drawn as growing coin stacks, with the price per credit and a best-value badge.",
+  "tags": ["pricing", "credits", "packs", "pay as you go", "one-time", "tokens", "bundles"],
+  "fieldGroups": ["Heading", "Packs"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Pay as you go",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Buy credits once, use them whenever",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "No subscription. One credit transcribes and tags one hour of interview audio.",
+      "group": "Heading"
+    },
+    {
+      "name": "bestLabel",
+      "label": "Label on the best-value pack",
+      "type": "text",
+      "default": "Best value",
+      "group": "Packs"
+    },
+    {
+      "name": "packs",
+      "label": "Packs",
+      "type": "list",
+      "group": "Packs",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "credits",
+      "itemFields": [
+        {
+          "name": "credits",
+          "label": "Credits",
+          "type": "text",
+          "default": "100 credits"
+        },
+        {
+          "name": "size",
+          "label": "Stack height",
+          "type": "range",
+          "default": 4,
+          "min": 1,
+          "max": 10,
+          "step": 1
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$100"
+        },
+        {
+          "name": "perCredit",
+          "label": "Price per credit",
+          "type": "text",
+          "default": "$1.00 per credit"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Who this pack is for."
+        },
+        {
+          "name": "best",
+          "label": "Best value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Buy credits",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "credits": "20 credits",
+          "size": 2,
+          "price": "$40",
+          "perCredit": "$2.00 per credit",
+          "text": "Enough for one round of customer interviews.",
+          "best": false,
+          "button": {
+            "label": "Buy 20 credits",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          }
+        },
+        {
+          "credits": "100 credits",
+          "size": 5,
+          "price": "$150",
+          "perCredit": "$1.50 per credit",
+          "text": "A quarter of steady research for a small team.",
+          "best": true,
+          "button": {
+            "label": "Buy 100 credits",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "primary"
+          }
+        },
+        {
+          "credits": "500 credits",
+          "size": 9,
+          "price": "$600",
+          "perCredit": "$1.20 per credit",
+          "text": "For research programs with a full calendar.",
+          "best": false,
+          "button": {
+            "label": "Buy 500 credits",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          }
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "textarea",
+      "default": "Credits never expire and are shared by everyone in your workspace.",
+      "group": "Packs"
+    }
+  ]
+}

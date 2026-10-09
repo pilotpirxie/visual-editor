@@ -1,0 +1,153 @@
+{
+  "name": "Modal, video",
+  "category": "modals",
+  "description": "A wide, cinema-style dialog with a video poster, play button, duration and chapter list. Opens from any link to its anchor.",
+  "tags": ["modal", "dialog", "popup", "video", "demo", "product tour", "chapters", "lightbox"],
+  "fieldGroups": ["Video", "Content", "Chapters", "Style"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "image",
+      "label": "Poster image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Ama Mensah tagging highlights in a Fieldnote interview transcript",
+        "decorative": false,
+        "width": 1600,
+        "height": 900,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Video"
+    },
+    {
+      "name": "videoLink",
+      "label": "Video link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "https://www.youtube.com",
+        "newTab": true
+      },
+      "help": "Where the play button goes, for example the video on YouTube or Vimeo.",
+      "group": "Video"
+    },
+    {
+      "name": "playLabel",
+      "label": "Play button label (for screen readers)",
+      "type": "text",
+      "default": "Play video",
+      "required": true,
+      "group": "Video"
+    },
+    {
+      "name": "duration",
+      "label": "Duration",
+      "type": "text",
+      "default": "4:12",
+      "maxLength": 12,
+      "group": "Video"
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Product tour",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From raw interview to shared insight in four minutes",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Ama Mensah, our head of research, uploads a 45-minute customer call and turns it into a tagged highlight reel her product team can act on.",
+      "group": "Content"
+    },
+    {
+      "name": "closeLabel",
+      "label": "Close button label (for screen readers)",
+      "type": "text",
+      "default": "Close",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "chaptersLabel",
+      "label": "Chapters heading",
+      "type": "text",
+      "default": "Chapters",
+      "group": "Chapters"
+    },
+    {
+      "name": "chapters",
+      "label": "Chapters",
+      "type": "list",
+      "group": "Chapters",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "time",
+          "label": "Time",
+          "type": "text",
+          "default": "0:00",
+          "maxLength": 8
+        },
+        {
+          "name": "label",
+          "label": "Chapter",
+          "type": "text",
+          "default": "Chapter title"
+        }
+      ],
+      "default": [
+        {
+          "time": "0:00",
+          "label": "Upload a recorded call"
+        },
+        {
+          "time": "1:08",
+          "label": "Read the live transcript"
+        },
+        {
+          "time": "2:20",
+          "label": "Tag and clip highlights"
+        },
+        {
+          "time": "3:35",
+          "label": "Share a reel with your team"
+        }
+      ]
+    },
+    {
+      "name": "theme",
+      "label": "Colors",
+      "type": "select",
+      "default": "dark",
+      "options": [
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        }
+      ],
+      "help": "Light uses the block’s own background and text colors from the Style tab.",
+      "group": "Style"
+    }
+  ]
+}

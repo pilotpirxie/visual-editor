@@ -1,0 +1,23 @@
+<section class="b-content-hotspots section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-stage">
+      <div class="media b-photo" data-field="image">{{img image}}</div>
+      <div class="b-pins" aria-hidden="true">
+        {{#each spots}}<span class="b-pin" style="--x: {{x}}; --y: {{y}}"></span>{{/each}}
+      </div>
+    </div>
+    <ol class="b-legend" role="list">
+      {{#each spots}}
+      <li class="b-spot" data-field="spots.{{@index}}">
+        <h3 class="b-spot-title">{{title}}</h3>
+        <p class="b-spot-text">{{text}}</p>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

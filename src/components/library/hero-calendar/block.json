@@ -1,0 +1,231 @@
+{
+  "name": "Hero, booking",
+  "category": "headers",
+  "description": "Heading and button beside a booking card with the host, a week of days and open time slots.",
+  "tags": [
+    "hero",
+    "heading",
+    "booking",
+    "calendar",
+    "appointment",
+    "consultant",
+    "coach",
+    "schedule"
+  ],
+  "fieldGroups": ["Heading", "Host", "Days", "Times"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Research coaching for product teams",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Make decisions your customers would sign off on",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "I help small teams plan interviews, run them well and turn what they hear into a roadmap. Book a free intro call to talk through your next study.",
+      "group": "Heading"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See all times",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Heading"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Dana Whitlock",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Host"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Dana Whitlock",
+      "group": "Host"
+    },
+    {
+      "name": "session",
+      "label": "Session",
+      "type": "text",
+      "default": "45-minute intro call",
+      "group": "Host"
+    },
+    {
+      "name": "month",
+      "label": "Month",
+      "type": "text",
+      "default": "June 2027",
+      "group": "Days"
+    },
+    {
+      "name": "days",
+      "label": "Days",
+      "type": "list",
+      "group": "Days",
+      "minItems": 1,
+      "maxItems": 7,
+      "itemLabel": "date",
+      "itemFields": [
+        {
+          "name": "weekday",
+          "label": "Weekday",
+          "type": "text",
+          "default": "Mon"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "text",
+          "default": "1"
+        },
+        {
+          "name": "available",
+          "label": "Has open times",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "selected",
+          "label": "Selected",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        {
+          "weekday": "Mon",
+          "date": "9",
+          "available": false,
+          "selected": false
+        },
+        {
+          "weekday": "Tue",
+          "date": "10",
+          "available": true,
+          "selected": true
+        },
+        {
+          "weekday": "Wed",
+          "date": "11",
+          "available": true,
+          "selected": false
+        },
+        {
+          "weekday": "Thu",
+          "date": "12",
+          "available": false,
+          "selected": false
+        },
+        {
+          "weekday": "Fri",
+          "date": "13",
+          "available": true,
+          "selected": false
+        }
+      ]
+    },
+    {
+      "name": "slotsTitle",
+      "label": "Times heading",
+      "type": "text",
+      "default": "Open times on Tuesday, 10 June",
+      "group": "Times"
+    },
+    {
+      "name": "slots",
+      "label": "Times",
+      "type": "list",
+      "group": "Times",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Time",
+          "type": "text",
+          "default": "9:00 am"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "9:00 am",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "10:30 am",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "1:00 pm",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "3:30 pm",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

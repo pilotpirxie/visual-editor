@@ -1,0 +1,109 @@
+@layer components {
+  @scope (.b-features-mini-ui) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro,
+    .b-copy p {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-grid {
+      --grid-min: 15rem;
+      --grid-gap: var(--space-8) var(--space-6);
+    }
+
+    .b-stage {
+      display: grid;
+      place-items: center;
+      min-height: 11rem;
+      margin-block-end: var(--space-6);
+      padding: var(--space-6);
+      border-radius: var(--card-radius);
+      background: radial-gradient(
+          color-mix(in oklab, var(--color-text) 16%, transparent) 8%,
+          transparent 12%
+        )
+        0 0 / 1rem 1rem var(--color-surface);
+    }
+
+    .b-ui {
+      --icon-size: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2) var(--space-3);
+      align-items: center;
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-background);
+      box-shadow: var(--shadow-md);
+      font-size: var(--text-sm);
+    }
+
+    .b-switch {
+      width: 2.5rem;
+      height: 1.5rem;
+      border-radius: var(--radius-full);
+      background: radial-gradient(
+        circle at 68% 50%,
+        var(--color-primary-contrast) 0.5rem,
+        var(--color-primary) 0.5625rem
+      );
+    }
+
+    .b-chip,
+    .b-search kbd {
+      display: inline-flex;
+      padding: var(--space-1) var(--space-2);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+    }
+
+    .b-on {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-progress {
+      justify-content: space-between;
+      width: min(100%, 14rem);
+    }
+
+    .b-bar {
+      flex-basis: 100%;
+      height: 0.5rem;
+      border-radius: var(--radius-full);
+      background: linear-gradient(
+        90deg,
+        var(--color-primary) calc(var(--value) * 1%),
+        var(--color-surface) 0
+      );
+    }
+
+    .b-search {
+      border-radius: var(--radius-full);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-2);
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "name": "Banner, holiday hours",
+  "category": "banners",
+  "description": "A seasonal strip with changed opening hours as a row of date chips; closed days are marked, and the row swipes sideways on phones.",
+  "tags": [
+    "holiday",
+    "hours",
+    "opening hours",
+    "closed",
+    "schedule",
+    "christmas",
+    "store",
+    "local business",
+    "banner"
+  ],
+  "fieldGroups": ["Message", "Days", "Link"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "calendar",
+      "group": "Message"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Holiday hours",
+      "required": true,
+      "maxLength": 40,
+      "group": "Message"
+    },
+    {
+      "name": "days",
+      "label": "Days",
+      "type": "list",
+      "group": "Days",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "date",
+      "itemFields": [
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "text",
+          "default": "Dec 24",
+          "maxLength": 16
+        },
+        {
+          "name": "hours",
+          "label": "Hours",
+          "type": "text",
+          "default": "9–1",
+          "maxLength": 16
+        },
+        {
+          "name": "closed",
+          "label": "Closed",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        {
+          "date": "Dec 24",
+          "hours": "9–1",
+          "closed": false
+        },
+        {
+          "date": "Dec 25–26",
+          "hours": "Closed",
+          "closed": true
+        },
+        {
+          "date": "Dec 31",
+          "hours": "9–3",
+          "closed": false
+        },
+        {
+          "date": "Jan 1",
+          "hours": "Closed",
+          "closed": true
+        }
+      ]
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link label",
+      "type": "text",
+      "default": "Support over the holidays",
+      "maxLength": 30,
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "section",
+        "anchor": "contact",
+        "newTab": false
+      },
+      "group": "Link"
+    }
+  ]
+}

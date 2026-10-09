@@ -1,0 +1,94 @@
+{
+  "name": "Call to action, talk to sales",
+  "category": "call-to-action",
+  "description": "A pitch next to a contact card with a person’s photo, phone, email and a book-a-call button.",
+  "tags": ["cta", "sales", "contact", "demo", "call", "enterprise"],
+  "fieldGroups": ["Content", "Contact"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Talk to a person",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Rolling Fieldnote out to more than 50 people?",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We’ll walk you through security, data residency and how other research teams set up their workspace. Thirty minutes, no slides.",
+      "group": "Content"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Daniel Mensah",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Contact"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Daniel Mensah",
+      "group": "Contact"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Customer partnerships, Toronto",
+      "group": "Contact"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "+1 416 555 0187",
+      "group": "Contact"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "sales@fieldnote.example",
+      "group": "Contact"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book a 30-minute call",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Contact"
+    }
+  ]
+}

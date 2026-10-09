@@ -1,0 +1,198 @@
+{
+  "name": "Content, topic links",
+  "category": "content",
+  "description": "A centered cloud of linked topic chips in three sizes, each with an optional count.",
+  "tags": ["topics", "tags", "chips", "categories", "cloud", "links", "explore"],
+  "fieldGroups": ["Heading", "Topics"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Explore",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What customers talk to us about",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The themes that came up most across 310,000 recorded interviews. Pick one to hear the clips.",
+      "group": "Heading"
+    },
+    {
+      "name": "topics",
+      "label": "Topics",
+      "type": "list",
+      "group": "Topics",
+      "minItems": 1,
+      "maxItems": 24,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Topic"
+        },
+        {
+          "name": "count",
+          "label": "Count",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "size",
+          "label": "Size",
+          "type": "select",
+          "default": "small",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ]
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Onboarding",
+          "count": "1,284",
+          "size": "large",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Pricing",
+          "count": "642",
+          "size": "medium",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Notifications",
+          "count": "208",
+          "size": "small",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Search",
+          "count": "531",
+          "size": "medium",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Permissions",
+          "count": "174",
+          "size": "small",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Integrations",
+          "count": "916",
+          "size": "large",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Mobile",
+          "count": "389",
+          "size": "small",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Reporting",
+          "count": "455",
+          "size": "medium",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Billing",
+          "count": "97",
+          "size": "small",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Collaboration",
+          "count": "722",
+          "size": "medium",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Accessibility",
+          "count": "133",
+          "size": "small",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

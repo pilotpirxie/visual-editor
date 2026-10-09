@@ -1,0 +1,115 @@
+@layer components {
+  @scope (.b-hero-waitlist) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    .b-lead {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      width: 100%;
+      max-width: 30rem;
+    }
+
+    .b-field {
+      flex: 1;
+    }
+
+    .b-proof {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .b-avatars {
+      display: flex;
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      width: 2.25rem;
+      margin-inline-end: -0.5rem;
+      border: 0.125rem solid var(--color-background);
+    }
+
+    .b-pass {
+      padding: var(--space-6);
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(
+          at 100% 0,
+          color-mix(in oklab, var(--theme-dark-accent) 40%, transparent),
+          transparent 60%
+        ),
+        var(--theme-dark-background);
+      color: var(--theme-dark-text);
+    }
+
+    .b-pass-label,
+    .b-pass-note {
+      font-size: var(--text-sm);
+      opacity: 0.75;
+    }
+
+    .b-number {
+      font-family: var(--font-heading);
+      font-size: min(var(--text-5xl) * 1.4, 18vw);
+      font-weight: var(--font-weight-heading);
+      line-height: 1;
+    }
+
+    .b-bar {
+      height: 0.5rem;
+      overflow: clip;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, currentColor 20%, transparent);
+    }
+
+    .b-bar span {
+      display: block;
+      height: 100%;
+      background: var(--theme-dark-accent);
+    }
+
+    .b-invite {
+      display: flex;
+      gap: var(--space-3);
+      padding-top: var(--space-4);
+      border-top: var(--border-width) dashed color-mix(in oklab, currentColor 30%, transparent);
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-form {
+        flex-direction: row;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1.2fr 1fr;
+        gap: var(--space-16);
+      }
+
+      .b-pass {
+        rotate: -2deg;
+      }
+    }
+  }
+}

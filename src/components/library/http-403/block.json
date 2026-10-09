@@ -1,0 +1,92 @@
+{
+  "name": "HTTP code, 403 access denied",
+  "category": "http-codes",
+  "description": "A card that explains the visitor has no access, with buttons to sign in again or ask for access.",
+  "tags": ["403", "forbidden", "access denied", "permission", "error", "private", "page"],
+  "fieldGroups": ["Content", "Buttons"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-surface",
+    "--color-text",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "lock",
+      "group": "Content"
+    },
+    {
+      "name": "eyebrow",
+      "label": "Code",
+      "type": "text",
+      "default": "Error 403",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "This workspace is private",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "You’re signed in, but this account isn’t a member of the workspace. Switch to the account you were invited with, or ask an admin to add you.",
+      "group": "Content"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Switch account",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondaryButton",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Request access",
+        "link": {
+          "type": "email",
+          "url": "admin@northwind.example",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondaryButton",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "textarea",
+      "default": "Think this is a mistake? Email support@fieldnote.app and include the link you followed.",
+      "group": "Content"
+    }
+  ]
+}

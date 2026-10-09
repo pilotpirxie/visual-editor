@@ -1,0 +1,37 @@
+<section class="b-blog-changelog section">
+  <div class="container stack b-inner">
+    <div class="cluster b-head">
+      <header class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      {{#if showButton}}
+      <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      {{/if}}
+    </div>
+    <ol class="b-releases" role="list">
+      {{#each releases}}
+      <li class="b-release" data-field="releases.{{@index}}">
+        <p class="b-aside">
+          <span class="b-version">{{version}}</span>
+          {{#if date}}<time class="b-date" datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+        </p>
+        <article class="stack b-body">
+          <h3 class="b-title"><a href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          {{#if text}}<div class="prose b-text">{{richText text}}</div>{{/if}}
+          {{#if changes.length}}
+          <ul class="stack b-changes" role="list">
+            {{#each changes}}
+            <li class="b-change" data-field="releases.{{@../index}}.changes.{{@index}}">
+              <span class="b-tag" data-type="{{type}}">{{#if (eq type "new")}}{{../../newLabel}}{{/if}}{{#if (eq type "improved")}}{{../../improvedLabel}}{{/if}}{{#if (eq type "fixed")}}{{../../fixedLabel}}{{/if}}</span>
+              <span>{{text}}</span>
+            </li>
+            {{/each}}
+          </ul>
+          {{/if}}
+        </article>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

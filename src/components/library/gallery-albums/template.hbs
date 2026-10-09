@@ -1,0 +1,31 @@
+<section class="b-gallery-albums section" data-behavior="tabs">
+  <div class="container stack b-inner">
+    <header class="b-head">
+      <div class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </div>
+      <div class="b-tablist" role="tablist" aria-label="{{title}}" hidden>
+        {{#each albums}}
+        <button type="button" class="b-tab" id="{{../block.id}}-tab-{{@index}}" aria-controls="{{../block.id}}-album-{{@index}}" data-field="albums.{{@index}}">{{name}}<span class="b-count">{{photos.length}}</span></button>
+        {{/each}}
+      </div>
+    </header>
+    <div class="b-panels">
+      {{#each albums}}
+      <div class="stack b-panel" id="{{../block.id}}-album-{{@index}}" data-field="albums.{{@index}}">
+        <div class="b-about">
+          <h3 class="b-name">{{name}}</h3>
+          {{#if text}}<p class="b-text">{{text}}</p>{{/if}}
+        </div>
+        <ul class="b-grid" role="list">
+          {{#each photos}}
+          <li class="media b-photo">{{img image}}</li>
+          {{/each}}
+        </ul>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

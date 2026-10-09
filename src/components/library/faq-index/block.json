@@ -1,0 +1,127 @@
+{
+  "name": "FAQ, with topic index",
+  "category": "faq",
+  "description": "A sticky index of topics with question counts beside the questions grouped under each topic.",
+  "tags": ["faq", "questions", "topics", "index", "sticky", "help center", "accordion"],
+  "fieldGroups": ["Heading", "Topics"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    { "name": "eyebrow", "label": "Eyebrow", "type": "text", "default": "FAQ", "group": "Heading" },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Questions, sorted by topic",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Jump to a topic, or scroll through the whole list. We update it every month.",
+      "group": "Heading"
+    },
+    {
+      "name": "indexLabel",
+      "label": "Index label",
+      "type": "text",
+      "default": "Question topics",
+      "help": "Read out by screen readers.",
+      "group": "Topics"
+    },
+    {
+      "name": "topics",
+      "label": "Topics",
+      "type": "list",
+      "group": "Topics",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "icon", "label": "Icon", "type": "icon", "default": "help" },
+        { "name": "title", "label": "Topic", "type": "text", "default": "Topic" },
+        {
+          "name": "questions",
+          "label": "Questions",
+          "type": "list",
+          "minItems": 1,
+          "maxItems": 10,
+          "itemLabel": "question",
+          "itemFields": [
+            { "name": "question", "label": "Question", "type": "text", "default": "A question?" },
+            {
+              "name": "answer",
+              "label": "Answer",
+              "type": "richtext",
+              "default": "<p>The answer.</p>"
+            }
+          ],
+          "default": [{ "question": "A question?", "answer": "<p>The answer.</p>" }]
+        }
+      ],
+      "default": [
+        {
+          "icon": "rocket",
+          "title": "Getting started",
+          "questions": [
+            {
+              "question": "How long does setup take?",
+              "answer": "<p>About ten minutes. Connect your calendar and video tool, and Fieldnote joins the next interview you schedule.</p>"
+            },
+            {
+              "question": "Can we import past interviews?",
+              "answer": "<p>Yes. Upload audio or video files, or connect a cloud drive, and they are transcribed like new ones.</p>"
+            }
+          ]
+        },
+        {
+          "icon": "mic",
+          "title": "Recording and transcripts",
+          "questions": [
+            {
+              "question": "How accurate are transcripts?",
+              "answer": "<p>Around 95% on clear audio, with every speaker labelled. You can correct any line in place.</p>"
+            },
+            {
+              "question": "Which languages are supported?",
+              "answer": "<p>Thirty-two, including French, Spanish, German and Japanese. Calls that switch languages work too.</p>"
+            },
+            {
+              "question": "Can I record in-person sessions?",
+              "answer": "<p>Use the mobile app to record on your phone, then the upload lands in the right project.</p>"
+            }
+          ]
+        },
+        {
+          "icon": "shield",
+          "title": "Privacy and consent",
+          "questions": [
+            {
+              "question": "Do participants know they are recorded?",
+              "answer": "<p>Always. Fieldnote announces itself when it joins, and a consent note goes out with every invite.</p>"
+            },
+            {
+              "question": "Where is our data stored?",
+              "answer": "<p>In the region you choose: Canada, the US or the EU. Everything is encrypted at rest and in transit.</p>"
+            }
+          ]
+        },
+        {
+          "icon": "credit-card",
+          "title": "Plans and billing",
+          "questions": [
+            {
+              "question": "Do viewers need a paid seat?",
+              "answer": "<p>No. Anyone who only reads and comments is free, on every plan.</p>"
+            },
+            {
+              "question": "What happens when the trial ends?",
+              "answer": "<p>Nothing is deleted. Pick a plan to keep recording, or stay on Starter to keep reading.</p>"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

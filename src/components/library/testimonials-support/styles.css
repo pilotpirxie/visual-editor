@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-testimonials-support) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro,
+    .b-person {
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+      gap: var(--space-6);
+    }
+
+    .b-ticket {
+      --notch: 0.75rem;
+      --cut: 3.5rem;
+      display: grid;
+      grid-template-rows: var(--cut) 1fr;
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+      mask:
+        radial-gradient(
+            circle at left var(--cut),
+            transparent var(--notch),
+            var(--color-text) calc(var(--notch) + 0.05rem)
+          )
+          left / 51% 100% no-repeat,
+        radial-gradient(
+            circle at right var(--cut),
+            transparent var(--notch),
+            var(--color-text) calc(var(--notch) + 0.05rem)
+          )
+          right / 51% 100% no-repeat;
+    }
+
+    .b-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding-inline: var(--space-6);
+      border-block-end: calc(var(--border-width) * 2) dashed var(--color-border);
+    }
+
+    .b-number {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-status {
+      --icon-size: 0.875rem;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-3);
+      padding: var(--space-6);
+    }
+
+    .b-subject {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-quote p::before {
+      content: open-quote;
+    }
+
+    .b-quote p::after {
+      content: close-quote;
+    }
+
+    .b-person {
+      margin-block-start: auto;
+      padding-block-start: var(--space-3);
+      font-size: var(--text-sm);
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text);
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "name": "Content, dictionary entry",
+  "category": "content",
+  "description": "A word set like a dictionary entry, with pronunciation, part of speech, numbered meanings and an origin note.",
+  "tags": ["definition", "dictionary", "glossary", "term", "brand", "meaning", "typography"],
+  "fieldGroups": ["Word", "Meanings", "Origin"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Definition",
+      "group": "Word"
+    },
+    {
+      "name": "word",
+      "label": "Word",
+      "type": "text",
+      "default": "field·note",
+      "group": "Word",
+      "required": true,
+      "maxLength": 40
+    },
+    {
+      "name": "pronunciation",
+      "label": "Pronunciation",
+      "type": "text",
+      "default": "/ˈfiːld ˌnoʊt/",
+      "group": "Word"
+    },
+    {
+      "name": "partOfSpeech",
+      "label": "Part of speech",
+      "type": "text",
+      "default": "noun",
+      "group": "Word"
+    },
+    {
+      "name": "senses",
+      "label": "Meanings",
+      "type": "list",
+      "group": "Meanings",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "meaning",
+      "itemFields": [
+        {
+          "name": "meaning",
+          "label": "Meaning",
+          "type": "textarea",
+          "default": "What the word means."
+        },
+        {
+          "name": "example",
+          "label": "Example",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "meaning": "A short record written in the moment, while the thing you are observing is still happening.",
+          "example": "Her field notes from the warehouse visit said more than the survey did."
+        },
+        {
+          "meaning": "A clip of a customer conversation, tagged and shared so the whole team hears the same thing.",
+          "example": "Drop the fieldnote in the planning doc before Thursday."
+        },
+        {
+          "meaning": "Informal. Proof that a decision came from a customer, not a hunch.",
+          "example": ""
+        }
+      ]
+    },
+    {
+      "name": "originLabel",
+      "label": "Origin label",
+      "type": "text",
+      "default": "Origin",
+      "group": "Origin"
+    },
+    {
+      "name": "origin",
+      "label": "Origin",
+      "type": "textarea",
+      "default": "From anthropology, where researchers wrote field notes by hand. Borrowed by a Toronto team in 2019 who wanted the same closeness without the notebook.",
+      "group": "Origin"
+    }
+  ]
+}

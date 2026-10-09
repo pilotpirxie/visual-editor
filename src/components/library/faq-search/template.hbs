@@ -1,0 +1,32 @@
+<section class="b-faq-search section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <form class="b-search" role="search" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <label class="visually-hidden" for="{{block.id}}-q" data-field="searchLabel">{{searchLabel}}</label>
+      <span class="b-search-icon">{{svgIcon "search"}}</span>
+      <input id="{{block.id}}-q" type="search" name="q" placeholder="{{placeholder}}" autocomplete="off">
+      <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+    </form>
+    {{#if topics.length}}
+    <nav class="cluster b-topics" aria-label="{{topicsLabel}}">
+      <span aria-hidden="true" data-field="topicsLabel">{{topicsLabel}}</span>
+      {{#each topics}}
+      <a class="b-topic" href="{{href link}}" {{linkAttrs link}} data-field="topics.{{@index}}">{{label}}</a>
+      {{/each}}
+    </nav>
+    {{/if}}
+    {{#if popularTitle}}<h3 class="b-popular" data-field="popularTitle">{{popularTitle}}</h3>{{/if}}
+    <div class="b-list">
+      {{#each items}}
+      <details class="b-item" name="{{../block.id}}-faq" data-field="items.{{@index}}">
+        <summary class="b-question"><span>{{question}}</span><span class="b-icon">{{svgIcon ../expandIcon}}</span></summary>
+        <div class="prose b-answer">{{richText answer}}</div>
+      </details>
+      {{/each}}
+    </div>
+  </div>
+</section>

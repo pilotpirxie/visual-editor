@@ -1,0 +1,15 @@
+<section class="b-content-image-wide section">
+  <div class="container stack b-inner">
+    {{#if (or eyebrow title text)}}
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      {{#if title}}<h2 data-field="title">{{title}}</h2>{{/if}}
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    {{/if}}
+    <figure class="stack b-figure">
+      <div class="media b-media" style="--image-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
+      {{#if caption}}<figcaption class="b-caption" data-field="caption">{{caption}}</figcaption>{{/if}}
+    </figure>
+  </div>
+</section>

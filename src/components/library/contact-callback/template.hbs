@@ -1,0 +1,31 @@
+<section class="b-contact-callback section">
+  <div class="container">
+    <div class="b-panel">
+      <div class="stack b-copy">
+        <span class="b-ring" aria-hidden="true">{{svgIcon "phone"}}</span>
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+        {{#if hours}}<p class="b-hours" data-field="hours">{{svgIcon "clock"}}<span>{{hours}}</span></p>{{/if}}
+      </div>
+      <form class="card stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field">
+          <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+          <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-phone" data-field="phoneLabel">{{phoneLabel}}</label>
+          <input id="{{block.id}}-phone" type="tel" name="phone" autocomplete="tel" required placeholder="{{phonePlaceholder}}">
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-time" data-field="timeLabel">{{timeLabel}}</label>
+          <select id="{{block.id}}-time" name="time">
+            {{#each times}}<option data-field="times.{{@index}}">{{label}}</option>{{/each}}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{svgIcon "phone"}}{{buttonLabel}}</button>
+        {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+      </form>
+    </div>
+  </div>
+</section>

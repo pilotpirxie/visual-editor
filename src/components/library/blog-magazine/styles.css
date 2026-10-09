@@ -1,0 +1,108 @@
+@layer components {
+  @scope (.b-blog-magazine) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+
+    .b-heading {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-lead,
+    .b-post {
+      position: relative;
+    }
+
+    .b-lead {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-lead-body {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+      align-self: center;
+    }
+
+    .b-lead-title {
+      font-size: var(--text-3xl);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-excerpt {
+      font-size: var(--text-lg);
+    }
+
+    .b-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1) var(--space-3);
+      font-size: var(--text-sm);
+    }
+
+    .b-author {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    :is(.b-lead, .b-post):hover .b-link {
+      color: var(--color-primary);
+    }
+
+    .b-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+      gap: var(--space-8) var(--space-6);
+      padding-block-start: var(--space-12);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-post {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-media {
+      margin-block-end: var(--space-2);
+    }
+
+    .b-category {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .b-title {
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 1024px) {
+      .b-lead {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        gap: var(--space-12);
+      }
+    }
+  }
+}

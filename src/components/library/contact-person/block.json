@@ -1,0 +1,101 @@
+{
+  "name": "Contact, talk to a person",
+  "category": "contacts",
+  "description": "A photo of one contact person with their name, role, direct email and phone, and a button to book a call.",
+  "tags": ["contact", "person", "sales", "book a call", "meeting", "calendar", "profile"],
+  "fieldGroups": ["Heading", "Person", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Talk to a person",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Skip the form. Book time with Jonas.",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Jonas has helped more than 300 product teams set up their research practice. Bring your questions and a messy backlog.",
+      "group": "Heading"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Jonas Becker",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Person"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Jonas Becker",
+      "group": "Person",
+      "required": true
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Research partnerships lead",
+      "group": "Person"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "jonas@fieldnote.example",
+      "group": "Person"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "+1 416 555 0167",
+      "group": "Person"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book a 30-minute call",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Button"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Usually replies within 2 hours",
+      "group": "Button"
+    }
+  ]
+}

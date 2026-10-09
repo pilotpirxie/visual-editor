@@ -1,0 +1,33 @@
+<footer class="b-footer-event section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <div class="stack b-event">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 class="b-name" data-field="name">{{name}}</h2>
+        <ul class="stack b-facts" role="list">
+          {{#if date}}<li data-field="date">{{svgIcon "calendar"}}<time datetime="{{date}}">{{formatDate date}}</time></li>{{/if}}
+          {{#if venue}}<li data-field="venue">{{svgIcon "map-pin"}}<span>{{venue}}</span></li>{{/if}}
+        </ul>
+        {{#if showButton}}<a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>{{/if}}
+      </div>
+      <div class="stack b-sponsors">
+        <h2 class="b-heading" data-field="sponsorsTitle">{{sponsorsTitle}}</h2>
+        <ul class="b-sponsor-list" role="list">
+          {{#each sponsors}}
+          <li data-field="sponsors.{{@index}}">{{name}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+    <div class="b-bottom">
+      <p class="b-muted" data-field="copyright">{{copyright}}</p>
+      <nav aria-label="Footer">
+        <ul class="cluster b-links" role="list">
+          {{#each links}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+          {{/each}}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>

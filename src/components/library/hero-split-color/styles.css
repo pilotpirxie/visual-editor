@@ -1,0 +1,94 @@
+@layer components {
+  @scope (.b-hero-split-color) {
+    :scope {
+      container-type: inline-size;
+      padding-block: 0;
+    }
+
+    .b-inner {
+      display: grid;
+    }
+
+    .b-panel {
+      --color-text: var(--theme-primary-text);
+      --color-text-muted: var(--theme-primary-text-muted);
+      --color-primary: var(--theme-primary-accent);
+      --color-primary-contrast: var(--theme-primary-accent-contrast);
+      --color-border: var(--theme-primary-border);
+      --stack-gap: var(--space-6);
+      justify-content: center;
+      padding: var(--section-padding-y) var(--container-padding-x);
+      background: var(--theme-primary-background);
+      color: var(--color-text);
+    }
+
+    .b-lead {
+      max-width: 32rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-panel .btn-secondary {
+      --btn-bg: transparent;
+      --btn-color: var(--color-text);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-visual {
+      position: relative;
+    }
+
+    .b-media {
+      --media-ratio: 4 / 3;
+      --media-radius: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .b-sticker {
+      position: absolute;
+      inset-block-start: calc(var(--space-12) * -1);
+      inset-inline-end: var(--space-6);
+      display: grid;
+      place-items: center;
+      width: 6.5rem;
+      aspect-ratio: 1;
+      padding: var(--space-3);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-lg);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      text-align: center;
+      text-transform: uppercase;
+      rotate: -12deg;
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        min-height: 40rem;
+      }
+
+      .b-panel {
+        padding-inline-start: max(
+          var(--container-padding-x),
+          calc((100cqi - var(--container-max-width)) / 2 + var(--container-padding-x))
+        );
+        padding-inline-end: var(--space-16);
+      }
+
+      .b-sticker {
+        inset-block-start: 50%;
+        inset-inline-start: -3.25rem;
+        translate: 0 -50%;
+      }
+    }
+  }
+}

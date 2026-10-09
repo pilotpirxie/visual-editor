@@ -1,0 +1,88 @@
+{
+  "name": "Content, company milestones",
+  "category": "content",
+  "description": "A heading and a list of years with what happened, from first idea to today.",
+  "tags": ["history", "milestones", "timeline", "story", "about", "years"],
+  "fieldGroups": ["Heading", "Milestones"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our story",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From a side project to 1,200 research teams",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Fieldnote started as a weekend script to search old interview recordings. A few of the moments that shaped it.",
+      "group": "Heading"
+    },
+    {
+      "name": "milestones",
+      "label": "Milestones",
+      "type": "list",
+      "group": "Milestones",
+      "minItems": 2,
+      "maxItems": 12,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "year",
+          "label": "Year",
+          "type": "text",
+          "default": "2026"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "What happened"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "One or two sentences about this milestone."
+        }
+      ],
+      "default": [
+        {
+          "year": "2022",
+          "title": "A script to search three years of interviews",
+          "text": "Priya and Jonas transcribe every recording from their old team and realize half the roadmap was already in there."
+        },
+        {
+          "year": "2023",
+          "title": "Northwind becomes our first paying team",
+          "text": "Eight researchers move their interviews over in a weekend. Their feedback shapes tagging as it works today."
+        },
+        {
+          "year": "2024",
+          "title": "Automatic tagging in 14 languages",
+          "text": "Fieldnote learns to group highlights by theme, so teams stop sorting sticky notes by hand."
+        },
+        {
+          "year": "2025",
+          "title": "A studio on King Street West",
+          "text": "We open our Toronto office with two interview rooms and grow to a team of 20."
+        },
+        {
+          "year": "2026",
+          "title": "Highlight reels for the whole company",
+          "text": "Short clips of real customers now reach sales, support and leadership every week."
+        }
+      ]
+    }
+  ]
+}

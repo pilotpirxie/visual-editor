@@ -1,0 +1,89 @@
+@layer components {
+  @scope (.b-modal-confirm) {
+    .b-dialog {
+      --modal-width: 30rem;
+    }
+
+    .b-layout {
+      display: grid;
+      gap: var(--space-6);
+      justify-items: start;
+    }
+
+    .b-badge {
+      --icon-size: 1.5rem;
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      margin: var(--space-3);
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 16%, var(--color-background));
+      color: var(--color-primary);
+      box-shadow:
+        0 0 0 0.5rem color-mix(in oklab, var(--color-primary) 9%, transparent),
+        0 0 0 1rem color-mix(in oklab, var(--color-primary) 4%, transparent);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-body h2 {
+      font-size: var(--text-xl);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .b-item {
+      padding: var(--space-1) var(--space-3);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-count {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text);
+    }
+
+    .b-actions {
+      display: grid;
+      gap: var(--space-2);
+      margin-block-start: var(--space-8);
+      margin-inline: calc(var(--space-6) * -1);
+      margin-block-end: calc(var(--space-6) * -1);
+      padding: var(--space-4) var(--space-6);
+      border-block-start: var(--border-width) solid var(--color-border);
+      background: var(--color-surface);
+    }
+
+    .b-actions .btn-secondary {
+      order: 1;
+    }
+
+    @media (min-width: 768px) {
+      .b-layout {
+        grid-template-columns: auto 1fr;
+      }
+
+      .b-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .b-actions .btn-secondary {
+        order: 0;
+      }
+    }
+  }
+}

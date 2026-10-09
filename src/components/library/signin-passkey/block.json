@@ -1,0 +1,132 @@
+{
+  "name": "Sign in, passkey",
+  "category": "sign-in",
+  "description": "A passkey prompt with a large icon in rings, one button and an email fallback.",
+  "tags": [
+    "sign in",
+    "login",
+    "log in",
+    "account",
+    "form",
+    "passkey",
+    "passwordless",
+    "face id",
+    "touch id",
+    "webauthn"
+  ],
+  "fieldGroups": ["Heading", "Form", "Links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "fingerprint",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Sign in with a passkey",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Use Face ID, Touch ID, Windows Hello or a security key. No password to type, nothing to phish.",
+      "group": "Heading"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Continue with passkey",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Your device will ask you to confirm it’s you.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "dividerLabel",
+      "label": "Divider label",
+      "type": "text",
+      "default": "or",
+      "group": "Links"
+    },
+    {
+      "name": "altLabel",
+      "label": "Other option label",
+      "type": "text",
+      "default": "Sign in with email instead",
+      "group": "Links"
+    },
+    {
+      "name": "altLink",
+      "label": "Other option link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    },
+    {
+      "name": "helpText",
+      "label": "Help text",
+      "type": "text",
+      "default": "New to passkeys?",
+      "group": "Links"
+    },
+    {
+      "name": "helpLabel",
+      "label": "Help link label",
+      "type": "text",
+      "default": "How they work",
+      "group": "Links"
+    },
+    {
+      "name": "helpLink",
+      "label": "Help link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    }
+  ]
+}

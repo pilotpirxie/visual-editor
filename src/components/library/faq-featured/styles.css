@@ -1,0 +1,120 @@
+@layer components {
+  @scope (.b-faq-featured) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-body {
+      display: grid;
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    .b-feature {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding: var(--space-8) var(--space-6);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-feature::after {
+      content: '?';
+      position: absolute;
+      inset-block-start: -0.2em;
+      inset-inline-end: -0.05em;
+      font-family: var(--font-heading);
+      font-size: calc(var(--text-5xl) * 4);
+      line-height: 1;
+      color: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      z-index: -1;
+    }
+
+    .b-label {
+      align-self: start;
+    }
+
+    .b-feature-question {
+      max-width: 22ch;
+      font-size: var(--text-3xl);
+    }
+
+    .b-feature-answer,
+    .b-answer,
+    .b-author span {
+      color: var(--color-text-muted);
+    }
+
+    .b-author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding-top: var(--space-2);
+    }
+
+    .b-author p {
+      display: grid;
+      font-size: var(--text-sm);
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      width: 3rem;
+    }
+
+    .b-more-title {
+      padding-bottom: var(--space-4);
+    }
+
+    .b-item {
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-question {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-block: var(--space-4);
+      font-weight: var(--font-weight-bold);
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .b-question::-webkit-details-marker {
+      display: none;
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      flex: none;
+      transition: rotate var(--transition-normal);
+    }
+
+    [open] .b-icon {
+      rotate: 45deg;
+    }
+
+    .b-answer {
+      padding-bottom: var(--space-4);
+    }
+
+    .b-link {
+      display: inline-block;
+      padding-block: var(--space-6) var(--space-3);
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 1024px) {
+      .b-body {
+        grid-template-columns: 7fr 5fr;
+        gap: var(--space-12);
+      }
+
+      .b-feature {
+        padding: var(--space-12);
+      }
+    }
+  }
+}

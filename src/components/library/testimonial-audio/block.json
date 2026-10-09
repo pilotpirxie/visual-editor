@@ -1,0 +1,97 @@
+{
+  "name": "Testimonial, podcast clip",
+  "category": "testimonials",
+  "description": "A podcast-style player with cover, play button and waveform beside the clip’s transcript.",
+  "tags": ["testimonial", "quote", "audio", "podcast", "interview", "player"],
+  "fieldGroups": ["Episode", "Quote", "Person"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "cover",
+      "label": "Cover",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Fieldnote Sessions podcast cover",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "photo"
+        }
+      },
+      "group": "Episode"
+    },
+    {
+      "name": "show",
+      "label": "Show",
+      "type": "text",
+      "default": "Fieldnote Sessions · Episode 12",
+      "group": "Episode"
+    },
+    {
+      "name": "episode",
+      "label": "Episode title",
+      "type": "text",
+      "default": "Why Copperline killed the research deck",
+      "group": "Episode",
+      "required": true
+    },
+    {
+      "name": "linkLabel",
+      "label": "Play button label",
+      "type": "text",
+      "default": "Play clip",
+      "group": "Episode"
+    },
+    {
+      "name": "link",
+      "label": "Audio link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Episode"
+    },
+    {
+      "name": "duration",
+      "label": "Duration",
+      "type": "text",
+      "default": "2:14",
+      "group": "Episode"
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "From the transcript",
+      "group": "Quote"
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "We stopped writing reports nobody opened. Now we share a two-minute reel every Friday, and the engineers ask for more interviews instead of fewer.",
+      "group": "Quote",
+      "required": true
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Maya Chen",
+      "group": "Person"
+    },
+    {
+      "name": "role",
+      "label": "Role and company",
+      "type": "text",
+      "default": "Head of Research, Copperline",
+      "group": "Person"
+    }
+  ]
+}

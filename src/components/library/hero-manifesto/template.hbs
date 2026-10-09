@@ -1,0 +1,20 @@
+<header class="b-hero-manifesto section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster">
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      </div>
+    </div>
+    <ol class="b-principles" role="list">
+      {{#each principles}}
+      <li class="b-principle" data-field="principles.{{@index}}">
+        <h2 class="b-name">{{title}}</h2>
+        {{#if text}}<p>{{text}}</p>{{/if}}
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</header>

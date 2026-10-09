@@ -1,0 +1,20 @@
+<section class="b-content-checklist section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if body}}<div class="prose b-body" data-field="body">{{richText body}}</div>{{/if}}
+    </div>
+    <ul class="card stack b-list" role="list">
+      {{#each items}}
+      <li class="b-item" data-field="items.{{@index}}">
+        <span class="b-icon">{{svgIcon ../checkIcon}}</span>
+        <div class="stack b-item-copy">
+          <h3>{{title}}</h3>
+          {{#if text}}<p class="b-text">{{nl2br text}}</p>{{/if}}
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

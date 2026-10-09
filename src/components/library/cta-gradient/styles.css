@@ -1,0 +1,57 @@
+@layer components {
+  @scope (.b-cta-gradient) {
+    .b-panel {
+      --color-background: var(--theme-primary-background);
+      --color-text: var(--theme-primary-text);
+      --color-border: var(--theme-primary-border);
+      --color-primary: var(--theme-primary-accent);
+      --color-primary-contrast: var(--theme-primary-accent-contrast);
+      --stack-gap: var(--space-6);
+      align-items: center;
+      padding: var(--space-12) var(--space-6);
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(
+          50% 80% at 0% 0%,
+          color-mix(in oklab, var(--color-text) 26%, transparent),
+          transparent 70%
+        ),
+        radial-gradient(
+          70% 100% at 100% 100%,
+          color-mix(in oklab, var(--theme-dark-background) 55%, transparent),
+          transparent 80%
+        ),
+        var(--color-background);
+      color: var(--color-text);
+      text-align: center;
+    }
+
+    .b-eyebrow {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .b-panel h2 {
+      max-width: 44rem;
+    }
+
+    .b-text {
+      max-width: 38rem;
+      font-size: var(--text-lg);
+      opacity: 0.9;
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        padding: var(--space-16) var(--space-12);
+      }
+    }
+  }
+}

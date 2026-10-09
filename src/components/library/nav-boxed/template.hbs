@@ -1,0 +1,18 @@
+<nav class="b-nav-boxed" data-behavior="menu" aria-label="Main">
+  <div class="b-bar">
+    <a class="b-cell b-logo" href="index.html">{{site.title}}</a>
+    <button type="button" class="b-cell b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+      {{svgIcon menuIcon}}<span>Menu</span>
+    </button>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li><a class="b-cell" href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+      {{#if showCta}}
+      <a class="b-cell b-cta" href="{{href cta.link}}" {{linkAttrs cta.link}} data-field="cta">{{cta.label}}{{svgIcon "arrow-up-right"}}</a>
+      {{/if}}
+    </div>
+  </div>
+</nav>

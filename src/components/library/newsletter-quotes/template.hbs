@@ -1,0 +1,27 @@
+<section class="b-newsletter-quotes section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field">
+          <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if note}}<p class="b-muted b-small" data-field="note">{{note}}</p>{{/if}}
+    </div>
+    <ul class="b-quotes" role="list">
+      {{#each quotes}}
+      <li data-field="quotes.{{@index}}">
+        <figure class="b-quote">
+          <blockquote><p>{{text}}</p></blockquote>
+          <figcaption class="b-person"><span class="media b-avatar">{{img photo}}</span><span><strong>{{name}}</strong><br><span class="b-muted b-small">{{role}}</span></span></figcaption>
+        </figure>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

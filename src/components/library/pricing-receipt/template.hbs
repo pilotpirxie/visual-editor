@@ -1,0 +1,27 @@
+<section class="b-pricing-receipt section">
+  <div class="container b-layout">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      {{#if details}}<div class="prose" data-field="details">{{richText details}}</div>{{/if}}
+    </div>
+    <div class="b-paper">
+      <article class="stack b-receipt">
+        <header class="b-top">
+          <h3 data-field="receiptTitle">{{receiptTitle}}</h3>
+          {{#if receiptMeta}}<p class="b-muted" data-field="receiptMeta">{{receiptMeta}}</p>{{/if}}
+        </header>
+        <ul class="stack b-lines" role="list">
+          {{#each lines}}
+          <li class="b-line" data-field="lines.{{@index}}"><span class="b-label">{{label}}</span><span>{{amount}}</span></li>
+          {{/each}}
+        </ul>
+        <p class="b-line b-total"><span class="b-label" data-field="totalLabel">{{totalLabel}}</span><span data-field="total">{{total}}</span></p>
+        {{#if note}}<p class="b-muted" data-field="note">{{nl2br note}}</p>{{/if}}
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        <div class="b-barcode" aria-hidden="true"></div>
+      </article>
+    </div>
+  </div>
+</section>

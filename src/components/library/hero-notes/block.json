@@ -1,0 +1,115 @@
+{
+  "name": "Hero, sticky notes",
+  "category": "headers",
+  "description": "Centered heading framed by tilted sticky notes with real customer quotes.",
+  "tags": ["hero", "heading", "notes", "quotes", "research", "playful", "post-it"],
+  "fieldGroups": ["Heading", "Buttons", "Notes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Badge",
+      "type": "text",
+      "default": "Research repository",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Every customer insight, finally in one place",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Stop losing quotes in docs, spreadsheets and Slack threads. Fieldnote keeps every interview, note and highlight searchable for the whole team.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Book a demo",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "notes",
+      "label": "Notes",
+      "type": "list",
+      "group": "Notes",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "source",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "What the customer said."
+        },
+        {
+          "name": "source",
+          "label": "Source",
+          "type": "text",
+          "default": "Interview"
+        }
+      ],
+      "default": [
+        {
+          "quote": "“I export everything to a spreadsheet and still can’t find the quote.”",
+          "source": "Interview 14, ops lead"
+        },
+        {
+          "quote": "“We ran forty calls and nobody watched them back.”",
+          "source": "PM, fintech"
+        },
+        {
+          "quote": "“Tagging takes longer than the interview itself.”",
+          "source": "UX researcher"
+        },
+        {
+          "quote": "“Sales hears things product never does.”",
+          "source": "Head of customer experience"
+        }
+      ]
+    }
+  ]
+}

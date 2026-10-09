@@ -1,0 +1,111 @@
+@layer components {
+  @scope (.b-content-hotspots) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-stage {
+      position: relative;
+    }
+
+    .b-photo {
+      --media-ratio: 3 / 2;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-pins,
+    .b-legend {
+      counter-reset: spot;
+    }
+
+    .b-pin,
+    .b-spot {
+      counter-increment: spot;
+    }
+
+    .b-pin::before,
+    .b-spot::before {
+      content: counter(spot);
+    }
+
+    .b-pin,
+    .b-spot::before {
+      display: grid;
+      place-items: center;
+      inline-size: 2rem;
+      block-size: 2rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-pin {
+      position: absolute;
+      top: calc(var(--y) * 1%);
+      left: calc(var(--x) * 1%);
+      border: calc(var(--border-width) * 2) solid var(--color-primary-contrast);
+      box-shadow:
+        0 0 0 0.5rem color-mix(in oklab, var(--color-primary) 30%, transparent),
+        var(--shadow-md);
+      translate: -50% -50%;
+    }
+
+    .b-legend {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-spot {
+      display: grid;
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: var(--space-1) var(--space-4);
+    }
+
+    .b-spot::before {
+      grid-row: span 2;
+    }
+
+    .b-spot-title {
+      font-size: var(--text-lg);
+    }
+
+    .b-spot-text {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-legend {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+        column-gap: var(--space-12);
+      }
+
+      .b-head {
+        grid-column: 1 / -1;
+      }
+
+      .b-legend {
+        grid-template-columns: minmax(0, 1fr);
+        align-content: center;
+      }
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "name": "Footer, with map",
+  "category": "footers",
+  "description": "A drawn street map with a pin beside your address, phone, email, opening hours and a directions button.",
+  "tags": ["footer", "map", "location", "address", "directions", "local", "office", "hours"],
+  "fieldGroups": ["Map", "Contact", "Links", "Legal"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-surface",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "mapLabel",
+      "label": "Pin label",
+      "type": "text",
+      "default": "Fieldnote studio",
+      "group": "Map",
+      "maxLength": 32
+    },
+    {
+      "name": "address",
+      "label": "Address",
+      "type": "textarea",
+      "default": "401 Richmond Street West, Suite 210\nToronto, ON M5V 3A8",
+      "group": "Contact",
+      "required": true
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "+1 416 555 0142",
+      "group": "Contact"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "studio@fieldnote.example",
+      "group": "Contact"
+    },
+    {
+      "name": "hours",
+      "label": "Opening hours",
+      "type": "textarea",
+      "default": "Monday to Friday, 9:00–17:30",
+      "group": "Contact"
+    },
+    {
+      "name": "directionsLabel",
+      "label": "Directions button",
+      "type": "text",
+      "default": "Get directions",
+      "group": "Contact",
+      "help": "Leave empty to hide the button."
+    },
+    {
+      "name": "directionsLink",
+      "label": "Directions link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "https://www.openstreetmap.org",
+        "newTab": true
+      },
+      "group": "Contact"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Book a session",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Accessibility",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Privacy",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Inc. All rights reserved.",
+      "group": "Legal"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+<section class="b-content-manifesto section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if signature}}<p class="b-signature" data-field="signature">{{signature}}</p>{{/if}}
+    </header>
+    <ol class="b-list" role="list">
+      {{#each statements}}
+      <li class="b-item" data-field="statements.{{@index}}">{{text}}</li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

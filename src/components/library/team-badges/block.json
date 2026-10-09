@@ -1,0 +1,178 @@
+{
+  "name": "Team, ID badges",
+  "category": "team",
+  "description": "New teammates as hanging lanyard badges with a colored team band, photo, name and start date.",
+  "tags": ["team", "new hires", "badges", "welcome", "people", "playful", "onboarding"],
+  "fieldGroups": ["Heading", "People"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "New this quarter",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Say hello to our newest teammates",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Four people joined Fieldnote this spring. Their badges are printed, their laptops are set up and their first customer calls are booked.",
+      "group": "Heading"
+    },
+    {
+      "name": "people",
+      "label": "People",
+      "type": "list",
+      "group": "People",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "department",
+          "label": "Team",
+          "type": "text",
+          "default": "Team"
+        },
+        {
+          "name": "tone",
+          "label": "Band color",
+          "type": "select",
+          "default": "primary",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Brand color"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "since",
+          "label": "Badge line",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "department": "Research",
+          "tone": "primary",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Hana Kim",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Hana Kim",
+          "role": "UX researcher",
+          "since": "ID 0029 · Joined April 2026"
+        },
+        {
+          "department": "Engineering",
+          "tone": "dark",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Arjun Mehta",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Arjun Mehta",
+          "role": "Frontend engineer",
+          "since": "ID 0030 · Joined April 2026"
+        },
+        {
+          "department": "Operations",
+          "tone": "primary",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sofia Marchetti",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Sofia Marchetti",
+          "role": "Finance and operations",
+          "since": "ID 0031 · Joined May 2026"
+        },
+        {
+          "department": "Customers",
+          "tone": "dark",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Lucas Moreau",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Lucas Moreau",
+          "role": "Solutions engineer",
+          "since": "ID 0032 · Joined June 2026"
+        }
+      ]
+    }
+  ]
+}

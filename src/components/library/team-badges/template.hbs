@@ -1,0 +1,20 @@
+<section class="b-team-badges section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-badges" role="list">
+      {{#each people}}
+      <li class="b-badge" data-tone="{{tone}}" data-field="people.{{@index}}">
+        <p class="b-dept">{{department}}</p>
+        <div class="media b-photo">{{img photo}}</div>
+        <h3 class="b-name">{{name}}</h3>
+        {{#if role}}<p class="b-role">{{role}}</p>{{/if}}
+        {{#if since}}<p class="b-since">{{since}}</p>{{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,17 @@
+<section class="b-logos-quote section">
+  <div class="container stack b-inner">
+    {{#if title}}<p class="b-title" data-field="title">{{title}}</p>{{/if}}
+    <ul class="b-logos" role="list">
+      {{#each logos}}
+      <li class="b-logo" {{#if featured}}data-featured{{/if}} data-field="logos.{{@index}}">{{img image}}</li>
+      {{/each}}
+    </ul>
+    <figure class="b-bubble">
+      <blockquote class="b-quote" data-field="quote"><p>{{nl2br quote}}</p></blockquote>
+      <figcaption class="b-person">
+        <div class="media b-photo" data-field="photo">{{img photo}}</div>
+        <p><span class="b-name" data-field="name">{{name}}</span>{{#if role}}, <span class="b-role" data-field="role">{{role}}</span>{{/if}}</p>
+      </figcaption>
+    </figure>
+  </div>
+</section>

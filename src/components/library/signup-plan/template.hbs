@@ -1,0 +1,54 @@
+<section class="b-signup-plan section">
+  <div class="container b-inner">
+    <div class="stack b-main">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="b-pair">
+          <div class="field">
+            <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+            <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="{{block.id}}-company" data-field="companyLabel">{{companyLabel}}</label>
+            <input id="{{block.id}}-company" name="company" autocomplete="organization">
+          </div>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-password" data-field="passwordLabel">{{passwordLabel}}</label>
+          <input id="{{block.id}}-password" type="password" name="password" autocomplete="new-password" required>
+        </div>
+        <div class="field-check">
+          <input id="{{block.id}}-terms" type="checkbox" name="terms" value="accepted" required>
+          <label for="{{block.id}}-terms" data-field="termsText">{{termsText}} <a href="{{href termsLink}}" {{linkAttrs termsLink}} data-field="termsLink">{{termsLabel}}</a></label>
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+    </div>
+    <aside class="card stack b-summary" aria-labelledby="{{block.id}}-plan">
+      <p class="b-label" data-field="summaryLabel">{{summaryLabel}}</p>
+      <div class="b-plan">
+        <h3 id="{{block.id}}-plan" data-field="planName">{{planName}}</h3>
+        {{#if changeLabel}}<a class="b-change" href="{{href changeLink}}" {{linkAttrs changeLink}} data-field="changeLink">{{changeLabel}}</a>{{/if}}
+      </div>
+      <p class="b-price" data-field="price"><span class="b-amount">{{price}}</span> <span class="b-muted">{{period}}</span></p>
+      <ul class="stack b-features" role="list">
+        {{#each features}}
+        <li data-field="features.{{@index}}"><span class="b-check">{{svgIcon ../checkIcon}}</span><span>{{text}}</span></li>
+        {{/each}}
+      </ul>
+      <dl class="b-total">
+        <dt data-field="dueLabel">{{dueLabel}}</dt>
+        <dd data-field="dueAmount">{{dueAmount}}</dd>
+      </dl>
+      {{#if note}}<p class="b-muted b-note" data-field="note">{{note}}</p>{{/if}}
+    </aside>
+  </div>
+</section>

@@ -1,0 +1,74 @@
+{
+  "name": "Testimonial, thank-you letter",
+  "category": "testimonials",
+  "description": "A customer quote set as a letter on paper, with a stamp and a signature.",
+  "tags": ["testimonial", "quote", "letter", "thank you", "story", "personal"],
+  "fieldGroups": ["Heading", "Letter", "Person"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Fan mail",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A note we keep pinned above our desks",
+      "group": "Heading"
+    },
+    {
+      "name": "date",
+      "label": "Date and place",
+      "type": "text",
+      "default": "Halifax, March 2026",
+      "group": "Letter"
+    },
+    {
+      "name": "stamp",
+      "label": "Stamp text",
+      "type": "text",
+      "default": "With thanks",
+      "group": "Letter"
+    },
+    {
+      "name": "greeting",
+      "label": "Greeting",
+      "type": "text",
+      "default": "Dear Fieldnote team,",
+      "group": "Letter"
+    },
+    {
+      "name": "letter",
+      "label": "Letter",
+      "type": "textarea",
+      "default": "Last quarter we ran forty customer interviews with a research team of two. Before, half of that would have stayed in someone’s notebook.\nThis time every call was transcribed, tagged and shared before lunch. Our roadmap review was the calmest one we have ever had, because everyone had heard the same customers.",
+      "group": "Letter",
+      "required": true
+    },
+    {
+      "name": "signoff",
+      "label": "Sign-off",
+      "type": "text",
+      "default": "With gratitude,",
+      "group": "Letter"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Margaret Doyle",
+      "group": "Person"
+    },
+    {
+      "name": "role",
+      "label": "Role and company",
+      "type": "text",
+      "default": "Head of Customer Care, Halcyon Bank",
+      "group": "Person"
+    }
+  ]
+}

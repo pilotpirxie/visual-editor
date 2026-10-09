@@ -1,0 +1,159 @@
+{
+  "name": "Pricing, free forever",
+  "category": "pricing",
+  "description": "A bold free plan card beside the steps where paid features start.",
+  "tags": ["pricing", "free", "freemium", "plan", "upgrade", "growth"],
+  "fieldGroups": ["Heading", "Free plan", "When you grow"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Pricing",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Free for small teams. Fair when you grow.",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Most research teams never pay us a cent. You only pay when you need more people or more hours.",
+      "group": "Heading"
+    },
+    {
+      "name": "freeLabel",
+      "label": "Plan name",
+      "type": "text",
+      "default": "Free forever",
+      "required": true,
+      "group": "Free plan"
+    },
+    {
+      "name": "freePrice",
+      "label": "Price",
+      "type": "text",
+      "default": "$0",
+      "required": true,
+      "group": "Free plan"
+    },
+    {
+      "name": "freePeriod",
+      "label": "Period",
+      "type": "text",
+      "default": "for up to 3 researchers, no credit card",
+      "group": "Free plan"
+    },
+    {
+      "name": "freeItems",
+      "label": "Included",
+      "type": "list",
+      "group": "Free plan",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Included feature"
+        }
+      ],
+      "default": [
+        { "text": "10 hours of transcripts every month" },
+        { "text": "Unlimited highlights and tags" },
+        { "text": "Share read-only links with anyone" },
+        { "text": "Exports to Notion and Google Docs" }
+      ]
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "group": "Free plan",
+      "default": {
+        "label": "Start for free",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "primary"
+      }
+    },
+    {
+      "name": "growTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "When you grow",
+      "required": true,
+      "group": "When you grow"
+    },
+    {
+      "name": "growIntro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Pay only for what you add. Downgrade at any time and keep every note.",
+      "group": "When you grow"
+    },
+    {
+      "name": "growItems",
+      "label": "Steps",
+      "type": "list",
+      "group": "When you grow",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "plus"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "When you need more"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What changes and why."
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$10 a month"
+        }
+      ],
+      "default": [
+        {
+          "icon": "users",
+          "title": "A fourth researcher joins",
+          "text": "Every editor after the first three gets unlimited transcripts.",
+          "price": "$12 per editor, per month"
+        },
+        {
+          "icon": "hourglass",
+          "title": "You record more than 10 hours",
+          "text": "Top up with hour packs that never expire.",
+          "price": "$15 per 10 hours"
+        },
+        {
+          "icon": "shield",
+          "title": "Security asks for single sign-on",
+          "text": "Add SSO, audit logs and data stored in Canada.",
+          "price": "Business plan, from $79"
+        }
+      ]
+    }
+  ]
+}

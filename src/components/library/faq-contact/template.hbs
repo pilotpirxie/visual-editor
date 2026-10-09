@@ -1,0 +1,26 @@
+<section class="b-faq-contact section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-body">
+      <div class="b-list">
+        {{#each items}}
+        <details class="b-item" name="{{../block.id}}-faq" data-field="items.{{@index}}">
+          <summary class="b-question"><span>{{question}}</span><span class="b-icon">{{svgIcon ../expandIcon}}</span></summary>
+          <div class="prose b-answer">{{richText answer}}</div>
+        </details>
+        {{/each}}
+      </div>
+      <aside class="card stack b-card" aria-labelledby="{{block.id}}-help">
+        <span class="b-card-icon" data-field="cardIcon">{{svgIcon cardIcon}}</span>
+        <h3 id="{{block.id}}-help" data-field="cardTitle">{{cardTitle}}</h3>
+        {{#if cardText}}<p class="b-card-text" data-field="cardText">{{nl2br cardText}}</p>{{/if}}
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        {{#if email}}<a class="b-email" href="mailto:{{email}}" data-field="email">{{email}}</a>{{/if}}
+      </aside>
+    </div>
+  </div>
+</section>

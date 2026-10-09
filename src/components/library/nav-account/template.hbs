@@ -1,0 +1,27 @@
+<nav class="b-nav-account" data-behavior="menu dropdown" aria-label="Main">
+  <div class="container b-bar">
+    <a class="b-logo" href="index.html">{{site.title}}</a>
+    <button type="button" class="btn btn-ghost b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+      {{svgIcon menuIcon}}<span class="visually-hidden">Menu</span>
+    </button>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} aria-current="{{#if current}}page{{else}}false{{/if}}" data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+    <a class="btn btn-ghost b-round" href="{{href notificationsLink}}" {{linkAttrs notificationsLink}} data-field="unread">{{svgIcon "bell"}}<span class="visually-hidden">Notifications{{#if unread}}, {{unread}}{{/if}}</span>{{#if unread}}<span class="b-dot" aria-hidden="true"></span>{{/if}}</a>
+    <div class="b-user">
+      <button type="button" class="btn btn-ghost b-round" popovertarget="{{block.id}}-account" aria-expanded="false" style="anchor-name: --{{block.id}}-account" data-field="avatar">{{img avatar}}<span class="visually-hidden">Account menu</span></button>
+      <div id="{{block.id}}-account" class="b-panel" popover data-dropdown-menu style="position-anchor: --{{block.id}}-account">
+        <p class="b-who"><strong data-field="userName">{{userName}}</strong><br><span data-field="userEmail">{{userEmail}}</span></p>
+        <ul class="b-items" role="list">
+          {{#each accountLinks}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="accountLinks.{{@index}}">{{svgIcon icon}}{{label}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

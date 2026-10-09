@@ -1,0 +1,37 @@
+<section class="b-signup-invite section">
+  <div class="container b-wrap">
+    <div class="card stack b-card">
+      <div class="b-crest">
+        <span class="b-space" data-field="workspaceInitials">{{workspaceInitials}}</span>
+        <span class="b-inviter" data-field="inviterPhoto">{{img inviterPhoto}}</span>
+      </div>
+      <header class="stack b-head">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if invite}}<p class="b-muted" data-field="invite">{{nl2br invite}}</p>{{/if}}
+      </header>
+      {{#if members.length}}
+      <div class="b-members" data-field="members">
+        <ul class="b-faces" role="list">
+          {{#each members}}
+          <li>{{img photo}}</li>
+          {{/each}}
+        </ul>
+        <p class="b-muted" data-field="membersText">{{membersText}}</p>
+      </div>
+      {{/if}}
+      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <p class="b-email" data-field="email">{{svgIcon "mail"}}<span>{{emailLabel}} <strong>{{email}}</strong></span></p>
+        <div class="field">
+          <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+          <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-password" data-field="passwordLabel">{{passwordLabel}}</label>
+          <input id="{{block.id}}-password" type="password" name="password" autocomplete="new-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      {{#if notYouLabel}}<p class="b-muted b-switch" data-field="notYouLink">{{notYouText}} <a href="{{href notYouLink}}" {{linkAttrs notYouLink}}>{{notYouLabel}}</a></p>{{/if}}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,103 @@
+@layer components {
+  @scope (.b-cta-calendar) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-facts {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-facts li,
+    .b-month {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .b-facts .icon {
+      color: var(--color-primary);
+    }
+
+    .b-calendar {
+      --stack-gap: var(--space-4);
+      --card-shadow: var(--shadow-lg);
+    }
+
+    .b-month {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-days {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4) var(--space-3);
+    }
+
+    .b-day {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-date {
+      display: grid;
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      text-align: center;
+    }
+
+    .b-date .b-muted {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .b-slots {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-slot {
+      display: grid;
+      place-items: center;
+      min-height: 2.75rem;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+      transition: background-color var(--transition-fast);
+    }
+
+    .b-slot:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    @media (min-width: 768px) {
+      .b-days {
+        grid-template-columns: none;
+        grid-auto-columns: minmax(0, 1fr);
+        grid-auto-flow: column;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "name": "Content, key facts",
+  "category": "content",
+  "description": "Text beside a fact sheet card with dotted leaders between each label and value.",
+  "tags": ["facts", "about", "company", "at a glance", "numbers", "fact sheet", "press kit"],
+  "fieldGroups": ["Content", "Fact sheet", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "About Fieldnote",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A small company that listens for a living",
+      "group": "Content",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "default": "<p>Fieldnote helps product teams record, tag and share what customers tell them, so decisions start with the customer’s own words.</p><p>We are independent, profitable and based in Toronto, with a second studio in Lisbon.</p>",
+      "group": "Content"
+    },
+    {
+      "name": "sheetTitle",
+      "label": "Card title",
+      "type": "text",
+      "default": "At a glance",
+      "group": "Fact sheet"
+    },
+    {
+      "name": "updated",
+      "label": "Updated",
+      "type": "text",
+      "default": "September 2026",
+      "group": "Fact sheet"
+    },
+    {
+      "name": "facts",
+      "label": "Facts",
+      "type": "list",
+      "group": "Fact sheet",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        },
+        {
+          "name": "value",
+          "label": "Value",
+          "type": "text",
+          "default": "Value"
+        }
+      ],
+      "default": [
+        {
+          "label": "Founded",
+          "value": "2019"
+        },
+        {
+          "label": "Headquarters",
+          "value": "Toronto"
+        },
+        {
+          "label": "Team",
+          "value": "46 people"
+        },
+        {
+          "label": "Customers",
+          "value": "1,200 teams"
+        },
+        {
+          "label": "Interviews recorded",
+          "value": "310,000"
+        },
+        {
+          "label": "Funding",
+          "value": "Bootstrapped"
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Download press kit",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Button",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      }
+    }
+  ]
+}

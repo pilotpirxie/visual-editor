@@ -1,0 +1,169 @@
+{
+  "name": "Pricing, volume tiers",
+  "category": "pricing",
+  "description": "A table of seat bands whose per-seat price steps down, with a worked example of the total.",
+  "tags": ["pricing", "volume", "tiers", "seats", "table", "bulk", "discount"],
+  "fieldGroups": ["Heading", "Table", "Example"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Volume pricing",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Every seat you add costs a little less",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Seats are priced in bands. You pay each band’s rate only for the seats inside it.",
+      "group": "Heading"
+    },
+    {
+      "name": "seatsHeading",
+      "label": "Seats column heading",
+      "type": "text",
+      "default": "Editors",
+      "required": true,
+      "group": "Table"
+    },
+    {
+      "name": "priceHeading",
+      "label": "Price column heading",
+      "type": "text",
+      "default": "Price per editor",
+      "required": true,
+      "group": "Table"
+    },
+    {
+      "name": "savingHeading",
+      "label": "Saving column heading",
+      "type": "text",
+      "default": "You save",
+      "required": true,
+      "group": "Table"
+    },
+    {
+      "name": "featuredLabel",
+      "label": "Label on the featured band",
+      "type": "text",
+      "default": "Most teams",
+      "group": "Table"
+    },
+    {
+      "name": "tiers",
+      "label": "Bands",
+      "type": "list",
+      "group": "Table",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "seats",
+      "itemFields": [
+        {
+          "name": "seats",
+          "label": "Seats",
+          "type": "text",
+          "default": "1–10 editors"
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$29"
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": "a month"
+        },
+        {
+          "name": "bar",
+          "label": "Bar length",
+          "type": "range",
+          "default": 100,
+          "min": 5,
+          "max": 100,
+          "step": 5,
+          "help": "Percent of the widest bar; shorter bars show cheaper bands."
+        },
+        {
+          "name": "saving",
+          "label": "Saving",
+          "type": "text",
+          "default": "—"
+        },
+        {
+          "name": "featured",
+          "label": "Featured",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        {
+          "seats": "1–10",
+          "price": "$29",
+          "period": "a month",
+          "bar": 100,
+          "saving": "—",
+          "featured": false
+        },
+        {
+          "seats": "11–50",
+          "price": "$25",
+          "period": "a month",
+          "bar": 86,
+          "saving": "14%",
+          "featured": true
+        },
+        {
+          "seats": "51–200",
+          "price": "$21",
+          "period": "a month",
+          "bar": 72,
+          "saving": "28%",
+          "featured": false
+        },
+        {
+          "seats": "201 and more",
+          "price": "$17",
+          "period": "a month",
+          "bar": 59,
+          "saving": "41%",
+          "featured": false
+        }
+      ]
+    },
+    {
+      "name": "exampleLabel",
+      "label": "Example label",
+      "type": "text",
+      "default": "Example: a team of 24 editors",
+      "group": "Example"
+    },
+    {
+      "name": "exampleText",
+      "label": "Example",
+      "type": "textarea",
+      "default": "10 editors × $29 + 14 editors × $25",
+      "group": "Example"
+    },
+    {
+      "name": "exampleTotal",
+      "label": "Example total",
+      "type": "text",
+      "default": "$640 a month",
+      "group": "Example"
+    }
+  ]
+}

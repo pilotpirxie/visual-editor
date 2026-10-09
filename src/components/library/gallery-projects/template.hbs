@@ -1,0 +1,31 @@
+<section class="b-gallery-projects section">
+  <div class="container stack b-inner">
+    <header class="b-head">
+      <div class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </div>
+      {{#if showButton}}<a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>{{/if}}
+    </header>
+    <ul class="b-grid" role="list">
+      {{#each projects}}
+      <li class="b-project" data-size="{{size}}" data-field="projects.{{@index}}">
+        <a class="stack b-link" href="{{href link}}" {{linkAttrs link}}>
+          <span class="media b-media">{{img image}}</span>
+          <span class="b-meta">
+            {{#if category}}<span class="badge">{{category}}</span>{{/if}}
+            {{#if year}}<span class="b-year">{{year}}</span>{{/if}}
+          </span>
+          <span class="b-row">
+            <span class="b-text">
+              <span class="b-title">{{title}}</span>
+              {{#if summary}}<span class="b-summary">{{summary}}</span>{{/if}}
+            </span>
+            <span class="b-arrow">{{svgIcon "arrow-up-right"}}</span>
+          </span>
+        </a>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

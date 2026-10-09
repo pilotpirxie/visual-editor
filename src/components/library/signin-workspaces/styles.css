@@ -1,0 +1,123 @@
+@layer components {
+  @scope (.b-signin-workspaces) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-card {
+      --card-shadow: var(--shadow-md);
+      --stack-gap: var(--space-6);
+      max-width: 30rem;
+      margin-inline: auto;
+    }
+
+    .b-account {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-1) var(--space-3);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      font-size: var(--text-sm);
+    }
+
+    .b-email {
+      flex: auto;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-small {
+      font-size: var(--text-sm);
+    }
+
+    .b-list {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .b-row {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-3);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+
+    .b-row:hover {
+      border-color: var(--color-primary);
+    }
+
+    .b-avatar {
+      --icon-size: 1.25rem;
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-row:nth-child(even) .b-avatar {
+      background: var(--theme-dark-background);
+      color: var(--theme-dark-text);
+    }
+
+    .b-info {
+      display: grid;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .b-link {
+      font-weight: var(--font-weight-bold);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-arrow {
+      color: var(--color-text-muted);
+    }
+
+    .b-arrow:dir(rtl) {
+      scale: -1 1;
+    }
+
+    .b-row.b-create {
+      border-style: dashed;
+    }
+
+    .b-row.b-create .b-avatar {
+      background: var(--color-surface);
+      color: var(--color-text);
+    }
+
+    .b-note {
+      text-align: center;
+    }
+  }
+}

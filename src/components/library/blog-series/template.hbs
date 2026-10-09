@@ -1,0 +1,27 @@
+<section class="b-blog-series section">
+  <div class="container stack b-inner">
+    <div class="cluster b-head">
+      <header class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      {{#if showButton}}
+      <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      {{/if}}
+    </div>
+    <ol class="b-parts" role="list">
+      {{#each parts}}
+      <li class="stack b-part" data-status="{{status}}" data-field="parts.{{@index}}">
+        <p class="b-meta">
+          <span class="b-marker" aria-hidden="true">{{#if (eq status "read")}}{{svgIcon "check"}}{{/if}}</span>
+          <span>{{label}}</span>
+          {{#if statusLabel}}<span class="badge">{{statusLabel}}</span>{{/if}}
+        </p>
+        <h3 class="b-title">{{#if (eq status "upcoming")}}{{title}}{{else}}<a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a>{{/if}}</h3>
+        {{#if excerpt}}<p class="b-muted">{{nl2br excerpt}}</p>{{/if}}
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

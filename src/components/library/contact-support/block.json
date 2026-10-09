@@ -1,0 +1,208 @@
+{
+  "name": "Contact, support options",
+  "category": "contacts",
+  "description": "Links to the help center, community, status page and docs beside a short support ticket form.",
+  "tags": ["contact", "support", "help center", "status", "community", "ticket", "form"],
+  "fieldGroups": ["Heading", "Options", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Support",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How can we help?",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Most answers are one click away. If you are stuck, open a ticket and a real person will pick it up.",
+      "group": "Heading"
+    },
+    {
+      "name": "options",
+      "label": "Options",
+      "type": "list",
+      "default": [
+        {
+          "icon": "book",
+          "title": "Help center",
+          "text": "Step-by-step guides for every feature.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "users",
+          "title": "Community",
+          "text": "Ask 4,000 researchers how they work.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "chart",
+          "title": "System status",
+          "text": "Live uptime for recording and transcription.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "code",
+          "title": "Developer docs",
+          "text": "API reference, webhooks and SDKs.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "group": "Options",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "help"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Title"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "What people find here."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "formTitle",
+      "label": "Form title",
+      "type": "text",
+      "default": "Open a ticket",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Your email",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "topicLabel",
+      "label": "Topic field label",
+      "type": "text",
+      "default": "Topic",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "topics",
+      "label": "Topics",
+      "type": "list",
+      "default": [
+        {
+          "label": "Recording and transcripts"
+        },
+        {
+          "label": "Integrations"
+        },
+        {
+          "label": "Billing and invoices"
+        },
+        {
+          "label": "Something else"
+        }
+      ],
+      "group": "Form",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Topic",
+          "type": "text",
+          "default": "Topic"
+        }
+      ]
+    },
+    {
+      "name": "messageLabel",
+      "label": "Message field label",
+      "type": "text",
+      "default": "What happened?",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Send ticket",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "group": "Form",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ]
+    }
+  ]
+}

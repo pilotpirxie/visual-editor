@@ -1,0 +1,94 @@
+@layer components {
+  @scope (.b-signin-code) {
+    .b-card {
+      --card-shadow: var(--shadow-lg);
+      --stack-gap: var(--space-6);
+      max-width: 28rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-badge {
+      --icon-size: 1.5rem;
+      display: grid;
+      place-items: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      margin-inline: auto;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-muted strong {
+      color: var(--color-text);
+      overflow-wrap: anywhere;
+    }
+
+    .b-form {
+      container-type: inline-size;
+      align-items: center;
+    }
+
+    .b-label {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-code {
+      width: 18ch;
+      height: 1.8em;
+      padding: 0 0 0 0.7ch;
+      border: 0;
+      background:
+        repeating-linear-gradient(90deg, var(--color-primary) 0 2.4ch, transparent 0 3ch) 0 100% /
+          17.4ch 0.12em no-repeat,
+        repeating-linear-gradient(90deg, var(--color-surface) 0 2.4ch, transparent 0 3ch) 0 0 /
+          17.4ch 100% no-repeat;
+      color: var(--color-text);
+      font-family: var(--font-mono);
+      font-size: min(var(--text-3xl), 8.5cqi);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 2ch;
+    }
+
+    .b-code:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 0.25rem;
+    }
+
+    .b-small {
+      font-size: var(--text-sm);
+    }
+
+    .b-form .btn {
+      width: 100%;
+    }
+
+    .b-alt {
+      padding-block-start: var(--space-6);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-alt a {
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        --card-padding: var(--space-8);
+      }
+    }
+  }
+}

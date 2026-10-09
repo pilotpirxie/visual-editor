@@ -1,0 +1,28 @@
+@layer components {
+  @scope (.b-content-heading) {
+    .b-head {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+      max-width: 44rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      margin-block-start: var(--space-2);
+    }
+
+    :scope[data-align='center'] .b-head {
+      align-items: center;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    :scope[data-align='center'] .b-actions {
+      --cluster-justify: center;
+    }
+  }
+}

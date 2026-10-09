@@ -1,0 +1,135 @@
+{
+  "name": "Cookies, side panel",
+  "category": "cookies",
+  "description": "A tall consent panel along the side of the screen with a patterned header, what cookies are used for and stacked buttons. A bottom sheet on phones. It remembers the visitor’s choice.",
+  "tags": ["cookies", "consent", "privacy", "gdpr", "panel", "sidebar", "drawer", "sheet"],
+  "fieldGroups": ["Message", "Uses", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "lucide:cookie",
+      "group": "Message"
+    },
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Privacy",
+      "group": "Message"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A quick word about cookies",
+      "required": true,
+      "group": "Message"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We keep it small. You can change your mind any time from the footer of every page.",
+      "required": true,
+      "group": "Message"
+    },
+    {
+      "name": "uses",
+      "label": "What cookies are used for",
+      "type": "list",
+      "group": "Uses",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Use"
+        }
+      ],
+      "default": [
+        {
+          "icon": "lock",
+          "text": "Keeping you signed in securely"
+        },
+        {
+          "icon": "settings",
+          "text": "Remembering your workspace settings"
+        },
+        {
+          "icon": "chart",
+          "text": "Counting visits, never selling data"
+        }
+      ]
+    },
+    {
+      "name": "acceptLabel",
+      "label": "Accept button",
+      "type": "text",
+      "default": "Accept cookies",
+      "required": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "showDecline",
+      "label": "Show decline button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "declineLabel",
+      "label": "Decline button",
+      "type": "text",
+      "default": "Only what’s needed",
+      "visibleWhen": {
+        "field": "showDecline",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showPolicyLink",
+      "label": "Show policy link",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "policyLabel",
+      "label": "Policy link label",
+      "type": "text",
+      "default": "Read the cookie policy",
+      "visibleWhen": {
+        "field": "showPolicyLink",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "policyLink",
+      "label": "Policy link",
+      "type": "link",
+      "default": {
+        "type": "page",
+        "newTab": false
+      },
+      "visibleWhen": {
+        "field": "showPolicyLink",
+        "equals": true
+      },
+      "group": "Buttons"
+    }
+  ]
+}

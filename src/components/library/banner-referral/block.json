@@ -1,0 +1,49 @@
+{
+  "name": "Banner, refer a friend",
+  "category": "banners",
+  "description": "A referral strip with a postage-stamp icon, the reward in one sentence and a button to the invite page.",
+  "tags": ["referral", "refer", "invite", "friend", "reward", "gift", "stamp", "growth", "banner"],
+  "fieldGroups": ["Message", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Stamp icon",
+      "type": "icon",
+      "default": "gift",
+      "group": "Message"
+    },
+    {
+      "name": "title",
+      "label": "Reward",
+      "type": "text",
+      "default": "Give a month, get a month.",
+      "required": true,
+      "maxLength": 50,
+      "group": "Message"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "Invite a teammate to Fieldnote and you both get the Team plan free for 30 days.",
+      "maxLength": 120,
+      "group": "Message"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get your invite link",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Button"
+    }
+  ]
+}

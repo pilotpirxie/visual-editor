@@ -1,0 +1,23 @@
+<section class="b-content-awards section">
+  <div class="container stack b-inner">
+    <header class="b-head">
+      <div class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </div>
+      {{#if summary}}<p class="b-summary" data-field="summary">{{summary}}</p>{{/if}}
+    </header>
+    <ol class="b-list" role="list">
+      {{#each awards}}
+      <li data-field="awards.{{@index}}">
+        <a class="b-row" href="{{href link}}" {{linkAttrs link}}>
+          <span class="b-year">{{year}}</span>
+          <span class="b-award">{{award}}</span>
+          <span class="b-project">{{project}}</span>
+          <span class="icon b-arrow">{{svgIcon "arrow-up-right"}}</span>
+        </a>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

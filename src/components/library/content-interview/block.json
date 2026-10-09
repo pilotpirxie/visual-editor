@@ -1,0 +1,152 @@
+{
+  "name": "Content, interview",
+  "category": "content",
+  "description": "A Q&A transcript with initials badges for each speaker and optional highlighted answers.",
+  "tags": ["interview", "q&a", "conversation", "transcript", "questions", "profile", "story"],
+  "fieldGroups": ["Heading", "Speakers", "Conversation"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "In conversation",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "“The best question is usually the second one”",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Our head of research sat down with Northwind’s product lead to talk about running forty interviews in two weeks.",
+      "group": "Heading"
+    },
+    {
+      "name": "hostName",
+      "label": "Host name",
+      "type": "text",
+      "default": "Ingrid Solberg",
+      "group": "Speakers",
+      "required": true
+    },
+    {
+      "name": "hostInitials",
+      "label": "Host initials",
+      "type": "text",
+      "default": "IS",
+      "group": "Speakers",
+      "required": true,
+      "maxLength": 3
+    },
+    {
+      "name": "hostRole",
+      "label": "Host role",
+      "type": "text",
+      "default": "Head of research, Fieldnote",
+      "group": "Speakers"
+    },
+    {
+      "name": "guestName",
+      "label": "Guest name",
+      "type": "text",
+      "default": "Priya Raman",
+      "group": "Speakers",
+      "required": true
+    },
+    {
+      "name": "guestInitials",
+      "label": "Guest initials",
+      "type": "text",
+      "default": "PR",
+      "group": "Speakers",
+      "required": true,
+      "maxLength": 3
+    },
+    {
+      "name": "guestRole",
+      "label": "Guest role",
+      "type": "text",
+      "default": "Head of product, Northwind",
+      "group": "Speakers"
+    },
+    {
+      "name": "turns",
+      "label": "Conversation",
+      "type": "list",
+      "group": "Conversation",
+      "minItems": 1,
+      "maxItems": 30,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "speaker",
+          "label": "Speaker",
+          "type": "segmented",
+          "default": "host",
+          "options": [
+            {
+              "value": "host",
+              "label": "Host"
+            },
+            {
+              "value": "guest",
+              "label": "Guest"
+            }
+          ]
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What they said."
+        },
+        {
+          "name": "highlight",
+          "label": "Highlight this answer",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        {
+          "speaker": "host",
+          "text": "Forty interviews in two weeks sounds exhausting. Why so many, so fast?",
+          "highlight": false
+        },
+        {
+          "speaker": "guest",
+          "text": "Because activation had dipped two quarters in a row and we had plenty of opinions and no evidence. We needed an answer before planning, not after.",
+          "highlight": false
+        },
+        {
+          "speaker": "host",
+          "text": "What surprised you most?",
+          "highlight": false
+        },
+        {
+          "speaker": "guest",
+          "text": "Nobody was confused by the product. They were confused by the empty workspace.",
+          "highlight": true
+        },
+        {
+          "speaker": "host",
+          "text": "And what would you tell a team about to try it?",
+          "highlight": false
+        },
+        {
+          "speaker": "guest",
+          "text": "Keep the calls to thirty minutes, bring a second person to tag, and share three clips by Friday. That is the whole trick.",
+          "highlight": false
+        }
+      ]
+    }
+  ]
+}

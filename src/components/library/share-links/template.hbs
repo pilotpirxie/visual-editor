@@ -1,0 +1,10 @@
+<div class="b-share-links" data-style="{{style}}" data-align="{{align}}">
+  <div class="container b-row">
+    <p class="b-label" data-field="label">{{label}}</p>
+    <ul class="cluster b-list" role="list">
+      {{#each items}}
+      <li><a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="items.{{@index}}">{{svgIcon icon}}<span class="b-name{{#if (eq ../style "icons")}} visually-hidden{{/if}}">{{label}}</span></a></li>
+      {{/each}}
+    </ul>
+  </div>
+</div>

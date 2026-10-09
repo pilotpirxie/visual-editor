@@ -1,0 +1,100 @@
+@layer components {
+  @scope (.b-team-bios) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr));
+      gap: var(--space-12) var(--space-6);
+    }
+
+    .b-frame {
+      position: relative;
+      margin-block-end: var(--space-4);
+      overflow: clip;
+      border-radius: var(--radius-lg);
+    }
+
+    .b-photo {
+      --media-ratio: 4 / 5;
+      --media-radius: 0;
+    }
+
+    .b-toggle {
+      --icon-size: 1rem;
+      position: absolute;
+      inset-block-end: var(--space-3);
+      inset-inline-end: var(--space-3);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      padding-inline: var(--space-4);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      box-shadow: var(--shadow-md);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .b-toggle::-webkit-details-marker {
+      display: none;
+    }
+
+    .b-toggle svg {
+      transition: rotate var(--transition-fast);
+    }
+
+    .b-more[open] .b-toggle svg {
+      rotate: 45deg;
+    }
+
+    .b-close,
+    .b-more[open] .b-open {
+      display: none;
+    }
+
+    .b-more[open] .b-close {
+      display: inline;
+    }
+
+    .b-bio {
+      --stack-gap: var(--space-3);
+      position: absolute;
+      inset: 0;
+      padding: var(--space-6) var(--space-6) var(--space-16);
+      overflow-y: auto;
+      background: color-mix(in oklab, var(--theme-dark-background) 90%, transparent);
+      color: var(--theme-dark-text);
+    }
+
+    .b-ask {
+      font-family: var(--font-heading);
+      font-style: italic;
+      color: var(--theme-dark-accent);
+    }
+
+    .b-name {
+      font-size: var(--text-xl);
+    }
+
+    .b-role {
+      color: var(--color-text-muted);
+    }
+  }
+}

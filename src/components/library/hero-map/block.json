@@ -1,0 +1,149 @@
+{
+  "name": "Hero, location pins",
+  "category": "headers",
+  "description": "Local business heading and buttons beside a stylised map with labelled pins for each location.",
+  "tags": ["hero", "heading", "map", "locations", "local", "directions", "pins"],
+  "fieldGroups": ["Heading", "Buttons", "Map"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Three bakeries in Toronto",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Fresh bread, ten minutes from wherever you are",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Sourdough out of the oven at 7 am, pastries all day and a long table for slow mornings. Find the one closest to you.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Order for pickup",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Get directions",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "hours",
+      "label": "Opening hours",
+      "type": "text",
+      "default": "Open daily, 7 am to 6 pm",
+      "group": "Buttons"
+    },
+    {
+      "name": "mapLabel",
+      "label": "Map label",
+      "type": "text",
+      "default": "Lake Ontario",
+      "group": "Map"
+    },
+    {
+      "name": "pins",
+      "label": "Pins",
+      "type": "list",
+      "group": "Map",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "Location"
+        },
+        {
+          "name": "detail",
+          "label": "Detail",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "x",
+          "label": "Across (%)",
+          "type": "range",
+          "default": 50,
+          "min": 10,
+          "max": 90,
+          "step": 1
+        },
+        {
+          "name": "y",
+          "label": "Down (%)",
+          "type": "range",
+          "default": 50,
+          "min": 25,
+          "max": 75,
+          "step": 1
+        }
+      ],
+      "default": [
+        {
+          "label": "Dundas West",
+          "detail": "1210 Dundas St W",
+          "x": 24,
+          "y": 38
+        },
+        {
+          "label": "The Annex",
+          "detail": "488 Bloor St W",
+          "x": 56,
+          "y": 28
+        },
+        {
+          "label": "Leslieville",
+          "detail": "1062 Queen St E",
+          "x": 78,
+          "y": 62
+        }
+      ]
+    }
+  ]
+}

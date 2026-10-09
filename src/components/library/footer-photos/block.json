@@ -1,0 +1,233 @@
+{
+  "name": "Footer, photo strip",
+  "category": "footers",
+  "description": "An edge-to-edge row of square photos with a follow button for your social account, over a compact footer row.",
+  "tags": ["footer", "photos", "instagram", "social", "gallery", "feed", "follow"],
+  "fieldGroups": ["Photos", "Follow", "Links", "Legal"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "photos",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 3,
+      "maxItems": 6,
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Two researchers reviewing interview notes on a whiteboard",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Laptop showing a highlighted customer quote",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Customer interview over coffee in the Toronto studio",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sticky notes grouped into themes on a wall",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Team watching interview clips together",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Microphone and notebook on a wooden desk",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "handle",
+      "label": "Account name",
+      "type": "text",
+      "default": "@fieldnote.research",
+      "group": "Follow",
+      "help": "Leave empty to hide the follow button."
+    },
+    {
+      "name": "followLabel",
+      "label": "Button text",
+      "type": "text",
+      "default": "Follow us on Instagram",
+      "group": "Follow"
+    },
+    {
+      "name": "followIcon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "simple-icons:instagram",
+      "iconPurpose": "brand",
+      "group": "Follow"
+    },
+    {
+      "name": "followLink",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "https://www.instagram.com",
+        "newTab": true
+      },
+      "group": "Follow"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Product",
+          "link": {
+            "type": "section",
+            "anchor": "features",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Pricing",
+          "link": {
+            "type": "section",
+            "anchor": "pricing",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Journal",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Careers",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Privacy",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Inc.",
+      "group": "Legal"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "name": "Hero, manifesto",
+  "category": "headers",
+  "description": "Dark heading section with a numbered list of short principles beside it.",
+  "tags": ["hero", "heading", "manifesto", "principles", "values", "dark", "numbered"],
+  "fieldGroups": ["Heading", "Principles"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our manifesto",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Research is a team sport",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We build Fieldnote for teams who believe the best product decisions start with a customer’s own words.",
+      "group": "Heading"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Read the full manifesto",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Heading"
+    },
+    {
+      "name": "principles",
+      "label": "Principles",
+      "type": "list",
+      "group": "Principles",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Principle",
+          "type": "text",
+          "default": "Principle"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "title": "Everyone should hear the customer",
+          "text": "Not just the researcher who ran the call."
+        },
+        {
+          "title": "Quotes beat opinions",
+          "text": "Bring the clip to the meeting, not your summary of it."
+        },
+        {
+          "title": "Small studies, often",
+          "text": "Five interviews this week beat fifty next quarter."
+        },
+        {
+          "title": "Insights should outlive the project",
+          "text": "Everything you learn stays searchable for the next team."
+        }
+      ]
+    }
+  ]
+}

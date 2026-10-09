@@ -1,0 +1,90 @@
+@layer components {
+  @scope (.b-careers-featured) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-main {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-summary {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-group {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-group-title {
+      font-size: var(--text-lg);
+    }
+
+    .b-list {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-list li {
+      --icon-size: 1.25rem;
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .b-list .icon {
+      margin-top: 0.15em;
+      color: var(--color-primary);
+    }
+
+    .b-details {
+      --stack-gap: var(--space-6);
+      --card-padding: var(--space-6);
+      align-self: start;
+    }
+
+    .b-facts {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-facts dt {
+      --icon-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-facts dd {
+      margin-top: var(--space-1);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-apply {
+      width: 100%;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+        gap: var(--space-16);
+      }
+
+      .b-details {
+        position: sticky;
+        top: var(--space-8);
+        --card-padding: var(--space-8);
+      }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+@layer components {
+  @scope (.b-content-scrapbook) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-body {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-board {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6) var(--space-4);
+    }
+
+    .b-snap,
+    .b-note {
+      position: relative;
+      box-shadow: var(--shadow-md);
+      rotate: -2deg;
+    }
+
+    .b-snap {
+      padding: var(--space-2) var(--space-2) 0;
+      background: var(--color-background);
+    }
+
+    .b-snap:first-child {
+      z-index: 1;
+      grid-column: span 2;
+      rotate: 1deg;
+    }
+
+    .b-snap::before {
+      content: '';
+      position: absolute;
+      top: calc(var(--space-3) * -1);
+      left: 50%;
+      width: 4.5rem;
+      height: 1.5rem;
+      background: color-mix(in oklab, var(--color-primary) 35%, transparent);
+      translate: -50% 0;
+      rotate: -5deg;
+    }
+
+    .b-photo {
+      --media-ratio: 4 / 3;
+      --media-radius: 0;
+    }
+
+    .b-caption,
+    .b-note {
+      font-family: var(--font-heading);
+      font-style: italic;
+      line-height: var(--line-height-tight);
+    }
+
+    .b-caption {
+      padding: var(--space-3) var(--space-2);
+      text-align: center;
+    }
+
+    .b-note {
+      grid-column: span 2;
+      padding: var(--space-6);
+      background: color-mix(in oklab, var(--color-primary) 16%, var(--color-background));
+      font-size: var(--text-xl);
+    }
+
+    @media (min-width: 768px) {
+      .b-board {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        max-width: 40rem;
+      }
+
+      .b-snap:first-child {
+        grid-column: 1 / 5;
+        rotate: -3deg;
+      }
+
+      .b-snap:nth-child(2) {
+        grid-column: 3 / 7;
+        margin-block-start: calc(var(--space-16) * -1);
+        rotate: 2.5deg;
+      }
+
+      .b-snap:nth-child(3) {
+        grid-column: 1 / 4;
+        rotate: -1.5deg;
+      }
+
+      .b-snap:nth-child(3),
+      .b-note {
+        margin-block-start: calc(var(--space-8) * -1);
+      }
+
+      .b-note {
+        grid-column: 4 / 7;
+        align-self: center;
+        rotate: 2deg;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

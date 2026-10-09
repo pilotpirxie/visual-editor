@@ -1,0 +1,162 @@
+{
+  "name": "Footer, numbered page index",
+  "category": "footers",
+  "description": "Every main page as a big numbered link with a short note, then the legal line. Suits studios and portfolios.",
+  "tags": ["footer", "sitemap", "index", "numbered", "links", "big type", "portfolio", "studio"],
+  "fieldGroups": ["Index", "Legal"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Label",
+      "type": "text",
+      "default": "Site index",
+      "group": "Index"
+    },
+    {
+      "name": "pages",
+      "label": "Pages",
+      "type": "list",
+      "group": "Index",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Page name",
+          "type": "text",
+          "default": "Page"
+        },
+        {
+          "name": "note",
+          "label": "Note",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Product",
+          "note": "Interviews, clips and insights in one place",
+          "link": {
+            "type": "section",
+            "anchor": "features",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Customers",
+          "note": "How 900 teams hear from customers weekly",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Pricing",
+          "note": "Free for your first ten interviews",
+          "link": {
+            "type": "section",
+            "anchor": "pricing",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Journal",
+          "note": "Field notes on customer research",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Contact",
+          "note": "hello@fieldnote.example",
+          "link": {
+            "type": "email",
+            "url": "hello@fieldnote.example",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Inc. Made in Toronto.",
+      "group": "Legal"
+    },
+    {
+      "name": "legal",
+      "label": "Legal links",
+      "type": "list",
+      "group": "Legal",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Privacy",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Terms",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Accessibility",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

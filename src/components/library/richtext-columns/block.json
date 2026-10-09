@@ -1,0 +1,41 @@
+{
+  "name": "Rich text, two columns",
+  "category": "rich-text",
+  "description": "A heading and lead above long-form text that flows into two columns on wider screens.",
+  "tags": ["text", "prose", "columns", "article", "principles", "long-form"],
+  "fieldGroups": ["Heading", "Text"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How we work",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The principles behind every Fieldnote study",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "lead",
+      "label": "Lead paragraph",
+      "type": "textarea",
+      "default": "Four habits our research team keeps on every project, whether it is a week of churn calls or a year-long study.",
+      "group": "Heading"
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<h3>Start with a decision</h3><p>Every study begins with the decision it should inform and the date that decision gets made. If nobody is waiting on the answer, we do not run the study. It keeps research small, focused and on time.</p><h3>Talk to the right people</h3><p>Five well-chosen customers teach us more than twenty who happened to be free. We recruit for recent behavior, include people who struggled as well as people who thrived, and always pay for their time.</p><h3>Record everything, share the moments</h3><p>Every call is recorded and transcribed, but nobody is asked to watch an hour of video. We pull two-minute highlights and put them where the team already works: the roadmap doc, the sprint review, the all-hands.</p><h3>Close the loop</h3><p>When a study changes what we build, we tell the customers who took part. It is the single best reason people say yes the next time we ask.</p><ul><li>A thank-you email within a day</li><li>A short note when the change ships</li></ul>",
+      "group": "Text"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+<nav class="b-jump-links" aria-labelledby="{{block.id}}-label" data-sticky="{{sticky}}">
+  <div class="container b-row">
+    <p class="b-label" id="{{block.id}}-label" data-field="label">{{label}}</p>
+    <ul class="b-chips" role="list">
+      {{#each items}}
+      <li><a class="b-chip" href="{{href link}}" {{linkAttrs link}} data-field="items.{{@index}}">{{label}}</a></li>
+      {{/each}}
+    </ul>
+  </div>
+</nav>

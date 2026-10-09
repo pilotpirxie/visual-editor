@@ -1,0 +1,137 @@
+{
+  "name": "Pricing, raised middle plan",
+  "category": "pricing",
+  "description": "Plan cards where the featured plan stands taller, on a dark card with a badge on its edge.",
+  "tags": ["pricing", "plans", "tiers", "featured", "dark", "spotlight"],
+  "fieldGroups": ["Heading", "Plans"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Plans",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "One plan most teams pick, two for the edges",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Start on any plan for 14 days. Move up or down whenever your research changes.",
+      "group": "Heading"
+    },
+    {
+      "name": "featuredLabel",
+      "label": "Label on the featured plan",
+      "type": "text",
+      "default": "Picked by 7 in 10 teams",
+      "group": "Plans"
+    },
+    {
+      "name": "plans",
+      "label": "Plans",
+      "type": "list",
+      "group": "Plans",
+      "minItems": 1,
+      "maxItems": 3,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Plan name",
+          "type": "text",
+          "default": "Plan"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "Who this plan is for."
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$0"
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": "per month"
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Choose plan",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          }
+        },
+        {
+          "name": "features",
+          "label": "Included",
+          "type": "richtext",
+          "default": "<ul><li>First feature</li><li>Second feature</li></ul>"
+        },
+        {
+          "name": "featured",
+          "label": "Featured",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        {
+          "name": "Solo",
+          "description": "For one researcher running a few studies a quarter.",
+          "price": "$12",
+          "period": "per month",
+          "button": {
+            "label": "Start with Solo",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          },
+          "features": "<ul><li>20 hours of transcripts a month</li><li>Highlights and tags</li><li>Share read-only links</li></ul>",
+          "featured": false
+        },
+        {
+          "name": "Team",
+          "description": "For product teams who talk to customers every week.",
+          "price": "$29",
+          "period": "per editor, per month",
+          "button": {
+            "label": "Start free trial",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "primary"
+          },
+          "features": "<ul><li>Unlimited transcripts</li><li>Shared themes across projects</li><li>Slack and Jira exports</li><li>Priority support</li></ul>",
+          "featured": true
+        },
+        {
+          "name": "Business",
+          "description": "For research programs that span several teams.",
+          "price": "$79",
+          "period": "per editor, per month",
+          "button": {
+            "label": "Talk to sales",
+            "link": { "type": "url", "url": "#", "newTab": false },
+            "variant": "secondary"
+          },
+          "features": "<ul><li>Everything in Team</li><li>Single sign-on</li><li>Audit logs and data residency</li></ul>",
+          "featured": false
+        }
+      ]
+    }
+  ]
+}

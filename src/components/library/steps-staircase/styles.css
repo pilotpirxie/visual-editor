@@ -1,0 +1,93 @@
+@layer components {
+  @scope (.b-steps-staircase) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      max-width: 40rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-stairs {
+      display: grid;
+      gap: var(--space-2);
+      counter-reset: step;
+    }
+
+    .b-step {
+      display: grid;
+      grid-template-columns: 4rem minmax(0, 1fr);
+      gap: var(--space-4);
+      counter-increment: step;
+    }
+
+    .b-text {
+      --stack-gap: var(--space-2);
+      padding-block: var(--space-4);
+    }
+
+    .b-text h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      color: var(--color-primary);
+    }
+
+    .b-riser {
+      order: -1;
+      padding: var(--space-3);
+      border-radius: var(--radius-md);
+      background: color-mix(
+        in oklab,
+        var(--color-primary) calc(12% + var(--i) * 12%),
+        var(--color-surface)
+      );
+      color: var(--color-primary);
+      font: var(--font-weight-heading) var(--text-2xl) / 1 var(--font-heading);
+    }
+
+    .b-riser::before {
+      content: counter(step, decimal-leading-zero);
+    }
+
+    .b-step:last-child .b-riser {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    @media (min-width: 1024px) {
+      .b-stairs {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+        align-items: end;
+        gap: 0;
+      }
+
+      .b-step {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .b-text {
+        padding-inline: var(--space-4);
+      }
+
+      .b-riser {
+        order: 0;
+        height: calc(4rem + var(--i) * 3.5rem);
+        padding: var(--space-4);
+        border-radius: 0;
+        border-start-end-radius: var(--radius-lg);
+        font-size: var(--text-4xl);
+      }
+    }
+  }
+}

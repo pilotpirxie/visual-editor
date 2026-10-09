@@ -1,0 +1,103 @@
+@layer components {
+  @scope (.b-modal-newsletter) {
+    .b-dialog {
+      --modal-width: 34rem;
+    }
+
+    .b-airmail {
+      position: absolute;
+      inset: 0 0 auto;
+      height: var(--space-2);
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--color-primary) 0 1rem,
+        transparent 0 1.5rem,
+        var(--color-text) 0 2.5rem,
+        transparent 0 3rem
+      );
+    }
+
+    .b-body {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-head {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      align-items: flex-start;
+    }
+
+    .b-stamp {
+      flex: none;
+      padding: 0.375rem;
+      background: color-mix(in oklab, var(--color-primary) 18%, var(--color-background));
+      rotate: -6deg;
+      mask:
+        linear-gradient(var(--color-text) 0 0) content-box,
+        radial-gradient(circle, transparent 0.16rem, var(--color-text) 0.2rem) -0.375rem -0.375rem /
+          0.75rem 0.75rem round;
+    }
+
+    .b-stamp-inner {
+      --icon-size: 1.5rem;
+      display: grid;
+      place-items: center;
+      gap: var(--space-1);
+      width: 4rem;
+      height: 4.75rem;
+      outline: var(--border-width) solid color-mix(in oklab, var(--color-primary) 50%, transparent);
+      outline-offset: -0.25rem;
+      color: var(--color-primary);
+      font: var(--font-weight-bold) var(--text-xs) var(--font-mono);
+    }
+
+    .b-titles {
+      --stack-gap: var(--space-1);
+    }
+
+    .b-titles h2 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-perks {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .b-perks li {
+      --icon-size: 1.125rem;
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .b-perks .icon {
+      margin-block-start: 0.2em;
+      color: var(--color-primary);
+    }
+
+    .b-form {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .b-note {
+      font-size: var(--text-xs);
+    }
+
+    @media (min-width: 768px) {
+      .b-head {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .b-form {
+        grid-template-columns: 1fr auto;
+      }
+    }
+  }
+}

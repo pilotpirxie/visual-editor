@@ -1,0 +1,42 @@
+@layer components {
+  @scope (.b-content-split-heading) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-head h2 {
+      letter-spacing: -0.01em;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    .b-body {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: var(--space-16);
+        align-items: start;
+      }
+
+      .b-head h2 {
+        font-size: var(--text-5xl);
+      }
+
+      .b-copy {
+        padding-block-start: var(--space-8);
+      }
+    }
+  }
+}

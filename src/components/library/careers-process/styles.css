@@ -1,0 +1,105 @@
+@layer components {
+  @scope (.b-careers-process) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      max-width: 40rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-bar {
+      display: none;
+    }
+
+    .b-stages {
+      display: grid;
+      gap: var(--space-4);
+      counter-reset: stage;
+    }
+
+    .b-stage {
+      --stack-gap: var(--space-2);
+      padding: var(--space-6);
+      border-block-start: var(--space-1) solid var(--color-primary);
+      background: var(--color-surface);
+      counter-increment: stage;
+    }
+
+    .b-stage::before {
+      content: counter(stage, decimal-leading-zero);
+      font: var(--font-weight-heading) var(--text-3xl) / 1 var(--font-heading);
+      color: var(--color-primary);
+    }
+
+    .b-time {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-foot {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-block-start: var(--space-6);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-total strong {
+      font: var(--font-weight-heading) var(--text-2xl) var(--font-heading);
+    }
+
+    .b-promise {
+      display: flex;
+      gap: var(--space-2);
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-stages {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .b-bar {
+        display: flex;
+        gap: var(--space-1);
+      }
+
+      .b-bar span {
+        flex: var(--days) 1 0;
+        overflow: hidden;
+        padding: var(--space-2) var(--space-3);
+        border-radius: var(--radius-sm);
+        background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+        color: var(--color-primary);
+        font-size: var(--text-xs);
+        font-weight: var(--font-weight-bold);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .b-bar span:last-child {
+        background: var(--color-primary);
+        color: var(--color-primary-contrast);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-stages {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+        grid-template-columns: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "name": "Modal, share",
+  "category": "modals",
+  "description": "A share sheet with a link preview card, round brand buttons for each network and the page link ready to copy. Opens from any link to its anchor.",
+  "tags": ["modal", "dialog", "popup", "share", "social", "link", "copy link", "share sheet"],
+  "fieldGroups": ["Content", "Preview", "Networks"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Share this report",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "closeLabel",
+      "label": "Close button label (for screen readers)",
+      "type": "text",
+      "default": "Close",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "urlLabel",
+      "label": "Link field label",
+      "type": "text",
+      "default": "Or copy the link",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "url",
+      "label": "Link to share",
+      "type": "text",
+      "default": "https://fieldnote.example/reports/state-of-research-2026",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "image",
+      "label": "Preview image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "",
+        "decorative": true,
+        "width": 600,
+        "height": 600,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Preview"
+    },
+    {
+      "name": "siteName",
+      "label": "Site name",
+      "type": "text",
+      "default": "fieldnote.example",
+      "group": "Preview"
+    },
+    {
+      "name": "pageTitle",
+      "label": "Page title",
+      "type": "text",
+      "default": "The State of Customer Research 2026: what 1,200 teams told us",
+      "required": true,
+      "group": "Preview"
+    },
+    {
+      "name": "networks",
+      "label": "Networks",
+      "type": "list",
+      "group": "Networks",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "Network"
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "share",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "link",
+          "label": "Share link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "LinkedIn",
+          "icon": "simple-icons:linkedin",
+          "link": {
+            "type": "url",
+            "url": "https://www.linkedin.com/sharing/share-offsite/?url=https://fieldnote.example/reports/state-of-research-2026",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Bluesky",
+          "icon": "simple-icons:bluesky",
+          "link": {
+            "type": "url",
+            "url": "https://bsky.app/intent/compose?text=https://fieldnote.example/reports/state-of-research-2026",
+            "newTab": true
+          }
+        },
+        {
+          "label": "X",
+          "icon": "simple-icons:x",
+          "link": {
+            "type": "url",
+            "url": "https://x.com/intent/post?url=https://fieldnote.example/reports/state-of-research-2026",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Facebook",
+          "icon": "simple-icons:facebook",
+          "link": {
+            "type": "url",
+            "url": "https://www.facebook.com/sharer/sharer.php?u=https://fieldnote.example/reports/state-of-research-2026",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Email",
+          "icon": "mail",
+          "link": {
+            "type": "url",
+            "url": "mailto:?subject=The%20State%20of%20Customer%20Research%202026",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

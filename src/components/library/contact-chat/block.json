@@ -1,0 +1,136 @@
+{
+  "name": "Contact, chat preview",
+  "category": "contacts",
+  "description": "Friendly chat bubbles from a named person above a compact message form styled like a chat composer.",
+  "tags": ["contact", "form", "chat", "messages", "support", "friendly"],
+  "fieldGroups": ["Heading", "Person", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Say hello",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A real person reads every message",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Priya Raman",
+        "decorative": false,
+        "width": 400,
+        "height": 400,
+        "placeholder": { "ratio": "1:1", "subject": "person" }
+      },
+      "group": "Person"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Priya Raman",
+      "group": "Person"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Customer success",
+      "group": "Person"
+    },
+    {
+      "name": "messages",
+      "label": "Messages",
+      "type": "list",
+      "group": "Person",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "text",
+      "itemFields": [
+        { "name": "text", "label": "Message", "type": "text", "default": "Hi there!" }
+      ],
+      "default": [
+        { "text": "Hi, I’m Priya. Thanks for stopping by." },
+        {
+          "text": "Questions about plans, a tricky study or a bug? Write it below and I’ll get back to you myself."
+        }
+      ]
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Name",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "messageLabel",
+      "label": "Message field label",
+      "type": "text",
+      "default": "Message",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "messagePlaceholder",
+      "label": "Message placeholder",
+      "type": "text",
+      "default": "Type your message…",
+      "group": "Form"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Usually replies in about 2 hours",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Send",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        { "value": "post", "label": "POST" },
+        { "value": "get", "label": "GET" }
+      ],
+      "group": "Form"
+    }
+  ]
+}

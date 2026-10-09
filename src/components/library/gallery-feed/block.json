@@ -1,0 +1,347 @@
+{
+  "name": "Gallery, social feed",
+  "category": "gallery",
+  "description": "A social profile header with avatar, stats, bio and follow button above a square photo grid.",
+  "tags": ["gallery", "photos", "social", "instagram", "feed", "follow", "grid"],
+  "fieldGroups": ["Profile", "Button", "Posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "avatar",
+      "label": "Profile photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Fieldnote logo",
+        "decorative": false,
+        "width": 800,
+        "height": 800,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "logo"
+        }
+      },
+      "group": "Profile"
+    },
+    {
+      "name": "handle",
+      "label": "Handle",
+      "type": "text",
+      "default": "@fieldnote",
+      "required": true,
+      "group": "Profile"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Fieldnote · Customer research",
+      "group": "Profile"
+    },
+    {
+      "name": "stats",
+      "label": "Stats",
+      "type": "list",
+      "group": "Profile",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Value",
+          "type": "text",
+          "default": "0"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "posts"
+        }
+      ],
+      "default": [
+        {
+          "value": "214",
+          "label": "posts"
+        },
+        {
+          "value": "12.4k",
+          "label": "followers"
+        },
+        {
+          "value": "180",
+          "label": "following"
+        }
+      ]
+    },
+    {
+      "name": "bio",
+      "label": "Bio",
+      "type": "textarea",
+      "default": "Notes from the field: research tips, customer stories and the occasional office dog. Made in Toronto.",
+      "group": "Profile"
+    },
+    {
+      "name": "network",
+      "label": "Network icon",
+      "type": "icon",
+      "default": "simple-icons:instagram",
+      "iconPurpose": "brand",
+      "group": "Button"
+    },
+    {
+      "name": "followLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Follow on Instagram",
+      "required": true,
+      "group": "Button"
+    },
+    {
+      "name": "followLink",
+      "label": "Button link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "https://www.instagram.com",
+        "newTab": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "likes",
+          "label": "Likes",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sticky notes grouped by color on a glass wall",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "likes": "1,204",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A researcher holding a phone with a recording app open",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "likes": "986",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Biscuit the office dog wearing a Fieldnote bandana",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "likes": "2,431",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A printed interview guide covered in handwritten notes",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "likes": "742",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Morning light in the Toronto office",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "likes": "1,018",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Two people laughing during a customer interview",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "likes": "1,377",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A laptop showing tagged interview highlights",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "likes": "655",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Coffee cups lined up before a research workshop",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "likes": "894",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The team on a farmhouse porch at the summer offsite",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "likes": "1,862",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "likesLabel",
+      "label": "Likes label",
+      "type": "text",
+      "default": "likes",
+      "group": "Posts",
+      "help": "Read by screen readers after the number."
+    }
+  ]
+}

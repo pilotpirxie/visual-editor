@@ -1,0 +1,31 @@
+<section class="b-newsletter-frequency section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    <form class="card stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <fieldset class="b-options">
+        <legend class="b-legend" data-field="optionsLabel">{{optionsLabel}}</legend>
+        {{#each options}}
+        <label class="b-option" data-field="options.{{@index}}">
+          <input type="radio" name="frequency" value="{{name}}"{{#if @first}} checked{{/if}}>
+          <span class="b-icon">{{svgIcon icon}}</span>
+          <span class="b-name">{{name}}</span>
+          <span class="b-small">{{cadence}}</span>
+          {{#if description}}<span class="b-small b-desc">{{description}}</span>{{/if}}
+        </label>
+        {{/each}}
+      </fieldset>
+      <div class="b-row">
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      </div>
+      {{#if note}}<p class="b-small" data-field="note">{{note}}</p>{{/if}}
+    </form>
+  </div>
+</section>

@@ -1,0 +1,123 @@
+@layer components {
+  @scope (.b-blog-bento) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-inner > .btn {
+      align-self: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-post {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-media {
+      --media-radius: 0;
+      aspect-ratio: 3 / 2;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-2);
+      align-items: flex-start;
+      padding: var(--space-6);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-muted {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-lead {
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-primary: var(--theme-dark-accent);
+      justify-content: flex-end;
+      min-height: 28rem;
+      background: var(--theme-dark-background);
+      color: var(--color-text);
+    }
+
+    .b-lead .b-media {
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-lead .b-body {
+      position: relative;
+      padding-top: var(--space-16);
+      background: linear-gradient(transparent, var(--theme-dark-background) 45%);
+    }
+
+    .b-lead .b-title {
+      font-size: var(--text-3xl);
+    }
+
+    @media (min-width: 768px) {
+      .b-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-lead {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .b-lead {
+        grid-area: span 2 / span 2;
+      }
+
+      .b-post:nth-child(2) {
+        grid-row: span 2;
+      }
+
+      .b-post:nth-child(2) .b-media {
+        flex: 1;
+        aspect-ratio: auto;
+      }
+
+      .b-post:nth-child(n + 3) {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .b-post:nth-child(n + 3) .b-media {
+        flex: none;
+        width: 6rem;
+        aspect-ratio: 1;
+        margin-inline-start: var(--space-4);
+        border-radius: var(--radius-md);
+      }
+    }
+  }
+}

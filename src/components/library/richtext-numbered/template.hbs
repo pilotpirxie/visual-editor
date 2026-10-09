@@ -1,0 +1,17 @@
+<section class="b-richtext-numbered section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if lead}}<p class="b-lead" data-field="lead">{{nl2br lead}}</p>{{/if}}
+    </header>
+    <ol class="b-sections" role="list">
+      {{#each sections}}
+      <li class="b-section" data-field="sections.{{@index}}">
+        <h3 class="b-heading">{{heading}}</h3>
+        <div class="prose b-body">{{richText body}}</div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

@@ -1,0 +1,115 @@
+{
+  "name": "Sign in, one-time code",
+  "category": "sign-in",
+  "description": "A six-digit code field drawn as separate boxes, with a link to send a new code.",
+  "tags": [
+    "sign in",
+    "login",
+    "log in",
+    "account",
+    "form",
+    "one-time code",
+    "verification",
+    "otp",
+    "2fa",
+    "passwordless"
+  ],
+  "fieldGroups": ["Heading", "Form", "Links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Check your inbox",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We sent a six-digit code to",
+      "group": "Heading"
+    },
+    {
+      "name": "email",
+      "label": "Email shown",
+      "type": "text",
+      "default": "maya@northwind.com",
+      "group": "Heading"
+    },
+    {
+      "name": "codeLabel",
+      "label": "Code field label",
+      "type": "text",
+      "default": "Sign-in code",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "The code expires in 10 minutes.",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Verify and sign in",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "resendText",
+      "label": "Resend text",
+      "type": "text",
+      "default": "Didn’t get it?",
+      "group": "Links"
+    },
+    {
+      "name": "resendLabel",
+      "label": "Resend link label",
+      "type": "text",
+      "default": "Send a new code",
+      "group": "Links"
+    },
+    {
+      "name": "resendLink",
+      "label": "Resend link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Links"
+    }
+  ]
+}

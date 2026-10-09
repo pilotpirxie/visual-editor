@@ -1,0 +1,35 @@
+<section class="b-stats-scoreboard section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-board">
+      <div class="b-teams" aria-hidden="true">
+        <p data-field="beforeLabel">{{beforeLabel}}</p>
+        <p class="b-vs" data-field="vsLabel">{{vsLabel}}</p>
+        <p class="b-win" data-field="afterLabel">{{afterLabel}}</p>
+      </div>
+      <table class="b-table">
+        <caption class="visually-hidden">{{title}}</caption>
+        <thead class="visually-hidden">
+          <tr>
+            <th scope="col">{{beforeLabel}}</th>
+            <th scope="col">{{metricLabel}}</th>
+            <th scope="col">{{afterLabel}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each rows}}
+          <tr data-field="rows.{{@index}}">
+            <td><span class="b-score">{{before}}</span></td>
+            <th scope="row">{{metric}}</th>
+            <td><span class="b-score b-win">{{after}}</span></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

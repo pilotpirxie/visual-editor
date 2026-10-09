@@ -1,0 +1,137 @@
+{
+  "name": "Navigation, phone tab bar",
+  "category": "navigations",
+  "description": "An app-style navbar: on phones the links move to a tab bar fixed to the bottom of the screen with icons and labels; a regular top bar on desktop.",
+  "tags": ["menu", "navbar", "header", "tab bar", "bottom bar", "mobile", "app", "icons", "pwa"],
+  "fieldGroups": ["Logo", "Links", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "logoIcon",
+      "label": "Logo icon",
+      "type": "icon",
+      "default": "lucide:audio-lines",
+      "iconPurpose": "logo",
+      "group": "Logo"
+    },
+    {
+      "name": "links",
+      "label": "Tabs",
+      "type": "list",
+      "group": "Links",
+      "minItems": 2,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "help": "Up to five tabs fit the bar on a phone. Keep labels to one short word.",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "house"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Tab",
+          "maxLength": 14
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "name": "current",
+          "label": "Current page",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        {
+          "icon": "house",
+          "label": "Home",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": true
+        },
+        {
+          "icon": "search",
+          "label": "Explore",
+          "link": {
+            "type": "section",
+            "anchor": "features",
+            "newTab": false
+          },
+          "current": false
+        },
+        {
+          "icon": "transcript",
+          "label": "Notes",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": false
+        },
+        {
+          "icon": "bell",
+          "label": "Updates",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": false
+        },
+        {
+          "icon": "user",
+          "label": "Account",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "current": false
+        }
+      ]
+    },
+    {
+      "name": "showCta",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Try free",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showCta",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

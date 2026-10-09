@@ -1,0 +1,262 @@
+{
+  "name": "Blog posts, magazine",
+  "category": "blog",
+  "description": "A large lead story with image and excerpt above a row of smaller posts.",
+  "tags": ["blog", "posts", "articles", "news", "magazine", "featured", "editorial"],
+  "fieldGroups": ["Heading", "Button", "Lead story", "Posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The Fieldnote journal",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Stories from the research desk",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Browse the archive",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "leadImage",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Northwind product team in front of a wall of printed customer quotes",
+        "decorative": false,
+        "width": 1200,
+        "height": 900,
+        "placeholder": {
+          "ratio": "4:3",
+          "subject": "photo"
+        }
+      },
+      "group": "Lead story"
+    },
+    {
+      "name": "leadCategory",
+      "label": "Category",
+      "type": "text",
+      "default": "Customer stories",
+      "group": "Lead story"
+    },
+    {
+      "name": "leadTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "How Northwind halved onboarding time with ten customer calls",
+      "group": "Lead story",
+      "required": true
+    },
+    {
+      "name": "leadExcerpt",
+      "label": "Excerpt",
+      "type": "textarea",
+      "default": "Northwind’s product team had a funnel full of numbers and no idea why new admins stalled. Ten 30-minute calls, recorded and tagged in Fieldnote, showed them exactly where, and what to change first.",
+      "group": "Lead story"
+    },
+    {
+      "name": "leadAuthor",
+      "label": "Author",
+      "type": "text",
+      "default": "Leila Haddad",
+      "group": "Lead story"
+    },
+    {
+      "name": "leadDate",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-10-06",
+      "group": "Lead story"
+    },
+    {
+      "name": "leadLink",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Lead story"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Cover image",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "category",
+          "label": "Category",
+          "type": "text",
+          "default": "Research"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Post title"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A researcher on a video call with a customer, taking notes by hand",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "category": "Recruiting",
+          "title": "How to recruit customers for interviews without paying them to show up",
+          "date": "2026-09-29",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A printed interview guide with questions crossed out and rewritten",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "category": "Interviewing",
+          "title": "The five-question guide we use for every churn interview",
+          "date": "2026-09-15",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sticky notes grouped into themes on a whiteboard",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "category": "Synthesis",
+          "title": "Tagging is not synthesis: from 40 interviews to three decisions",
+          "date": "2026-09-01",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Two colleagues reviewing call highlights on a shared screen",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "category": "Research ops",
+          "title": "Your sales calls are the research you are not using",
+          "date": "2026-08-18",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+<section class="b-content-definition section">
+  <div class="container b-inner">
+    <header class="stack b-entry">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 class="b-word" data-field="word">{{word}}</h2>
+      <p class="cluster b-meta">
+        {{#if pronunciation}}<span class="b-ipa" data-field="pronunciation">{{pronunciation}}</span>{{/if}}
+        {{#if partOfSpeech}}<span class="b-pos" data-field="partOfSpeech">{{partOfSpeech}}</span>{{/if}}
+      </p>
+    </header>
+    <div class="stack b-body">
+      <ol class="b-senses" role="list">
+        {{#each senses}}
+        <li class="b-sense" data-field="senses.{{@index}}">
+          <p class="b-meaning">{{nl2br meaning}}</p>
+          {{#if example}}<p class="b-example"><q>{{example}}</q></p>{{/if}}
+        </li>
+        {{/each}}
+      </ol>
+      {{#if origin}}
+      <p class="b-origin">
+        {{#if originLabel}}<span class="b-origin-label" data-field="originLabel">{{originLabel}}</span>{{/if}}
+        <span data-field="origin">{{origin}}</span>
+      </p>
+      {{/if}}
+    </div>
+  </div>
+</section>

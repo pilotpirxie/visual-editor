@@ -1,0 +1,20 @@
+<section class="b-gallery-film section">
+  <div class="container stack b-head">
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h2 data-field="title">{{title}}</h2>
+    {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+  </div>
+  <div class="b-film">
+    {{#if stock}}<p class="b-stock" data-field="stock">{{stock}}</p>{{/if}}
+    <ul class="b-track" role="list" tabindex="0" aria-label="{{title}}">
+      {{#each items}}
+      <li class="b-frame" data-field="items.{{@index}}">
+        <figure>
+          <div class="media b-photo">{{img image}}</div>
+          {{#if caption}}<figcaption class="b-caption">{{caption}}</figcaption>{{/if}}
+        </figure>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

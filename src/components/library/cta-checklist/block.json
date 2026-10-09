@@ -1,0 +1,115 @@
+{
+  "name": "Call to action, with checklist",
+  "category": "call-to-action",
+  "description": "A pitch with two buttons next to a card that lists what the trial includes.",
+  "tags": ["cta", "checklist", "included", "benefits", "trial"],
+  "fieldGroups": ["Content", "Buttons", "Checklist"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Start today",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Everything your team needs to learn from customers",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Your trial includes every feature on the Team plan, so you can run a real study before you decide.",
+      "group": "Content"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Compare plans",
+        "link": {
+          "type": "section",
+          "anchor": "pricing",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    },
+    {
+      "name": "listTitle",
+      "label": "List title",
+      "type": "text",
+      "default": "Included in your trial",
+      "group": "Checklist"
+    },
+    {
+      "name": "items",
+      "label": "Items",
+      "type": "list",
+      "group": "Checklist",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Something included"
+        }
+      ],
+      "default": [
+        {
+          "text": "Unlimited seats for your whole team"
+        },
+        {
+          "text": "20 hours of transcription in 30 languages"
+        },
+        {
+          "text": "Automatic themes, tags and highlight reels"
+        },
+        {
+          "text": "Slack, Jira and Notion integrations"
+        },
+        {
+          "text": "Onboarding call with a research lead"
+        }
+      ]
+    }
+  ]
+}

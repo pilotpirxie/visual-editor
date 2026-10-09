@@ -1,0 +1,36 @@
+<section class="b-blog-popular section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-layout">
+      <article class="stack b-featured">
+        <div class="media b-media" style="--media-ratio: {{featuredImage.width}} / {{featuredImage.height}}" data-field="featuredImage">{{img featuredImage}}</div>
+        {{#if featuredCategory}}<p class="badge" data-field="featuredCategory">{{featuredCategory}}</p>{{/if}}
+        <h3 class="b-featured-title" data-field="featuredTitle"><a class="b-link" href="{{href featuredLink}}" {{linkAttrs featuredLink}}>{{featuredTitle}}</a></h3>
+        {{#if featuredExcerpt}}<p class="b-muted" data-field="featuredExcerpt">{{nl2br featuredExcerpt}}</p>{{/if}}
+        {{#if (or featuredDate featuredReadTime)}}
+        <p class="b-muted b-meta">
+          {{#if featuredDate}}<time datetime="{{featuredDate}}" data-field="featuredDate">{{formatDate featuredDate}}</time>{{/if}}
+          {{#if featuredReadTime}}<span data-field="featuredReadTime">{{featuredReadTime}}</span>{{/if}}
+        </p>
+        {{/if}}
+      </article>
+      <div class="stack b-popular">
+        {{#if listTitle}}<h3 class="b-list-title" data-field="listTitle">{{listTitle}}</h3>{{/if}}
+        <ol class="b-ranks" role="list">
+          {{#each posts}}
+          <li class="b-rank" data-field="posts.{{@index}}">
+            <div class="stack b-rank-body">
+              {{#if category}}<p class="b-category">{{category}}</p>{{/if}}
+              <h4 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h4>
+              {{#if readTime}}<p class="b-muted b-meta">{{readTime}}</p>{{/if}}
+            </div>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>

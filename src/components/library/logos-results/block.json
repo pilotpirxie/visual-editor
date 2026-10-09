@@ -1,0 +1,181 @@
+{
+  "name": "Logo cloud, with results",
+  "category": "logo-clouds",
+  "description": "Customer logos, each with the result it achieved and a link to its story.",
+  "tags": ["logos", "customers", "results", "metrics", "case studies", "proof"],
+  "fieldGroups": ["Heading", "Customers"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Results",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Numbers our customers report after one quarter",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "items",
+      "label": "Customers",
+      "type": "list",
+      "group": "Customers",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "company",
+      "itemFields": [
+        {
+          "name": "company",
+          "label": "Company",
+          "type": "text",
+          "default": "Company"
+        },
+        {
+          "name": "image",
+          "label": "Logo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Company logo",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "name": "metric",
+          "label": "Result",
+          "type": "text",
+          "default": "+0%"
+        },
+        {
+          "name": "label",
+          "label": "Result label",
+          "type": "text",
+          "default": "What improved"
+        },
+        {
+          "name": "linkLabel",
+          "label": "Link label",
+          "type": "text",
+          "default": "Read the story"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "company": "Lumen Health",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Lumen Health",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "metric": "−42%",
+          "label": "time from interview to insight",
+          "linkLabel": "Read the story",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "company": "Northwind",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Northwind",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "metric": "3×",
+          "label": "more teammates watching interviews",
+          "linkLabel": "Read the story",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "company": "Ledgerly",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ledgerly",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "metric": "+38%",
+          "label": "feature adoption after launch",
+          "linkLabel": "Read the story",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "company": "Brightpath",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Brightpath",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "metric": "11 h",
+          "label": "saved per study on tagging",
+          "linkLabel": "Read the story",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

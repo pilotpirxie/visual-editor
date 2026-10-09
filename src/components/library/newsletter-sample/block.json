@@ -1,0 +1,119 @@
+{
+  "name": "Newsletter, read a sample",
+  "category": "newsletters",
+  "description": "The opening of a real issue that fades out under a signup card inviting readers to get the rest.",
+  "tags": [
+    "newsletter",
+    "email",
+    "subscribe",
+    "signup",
+    "form",
+    "sample",
+    "excerpt",
+    "preview",
+    "issue"
+  ],
+  "fieldGroups": ["Heading", "Sample", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Read before you subscribe",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Here’s what lands in your inbox on Friday",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "issueMeta",
+      "label": "Issue details",
+      "type": "text",
+      "default": "Issue 112 · April 10, 2026 · 5 min read",
+      "group": "Sample"
+    },
+    {
+      "name": "issueTitle",
+      "label": "Issue title",
+      "type": "text",
+      "default": "The question that ends every interview well",
+      "group": "Sample",
+      "required": true
+    },
+    {
+      "name": "excerpt",
+      "label": "Excerpt",
+      "type": "richtext",
+      "default": "<p>Most interviews end with “Anything else you’d like to add?” and most customers say no. Last month we tried something different with 40 product teams.</p><p>We asked one question instead: <strong>“What should I have asked you that I didn’t?”</strong> In 31 of 40 calls, the answer was the most useful thing anyone said all hour.</p><p>Here is why it works, the three ways teams phrased it and the follow-up that turns a shrug into a story.</p>",
+      "group": "Sample"
+    },
+    {
+      "name": "formTitle",
+      "label": "Form title",
+      "type": "text",
+      "default": "Get the rest of this issue, and the next one",
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email address",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Keep reading",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Privacy note",
+      "type": "text",
+      "default": "Free every Friday. Unsubscribe in one click.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "group": "Form",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ]
+    }
+  ]
+}

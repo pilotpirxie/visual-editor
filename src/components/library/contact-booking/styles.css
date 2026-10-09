@@ -1,0 +1,125 @@
+@layer components {
+  @scope (.b-contact-booking) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-text,
+    .b-host span,
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+    }
+
+    .b-host {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .b-host p {
+      display: grid;
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      width: 3.5rem;
+    }
+
+    .b-facts li {
+      --icon-size: 1.25rem;
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .b-picker {
+      --stack-gap: var(--space-4);
+      --card-shadow: var(--shadow-lg);
+    }
+
+    .b-month {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-days {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: var(--space-2);
+      text-align: center;
+    }
+
+    .b-day {
+      display: grid;
+      padding-block: var(--space-2);
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 10%, transparent);
+    }
+
+    .b-weekday {
+      font-size: var(--text-xs);
+      opacity: 0.75;
+    }
+
+    .b-date {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    [data-state='full'] {
+      background: none;
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
+
+    [data-state='selected'] {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-slots-title {
+      font-size: var(--text-base);
+    }
+
+    .b-slots {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+      gap: var(--space-2);
+    }
+
+    .b-slot {
+      display: grid;
+      place-items: center;
+      min-height: 2.75rem;
+      border: var(--border-width) solid var(--color-primary);
+      border-radius: var(--radius-md);
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-slot:hover {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 5fr 6fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

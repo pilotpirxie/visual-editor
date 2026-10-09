@@ -1,0 +1,38 @@
+<section class="b-blog-authors section">
+  <div class="container stack b-inner">
+    <div class="b-head">
+      <header class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      {{#if showButton}}
+      <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      {{/if}}
+    </div>
+    <div class="grid b-grid">
+      {{#each posts}}
+      <article class="card stack b-card" data-field="posts.{{@index}}">
+        <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}">{{img image}}</div>
+        <div class="stack b-body">
+          {{#if category}}<p class="badge">{{category}}</p>{{/if}}
+          <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          {{#if excerpt}}<p class="b-excerpt">{{nl2br excerpt}}</p>{{/if}}
+          <div class="b-byline">
+            <div class="media b-avatar">{{img authorPhoto}}</div>
+            <p class="b-who">
+              <span class="b-author">{{author}}</span>
+              {{#if (or date readTime)}}
+              <span class="b-meta">
+                {{#if date}}<time datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+                {{#if (and date readTime)}}<span aria-hidden="true">·</span>{{/if}}
+                {{#if readTime}}<span>{{readTime}}</span>{{/if}}
+              </span>
+              {{/if}}
+            </p>
+          </div>
+        </div>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

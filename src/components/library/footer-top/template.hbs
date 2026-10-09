@@ -1,0 +1,24 @@
+<footer class="b-footer-top section">
+  <div class="container stack b-inner">
+    <div class="b-rule">
+      <a class="b-up" href="{{href topLink}}" {{linkAttrs topLink}} data-field="topLabel"><span class="b-circle">{{svgIcon "arrow-up"}}</span>{{topLabel}}</a>
+    </div>
+    <div class="stack b-brand">
+      <a class="b-logo" href="index.html">{{site.title}}</a>
+      {{#if tagline}}<p class="b-muted" data-field="tagline">{{nl2br tagline}}</p>{{/if}}
+    </div>
+    <nav aria-label="Footer">
+      <ul class="cluster b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+    </nav>
+    <ul class="cluster b-socials" role="list">
+      {{#each socials}}
+      <li><a href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}</span></a></li>
+      {{/each}}
+    </ul>
+    <p class="b-muted" data-field="copyright">{{copyright}}</p>
+  </div>
+</footer>

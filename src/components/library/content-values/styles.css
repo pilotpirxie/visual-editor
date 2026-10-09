@@ -1,0 +1,68 @@
+@layer components {
+  @scope (.b-content-values) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      align-self: start;
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-head .b-text {
+      font-size: var(--text-lg);
+    }
+
+    .b-values {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-value {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      display: inline-grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-value h3 {
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 768px) {
+      .b-values {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+
+      .b-head {
+        position: sticky;
+        top: var(--space-12);
+      }
+    }
+  }
+}

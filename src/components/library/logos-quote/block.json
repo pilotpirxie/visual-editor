@@ -1,0 +1,179 @@
+{
+  "name": "Logo cloud, with a quote",
+  "category": "logo-clouds",
+  "description": "A row of logos with one picked out, and that customer’s quote in a speech bubble below.",
+  "tags": ["logos", "customers", "quote", "testimonial", "social proof", "trusted by"],
+  "fieldGroups": ["Heading", "Logos", "Quote"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Text above the logos",
+      "type": "text",
+      "default": "Trusted by product teams at",
+      "group": "Heading"
+    },
+    {
+      "name": "logos",
+      "label": "Logos",
+      "type": "list",
+      "group": "Logos",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "company",
+      "itemFields": [
+        {
+          "name": "company",
+          "label": "Company",
+          "type": "text",
+          "default": "Company"
+        },
+        {
+          "name": "image",
+          "label": "Logo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Company logo",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "name": "featured",
+          "label": "Highlight this logo",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        {
+          "company": "Lumen Health",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Lumen Health",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "featured": false
+        },
+        {
+          "company": "Northwind",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Northwind",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "featured": true
+        },
+        {
+          "company": "Ledgerly",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ledgerly",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "featured": false
+        },
+        {
+          "company": "Brightpath",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Brightpath",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "featured": false
+        },
+        {
+          "company": "Copperline",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Copperline",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "featured": false
+        }
+      ]
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "Our designers finally watch the interviews. The clips are short enough that people actually click them.",
+      "group": "Quote",
+      "required": true
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Marcus Lee",
+      "group": "Quote"
+    },
+    {
+      "name": "role",
+      "label": "Role and company",
+      "type": "text",
+      "default": "Design Lead, Northwind",
+      "group": "Quote"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Marcus Lee",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Quote"
+    }
+  ]
+}

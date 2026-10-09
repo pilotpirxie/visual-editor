@@ -1,0 +1,158 @@
+{
+  "name": "Modal, rate your experience",
+  "category": "modals",
+  "description": "A quick feedback dialog with a rising 1 to 5 scale of large choices, an optional comment and a submit button. Opens from any link to its anchor.",
+  "tags": ["modal", "dialog", "popup", "feedback", "rating", "survey", "score", "form"],
+  "fieldGroups": ["Content", "Rating", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "10-second survey",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How was your first synthesis?",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Your answer goes straight to the product team in Toronto. We read every one.",
+      "group": "Content"
+    },
+    {
+      "name": "closeLabel",
+      "label": "Close button label (for screen readers)",
+      "type": "text",
+      "default": "Close",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "question",
+      "label": "Question",
+      "type": "text",
+      "default": "How useful were the themes Fieldnote found?",
+      "required": true,
+      "group": "Rating"
+    },
+    {
+      "name": "scores",
+      "label": "Choices",
+      "type": "list",
+      "group": "Rating",
+      "minItems": 2,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "1",
+          "maxLength": 3
+        }
+      ],
+      "default": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3"
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        }
+      ]
+    },
+    {
+      "name": "lowLabel",
+      "label": "Lowest choice means",
+      "type": "text",
+      "default": "Not useful",
+      "group": "Rating"
+    },
+    {
+      "name": "highLabel",
+      "label": "Highest choice means",
+      "type": "text",
+      "default": "Spot on",
+      "group": "Rating"
+    },
+    {
+      "name": "showComment",
+      "label": "Show comment box",
+      "type": "boolean",
+      "default": true,
+      "group": "Form"
+    },
+    {
+      "name": "commentLabel",
+      "label": "Comment label",
+      "type": "text",
+      "default": "Anything we missed? (optional)",
+      "visibleWhen": {
+        "field": "showComment",
+        "equals": true
+      },
+      "group": "Form"
+    },
+    {
+      "name": "commentPlaceholder",
+      "label": "Comment placeholder",
+      "type": "text",
+      "default": "The pricing theme felt too broad…",
+      "visibleWhen": {
+        "field": "showComment",
+        "equals": true
+      },
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Send feedback",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    }
+  ]
+}

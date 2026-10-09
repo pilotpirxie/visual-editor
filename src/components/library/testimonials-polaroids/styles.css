@@ -1,0 +1,86 @@
+@layer components {
+  @scope (.b-testimonials-polaroids) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro,
+    .b-role {
+      color: var(--color-text-muted);
+    }
+
+    .b-wall {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-8) var(--space-6);
+    }
+
+    .b-slot {
+      --tilt: -2.5deg;
+      flex: 1 1 13rem;
+      max-width: 17rem;
+    }
+
+    .b-slot:nth-child(even) {
+      --tilt: 2deg;
+      margin-block-start: var(--space-6);
+    }
+
+    .b-slot:nth-child(3n) {
+      --tilt: -1deg;
+    }
+
+    .b-polaroid {
+      display: grid;
+      gap: var(--space-4);
+      padding: var(--space-3) var(--space-3) var(--space-6);
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+      transform: rotate(var(--tilt));
+      transition: transform var(--transition-normal);
+    }
+
+    .b-polaroid:hover {
+      transform: rotate(0) scale(1.02);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: 0;
+    }
+
+    .b-quote,
+    .b-person {
+      padding-inline: var(--space-2);
+      text-align: center;
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-style: italic;
+      line-height: var(--line-height-tight);
+    }
+
+    .b-person {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      font-weight: var(--font-weight-regular);
+    }
+  }
+}

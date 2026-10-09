@@ -1,0 +1,18 @@
+<section class="b-content-press section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <ul class="b-list" role="list">
+      {{#each mentions}}
+      <li data-field="mentions.{{@index}}">
+        <figure class="stack b-mention">
+          <blockquote class="b-quote"><p>{{nl2br quote}}</p></blockquote>
+          <figcaption class="b-source"><a href="{{href link}}" {{linkAttrs link}}>{{publication}}{{svgIcon "arrow-up-right"}}</a></figcaption>
+        </figure>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

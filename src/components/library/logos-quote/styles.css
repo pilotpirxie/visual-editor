@@ -1,0 +1,111 @@
+@layer components {
+  @scope (.b-logos-quote) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-title {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    .b-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-6) var(--space-8);
+    }
+
+    .b-logo {
+      position: relative;
+      flex: 0 1 8rem;
+    }
+
+    .b-logo img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      opacity: 0.55;
+      filter: grayscale(1);
+    }
+
+    .b-logo[data-featured] img {
+      opacity: 1;
+      filter: none;
+    }
+
+    .b-logo[data-featured]::after {
+      content: '';
+      position: absolute;
+      inset-inline: 30%;
+      inset-block-end: calc(-1 * var(--space-3));
+      height: calc(var(--border-width) * 3);
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+    }
+
+    .b-bubble {
+      display: grid;
+      gap: var(--space-6);
+      max-width: 44rem;
+      padding: var(--space-8);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+      text-align: center;
+    }
+
+    .b-bubble::before {
+      content: '';
+      position: absolute;
+      inset-block-start: calc(-1 * var(--space-3));
+      inset-inline: 0;
+      width: var(--space-6);
+      height: var(--space-6);
+      margin-inline: auto;
+      background: inherit;
+      transform: rotate(45deg);
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      line-height: var(--line-height-tight);
+      text-wrap: balance;
+    }
+
+    .b-quote p::before {
+      content: open-quote;
+    }
+
+    .b-quote p::after {
+      content: close-quote;
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      text-align: start;
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 2.75rem;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      color: var(--color-text-muted);
+    }
+  }
+}

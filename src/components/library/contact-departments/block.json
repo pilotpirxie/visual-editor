@@ -1,0 +1,122 @@
+{
+  "name": "Contact, choose a department",
+  "category": "contacts",
+  "description": "A two-step form: pick a department from selectable cards, then add your details and message.",
+  "tags": ["contact", "form", "departments", "sales", "support", "press", "options"],
+  "fieldGroups": ["Heading", "Departments", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Contact",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Who would you like to talk to?",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Choose a team and your message goes straight to the people who can help.",
+      "group": "Heading"
+    },
+    {
+      "name": "departmentsLabel",
+      "label": "Departments label",
+      "type": "text",
+      "default": "What is it about?",
+      "required": true,
+      "group": "Departments"
+    },
+    {
+      "name": "departments",
+      "label": "Departments",
+      "type": "list",
+      "group": "Departments",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "icon", "label": "Icon", "type": "icon", "default": "message" },
+        { "name": "title", "label": "Title", "type": "text", "default": "Department" },
+        { "name": "text", "label": "Text", "type": "text", "default": "" }
+      ],
+      "default": [
+        {
+          "icon": "briefcase",
+          "title": "Sales",
+          "text": "Plans, pilots and pricing for your team"
+        },
+        { "icon": "support", "title": "Support", "text": "Help with your account or a study" },
+        { "icon": "bookmark", "title": "Press", "text": "Interviews, stories and brand assets" },
+        { "icon": "users", "title": "Partnerships", "text": "Agencies, integrations and events" }
+      ]
+    },
+    {
+      "name": "detailsLabel",
+      "label": "Details label",
+      "type": "text",
+      "default": "Your details",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Your name",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "messageLabel",
+      "label": "Message field label",
+      "type": "text",
+      "default": "How can we help?",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Send message",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        { "value": "post", "label": "POST" },
+        { "value": "get", "label": "GET" }
+      ],
+      "group": "Form"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+@layer components {
+  @scope (.b-contact-offices) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      --grid-min: 17rem;
+    }
+
+    .b-office {
+      --card-padding: 0;
+      overflow: hidden;
+    }
+
+    .b-photo {
+      --media-ratio: 3 / 2;
+      --media-radius: 0;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-3);
+      padding: var(--space-6);
+    }
+
+    .b-body h3 {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .b-address {
+      font-style: normal;
+      color: var(--color-text-muted);
+    }
+
+    .b-links {
+      --stack-gap: 0;
+    }
+
+    .b-links li {
+      --icon-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--color-primary);
+    }
+
+    .b-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      min-width: 0;
+      color: var(--color-text);
+      overflow-wrap: anywhere;
+    }
+  }
+}

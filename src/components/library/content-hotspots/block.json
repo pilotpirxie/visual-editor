@@ -1,0 +1,118 @@
+{
+  "name": "Content, image with hotspots",
+  "category": "content",
+  "description": "An image with numbered markers placed by percentage and a matching numbered legend.",
+  "tags": ["hotspots", "annotated", "image", "markers", "tour", "callouts", "screenshot"],
+  "fieldGroups": ["Heading", "Image", "Hotspots"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Product tour",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Everything on one screen",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The interview workspace keeps the recording, transcript, tags and clips side by side.",
+      "group": "Heading"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The Fieldnote interview workspace with a video, transcript and tag list",
+        "decorative": false,
+        "width": 1500,
+        "height": 1000,
+        "placeholder": {
+          "ratio": "3:2",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "spots",
+      "label": "Hotspots",
+      "type": "list",
+      "group": "Hotspots",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "x",
+          "label": "Across (%)",
+          "type": "range",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "name": "y",
+          "label": "Down (%)",
+          "type": "range",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Hotspot"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What this part does."
+        }
+      ],
+      "default": [
+        {
+          "x": 24,
+          "y": 30,
+          "title": "Live transcript",
+          "text": "Follows the speaker word by word, in 32 languages."
+        },
+        {
+          "x": 68,
+          "y": 22,
+          "title": "Tags",
+          "text": "Tag a moment with one key. Tags are shared across every study."
+        },
+        {
+          "x": 44,
+          "y": 72,
+          "title": "Clip editor",
+          "text": "Drag across the transcript to cut a clip. No video editing needed."
+        },
+        {
+          "x": 84,
+          "y": 64,
+          "title": "Share link",
+          "text": "Anyone can play the clip in a browser, no account required."
+        }
+      ]
+    }
+  ]
+}

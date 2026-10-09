@@ -1,0 +1,59 @@
+@layer components {
+  @scope (.b-cta-stats) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+    }
+
+    .b-text {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      margin-block-start: var(--space-2);
+    }
+
+    .b-stats {
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-stat {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      align-items: baseline;
+      gap: var(--space-4);
+      padding-block: var(--space-6);
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-value {
+      grid-area: 1 / 1;
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      color: var(--color-primary);
+    }
+
+    .b-label {
+      grid-area: 1 / 2;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "Content, wide image with caption",
+  "category": "content",
+  "description": "An optional heading over a full-width cinematic image with a caption.",
+  "tags": ["image", "photo", "wide", "caption", "banner", "figure"],
+  "fieldGroups": ["Heading", "Image"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Inside Fieldnote",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A studio built for listening",
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Our Toronto office has two soundproof rooms where customers can join us for interviews in person.",
+      "group": "Heading"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A bright interview room with two chairs, a small table and a microphone on a stand",
+        "decorative": false,
+        "width": 1200,
+        "height": 514,
+        "placeholder": {
+          "ratio": "21:9",
+          "subject": "photo"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "caption",
+      "label": "Caption",
+      "type": "text",
+      "default": "Interview room two, King Street West, Toronto",
+      "group": "Image"
+    }
+  ]
+}

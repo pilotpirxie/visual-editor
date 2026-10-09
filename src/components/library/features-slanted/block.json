@@ -1,0 +1,106 @@
+{
+  "name": "Features, slanted band",
+  "category": "features",
+  "description": "A dark band with slanted top and bottom edges, a split heading and three features underlined in your accent color.",
+  "tags": ["features", "dark", "slanted", "angled", "band", "icons", "three columns"],
+  "fieldGroups": ["Heading", "Items", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Built for scale",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Research that keeps up with a 400-person company",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "When ten teams run interviews every week, the hard part is keeping it all findable. That is what Fieldnote is for.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "zap"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Feature title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one or two sentences."
+        }
+      ],
+      "default": [
+        {
+          "icon": "users",
+          "title": "Workspaces per team",
+          "text": "Each team keeps its own studies and tags, with a shared library for everything that crosses lines."
+        },
+        {
+          "icon": "lock",
+          "title": "Single sign-on",
+          "text": "SAML with Okta, Entra ID or Google, plus automatic provisioning when people join or leave."
+        },
+        {
+          "icon": "chart",
+          "title": "Research operations",
+          "text": "See which teams talk to customers, how often, and which themes are trending this quarter."
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See Fieldnote for enterprise",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

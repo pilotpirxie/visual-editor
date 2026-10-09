@@ -1,0 +1,17 @@
+<section class="b-faq-simple section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      {{#if updated}}<p class="b-updated" data-field="updated">{{updatedLabel}} <time datetime="{{updated}}">{{formatDate updated}}</time></p>{{/if}}
+    </header>
+    <dl class="b-list">
+      {{#each items}}
+      <div class="stack b-item" data-field="items.{{@index}}">
+        <dt class="b-question">{{question}}</dt>
+        <dd class="prose b-answer">{{richText answer}}</dd>
+      </div>
+      {{/each}}
+    </dl>
+  </div>
+</section>

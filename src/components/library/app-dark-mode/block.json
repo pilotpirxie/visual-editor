@@ -1,0 +1,103 @@
+{
+  "name": "Applications, light and dark",
+  "category": "applications",
+  "description": "Two overlapping phones drawn in CSS, one in light mode and one in dark, both showing the same screen.",
+  "tags": ["app", "dark mode", "light mode", "theme", "two phones", "mobile", "device"],
+  "fieldGroups": ["Heading", "Screen", "Button"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Dark mode",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Easy on the eyes, at the 9 p.m. synthesis session too",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Fieldnote follows your phone’s setting, or you can pick light or dark for each device. Highlights, tags and clips look right in both.",
+      "group": "Heading"
+    },
+    {
+      "name": "screenTitle",
+      "label": "Screen title",
+      "type": "text",
+      "default": "Highlights",
+      "maxLength": 20,
+      "group": "Screen"
+    },
+    {
+      "name": "highlights",
+      "label": "Screen cards",
+      "type": "list",
+      "group": "Screen",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "tag",
+      "itemFields": [
+        {
+          "name": "tag",
+          "label": "Tag",
+          "type": "text",
+          "default": "Tag",
+          "maxLength": 16
+        },
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "text",
+          "default": "A short quote.",
+          "maxLength": 80
+        }
+      ],
+      "default": [
+        { "tag": "Pricing", "quote": "“I’d pay for it if the export worked.”" },
+        { "tag": "Onboarding", "quote": "“The first week felt like homework.”" },
+        { "tag": "Delight", "quote": "“Clips in Slack sold my boss on it.”" },
+        { "tag": "Export", "quote": "“We still copy quotes by hand.”" }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Download the app",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

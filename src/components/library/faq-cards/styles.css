@@ -1,0 +1,58 @@
+@layer components {
+  @scope (.b-faq-cards) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      --grid-min: 18rem;
+    }
+
+    .b-card {
+      --stack-gap: var(--space-3);
+      background: var(--color-surface);
+      box-shadow: none;
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      display: inline-grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-primary);
+    }
+
+    .b-question {
+      font-size: var(--text-lg);
+    }
+
+    .b-answer {
+      color: var(--color-text-muted);
+    }
+
+    .b-more {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3) var(--space-4);
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+  }
+}

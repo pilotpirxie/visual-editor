@@ -1,0 +1,123 @@
+@layer components {
+  @scope (.b-signin-quote) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-panel {
+      --stack-gap: var(--space-6);
+      width: 100%;
+      max-width: 26rem;
+      margin-inline: auto;
+      align-self: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    :is(.b-text, .b-switch, .b-role, .b-trusted) {
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-forgot {
+      align-self: flex-end;
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      font-size: var(--text-sm);
+    }
+
+    .b-submit {
+      width: 100%;
+    }
+
+    :is(.b-forgot, .b-switch a) {
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    :is(.b-forgot, .b-switch a):hover {
+      text-decoration: underline;
+    }
+
+    .b-quote {
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      padding: var(--space-8) var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--theme-dark-background);
+      color: var(--color-text);
+    }
+
+    .b-mark {
+      --icon-size: 2.5rem;
+      color: var(--color-primary);
+    }
+
+    .b-words {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3rem;
+    }
+
+    :is(.b-name, .b-role) {
+      display: block;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    :is(.b-role, .b-trusted) {
+      font-size: var(--text-sm);
+    }
+
+    .b-trusted {
+      padding-block-start: var(--space-6);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+      }
+
+      .b-quote {
+        justify-content: flex-end;
+        min-height: 34rem;
+        padding: var(--space-12);
+      }
+    }
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "name": "Footer, store with payment logos",
+  "category": "footers",
+  "description": "Shop and help link columns with the payment methods you accept.",
+  "tags": ["footer", "shop", "store", "ecommerce", "payments", "cards", "links"],
+  "fieldGroups": ["Brand", "Columns", "Payments", "Legal"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "tagline",
+      "label": "Tagline",
+      "type": "textarea",
+      "default": "Recording kits and field guides for teams who interview customers in person. Ships across Canada and the US.",
+      "group": "Brand"
+    },
+    {
+      "name": "columns",
+      "label": "Link columns",
+      "type": "list",
+      "group": "Columns",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Column title",
+          "type": "text",
+          "default": "Column"
+        },
+        {
+          "name": "links",
+          "label": "Links",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 8,
+          "itemLabel": "label",
+          "itemFields": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "text",
+              "default": "Link"
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link",
+              "default": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ],
+          "default": []
+        }
+      ],
+      "default": [
+        {
+          "title": "Shop",
+          "links": [
+            {
+              "label": "Recording kits",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Microphones",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Field guides",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Gift cards",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "Help",
+          "links": [
+            {
+              "label": "Shipping",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Returns",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Order status",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact us",
+              "link": {
+                "type": "email",
+                "url": "shop@fieldnote.example",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "About",
+          "links": [
+            {
+              "label": "Our story",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Wholesale",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Privacy",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Terms",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "paymentsLabel",
+      "label": "Payments label",
+      "type": "text",
+      "default": "We accept",
+      "group": "Payments"
+    },
+    {
+      "name": "payments",
+      "label": "Payment methods",
+      "type": "list",
+      "group": "Payments",
+      "minItems": 0,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "Visa"
+        },
+        {
+          "name": "icon",
+          "label": "Logo",
+          "type": "icon",
+          "default": "simple-icons:visa",
+          "iconPurpose": "brand"
+        }
+      ],
+      "default": [
+        {
+          "label": "Visa",
+          "icon": "simple-icons:visa"
+        },
+        {
+          "label": "Mastercard",
+          "icon": "simple-icons:mastercard"
+        },
+        {
+          "label": "American Express",
+          "icon": "simple-icons:americanexpress"
+        },
+        {
+          "label": "PayPal",
+          "icon": "simple-icons:paypal"
+        },
+        {
+          "label": "Apple Pay",
+          "icon": "simple-icons:applepay"
+        },
+        {
+          "label": "Google Pay",
+          "icon": "simple-icons:googlepay"
+        }
+      ]
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Fieldnote Supply Co.",
+      "group": "Legal"
+    }
+  ]
+}

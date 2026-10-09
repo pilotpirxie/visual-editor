@@ -1,0 +1,59 @@
+{
+  "name": "Utilities, back to top",
+  "category": "utilities",
+  "description": "A back-to-top link with a round arrow at the end of a line, for the bottom of long pages.",
+  "tags": ["back to top", "scroll up", "top", "anchor", "link", "utility"],
+  "fieldGroups": ["Link", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Label",
+      "type": "text",
+      "default": "Back to top",
+      "group": "Link",
+      "required": true,
+      "maxLength": 32
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Link",
+      "help": "Points to the top of the page. Pick a section to jump somewhere else."
+    },
+    {
+      "name": "showLine",
+      "label": "Show line",
+      "type": "boolean",
+      "default": true,
+      "group": "Layout"
+    },
+    {
+      "name": "spacing",
+      "label": "Space around",
+      "type": "select",
+      "default": "medium",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ]
+    }
+  ]
+}

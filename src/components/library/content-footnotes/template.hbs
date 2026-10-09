@@ -1,0 +1,26 @@
+<section class="b-content-footnotes section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="stack b-text">
+      {{#each paragraphs}}
+      <p data-field="paragraphs.{{@index}}">{{nl2br text}}{{#if note}}<sup class="b-ref"><a href="#{{../block.id}}-note-{{@index}}" id="{{../block.id}}-ref-{{@index}}"><span class="visually-hidden">{{../noteLabel}}</span></a></sup>{{/if}}</p>
+      {{/each}}
+    </div>
+    <footer class="stack b-notes">
+      <h3 class="b-notes-title" data-field="notesTitle">{{notesTitle}}</h3>
+      <ol class="b-list">
+        {{#each paragraphs}}
+        {{#if note}}
+        <li class="b-note" id="{{../block.id}}-note-{{@index}}" data-field="paragraphs.{{@index}}">
+          <span>{{note}}</span>
+          <a class="b-back" href="#{{../block.id}}-ref-{{@index}}">{{svgIcon "arrow-up"}}<span class="visually-hidden">{{../backLabel}}</span></a>
+        </li>
+        {{/if}}
+        {{/each}}
+      </ol>
+    </footer>
+  </div>
+</section>

@@ -1,0 +1,65 @@
+{
+  "name": "Call to action, giant link",
+  "category": "call-to-action",
+  "description": "One oversized link that spans the page, with a short line above and contact details below.",
+  "tags": ["cta", "link", "typography", "big type", "agency", "portfolio", "contact"],
+  "fieldGroups": ["Content", "Details"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "kicker",
+      "label": "Line above",
+      "type": "text",
+      "default": "Have a study you need help with?",
+      "group": "Content"
+    },
+    {
+      "name": "label",
+      "label": "Link text",
+      "type": "text",
+      "default": "Let’s work together",
+      "group": "Content",
+      "required": true,
+      "maxLength": 60
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "email",
+        "url": "studio@fieldnote.example",
+        "newTab": false
+      },
+      "group": "Content"
+    },
+    {
+      "name": "details",
+      "label": "Details",
+      "type": "list",
+      "group": "Details",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Detail"
+        }
+      ],
+      "default": [
+        {
+          "text": "studio@fieldnote.example"
+        },
+        {
+          "text": "Booking studies from March"
+        },
+        {
+          "text": "Toronto and remote"
+        }
+      ]
+    }
+  ]
+}

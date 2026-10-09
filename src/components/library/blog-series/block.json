@@ -1,0 +1,173 @@
+{
+  "name": "Blog posts, series",
+  "category": "blog",
+  "description": "The parts of a multi-post series with a segmented progress bar and read, next or upcoming states.",
+  "tags": ["blog", "posts", "articles", "news", "series", "course", "progress", "parts"],
+  "fieldGroups": ["Heading", "Button", "Parts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "A four-part series",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your first customer interview program",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "From recruiting the first five customers to sharing what you learned with the whole company. One part every two weeks.",
+      "group": "Heading"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Continue with part 3",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "parts",
+      "label": "Parts",
+      "type": "list",
+      "group": "Parts",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Part label",
+          "type": "text",
+          "default": "Part 1"
+        },
+        {
+          "name": "status",
+          "label": "Status",
+          "type": "select",
+          "default": "upcoming",
+          "options": [
+            {
+              "value": "read",
+              "label": "Read"
+            },
+            {
+              "value": "next",
+              "label": "Up next"
+            },
+            {
+              "value": "upcoming",
+              "label": "Not published yet"
+            }
+          ]
+        },
+        {
+          "name": "statusLabel",
+          "label": "Status label",
+          "type": "text",
+          "default": "Coming soon"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Part title"
+        },
+        {
+          "name": "excerpt",
+          "label": "Excerpt",
+          "type": "textarea",
+          "default": "What this part covers."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Part 1",
+          "status": "read",
+          "statusLabel": "Read",
+          "title": "Find five customers who want to talk",
+          "excerpt": "Where to look and what to write in the invite.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Part 2",
+          "status": "read",
+          "statusLabel": "Read",
+          "title": "Write a guide without leading questions",
+          "excerpt": "Five questions, and the follow-ups that matter more.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Part 3",
+          "status": "next",
+          "statusLabel": "Up next",
+          "title": "Run the call and tag as you listen",
+          "excerpt": "How to stay present while the notes take care of themselves.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Part 4",
+          "status": "upcoming",
+          "statusLabel": "Out Oct 27",
+          "title": "Share what you learned in two minutes",
+          "excerpt": "Highlight reels, not slide decks.",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "name": "Logo cloud, as seen in",
+  "category": "logo-clouds",
+  "description": "Publication names set as typographic mastheads, each linking to its headline.",
+  "tags": ["logos", "press", "as seen in", "media", "news", "featured in"],
+  "fieldGroups": ["Heading", "Publications"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "As seen in",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Publications",
+      "type": "list",
+      "group": "Publications",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "publication",
+      "itemFields": [
+        {
+          "name": "publication",
+          "label": "Publication",
+          "type": "text",
+          "default": "Publication"
+        },
+        {
+          "name": "headline",
+          "label": "Headline",
+          "type": "text",
+          "default": "Article headline"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "publication": "The Product Weekly",
+          "headline": "The research tool product teams actually open",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "publication": "Northern Tech",
+          "headline": "Toronto start-up turns interviews into evidence",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "publication": "Design Review",
+          "headline": "Five tools that changed how we run research",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "publication": "Founders FM",
+          "headline": "Why Fieldnote bet on short clips",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ]
+    }
+  ]
+}

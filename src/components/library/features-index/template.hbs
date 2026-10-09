@@ -1,0 +1,22 @@
+<section class="b-features-index section">
+  <div class="container stack b-inner">
+    <header class="b-head">
+      <div class="stack b-title">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </div>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ol class="b-list" role="list">
+      {{#each items}}
+      <li data-field="items.{{@index}}">
+        <a class="b-row" href="{{href link}}" {{linkAttrs link}}>
+          <h3 class="b-name">{{title}}</h3>
+          {{#if text}}<p class="b-text">{{text}}</p>{{/if}}
+          <span class="b-arrow">{{svgIcon "arrow-up-right"}}</span>
+        </a>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

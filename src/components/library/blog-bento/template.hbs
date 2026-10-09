@@ -1,0 +1,24 @@
+<section class="b-blog-bento section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-grid">
+      {{#each posts}}
+      <article class="b-post{{#if @first}} b-lead{{/if}}" data-field="posts.{{@index}}">
+        <div class="media b-media">{{img image}}</div>
+        <div class="stack b-body">
+          {{#if category}}<p class="badge">{{category}}</p>{{/if}}
+          <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          {{#if excerpt}}<p class="b-muted">{{nl2br excerpt}}</p>{{/if}}
+          {{#if date}}<time class="b-muted" datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+        </div>
+      </article>
+      {{/each}}
+    </div>
+    {{#if showButton}}
+    <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    {{/if}}
+  </div>
+</section>

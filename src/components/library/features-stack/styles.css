@@ -1,0 +1,104 @@
+@layer components {
+  @scope (.b-features-stack) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: start;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      align-items: flex-start;
+      max-width: 34rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-intro,
+    .b-text {
+      max-width: 34rem;
+      color: var(--color-text-muted);
+    }
+
+    .b-cards {
+      display: grid;
+      gap: var(--space-4);
+      counter-reset: card;
+    }
+
+    .b-card {
+      display: grid;
+      gap: var(--space-3);
+      align-content: start;
+      padding: var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background: color-mix(
+        in oklab,
+        var(--color-primary) min(4% + var(--i) * 6%, 28%),
+        var(--color-background)
+      );
+      box-shadow: var(--shadow-md);
+      counter-increment: card;
+    }
+
+    .b-card::before {
+      content: counter(card, decimal-leading-zero);
+      grid-area: 1 / 1;
+      justify-self: end;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: inline-grid;
+      grid-area: 1 / 1;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      margin-block-end: var(--space-4);
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-card h3 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-detail {
+      --icon-size: 1.125rem;
+      display: flex;
+      gap: var(--space-2);
+      align-items: center;
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+
+      .b-head {
+        position: sticky;
+        top: var(--space-12);
+      }
+
+      .b-cards {
+        gap: var(--space-8);
+      }
+
+      .b-card {
+        position: sticky;
+        top: calc(var(--space-12) + var(--i) * var(--space-4));
+        min-height: 20rem;
+        padding: var(--space-12);
+      }
+    }
+  }
+}

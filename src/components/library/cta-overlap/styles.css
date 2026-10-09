@@ -1,0 +1,73 @@
+@layer components {
+  @scope (.b-cta-overlap) {
+    .b-card {
+      --color-background: var(--theme-primary-background);
+      --color-text: var(--theme-primary-text);
+      --color-border: var(--theme-primary-border);
+      --color-primary: var(--theme-primary-accent);
+      --color-primary-contrast: var(--theme-primary-accent-contrast);
+      display: grid;
+      gap: var(--space-8);
+      padding: var(--space-8) var(--space-6) 0;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-text {
+      max-width: 32rem;
+      font-size: var(--text-lg);
+      opacity: 0.9;
+    }
+
+    .b-actions {
+      margin-block-start: var(--space-2);
+    }
+
+    .b-shot {
+      --media-radius: var(--radius-md) var(--radius-md) 0 0;
+      justify-self: center;
+      width: min(100%, 36rem);
+      border: var(--border-width) solid var(--color-border);
+      border-block-end: 0;
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        padding: var(--space-12) var(--space-12) 0;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      :scope {
+        padding-block-start: calc(var(--section-padding-y) + var(--space-16));
+      }
+
+      .b-card {
+        grid-template-columns: 1fr 1.2fr;
+        gap: var(--space-12);
+        padding-block: 0;
+        overflow: visible;
+      }
+
+      .b-copy {
+        align-self: center;
+        padding-block: var(--space-12);
+      }
+
+      .b-shot {
+        --media-radius: var(--radius-md);
+        align-self: start;
+        width: 100%;
+        margin-block: calc(var(--space-16) * -1) var(--space-12);
+        border-block-end: var(--border-width) solid var(--color-border);
+        box-shadow: var(--shadow-lg);
+      }
+    }
+  }
+}

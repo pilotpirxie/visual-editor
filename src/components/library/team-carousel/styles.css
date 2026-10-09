@@ -1,0 +1,110 @@
+@layer components {
+  @scope (.b-team-carousel) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-track {
+      display: grid;
+      grid-auto-columns: min(78%, 18rem);
+      grid-auto-flow: column;
+      gap: var(--space-6);
+      padding-block-end: var(--space-4);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+    }
+
+    .b-slide {
+      --stack-gap: var(--space-3);
+      --card-padding: var(--space-4);
+      scroll-snap-align: start;
+    }
+
+    .b-photo {
+      --media-ratio: 4 / 5;
+      --media-radius: var(--radius-md);
+    }
+
+    .b-name {
+      font-size: var(--text-lg);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .b-bio {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+    }
+
+    .b-arrow {
+      --button-padding-x: var(--space-3);
+    }
+
+    .b-arrow:disabled {
+      opacity: 0.4;
+    }
+
+    .b-dots {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .b-dots button {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
+
+    .b-dots button::before {
+      content: '';
+      width: 0.625rem;
+      height: 0.625rem;
+      border-radius: var(--radius-full);
+      background: var(--color-border);
+    }
+
+    .b-dots button[aria-current='true']::before {
+      background: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-track {
+        grid-auto-columns: calc((100% - 2 * var(--space-6)) / 2.5);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-track {
+        grid-auto-columns: calc((100% - 3 * var(--space-6)) / 3.5);
+      }
+    }
+  }
+}

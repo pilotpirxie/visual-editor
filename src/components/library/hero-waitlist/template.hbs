@@ -1,0 +1,33 @@
+<header class="b-hero-waitlist section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="badge" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="field b-field">
+          <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+        </div>
+        <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      </form>
+      <div class="b-proof">
+        {{#if avatars.length}}
+        <ul class="b-avatars" role="list">
+          {{#each avatars}}
+          <li class="media b-avatar" data-field="avatars.{{@index}}">{{img photo}}</li>
+          {{/each}}
+        </ul>
+        {{/if}}
+        {{#if proof}}<p data-field="proof">{{proof}}</p>{{/if}}
+      </div>
+    </div>
+    <div class="stack b-pass">
+      <p class="b-pass-label" data-field="passLabel">{{passLabel}}</p>
+      <p class="b-number" data-field="position">{{position}}</p>
+      <div class="b-bar" role="presentation"><span style="width: {{progress}}%"></span></div>
+      {{#if passNote}}<p class="b-pass-note" data-field="passNote">{{passNote}}</p>{{/if}}
+      {{#if invite}}<p class="b-invite" data-field="invite">{{svgIcon "gift"}}<span>{{invite}}</span></p>{{/if}}
+    </div>
+  </div>
+</header>

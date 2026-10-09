@@ -1,0 +1,111 @@
+{
+  "name": "Features, definitions",
+  "category": "features",
+  "description": "Features written as dictionary entries, with pronunciation, word type, a definition and an example.",
+  "tags": ["features", "glossary", "dictionary", "definitions", "terms", "editorial"],
+  "fieldGroups": ["Heading", "Entries"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The Fieldnote dictionary",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "New words for how your team will work",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "A few terms you will hear a lot in your first week, and what each one saves you.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Entries",
+      "type": "list",
+      "group": "Entries",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "term",
+      "itemFields": [
+        {
+          "name": "term",
+          "label": "Term",
+          "type": "text",
+          "default": "Term",
+          "required": true
+        },
+        {
+          "name": "sound",
+          "label": "Pronunciation",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "kind",
+          "label": "Word type",
+          "type": "text",
+          "default": "noun"
+        },
+        {
+          "name": "definition",
+          "label": "Definition",
+          "type": "textarea",
+          "default": "What the term means in one sentence.",
+          "required": true
+        },
+        {
+          "name": "example",
+          "label": "Example",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "term": "Highlight",
+          "sound": "/ˈhaɪ.laɪt/",
+          "kind": "noun",
+          "definition": "A sentence from an interview, saved with the exact second it was said.",
+          "example": "“Three highlights this week mention the export button.”"
+        },
+        {
+          "term": "Theme",
+          "sound": "/θiːm/",
+          "kind": "noun",
+          "definition": "A tag shared across every study, so the same problem is counted once, not five times.",
+          "example": "“Pricing confusion is now our biggest theme.”"
+        },
+        {
+          "term": "Reel",
+          "sound": "/riːl/",
+          "kind": "noun",
+          "definition": "Clips from several customers stitched into one short video for stakeholders.",
+          "example": "“Watch the reel before Thursday’s roadmap review.”"
+        },
+        {
+          "term": "Redact",
+          "sound": "/rɪˈdækt/",
+          "kind": "verb",
+          "definition": "To hide names, emails and numbers in a transcript automatically, before anyone shares it.",
+          "example": "“Every call is redacted before it reaches the sales team.”"
+        }
+      ]
+    }
+  ]
+}

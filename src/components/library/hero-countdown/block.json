@@ -1,0 +1,136 @@
+{
+  "name": "Hero, launch countdown",
+  "category": "headers",
+  "description": "Launch heading with countdown tiles and an email sign-up. The numbers are static, so update them before you publish.",
+  "tags": ["hero", "heading", "countdown", "launch", "timer", "email", "waitlist"],
+  "fieldGroups": ["Heading", "Countdown", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Badge",
+      "type": "text",
+      "default": "Launching 12 May 2027",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Fieldnote 3 is almost here",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Live transcripts, automatic themes and highlight reels in one click. Leave your email and you’ll be first in.",
+      "group": "Heading"
+    },
+    {
+      "name": "clockLabel",
+      "label": "Countdown label",
+      "type": "text",
+      "default": "Time until launch",
+      "group": "Countdown",
+      "help": "Read by screen readers."
+    },
+    {
+      "name": "units",
+      "label": "Countdown",
+      "type": "list",
+      "group": "Countdown",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Number",
+          "type": "text",
+          "default": "00"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Days"
+        }
+      ],
+      "default": [
+        {
+          "value": "12",
+          "label": "Days"
+        },
+        {
+          "value": "08",
+          "label": "Hours"
+        },
+        {
+          "value": "45",
+          "label": "Minutes"
+        },
+        {
+          "value": "30",
+          "label": "Seconds"
+        }
+      ]
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Work email",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Notify me",
+      "group": "Form",
+      "required": true
+    },
+    {
+      "name": "note",
+      "label": "Note under the form",
+      "type": "text",
+      "default": "One email on launch day. Nothing else.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    }
+  ]
+}

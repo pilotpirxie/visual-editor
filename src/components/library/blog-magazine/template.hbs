@@ -1,0 +1,37 @@
+<section class="b-blog-magazine section">
+  <div class="container stack b-inner">
+    <div class="b-head">
+      <header class="stack b-heading">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      {{#if showButton}}
+      <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      {{/if}}
+    </div>
+    <article class="b-lead">
+      <div class="media b-lead-media" style="--media-ratio: {{leadImage.width}} / {{leadImage.height}}" data-field="leadImage">{{img leadImage}}</div>
+      <div class="stack b-lead-body">
+        {{#if leadCategory}}<p class="badge" data-field="leadCategory">{{leadCategory}}</p>{{/if}}
+        <h3 class="b-lead-title" data-field="leadTitle"><a class="b-link" href="{{href leadLink}}" {{linkAttrs leadLink}}>{{leadTitle}}</a></h3>
+        {{#if leadExcerpt}}<p class="b-muted b-excerpt" data-field="leadExcerpt">{{nl2br leadExcerpt}}</p>{{/if}}
+        {{#if (or leadAuthor leadDate)}}
+        <p class="b-muted b-meta">
+          {{#if leadAuthor}}<span class="b-author" data-field="leadAuthor">{{leadAuthor}}</span>{{/if}}
+          {{#if leadDate}}<time datetime="{{leadDate}}" data-field="leadDate">{{formatDate leadDate}}</time>{{/if}}
+        </p>
+        {{/if}}
+      </div>
+    </article>
+    <div class="b-grid">
+      {{#each posts}}
+      <article class="stack b-post" data-field="posts.{{@index}}">
+        <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}">{{img image}}</div>
+        {{#if category}}<p class="b-category">{{category}}</p>{{/if}}
+        <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+        {{#if date}}<time class="b-muted b-meta" datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

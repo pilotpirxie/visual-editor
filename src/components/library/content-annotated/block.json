@@ -1,0 +1,67 @@
+{
+  "name": "Content, text with margin notes",
+  "category": "content",
+  "description": "Paragraphs with numbered notes that sit in the margin on desktop and below each paragraph on phones.",
+  "tags": ["annotations", "notes", "margin", "essay", "story", "sidenotes", "editorial"],
+  "fieldGroups": ["Heading", "Paragraphs"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How we work",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A research study, annotated",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "items",
+      "label": "Paragraphs",
+      "type": "list",
+      "group": "Paragraphs",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Paragraph",
+          "type": "textarea",
+          "default": "Paragraph text."
+        },
+        {
+          "name": "note",
+          "label": "Margin note",
+          "type": "textarea",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "text": "We start every study with one decision we need to make, written as a question. Not a list of research goals, not a hypothesis deck. One question, pinned to the top of the plan.",
+          "note": "This quarter’s question: why do new admins invite teammates before uploading anything?"
+        },
+        {
+          "text": "Then we talk to people. Usually eight to twelve, never more than twenty. Each call is recorded, transcribed and tagged by two people while it happens, so nobody has to rewatch an hour of video later.",
+          "note": "Two taggers catch roughly twice as many highlights. We measured it."
+        },
+        {
+          "text": "By Friday the team has a highlight reel, not a report. The clips go straight into the planning doc where the decision will be made, next to the question we started with.",
+          "note": ""
+        },
+        {
+          "text": "Finally we write down what we decided and link it to the clips that made the case. Six months later, anyone can see why we built what we built.",
+          "note": "Our decision log has 214 entries and counting."
+        }
+      ]
+    }
+  ]
+}

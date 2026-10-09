@@ -1,0 +1,211 @@
+{
+  "name": "FAQ, with search",
+  "category": "faq",
+  "description": "A large search bar for the help center, quick topic links and the most asked questions in two columns.",
+  "tags": ["faq", "questions", "search", "help center", "support", "accordion"],
+  "fieldGroups": ["Heading", "Search", "Topics", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Help center",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How can we help?",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Search 200 guides written by our research team, or start with what other teams ask most.",
+      "group": "Heading"
+    },
+    {
+      "name": "searchLabel",
+      "label": "Search field label",
+      "type": "text",
+      "default": "Search the help center",
+      "required": true,
+      "group": "Search"
+    },
+    {
+      "name": "placeholder",
+      "label": "Placeholder",
+      "type": "text",
+      "default": "Try “consent form” or “export clips”",
+      "group": "Search"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Search",
+      "required": true,
+      "group": "Search"
+    },
+    {
+      "name": "formAction",
+      "label": "Help center search URL",
+      "type": "text",
+      "default": "",
+      "help": "Searches are sent here with the words in a q parameter.",
+      "group": "Search"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "get",
+      "options": [
+        {
+          "value": "get",
+          "label": "GET"
+        },
+        {
+          "value": "post",
+          "label": "POST"
+        }
+      ],
+      "group": "Search"
+    },
+    {
+      "name": "topicsLabel",
+      "label": "Topics label",
+      "type": "text",
+      "default": "Popular:",
+      "group": "Topics"
+    },
+    {
+      "name": "topics",
+      "label": "Topics",
+      "type": "list",
+      "group": "Topics",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Topic"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Recording calls",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Consent",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Billing",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Integrations",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "popularTitle",
+      "label": "Questions title",
+      "type": "text",
+      "default": "Most asked this week",
+      "group": "Questions"
+    },
+    {
+      "name": "expandIcon",
+      "label": "Open and close icon",
+      "type": "icon",
+      "default": "plus",
+      "group": "Questions"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "A question?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "richtext",
+          "default": "<p>The answer.</p>"
+        }
+      ],
+      "default": [
+        {
+          "question": "How do I invite a teammate?",
+          "answer": "<p>Open Settings, then Members, and send an invite by email. Viewers are always free.</p>"
+        },
+        {
+          "question": "Can Fieldnote join a Zoom call I’m not hosting?",
+          "answer": "<p>Yes, as long as the host lets it in. Fieldnote waits in the lobby and announces itself when admitted.</p>"
+        },
+        {
+          "question": "How do I share a clip with someone outside my team?",
+          "answer": "<p>Select a passage in the transcript, choose Create clip, then copy a public link. You can expire it at any time.</p>"
+        },
+        {
+          "question": "Which languages are transcribed?",
+          "answer": "<p>Thirty-two languages, including French, Spanish, German, Japanese and Portuguese. Mixed-language calls work too.</p>"
+        },
+        {
+          "question": "Where do I change the consent message?",
+          "answer": "<p>In Workspace settings under Consent. Changes apply to every interview scheduled from then on.</p>"
+        },
+        {
+          "question": "How do I cancel my plan?",
+          "answer": "<p>From Billing, choose Cancel plan. You keep access until the end of the period and can export everything.</p>"
+        }
+      ]
+    }
+  ]
+}

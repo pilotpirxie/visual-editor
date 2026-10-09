@@ -1,0 +1,96 @@
+{
+  "name": "Call to action, install command",
+  "category": "call-to-action",
+  "description": "A developer pitch beside a terminal window showing the install command and its output.",
+  "tags": ["cta", "developer", "terminal", "command", "cli", "install", "api", "code"],
+  "fieldGroups": ["Content", "Terminal", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "For developers",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Pipe every interview into your own tools",
+      "group": "Content",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "The Fieldnote CLI pulls transcripts, tags and highlight clips into your warehouse, your docs or a Slack channel with one command.",
+      "group": "Content"
+    },
+    {
+      "name": "windowTitle",
+      "label": "Window title",
+      "type": "text",
+      "default": "Terminal",
+      "group": "Terminal"
+    },
+    {
+      "name": "command",
+      "label": "Command",
+      "type": "text",
+      "default": "npm install -g @fieldnote/cli",
+      "group": "Terminal",
+      "required": true
+    },
+    {
+      "name": "output",
+      "label": "Output",
+      "type": "textarea",
+      "default": "✓ Installed fieldnote 2.4.0\nRun fieldnote login to connect your workspace.",
+      "group": "Terminal"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Get an API key",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Read the docs",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Buttons",
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      }
+    }
+  ]
+}

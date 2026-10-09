@@ -1,0 +1,28 @@
+<div class="b-modal-feedback" data-behavior="modal">
+  <dialog class="modal b-dialog" id="{{block.id}}-dialog" aria-labelledby="{{block.id}}-title">
+    <button type="button" class="modal-close" command="close" commandfor="{{block.id}}-dialog" data-field="closeLabel">{{svgIcon "x"}}<span class="visually-hidden">{{closeLabel}}</span></button>
+    <form class="stack b-body" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 id="{{block.id}}-title" data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
+      </header>
+      <fieldset class="b-rating">
+        <legend class="b-legend" data-field="question">{{question}}</legend>
+        <div class="b-scale">
+          {{#each scores}}
+          <label class="b-option" data-field="scores.{{@index}}"><input type="radio" name="rating" value="{{label}}" required><span>{{label}}</span></label>
+          {{/each}}
+        </div>
+        <p class="b-ends" aria-hidden="true"><span data-field="lowLabel">{{lowLabel}}</span><span data-field="highLabel">{{highLabel}}</span></p>
+      </fieldset>
+      {{#if showComment}}
+      <div class="field">
+        <label for="{{block.id}}-comment" data-field="commentLabel">{{commentLabel}}</label>
+        <textarea id="{{block.id}}-comment" name="comment" rows="3" placeholder="{{commentPlaceholder}}"></textarea>
+      </div>
+      {{/if}}
+      <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+    </form>
+  </dialog>
+</div>
