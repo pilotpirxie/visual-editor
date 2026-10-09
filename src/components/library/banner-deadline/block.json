@@ -1,0 +1,61 @@
+{
+  "name": "Banner, offer deadline",
+  "category": "banners",
+  "description": "A slim strip with an offer, the date it ends and a button.",
+  "tags": ["deadline", "banner", "early bird", "offer", "date", "ends", "sale", "countdown"],
+  "fieldGroups": ["Message", "Deadline", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "Early-bird passes for Northfield Design Week are €120 off.",
+      "required": true,
+      "maxLength": 120,
+      "group": "Message"
+    },
+    {
+      "name": "label",
+      "label": "Date label",
+      "type": "text",
+      "default": "Ends",
+      "maxLength": 24,
+      "group": "Deadline"
+    },
+    {
+      "name": "endsOn",
+      "label": "End date",
+      "type": "date",
+      "default": "2026-10-31",
+      "required": true,
+      "group": "Deadline"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get early-bird pass",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

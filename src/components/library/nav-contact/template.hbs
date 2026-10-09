@@ -1,0 +1,25 @@
+<nav class="b-nav-contact" data-behavior="menu" aria-label="Main">
+  <div class="container b-bar">
+    <a class="b-logo" href="index.html">{{site.title}}</a>
+    <div class="b-quick">
+      <a class="btn btn-secondary b-call" href="{{href phoneLink}}" {{linkAttrs phoneLink}} data-field="phoneLink">{{svgIcon "phone"}}<span class="visually-hidden">{{callLabel}} {{phoneNumber}}</span></a>
+      <button type="button" class="btn btn-ghost b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+        {{svgIcon menuIcon}}<span class="visually-hidden">Menu</span>
+      </button>
+    </div>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+      <div class="b-actions">
+        <a class="b-phone" href="{{href phoneLink}}" {{linkAttrs phoneLink}} data-field="phoneNumber">
+          <span class="b-phone-icon">{{svgIcon "phone"}}</span>
+          <span class="b-phone-text"><span class="b-phone-label" data-field="callLabel">{{callLabel}}</span> <span class="b-phone-number">{{phoneNumber}}</span></span>
+        </a>
+        <a class="btn btn-{{cta.variant}} b-book" href="{{href cta.link}}" {{linkAttrs cta.link}} data-field="cta">{{svgIcon "calendar"}}<span>{{cta.label}}</span></a>
+      </div>
+    </div>
+  </div>
+</nav>

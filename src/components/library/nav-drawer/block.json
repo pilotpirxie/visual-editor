@@ -1,0 +1,207 @@
+{
+  "name": "Navigation, side drawer",
+  "category": "navigations",
+  "description": "Site name and a menu button at every width; the menu slides in from the side with links, a short note, contact details and a button.",
+  "tags": ["menu", "navbar", "header", "drawer", "side menu", "off-canvas", "hotel", "hamburger"],
+  "fieldGroups": ["Links", "Drawer", "Button", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 10,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Rooms and suites",
+          "link": {
+            "type": "section",
+            "anchor": "rooms",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Dining",
+          "link": {
+            "type": "section",
+            "anchor": "dining",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Spa and pool",
+          "link": {
+            "type": "section",
+            "anchor": "spa",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Experiences",
+          "link": {
+            "type": "section",
+            "anchor": "experiences",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Weddings",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Journal",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Short note",
+      "type": "textarea",
+      "default": "A 24-room hideaway in the pine forest above Comporta, ten minutes from the beach and an hour from Lisbon.",
+      "maxLength": 240,
+      "group": "Drawer"
+    },
+    {
+      "name": "contacts",
+      "label": "Contact details",
+      "type": "list",
+      "group": "Drawer",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "info"
+        },
+        {
+          "name": "label",
+          "label": "Text",
+          "type": "text",
+          "default": "Contact detail"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "phone",
+          "label": "+351 265 490 120",
+          "link": {
+            "type": "phone",
+            "url": "+351265490120",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "mail",
+          "label": "stay@casadaspinhas.pt",
+          "link": {
+            "type": "email",
+            "url": "stay@casadaspinhas.pt",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "map-pin",
+          "label": "Rua das Dunas 12, Comporta",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "closeLabel",
+      "label": "Close button label",
+      "type": "text",
+      "default": "Close menu",
+      "required": true,
+      "group": "Drawer"
+    },
+    {
+      "name": "showCta",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book your stay",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showCta",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "menuLabel",
+      "label": "Menu button label",
+      "type": "text",
+      "default": "Menu",
+      "required": true,
+      "maxLength": 20,
+      "group": "Menu"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

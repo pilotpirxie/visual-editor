@@ -1,0 +1,68 @@
+{
+  "name": "Banner, live event",
+  "category": "banners",
+  "description": "A strip for an upcoming webinar or livestream, with a live label, the date and time, and a sign-up button.",
+  "tags": ["webinar", "live", "event", "livestream", "banner", "register", "workshop", "date"],
+  "fieldGroups": ["Event", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Label",
+      "type": "text",
+      "default": "Live webinar",
+      "maxLength": 24,
+      "group": "Event"
+    },
+    {
+      "name": "title",
+      "label": "Event title",
+      "type": "text",
+      "default": "Research ops in 30 minutes: a repository your team actually uses",
+      "required": true,
+      "maxLength": 120,
+      "group": "Event"
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-10-23",
+      "group": "Event"
+    },
+    {
+      "name": "time",
+      "label": "Time",
+      "type": "text",
+      "default": "17:00 CET · 45 min",
+      "maxLength": 40,
+      "group": "Event"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Save my seat",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

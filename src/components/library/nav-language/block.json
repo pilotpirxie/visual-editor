@@ -1,0 +1,212 @@
+{
+  "name": "Navigation, language switcher",
+  "category": "navigations",
+  "description": "Site name, links, a language dropdown and a button; on phones the languages show as a row inside the menu.",
+  "tags": [
+    "menu",
+    "navbar",
+    "header",
+    "language",
+    "translation",
+    "multilingual",
+    "international",
+    "hotel"
+  ],
+  "fieldGroups": ["Links", "Languages", "Button", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Rooms",
+          "link": {
+            "type": "section",
+            "anchor": "rooms",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Restaurant",
+          "link": {
+            "type": "section",
+            "anchor": "restaurant",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Wellness",
+          "link": {
+            "type": "section",
+            "anchor": "wellness",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Getting here",
+          "link": {
+            "type": "section",
+            "anchor": "location",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "languageLabel",
+      "label": "Switcher label",
+      "type": "text",
+      "default": "Language",
+      "required": true,
+      "maxLength": 30,
+      "group": "Languages"
+    },
+    {
+      "name": "currentLanguage",
+      "label": "Current language code",
+      "type": "text",
+      "default": "EN",
+      "required": true,
+      "maxLength": 5,
+      "group": "Languages"
+    },
+    {
+      "name": "languages",
+      "label": "Languages",
+      "type": "list",
+      "group": "Languages",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Language name",
+          "type": "text",
+          "default": "English"
+        },
+        {
+          "name": "code",
+          "label": "Language code",
+          "type": "text",
+          "default": "en",
+          "maxLength": 12
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "English",
+          "code": "en",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Deutsch",
+          "code": "de",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Français",
+          "code": "fr",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Italiano",
+          "code": "it",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Español",
+          "code": "es",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "showCta",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Check availability",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showCta",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

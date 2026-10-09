@@ -1,0 +1,19 @@
+<header class="b-hero-cover section">
+  <div class="b-backdrop" data-field="image">{{img image}}</div>
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="b-eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+        {{/if}}
+      </div>
+    </div>
+    {{#if showScroll}}
+    <a class="b-scroll" href="{{href scrollLink}}" {{linkAttrs scrollLink}} data-field="scrollLabel">{{svgIcon "arrow-down"}}<span class="visually-hidden">{{scrollLabel}}</span></a>
+    {{/if}}
+  </div>
+</header>

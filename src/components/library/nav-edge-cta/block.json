@@ -1,0 +1,113 @@
+{
+  "name": "Navigation, edge button",
+  "category": "navigations",
+  "description": "Logo and links with the main action as a bold full-height block flush with the edge of the screen.",
+  "tags": ["menu", "navbar", "header", "donate", "nonprofit", "charity", "quote", "cta", "bold"],
+  "fieldGroups": ["Logo", "Links", "Button", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "logoIcon",
+      "label": "Logo icon",
+      "type": "icon",
+      "default": "lucide:hand-heart",
+      "iconPurpose": "logo",
+      "group": "Logo"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Our work",
+          "link": {
+            "type": "section",
+            "anchor": "work",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Impact report",
+          "link": {
+            "type": "section",
+            "anchor": "impact",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Volunteer",
+          "link": {
+            "type": "section",
+            "anchor": "volunteer",
+            "newTab": false
+          }
+        },
+        {
+          "label": "About us",
+          "link": {
+            "type": "section",
+            "anchor": "about",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "ctaIcon",
+      "label": "Button icon",
+      "type": "icon",
+      "default": "heart",
+      "group": "Button"
+    },
+    {
+      "name": "ctaLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Donate",
+      "required": true,
+      "maxLength": 24,
+      "group": "Button"
+    },
+    {
+      "name": "ctaLink",
+      "label": "Button link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Button"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

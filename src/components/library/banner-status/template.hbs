@@ -1,0 +1,15 @@
+<aside class="b-banner-status" aria-label="Service status" data-status="{{status}}">
+  <div class="container b-bar">
+    <p class="b-state" data-field="status">
+      <span class="b-dot">{{#if (eq status "operational")}}{{svgIcon "check-circle"}}{{/if}}{{#if (eq status "maintenance")}}{{svgIcon "clock"}}{{/if}}{{#if (eq status "incident")}}{{svgIcon "alert"}}{{/if}}</span>
+      <strong data-field="label">{{label}}</strong>
+    </p>
+    <p class="b-text" data-field="text">{{text}}</p>
+    <div class="b-end">
+      {{#if meta}}<p class="b-meta" data-field="meta">{{meta}}</p>{{/if}}
+      {{#if linkLabel}}
+      <a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-up-right"}}</a>
+      {{/if}}
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,83 @@
+{
+  "name": "Navigation, logo and one button",
+  "category": "navigations",
+  "description": "Just the site name and a single button, with no menu, for focused landing and campaign pages.",
+  "tags": [
+    "navbar",
+    "header",
+    "minimal",
+    "landing page",
+    "waitlist",
+    "campaign",
+    "simple",
+    "focused"
+  ],
+  "fieldGroups": ["Logo", "Button", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "showIcon",
+      "label": "Show logo icon",
+      "type": "boolean",
+      "default": true,
+      "group": "Logo"
+    },
+    {
+      "name": "logoIcon",
+      "label": "Logo icon",
+      "type": "icon",
+      "default": "lucide:sprout",
+      "iconPurpose": "logo",
+      "visibleWhen": {
+        "field": "showIcon",
+        "equals": true
+      },
+      "group": "Logo"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Join the waitlist",
+        "link": {
+          "type": "section",
+          "anchor": "waitlist",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "align",
+      "label": "Logo position",
+      "type": "segmented",
+      "default": "center",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "start",
+          "label": "Start",
+          "icon": "align-left"
+        },
+        {
+          "value": "center",
+          "label": "Center",
+          "icon": "align-center"
+        }
+      ]
+    }
+  ]
+}

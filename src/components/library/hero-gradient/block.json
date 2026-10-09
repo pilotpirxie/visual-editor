@@ -1,0 +1,123 @@
+{
+  "name": "Hero, gradient glow",
+  "category": "headers",
+  "description": "Centered heading on a soft color glow, with a linked pill, buttons and an optional screenshot.",
+  "tags": ["hero", "heading", "gradient", "glow", "launch", "ai", "tech", "screenshot"],
+  "fieldGroups": ["Announcement", "Heading", "Buttons", "Screenshot"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "pillTag",
+      "label": "Pill label",
+      "type": "text",
+      "default": "New",
+      "maxLength": 16,
+      "group": "Announcement"
+    },
+    {
+      "name": "pillText",
+      "label": "Pill text",
+      "type": "text",
+      "default": "Agents now answer billing questions",
+      "maxLength": 60,
+      "group": "Announcement"
+    },
+    {
+      "name": "pillLink",
+      "label": "Pill link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Announcement"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "An AI teammate that clears your support queue overnight",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "It learns from your help center and past tickets, answers in your tone of voice, and hands anything tricky to a person with the context already written up.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start building free",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Talk to sales",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showScreenshot",
+      "label": "Show screenshot",
+      "type": "boolean",
+      "default": true,
+      "group": "Screenshot"
+    },
+    {
+      "name": "screenshot",
+      "label": "Screenshot",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The support inbox with AI-drafted replies waiting for a quick review",
+        "decorative": false,
+        "width": 1200,
+        "height": 675,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "screenshot"
+        }
+      },
+      "visibleWhen": {
+        "field": "showScreenshot",
+        "equals": true
+      },
+      "group": "Screenshot"
+    }
+  ]
+}

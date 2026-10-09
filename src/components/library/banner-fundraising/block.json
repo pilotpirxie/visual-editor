@@ -1,0 +1,71 @@
+{
+  "name": "Banner, fundraising progress",
+  "category": "banners",
+  "description": "A campaign strip with a progress bar toward a goal, the amount raised and a donate button.",
+  "tags": [
+    "fundraising",
+    "donate",
+    "donation",
+    "charity",
+    "nonprofit",
+    "campaign",
+    "progress",
+    "goal",
+    "banner"
+  ],
+  "fieldGroups": ["Message", "Progress", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "Help us plant 50,000 trees along the Vistula before spring.",
+      "required": true,
+      "maxLength": 120,
+      "group": "Message"
+    },
+    {
+      "name": "progress",
+      "label": "Progress toward the goal (%)",
+      "type": "range",
+      "default": 77,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "group": "Progress"
+    },
+    {
+      "name": "raised",
+      "label": "Amount raised",
+      "type": "text",
+      "default": "€38,400 raised",
+      "required": true,
+      "maxLength": 40,
+      "group": "Progress"
+    },
+    {
+      "name": "goal",
+      "label": "Goal",
+      "type": "text",
+      "default": "of €50,000",
+      "maxLength": 40,
+      "group": "Progress"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Donate",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Button"
+    }
+  ]
+}

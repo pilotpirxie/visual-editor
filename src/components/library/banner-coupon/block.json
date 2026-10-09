@@ -1,0 +1,55 @@
+{
+  "name": "Banner, discount code",
+  "category": "banners",
+  "description": "A dark strip with an offer, a discount code to copy and a shop link.",
+  "tags": ["coupon", "discount", "code", "promo code", "banner", "sale", "shop", "voucher"],
+  "fieldGroups": ["Message", "Code", "Link"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "Autumn sale: 20% off knitwear and outerwear until Sunday.",
+      "required": true,
+      "maxLength": 120,
+      "group": "Message"
+    },
+    {
+      "name": "codeLabel",
+      "label": "Code label",
+      "type": "text",
+      "default": "Use code",
+      "maxLength": 24,
+      "group": "Code"
+    },
+    {
+      "name": "code",
+      "label": "Discount code",
+      "type": "text",
+      "default": "AUTUMN20",
+      "required": true,
+      "maxLength": 24,
+      "group": "Code"
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "Shop now",
+      "maxLength": 32,
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Link"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+@layer components {
+  @scope (.b-banner-rotating) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      background: var(--color-background);
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-bar {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+    }
+
+    .b-track {
+      display: grid;
+      grid-column: 2;
+      grid-row: 1;
+      grid-auto-columns: 100%;
+      grid-auto-flow: column;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+
+    .b-track:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: -2px;
+    }
+
+    .b-slide {
+      align-self: center;
+      padding: var(--space-3) var(--space-2);
+      scroll-snap-align: center;
+      text-align: center;
+    }
+
+    .b-link {
+      margin-inline-start: var(--space-2);
+      padding-block: var(--space-2);
+      color: inherit;
+      font-weight: var(--font-weight-bold);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
+    .b-link:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    .b-controls:not([hidden]) {
+      display: contents;
+    }
+
+    .b-arrow {
+      --icon-size: 1.125rem;
+      display: inline-grid;
+      grid-row: 1;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 0;
+      border-radius: var(--radius-full);
+      background: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .b-previous {
+      grid-column: 1;
+    }
+
+    .b-next {
+      grid-column: 3;
+    }
+
+    .b-arrow:hover {
+      background: color-mix(in oklab, currentColor 14%, transparent);
+    }
+
+    .b-arrow:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .b-arrow:disabled:hover {
+      background: none;
+    }
+
+    .b-dots {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .b-track {
+        scroll-behavior: auto;
+      }
+    }
+
+    @media (scripting: none) {
+      .b-track {
+        scrollbar-width: thin;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .b-bar {
+        max-width: 56rem;
+      }
+    }
+  }
+}

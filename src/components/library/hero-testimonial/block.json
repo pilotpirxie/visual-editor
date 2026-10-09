@@ -1,0 +1,133 @@
+{
+  "name": "Hero, with customer quote",
+  "category": "headers",
+  "description": "Page heading and buttons next to a large customer quote with rating, photo and name.",
+  "tags": [
+    "hero",
+    "heading",
+    "testimonial",
+    "quote",
+    "review",
+    "social proof",
+    "coaching",
+    "services"
+  ],
+  "fieldGroups": ["Heading", "Buttons", "Quote"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Leadership coaching for engineers",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Become the manager your team talks about for the right reasons",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Twelve weeks of one-to-one coaching, small peer circles and practical playbooks for engineers stepping into their first management role.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Book a free intro call",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See the programme",
+        "link": {
+          "type": "section",
+          "anchor": "programme",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "rating",
+      "label": "Rating text",
+      "type": "text",
+      "default": "4.9 out of 5 from 300+ managers",
+      "maxLength": 60,
+      "group": "Quote"
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "Three months in, my one-to-ones went from status updates to real conversations. Two people on my team have since been promoted.",
+      "required": true,
+      "maxLength": 280,
+      "group": "Quote"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Priya Raman",
+        "decorative": false,
+        "width": 400,
+        "height": 400,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Quote"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Priya Raman",
+      "required": true,
+      "group": "Quote"
+    },
+    {
+      "name": "role",
+      "label": "Role and company",
+      "type": "text",
+      "default": "Engineering manager at Northbeam",
+      "group": "Quote"
+    }
+  ]
+}

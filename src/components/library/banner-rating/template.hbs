@@ -1,0 +1,12 @@
+<aside class="b-banner-rating" aria-label="Customer rating">
+  <div class="container b-bar">
+    <span class="b-stars" style="--rating: {{rating}}" aria-hidden="true" data-field="rating"><span class="b-star"></span><span class="b-star"></span><span class="b-star"></span><span class="b-star"></span><span class="b-star"></span></span>
+    <p class="b-message">
+      <strong class="b-score" data-field="ratingLabel">{{rating}} {{ratingLabel}}</strong>
+      <span class="b-text" data-field="text">{{text}}</span>
+    </p>
+    {{#if linkLabel}}
+    <a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>
+    {{/if}}
+  </div>
+</aside>

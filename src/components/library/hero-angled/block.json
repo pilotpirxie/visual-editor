@@ -1,0 +1,110 @@
+{
+  "name": "Hero, angled image",
+  "category": "headers",
+  "description": "Page heading and buttons beside a full-bleed image cut on a bold diagonal, with an accent stripe.",
+  "tags": [
+    "hero",
+    "heading",
+    "image",
+    "diagonal",
+    "angled",
+    "split",
+    "fitness",
+    "sports",
+    "construction",
+    "bold"
+  ],
+  "fieldGroups": ["Heading", "Buttons", "Image"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Strength and conditioning · Leeds",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Get stronger with coaches who know your name",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Small-group strength classes capped at eight people, a programme built around your goals, and a free first week to see if it fits.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Claim your free week",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See the timetable",
+        "link": {
+          "type": "section",
+          "anchor": "timetable",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A coach spotting a member during a barbell squat in a small-group class",
+        "decorative": false,
+        "width": 1200,
+        "height": 900,
+        "placeholder": {
+          "ratio": "4:3",
+          "subject": "photo"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "showStripe",
+      "label": "Show accent stripe",
+      "type": "boolean",
+      "default": true,
+      "group": "Image"
+    }
+  ]
+}

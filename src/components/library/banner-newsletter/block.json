@@ -1,0 +1,76 @@
+{
+  "name": "Banner, email sign-up",
+  "category": "banners",
+  "description": "A slim strip with a one-line pitch and an inline email field to subscribe.",
+  "tags": ["newsletter", "email", "subscribe", "signup", "form", "banner", "top bar"],
+  "fieldGroups": ["Message", "Form"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "mail",
+      "group": "Message"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "One practical research tip every Thursday, read by 12,000 product people.",
+      "required": true,
+      "maxLength": 140,
+      "group": "Message"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email address",
+      "required": true,
+      "maxLength": 40,
+      "group": "Form"
+    },
+    {
+      "name": "emailPlaceholder",
+      "label": "Email placeholder",
+      "type": "text",
+      "default": "you@company.com",
+      "maxLength": 40,
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Subscribe",
+      "required": true,
+      "maxLength": 24,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    }
+  ]
+}

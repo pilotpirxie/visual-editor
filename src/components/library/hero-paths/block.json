@@ -1,0 +1,114 @@
+{
+  "name": "Hero, two audiences",
+  "category": "headers",
+  "description": "Centered page heading followed by large cards that send each audience to its own path.",
+  "tags": ["hero", "heading", "audiences", "paths", "choice", "marketplace", "cards", "split"],
+  "fieldGroups": ["Heading", "Paths"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Hospitality shifts, filled fast",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Find great people, or the next shift that fits your week",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We connect restaurants, hotels and cafés with vetted chefs, baristas and front-of-house staff, for a single shift or a permanent role.",
+      "group": "Heading"
+    },
+    {
+      "name": "paths",
+      "label": "Paths",
+      "type": "list",
+      "group": "Paths",
+      "minItems": 2,
+      "maxItems": 3,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "users"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "I'm new here",
+          "maxLength": 50
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Say who this path is for and what happens next."
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Get started",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "briefcase",
+          "title": "I'm hiring",
+          "text": "Post a shift in two minutes and get matched with available staff nearby, usually within the hour.",
+          "button": {
+            "label": "Post a shift",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "icon": "user",
+          "title": "I'm looking for work",
+          "text": "Pick shifts that suit your week, get paid within 48 hours, and build ratings that open better roles.",
+          "button": {
+            "label": "Find shifts near me",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note under the paths",
+      "type": "text",
+      "default": "2,400 venues and 18,000 workers across Manchester, Leeds and Liverpool",
+      "group": "Paths"
+    }
+  ]
+}

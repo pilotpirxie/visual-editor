@@ -1,0 +1,14 @@
+<aside class="b-banner-locale" aria-label="Region suggestion">
+  <dialog open id="{{block.id}}-locale" class="b-bar">
+    <div class="container b-inner">
+      <p class="b-message">
+        {{#if icon}}<span class="b-icon" data-field="icon">{{svgIcon icon}}</span>{{/if}}
+        <span data-field="text">{{text}}</span>
+      </p>
+      <div class="cluster b-actions">
+        <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        <button type="button" class="btn btn-ghost b-button" command="close" commandfor="{{block.id}}-locale" data-field="stayLabel">{{stayLabel}}</button>
+      </div>
+    </div>
+  </dialog>
+</aside>

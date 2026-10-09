@@ -1,0 +1,162 @@
+{
+  "name": "Navigation, app download",
+  "category": "navigations",
+  "description": "App icon and name, links and App Store and Google Play buttons; a single “Get the app” button on phones.",
+  "tags": ["menu", "navbar", "header", "app", "mobile app", "download", "app store", "google play"],
+  "fieldGroups": ["Logo", "Links", "Download", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "logoIcon",
+      "label": "App icon",
+      "type": "icon",
+      "default": "lucide:footprints",
+      "iconPurpose": "logo",
+      "group": "Logo"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Features",
+          "link": {
+            "type": "section",
+            "anchor": "features",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Training plans",
+          "link": {
+            "type": "section",
+            "anchor": "plans",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Reviews",
+          "link": {
+            "type": "section",
+            "anchor": "reviews",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "stores",
+      "label": "Store buttons",
+      "type": "list",
+      "group": "Download",
+      "minItems": 0,
+      "maxItems": 2,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Store logo",
+          "type": "icon",
+          "default": "simple-icons:apple",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "smallLabel",
+          "label": "Small text",
+          "type": "text",
+          "default": "Download on the",
+          "maxLength": 24
+        },
+        {
+          "name": "label",
+          "label": "Store name",
+          "type": "text",
+          "default": "App Store",
+          "maxLength": 20
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:apple",
+          "smallLabel": "Download on the",
+          "label": "App Store",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:googleplay",
+          "smallLabel": "Get it on",
+          "label": "Google Play",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "getAppLabel",
+      "label": "Phone button label",
+      "type": "text",
+      "default": "Get the app",
+      "required": true,
+      "maxLength": 20,
+      "group": "Download"
+    },
+    {
+      "name": "getAppLink",
+      "label": "Phone button link",
+      "type": "link",
+      "default": {
+        "type": "section",
+        "anchor": "download",
+        "newTab": false
+      },
+      "group": "Download"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

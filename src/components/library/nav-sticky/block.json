@@ -1,0 +1,79 @@
+{
+  "name": "Navigation, sticky translucent",
+  "category": "navigations",
+  "description": "A see-through bar that stays at the top while visitors scroll, with centered links and a button.",
+  "tags": ["menu", "navbar", "header", "sticky", "fixed", "blur", "glass", "landing page"],
+  "fieldGroups": ["Links", "Button", "Behavior", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        { "name": "label", "label": "Label", "type": "text", "default": "Link" },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": { "type": "url", "url": "#", "newTab": false }
+        }
+      ],
+      "default": [
+        {
+          "label": "Overview",
+          "link": { "type": "section", "anchor": "overview", "newTab": false }
+        },
+        {
+          "label": "How it works",
+          "link": { "type": "section", "anchor": "how-it-works", "newTab": false }
+        },
+        {
+          "label": "Pricing",
+          "link": { "type": "section", "anchor": "pricing", "newTab": false }
+        },
+        {
+          "label": "FAQ",
+          "link": { "type": "section", "anchor": "faq", "newTab": false }
+        }
+      ]
+    },
+    {
+      "name": "showCta",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book a demo",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "primary"
+      },
+      "visibleWhen": { "field": "showCta", "equals": true },
+      "group": "Button"
+    },
+    {
+      "name": "sticky",
+      "label": "Stick to the top while scrolling",
+      "type": "boolean",
+      "default": true,
+      "group": "Behavior"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

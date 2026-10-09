@@ -1,0 +1,30 @@
+<header class="b-hero-carousel section" data-behavior="carousel">
+  <div class="container b-head">
+    <div class="stack b-title">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+    </div>
+    <div class="stack b-copy">
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="b-track" data-carousel-track role="region" aria-label="{{galleryLabel}}" tabindex="0" data-field="galleryLabel">
+    {{#each slides}}
+    <figure class="b-slide" data-carousel-slide data-field="slides.{{@index}}">
+      <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}">{{img image}}</div>
+      {{#if caption}}<figcaption class="b-caption">{{caption}}</figcaption>{{/if}}
+    </figure>
+    {{/each}}
+  </div>
+  <div class="container b-controls" data-carousel-controls hidden>
+    <button type="button" class="btn btn-secondary b-arrow" data-carousel-previous>{{svgIcon "arrow-left"}}<span class="visually-hidden">Previous photo</span></button>
+    <div class="b-dots" data-carousel-dots="Photo"></div>
+    <button type="button" class="btn btn-secondary b-arrow" data-carousel-next>{{svgIcon "arrow-right"}}<span class="visually-hidden">Next photo</span></button>
+  </div>
+</header>

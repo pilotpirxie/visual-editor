@@ -1,0 +1,12 @@
+<aside class="b-banner-perks" aria-label="Store perks">
+  <div class="b-scroller" role="region" aria-label="Store perks" tabindex="0">
+    <ul class="b-list" role="list">
+      {{#each items}}
+      <li class="b-item" data-field="items.{{@index}}">
+        <span class="b-icon">{{svgIcon icon}}</span>
+        <span class="b-text">{{text}}{{#if linkLabel}} <a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{linkLabel}}</a>{{/if}}</span>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</aside>

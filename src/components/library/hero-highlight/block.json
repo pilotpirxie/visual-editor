@@ -1,0 +1,200 @@
+{
+  "name": "Hero, highlighted phrase",
+  "category": "headers",
+  "description": "Large centered heading with a marker-highlighted phrase, a button and a row of member photos and rating.",
+  "tags": [
+    "hero",
+    "heading",
+    "highlight",
+    "marker",
+    "avatars",
+    "social proof",
+    "community",
+    "course",
+    "newsletter"
+  ],
+  "fieldGroups": ["Heading", "Buttons", "Social proof"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Next cohort starts November 3",
+      "group": "Heading"
+    },
+    {
+      "name": "titleStart",
+      "label": "Title start",
+      "type": "text",
+      "default": "Learn product design from people who",
+      "required": true,
+      "maxLength": 80,
+      "group": "Heading"
+    },
+    {
+      "name": "highlight",
+      "label": "Highlighted phrase",
+      "type": "text",
+      "default": "ship it every day",
+      "maxLength": 40,
+      "group": "Heading"
+    },
+    {
+      "name": "titleEnd",
+      "label": "Title end",
+      "type": "text",
+      "default": "",
+      "maxLength": 60,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Eight weeks of live classes, weekly critiques and a portfolio project reviewed by senior designers from teams you already know.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Save my seat",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": false,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See the curriculum",
+        "link": {
+          "type": "section",
+          "anchor": "curriculum",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "avatars",
+      "label": "Member photos",
+      "type": "list",
+      "group": "Social proof",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 200,
+            "height": 200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 200,
+            "height": 200,
+            "placeholder": { "ratio": "1:1", "subject": "person" }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 200,
+            "height": 200,
+            "placeholder": { "ratio": "1:1", "subject": "person" }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 200,
+            "height": 200,
+            "placeholder": { "ratio": "1:1", "subject": "person" }
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 200,
+            "height": 200,
+            "placeholder": { "ratio": "1:1", "subject": "person" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "proof",
+      "label": "Social proof text",
+      "type": "text",
+      "default": "Join 4,000+ designers who finished a portfolio project",
+      "maxLength": 80,
+      "group": "Social proof"
+    },
+    {
+      "name": "showStars",
+      "label": "Show stars",
+      "type": "boolean",
+      "default": true,
+      "group": "Social proof"
+    },
+    {
+      "name": "rating",
+      "label": "Rating text",
+      "type": "text",
+      "default": "4.9 from 1,200 reviews",
+      "maxLength": 40,
+      "visibleWhen": {
+        "field": "showStars",
+        "equals": true
+      },
+      "group": "Social proof"
+    }
+  ]
+}

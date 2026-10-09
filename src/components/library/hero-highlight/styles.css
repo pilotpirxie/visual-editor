@@ -1,0 +1,104 @@
+@layer components {
+  @scope (.b-hero-highlight) {
+    .b-inner {
+      --stack-gap: var(--space-6);
+      --container-max-width: 60rem;
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-title {
+      font-size: calc(var(--text-5xl) * 1.15);
+      letter-spacing: -0.02em;
+    }
+
+    .b-mark {
+      padding-inline: 0.12em;
+      background: linear-gradient(
+        to top,
+        transparent 14%,
+        color-mix(in oklab, var(--color-primary) 32%, transparent) 14%,
+        color-mix(in oklab, var(--color-primary) 32%, transparent) 50%,
+        transparent 50%
+      );
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      color: var(--color-text);
+    }
+
+    .b-lead {
+      max-width: 38rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+    }
+
+    .b-button {
+      --button-padding-x: var(--space-8);
+    }
+
+    .b-proof {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3) var(--space-4);
+      margin-top: var(--space-4);
+    }
+
+    .b-avatars {
+      display: flex;
+      padding-inline-start: var(--space-3);
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      width: 2.75rem;
+      margin-inline-start: calc(-1 * var(--space-3));
+      border: 0.1875rem solid var(--color-background);
+    }
+
+    .b-proof-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .b-rating {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-stars {
+      --icon-size: 1rem;
+      display: inline-flex;
+      gap: 0.125rem;
+      color: var(--color-primary);
+    }
+
+    .b-proof-text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-proof {
+        flex-direction: row;
+      }
+
+      .b-proof-copy {
+        align-items: flex-start;
+        text-align: start;
+      }
+    }
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "name": "Hero, developer tool",
+  "category": "headers",
+  "description": "Page heading with a GitHub button next to a terminal window showing an install command and its output.",
+  "tags": [
+    "hero",
+    "heading",
+    "terminal",
+    "code",
+    "cli",
+    "developer",
+    "api",
+    "open source",
+    "github"
+  ],
+  "fieldGroups": ["Heading", "Buttons", "Terminal"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "v2.4 · Now with Postgres 17 support",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A fresh preview database for every pull request",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Branch your production schema and seed data in seconds, run migrations against real shapes, and throw it all away when the PR merges.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Read the quickstart",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showGithub",
+      "label": "Show GitHub button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "githubIcon",
+      "label": "GitHub button logo",
+      "type": "icon",
+      "default": "simple-icons:github",
+      "iconPurpose": "brand",
+      "visibleWhen": {
+        "field": "showGithub",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "githubButton",
+      "label": "GitHub button",
+      "type": "button",
+      "default": {
+        "label": "Star on GitHub",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": true
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showGithub",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "note",
+      "label": "Note under the buttons",
+      "type": "text",
+      "default": "Open source · MIT licensed · 6,200 stars",
+      "group": "Buttons"
+    },
+    {
+      "name": "terminalTitle",
+      "label": "Window title",
+      "type": "text",
+      "default": "~/projects/storefront",
+      "maxLength": 40,
+      "group": "Terminal"
+    },
+    {
+      "name": "command",
+      "label": "Command",
+      "type": "text",
+      "default": "npx branchdb init",
+      "required": true,
+      "maxLength": 80,
+      "group": "Terminal"
+    },
+    {
+      "name": "output",
+      "label": "Output lines",
+      "type": "list",
+      "group": "Terminal",
+      "minItems": 0,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Done",
+          "maxLength": 100
+        },
+        {
+          "name": "tone",
+          "label": "Style",
+          "type": "segmented",
+          "default": "plain",
+          "options": [
+            {
+              "value": "plain",
+              "label": "Plain"
+            },
+            {
+              "value": "muted",
+              "label": "Muted"
+            },
+            {
+              "value": "success",
+              "label": "Success"
+            }
+          ]
+        }
+      ],
+      "default": [
+        { "text": "Detected Next.js and a Prisma schema", "tone": "muted" },
+        { "text": "Connected to production (read-only)", "tone": "muted" },
+        { "text": "✓ Created branch pr-142 from main in 1.8s", "tone": "success" },
+        { "text": "✓ Wrote DATABASE_URL to .env.preview", "tone": "success" },
+        { "text": "Every pull request now gets its own database.", "tone": "plain" }
+      ]
+    }
+  ]
+}

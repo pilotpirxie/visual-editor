@@ -1,0 +1,23 @@
+<header class="b-hero-search section">
+  <div class="container stack b-inner">
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h1 data-field="title">{{title}}</h1>
+    {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+    <form class="b-form" role="search" {{#if searchAction}}action="{{safeUrl searchAction}}" method="get"{{else}}method="dialog"{{/if}} data-field="searchAction">
+      <label class="visually-hidden" for="{{block.id}}-query" data-field="searchLabel">{{searchLabel}}</label>
+      <span class="b-search-icon">{{svgIcon "search"}}</span>
+      <input class="b-input" id="{{block.id}}-query" type="search" name="q" autocomplete="off" placeholder="{{placeholder}}" required>
+      <button type="submit" class="btn btn-primary b-submit" data-field="buttonLabel">{{buttonLabel}}</button>
+    </form>
+    {{#if popular.length}}
+    <div class="b-popular">
+      {{#if popularLabel}}<p class="b-popular-label" data-field="popularLabel">{{popularLabel}}</p>{{/if}}
+      <ul class="cluster b-chips" role="list">
+        {{#each popular}}
+        <li><a class="b-chip" href="{{href link}}" {{linkAttrs link}} data-field="popular.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+    {{/if}}
+  </div>
+</header>

@@ -1,0 +1,189 @@
+{
+  "name": "Hero, image carousel",
+  "category": "headers",
+  "description": "Page heading and buttons above a full-width carousel of photos with captions.",
+  "tags": [
+    "hero",
+    "heading",
+    "carousel",
+    "slider",
+    "gallery",
+    "photos",
+    "hotel",
+    "venue",
+    "real estate"
+  ],
+  "fieldGroups": ["Heading", "Buttons", "Photos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Boutique hotel · Kotor, Montenegro",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Twelve rooms above the bay, inside Kotor's old town walls",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "A restored 18th-century stone house with sea-view suites, breakfast on the roof terrace and the harbour a two-minute walk away.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Check availability",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See the rooms",
+        "link": {
+          "type": "section",
+          "anchor": "rooms",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "galleryLabel",
+      "label": "Carousel name for screen readers",
+      "type": "text",
+      "default": "Photos of the hotel",
+      "required": true,
+      "group": "Photos"
+    },
+    {
+      "name": "slides",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "caption",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A photo of the place",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "caption",
+          "label": "Caption",
+          "type": "text",
+          "default": "Caption",
+          "maxLength": 60
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A sea-view suite with a private terrace over the bay",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": { "ratio": "3:2", "subject": "photo" }
+          },
+          "caption": "Sea-view suite with a private terrace"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Breakfast laid out on the roof terrace in the morning sun",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": { "ratio": "3:2", "subject": "photo" }
+          },
+          "caption": "Breakfast on the roof terrace"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The stone courtyard lit by lanterns at dusk",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": { "ratio": "3:2", "subject": "photo" }
+          },
+          "caption": "The courtyard at dusk"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A deluxe double room with exposed stone walls and linen bedding",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": { "ratio": "3:2", "subject": "photo" }
+          },
+          "caption": "Deluxe double room"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The old town harbour seen from the hotel's front steps",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": { "ratio": "3:2", "subject": "photo" }
+          },
+          "caption": "Two minutes from the harbour"
+        }
+      ]
+    }
+  ]
+}

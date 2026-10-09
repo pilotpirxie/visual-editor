@@ -1,0 +1,39 @@
+<header class="b-hero-local section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="b-eyebrow" data-field="eyebrow">{{svgIcon "map-pin"}}<span>{{eyebrow}}</span></p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{callButton.variant}}" href="{{href callButton.link}}" {{linkAttrs callButton.link}} data-field="callButton">{{svgIcon "phone"}}{{callButton.label}}</a>
+        {{#if showDirections}}
+        <a class="btn btn-{{directionsButton.variant}}" href="{{href directionsButton.link}}" {{linkAttrs directionsButton.link}} data-field="directionsButton">{{svgIcon "compass"}}{{directionsButton.label}}</a>
+        {{/if}}
+      </div>
+    </div>
+    <div class="b-visual">
+      <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">
+        {{img image}}
+      </div>
+      <div class="card b-info">
+        <div class="stack b-group">
+          <h2 class="b-label" data-field="hoursTitle">{{svgIcon "clock"}}<span>{{hoursTitle}}</span></h2>
+          <dl class="b-hours">
+            {{#each hours}}
+            <div class="b-row" data-field="hours.{{@index}}">
+              <dt>{{days}}</dt>
+              <dd>{{time}}</dd>
+            </div>
+            {{/each}}
+          </dl>
+        </div>
+        {{#if address}}
+        <div class="stack b-group">
+          {{#if addressTitle}}<h2 class="b-label" data-field="addressTitle">{{svgIcon "map-pin"}}<span>{{addressTitle}}</span></h2>{{/if}}
+          <address class="b-address" data-field="address">{{nl2br address}}</address>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</header>

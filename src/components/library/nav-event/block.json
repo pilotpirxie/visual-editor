@@ -1,0 +1,119 @@
+{
+  "name": "Navigation, event",
+  "category": "navigations",
+  "description": "Event name with its dates and city, programme links and a ticket button, on a dark bar.",
+  "tags": [
+    "menu",
+    "navbar",
+    "header",
+    "event",
+    "conference",
+    "festival",
+    "meetup",
+    "tickets",
+    "dark"
+  ],
+  "fieldGroups": ["Event", "Links", "Button", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "logoIcon",
+      "label": "Logo icon",
+      "type": "icon",
+      "default": "lucide:ticket",
+      "iconPurpose": "logo",
+      "group": "Event"
+    },
+    {
+      "name": "details",
+      "label": "Dates and place",
+      "type": "text",
+      "default": "Oct 14–16, 2026 · Lisbon",
+      "maxLength": 48,
+      "group": "Event"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Speakers",
+          "link": {
+            "type": "section",
+            "anchor": "speakers",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Schedule",
+          "link": {
+            "type": "section",
+            "anchor": "schedule",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Venue",
+          "link": {
+            "type": "section",
+            "anchor": "venue",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Sponsors",
+          "link": {
+            "type": "section",
+            "anchor": "sponsors",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get tickets",
+        "link": {
+          "type": "section",
+          "anchor": "tickets",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Button"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

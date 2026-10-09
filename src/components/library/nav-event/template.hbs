@@ -1,0 +1,19 @@
+<nav class="b-nav-event" data-behavior="menu" aria-label="Main">
+  <div class="container b-bar">
+    <div class="b-brand">
+      <a class="b-logo" href="index.html" data-field="logoIcon">{{svgIcon logoIcon}}<span>{{site.title}}</span></a>
+      {{#if details}}<p class="b-details" data-field="details">{{svgIcon "calendar"}}<span>{{details}}</span></p>{{/if}}
+    </div>
+    <button type="button" class="btn btn-ghost b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+      {{svgIcon menuIcon}}<span class="visually-hidden">Menu</span>
+    </button>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+      <a class="btn btn-{{cta.variant}} b-tickets" href="{{href cta.link}}" {{linkAttrs cta.link}} data-field="cta">{{cta.label}}{{svgIcon "arrow-right"}}</a>
+    </div>
+  </div>
+</nav>

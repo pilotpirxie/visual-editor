@@ -1,0 +1,53 @@
+{
+  "name": "Banner, bold spotlight",
+  "category": "banners",
+  "description": "A high-contrast strip in the brand color with large text and a button, for big launches.",
+  "tags": ["launch", "announcement", "banner", "spotlight", "release", "bold", "news"],
+  "fieldGroups": ["Message", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Label",
+      "type": "text",
+      "default": "Just launched",
+      "maxLength": 24,
+      "group": "Message"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "Fieldnote 3.0 is here: live transcripts, automatic themes and a brand-new research board.",
+      "required": true,
+      "maxLength": 120,
+      "group": "Message"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See what’s new",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

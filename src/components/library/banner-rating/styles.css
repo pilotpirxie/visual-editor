@@ -1,0 +1,113 @@
+@layer components {
+  @scope (.b-banner-rating) {
+    :scope {
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-1) var(--space-3);
+      padding-block: var(--space-2);
+    }
+
+    .b-stars {
+      display: inline-flex;
+      flex: none;
+      gap: 0.125rem;
+    }
+
+    .b-star {
+      --fill: clamp(0%, calc((var(--rating) - var(--star)) * 100%), 100%);
+      inline-size: 1.25rem;
+      block-size: 1.25rem;
+      background: linear-gradient(
+        to right,
+        var(--color-primary) var(--fill),
+        color-mix(in oklab, var(--color-text) 18%, transparent) var(--fill)
+      );
+      clip-path: polygon(
+        50% 2%,
+        62% 36%,
+        98% 37%,
+        69% 59%,
+        80% 94%,
+        50% 73%,
+        20% 94%,
+        31% 59%,
+        2% 37%,
+        38% 36%
+      );
+    }
+
+    .b-star:dir(rtl) {
+      background: linear-gradient(
+        to left,
+        var(--color-primary) var(--fill),
+        color-mix(in oklab, var(--color-text) 18%, transparent) var(--fill)
+      );
+    }
+
+    .b-star:nth-child(1) {
+      --star: 0;
+    }
+
+    .b-star:nth-child(2) {
+      --star: 1;
+    }
+
+    .b-star:nth-child(3) {
+      --star: 2;
+    }
+
+    .b-star:nth-child(4) {
+      --star: 3;
+    }
+
+    .b-star:nth-child(5) {
+      --star: 4;
+    }
+
+    .b-message {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 var(--space-2);
+      min-width: 0;
+    }
+
+    .b-score {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-link {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      min-height: 2.75rem;
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (min-width: 768px) {
+      .b-bar {
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: var(--space-4);
+      }
+    }
+  }
+}

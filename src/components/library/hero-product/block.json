@@ -1,0 +1,168 @@
+{
+  "name": "Hero, product",
+  "category": "headers",
+  "description": "A large product photo next to the product name, rating, price, description, buy buttons and perks.",
+  "tags": ["hero", "heading", "product", "shop", "store", "ecommerce", "price", "buy", "rating"],
+  "fieldGroups": ["Product", "Price", "Buttons", "Perks", "Image"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "badge",
+      "label": "Badge",
+      "type": "text",
+      "default": "Bestseller",
+      "maxLength": 24,
+      "group": "Product"
+    },
+    {
+      "name": "title",
+      "label": "Product name",
+      "type": "text",
+      "default": "Stoneware pour-over coffee set",
+      "required": true,
+      "maxLength": 120,
+      "group": "Product"
+    },
+    {
+      "name": "rating",
+      "label": "Rating",
+      "type": "text",
+      "default": "4.9 out of 5",
+      "group": "Product"
+    },
+    {
+      "name": "reviews",
+      "label": "Reviews",
+      "type": "text",
+      "default": "312 reviews",
+      "group": "Product"
+    },
+    {
+      "name": "text",
+      "label": "Description",
+      "type": "textarea",
+      "default": "A hand-glazed dripper, a 600 ml carafe and two cups, thrown in our Lisbon studio. Brews a clean, sweet cup in four minutes.",
+      "group": "Product"
+    },
+    {
+      "name": "price",
+      "label": "Price",
+      "type": "text",
+      "default": "€64",
+      "required": true,
+      "maxLength": 24,
+      "group": "Price"
+    },
+    {
+      "name": "comparePrice",
+      "label": "Price before discount",
+      "type": "text",
+      "default": "€78",
+      "maxLength": 24,
+      "group": "Price"
+    },
+    {
+      "name": "priceNote",
+      "label": "Price note",
+      "type": "text",
+      "default": "Tax included",
+      "group": "Price"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Add to cart",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Read the brewing guide",
+        "link": {
+          "type": "section",
+          "anchor": "guide",
+          "newTab": false
+        },
+        "variant": "ghost"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "perks",
+      "label": "Perks",
+      "type": "list",
+      "group": "Perks",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Perk"
+        }
+      ],
+      "default": [
+        {
+          "icon": "gift",
+          "text": "Free delivery over €50"
+        },
+        {
+          "icon": "refresh",
+          "text": "30-day returns"
+        },
+        {
+          "icon": "leaf",
+          "text": "Plastic-free packaging"
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "label": "Product image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A speckled cream stoneware dripper on a glass carafe with two matching cups",
+        "decorative": false,
+        "width": 1200,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "product"
+        }
+      },
+      "group": "Image"
+    }
+  ]
+}

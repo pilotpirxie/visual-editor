@@ -1,0 +1,121 @@
+@layer components {
+  @scope (.b-hero-search) {
+    :scope {
+      --section-bg: linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--color-primary) 10%, var(--color-background)),
+        var(--color-background)
+      );
+    }
+
+    .b-inner {
+      --container-max-width: 48rem;
+      --stack-gap: var(--space-6);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-lead {
+      max-width: 36rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      width: 100%;
+      margin-block-start: var(--space-2);
+      padding: var(--space-2);
+      padding-inline-start: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: calc(var(--button-radius) + var(--space-2));
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-form:focus-within {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    .b-search-icon {
+      --icon-size: 1.25rem;
+      display: inline-flex;
+      flex: none;
+      color: var(--color-text-muted);
+    }
+
+    .b-input {
+      flex: 1;
+      min-width: 0;
+      min-height: 2.75rem;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--color-text);
+      font: inherit;
+      font-size: var(--text-lg);
+    }
+
+    .b-input:focus {
+      outline: none;
+    }
+
+    .b-input::placeholder {
+      color: var(--color-text-muted);
+      opacity: 1;
+    }
+
+    .b-submit {
+      flex: none;
+    }
+
+    .b-popular {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2) var(--space-3);
+    }
+
+    .b-popular-label {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-chips {
+      --cluster-gap: var(--space-2);
+      --cluster-justify: center;
+    }
+
+    .b-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      padding-inline: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-text);
+      font-size: var(--text-sm);
+      text-decoration: none;
+      transition: border-color var(--transition-fast);
+    }
+
+    .b-chip:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-form {
+        padding: var(--space-3);
+        padding-inline-start: var(--space-6);
+        border-radius: calc(var(--button-radius) + var(--space-3));
+      }
+    }
+  }
+}

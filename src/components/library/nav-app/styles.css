@@ -1,0 +1,191 @@
+@layer components {
+  @scope (.b-nav-app) {
+    :scope {
+      background: var(--color-background);
+      color: var(--color-text);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .b-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      min-height: 4.5rem;
+    }
+
+    .b-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-width: 0;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-name {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .b-app-icon {
+      --icon-size: 1.375rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: calc(var(--radius-md) + var(--space-1));
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .b-quick {
+      display: flex;
+      flex: none;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .b-get {
+      --button-padding-x: var(--space-3);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+    }
+
+    .b-toggle {
+      --icon-size: 1.5rem;
+      --button-padding-x: var(--space-2);
+      min-width: 2.75rem;
+    }
+
+    @media (max-width: 399px) {
+      .b-name {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+    }
+
+    .b-menu {
+      inset: 4.5rem 0 auto;
+      width: auto;
+      height: auto;
+      margin: 0;
+      padding: var(--space-4) var(--container-padding-x) var(--space-6);
+      border: 0;
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-menu:popover-open {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .b-links a {
+      display: block;
+      padding-block: var(--space-3);
+      color: inherit;
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-links a:hover {
+      color: var(--color-primary);
+    }
+
+    .b-stores {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .b-store {
+      --icon-size: 1.375rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      padding: var(--space-1) var(--space-4) var(--space-1) var(--space-3);
+      border-radius: var(--radius-md);
+      background: var(--color-text);
+      color: var(--color-background);
+      line-height: var(--line-height-tight);
+      text-decoration: none;
+      transition: background-color var(--transition-fast);
+    }
+
+    .b-store:hover {
+      background: color-mix(in oklab, var(--color-text) 85%, var(--color-background));
+    }
+
+    .b-store-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .b-store-small {
+      font-size: var(--text-xs);
+    }
+
+    .b-store-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-get {
+        --button-padding-x: var(--space-4);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-quick {
+        display: none;
+      }
+
+      .b-menu {
+        position: static;
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-6);
+        padding: 0;
+        border: 0;
+        background: none;
+        box-shadow: none;
+        overflow: visible;
+      }
+
+      .b-links {
+        display: flex;
+        gap: var(--space-6);
+        margin-inline: auto;
+      }
+
+      .b-links a {
+        padding-block: var(--space-2);
+        font-weight: var(--font-weight-regular);
+      }
+
+      .b-stores {
+        flex-wrap: nowrap;
+      }
+
+      .b-store {
+        padding-inline: var(--space-2) var(--space-3);
+      }
+    }
+  }
+}

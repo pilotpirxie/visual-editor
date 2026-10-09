@@ -1,0 +1,119 @@
+@layer components {
+  @scope (.b-hero-testimonial) {
+    .b-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-12);
+      align-items: center;
+      isolation: isolate;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    .b-lead {
+      max-width: 36rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-card {
+      --stack-gap: var(--space-6);
+      --card-padding: var(--space-8) var(--space-6) var(--space-6);
+      --card-shadow: var(--shadow-lg);
+      position: relative;
+      margin: var(--space-6) 0 0;
+    }
+
+    .b-card::before {
+      content: '';
+      position: absolute;
+      inset-block: auto calc(-1 * var(--space-3));
+      inset-inline: var(--space-3) calc(-1 * var(--space-3));
+      z-index: -1;
+      height: 70%;
+      border-radius: var(--card-radius);
+      background: color-mix(in oklab, var(--color-primary) 16%, var(--color-surface));
+    }
+
+    .b-mark {
+      --icon-size: 1.5rem;
+      position: absolute;
+      inset-block-start: calc(-1 * var(--space-6));
+      inset-inline-start: var(--space-6);
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-rating {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2) var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-stars {
+      --icon-size: 1.125rem;
+      display: inline-flex;
+      gap: var(--space-1);
+      color: var(--color-primary);
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      line-height: calc((var(--line-height-tight) + var(--line-height-normal)) / 2);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding-top: var(--space-6);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3.5rem;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        --card-padding: var(--space-12) var(--space-8) var(--space-8);
+      }
+
+      .b-quote {
+        font-size: var(--text-2xl);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+        gap: var(--space-16);
+      }
+    }
+  }
+}

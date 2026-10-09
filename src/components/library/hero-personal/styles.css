@@ -1,0 +1,105 @@
+@layer components {
+  @scope (.b-hero-personal) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .b-portrait {
+      width: 7rem;
+      padding: var(--space-1);
+      border-radius: var(--radius-full);
+      background: conic-gradient(
+        from 200deg,
+        var(--color-primary),
+        color-mix(in oklab, var(--color-primary) 20%, var(--color-background)),
+        var(--color-primary)
+      );
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      border: var(--space-1) solid var(--color-background);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    .b-status {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-status::before {
+      content: '';
+      flex: none;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      box-shadow: 0 0 0 0.25rem color-mix(in oklab, var(--color-primary) 22%, transparent);
+    }
+
+    .b-lead {
+      max-width: 38rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-socials {
+      --cluster-gap: var(--space-2);
+    }
+
+    .b-social {
+      --icon-size: 1.25rem;
+      display: inline-grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      color: var(--color-text);
+      transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .b-social:hover {
+      background: var(--color-text);
+      color: var(--color-background);
+    }
+
+    @media (min-width: 768px) {
+      .b-portrait {
+        width: 9rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: var(--space-16);
+      }
+
+      .b-portrait {
+        order: 1;
+        width: clamp(18rem, 26vw, 24rem);
+      }
+
+      .b-copy {
+        max-width: 44rem;
+      }
+    }
+  }
+}

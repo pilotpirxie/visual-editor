@@ -1,0 +1,174 @@
+{
+  "name": "Navigation, online store",
+  "category": "navigations",
+  "description": "Store name, shop categories and search, account and cart icons with an item count.",
+  "tags": [
+    "menu",
+    "navbar",
+    "header",
+    "shop",
+    "store",
+    "ecommerce",
+    "cart",
+    "account",
+    "categories"
+  ],
+  "fieldGroups": ["Categories", "Search", "Account", "Cart", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "links",
+      "label": "Categories",
+      "type": "list",
+      "group": "Categories",
+      "minItems": 0,
+      "maxItems": 7,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Category"
+        },
+        {
+          "name": "isHighlighted",
+          "label": "Highlight",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "New in",
+          "isHighlighted": false,
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Women",
+          "isHighlighted": false,
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Men",
+          "isHighlighted": false,
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Home",
+          "isHighlighted": false,
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Sale",
+          "isHighlighted": true,
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "searchLabel",
+      "label": "Search label",
+      "type": "text",
+      "default": "Search",
+      "required": true,
+      "group": "Search"
+    },
+    {
+      "name": "searchLink",
+      "label": "Search link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Search"
+    },
+    {
+      "name": "accountLabel",
+      "label": "Account label",
+      "type": "text",
+      "default": "Account",
+      "required": true,
+      "group": "Account"
+    },
+    {
+      "name": "accountLink",
+      "label": "Account link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Account"
+    },
+    {
+      "name": "cartLabel",
+      "label": "Cart label",
+      "type": "text",
+      "default": "Cart",
+      "required": true,
+      "group": "Cart"
+    },
+    {
+      "name": "cartLink",
+      "label": "Cart link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Cart"
+    },
+    {
+      "name": "cartCount",
+      "label": "Items in cart",
+      "type": "number",
+      "default": 2,
+      "min": 0,
+      "max": 99,
+      "step": 1,
+      "group": "Cart"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

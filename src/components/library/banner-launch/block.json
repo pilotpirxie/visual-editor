@@ -1,0 +1,59 @@
+{
+  "name": "Banner, launch day",
+  "category": "banners",
+  "description": "A launch-day strip with the platform’s logo, a short ask and an upvote button.",
+  "tags": [
+    "launch",
+    "product hunt",
+    "upvote",
+    "banner",
+    "launch day",
+    "community",
+    "vote",
+    "startup"
+  ],
+  "fieldGroups": ["Message", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "logo",
+      "label": "Platform logo",
+      "type": "icon",
+      "default": "simple-icons:producthunt",
+      "iconPurpose": "brand",
+      "group": "Message"
+    },
+    {
+      "name": "eyebrow",
+      "label": "Label",
+      "type": "text",
+      "default": "Launching today",
+      "maxLength": 24,
+      "group": "Message"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "We’re live on Product Hunt with offline recording. Tell us what you think.",
+      "required": true,
+      "maxLength": 120,
+      "group": "Message"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Upvote us",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": true
+        },
+        "variant": "secondary"
+      },
+      "group": "Button"
+    }
+  ]
+}

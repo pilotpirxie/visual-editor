@@ -1,0 +1,74 @@
+@layer components {
+  @scope (.b-banner-locale) {
+    .b-bar {
+      position: static;
+      inset: auto;
+      width: 100%;
+      max-width: none;
+      height: auto;
+      max-height: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: color-mix(in oklab, var(--color-text) 5%, var(--color-background));
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-inner {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      padding-block: var(--space-4);
+    }
+
+    .b-message {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .b-actions {
+      --cluster-gap: var(--space-2);
+      padding-inline-start: calc(2.5rem + var(--space-3));
+    }
+
+    .b-button {
+      --button-padding-y: var(--space-2);
+      --button-padding-x: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .b-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-6);
+        padding-block: var(--space-2);
+      }
+
+      .b-message {
+        align-items: center;
+      }
+
+      .b-actions {
+        flex: none;
+        padding-inline-start: 0;
+      }
+    }
+  }
+}

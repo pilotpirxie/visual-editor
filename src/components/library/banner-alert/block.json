@@ -1,0 +1,82 @@
+{
+  "name": "Banner, important notice",
+  "category": "banners",
+  "description": "A taller notice for closures, delays or policy changes, in an info, warning or urgent tone, with a close button.",
+  "tags": [
+    "alert",
+    "notice",
+    "warning",
+    "closure",
+    "urgent",
+    "banner",
+    "callout",
+    "dismiss",
+    "info"
+  ],
+  "fieldGroups": ["Notice", "Link", "Options"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "tone",
+      "label": "Tone",
+      "type": "segmented",
+      "default": "warning",
+      "group": "Options",
+      "options": [
+        { "value": "info", "label": "Info", "icon": "info" },
+        { "value": "warning", "label": "Warning", "icon": "alert" },
+        { "value": "urgent", "label": "Urgent", "icon": "bell" }
+      ]
+    },
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "alert",
+      "group": "Notice"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Our Kreuzberg store is closed on Monday, October 27",
+      "required": true,
+      "maxLength": 100,
+      "group": "Notice"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "We are repairing a burst pipe. Online orders ship as usual, and click-and-collect pickups move to our Mitte store for the day.",
+      "maxLength": 240,
+      "group": "Notice"
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "Directions to Mitte",
+      "maxLength": 40,
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Link"
+    },
+    {
+      "name": "dismissible",
+      "label": "Show close button",
+      "type": "boolean",
+      "default": true,
+      "group": "Options"
+    }
+  ]
+}

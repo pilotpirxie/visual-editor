@@ -1,0 +1,103 @@
+@layer components {
+  @scope (.b-nav-subnav) {
+    :scope {
+      z-index: 5;
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: color-mix(in oklab, var(--color-surface) 60%, var(--color-background));
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    :scope[data-sticky='true'] {
+      position: sticky;
+      top: 0;
+    }
+
+    .b-bar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas:
+        'title button'
+        'links links';
+      align-items: center;
+      column-gap: var(--space-4);
+      padding-block-start: var(--space-2);
+    }
+
+    .b-title {
+      grid-area: title;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-heading);
+    }
+
+    .b-button {
+      grid-area: button;
+      --button-padding-y: var(--space-1);
+      --button-padding-x: var(--space-4);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+    }
+
+    .b-links {
+      grid-area: links;
+      display: flex;
+      gap: var(--space-6);
+      margin-inline: calc(var(--container-padding-x) * -1);
+      padding-inline: var(--container-padding-x);
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      scroll-padding-inline: var(--container-padding-x);
+      scrollbar-width: none;
+    }
+
+    .b-links li {
+      flex: none;
+      scroll-snap-align: start;
+    }
+
+    .b-links a {
+      display: flex;
+      align-items: center;
+      min-height: 2.75rem;
+      border-bottom: calc(var(--border-width) * 2) solid transparent;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      white-space: nowrap;
+      transition:
+        color var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .b-links a:hover,
+    .b-links a:focus-visible {
+      border-bottom-color: var(--color-primary);
+      color: var(--color-text);
+    }
+
+    @media (min-width: 768px) {
+      .b-bar {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        grid-template-areas: 'title links button';
+        min-height: 3.5rem;
+        padding-block: 0;
+      }
+
+      .b-title {
+        max-width: 16rem;
+      }
+
+      .b-links {
+        justify-content: safe end;
+        margin-inline: 0;
+        padding-inline: var(--space-2);
+      }
+
+      .b-links a {
+        min-height: 3.5rem;
+      }
+    }
+  }
+}

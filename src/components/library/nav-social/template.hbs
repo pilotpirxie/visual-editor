@@ -1,0 +1,22 @@
+<nav class="b-nav-social" data-behavior="menu" aria-label="Main">
+  <div class="container b-bar">
+    <a class="b-logo" href="index.html"><span class="b-name">{{site.title}}</span>{{#if tagline}}<span class="b-tagline" data-field="tagline">{{tagline}}</span>{{/if}}</a>
+    <button type="button" class="btn btn-ghost b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+      {{svgIcon menuIcon}}<span class="visually-hidden">Menu</span>
+    </button>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+      {{#if socials.length}}
+      <ul class="b-socials" role="list">
+        {{#each socials}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}</span></a></li>
+        {{/each}}
+      </ul>
+      {{/if}}
+    </div>
+  </div>
+</nav>

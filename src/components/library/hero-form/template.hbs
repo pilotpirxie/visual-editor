@@ -1,0 +1,35 @@
+<header class="b-hero-form section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      {{#if points.length}}
+      <ul class="stack b-points" role="list">
+        {{#each points}}
+        <li data-field="points.{{@index}}">{{svgIcon "check-circle"}}<span>{{text}}</span></li>
+        {{/each}}
+      </ul>
+      {{/if}}
+    </div>
+    <form class="card stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      {{#if formTitle}}<p class="b-form-title" data-field="formTitle">{{formTitle}}</p>{{/if}}
+      <div class="field">
+        <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+        <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+        <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="{{block.id}}-size" data-field="sizeLabel">{{sizeLabel}}</label>
+        <select id="{{block.id}}-size" name="company_size" data-field="sizes">
+          {{#each sizes}}<option>{{label}}</option>{{/each}}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary" data-field="buttonLabel">{{buttonLabel}}</button>
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </form>
+  </div>
+</header>

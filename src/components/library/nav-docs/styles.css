@@ -1,0 +1,182 @@
+@layer components {
+  @scope (.b-nav-docs) {
+    :scope {
+      background: var(--color-background);
+      color: var(--color-text);
+      border-bottom: var(--border-width) solid var(--color-border);
+      font-size: var(--text-sm);
+    }
+
+    .b-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 3.5rem;
+    }
+
+    .b-brand {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-1) var(--space-3);
+      min-width: 0;
+      margin-inline-end: auto;
+    }
+
+    .b-logo {
+      --icon-size: 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-width: 0;
+      overflow-wrap: anywhere;
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-heading);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-logo > span {
+      min-width: 0;
+    }
+
+    .b-logo .icon {
+      color: var(--color-primary);
+    }
+
+    .b-version {
+      padding: 0 var(--space-2);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-surface);
+      color: var(--color-text-muted);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      line-height: 1.6;
+    }
+
+    .b-repo {
+      --icon-size: 1.25rem;
+      display: inline-flex;
+      flex: none;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+      padding-inline: var(--space-2);
+      border-radius: var(--radius-md);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-repo:hover {
+      background: color-mix(in oklab, currentColor 8%, transparent);
+    }
+
+    .b-stars {
+      --icon-size: 0.875rem;
+      display: none;
+      align-items: center;
+      gap: var(--space-1);
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-toggle {
+      --icon-size: 1.375rem;
+      flex: none;
+    }
+
+    .b-menu {
+      inset: 3.5rem 0 auto;
+      width: auto;
+      height: auto;
+      margin: 0;
+      padding: var(--space-2) var(--container-padding-x) var(--space-6);
+      border: 0;
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-md);
+      font-size: var(--text-base);
+    }
+
+    .b-menu:popover-open {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .b-links {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .b-links a {
+      display: flex;
+      align-items: center;
+      min-height: 2.75rem;
+      color: inherit;
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-links a:hover {
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-stars {
+        display: inline-flex;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-bar {
+        gap: var(--space-4);
+      }
+
+      .b-toggle {
+        display: none;
+      }
+
+      .b-menu {
+        display: contents;
+      }
+
+      .b-links {
+        order: 1;
+        flex-direction: row;
+        gap: var(--space-1);
+      }
+
+      .b-links a {
+        padding-inline: var(--space-3);
+        border-radius: var(--radius-md);
+        color: var(--color-text-muted);
+        font-weight: var(--font-weight-regular);
+      }
+
+      .b-links a:hover {
+        background: var(--color-surface);
+        color: var(--color-text);
+      }
+
+      .b-repo {
+        order: 2;
+        padding-inline: var(--space-3);
+        border-inline-start: var(--border-width) solid var(--color-border);
+        border-radius: 0;
+      }
+
+      .b-cta {
+        --button-padding-y: var(--space-2);
+        order: 3;
+        min-height: 2.5rem;
+        font-size: var(--text-sm);
+      }
+    }
+  }
+}

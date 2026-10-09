@@ -1,0 +1,126 @@
+{
+  "name": "Navigation, with search",
+  "category": "navigations",
+  "description": "Site name, a search field, links and a button; the search moves into the menu below 1024 px.",
+  "tags": ["menu", "navbar", "header", "search", "blog", "docs", "knowledge base", "help center"],
+  "fieldGroups": ["Search", "Links", "Button", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "searchLabel",
+      "label": "Search label",
+      "type": "text",
+      "default": "Search articles",
+      "required": true,
+      "group": "Search"
+    },
+    {
+      "name": "searchPlaceholder",
+      "label": "Search placeholder",
+      "type": "text",
+      "default": "Search 240 articles and guides",
+      "group": "Search"
+    },
+    {
+      "name": "submitLabel",
+      "label": "Search button label",
+      "type": "text",
+      "default": "Search",
+      "required": true,
+      "group": "Search"
+    },
+    {
+      "name": "searchAction",
+      "label": "Search page URL",
+      "type": "text",
+      "default": "",
+      "group": "Search"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Articles",
+          "link": {
+            "type": "section",
+            "anchor": "articles",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Guides",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Podcast",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "showCta",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Subscribe",
+        "link": {
+          "type": "section",
+          "anchor": "newsletter",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showCta",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

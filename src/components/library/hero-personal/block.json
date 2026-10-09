@@ -1,0 +1,177 @@
+{
+  "name": "Hero, personal intro",
+  "category": "headers",
+  "description": "A round portrait, an availability status, a personal introduction, buttons and social links.",
+  "tags": [
+    "hero",
+    "heading",
+    "portrait",
+    "personal",
+    "freelancer",
+    "portfolio",
+    "about me",
+    "creator",
+    "social"
+  ],
+  "fieldGroups": ["Portrait", "Heading", "Buttons", "Social links"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "portrait",
+      "label": "Portrait",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Maya Lindqvist smiling, sitting at a desk with sketches pinned behind her",
+        "decorative": false,
+        "width": 800,
+        "height": 800,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Portrait"
+    },
+    {
+      "name": "showStatus",
+      "label": "Show availability",
+      "type": "boolean",
+      "default": true,
+      "group": "Portrait"
+    },
+    {
+      "name": "status",
+      "label": "Availability",
+      "type": "text",
+      "default": "Available for projects from November",
+      "maxLength": 60,
+      "visibleWhen": {
+        "field": "showStatus",
+        "equals": true
+      },
+      "group": "Portrait"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Hi, I’m Maya Lindqvist, a product designer in Berlin",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "I help early-stage teams turn rough ideas into products people understand on the first try. Previously design lead at two fintech startups, now independent.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "See my work",
+        "link": {
+          "type": "section",
+          "anchor": "work",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Book an intro call",
+        "link": {
+          "type": "email",
+          "url": "hello@mayalindqvist.example",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "socials",
+      "label": "Social links",
+      "type": "list",
+      "group": "Social links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Logo",
+          "type": "icon",
+          "default": "simple-icons:dribbble",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "Dribbble"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:dribbble",
+          "label": "Dribbble",
+          "link": {
+            "type": "url",
+            "url": "https://dribbble.com",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:linkedin",
+          "label": "LinkedIn",
+          "link": {
+            "type": "url",
+            "url": "https://www.linkedin.com",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:bluesky",
+          "label": "Bluesky",
+          "link": {
+            "type": "url",
+            "url": "https://bsky.app",
+            "newTab": true
+          }
+        }
+      ]
+    }
+  ]
+}

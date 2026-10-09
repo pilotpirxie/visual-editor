@@ -1,0 +1,14 @@
+<aside class="b-banner-rotating" aria-label="Announcements" data-behavior="carousel">
+  <div class="container b-bar">
+    <div class="b-track" data-carousel-track role="region" aria-label="Announcements" tabindex="0">
+      {{#each items}}
+      <p class="b-slide" data-carousel-slide data-field="items.{{@index}}">{{text}}{{#if linkLabel}} <a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{linkLabel}}</a>{{/if}}</p>
+      {{/each}}
+    </div>
+    <div class="b-controls" data-carousel-controls hidden>
+      <button type="button" class="b-arrow b-previous" data-carousel-previous>{{svgIcon "chevron-left"}}<span class="visually-hidden">Previous message</span></button>
+      <div class="b-dots" data-carousel-dots="Message"></div>
+      <button type="button" class="b-arrow b-next" data-carousel-next>{{svgIcon "chevron-right"}}<span class="visually-hidden">Next message</span></button>
+    </div>
+  </div>
+</aside>

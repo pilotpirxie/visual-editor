@@ -1,0 +1,159 @@
+{
+  "name": "Navigation, with social links",
+  "category": "navigations",
+  "description": "Name with a short role line, links and social profile icons; the icons move into the menu on phones.",
+  "tags": [
+    "menu",
+    "navbar",
+    "header",
+    "social",
+    "portfolio",
+    "personal",
+    "creator",
+    "designer",
+    "photographer"
+  ],
+  "fieldGroups": ["Name", "Links", "Social links", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "tagline",
+      "label": "Role or tagline",
+      "type": "text",
+      "default": "Product designer in Copenhagen",
+      "maxLength": 60,
+      "group": "Name"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Work",
+          "link": {
+            "type": "section",
+            "anchor": "work",
+            "newTab": false
+          }
+        },
+        {
+          "label": "About",
+          "link": {
+            "type": "section",
+            "anchor": "about",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Journal",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Contact",
+          "link": {
+            "type": "section",
+            "anchor": "contact",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "socials",
+      "label": "Social links",
+      "type": "list",
+      "group": "Social links",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "simple-icons:instagram",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Social profile"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:instagram",
+          "label": "Instagram",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:dribbble",
+          "label": "Dribbble",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        },
+        {
+          "icon": "simple-icons:linkedin",
+          "label": "LinkedIn",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

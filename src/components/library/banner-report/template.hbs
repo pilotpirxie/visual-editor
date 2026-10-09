@@ -1,0 +1,10 @@
+<aside class="b-banner-report" aria-label="Download">
+  <div class="container b-bar">
+    {{#if icon}}<span class="b-file" data-field="icon">{{svgIcon icon}}</span>{{/if}}
+    <p class="b-copy">
+      <strong class="b-title" data-field="title">{{title}}</strong>
+      {{#if meta}}<span class="b-meta" data-field="meta">{{meta}}</span>{{/if}}
+    </p>
+    <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{svgIcon "download"}}{{button.label}}</a>
+  </div>
+</aside>

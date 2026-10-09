@@ -1,0 +1,86 @@
+@layer components {
+  @scope (.b-banner-thumbnail) {
+    :scope {
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding-block: var(--space-2);
+    }
+
+    .b-thumb {
+      --media-radius: var(--radius-md);
+      flex: none;
+      inline-size: 5.5rem;
+      border: var(--border-width) solid var(--color-border);
+    }
+
+    .b-copy {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0 var(--space-4);
+      min-width: 0;
+    }
+
+    .b-title {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-1) var(--space-2);
+      min-width: 0;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-link {
+      --icon-size: 1rem;
+      display: inline-flex;
+      flex: none;
+      align-items: center;
+      gap: var(--space-1);
+      min-height: 2.75rem;
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-link .icon {
+        transition: translate var(--transition-fast);
+      }
+
+      .b-link:hover .icon {
+        translate: 0.125rem 0;
+      }
+
+      .b-link:hover .icon:dir(rtl) {
+        translate: -0.125rem 0;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .b-bar {
+        justify-content: center;
+        gap: var(--space-4);
+      }
+
+      .b-thumb {
+        inline-size: 6.5rem;
+      }
+
+      .b-copy {
+        flex-wrap: nowrap;
+      }
+    }
+  }
+}

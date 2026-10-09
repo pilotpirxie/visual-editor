@@ -1,0 +1,20 @@
+<aside class="b-banner-app" aria-label="Get the app">
+  <dialog open id="{{block.id}}-app" class="b-panel">
+    <div class="container b-inner">
+      <button type="button" command="close" commandfor="{{block.id}}-app" class="b-close">{{svgIcon "x"}}<span class="visually-hidden">Dismiss</span></button>
+      <div class="media b-icon" data-field="appIcon">{{img appIcon}}</div>
+      <div class="b-info">
+        <p class="b-name" data-field="appName">{{appName}}</p>
+        {{#if rating}}
+        <p class="b-rating" data-field="rating">
+          <span class="b-stars" style="--rating: {{rating}}" aria-hidden="true">★★★★★</span>
+          <span class="b-score">{{rating}}</span>
+          {{#if ratingNote}}<span class="b-note" data-field="ratingNote">{{ratingNote}}</span>{{/if}}
+        </p>
+        {{/if}}
+        {{#if line}}<p class="b-line" data-field="line">{{line}}</p>{{/if}}
+      </div>
+      <a class="btn btn-{{button.variant}} b-get" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    </div>
+  </dialog>
+</aside>

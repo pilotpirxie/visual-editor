@@ -1,0 +1,29 @@
+<header class="b-hero-event section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      {{#if details.length}}
+      <ul class="b-details" role="list">
+        {{#each details}}
+        <li data-field="details.{{@index}}"><span class="b-detail-icon">{{svgIcon icon}}</span><span>{{text}}</span></li>
+        {{/each}}
+      </ul>
+      {{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+        {{/if}}
+      </div>
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+    <div class="b-visual">
+      <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
+      {{#if badgeDays}}
+      <p class="b-date" data-field="badgeDays"><span class="b-month">{{badgeMonth}}</span><span class="b-days">{{badgeDays}}</span></p>
+      {{/if}}
+    </div>
+  </div>
+</header>

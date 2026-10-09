@@ -1,0 +1,38 @@
+{
+  "name": "Banner, centered pill",
+  "category": "banners",
+  "description": "A rounded announcement pill centered on the page, with a short label, one line of news and an arrow.",
+  "tags": ["announcement", "pill", "badge", "news", "release", "new", "banner", "saas"],
+  "fieldGroups": ["Message", "Link"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "chip",
+      "label": "Label",
+      "type": "text",
+      "default": "New",
+      "maxLength": 16,
+      "group": "Message"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "Fieldnote now writes a summary of every interview for you",
+      "required": true,
+      "maxLength": 100,
+      "group": "Message"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Link"
+    }
+  ]
+}

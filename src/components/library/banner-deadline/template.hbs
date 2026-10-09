@@ -1,0 +1,17 @@
+<aside class="b-banner-deadline" aria-label="Offer deadline">
+  <div class="container b-bar">
+    <p class="b-message" data-field="text">{{text}}</p>
+    <div class="b-actions">
+      {{#if endsOn}}
+      <p class="b-date" data-field="endsOn">
+        {{svgIcon "calendar"}}
+        {{#if label}}<span class="b-label" data-field="label">{{label}}</span>{{/if}}
+        <time datetime="{{endsOn}}">{{formatDate endsOn}}</time>
+      </p>
+      {{/if}}
+      {{#if showButton}}
+      <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+      {{/if}}
+    </div>
+  </div>
+</aside>

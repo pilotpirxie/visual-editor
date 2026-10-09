@@ -1,0 +1,38 @@
+<nav class="b-nav-mega" data-behavior="menu dropdown" aria-label="Main">
+  <div class="container b-bar">
+    <a class="b-logo" href="index.html" data-field="logoIcon">{{svgIcon logoIcon}}<span>{{site.title}}</span></a>
+    <button type="button" class="btn btn-ghost b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+      {{svgIcon menuIcon}}<span class="visually-hidden">Menu</span>
+    </button>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li class="b-item" data-field="links.{{@index}}">
+          {{#if children.length}}
+          <span class="b-group-label">{{label}}</span>
+          <button type="button" class="b-parent" popovertarget="{{../block.id}}-mega-{{@index}}" aria-expanded="false" style="anchor-name: --{{../block.id}}-mega-{{@index}}">{{label}}{{svgIcon "chevron-down"}}</button>
+          <div id="{{../block.id}}-mega-{{@index}}" class="b-panel" popover data-dropdown-menu style="position-anchor: --{{../block.id}}-mega-{{@index}}">
+            <ul class="b-grid" role="list">
+              {{#each children}}
+              <li>
+                <a class="b-entry" href="{{href link}}" {{linkAttrs link}}>
+                  <span class="b-entry-icon">{{svgIcon icon}}</span>
+                  <span class="b-entry-text"><span class="b-entry-title">{{label}}</span>{{#if description}}<span class="b-entry-description">{{description}}</span>{{/if}}</span>
+                </a>
+              </li>
+              {{/each}}
+            </ul>
+            {{#if footerLabel}}<a class="b-footer" href="{{href footerLink}}" {{linkAttrs footerLink}}>{{footerLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+          </div>
+          {{else}}
+          <a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{label}}</a>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ul>
+      {{#if showCta}}
+      <a class="btn btn-{{cta.variant}}" href="{{href cta.link}}" {{linkAttrs cta.link}} data-field="cta">{{cta.label}}</a>
+      {{/if}}
+    </div>
+  </div>
+</nav>

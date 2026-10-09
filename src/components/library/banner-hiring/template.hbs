@@ -1,0 +1,16 @@
+<aside class="b-banner-hiring" aria-label="Careers">
+  <div class="container b-bar">
+    {{#if people.length}}
+    <ul class="b-people" role="list">
+      {{#each people}}
+      <li class="media b-avatar" data-field="people.{{@index}}">{{img photo}}</li>
+      {{/each}}
+    </ul>
+    {{/if}}
+    <p class="b-message">
+      <span data-field="text">{{text}}</span>
+      {{#if roles}}<span class="badge b-roles" data-field="roles">{{roles}}</span>{{/if}}
+    </p>
+    <a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>
+  </div>
+</aside>

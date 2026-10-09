@@ -1,0 +1,164 @@
+@layer components {
+  @scope (.b-nav-contact) {
+    :scope {
+      background: var(--color-background);
+      color: var(--color-text);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .b-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      min-height: 4.5rem;
+    }
+
+    .b-logo {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-quick {
+      display: flex;
+      flex: none;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .b-call,
+    .b-toggle {
+      --icon-size: 1.375rem;
+      --button-padding-x: var(--space-2);
+      min-width: 2.75rem;
+    }
+
+    .b-call {
+      border-radius: var(--radius-full);
+      color: var(--color-primary);
+    }
+
+    .b-menu {
+      inset: 4.5rem 0 auto;
+      width: auto;
+      height: auto;
+      margin: 0;
+      padding: var(--space-4) var(--container-padding-x) var(--space-6);
+      border: 0;
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-menu:popover-open {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .b-links a {
+      display: block;
+      padding-block: var(--space-3);
+      color: inherit;
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-links a:hover {
+      color: var(--color-primary);
+    }
+
+    .b-actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .b-phone {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: 2.75rem;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-phone-icon {
+      --icon-size: 1.125rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-phone-text {
+      display: flex;
+      flex-direction: column;
+      line-height: var(--line-height-tight);
+    }
+
+    .b-phone-label {
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+    }
+
+    .b-phone-number {
+      font-weight: var(--font-weight-bold);
+      white-space: nowrap;
+    }
+
+    .b-phone:hover .b-phone-number {
+      color: var(--color-primary);
+    }
+
+    .b-book {
+      --icon-size: 1.125rem;
+    }
+
+    @media (min-width: 1024px) {
+      .b-quick {
+        display: none;
+      }
+
+      .b-menu {
+        position: static;
+        display: flex;
+        flex: 1;
+        align-items: center;
+        gap: var(--space-6);
+        padding: 0;
+        border: 0;
+        background: none;
+        box-shadow: none;
+        overflow: visible;
+      }
+
+      .b-links {
+        display: flex;
+        gap: var(--space-6);
+        margin-inline: auto;
+      }
+
+      .b-links a {
+        padding-block: var(--space-2);
+        font-weight: var(--font-weight-regular);
+      }
+
+      .b-actions {
+        flex-direction: row;
+        align-items: center;
+        gap: var(--space-6);
+      }
+    }
+  }
+}

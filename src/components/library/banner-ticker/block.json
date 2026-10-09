@@ -1,0 +1,86 @@
+{
+  "name": "Banner, ticker strip",
+  "category": "banners",
+  "description": "A bold strip with a label and short headlines between icons; swipes sideways when they don’t fit.",
+  "tags": [
+    "ticker",
+    "marquee",
+    "headlines",
+    "banner",
+    "lineup",
+    "festival",
+    "drop",
+    "news",
+    "strip"
+  ],
+  "fieldGroups": ["Label", "Headlines", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Label",
+      "type": "text",
+      "default": "Harbour Lights 2026",
+      "maxLength": 32,
+      "group": "Label"
+    },
+    {
+      "name": "separator",
+      "label": "Separator icon",
+      "type": "icon",
+      "default": "sparkles",
+      "group": "Headlines"
+    },
+    {
+      "name": "items",
+      "label": "Headlines",
+      "type": "list",
+      "group": "Headlines",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Headline",
+          "required": true,
+          "maxLength": 60
+        }
+      ],
+      "default": [
+        { "text": "14–16 August, Aarhus harbour" },
+        { "text": "Main stage: The Lantern Choir, Maré, Nightjar Social" },
+        { "text": "Weekend passes from €129" },
+        { "text": "Free night ferry back to the city" }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get passes",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+@layer components {
+  @scope (.b-banner-hiring) {
+    :scope {
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2) var(--space-4);
+      padding-block: var(--space-3);
+    }
+
+    .b-people {
+      display: flex;
+      flex: none;
+      padding-inline-start: var(--space-2);
+    }
+
+    .b-avatar {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      inline-size: 2.25rem;
+      margin-inline-start: calc(var(--space-2) * -1);
+      border: calc(var(--border-width) * 2) solid var(--color-background);
+      border-radius: var(--radius-full);
+    }
+
+    .b-message {
+      display: flex;
+      flex: 1 1 14rem;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-1) var(--space-2);
+      min-width: 0;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-link {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      min-height: 2.75rem;
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-link .icon {
+        transition: translate var(--transition-fast);
+      }
+
+      .b-link:hover .icon {
+        translate: 0.125rem 0;
+      }
+
+      .b-link:hover .icon:dir(rtl) {
+        translate: -0.125rem 0;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .b-bar {
+        flex-wrap: nowrap;
+        justify-content: center;
+        padding-block: var(--space-2);
+      }
+
+      .b-message {
+        flex: 0 1 auto;
+      }
+
+      .b-roles {
+        flex: none;
+      }
+    }
+  }
+}

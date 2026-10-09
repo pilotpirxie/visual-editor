@@ -1,0 +1,20 @@
+<nav class="b-nav-pill" data-behavior="menu" aria-label="Main">
+  <div class="container">
+    <div class="b-pill">
+      <a class="b-logo" href="index.html" data-field="logoIcon">{{svgIcon logoIcon}}<span>{{site.title}}</span></a>
+      <button type="button" class="b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+        {{svgIcon menuIcon}}<span class="visually-hidden">Menu</span>
+      </button>
+      <div id="{{block.id}}-menu" class="b-menu" popover>
+        <ul class="b-links" role="list">
+          {{#each links}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}{{#if badge}}<span class="badge b-badge">{{badge}}</span>{{/if}}</a></li>
+          {{/each}}
+        </ul>
+        {{#if showCta}}
+        <a class="btn btn-{{cta.variant}} b-cta" href="{{href cta.link}}" {{linkAttrs cta.link}} data-field="cta">{{cta.label}}</a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</nav>

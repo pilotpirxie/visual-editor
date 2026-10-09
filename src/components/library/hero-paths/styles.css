@@ -1,0 +1,93 @@
+@layer components {
+  @scope (.b-hero-paths) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-6);
+      align-items: center;
+      max-width: 48rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-lead {
+      max-width: 38rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-paths {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+      gap: var(--space-6);
+      max-width: 64rem;
+      width: 100%;
+      margin-inline: auto;
+    }
+
+    .b-path {
+      --stack-gap: var(--space-4);
+      --card-padding: var(--space-8) var(--space-6);
+      --card-shadow: var(--shadow-sm);
+      --color-background: var(--color-surface);
+      position: relative;
+      align-items: flex-start;
+      transition:
+        box-shadow var(--transition-normal),
+        translate var(--transition-normal);
+    }
+
+    .b-path:hover {
+      --card-shadow: var(--shadow-lg);
+      translate: 0 calc(-1 * var(--space-1));
+    }
+
+    .b-icon {
+      --icon-size: 1.75rem;
+      display: inline-grid;
+      place-items: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-title {
+      font-size: var(--text-2xl);
+    }
+
+    .b-text {
+      flex: 1;
+      color: var(--color-text-muted);
+    }
+
+    .b-button {
+      margin-top: var(--space-2);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .b-path:hover {
+        translate: none;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .b-path {
+        --card-padding: var(--space-12) var(--space-8) var(--space-8);
+      }
+
+      .b-title {
+        font-size: var(--text-3xl);
+      }
+    }
+  }
+}

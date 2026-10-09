@@ -1,0 +1,24 @@
+<nav class="b-nav-shop" data-behavior="menu" aria-label="Main">
+  <div class="container b-bar">
+    <button type="button" class="btn btn-ghost b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+      {{svgIcon menuIcon}}<span class="visually-hidden">Menu</span>
+    </button>
+    <a class="b-logo" href="index.html">{{site.title}}</a>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} {{#if isHighlighted}}class="b-highlight"{{/if}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+      <ul class="b-extra" role="list">
+        <li><a href="{{href searchLink}}" {{linkAttrs searchLink}} data-field="searchLink">{{svgIcon "search"}}{{searchLabel}}</a></li>
+        <li><a href="{{href accountLink}}" {{linkAttrs accountLink}} data-field="accountLink">{{svgIcon "user"}}{{accountLabel}}</a></li>
+      </ul>
+    </div>
+    <ul class="b-actions" role="list">
+      <li class="b-wide"><a class="b-action" href="{{href searchLink}}" {{linkAttrs searchLink}} data-field="searchLabel">{{svgIcon "search"}}<span class="visually-hidden">{{searchLabel}}</span></a></li>
+      <li class="b-wide"><a class="b-action" href="{{href accountLink}}" {{linkAttrs accountLink}} data-field="accountLabel">{{svgIcon "user"}}<span class="visually-hidden">{{accountLabel}}</span></a></li>
+      <li><a class="b-action" href="{{href cartLink}}" {{linkAttrs cartLink}} data-field="cartCount">{{svgIcon "shopping-cart"}}<span class="visually-hidden">{{cartLabel}}</span>{{#if cartCount}}<span class="b-count">{{cartCount}}</span>{{/if}}</a></li>
+    </ul>
+  </div>
+</nav>

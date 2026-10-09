@@ -1,0 +1,95 @@
+@layer components {
+  @scope (.b-banner-webinar) {
+    :scope {
+      border-top: 0.1875rem solid var(--color-primary);
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2) var(--space-4);
+      padding-block: var(--space-3);
+    }
+
+    .b-live {
+      display: inline-flex;
+      flex: none;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      border: var(--border-width) solid color-mix(in oklab, var(--color-primary) 45%, transparent);
+      border-radius: var(--radius-full);
+      color: var(--color-primary);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: var(--radius-full);
+      background: currentColor;
+      box-shadow: 0 0 0 0.25rem color-mix(in oklab, currentColor 25%, transparent);
+    }
+
+    .b-title {
+      order: 1;
+      flex: 1 1 100%;
+      min-width: 0;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-when {
+      --icon-size: 1rem;
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-1) var(--space-2);
+      color: var(--color-text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .b-time::before {
+      content: '·';
+      margin-inline-end: var(--space-2);
+    }
+
+    .b-button {
+      --button-padding-y: var(--space-2);
+      --button-padding-x: var(--space-4);
+      order: 2;
+    }
+
+    @media (min-width: 1024px) {
+      .b-bar {
+        flex-wrap: nowrap;
+        justify-content: center;
+        padding-block: var(--space-2);
+      }
+
+      .b-title,
+      .b-button {
+        order: 0;
+      }
+
+      .b-title {
+        flex: 0 1 auto;
+      }
+
+      .b-when {
+        flex: none;
+        padding-inline-start: var(--space-4);
+        border-inline-start: var(--border-width) solid var(--color-border);
+      }
+
+      .b-button {
+        flex: none;
+      }
+    }
+  }
+}

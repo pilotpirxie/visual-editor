@@ -1,0 +1,78 @@
+{
+  "name": "Banner, app download",
+  "category": "banners",
+  "description": "A smart app banner with the app icon, name, star rating and a Get button, plus a close button.",
+  "tags": ["app", "download", "smart banner", "app store", "mobile", "banner", "install", "rating"],
+  "fieldGroups": ["App", "Rating", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "appIcon",
+      "label": "App icon",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "",
+        "decorative": true,
+        "width": 120,
+        "height": 120,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "logo"
+        }
+      },
+      "group": "App"
+    },
+    {
+      "name": "appName",
+      "label": "App name",
+      "type": "text",
+      "default": "Fieldnote for iPhone",
+      "required": true,
+      "maxLength": 40,
+      "group": "App"
+    },
+    {
+      "name": "line",
+      "label": "Short line",
+      "type": "text",
+      "default": "Record and tag interviews on the go.",
+      "maxLength": 80,
+      "group": "App"
+    },
+    {
+      "name": "rating",
+      "label": "Rating out of 5",
+      "type": "number",
+      "default": 4.8,
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "group": "Rating"
+    },
+    {
+      "name": "ratingNote",
+      "label": "Rating note",
+      "type": "text",
+      "default": "12k ratings",
+      "maxLength": 32,
+      "group": "Rating"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": true
+        },
+        "variant": "primary"
+      },
+      "group": "Button"
+    }
+  ]
+}

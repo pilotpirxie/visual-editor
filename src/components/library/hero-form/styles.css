@@ -1,0 +1,78 @@
+@layer components {
+  @scope (.b-hero-form) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    .b-lead {
+      max-width: 36rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-points {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-points li {
+      --icon-size: 1.375rem;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-points .icon {
+      color: var(--color-primary);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+      --card-padding: var(--space-6);
+      --card-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 30rem;
+    }
+
+    .b-form-title {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-form .btn {
+      margin-block-start: var(--space-2);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .b-form {
+        --card-padding: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: 1.15fr 1fr;
+        gap: var(--space-16);
+      }
+
+      .b-form {
+        justify-self: end;
+      }
+    }
+  }
+}

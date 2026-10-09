@@ -1,0 +1,64 @@
+{
+  "name": "Banner, with image",
+  "category": "banners",
+  "description": "A strip with a small image, a label, one line of news and a link, for a new collection, article or episode.",
+  "tags": ["banner", "image", "thumbnail", "news", "episode", "article", "collection", "top bar"],
+  "fieldGroups": ["Message", "Image", "Link"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Label",
+      "type": "text",
+      "default": "New episode",
+      "maxLength": 24,
+      "group": "Message"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How a 6-person team runs 30 customer interviews a week, with Priya Raman",
+      "required": true,
+      "maxLength": 120,
+      "group": "Message"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "",
+        "decorative": true,
+        "width": 640,
+        "height": 360,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "photo"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "Listen now",
+      "maxLength": 32,
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Link"
+    }
+  ]
+}

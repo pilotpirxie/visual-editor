@@ -1,0 +1,62 @@
+{
+  "name": "Banner, sale",
+  "category": "banners",
+  "description": "A bold retail strip with a big discount, the sale name, when it ends and a button.",
+  "tags": ["sale", "discount", "offer", "shop", "store", "black friday", "promo", "banner"],
+  "fieldGroups": ["Message", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "discount",
+      "label": "Discount",
+      "type": "text",
+      "default": "−30%",
+      "required": true,
+      "maxLength": 8,
+      "group": "Message"
+    },
+    {
+      "name": "title",
+      "label": "Sale name",
+      "type": "text",
+      "default": "Autumn sale on all outerwear and knitwear",
+      "required": true,
+      "maxLength": 80,
+      "group": "Message"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Ends Sunday at midnight · Free returns",
+      "maxLength": 80,
+      "group": "Message"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Shop the sale",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

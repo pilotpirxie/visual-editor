@@ -1,0 +1,89 @@
+{
+  "name": "Navigation, split around logo",
+  "category": "navigations",
+  "description": "Logo in the middle with links on both sides on wide screens; a menu button below 1024 px.",
+  "tags": ["menu", "navbar", "header", "centered", "split", "restaurant", "hotel", "fashion"],
+  "fieldGroups": ["Logo", "Left links", "Right links", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "logoIcon",
+      "label": "Logo icon",
+      "type": "icon",
+      "default": "lucide:utensils-crossed",
+      "iconPurpose": "logo",
+      "group": "Logo"
+    },
+    {
+      "name": "leftLinks",
+      "label": "Left links",
+      "type": "list",
+      "group": "Left links",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        { "name": "label", "label": "Label", "type": "text", "default": "Link" },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": { "type": "url", "url": "#", "newTab": false }
+        }
+      ],
+      "default": [
+        {
+          "label": "Menu",
+          "link": { "type": "section", "anchor": "menu", "newTab": false }
+        },
+        {
+          "label": "Reservations",
+          "link": { "type": "section", "anchor": "reservations", "newTab": false }
+        },
+        {
+          "label": "Private dining",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        }
+      ]
+    },
+    {
+      "name": "rightLinks",
+      "label": "Right links",
+      "type": "list",
+      "group": "Right links",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        { "name": "label", "label": "Label", "type": "text", "default": "Link" },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": { "type": "url", "url": "#", "newTab": false }
+        }
+      ],
+      "default": [
+        {
+          "label": "Our story",
+          "link": { "type": "section", "anchor": "about", "newTab": false }
+        },
+        {
+          "label": "Gift cards",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "label": "Visit us",
+          "link": { "type": "section", "anchor": "contact", "newTab": false }
+        }
+      ]
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

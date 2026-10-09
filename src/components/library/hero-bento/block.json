@@ -1,0 +1,146 @@
+{
+  "name": "Hero, bento grid",
+  "category": "headers",
+  "description": "Centered heading and buttons above a bento grid with an image, a key number, a quote and a feature.",
+  "tags": ["hero", "heading", "bento", "grid", "tiles", "stat", "quote", "saas", "product"],
+  "fieldGroups": ["Heading", "Buttons", "Image tile", "Number tile", "Quote tile", "Feature tile"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Month-end close software",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Close the books in days, not weeks",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Checklists, reconciliations and approvals in one place, so your finance team finishes the month on time and goes home at six.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Book a demo",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Take the product tour",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The close checklist with tasks grouped by owner and due date",
+        "decorative": false,
+        "width": 1200,
+        "height": 675,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "screenshot"
+        }
+      },
+      "group": "Image tile"
+    },
+    {
+      "name": "statValue",
+      "label": "Number",
+      "type": "text",
+      "default": "4.2 days",
+      "required": true,
+      "maxLength": 16,
+      "group": "Number tile"
+    },
+    {
+      "name": "statLabel",
+      "label": "Number label",
+      "type": "text",
+      "default": "average month-end close for our customers, down from 11",
+      "maxLength": 80,
+      "group": "Number tile"
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "We closed Q3 a week early and nobody stayed late. That has never happened here before.",
+      "maxLength": 200,
+      "group": "Quote tile"
+    },
+    {
+      "name": "quoteName",
+      "label": "Name and role",
+      "type": "text",
+      "default": "Hannah Okafor, Controller at Brightwell",
+      "group": "Quote tile"
+    },
+    {
+      "name": "featureIcon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "workflow",
+      "group": "Feature tile"
+    },
+    {
+      "name": "featureTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "Reconciliations that run themselves",
+      "maxLength": 60,
+      "group": "Feature tile"
+    },
+    {
+      "name": "featureText",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Bank feeds are matched to the ledger overnight, so every morning starts with the exceptions, not a spreadsheet.",
+      "group": "Feature tile"
+    }
+  ]
+}

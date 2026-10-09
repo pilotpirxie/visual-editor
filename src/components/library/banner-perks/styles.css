@@ -1,0 +1,75 @@
+@layer components {
+  @scope (.b-banner-perks) {
+    :scope {
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-scroller {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--container-padding-x);
+      scrollbar-width: none;
+    }
+
+    .b-scroller:focus-visible {
+      outline-offset: calc(-1 * var(--space-1));
+    }
+
+    .b-list {
+      display: flex;
+      justify-content: center;
+      width: max-content;
+      min-width: 100%;
+      padding-inline: var(--container-padding-x);
+    }
+
+    .b-item {
+      display: flex;
+      flex: none;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      padding-block: var(--space-1);
+      padding-inline-end: var(--space-6);
+      scroll-snap-align: start;
+      white-space: nowrap;
+    }
+
+    .b-item + .b-item {
+      padding-inline-start: var(--space-6);
+      border-inline-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-icon {
+      --icon-size: 1.125rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+    }
+
+    .b-text {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-link {
+      padding-block: var(--space-2);
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-regular);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
+    .b-link:hover {
+      color: var(--color-primary);
+    }
+  }
+}

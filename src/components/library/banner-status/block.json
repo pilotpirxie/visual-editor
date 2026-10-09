@@ -1,0 +1,77 @@
+{
+  "name": "Banner, service status",
+  "category": "banners",
+  "description": "A status strip for planned maintenance or incidents, with a state, a note and a link to the status page.",
+  "tags": [
+    "status",
+    "uptime",
+    "maintenance",
+    "incident",
+    "outage",
+    "banner",
+    "saas",
+    "api",
+    "notice"
+  ],
+  "fieldGroups": ["Status", "Message", "Link"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "status",
+      "label": "State",
+      "type": "select",
+      "default": "maintenance",
+      "group": "Status",
+      "options": [
+        { "value": "operational", "label": "Operational" },
+        { "value": "maintenance", "label": "Maintenance" },
+        { "value": "incident", "label": "Incident" }
+      ]
+    },
+    {
+      "name": "label",
+      "label": "State label",
+      "type": "text",
+      "default": "Scheduled maintenance",
+      "required": true,
+      "maxLength": 40,
+      "group": "Status"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "Sunday, October 19, 02:00–03:00 UTC. The dashboard is read-only; the API stays up.",
+      "required": true,
+      "maxLength": 160,
+      "group": "Message"
+    },
+    {
+      "name": "meta",
+      "label": "Time note",
+      "type": "text",
+      "default": "Posted Oct 15, 09:40 UTC",
+      "maxLength": 40,
+      "group": "Message"
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "View status page",
+      "maxLength": 32,
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": true
+      },
+      "group": "Link"
+    }
+  ]
+}

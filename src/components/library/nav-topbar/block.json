@@ -1,0 +1,153 @@
+{
+  "name": "Navigation, with contact bar",
+  "category": "navigations",
+  "description": "A slim strip with phone, email and opening hours above the main bar with links and a button.",
+  "tags": ["menu", "navbar", "header", "contact", "phone", "hours", "top bar", "clinic", "local"],
+  "fieldGroups": ["Contact bar", "Social links", "Logo", "Links", "Button", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "contacts",
+      "label": "Contact details",
+      "type": "list",
+      "group": "Contact bar",
+      "minItems": 0,
+      "maxItems": 3,
+      "itemLabel": "text",
+      "itemFields": [
+        { "name": "icon", "label": "Icon", "type": "icon", "default": "info" },
+        { "name": "text", "label": "Text", "type": "text", "default": "Contact detail" },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": { "type": "url", "url": "#", "newTab": false }
+        }
+      ],
+      "default": [
+        {
+          "icon": "phone",
+          "text": "(555) 014-2290",
+          "link": { "type": "phone", "url": "+15550142290", "newTab": false }
+        },
+        {
+          "icon": "mail",
+          "text": "care@harborclinic.com",
+          "link": { "type": "email", "url": "care@harborclinic.com", "newTab": false }
+        },
+        {
+          "icon": "clock",
+          "text": "Mon–Fri 8:00–18:00, Sat 9:00–13:00",
+          "link": { "type": "section", "anchor": "contact", "newTab": false }
+        }
+      ]
+    },
+    {
+      "name": "socials",
+      "label": "Social links",
+      "type": "list",
+      "group": "Social links",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "simple-icons:facebook",
+          "iconPurpose": "brand"
+        },
+        { "name": "label", "label": "Label", "type": "text", "default": "Social profile" },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": { "type": "url", "url": "#", "newTab": true }
+        }
+      ],
+      "default": [
+        {
+          "icon": "simple-icons:facebook",
+          "label": "Facebook",
+          "link": { "type": "url", "url": "#", "newTab": true }
+        },
+        {
+          "icon": "simple-icons:instagram",
+          "label": "Instagram",
+          "link": { "type": "url", "url": "#", "newTab": true }
+        }
+      ]
+    },
+    {
+      "name": "logoIcon",
+      "label": "Logo icon",
+      "type": "icon",
+      "default": "lucide:stethoscope",
+      "iconPurpose": "logo",
+      "group": "Logo"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        { "name": "label", "label": "Label", "type": "text", "default": "Link" },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": { "type": "url", "url": "#", "newTab": false }
+        }
+      ],
+      "default": [
+        {
+          "label": "Services",
+          "link": { "type": "section", "anchor": "services", "newTab": false }
+        },
+        {
+          "label": "Our doctors",
+          "link": { "type": "section", "anchor": "team", "newTab": false }
+        },
+        {
+          "label": "New patients",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "label": "Insurance",
+          "link": { "type": "section", "anchor": "faq", "newTab": false }
+        }
+      ]
+    },
+    {
+      "name": "showCta",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book an appointment",
+        "link": { "type": "section", "anchor": "contact", "newTab": false },
+        "variant": "primary"
+      },
+      "visibleWhen": { "field": "showCta", "equals": true },
+      "group": "Button"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

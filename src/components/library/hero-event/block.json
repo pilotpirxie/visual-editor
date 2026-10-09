@@ -1,0 +1,163 @@
+{
+  "name": "Hero, event",
+  "category": "headers",
+  "description": "Event name, date, venue and audience with ticket buttons, next to a photo with a date badge.",
+  "tags": [
+    "hero",
+    "heading",
+    "event",
+    "conference",
+    "festival",
+    "workshop",
+    "meetup",
+    "tickets",
+    "date",
+    "venue"
+  ],
+  "fieldGroups": ["Heading", "Details", "Buttons", "Image"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Research Week 2026",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three days on how teams learn from customers",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Forty talks and workshops from research leads at companies of every size, plus long lunches by the river.",
+      "group": "Heading"
+    },
+    {
+      "name": "details",
+      "label": "Details",
+      "type": "list",
+      "group": "Details",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "calendar"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Detail"
+        }
+      ],
+      "default": [
+        {
+          "icon": "calendar",
+          "text": "October 14–16, 2026"
+        },
+        {
+          "icon": "map-pin",
+          "text": "LX Factory, Lisbon"
+        },
+        {
+          "icon": "users",
+          "text": "1,200 researchers and product people"
+        }
+      ]
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Get tickets",
+        "link": {
+          "type": "section",
+          "anchor": "tickets",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See the schedule",
+        "link": {
+          "type": "section",
+          "anchor": "schedule",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "note",
+      "label": "Note under the buttons",
+      "type": "text",
+      "default": "Early-bird tickets until August 31",
+      "group": "Buttons"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A full hall listening to a speaker on stage at last year’s conference",
+        "decorative": false,
+        "width": 1200,
+        "height": 900,
+        "placeholder": {
+          "ratio": "4:3",
+          "subject": "photo"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "badgeMonth",
+      "label": "Date badge, month",
+      "type": "text",
+      "default": "Oct",
+      "maxLength": 12,
+      "group": "Image"
+    },
+    {
+      "name": "badgeDays",
+      "label": "Date badge, days",
+      "type": "text",
+      "default": "14–16",
+      "maxLength": 12,
+      "group": "Image"
+    }
+  ]
+}

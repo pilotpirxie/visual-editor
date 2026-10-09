@@ -1,0 +1,15 @@
+<aside class="b-banner-ticker" aria-label="Headlines">
+  <div class="b-bar">
+    {{#if label}}<p class="b-label" data-field="label">{{label}}</p>{{/if}}
+    <div class="b-scroller" role="region" aria-label="Headlines list" tabindex="0">
+      <ul class="b-items" role="list">
+        {{#each items}}
+        <li class="b-item" data-field="items.{{@index}}"><span class="b-separator" data-field="separator">{{svgIcon ../separator}}</span><span>{{text}}</span></li>
+        {{/each}}
+      </ul>
+    </div>
+    {{#if showButton}}
+    <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    {{/if}}
+  </div>
+</aside>

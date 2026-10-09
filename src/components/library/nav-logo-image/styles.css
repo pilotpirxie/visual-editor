@@ -1,0 +1,103 @@
+@layer components {
+  @scope (.b-nav-logo-image) {
+    :scope {
+      background: var(--color-background);
+      color: var(--color-text);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .b-bar {
+      --bar-height: max(4rem, calc(var(--logo-height) + 2 * var(--space-3)));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+      min-height: var(--bar-height);
+    }
+
+    .b-logo {
+      display: flex;
+      min-width: 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .b-logo img {
+      width: auto;
+      max-width: min(100%, 14rem);
+      height: var(--logo-height);
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .b-logo img:dir(rtl) {
+      object-position: right center;
+    }
+
+    .b-toggle {
+      --icon-size: 1.5rem;
+      flex: none;
+    }
+
+    .b-menu {
+      inset: var(--bar-height) 0 auto;
+      width: auto;
+      height: auto;
+      margin: 0;
+      padding: var(--space-4) var(--container-padding-x) var(--space-6);
+      border: 0;
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-menu:popover-open {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .b-links a {
+      display: block;
+      padding-block: var(--space-3);
+      color: inherit;
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-links a:hover {
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 1024px) {
+      .b-toggle {
+        display: none;
+      }
+
+      .b-menu {
+        position: static;
+        display: flex;
+        flex: 1;
+        align-items: center;
+        gap: var(--space-8);
+        padding: 0;
+        border: 0;
+        background: none;
+        box-shadow: none;
+        overflow: visible;
+      }
+
+      .b-links {
+        display: flex;
+        gap: var(--space-6);
+        margin-inline-start: auto;
+      }
+
+      .b-links a {
+        padding-block: var(--space-2);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.01em;
+      }
+    }
+  }
+}

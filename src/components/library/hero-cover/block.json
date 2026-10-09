@@ -1,0 +1,137 @@
+{
+  "name": "Hero, full-screen cover",
+  "category": "headers",
+  "description": "A photo that fills the screen, with the heading, pitch and buttons at the bottom and a scroll cue.",
+  "tags": [
+    "hero",
+    "heading",
+    "cover",
+    "full screen",
+    "photo",
+    "background",
+    "restaurant",
+    "hotel",
+    "photography"
+  ],
+  "fieldGroups": ["Heading", "Buttons", "Image", "Scroll cue"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Dinner Tuesday to Saturday, from 6 pm",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Wood-fired cooking from the Alentejo coast",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Seasonal plates, natural wines and a fire that has been burning since 2016. Tables for two to twelve, walk-ins welcome at the bar.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Book a table",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See the menu",
+        "link": {
+          "type": "section",
+          "anchor": "menu",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "image",
+      "label": "Cover image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Flames rising from the open grill as a cook turns a whole sea bass",
+        "decorative": false,
+        "width": 1200,
+        "height": 675,
+        "placeholder": {
+          "ratio": "16:9",
+          "subject": "photo"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "showScroll",
+      "label": "Show scroll cue",
+      "type": "boolean",
+      "default": true,
+      "group": "Scroll cue"
+    },
+    {
+      "name": "scrollLink",
+      "label": "Scroll to",
+      "type": "link",
+      "default": {
+        "type": "section",
+        "anchor": "about",
+        "newTab": false
+      },
+      "visibleWhen": {
+        "field": "showScroll",
+        "equals": true
+      },
+      "group": "Scroll cue"
+    },
+    {
+      "name": "scrollLabel",
+      "label": "Scroll cue label",
+      "type": "text",
+      "default": "Scroll to our story",
+      "required": true,
+      "maxLength": 60,
+      "visibleWhen": {
+        "field": "showScroll",
+        "equals": true
+      },
+      "group": "Scroll cue"
+    }
+  ]
+}

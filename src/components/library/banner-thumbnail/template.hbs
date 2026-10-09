@@ -1,0 +1,14 @@
+<aside class="b-banner-thumbnail" aria-label="Featured">
+  <div class="container b-bar">
+    <div class="media b-thumb" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
+    <div class="b-copy">
+      <p class="b-title">
+        {{#if label}}<span class="badge b-label" data-field="label">{{label}}</span>{{/if}}
+        <span data-field="title">{{title}}</span>
+      </p>
+      {{#if linkLabel}}
+      <a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>
+      {{/if}}
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,72 @@
+{
+  "name": "Banner, rotating messages",
+  "category": "banners",
+  "description": "Several short announcements in one strip, one at a time, with previous and next buttons.",
+  "tags": [
+    "rotating",
+    "carousel",
+    "slider",
+    "announcements",
+    "banner",
+    "promos",
+    "messages",
+    "top bar"
+  ],
+  "fieldGroups": ["Messages"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "items",
+      "label": "Messages",
+      "type": "list",
+      "group": "Messages",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Announcement",
+          "required": true,
+          "maxLength": 100
+        },
+        {
+          "name": "linkLabel",
+          "label": "Link text",
+          "type": "text",
+          "default": "Learn more",
+          "maxLength": 32
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "text": "Free next-day delivery on orders over €50",
+          "linkLabel": "Delivery areas",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "text": "The autumn knitwear edit is here",
+          "linkLabel": "Shop the edit",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "text": "Members get early access to the winter sale",
+          "linkLabel": "Join for free",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        }
+      ]
+    }
+  ]
+}

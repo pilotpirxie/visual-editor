@@ -1,0 +1,56 @@
+{
+  "name": "Banner, customer rating",
+  "category": "banners",
+  "description": "A strip with a five-star rating that fills to your score, the number of reviews and a link to read them.",
+  "tags": ["rating", "reviews", "stars", "trust", "social proof", "testimonials", "banner"],
+  "fieldGroups": ["Rating", "Link"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "rating",
+      "label": "Rating (out of 5)",
+      "type": "range",
+      "default": 4.8,
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "group": "Rating"
+    },
+    {
+      "name": "ratingLabel",
+      "label": "Text after the rating",
+      "type": "text",
+      "default": "out of 5",
+      "maxLength": 24,
+      "group": "Rating"
+    },
+    {
+      "name": "text",
+      "label": "Reviews text",
+      "type": "text",
+      "default": "from 2,300 verified reviews by customers in 14 countries",
+      "required": true,
+      "maxLength": 100,
+      "group": "Rating"
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "Read reviews",
+      "maxLength": 32,
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "section",
+        "anchor": "reviews",
+        "newTab": false
+      },
+      "group": "Link"
+    }
+  ]
+}

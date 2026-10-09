@@ -1,0 +1,188 @@
+{
+  "name": "Navigation, documentation",
+  "category": "navigations",
+  "description": "Compact bar for docs and developer tools: logo with version, links, a GitHub link with stars and a button.",
+  "tags": [
+    "menu",
+    "navbar",
+    "header",
+    "docs",
+    "documentation",
+    "developer",
+    "open source",
+    "github",
+    "api"
+  ],
+  "fieldGroups": ["Logo", "Links", "Repository", "Button", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "logoIcon",
+      "label": "Logo icon",
+      "type": "icon",
+      "default": "lucide:square-terminal",
+      "iconPurpose": "logo",
+      "group": "Logo"
+    },
+    {
+      "name": "version",
+      "label": "Version",
+      "type": "text",
+      "default": "v3.2",
+      "maxLength": 16,
+      "group": "Logo"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Guides",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "API reference",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Examples",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Changelog",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "showRepo",
+      "label": "Show repository link",
+      "type": "boolean",
+      "default": true,
+      "group": "Repository"
+    },
+    {
+      "name": "repoIcon",
+      "label": "Repository icon",
+      "type": "icon",
+      "default": "simple-icons:github",
+      "iconPurpose": "brand",
+      "visibleWhen": {
+        "field": "showRepo",
+        "equals": true
+      },
+      "group": "Repository"
+    },
+    {
+      "name": "repoLabel",
+      "label": "Repository label",
+      "type": "text",
+      "default": "GitHub repository",
+      "required": true,
+      "visibleWhen": {
+        "field": "showRepo",
+        "equals": true
+      },
+      "group": "Repository"
+    },
+    {
+      "name": "repoStars",
+      "label": "Stars",
+      "type": "text",
+      "default": "12.4k",
+      "maxLength": 8,
+      "visibleWhen": {
+        "field": "showRepo",
+        "equals": true
+      },
+      "group": "Repository"
+    },
+    {
+      "name": "repoLink",
+      "label": "Repository link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": true
+      },
+      "visibleWhen": {
+        "field": "showRepo",
+        "equals": true
+      },
+      "group": "Repository"
+    },
+    {
+      "name": "showCta",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get started",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showCta",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

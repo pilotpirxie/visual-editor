@@ -1,0 +1,16 @@
+<aside class="b-banner-webinar" aria-label="Upcoming event">
+  <div class="container b-bar">
+    {{#if label}}<p class="b-live" data-field="label"><span class="b-dot" aria-hidden="true"></span>{{label}}</p>{{/if}}
+    <p class="b-title" data-field="title">{{title}}</p>
+    {{#if date}}
+    <p class="b-when" data-field="date">
+      {{svgIcon "calendar"}}
+      <time datetime="{{date}}">{{formatDate date}}</time>
+      {{#if time}}<span class="b-time" data-field="time">{{time}}</span>{{/if}}
+    </p>
+    {{/if}}
+    {{#if showButton}}
+    <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    {{/if}}
+  </div>
+</aside>

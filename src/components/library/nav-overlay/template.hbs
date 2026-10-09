@@ -1,0 +1,28 @@
+<nav class="b-nav-overlay" data-behavior="menu" aria-label="Main">
+  <div class="container b-bar">
+    <a class="b-logo" href="index.html">{{site.title}}</a>
+    <button type="button" class="b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuLabel">
+      <span>{{menuLabel}}</span>{{svgIcon menuIcon}}
+    </button>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <div class="container b-sheet">
+        <div class="b-sheet-bar">
+          <span class="b-sheet-title" aria-hidden="true">{{site.title}}</span>
+          <button type="button" class="b-toggle b-close" popovertarget="{{block.id}}-menu" popovertargetaction="hide" data-field="closeLabel">
+            <span>{{closeLabel}}</span>{{svgIcon "x"}}
+          </button>
+        </div>
+        <ul class="b-links" role="list">
+          {{#each links}}
+          <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+          {{/each}}
+        </ul>
+        <div class="b-contact">
+          {{#if email}}<a href="mailto:{{email}}" data-field="email">{{email}}</a>{{/if}}
+          {{#if address}}<p data-field="address">{{address}}</p>{{/if}}
+          {{#if note}}<p data-field="note">{{note}}</p>{{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,34 @@
+<header class="b-hero-checklist section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="badge" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      {{#if benefits.length}}
+      <ul class="b-list" role="list">
+        {{#each benefits}}
+        <li class="b-item" data-field="benefits.{{@index}}"><span class="b-check">{{svgIcon "check"}}</span><span>{{text}}</span></li>
+        {{/each}}
+      </ul>
+      {{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}{{svgIcon "arrow-right"}}</a>
+        {{/if}}
+      </div>
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+    <div class="b-visual">
+      <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">
+        {{img image}}
+      </div>
+      {{#if showStat}}
+      <p class="b-stat" data-field="statValue">
+        <span class="b-stat-icon">{{svgIcon "trending-up"}}</span>
+        <span class="b-stat-copy"><strong class="b-stat-value">{{statValue}}</strong> <span class="b-stat-label" data-field="statLabel">{{statLabel}}</span></span>
+      </p>
+      {{/if}}
+    </div>
+  </div>
+</header>

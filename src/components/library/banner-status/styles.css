@@ -1,0 +1,110 @@
+@layer components {
+  @scope (.b-banner-status) {
+    :scope {
+      --b-tone: var(--color-text-muted);
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    :scope[data-status='operational'] {
+      --b-tone: var(--color-primary);
+      background: color-mix(in oklab, var(--color-primary) 6%, var(--color-background));
+    }
+
+    :scope[data-status='incident'] {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --b-tone: var(--color-primary);
+      background: var(--color-background);
+    }
+
+    .b-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-1) var(--space-4);
+      padding-block: var(--space-2);
+    }
+
+    .b-state {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding-block: var(--space-1);
+    }
+
+    .b-dot {
+      --icon-size: 1rem;
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--b-tone) 16%, transparent);
+      box-shadow: 0 0 0 var(--space-1) color-mix(in oklab, var(--b-tone) 8%, transparent);
+      color: var(--b-tone);
+    }
+
+    :scope[data-status='incident'] .b-dot {
+      background: var(--b-tone);
+      color: var(--theme-dark-accent-contrast);
+    }
+
+    .b-text {
+      flex: 1 1 20rem;
+      min-width: 0;
+    }
+
+    .b-end {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0 var(--space-4);
+    }
+
+    .b-meta {
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .b-link {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      min-height: 2.75rem;
+      color: inherit;
+      font-weight: var(--font-weight-bold);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
+    .b-link:hover {
+      color: var(--b-tone);
+    }
+
+    @media (min-width: 1024px) {
+      .b-bar {
+        flex-wrap: nowrap;
+      }
+
+      .b-state {
+        flex: none;
+        padding-inline-end: var(--space-4);
+        border-inline-end: var(--border-width) solid var(--color-border);
+      }
+
+      .b-end {
+        flex: none;
+      }
+    }
+  }
+}

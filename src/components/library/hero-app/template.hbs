@@ -1,0 +1,21 @@
+<header class="b-hero-app section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="badge" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <ul class="cluster b-stores" role="list">
+        {{#each stores}}
+        <li><a class="b-store" href="{{href link}}" {{linkAttrs link}} data-field="stores.{{@index}}">{{svgIcon icon}}<span class="b-store-text"><span class="b-store-small">{{smallLabel}}</span> <span class="b-store-name">{{label}}</span></span></a></li>
+        {{/each}}
+      </ul>
+      {{#if rating}}<p class="b-rating" data-field="rating"><span class="b-stars" aria-hidden="true">{{svgIcon "star"}}{{svgIcon "star"}}{{svgIcon "star"}}{{svgIcon "star"}}{{svgIcon "star"}}</span><span>{{rating}}</span></p>{{/if}}
+    </div>
+    <div class="b-visual">
+      <div class="device b-phone" data-field="screenshot">
+        <div class="media device-screen">{{img screenshot}}</div>
+      </div>
+      {{#if highlight}}<p class="b-highlight" data-field="highlight"><span class="b-highlight-icon">{{svgIcon highlightIcon}}</span><span>{{highlight}}</span></p>{{/if}}
+    </div>
+  </div>
+</header>

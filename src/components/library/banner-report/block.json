@@ -1,0 +1,59 @@
+{
+  "name": "Banner, download offer",
+  "category": "banners",
+  "description": "A strip offering a file to download, such as a report, brochure or menu, with its details and a download button.",
+  "tags": [
+    "download",
+    "report",
+    "pdf",
+    "ebook",
+    "guide",
+    "brochure",
+    "menu",
+    "lead magnet",
+    "banner"
+  ],
+  "fieldGroups": ["Message", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "file",
+      "group": "Message"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The 2026 State of Customer Research report",
+      "required": true,
+      "maxLength": 100,
+      "group": "Message"
+    },
+    {
+      "name": "meta",
+      "label": "Details",
+      "type": "text",
+      "default": "Survey of 1,400 product teams · PDF, 24 pages, 4 MB",
+      "maxLength": 80,
+      "group": "Message"
+    },
+    {
+      "name": "button",
+      "label": "Download button",
+      "type": "button",
+      "default": {
+        "label": "Download free",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Button"
+    }
+  ]
+}

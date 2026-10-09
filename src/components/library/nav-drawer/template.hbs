@@ -1,0 +1,35 @@
+<nav class="b-nav-drawer" data-behavior="menu" aria-label="Main">
+  <div class="container b-bar">
+    <a class="b-logo" href="index.html">{{site.title}}</a>
+    <div class="b-end">
+      {{#if showCta}}
+      <a class="btn btn-{{cta.variant}} b-bar-cta" href="{{href cta.link}}" {{linkAttrs cta.link}} data-field="cta">{{cta.label}}</a>
+      {{/if}}
+      <button type="button" class="btn btn-ghost b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuLabel">
+        <span>{{menuLabel}}</span>{{svgIcon menuIcon}}
+      </button>
+    </div>
+  </div>
+  <div id="{{block.id}}-menu" class="b-drawer" popover>
+    <div class="b-head">
+      <span class="b-name">{{site.title}}</span>
+      <button type="button" class="b-close" popovertarget="{{block.id}}-menu" popovertargetaction="hide" data-field="closeLabel">{{svgIcon "x"}}<span class="visually-hidden">{{closeLabel}}</span></button>
+    </div>
+    <ul class="b-links" role="list">
+      {{#each links}}
+      <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+      {{/each}}
+    </ul>
+    {{#if note}}<p class="b-note" data-field="note">{{nl2br note}}</p>{{/if}}
+    {{#if contacts.length}}
+    <ul class="b-contacts" role="list">
+      {{#each contacts}}
+      <li><a href="{{href link}}" {{linkAttrs link}} data-field="contacts.{{@index}}">{{svgIcon icon}}<span>{{label}}</span></a></li>
+      {{/each}}
+    </ul>
+    {{/if}}
+    {{#if showCta}}
+    <a class="btn btn-{{cta.variant}} b-drawer-cta" href="{{href cta.link}}" {{linkAttrs cta.link}} data-field="cta">{{cta.label}}</a>
+    {{/if}}
+  </div>
+</nav>

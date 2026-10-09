@@ -1,0 +1,132 @@
+{
+  "name": "Navigation, image logo",
+  "category": "navigations",
+  "description": "Your own logo image with an adjustable height, links and a button; a menu button below 1024 px.",
+  "tags": ["menu", "navbar", "header", "logo", "brand", "image", "upload"],
+  "fieldGroups": ["Logo", "Links", "Button", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "logo",
+      "label": "Logo image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "",
+        "decorative": true,
+        "width": 210,
+        "height": 90,
+        "placeholder": {
+          "ratio": "21:9",
+          "subject": "logo"
+        }
+      },
+      "group": "Logo"
+    },
+    {
+      "name": "logoHeight",
+      "label": "Logo height",
+      "type": "range",
+      "default": 2.5,
+      "min": 2,
+      "max": 4,
+      "step": 0.25,
+      "group": "Logo"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Collections",
+          "link": {
+            "type": "section",
+            "anchor": "collections",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Workshop",
+          "link": {
+            "type": "section",
+            "anchor": "workshop",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Showrooms",
+          "link": {
+            "type": "section",
+            "anchor": "showrooms",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Trade program",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "showCta",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book a showroom visit",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showCta",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}

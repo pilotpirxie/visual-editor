@@ -1,0 +1,33 @@
+<header class="b-hero-product section">
+  <div class="container b-inner">
+    <div class="b-stage" data-field="image">
+      <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}">{{img image}}</div>
+    </div>
+    <div class="stack b-copy">
+      {{#if badge}}<p class="badge" data-field="badge">{{badge}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if rating}}
+      <p class="b-rating" data-field="rating"><span class="b-stars" aria-hidden="true">{{svgIcon "star"}}{{svgIcon "star"}}{{svgIcon "star"}}{{svgIcon "star"}}{{svgIcon "star"}}</span><span>{{rating}}</span>{{#if reviews}}<span class="b-reviews" data-field="reviews">{{reviews}}</span>{{/if}}</p>
+      {{/if}}
+      <p class="b-price-row">
+        <span class="b-price" data-field="price">{{price}}</span>
+        {{#if comparePrice}}<s class="b-compare" data-field="comparePrice">{{comparePrice}}</s>{{/if}}
+        {{#if priceNote}}<span class="b-price-note" data-field="priceNote">{{priceNote}}</span>{{/if}}
+      </p>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}} b-buy" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{svgIcon "shopping-cart"}}{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+        {{/if}}
+      </div>
+      {{#if perks.length}}
+      <ul class="b-perks" role="list">
+        {{#each perks}}
+        <li data-field="perks.{{@index}}">{{svgIcon icon}}<span>{{text}}</span></li>
+        {{/each}}
+      </ul>
+      {{/if}}
+    </div>
+  </div>
+</header>

@@ -1,0 +1,155 @@
+{
+  "name": "Hero, local business",
+  "category": "headers",
+  "description": "Business name and tagline with call and directions buttons, opening hours and address over a photo.",
+  "tags": [
+    "hero",
+    "heading",
+    "local",
+    "hours",
+    "address",
+    "cafe",
+    "restaurant",
+    "salon",
+    "clinic",
+    "shop"
+  ],
+  "fieldGroups": ["Heading", "Buttons", "Hours and address", "Image"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Café and bakery · Ancoats, Manchester",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Slow coffee and fresh bakes on Mill Street",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "A neighbourhood café since 2011. Sourdough out of the oven at 7am, single-origin filter all day, and a quiet corner to read.",
+      "group": "Heading"
+    },
+    {
+      "name": "callButton",
+      "label": "Call button",
+      "type": "button",
+      "default": {
+        "label": "Call 0161 496 0732",
+        "link": {
+          "type": "phone",
+          "url": "+441614960732",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showDirections",
+      "label": "Show directions button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "directionsButton",
+      "label": "Directions button",
+      "type": "button",
+      "default": {
+        "label": "Get directions",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": true
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showDirections",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "hoursTitle",
+      "label": "Hours heading",
+      "type": "text",
+      "default": "Opening hours",
+      "required": true,
+      "group": "Hours and address"
+    },
+    {
+      "name": "hours",
+      "label": "Opening hours",
+      "type": "list",
+      "group": "Hours and address",
+      "minItems": 1,
+      "maxItems": 7,
+      "itemLabel": "days",
+      "itemFields": [
+        {
+          "name": "days",
+          "label": "Days",
+          "type": "text",
+          "default": "Monday",
+          "maxLength": 24
+        },
+        {
+          "name": "time",
+          "label": "Hours",
+          "type": "text",
+          "default": "9:00–17:00",
+          "maxLength": 24
+        }
+      ],
+      "default": [
+        { "days": "Monday to Friday", "time": "7:00–18:00" },
+        { "days": "Saturday", "time": "8:00–18:00" },
+        { "days": "Sunday", "time": "9:00–16:00" }
+      ]
+    },
+    {
+      "name": "addressTitle",
+      "label": "Address heading",
+      "type": "text",
+      "default": "Find us",
+      "group": "Hours and address"
+    },
+    {
+      "name": "address",
+      "label": "Address",
+      "type": "textarea",
+      "default": "14 Mill Street\nAncoats, Manchester M4 6LZ",
+      "group": "Hours and address"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The café counter with sourdough loaves and pastries on wooden shelves",
+        "decorative": false,
+        "width": 1200,
+        "height": 900,
+        "placeholder": {
+          "ratio": "4:3",
+          "subject": "photo"
+        }
+      },
+      "group": "Image"
+    }
+  ]
+}

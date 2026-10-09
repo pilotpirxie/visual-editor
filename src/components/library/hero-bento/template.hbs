@@ -1,0 +1,38 @@
+<header class="b-hero-bento section">
+  <div class="container stack b-inner">
+    <div class="stack b-head">
+      {{#if eyebrow}}<p class="badge" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+        {{/if}}
+      </div>
+    </div>
+    <div class="b-grid">
+      <div class="media b-tile b-image" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">
+        {{img image}}
+      </div>
+      <p class="b-tile b-stat">
+        <strong class="b-stat-value" data-field="statValue">{{statValue}}</strong>
+        {{#if statLabel}}<span class="b-stat-label" data-field="statLabel">{{statLabel}}</span>{{/if}}
+      </p>
+      {{#if quote}}
+      <figure class="b-tile b-quote">
+        <span class="b-quote-icon" aria-hidden="true">{{svgIcon "quote"}}</span>
+        <blockquote data-field="quote"><p>{{nl2br quote}}</p></blockquote>
+        {{#if quoteName}}<figcaption class="b-quote-name" data-field="quoteName">{{quoteName}}</figcaption>{{/if}}
+      </figure>
+      {{/if}}
+      <div class="b-tile b-feature">
+        <span class="b-feature-icon" data-field="featureIcon">{{svgIcon featureIcon}}</span>
+        <div class="stack b-feature-copy">
+          {{#if featureTitle}}<h2 class="b-feature-title" data-field="featureTitle">{{featureTitle}}</h2>{{/if}}
+          {{#if featureText}}<p class="b-feature-text" data-field="featureText">{{nl2br featureText}}</p>{{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

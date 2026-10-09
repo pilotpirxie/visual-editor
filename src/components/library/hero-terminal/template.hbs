@@ -1,0 +1,29 @@
+<header class="b-hero-terminal section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="badge b-eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showGithub}}
+        <a class="btn btn-{{githubButton.variant}}" href="{{href githubButton.link}}" {{linkAttrs githubButton.link}} data-field="githubButton"><span class="b-brand" data-field="githubIcon">{{svgIcon githubIcon}}</span>{{githubButton.label}}</a>
+        {{/if}}
+      </div>
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+    <div class="b-terminal">
+      <div class="b-bar">
+        <span class="b-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+        {{#if terminalTitle}}<p class="b-window-title" data-field="terminalTitle">{{terminalTitle}}</p>{{/if}}
+      </div>
+      <div class="b-screen">
+        <p class="b-line b-command"><span class="b-prompt" aria-hidden="true">$</span><code data-field="command">{{command}}</code></p>
+        {{#each output}}
+        <p class="b-line" data-tone="{{tone}}" data-field="output.{{@index}}"><code>{{text}}</code></p>
+        {{/each}}
+        <p class="b-line b-command" aria-hidden="true"><span class="b-prompt">$</span><span class="b-cursor"></span></p>
+      </div>
+    </div>
+  </div>
+</header>

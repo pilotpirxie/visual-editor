@@ -1,0 +1,17 @@
+<aside class="b-banner-alert" aria-label="Important notice" data-tone="{{tone}}">
+  <dialog open id="{{block.id}}-notice" class="b-panel" aria-labelledby="{{block.id}}-title">
+    <div class="container b-inner">
+      <span class="b-icon" data-field="icon">{{svgIcon icon}}</span>
+      <div class="b-body">
+        <p class="b-title" id="{{block.id}}-title" data-field="title">{{title}}</p>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+        {{#if linkLabel}}
+        <a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>
+        {{/if}}
+      </div>
+      {{#if dismissible}}
+      <button type="button" command="close" commandfor="{{block.id}}-notice" class="b-close" data-field="dismissible">{{svgIcon "x"}}<span class="visually-hidden">Dismiss</span></button>
+      {{/if}}
+    </div>
+  </dialog>
+</aside>

@@ -1,0 +1,13 @@
+<nav class="b-nav-subnav" aria-label="{{title}}" data-sticky="{{isSticky}}">
+  <div class="container b-bar">
+    <p class="b-title" data-field="title">{{title}}</p>
+    <ul class="b-links" role="list">
+      {{#each links}}
+      <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+      {{/each}}
+    </ul>
+    {{#if showButton}}
+    <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    {{/if}}
+  </div>
+</nav>

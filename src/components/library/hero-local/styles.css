@@ -1,0 +1,110 @@
+@layer components {
+  @scope (.b-hero-local) {
+    .b-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    .b-eyebrow {
+      --icon-size: 1.125rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-lead {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions .btn {
+      --icon-size: 1.125rem;
+    }
+
+    .b-media {
+      --media-radius: var(--radius-lg);
+    }
+
+    .b-info {
+      --card-padding: var(--space-6);
+      --card-shadow: var(--shadow-lg);
+      position: relative;
+      display: grid;
+      gap: var(--space-6);
+      margin: calc(-1 * var(--space-12)) var(--space-4) 0;
+    }
+
+    .b-group {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-label {
+      --icon-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-base);
+    }
+
+    .b-label .icon {
+      color: var(--color-primary);
+    }
+
+    .b-hours {
+      display: grid;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+    }
+
+    .b-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0 var(--space-4);
+      padding-block-end: var(--space-2);
+      border-bottom: var(--border-width) dashed var(--color-border);
+    }
+
+    .b-row dt {
+      color: var(--color-text-muted);
+    }
+
+    .b-row dd {
+      font-weight: var(--font-weight-bold);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .b-address {
+      font-size: var(--text-sm);
+      font-style: normal;
+    }
+
+    @media (min-width: 768px) {
+      .b-info {
+        grid-template-columns: 1.3fr 1fr;
+        margin-inline: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+        gap: var(--space-16);
+      }
+
+      .b-info {
+        margin-inline: calc(-1 * var(--space-12)) var(--space-8);
+      }
+    }
+  }
+}

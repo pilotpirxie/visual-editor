@@ -1,0 +1,155 @@
+@layer components {
+  @scope (.b-nav-event) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      background: var(--color-background);
+      color: var(--color-text);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .b-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      min-height: 4.5rem;
+      padding-block: var(--space-2);
+    }
+
+    .b-brand {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      min-width: 0;
+    }
+
+    .b-logo {
+      --icon-size: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-width: 0;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-logo > span {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .b-logo .icon {
+      color: var(--color-primary);
+    }
+
+    .b-details {
+      --icon-size: 0.875rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-details .icon {
+      color: var(--color-primary);
+    }
+
+    .b-toggle {
+      --icon-size: 1.5rem;
+      flex: none;
+    }
+
+    .b-menu {
+      inset: 4.5rem 0 auto;
+      width: auto;
+      height: auto;
+      margin: 0;
+      padding: var(--space-4) var(--container-padding-x) var(--space-6);
+      border: 0;
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: var(--color-background);
+      color: var(--color-text);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-menu:popover-open {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .b-links a {
+      display: block;
+      padding-block: var(--space-3);
+      color: inherit;
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+    }
+
+    .b-links a:hover {
+      color: var(--color-primary);
+    }
+
+    .b-tickets {
+      --icon-size: 1rem;
+      border-radius: var(--radius-full);
+    }
+
+    @media (min-width: 1024px) {
+      .b-brand {
+        flex-direction: row;
+        align-items: center;
+        gap: var(--space-4);
+      }
+
+      .b-details {
+        flex: none;
+        min-height: 2rem;
+        padding: var(--space-1) var(--space-3);
+        border: var(--border-width) solid var(--color-border);
+        border-radius: var(--radius-full);
+        color: var(--color-text);
+      }
+
+      .b-toggle {
+        display: none;
+      }
+
+      .b-menu {
+        position: static;
+        display: flex;
+        flex: 1;
+        align-items: center;
+        gap: var(--space-6);
+        padding: 0;
+        border: 0;
+        background: none;
+        box-shadow: none;
+        overflow: visible;
+      }
+
+      .b-links {
+        display: flex;
+        gap: var(--space-6);
+        margin-inline-start: auto;
+      }
+
+      .b-links a {
+        padding-block: var(--space-2);
+        font-weight: var(--font-weight-regular);
+      }
+    }
+  }
+}

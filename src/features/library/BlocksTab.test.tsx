@@ -50,7 +50,32 @@ describe('groupByCategory', () => {
     for (const group of groups) ids.push(group.id);
     expect(ids).toEqual(CATEGORIES.map(({ id }) => id));
     const navigationIds = groups[0]?.components.map((component) => component.definition.id);
-    expect(navigationIds).toEqual(['nav-centered', 'nav-cta', 'nav-dropdown', 'nav-simple']);
+    expect(navigationIds).toEqual([
+      'nav-app',
+      'nav-centered',
+      'nav-contact',
+      'nav-cta',
+      'nav-docs',
+      'nav-drawer',
+      'nav-dropdown',
+      'nav-edge-cta',
+      'nav-editorial',
+      'nav-event',
+      'nav-language',
+      'nav-logo-image',
+      'nav-mega',
+      'nav-minimal',
+      'nav-overlay',
+      'nav-pill',
+      'nav-search',
+      'nav-shop',
+      'nav-simple',
+      'nav-social',
+      'nav-split',
+      'nav-sticky',
+      'nav-subnav',
+      'nav-topbar',
+    ]);
   });
 
   it('leaves out empty categories', () => {
@@ -66,7 +91,7 @@ describe('groupByCategory', () => {
 describe('BlocksTab', () => {
   it('lists categories with how many blocks each has', () => {
     const { container } = render(<BlocksTab />);
-    expect(categoryButton(container, 'Headers').textContent).toBe('Headers6');
+    expect(categoryButton(container, 'Headers').textContent).toBe('Headers26');
   });
 
   it('opens a category and goes back to the list', () => {

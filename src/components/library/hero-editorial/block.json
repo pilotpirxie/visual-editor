@@ -1,0 +1,98 @@
+{
+  "name": "Hero, big type",
+  "category": "headers",
+  "description": "An oversized headline across the page, with an intro paragraph, key facts and a link underneath. No image.",
+  "tags": [
+    "hero",
+    "heading",
+    "typography",
+    "big type",
+    "editorial",
+    "studio",
+    "architect",
+    "agency",
+    "minimal"
+  ],
+  "fieldGroups": ["Heading", "Facts", "Link"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Architecture and interiors",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "We design quiet buildings that age well",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Hald & Moreno is a studio of nine architects working on homes, schools and small public buildings. We start with light, materials and the people who will live with the result for the next fifty years.",
+      "group": "Heading"
+    },
+    {
+      "name": "facts",
+      "label": "Facts",
+      "type": "list",
+      "group": "Facts",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Label"
+        },
+        {
+          "name": "value",
+          "label": "Value",
+          "type": "text",
+          "default": "Value"
+        }
+      ],
+      "default": [
+        {
+          "label": "Studio",
+          "value": "Copenhagen and Porto"
+        },
+        {
+          "label": "Founded",
+          "value": "2014"
+        },
+        {
+          "label": "Recent work",
+          "value": "Nørrebro school extension"
+        }
+      ]
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "See selected projects",
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "section",
+        "anchor": "projects",
+        "newTab": false
+      },
+      "group": "Link"
+    }
+  ]
+}

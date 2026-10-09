@@ -1,0 +1,25 @@
+<nav class="b-nav-app" data-behavior="menu" aria-label="Main">
+  <div class="container b-bar">
+    <a class="b-logo" href="index.html" data-field="logoIcon"><span class="b-app-icon">{{svgIcon logoIcon}}</span><span class="b-name">{{site.title}}</span></a>
+    <div class="b-quick">
+      <a class="btn btn-primary b-get" href="{{href getAppLink}}" {{linkAttrs getAppLink}} data-field="getAppLabel">{{getAppLabel}}</a>
+      <button type="button" class="btn btn-ghost b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+        {{svgIcon menuIcon}}<span class="visually-hidden">Menu</span>
+      </button>
+    </div>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+      {{#if stores.length}}
+      <ul class="b-stores" role="list">
+        {{#each stores}}
+        <li><a class="b-store" href="{{href link}}" {{linkAttrs link}} data-field="stores.{{@index}}">{{svgIcon icon}}<span class="b-store-text"><span class="b-store-small">{{smallLabel}}</span> <span class="b-store-name">{{label}}</span></span></a></li>
+        {{/each}}
+      </ul>
+      {{/if}}
+    </div>
+  </div>
+</nav>

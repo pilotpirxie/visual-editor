@@ -1,0 +1,123 @@
+@layer components {
+  @scope (.b-hero-gradient) {
+    :scope {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .b-glow {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(
+          60% 45% at 15% 0%,
+          color-mix(in oklab, var(--color-primary) 34%, transparent),
+          transparent 70%
+        ),
+        radial-gradient(
+          50% 40% at 90% 10%,
+          color-mix(in oklab, var(--theme-dark-accent) 30%, transparent),
+          transparent 70%
+        ),
+        radial-gradient(
+          70% 50% at 50% 100%,
+          color-mix(in oklab, var(--color-primary) 16%, transparent),
+          transparent 75%
+        ),
+        linear-gradient(to bottom, var(--color-surface), var(--color-background));
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-6);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-pill {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      max-width: 100%;
+      min-height: 2.75rem;
+      padding-block: var(--space-1);
+      padding-inline: var(--space-1) var(--space-4);
+      border: var(--border-width) solid color-mix(in oklab, var(--color-primary) 30%, transparent);
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-background) 70%, transparent);
+      color: var(--color-text);
+      font-size: var(--text-sm);
+      text-align: start;
+      text-decoration: none;
+      backdrop-filter: blur(0.5rem);
+      transition: border-color var(--transition-fast);
+    }
+
+    .b-pill:not(:has(.b-pill-tag)) {
+      padding-inline-start: var(--space-4);
+    }
+
+    .b-pill:hover {
+      border-color: var(--color-primary);
+    }
+
+    .b-pill-tag {
+      flex: none;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+    }
+
+    h1 {
+      max-width: 50rem;
+    }
+
+    .b-lead {
+      max-width: 40rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+    }
+
+    .b-shot {
+      position: relative;
+      width: 100%;
+      max-width: 60rem;
+      margin-top: var(--space-8);
+      padding: var(--space-2);
+      border: var(--border-width) solid
+        color-mix(in oklab, var(--color-primary) 22%, var(--color-border));
+      border-radius: var(--radius-lg);
+      background: color-mix(in oklab, var(--color-surface) 70%, transparent);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-shot::before {
+      content: '';
+      position: absolute;
+      inset: 10% 5% -5%;
+      z-index: -1;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 45%, transparent);
+      filter: blur(4rem);
+    }
+
+    .b-media {
+      --media-radius: var(--radius-md);
+    }
+
+    @media (min-width: 768px) {
+      .b-shot {
+        padding: var(--space-3);
+      }
+    }
+  }
+}

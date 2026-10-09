@@ -1,0 +1,94 @@
+{
+  "name": "Banner, store perks",
+  "category": "banners",
+  "description": "Two to four short perks with icons, such as free shipping and easy returns; swipes sideways on phones.",
+  "tags": ["perks", "banner", "shipping", "delivery", "returns", "store", "shop", "trust", "usp"],
+  "fieldGroups": ["Perks"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "items",
+      "label": "Perks",
+      "type": "list",
+      "group": "Perks",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Perk",
+          "required": true,
+          "maxLength": 48
+        },
+        {
+          "name": "linkLabel",
+          "label": "Link text",
+          "type": "text",
+          "default": "",
+          "maxLength": 24
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "globe",
+          "text": "Free shipping on orders over €60",
+          "linkLabel": "",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "refresh",
+          "text": "30-day free returns",
+          "linkLabel": "How it works",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "lock",
+          "text": "Secure checkout",
+          "linkLabel": "",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "leaf",
+          "text": "Carbon-neutral delivery",
+          "linkLabel": "",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

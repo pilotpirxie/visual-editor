@@ -1,0 +1,140 @@
+{
+  "name": "Hero, search",
+  "category": "headers",
+  "description": "A centered heading with a large search field and a row of popular searches.",
+  "tags": [
+    "hero",
+    "heading",
+    "search",
+    "help center",
+    "support",
+    "knowledge base",
+    "directory",
+    "docs"
+  ],
+  "fieldGroups": ["Heading", "Search", "Popular searches"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Help center",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How can we help you today?",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Search 380 guides on billing, bookings and team accounts, or browse the topics below.",
+      "group": "Heading"
+    },
+    {
+      "name": "searchLabel",
+      "label": "Search field label",
+      "type": "text",
+      "default": "Search the help center",
+      "required": true,
+      "group": "Search"
+    },
+    {
+      "name": "placeholder",
+      "label": "Placeholder",
+      "type": "text",
+      "default": "Search guides and answers",
+      "group": "Search"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Search",
+      "required": true,
+      "group": "Search"
+    },
+    {
+      "name": "searchAction",
+      "label": "Search results page URL",
+      "type": "text",
+      "default": "",
+      "group": "Search"
+    },
+    {
+      "name": "popularLabel",
+      "label": "Popular searches label",
+      "type": "text",
+      "default": "Popular:",
+      "group": "Popular searches"
+    },
+    {
+      "name": "popular",
+      "label": "Popular searches",
+      "type": "list",
+      "group": "Popular searches",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Topic"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Reset password",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Refunds",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Invite teammates",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Export invoices",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

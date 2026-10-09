@@ -1,0 +1,16 @@
+<nav class="b-nav-editorial" aria-label="Main">
+  <div class="container b-top">
+    {{#if dateline}}<p class="b-dateline" data-field="dateline">{{dateline}}</p>{{/if}}
+    <a class="b-logo" href="index.html">{{site.title}}</a>
+    {{#if showButton}}
+    <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    {{/if}}
+  </div>
+  <div class="container">
+    <ul class="b-sections" role="list">
+      {{#each sections}}
+      <li><a href="{{href link}}" {{linkAttrs link}} data-field="sections.{{@index}}">{{label}}</a></li>
+      {{/each}}
+    </ul>
+  </div>
+</nav>

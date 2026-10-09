@@ -1,0 +1,165 @@
+{
+  "name": "Hero, image collage",
+  "category": "headers",
+  "description": "Page heading, a short pitch and buttons next to a collage of three photos.",
+  "tags": [
+    "hero",
+    "heading",
+    "collage",
+    "photos",
+    "images",
+    "gallery",
+    "hotel",
+    "hospitality",
+    "community"
+  ],
+  "fieldGroups": ["Heading", "Buttons", "Images", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Boutique hotel in Porto’s Ribeira",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Twelve rooms above the river, breakfast on the terrace",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "A restored 1890s merchant house with tiled stairwells, linen sheets and a rooftop that catches the last sun over the Douro.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Check availability",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See the rooms",
+        "link": {
+          "type": "section",
+          "anchor": "rooms",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "mainImage",
+      "label": "Tall image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A double room with tall shutters open onto the river",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "photo"
+        }
+      },
+      "group": "Images"
+    },
+    {
+      "name": "secondImage",
+      "label": "Top image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Breakfast of pastries and fresh orange juice on the rooftop terrace",
+        "decorative": false,
+        "width": 800,
+        "height": 800,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "photo"
+        }
+      },
+      "group": "Images"
+    },
+    {
+      "name": "thirdImage",
+      "label": "Bottom image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "The blue and white tiled staircase in the hotel’s entrance hall",
+        "decorative": false,
+        "width": 1200,
+        "height": 900,
+        "placeholder": {
+          "ratio": "4:3",
+          "subject": "photo"
+        }
+      },
+      "group": "Images"
+    },
+    {
+      "name": "caption",
+      "label": "Badge on the photos",
+      "type": "text",
+      "default": "Rated 9.4 by 1,200 guests",
+      "maxLength": 40,
+      "group": "Images"
+    },
+    {
+      "name": "imageSide",
+      "label": "Images side",
+      "type": "segmented",
+      "default": "right",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left",
+          "icon": "panel-left"
+        },
+        {
+          "value": "right",
+          "label": "Right",
+          "icon": "panel-right"
+        }
+      ]
+    }
+  ]
+}

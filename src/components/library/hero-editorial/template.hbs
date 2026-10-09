@@ -1,0 +1,22 @@
+<header class="b-hero-editorial section">
+  <div class="container b-inner">
+    {{#if eyebrow}}<p class="b-eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h1 class="b-title" data-field="title">{{title}}</h1>
+    <div class="b-row">
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      <div class="stack b-side">
+        {{#if facts.length}}
+        <dl class="b-facts">
+          {{#each facts}}
+          <div class="b-fact" data-field="facts.{{@index}}">
+            <dt>{{label}}</dt>
+            <dd>{{value}}</dd>
+          </div>
+          {{/each}}
+        </dl>
+        {{/if}}
+        {{#if linkLabel}}<a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+      </div>
+    </div>
+  </div>
+</header>

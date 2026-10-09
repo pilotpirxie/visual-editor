@@ -1,0 +1,109 @@
+@layer components {
+  @scope (.b-banner-spotlight) {
+    :scope {
+      --color-background: var(--theme-primary-background);
+      --color-surface: var(--theme-primary-surface);
+      --color-text: var(--theme-primary-text);
+      --color-text-muted: var(--theme-primary-text-muted);
+      --color-border: var(--theme-primary-border);
+      --color-primary: var(--theme-primary-accent);
+      --color-primary-contrast: var(--theme-primary-accent-contrast);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    :scope::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent 0 var(--space-3),
+        color-mix(in oklab, var(--color-text) 9%, transparent) var(--space-3)
+          calc(var(--space-3) * 2)
+      );
+      mask-image: linear-gradient(
+        to right,
+        currentColor,
+        transparent 22%,
+        transparent 78%,
+        currentColor
+      );
+    }
+
+    .b-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding-block: var(--space-6);
+    }
+
+    .b-message {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+
+    .b-label {
+      --badge-bg: color-mix(in oklab, var(--color-text) 16%, transparent);
+      --badge-color: var(--color-text);
+    }
+
+    .b-text {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      text-wrap: balance;
+    }
+
+    .b-button {
+      --icon-size: 1.125rem;
+      flex: none;
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-button .icon {
+        transition: translate var(--transition-fast);
+      }
+
+      .b-button:hover .icon {
+        translate: 0.125rem 0;
+      }
+
+      .b-button:hover .icon:dir(rtl) {
+        translate: -0.125rem 0;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .b-bar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-8);
+        padding-block: var(--space-4);
+      }
+
+      .b-message {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .b-label {
+        flex: none;
+      }
+
+      .b-text {
+        text-wrap: pretty;
+      }
+    }
+  }
+}

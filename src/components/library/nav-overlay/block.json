@@ -1,0 +1,136 @@
+{
+  "name": "Navigation, full-screen menu",
+  "category": "navigations",
+  "description": "Logo and a Menu button at every screen size; the menu opens over the whole page with very large links.",
+  "tags": [
+    "menu",
+    "navbar",
+    "header",
+    "overlay",
+    "full screen",
+    "hamburger",
+    "agency",
+    "studio",
+    "creative"
+  ],
+  "fieldGroups": ["Menu button", "Links", "Contact"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "menuLabel",
+      "label": "Menu button label",
+      "type": "text",
+      "default": "Menu",
+      "required": true,
+      "maxLength": 16,
+      "group": "Menu button"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu button"
+    },
+    {
+      "name": "closeLabel",
+      "label": "Close button label",
+      "type": "text",
+      "default": "Close",
+      "required": true,
+      "maxLength": 16,
+      "group": "Menu button"
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 1,
+      "maxItems": 7,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Work",
+          "link": {
+            "type": "section",
+            "anchor": "work",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Studio",
+          "link": {
+            "type": "section",
+            "anchor": "about",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Services",
+          "link": {
+            "type": "section",
+            "anchor": "services",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Journal",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Contact",
+          "link": {
+            "type": "section",
+            "anchor": "contact",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "hello@northform.studio",
+      "group": "Contact"
+    },
+    {
+      "name": "address",
+      "label": "Address",
+      "type": "text",
+      "default": "Torvegade 12, 1400 Copenhagen",
+      "group": "Contact"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Booking new projects from January",
+      "maxLength": 80,
+      "group": "Contact"
+    }
+  ]
+}

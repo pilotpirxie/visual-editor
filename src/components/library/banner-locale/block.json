@@ -1,0 +1,59 @@
+{
+  "name": "Banner, region suggestion",
+  "category": "banners",
+  "description": "Suggests a regional version of the site, with a button to go there and one to stay. Works without JavaScript.",
+  "tags": [
+    "language",
+    "region",
+    "country",
+    "locale",
+    "international",
+    "store",
+    "banner",
+    "dismiss"
+  ],
+  "fieldGroups": ["Message", "Buttons"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "globe",
+      "group": "Message"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "Shopping from Germany? Visit our German store for prices in euros and delivery in 2–3 days.",
+      "required": true,
+      "maxLength": 140,
+      "group": "Message"
+    },
+    {
+      "name": "button",
+      "label": "Regional site button",
+      "type": "button",
+      "default": {
+        "label": "Go to the German store",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "stayLabel",
+      "label": "Stay button label",
+      "type": "text",
+      "default": "Stay here",
+      "required": true,
+      "maxLength": 24,
+      "group": "Buttons"
+    }
+  ]
+}

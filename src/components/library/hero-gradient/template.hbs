@@ -1,0 +1,26 @@
+<header class="b-hero-gradient section">
+  <div class="b-glow" aria-hidden="true"></div>
+  <div class="container stack b-inner">
+    {{#if pillText}}
+    <a class="b-pill" href="{{href pillLink}}" {{linkAttrs pillLink}} data-field="pillLink">
+      {{#if pillTag}}<span class="b-pill-tag" data-field="pillTag">{{pillTag}}</span>{{/if}}
+      <span data-field="pillText">{{pillText}}</span>{{svgIcon "arrow-right"}}
+    </a>
+    {{/if}}
+    <h1 data-field="title">{{title}}</h1>
+    {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+    <div class="cluster b-actions">
+      <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+      {{#if showSecondary}}
+      <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+      {{/if}}
+    </div>
+    {{#if showScreenshot}}
+    <div class="b-shot" data-field="screenshot">
+      <div class="media b-media" style="--media-ratio: {{screenshot.width}} / {{screenshot.height}}">
+        {{img screenshot}}
+      </div>
+    </div>
+    {{/if}}
+  </div>
+</header>

@@ -1,0 +1,32 @@
+<header class="b-hero-testimonial section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+        {{/if}}
+      </div>
+    </div>
+    <figure class="card stack b-card">
+      <span class="b-mark" aria-hidden="true">{{svgIcon "quote"}}</span>
+      {{#if rating}}
+      <p class="b-rating" data-field="rating">
+        <span class="b-stars" aria-hidden="true">{{svgIcon "star"}}{{svgIcon "star"}}{{svgIcon "star"}}{{svgIcon "star"}}{{svgIcon "star"}}</span>
+        <span>{{rating}}</span>
+      </p>
+      {{/if}}
+      <blockquote class="b-quote" data-field="quote"><p>{{nl2br quote}}</p></blockquote>
+      <figcaption class="b-person">
+        <div class="media b-photo" data-field="photo">{{img photo}}</div>
+        <div>
+          <p class="b-name" data-field="name">{{name}}</p>
+          {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</header>

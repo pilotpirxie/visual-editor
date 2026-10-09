@@ -1,0 +1,20 @@
+<header class="b-hero-paths section">
+  <div class="container stack b-inner">
+    <div class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+    </div>
+    <ul class="b-paths" role="list">
+      {{#each paths}}
+      <li class="card stack b-path" data-field="paths.{{@index}}">
+        <span class="b-icon">{{svgIcon icon}}</span>
+        <h2 class="b-title">{{title}}</h2>
+        {{#if text}}<p class="b-text">{{nl2br text}}</p>{{/if}}
+        <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}{{svgIcon "arrow-right"}}</a>
+      </li>
+      {{/each}}
+    </ul>
+    {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+  </div>
+</header>

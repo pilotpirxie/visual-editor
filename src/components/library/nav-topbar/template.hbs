@@ -1,0 +1,34 @@
+<nav class="b-nav-topbar" data-behavior="menu" aria-label="Main">
+  <div class="b-strip">
+    <div class="container b-strip-inner">
+      <ul class="b-contacts" role="list">
+        {{#each contacts}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="contacts.{{@index}}">{{svgIcon icon}}<span>{{text}}</span></a></li>
+        {{/each}}
+      </ul>
+      {{#if socials.length}}
+      <ul class="b-socials" role="list">
+        {{#each socials}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}</span></a></li>
+        {{/each}}
+      </ul>
+      {{/if}}
+    </div>
+  </div>
+  <div class="container b-bar">
+    <a class="b-logo" href="index.html" data-field="logoIcon">{{svgIcon logoIcon}}<span>{{site.title}}</span></a>
+    <button type="button" class="btn btn-ghost b-toggle" popovertarget="{{block.id}}-menu" aria-controls="{{block.id}}-menu" aria-expanded="false" data-field="menuIcon">
+      {{svgIcon menuIcon}}<span class="visually-hidden">Menu</span>
+    </button>
+    <div id="{{block.id}}-menu" class="b-menu" popover>
+      <ul class="b-links" role="list">
+        {{#each links}}
+        <li><a href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}">{{label}}</a></li>
+        {{/each}}
+      </ul>
+      {{#if showCta}}
+      <a class="btn btn-{{cta.variant}}" href="{{href cta.link}}" {{linkAttrs cta.link}} data-field="cta">{{cta.label}}</a>
+      {{/if}}
+    </div>
+  </div>
+</nav>

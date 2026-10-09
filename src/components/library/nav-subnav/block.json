@@ -1,0 +1,130 @@
+{
+  "name": "Navigation, product sub-navigation",
+  "category": "navigations",
+  "description": "A slim bar that sticks to the top with the product name, links to sections of the page and a small button; links scroll sideways on phones.",
+  "tags": [
+    "menu",
+    "navbar",
+    "subnav",
+    "sticky",
+    "anchor links",
+    "in-page",
+    "product page",
+    "sections"
+  ],
+  "fieldGroups": ["Title", "Links", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Product or page name",
+      "type": "text",
+      "default": "Aura 2 thermostat",
+      "required": true,
+      "maxLength": 40,
+      "group": "Title"
+    },
+    {
+      "name": "links",
+      "label": "Section links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Section"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "section",
+            "anchor": "",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Overview",
+          "link": {
+            "type": "section",
+            "anchor": "overview",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Features",
+          "link": {
+            "type": "section",
+            "anchor": "features",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Tech specs",
+          "link": {
+            "type": "section",
+            "anchor": "specs",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Reviews",
+          "link": {
+            "type": "section",
+            "anchor": "reviews",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Questions",
+          "link": {
+            "type": "section",
+            "anchor": "faq",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Buy",
+        "link": {
+          "type": "section",
+          "anchor": "buy",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "isSticky",
+      "label": "Stick to the top while scrolling",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    }
+  ]
+}

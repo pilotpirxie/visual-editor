@@ -1,0 +1,144 @@
+{
+  "name": "Banner, we’re hiring",
+  "category": "banners",
+  "description": "A strip with a stack of team photos, a hiring message, the number of open roles and a link to careers.",
+  "tags": ["hiring", "careers", "jobs", "team", "recruiting", "open roles", "banner"],
+  "fieldGroups": ["Team", "Message", "Link"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "people",
+      "label": "Team photos",
+      "type": "list",
+      "group": "Team",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Teammate",
+          "maxLength": 40
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 96,
+            "height": 96,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "Ana",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 96,
+            "height": 96,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "Tomasz",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 96,
+            "height": 96,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "Keiko",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 96,
+            "height": 96,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "Malik",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "",
+            "decorative": true,
+            "width": 96,
+            "height": 96,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "text",
+      "default": "Join the 40 people building the research tool product teams love.",
+      "required": true,
+      "maxLength": 120,
+      "group": "Message"
+    },
+    {
+      "name": "roles",
+      "label": "Open roles",
+      "type": "text",
+      "default": "6 open roles",
+      "maxLength": 24,
+      "group": "Message"
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "See open roles",
+      "required": true,
+      "maxLength": 32,
+      "group": "Link"
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Link"
+    }
+  ]
+}

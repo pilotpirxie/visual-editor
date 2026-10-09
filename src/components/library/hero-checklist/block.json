@@ -1,0 +1,154 @@
+{
+  "name": "Hero, benefits checklist",
+  "category": "headers",
+  "description": "Page heading with a checklist of benefits and buttons, next to an image with a floating result card.",
+  "tags": ["hero", "heading", "checklist", "benefits", "image", "stat", "services", "booking"],
+  "fieldGroups": ["Heading", "Benefits", "Buttons", "Image"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Online booking for clinics",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Fill your calendar without picking up the phone",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Patients book, reschedule and pay deposits online, and friendly reminders cut no-shows before they happen.",
+      "group": "Heading"
+    },
+    {
+      "name": "benefits",
+      "label": "Benefits",
+      "type": "list",
+      "group": "Benefits",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Benefit",
+          "type": "text",
+          "default": "A clear benefit",
+          "maxLength": 80
+        }
+      ],
+      "default": [
+        { "text": "Online booking live in one afternoon" },
+        { "text": "Text and email reminders sent for you" },
+        { "text": "Deposits for first-time patients" },
+        { "text": "Syncs with Google and Outlook calendars" }
+      ]
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Try it free for 30 days",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See pricing",
+        "link": {
+          "type": "section",
+          "anchor": "pricing",
+          "newTab": false
+        },
+        "variant": "ghost"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "note",
+      "label": "Note under the buttons",
+      "type": "text",
+      "default": "No card needed · Set up in under an hour",
+      "group": "Buttons"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A physiotherapist checking the day's bookings on a tablet at the front desk",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "photo"
+        }
+      },
+      "group": "Image"
+    },
+    {
+      "name": "showStat",
+      "label": "Show result card",
+      "type": "boolean",
+      "default": true,
+      "group": "Image"
+    },
+    {
+      "name": "statValue",
+      "label": "Result",
+      "type": "text",
+      "default": "+38%",
+      "maxLength": 12,
+      "visibleWhen": {
+        "field": "showStat",
+        "equals": true
+      },
+      "group": "Image"
+    },
+    {
+      "name": "statLabel",
+      "label": "Result label",
+      "type": "text",
+      "default": "more bookings in the first three months",
+      "maxLength": 60,
+      "visibleWhen": {
+        "field": "showStat",
+        "equals": true
+      },
+      "group": "Image"
+    }
+  ]
+}

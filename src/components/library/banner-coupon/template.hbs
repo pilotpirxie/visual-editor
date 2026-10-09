@@ -1,0 +1,12 @@
+<aside class="b-banner-coupon" aria-label="Discount code">
+  <div class="container b-bar">
+    <p class="b-message" data-field="text">{{text}}</p>
+    <p class="b-offer">
+      {{#if codeLabel}}<span class="b-code-label" data-field="codeLabel">{{codeLabel}}</span>{{/if}}
+      <span class="b-code" data-field="code">{{code}}</span>
+    </p>
+    {{#if linkLabel}}
+    <a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="linkLabel">{{linkLabel}}{{svgIcon "arrow-right"}}</a>
+    {{/if}}
+  </div>
+</aside>

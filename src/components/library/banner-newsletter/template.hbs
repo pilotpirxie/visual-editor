@@ -1,0 +1,15 @@
+<aside class="b-banner-newsletter" aria-label="Newsletter">
+  <div class="container b-bar">
+    <p class="b-message">
+      {{#if icon}}<span class="b-icon" data-field="icon">{{svgIcon icon}}</span>{{/if}}
+      <span data-field="text">{{text}}</span>
+    </p>
+    <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <div class="field b-field">
+        <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+        <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">
+      </div>
+      <button type="submit" class="btn btn-primary b-button" data-field="buttonLabel">{{buttonLabel}}</button>
+    </form>
+  </div>
+</aside>

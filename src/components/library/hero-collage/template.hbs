@@ -1,0 +1,21 @@
+<header class="b-hero-collage section" data-image-side="{{imageSide}}">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h1 data-field="title">{{title}}</h1>
+      {{#if text}}<p class="b-lead" data-field="text">{{nl2br text}}</p>{{/if}}
+      <div class="cluster b-actions">
+        <a class="btn btn-{{primaryButton.variant}}" href="{{href primaryButton.link}}" {{linkAttrs primaryButton.link}} data-field="primaryButton">{{primaryButton.label}}</a>
+        {{#if showSecondary}}
+        <a class="btn btn-{{secondaryButton.variant}}" href="{{href secondaryButton.link}}" {{linkAttrs secondaryButton.link}} data-field="secondaryButton">{{secondaryButton.label}}</a>
+        {{/if}}
+      </div>
+    </div>
+    <div class="b-collage">
+      <div class="media b-photo b-tall" data-field="mainImage">{{img mainImage}}</div>
+      <div class="media b-photo b-top" data-field="secondImage">{{img secondImage}}</div>
+      <div class="media b-photo b-bottom" data-field="thirdImage">{{img thirdImage}}</div>
+      {{#if caption}}<p class="b-caption" data-field="caption">{{svgIcon "star"}}<span>{{caption}}</span></p>{{/if}}
+    </div>
+  </div>
+</header>

@@ -1,0 +1,142 @@
+{
+  "name": "Hero, demo request form",
+  "category": "headers",
+  "description": "Page heading, a pitch and short reasons to talk next to a demo request form.",
+  "tags": ["hero", "heading", "form", "demo", "lead", "sales", "b2b", "contact"],
+  "fieldGroups": ["Heading", "Reasons", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Payroll for teams in 40 countries",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "See how finance teams close payroll in one afternoon",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Book a 30-minute walkthrough with a payroll specialist. We will use your countries, your pay cycles and your questions.",
+      "group": "Heading"
+    },
+    {
+      "name": "points",
+      "label": "Reasons",
+      "type": "list",
+      "group": "Reasons",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Reason to book a demo"
+        }
+      ],
+      "default": [
+        { "text": "Live demo with your own pay cycles" },
+        { "text": "Pricing for your headcount, on the call" },
+        { "text": "No sales follow-up unless you ask" }
+      ]
+    },
+    {
+      "name": "formTitle",
+      "label": "Form title",
+      "type": "text",
+      "default": "Book your demo",
+      "group": "Form"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name label",
+      "type": "text",
+      "default": "Full name",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email label",
+      "type": "text",
+      "default": "Work email",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "sizeLabel",
+      "label": "Company size label",
+      "type": "text",
+      "default": "Company size",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "sizes",
+      "label": "Company size choices",
+      "type": "list",
+      "group": "Form",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Choice",
+          "type": "text",
+          "default": "Choice"
+        }
+      ],
+      "default": [
+        { "label": "1–49 employees" },
+        { "label": "50–249 employees" },
+        { "label": "250–999 employees" },
+        { "label": "1,000 or more" }
+      ]
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Request a demo",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "note",
+      "label": "Note under the button",
+      "type": "text",
+      "default": "We reply within one working day.",
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        { "value": "post", "label": "POST" },
+        { "value": "get", "label": "GET" }
+      ],
+      "group": "Form"
+    }
+  ]
+}

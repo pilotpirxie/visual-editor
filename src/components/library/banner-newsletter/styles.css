@@ -1,0 +1,63 @@
+@layer components {
+  @scope (.b-banner-newsletter) {
+    :scope {
+      border-bottom: var(--border-width) solid var(--color-border);
+      background: color-mix(in oklab, var(--color-text) 4%, var(--color-background));
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+
+    .b-bar {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      padding-block: var(--space-3);
+    }
+
+    .b-message {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-icon {
+      --icon-size: 1.125rem;
+      display: inline-flex;
+      color: var(--color-primary);
+    }
+
+    .b-form {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .b-field {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .b-button {
+      flex: none;
+    }
+
+    @media (min-width: 768px) {
+      .b-bar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-6);
+        padding-block: var(--space-2);
+      }
+
+      .b-message {
+        flex: 0 1 auto;
+        align-items: center;
+      }
+
+      .b-form {
+        flex: 0 1 24rem;
+      }
+    }
+  }
+}

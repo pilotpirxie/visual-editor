@@ -1,0 +1,122 @@
+{
+  "name": "Navigation, call and book",
+  "category": "navigations",
+  "description": "Site name, links, a phone number and a booking button; on phones a call button stays next to the menu button.",
+  "tags": ["menu", "navbar", "header", "phone", "call", "booking", "appointment", "local business"],
+  "fieldGroups": ["Links", "Phone", "Button", "Menu"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "group": "Links",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Treatments",
+          "link": {
+            "type": "section",
+            "anchor": "treatments",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Our team",
+          "link": {
+            "type": "section",
+            "anchor": "team",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Prices",
+          "link": {
+            "type": "section",
+            "anchor": "prices",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Visit us",
+          "link": {
+            "type": "section",
+            "anchor": "contact",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "callLabel",
+      "label": "Call label",
+      "type": "text",
+      "default": "Call us",
+      "required": true,
+      "maxLength": 30,
+      "group": "Phone"
+    },
+    {
+      "name": "phoneNumber",
+      "label": "Phone number as shown",
+      "type": "text",
+      "default": "(416) 555-0142",
+      "required": true,
+      "maxLength": 24,
+      "group": "Phone"
+    },
+    {
+      "name": "phoneLink",
+      "label": "Phone link",
+      "type": "link",
+      "default": {
+        "type": "phone",
+        "url": "+14165550142",
+        "newTab": false
+      },
+      "group": "Phone"
+    },
+    {
+      "name": "cta",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book an appointment",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Button"
+    },
+    {
+      "name": "menuIcon",
+      "label": "Menu icon",
+      "type": "icon",
+      "default": "menu",
+      "group": "Menu"
+    }
+  ]
+}
