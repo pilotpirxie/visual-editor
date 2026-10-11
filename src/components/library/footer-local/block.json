@@ -92,17 +92,17 @@
           "name": "time",
           "label": "Hours",
           "type": "text",
-          "default": "9:00–17:00"
+          "default": "9:00-17:00"
         }
       ],
       "default": [
         {
           "days": "Monday to Thursday",
-          "time": "8:30–18:00"
+          "time": "8:30-18:00"
         },
         {
           "days": "Friday",
-          "time": "8:30–16:00"
+          "time": "8:30-16:00"
         },
         {
           "days": "Saturday",

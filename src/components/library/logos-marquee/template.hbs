@@ -1,0 +1,32 @@
+<section class="b-logos-marquee section" data-speed="{{speed}}">
+  <div class="container stack b-head">
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h2 class="b-title" data-field="title">{{title}}</h2>
+  </div>
+  <div class="b-rows" role="group" aria-label="{{title}}" tabindex="0">
+    <div class="b-track">
+      <ul class="b-set" role="list">
+        {{#each topRow}}
+        <li class="b-logo" data-field="topRow.{{@index}}">{{img image}}</li>
+        {{/each}}
+      </ul>
+      <ul class="b-set b-copy" role="list" aria-hidden="true">
+        {{#each topRow}}
+        <li class="b-logo">{{img image}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="b-track b-back">
+      <ul class="b-set" role="list">
+        {{#each bottomRow}}
+        <li class="b-logo" data-field="bottomRow.{{@index}}">{{img image}}</li>
+        {{/each}}
+      </ul>
+      <ul class="b-set b-copy" role="list" aria-hidden="true">
+        {{#each bottomRow}}
+        <li class="b-logo">{{img image}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

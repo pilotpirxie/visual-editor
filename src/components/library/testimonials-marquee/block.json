@@ -1,0 +1,301 @@
+{
+  "name": "Testimonials, moving wall",
+  "category": "testimonials",
+  "description": "Two rows of quote cards that drift in opposite directions in an endless loop and pause under the pointer or keyboard focus. Visitors who prefer reduced motion get a still wall of cards.",
+  "tags": [
+    "testimonials",
+    "quotes",
+    "marquee",
+    "animated",
+    "moving",
+    "scrolling",
+    "loop",
+    "wall",
+    "social proof"
+  ],
+  "fieldGroups": ["Heading", "Quotes", "Motion"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Wall of love",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What research teams say after their first month",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Unedited notes from people who run customer interviews every week.",
+      "group": "Heading"
+    },
+    {
+      "name": "topRow",
+      "label": "Top row",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "A short quote from a happy customer.",
+          "required": true,
+          "maxLength": 220
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Customer name"
+        },
+        {
+          "name": "role",
+          "label": "Role and company",
+          "type": "text",
+          "default": "Role, Company"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "We used to lose half of every interview in someone's notebook. Now the whole team hears the customer the same day.",
+          "name": "Sofia Alvarez",
+          "role": "Head of Research, Brightpath",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sofia Alvarez",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "The highlight reels do the convincing for me. I just press play in the roadmap review.",
+          "name": "Tom Okafor",
+          "role": "Product Lead, Ledgerly",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tom Okafor",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Synthesis went from two weeks to two afternoons. I did not think that was possible.",
+          "name": "Kenji Watanabe",
+          "role": "UX Researcher, Orbit Labs",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Kenji Watanabe",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Our designers watch interviews now, because finding the right moment takes seconds.",
+          "name": "Marcus Lee",
+          "role": "Design Director, Northwind",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Marcus Lee",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "bottomRow",
+      "label": "Bottom row",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "A short quote from a happy customer.",
+          "required": true,
+          "maxLength": 220
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Customer name"
+        },
+        {
+          "name": "role",
+          "label": "Role and company",
+          "type": "text",
+          "default": "Role, Company"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "Search across every call we have ever recorded is the feature I open ten times a day.",
+          "name": "Hannah Wright",
+          "role": "Customer Insights, Freightly",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Hannah Wright",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Every decision in our planning doc links back to a real customer quote.",
+          "name": "Amara Osei",
+          "role": "VP Product, Lumen Health",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Amara Osei",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Setup took one coffee. The first tagged transcript was ready before lunch.",
+          "name": "Ingrid Solberg",
+          "role": "Founder, Fernway",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ingrid Solberg",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Support, sales and research finally share one home for what customers tell us.",
+          "name": "Margaret Doyle",
+          "role": "Head of Customer Care, Halcyon Bank",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Margaret Doyle",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "speed",
+      "label": "Speed",
+      "type": "select",
+      "default": "normal",
+      "group": "Motion",
+      "help": "The cards stand still for visitors who ask their device for less motion.",
+      "options": [
+        {
+          "value": "slow",
+          "label": "Slow"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "fast",
+          "label": "Fast"
+        }
+      ]
+    }
+  ]
+}

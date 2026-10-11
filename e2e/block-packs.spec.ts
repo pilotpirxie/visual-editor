@@ -1,7 +1,14 @@
 import { readFile } from 'node:fs/promises';
 import { expect, test, type Page } from '@playwright/test';
 import { createProject, insertBlock, readZip, showAllBlockCategories } from './editor';
-import { bylinePack, hostilePack, invalidPack, validPack } from './fixtures/packs';
+import {
+  animatedPack,
+  bylinePack,
+  hostilePack,
+  invalidPack,
+  nestedKeyframesPack,
+  validPack,
+} from './fixtures/packs';
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
@@ -31,6 +38,32 @@ async function addPack(page: Page, pack: Promise<Buffer>, confirmLabel: string):
   const dialog = page.getByRole('dialog', { name: /Acme blocks/ });
   await dialog.getByRole('button', { name: confirmLabel }).click();
   await expect(dialog).toBeHidden();
+}
+
+async function openManagePacks(page: Page) {
+  await showAllBlockCategories(page);
+  await page.locator('.ve-blocks').getByRole('button', { name: 'Manage packs' }).click();
+  return page.getByRole('dialog', { name: 'Block packs' });
+}
+
+async function saveToDisk(page: Page): Promise<string> {
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('button', { name: /^File/ }).click();
+  await page.getByRole('menuitem', { name: 'Save to disk' }).click();
+  return readFile(await (await downloadPromise).path(), 'utf8');
+}
+
+async function openFromDisk(page: Page, saved: string): Promise<void> {
+  await page.addInitScript(() => Reflect.deleteProperty(window, 'showOpenFilePicker'));
+  await page.goto('/');
+  const chooserPromise = page.waitForEvent('filechooser');
+  await page.getByRole('button', { name: 'Open from disk' }).click();
+  const chooser = await chooserPromise;
+  await chooser.setFiles({
+    name: 'site.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(saved),
+  });
 }
 
 function normalized(text: string | null): string {
@@ -182,4 +215,111 @@ test('custom blocks render under a Content Security Policy without unsafe-eval',
     'It changed how our team works.',
   );
   expect(violations).toEqual([]);
+});
+
+test('a pack block animates with keyframes named after it, on the canvas and in the export', async ({
+  page,
+}) => {
+  await createProject(page);
+  await addPack(page, animatedPack(), 'Add to library');
+  await insertBlock(page, 'Testimonials', 'Quote card Custom');
+  const quote = canvas(page).locator('.b-acme-quote-card .b-quote');
+  await expect(quote).toHaveCSS('animation-name', 'b-acme-quote-card--glow');
+  const keyframeNames = await canvas(page)
+    .locator('html')
+    .evaluate(() => {
+      const names: string[] = [];
+      function collect(rules: CSSRuleList): void {
+        for (const rule of rules) {
+          if (rule instanceof CSSKeyframesRule) names.push(rule.name);
+          else if ('cssRules' in rule && rule.cssRules instanceof CSSRuleList)
+            collect(rule.cssRules);
+        }
+      }
+      for (const sheet of document.styleSheets) {
+        if (sheet.href === null) collect(sheet.cssRules);
+      }
+      return names;
+    });
+  expect(keyframeNames).toContain('b-acme-quote-card--glow');
+
+  await page.getByRole('button', { name: 'Export', exact: true }).click();
+  const exportDialog = page.getByRole('dialog', { name: 'Export site' });
+  const downloadPromise = page.waitForEvent('download');
+  await exportDialog.getByRole('button', { name: 'Download zip' }).click();
+  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const css = files.get('assets/css/site.css')?.toString('utf8') ?? '';
+  expect(css).toContain('@keyframes b-acme-quote-card--glow');
+  expect(css).toContain('animation-iteration-count: 1 !important');
+});
+
+test('keyframes written inside the scope are refused with the reason', async ({ page }) => {
+  await createProject(page);
+  await choosePack(page, nestedKeyframesPack());
+  const dialog = page.getByRole('dialog', { name: 'Acme blocks 1.0.0' });
+  await expect(dialog.getByRole('note')).toContainText('@keyframes');
+  await expect(dialog.getByRole('button', { name: 'Add to library' })).toHaveCount(0);
+});
+
+test('removing a pack deletes its blocks from the project and undo brings them back', async ({
+  page,
+}) => {
+  await createProject(page);
+  await addPack(page, validPack(), 'Add to library');
+  await insertBlock(page, 'Testimonials', 'Quote card Custom');
+  const block = canvas(page).locator('.b-acme-quote-card');
+  await expect(block).toHaveCount(1);
+
+  const dialog = await openManagePacks(page);
+  const row = dialog.locator('.ve-pack-row', { hasText: 'Acme blocks' });
+  await row.getByRole('button', { name: 'Remove' }).click();
+  await expect(row.locator('.ve-pack-removal')).toHaveText(
+    'Deletes 1 block from this project: Home (1). Undo brings the blocks back. Other projects keep their saved copy.',
+  );
+  await row.getByRole('button', { name: 'Remove pack and its blocks' }).click();
+  await expect(block).toHaveCount(0);
+  await expect(dialog.locator('.ve-pack-row')).toHaveCount(0);
+  await dialog.getByRole('button', { name: 'Done' }).click();
+  await expect(page.locator('.ve-blocks')).not.toContainText('Acme blocks');
+
+  await page.getByRole('button', { name: 'Undo' }).click();
+  await expect(block.locator('blockquote')).toHaveText('It changed how our team works.');
+  const reopened = await openManagePacks(page);
+  const missing = reopened.locator('.ve-pack-row', { hasText: 'Acme blocks' });
+  await expect(missing.getByRole('button', { name: 'Add to library' })).toBeVisible();
+  await missing.getByRole('button', { name: 'Remove' }).click();
+  await missing.getByRole('button', { name: 'Remove from project' }).click();
+  await expect(block).toHaveCount(0);
+  await expect(reopened.locator('.ve-pack-row')).toHaveCount(0);
+});
+
+test('a project whose pack is gone without a saved copy opens with a placeholder and exports without it', async ({
+  page,
+  browser,
+}) => {
+  await createProject(page);
+  await insertBlock(page, 'Headers', 'Hero, centered text');
+  await addPack(page, validPack(), 'Add to library');
+  await insertBlock(page, 'Testimonials', 'Quote card Custom');
+  const saved: { packBlocks: unknown } = JSON.parse(await saveToDisk(page));
+  saved.packBlocks = {};
+
+  const other = await browser.newPage();
+  await openFromDisk(other, JSON.stringify(saved));
+  const frame = other.frameLocator('.ve-canvas-frame');
+  await expect(frame.locator('h1')).toBeVisible();
+  await expect(frame.locator('body')).toContainText('Missing component: acme/quote-card');
+
+  await other.getByRole('button', { name: 'Export', exact: true }).click();
+  const exportDialog = other.getByRole('dialog', { name: 'Export site' });
+  await expect(exportDialog).toContainText(
+    'A block needs the missing component “acme/quote-card” and is left out.',
+  );
+  const downloadPromise = other.waitForEvent('download');
+  await exportDialog.getByRole('button', { name: /Download zip|Export anyway/ }).click();
+  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const html = files.get('index.html')?.toString('utf8') ?? '';
+  expect(html).toContain('b-hero-centered');
+  expect(html).not.toContain('acme');
+  await other.close();
 });

@@ -45,6 +45,10 @@ function quoteCardCss(rule: string): string {
   return QUOTE_CARD_STYLES.replace('  }\n}', `    ${rule}\n  }\n}`);
 }
 
+function quoteCardCssBeside(rule: string): string {
+  return QUOTE_CARD_STYLES.replace('  }\n}', `  }\n  ${rule}\n}`);
+}
+
 describe('readBlockPack', () => {
   it('loads a valid pack and re-serializes its CSS', async () => {
     const result = await readBlockPack(await testPackZip(), new Map());
@@ -250,6 +254,49 @@ describe('CSS rules', () => {
     expect(
       await cssErrors(quoteCardCss('.b-quote { background: image-set("x.png" 1x); }')),
     ).toEqual(['can’t load files; only data:image URLs are allowed']);
+  });
+
+  it('accepts keyframes named after the block next to the scope', async () => {
+    const styles = quoteCardCssBeside(
+      '@keyframes b-acme-quote-card--spin { to { rotate: 1turn; } }',
+    );
+    const result = await readBlockPack(
+      await testPackZip([{ ...quoteCardBlock(), styles }]),
+      new Map(),
+    );
+    expect(result.errors).toEqual([]);
+    expect(result.blocks[0]?.styles).toContain('@keyframes b-acme-quote-card--spin');
+  });
+
+  it('refuses keyframes with another name, fixed positioning or outside files', async () => {
+    expect(
+      await cssErrors(quoteCardCssBeside('@keyframes spin { to { rotate: 1turn; } }')),
+    ).toEqual(['@keyframes spin must be named b-acme-quote-card--<name>']);
+    expect(
+      await cssErrors(
+        quoteCardCssBeside('@keyframes b-acme-quote-card-spin { to { rotate: 1turn; } }'),
+      ),
+    ).toEqual(['@keyframes b-acme-quote-card-spin must be named b-acme-quote-card--<name>']);
+    expect(
+      await cssErrors(
+        quoteCardCssBeside('@keyframes b-acme-quote-card--pin { to { position: fixed; } }'),
+      ),
+    ).toEqual(['position: fixed is only for navigations, banners, modals, cookies blocks']);
+    expect(
+      await cssErrors(
+        quoteCardCssBeside(
+          '@keyframes b-acme-quote-card--bg { to { background: url(https://evil.example/a.png); } }',
+        ),
+      ),
+    ).toEqual(['can’t load files; only data:image URLs are allowed']);
+  });
+
+  it('refuses other rules next to the scope', async () => {
+    const shape = 'must be exactly one @layer components { @scope (.b-acme-quote-card) { … } }';
+    expect(await cssErrors(quoteCardCssBeside('@font-face { font-family: x; }'))).toEqual([shape]);
+    expect(
+      await cssErrors(quoteCardCssBeside('@scope (.b-acme-quote-card) { p { color: red; } }')),
+    ).toEqual([shape]);
   });
 
   it('keeps fixed positioning to navigations, banners, modals and cookies', async () => {

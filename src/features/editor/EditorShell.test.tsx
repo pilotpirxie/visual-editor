@@ -96,9 +96,9 @@ describe('EditorShell', () => {
 
   it('shows the page and project name in the browser tab and restores the app name when closed', () => {
     const { unmount } = render(<EditorShell />);
-    expect(document.title).toBe('Home · Fieldnote – Visual Editor');
+    expect(document.title).toBe('Home · Fieldnote - Visual Editor');
     runInAct(() => dispatch(settingSet('title', 'Harbor Bakery', 'discrete')));
-    expect(document.title).toBe('Home · Harbor Bakery – Visual Editor');
+    expect(document.title).toBe('Home · Harbor Bakery - Visual Editor');
     unmount();
     expect(document.title).toBe('Visual Editor');
   });

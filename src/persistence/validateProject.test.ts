@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { createSampleProject } from '../app/projectFactory';
 import type { Project } from '../app/types';
 import { componentBlockOf, homePage } from '../test/fixtures';
-import { quoteCardDefinition } from '../test/packFixtures';
+import { projectUsingPacks, quoteCardDefinition } from '../test/packFixtures';
 import { parseProjectDocument, ProjectFormatError } from './validateProject';
 
 function sample(): Project {
@@ -40,6 +40,18 @@ describe('parseProjectDocument', () => {
     expect(componentBlockOf(parseProjectDocument(asJson(project)), block.id).componentId).toBe(
       'retired-hero',
     );
+  });
+
+  it('opens a project whose saved pack block is broken and keeps the blocks that used it', () => {
+    const { project, packBlockIds } = projectUsingPacks();
+    const saved = asJson(project);
+    Reflect.set(Reflect.get(Object(saved), 'packBlocks'), 'acme/quote-card', { template: 3 });
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const parsed = parseProjectDocument(saved);
+    expect(warn).toHaveBeenCalled();
+    warn.mockRestore();
+    expect(Object.keys(parsed.packBlocks)).toEqual(['acme-extra/quote-card']);
+    for (const blockId of packBlockIds) expect(parsed.blocks.entities[blockId]).toBeDefined();
   });
 
   it('drops unsafe overrides instead of failing', () => {

@@ -5,9 +5,12 @@ import { dispatch, useStore } from '../../app/store';
 import type { BlockPack, PackInfo } from '../../components/types';
 import { packCommands } from './packCommands';
 import { blockCountLabel, missingPacks } from './packLibrary';
+import { packUsage } from './packUpdates';
 import { createZip, type ZipEntry } from '../export/zip';
 import { downloadBlob } from '../export/download';
 import { Button, closeDialogOf, Dialog } from '../../../packages/ui/src';
+
+type RemovalNoteProps = { packId: string; isInLibrary: boolean };
 
 const TITLE_ID = 've-manage-packs-title';
 const EXAMPLE_FOLDER = './example-pack/';
@@ -54,7 +57,25 @@ function downloadExamplePack(): void {
   });
 }
 
+function RemovalNote({ packId, isInLibrary }: RemovalNoteProps): JSX.Element {
+  const project = useStore((state) => state.project);
+  const usage = useMemo(() => packUsage(project, packId), [project, packId]);
+  const places: string[] = [];
+  for (const { name, blockCount } of usage.places) places.push(`${name} (${blockCount})`);
+  const deleted =
+    usage.blockCount === 0
+      ? 'Not used on any page of this project.'
+      : `Deletes ${blockCountLabel(usage.blockCount)} from this project: ${places.join(', ')}. Undo brings the blocks back.`;
+  return (
+    <p className="ve-pack-removal" role="status">
+      {deleted}
+      {isInLibrary && ' Other projects keep their saved copy.'}
+    </p>
+  );
+}
+
 function PackRow({ pack }: { pack: BlockPack }): JSX.Element {
+  const isReadOnly = useStore((state) => state.editor.isReadOnly);
   const [isConfirmingRemove, setIsConfirmingRemove] = useState(false);
   return (
     <li className="ve-pack-row">
@@ -66,15 +87,16 @@ function PackRow({ pack }: { pack: BlockPack }): JSX.Element {
         <span className="ui-muted">
           {pack.author} · {pack.license} · {blockCountLabel(pack.blocks.length)}
         </span>
+        {isConfirmingRemove && <RemovalNote packId={pack.id} isInLibrary />}
       </div>
       <div className="ve-pack-actions">
         {isConfirmingRemove ? (
           <>
-            <Button variant="secondary" onClick={() => setIsConfirmingRemove(false)}>
+            <Button autoFocus variant="secondary" onClick={() => setIsConfirmingRemove(false)}>
               Keep
             </Button>
             <Button variant="danger" onClick={() => packCommands.remove(pack.id)}>
-              Remove from library
+              Remove pack and its blocks
             </Button>
           </>
         ) : (
@@ -87,7 +109,11 @@ function PackRow({ pack }: { pack: BlockPack }): JSX.Element {
                 Download
               </Button>
             )}
-            <Button variant="ghost" onClick={() => setIsConfirmingRemove(true)}>
+            <Button
+              variant="ghost"
+              disabled={isReadOnly}
+              onClick={() => setIsConfirmingRemove(true)}
+            >
               Remove
             </Button>
           </>
@@ -98,6 +124,8 @@ function PackRow({ pack }: { pack: BlockPack }): JSX.Element {
 }
 
 function MissingPackRow({ pack }: { pack: PackInfo }): JSX.Element {
+  const isReadOnly = useStore((state) => state.editor.isReadOnly);
+  const [isConfirmingRemove, setIsConfirmingRemove] = useState(false);
   return (
     <li className="ve-pack-row">
       <div className="ve-pack-info">
@@ -107,11 +135,32 @@ function MissingPackRow({ pack }: { pack: PackInfo }): JSX.Element {
         <span className="ui-muted">
           {pack.author} · {pack.license}
         </span>
+        {isConfirmingRemove && <RemovalNote packId={pack.id} isInLibrary={false} />}
       </div>
       <div className="ve-pack-actions">
-        <Button variant="ghost" onClick={() => packCommands.addFromProject(pack.id)}>
-          Add to library
-        </Button>
+        {isConfirmingRemove ? (
+          <>
+            <Button autoFocus variant="secondary" onClick={() => setIsConfirmingRemove(false)}>
+              Keep
+            </Button>
+            <Button variant="danger" onClick={() => packCommands.removeFromProject(pack.id)}>
+              Remove from project
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button variant="ghost" onClick={() => packCommands.addFromProject(pack.id)}>
+              Add to library
+            </Button>
+            <Button
+              variant="ghost"
+              disabled={isReadOnly}
+              onClick={() => setIsConfirmingRemove(true)}
+            >
+              Remove
+            </Button>
+          </>
+        )}
       </div>
     </li>
   );

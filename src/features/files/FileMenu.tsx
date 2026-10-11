@@ -1,4 +1,5 @@
 import type { JSX } from 'react';
+import { setAppearance, useAppearance } from '../../app/appearance';
 import { dialogOpened, libraryOpened, type EditorDialog } from '../../app/editorSlice';
 import { dispatch, useStore } from '../../app/store';
 import { canUseFileSystemAccess } from './fileAccess';
@@ -19,6 +20,7 @@ export function FileMenu(): JSX.Element {
   const isLinkedFileStale = useStore((state) => state.editor.isLinkedFileStale);
   const isReadOnly = useStore((state) => state.editor.isReadOnly);
   const isNarrow = useMediaQuery(NARROW_TOOLBAR_QUERY);
+  const isDark = useAppearance() === 'dark';
   const canAutoSave = canUseFileSystemAccess() && linkedFile?.kind === 'file';
   const items: MenuItem[] = [
     { id: 'new', label: 'New project…', onSelect: openDialog({ kind: 'new-project' }) },
@@ -71,7 +73,15 @@ export function FileMenu(): JSX.Element {
       },
     );
   }
-  items.push({ id: 'licenses-separator', isSeparator: true });
+  items.push(
+    { id: 'licenses-separator', isSeparator: true },
+    {
+      id: 'dark-mode',
+      label: 'Dark mode',
+      isChecked: isDark,
+      onSelect: () => setAppearance(isDark ? 'light' : 'dark'),
+    },
+  );
   if (isNarrow) items.push({ id: 'help', label: 'Help', onSelect: openDialog({ kind: 'help' }) });
   items.push({
     id: 'licenses',

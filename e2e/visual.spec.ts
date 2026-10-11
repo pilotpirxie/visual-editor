@@ -5,6 +5,8 @@ const PRESET_GROUPS = [
   ['Clean', 'Midnight', 'Playful', 'Corporate'],
   ['Editorial', 'Mono', 'Warm', 'Bold'],
   ['Nature', 'Pastel', 'Luxury', 'Brutalist'],
+  ['Ocean', 'Sunset', 'Neon', 'Retro'],
+  ['Slate', 'Noir', 'Blueprint', 'Sand'],
 ];
 
 type CanvasWidth = 320 | 375 | 768 | 1440;

@@ -16,7 +16,7 @@
 
   .ui-tooltip kbd {
     margin-inline-start: 8px;
-    color: var(--ve-border-strong);
+    color: color-mix(in oklab, var(--ve-bg) 70%, var(--ve-text));
     font: inherit;
   }
 }

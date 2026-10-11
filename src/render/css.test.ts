@@ -79,6 +79,14 @@ describe('buildSiteCss', () => {
     expect(css.indexOf(component)).toBeLessThan(css.indexOf('@layer utilities {'));
   });
 
+  it('ships a token that only a block animation uses', () => {
+    const component =
+      '@layer components { @scope (.b-test) { :scope { animation: b-test--glow 2s; } } @keyframes b-test--glow { to { color: var(--color-primary); } } }';
+    const { css } = site([], [component]);
+    expect(css).toContain('@keyframes b-test--glow');
+    expect(css).toContain('--color-primary: #4f46e5;');
+  });
+
   it('ships only tokens the CSS or the inline overrides reference', () => {
     const { css } = site([], [], '<section style="--color-background: var(--color-primary)">');
     expect(css).toContain('--color-primary: #4f46e5;');
@@ -91,5 +99,9 @@ describe('CANVAS_BASE_CSS', () => {
     for (const selector of ['.container', '.btn-ghost', '.prose', '.icon', '.visually-hidden']) {
       expect(CANVAS_BASE_CSS).toContain(selector);
     }
+  });
+
+  it('plays a looping animation once for people who prefer reduced motion', () => {
+    expect(CANVAS_BASE_CSS).toContain('animation-iteration-count: 1 !important');
   });
 });

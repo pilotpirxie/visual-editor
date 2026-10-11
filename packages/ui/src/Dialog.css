@@ -21,7 +21,7 @@
   }
 
   .ui-dialog::backdrop {
-    background: rgb(16 24 40 / 0.4);
+    background: var(--ve-scrim, rgb(16 24 40 / 0.4));
   }
 
   .ui-dialog-body {
@@ -44,8 +44,8 @@
     gap: 6px;
     padding: 10px 12px;
     border-radius: var(--ve-radius);
-    background: #fef3c7;
-    color: #78350f;
+    background: var(--ve-warning-bg);
+    color: var(--ve-warning-text);
   }
 
   .ui-dialog-note ul {

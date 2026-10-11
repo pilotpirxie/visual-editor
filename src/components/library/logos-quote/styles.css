@@ -16,12 +16,12 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: var(--space-6) var(--space-8);
+      gap: var(--space-6);
     }
 
     .b-logo {
       position: relative;
-      flex: 0 1 8rem;
+      flex: 0 1 7rem;
     }
 
     .b-logo img {
@@ -51,30 +51,19 @@
     .b-bubble {
       display: grid;
       gap: var(--space-6);
-      max-width: 44rem;
-      padding: var(--space-8);
+      max-width: min(44rem, 100%);
+      padding: var(--space-6);
       border-radius: var(--card-radius);
       background: var(--color-surface);
       text-align: center;
     }
 
-    .b-bubble::before {
-      content: '';
-      position: absolute;
-      inset-block-start: calc(-1 * var(--space-3));
-      inset-inline: 0;
-      width: var(--space-6);
-      height: var(--space-6);
-      margin-inline: auto;
-      background: inherit;
-      transform: rotate(45deg);
-    }
-
     .b-quote {
       font-family: var(--font-heading);
-      font-size: var(--text-2xl);
+      font-size: var(--text-xl);
       line-height: var(--line-height-tight);
       text-wrap: balance;
+      overflow-wrap: anywhere;
     }
 
     .b-quote p::before {
@@ -106,6 +95,24 @@
 
     .b-role {
       color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-logos {
+        gap: var(--space-6) var(--space-8);
+      }
+
+      .b-logo {
+        flex-basis: 8rem;
+      }
+
+      .b-bubble {
+        padding: var(--space-8);
+      }
+
+      .b-quote {
+        font-size: var(--text-2xl);
+      }
     }
   }
 }

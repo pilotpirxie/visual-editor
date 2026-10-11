@@ -1,0 +1,125 @@
+{
+  "name": "Hero, rotating words",
+  "category": "headers",
+  "description": "A headline whose last line cycles through a short list of words or phrases, with text and two buttons. Shows only the first one when motion is reduced.",
+  "tags": ["hero", "heading", "animated", "animation", "rotating", "words", "cycle", "motion"],
+  "fieldGroups": ["Heading", "Words", "Buttons", "Layout"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Research your whole team can use",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Turn every customer call into",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 80,
+      "help": "The rotating words follow on their own line."
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Fieldnote records, transcribes and tags your interviews, then puts the evidence next to the decisions it should shape.",
+      "group": "Heading"
+    },
+    {
+      "name": "words",
+      "label": "Rotating words",
+      "type": "list",
+      "group": "Words",
+      "minItems": 2,
+      "maxItems": 5,
+      "itemLabel": "text",
+      "help": "Each one shows for a couple of seconds. Screen readers and visitors who prefer reduced motion get the first one.",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Word or phrase",
+          "type": "text",
+          "default": "a better decision",
+          "required": true,
+          "maxLength": 28
+        }
+      ],
+      "default": [
+        { "text": "a sharper roadmap" },
+        { "text": "a faster launch" },
+        { "text": "a calmer support queue" },
+        { "text": "a closed deal" }
+      ]
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "See how it works",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "align",
+      "label": "Alignment",
+      "type": "segmented",
+      "default": "center",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left",
+          "icon": "align-left"
+        },
+        {
+          "value": "center",
+          "label": "Center",
+          "icon": "align-center"
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "Callout, icon and text",
   "category": "content",
-  "description": "A highlighted note with an icon, a title, text and an optional button. Copy this block to start your own: the root element needs the class b-<pack id>-<block id>, here b-example-callout, and its CSS lives in one @scope for that class inside @layer components.",
+  "description": "A highlighted note with an icon, a title, text and an optional button. Copy this block to start your own: the root element needs the class b-<pack id>-<block id>, here b-example-callout, and its CSS lives in one @scope for that class inside @layer components. Animations go next to the scope as @keyframes named b-example-callout--<name>.",
   "tags": ["callout", "note", "tip", "example"],
   "fieldGroups": ["Content", "Button"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],

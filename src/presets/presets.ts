@@ -1,6 +1,7 @@
 import type { DesignSystem, DesignSystemPreset, TokenGroup } from '../app/types';
 import { isRecord } from '../components/fields';
 import { parseDesignSystem, ProjectFormatError } from '../persistence/validateProject';
+import blueprint from './blueprint.json';
 import bold from './bold.json';
 import brutalist from './brutalist.json';
 import clean from './clean.json';
@@ -10,8 +11,15 @@ import luxury from './luxury.json';
 import midnight from './midnight.json';
 import mono from './mono.json';
 import nature from './nature.json';
+import neon from './neon.json';
+import noir from './noir.json';
+import ocean from './ocean.json';
 import pastel from './pastel.json';
 import playful from './playful.json';
+import retro from './retro.json';
+import sand from './sand.json';
+import slate from './slate.json';
+import sunset from './sunset.json';
 import warm from './warm.json';
 
 export const PRESET_GROUPS = ['colors', 'typography', 'spacing', 'shape', 'icons'] as const;
@@ -83,6 +91,14 @@ export const BUILTIN_PRESETS: DesignSystemPreset[] = [
   parsePreset(pastel, 'builtin'),
   parsePreset(luxury, 'builtin'),
   parsePreset(brutalist, 'builtin'),
+  parsePreset(ocean, 'builtin'),
+  parsePreset(sunset, 'builtin'),
+  parsePreset(neon, 'builtin'),
+  parsePreset(retro, 'builtin'),
+  parsePreset(slate, 'builtin'),
+  parsePreset(noir, 'builtin'),
+  parsePreset(blueprint, 'builtin'),
+  parsePreset(sand, 'builtin'),
 ];
 
 export function presetDesignSystem(preset: DesignSystemPreset): DesignSystem {

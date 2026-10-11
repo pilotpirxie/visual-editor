@@ -85,6 +85,38 @@ export const STARTERS: StarterInfo[] = [
     useCase: 'services',
     load: () => import('./consultant/project.json'),
   },
+  {
+    id: 'nonprofit',
+    name: 'Nonprofit',
+    description: 'A community organization with programs, its story, giving and contact pages.',
+    presetId: 'nature',
+    useCase: 'local',
+    load: () => import('./nonprofit/project.json'),
+  },
+  {
+    id: 'podcast',
+    name: 'Podcast',
+    description: 'A podcast with an episode archive, the team behind it and ways to subscribe.',
+    presetId: 'brutalist',
+    useCase: 'personal',
+    load: () => import('./podcast/project.json'),
+  },
+  {
+    id: 'studio',
+    name: 'Architecture studio',
+    description: 'An architecture practice with projects, the studio, a journal and a brief form.',
+    presetId: 'luxury',
+    useCase: 'services',
+    load: () => import('./studio/project.json'),
+  },
+  {
+    id: 'course',
+    name: 'Online course',
+    description: 'Sell a cohort course with a curriculum, pricing, instructor and FAQ pages.',
+    presetId: 'pastel',
+    useCase: 'products',
+    load: () => import('./course/project.json'),
+  },
 ];
 
 function moduleDefault(value: unknown): unknown {

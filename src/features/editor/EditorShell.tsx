@@ -54,7 +54,7 @@ function skipToCanvas(event: MouseEvent<HTMLAnchorElement>): void {
 
 function useDocumentTitle(pageName: string, projectTitle: string): void {
   useEffect(() => {
-    document.title = `${pageName} · ${projectTitle} – ${APP_NAME}`;
+    document.title = `${pageName} · ${projectTitle} - ${APP_NAME}`;
     return () => {
       document.title = APP_NAME;
     };

@@ -37,7 +37,7 @@
         },
         {
           "icon": "clock",
-          "text": "Mon–Fri 8:00–18:00, Sat 9:00–13:00",
+          "text": "Mon-Fri 8:00-18:00, Sat 9:00-13:00",
           "link": { "type": "section", "anchor": "contact", "newTab": false }
         }
       ]

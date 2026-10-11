@@ -75,6 +75,27 @@ export function bylinePack(): Promise<Buffer> {
   return packZip('1.1.0', [quoteCard(BYLINE)]);
 }
 
+function animatedStyles(keyframesPlace: 'beside' | 'inside'): string {
+  const keyframes = '@keyframes b-acme-quote-card--glow { to { color: var(--color-primary); } }';
+  return [
+    '@layer components {',
+    '  @scope (.b-acme-quote-card) {',
+    '    .b-quote { animation: b-acme-quote-card--glow 4s infinite alternate; }',
+    keyframesPlace === 'inside' ? `    ${keyframes}` : '',
+    '  }',
+    keyframesPlace === 'beside' ? `  ${keyframes}` : '',
+    '}',
+  ].join('\n');
+}
+
+export function animatedPack(): Promise<Buffer> {
+  return packZip('1.0.0', [{ ...quoteCard(AUTHOR), styles: animatedStyles('beside') }]);
+}
+
+export function nestedKeyframesPack(): Promise<Buffer> {
+  return packZip('1.0.0', [{ ...quoteCard(AUTHOR), styles: animatedStyles('inside') }]);
+}
+
 export function invalidPack(): Promise<Buffer> {
   return packZip('1.0.0', [
     {

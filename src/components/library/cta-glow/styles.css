@@ -1,0 +1,111 @@
+@layer components {
+  @scope (.b-cta-glow) {
+    .b-panel {
+      --color-background: var(--theme-dark-background);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      --stack-gap: var(--space-6);
+      position: relative;
+      isolation: isolate;
+      overflow: clip;
+      align-items: center;
+      padding: var(--space-16) var(--space-6);
+      border-radius: var(--radius-lg);
+      background: var(--color-background);
+      color: var(--color-text);
+      text-align: center;
+    }
+
+    .b-panel::before,
+    .b-cta::before,
+    .b-cta::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: var(--button-radius);
+    }
+
+    .b-panel::before {
+      inset: 60% 10% -40%;
+      border-radius: 50%;
+      background: var(--color-primary);
+      filter: blur(5rem);
+      opacity: 0.35;
+    }
+
+    h2 {
+      max-width: 40rem;
+    }
+
+    .b-text {
+      max-width: 36rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-cta {
+      position: relative;
+      display: grid;
+      margin-block: var(--space-3);
+    }
+
+    .b-cta::before {
+      background: var(--color-primary);
+      filter: blur(1.25rem);
+      opacity: 0.75;
+    }
+
+    .b-cta::after {
+      border: var(--border-width) solid var(--color-primary);
+      opacity: 0;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-panel::before,
+      .b-cta::before {
+        animation: b-cta-glow--breathe 2.6s ease-in-out infinite alternate;
+      }
+
+      .b-panel::before {
+        animation-duration: 5.2s;
+      }
+
+      .b-cta::after {
+        animation: b-cta-glow--ring 2.6s ease-out infinite;
+      }
+
+      .b-cta:is(:hover, :focus-within)::before,
+      .b-cta:is(:hover, :focus-within)::after {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  @keyframes b-cta-glow--breathe {
+    from {
+      scale: 0.9;
+    }
+
+    to {
+      scale: 1.15;
+    }
+  }
+
+  @keyframes b-cta-glow--ring {
+    from {
+      opacity: 0.8;
+    }
+
+    to {
+      scale: 1.16 1.7;
+      opacity: 0;
+    }
+  }
+}

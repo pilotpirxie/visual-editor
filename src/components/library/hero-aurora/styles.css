@@ -1,0 +1,108 @@
+@layer components {
+  @scope (.b-hero-aurora) {
+    :scope {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .b-sky {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      overflow: clip;
+      opacity: 0.6;
+      mask-image: linear-gradient(var(--color-text) 35%, transparent);
+    }
+
+    :scope[data-glow='bright'] .b-sky {
+      opacity: 1;
+    }
+
+    .b-ray {
+      position: absolute;
+      inset: -40% 40% 30% 0%;
+      border-radius: 50%;
+      background: color-mix(in oklab, var(--color-primary) 55%, transparent);
+      filter: blur(4rem);
+      rotate: -16deg;
+    }
+
+    .b-ray:nth-child(2) {
+      inset: -50% 0% 40% 45%;
+      filter: blur(4rem) hue-rotate(50deg);
+      rotate: 18deg;
+    }
+
+    .b-ray:nth-child(3) {
+      inset: 5% 25% 25%;
+      filter: blur(4rem) hue-rotate(-40deg);
+      opacity: 0.6;
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-6);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-pill {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border: var(--border-width) solid color-mix(in oklab, var(--color-primary) 35%, transparent);
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-background) 65%, transparent);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      backdrop-filter: blur(0.5rem);
+    }
+
+    h1 {
+      max-width: 52rem;
+    }
+
+    .b-lead {
+      max-width: 40rem;
+      font-size: var(--text-lg);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-ray {
+        animation: b-hero-aurora--drift 16s ease-in-out infinite alternate;
+      }
+
+      .b-ray:nth-child(2) {
+        animation-duration: 22s;
+        animation-direction: alternate-reverse;
+      }
+
+      .b-ray:nth-child(3) {
+        animation-duration: 28s;
+        animation-delay: -9s;
+      }
+    }
+  }
+
+  @keyframes b-hero-aurora--drift {
+    from {
+      translate: -14% -8%;
+      scale: 0.85;
+    }
+
+    to {
+      translate: 16% 10%;
+      scale: 1.2;
+    }
+  }
+}

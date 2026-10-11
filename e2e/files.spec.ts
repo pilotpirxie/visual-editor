@@ -55,7 +55,7 @@ test('a project saved to disk opens again identical after it was deleted', async
     mimeType: 'application/json',
     buffer: Buffer.from(savedText),
   });
-  await expect(page).toHaveTitle(/ · Acme Research – Visual Editor$/);
+  await expect(page).toHaveTitle(/ · Acme Research - Visual Editor$/);
   await expect(
     page.frameLocator('.ve-canvas-frame').locator('[data-component="hero-centered"] h1'),
   ).toHaveText('Saved to disk');
@@ -85,7 +85,7 @@ test('opening a file of a project the browser already has offers a copy', async 
   const dialog = page.getByRole('dialog', { name: '“Acme Research” is already in this browser' });
   await expect(dialog).toBeVisible();
   await dialog.getByRole('button', { name: 'Open as copy' }).click();
-  await expect(page).toHaveTitle(/ · Copy of Acme Research – Visual Editor$/);
+  await expect(page).toHaveTitle(/ · Copy of Acme Research - Visual Editor$/);
 });
 
 test('a file that is not a project shows an error and changes nothing', async ({ page }) => {

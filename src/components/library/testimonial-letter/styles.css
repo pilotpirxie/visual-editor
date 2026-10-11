@@ -28,7 +28,7 @@
 
     .b-desk::before {
       content: '';
-      transform: rotate(2deg);
+      transform: translateY(var(--space-2)) scaleX(0.96);
     }
 
     .b-paper {
@@ -101,6 +101,10 @@
 
       .b-desk {
         transform: rotate(-1deg);
+      }
+
+      .b-desk::before {
+        transform: rotate(2deg);
       }
     }
   }

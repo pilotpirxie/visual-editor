@@ -72,7 +72,7 @@
           "name": "seats",
           "label": "Seats",
           "type": "text",
-          "default": "1–10 editors"
+          "default": "1-10 editors"
         },
         {
           "name": "price",
@@ -100,7 +100,7 @@
           "name": "saving",
           "label": "Saving",
           "type": "text",
-          "default": "—"
+          "default": "-"
         },
         {
           "name": "featured",
@@ -111,15 +111,15 @@
       ],
       "default": [
         {
-          "seats": "1–10",
+          "seats": "1-10",
           "price": "$29",
           "period": "a month",
           "bar": 100,
-          "saving": "—",
+          "saving": "-",
           "featured": false
         },
         {
-          "seats": "11–50",
+          "seats": "11-50",
           "price": "$25",
           "period": "a month",
           "bar": 86,
@@ -127,7 +127,7 @@
           "featured": true
         },
         {
-          "seats": "51–200",
+          "seats": "51-200",
           "price": "$21",
           "period": "a month",
           "bar": 72,

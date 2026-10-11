@@ -1,0 +1,100 @@
+@layer components {
+  @scope (.b-stats-meters) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro,
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-list {
+      display: grid;
+      gap: var(--space-8) var(--space-12);
+    }
+
+    .b-item {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .b-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0 var(--space-4);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-value {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      color: var(--color-primary);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .b-track {
+      height: var(--space-4);
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 14%, transparent);
+      overflow: hidden;
+    }
+
+    .b-fill {
+      display: block;
+      width: min(100%, calc(var(--value) * 1%));
+      height: 100%;
+      border-radius: inherit;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--color-primary) 0 0.5rem,
+        color-mix(in oklab, var(--color-primary) 78%, var(--color-background)) 0 1rem
+      );
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-item {
+        view-timeline: --b-stats-meters-row;
+      }
+
+      .b-fill {
+        animation: b-stats-meters--fill 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+
+      @supports (animation-timeline: view()) {
+        .b-fill {
+          animation-timeline: --b-stats-meters-row;
+          animation-range: entry;
+        }
+      }
+    }
+  }
+
+  @keyframes b-stats-meters--fill {
+    from {
+      width: 0;
+    }
+  }
+}

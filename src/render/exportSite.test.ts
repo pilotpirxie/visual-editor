@@ -291,6 +291,37 @@ describe('buildExportFiles', () => {
     );
   });
 
+  it('leaves out a block whose pack is gone and still writes the rest of the page', () => {
+    const project = createSampleProject();
+    const heroId = blockIdOf(project, 'hero-centered');
+    componentBlockOf(project, heroId).componentId = 'acme/quote-card';
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const html = text(filesOf(project), 'index.html');
+    expect(warn).toHaveBeenCalledWith(
+      `Export skipped block ${heroId}: unknown component "acme/quote-card"`,
+    );
+    warn.mockRestore();
+    expect(html).not.toContain('b-hero-centered');
+    expect(html).toContain('b-footer-simple');
+  });
+
+  it('still writes an HTML block converted from a pack that is gone', () => {
+    const project = createSampleProject();
+    const heroId = blockIdOf(project, 'hero-centered');
+    project.blocks.entities[heroId] = {
+      id: heroId,
+      kind: 'html',
+      html: '<section class="b-acme-quote-card">Kept as written</section>',
+      disabled: false,
+      extraClasses: [],
+      hideOn: [],
+      sourceComponentId: 'acme/quote-card',
+    };
+    const files = filesOf(project);
+    expect(text(files, 'index.html')).toContain('Kept as written');
+    expect(text(files, 'assets/css/site.css')).not.toContain('b-acme-quote-card');
+  });
+
   it('writes a sitemap of indexed pages and a robots file only when a base URL is set', () => {
     const project = createSampleProject();
     const about = createPage('about', 'About', 'about');

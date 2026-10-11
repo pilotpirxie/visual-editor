@@ -1,0 +1,103 @@
+{
+  "name": "How it works, pulse along the line",
+  "category": "how-it-works",
+  "description": "Numbered steps joined by a line, with a pulse of light that travels from the first step to the last. A column on phones and a row on desktop; the pulse is hidden for visitors who prefer reduced motion.",
+  "tags": [
+    "steps",
+    "process",
+    "timeline",
+    "pulse",
+    "line",
+    "numbered",
+    "signal",
+    "animated",
+    "animation"
+  ],
+  "fieldGroups": ["Heading", "Steps", "Button"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How it works",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From first interview to shared findings in four steps",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Most teams finish their first study in the week they sign up.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 5,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "title", "label": "Title", "type": "text", "default": "Step", "required": true },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step."
+        }
+      ],
+      "default": [
+        {
+          "title": "Connect your calendar",
+          "text": "Fieldnote finds the customer interviews you already have booked."
+        },
+        {
+          "title": "Record the conversation",
+          "text": "It joins the meeting, records with consent and writes the transcript."
+        },
+        {
+          "title": "Review the themes",
+          "text": "See what customers keep saying, with the quotes that prove it."
+        },
+        {
+          "title": "Share the highlights",
+          "text": "Send a two-minute reel to the people who decide what gets built."
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start your first study",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "primary"
+      },
+      "visibleWhen": { "field": "showButton", "equals": true },
+      "group": "Button"
+    }
+  ]
+}

@@ -20,7 +20,7 @@ import {
   Section,
 } from '../../../packages/ui/src';
 import { useSection } from '../editor/useSection';
-import { applyPresetGroups } from './presetActions';
+import { applyPresetGroups, randomizeDesignSystem } from './presetActions';
 
 const SWATCH_TOKENS = [
   '--color-primary',
@@ -185,9 +185,30 @@ export function PresetsSection(): JSX.Element {
   const section = useSection('design:presets', true);
   const currentPresetId = useStore((state) => state.project.designSystem.presetId);
   const [applying, setApplying] = useState<DesignSystemPreset | null>(null);
+  const [isRandomizing, setIsRandomizing] = useState(false);
+
+  async function randomize(): Promise<void> {
+    setIsRandomizing(true);
+    try {
+      await dispatch(randomizeDesignSystem());
+    } catch (error) {
+      console.error('Randomizing the design failed', error);
+      dispatch(noticeShown('error', `Randomizing the design failed: ${describeError(error)}`));
+    } finally {
+      setIsRandomizing(false);
+    }
+  }
 
   return (
     <Section title="Presets" isOpen={section.isOpen} onToggle={section.onToggle}>
+      <div className="ve-preset-random">
+        <Button icon="sparkles" disabled={isRandomizing} onClick={() => void randomize()}>
+          Randomize
+        </Button>
+        <p className="ui-muted">
+          A new mix of colors, fonts, spacing, corners and icons. Undo brings the last one back.
+        </p>
+      </div>
       <PresetList
         label="Presets"
         presets={BUILTIN_PRESETS}

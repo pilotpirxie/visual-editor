@@ -1,0 +1,89 @@
+@layer components {
+  @scope (.b-features-beam) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-intro,
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      --grid-min: 17rem;
+    }
+
+    .b-card {
+      position: relative;
+      display: grid;
+      padding: calc(var(--space-1) / 2);
+      border-radius: var(--card-radius);
+      background: var(--color-border);
+      overflow: hidden;
+    }
+
+    .b-card[data-featured] {
+      background: var(--color-primary);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-3);
+      position: relative;
+      padding: var(--space-6);
+      border-radius: inherit;
+      background: var(--color-background);
+    }
+
+    .b-card[data-featured] .b-body {
+      background: color-mix(in oklab, var(--color-primary) 5%, var(--color-background));
+    }
+
+    .b-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+      margin-block-end: var(--space-2);
+    }
+
+    .b-icon {
+      --icon-size: 1.75rem;
+      color: var(--color-primary);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-card[data-featured] {
+        background: color-mix(in oklab, var(--color-primary) 30%, var(--color-background));
+      }
+
+      .b-card[data-featured]::before {
+        content: '';
+        position: absolute;
+        inset: 50% auto auto 50%;
+        width: 250%;
+        aspect-ratio: 1;
+        background: conic-gradient(transparent 60%, var(--color-primary));
+        translate: -50% -50%;
+        animation: b-features-beam--orbit 5s linear infinite;
+      }
+    }
+  }
+
+  @keyframes b-features-beam--orbit {
+    to {
+      rotate: 1turn;
+    }
+  }
+}

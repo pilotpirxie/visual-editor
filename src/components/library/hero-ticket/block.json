@@ -88,7 +88,7 @@
       "name": "ticketDate",
       "label": "Date",
       "type": "text",
-      "default": "May 13–14",
+      "default": "May 13-14",
       "group": "Ticket"
     },
     {

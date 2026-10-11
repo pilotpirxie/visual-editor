@@ -11,6 +11,7 @@
 
     .b-top {
       display: grid;
+      grid-template-columns: minmax(0, 1fr);
       gap: var(--space-8);
     }
 
@@ -33,7 +34,7 @@
     }
 
     .b-marker {
-      inline-size: 2.75rem;
+      width: 2.75rem;
       aspect-ratio: 1;
       border-radius: 50% 50% 50% 0;
       rotate: -45deg;
@@ -59,6 +60,7 @@
       font-weight: var(--font-weight-heading);
       color: inherit;
       text-decoration: none;
+      overflow-wrap: anywhere;
     }
 
     .b-address {

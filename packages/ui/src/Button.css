@@ -34,11 +34,11 @@
 
   .ui-button--primary {
     background: var(--ve-accent);
-    color: #ffffff;
+    color: var(--ve-on-accent);
   }
 
   .ui-button--primary:hover:enabled {
-    background: color-mix(in oklab, var(--ve-accent), black 12%);
+    background: color-mix(in oklab, var(--ve-accent), var(--ve-text) 12%);
   }
 
   .ui-button--secondary {
@@ -49,11 +49,11 @@
 
   .ui-button--danger {
     background: var(--ve-danger);
-    color: #ffffff;
+    color: var(--ve-on-accent);
   }
 
   .ui-button--danger:hover:enabled {
-    background: color-mix(in oklab, var(--ve-danger), black 12%);
+    background: color-mix(in oklab, var(--ve-danger), var(--ve-text) 12%);
   }
 
   :is(.ui-button--ghost, .ui-icon-button):is(:hover:enabled, [aria-expanded='true']) {

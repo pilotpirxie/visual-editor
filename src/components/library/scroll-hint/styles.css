@@ -1,0 +1,93 @@
+@layer components {
+  @scope (.b-scroll-hint) {
+    :scope {
+      padding-block: var(--space-6);
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    :scope[data-spacing='small'] {
+      padding-block: var(--space-2);
+    }
+
+    :scope[data-spacing='large'] {
+      padding-block: var(--space-12);
+    }
+
+    .b-row {
+      display: flex;
+      justify-content: center;
+    }
+
+    .b-link {
+      --icon-size: 1.25rem;
+      display: grid;
+      justify-items: center;
+      gap: var(--space-2);
+      min-width: 2.75rem;
+      padding: var(--space-2) var(--space-4);
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .b-link:hover {
+      color: var(--color-primary);
+    }
+
+    .b-arrow {
+      display: grid;
+    }
+
+    .b-mouse {
+      display: grid;
+      justify-items: center;
+      width: 1.5rem;
+      height: 2.5rem;
+      padding-top: var(--space-2);
+      border: 0.125rem solid;
+      border-radius: var(--radius-full);
+    }
+
+    .b-mouse::before {
+      content: '';
+      width: 0.25rem;
+      height: 0.5rem;
+      border-radius: var(--radius-full);
+      background: currentColor;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-arrow {
+        animation: b-scroll-hint--bob 0.9s ease-in-out infinite alternate;
+      }
+
+      .b-mouse::before {
+        animation: b-scroll-hint--wheel 1.8s ease-in-out infinite;
+      }
+
+      .b-link:is(:hover, :focus-visible) .b-arrow,
+      .b-link:is(:hover, :focus-visible) .b-mouse::before {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  @keyframes b-scroll-hint--bob {
+    to {
+      translate: 0 0.375rem;
+    }
+  }
+
+  @keyframes b-scroll-hint--wheel {
+    70%,
+    100% {
+      translate: 0 0.875rem;
+      opacity: 0;
+    }
+  }
+}

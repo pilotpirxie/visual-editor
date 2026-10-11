@@ -2,20 +2,7 @@
 
 :root {
   --ve-font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --ve-bg: #ffffff;
-  --ve-canvas-bg: #eceef3;
-  --ve-surface: #f6f7f9;
-  --ve-border: #e3e5ea;
-  --ve-border-strong: #80879a;
-  --ve-text: #161a23;
-  --ve-muted: #5d6474;
-  --ve-accent: #2f5bea;
-  --ve-accent-soft: #e6ecfd;
-  --ve-hover: #6b8cf2;
-  --ve-danger: #b42318;
-  --ve-device-frame: #d5d8df;
   --ve-radius: 6px;
-  --ve-shadow: 0 1px 2px rgb(16 24 40 / 0.08), 0 4px 12px rgb(16 24 40 / 0.08);
   --ve-toolbar-height: 44px;
   --ve-rail-width: 64px;
   --ve-control-height: 32px;
@@ -32,6 +19,59 @@
   --ve-text-lg: 15px;
   --ve-text-xl: 24px;
   --ve-input-text: var(--ve-text-md);
+}
+
+:root,
+.ve-overlay {
+  --ve-bg: #ffffff;
+  --ve-canvas-bg: #eceef3;
+  --ve-surface: #f6f7f9;
+  --ve-border: #e3e5ea;
+  --ve-border-strong: #80879a;
+  --ve-text: #161a23;
+  --ve-muted: #5d6474;
+  --ve-accent: #2f5bea;
+  --ve-accent-soft: #e6ecfd;
+  --ve-on-accent: #ffffff;
+  --ve-hover: #6b8cf2;
+  --ve-danger: #b42318;
+  --ve-warning: #d97706;
+  --ve-warning-bg: #fef3c7;
+  --ve-warning-text: #78350f;
+  --ve-device-frame: #d5d8df;
+  --ve-paper: #ffffff;
+  --ve-scrim: rgb(16 24 40 / 0.4);
+  --ve-shadow: 0 1px 2px rgb(16 24 40 / 0.08), 0 4px 12px rgb(16 24 40 / 0.08);
+  --ve-code-tag: #1d4ed8;
+  --ve-code-attribute: #9333ea;
+  --ve-code-value: #047857;
+  --ve-code-comment: #6b7280;
+}
+
+:root[data-ve-appearance='dark'],
+:root[data-ve-appearance='dark'] .ve-overlay [popover] {
+  color-scheme: dark;
+  --ve-bg: #1b1d23;
+  --ve-canvas-bg: #111216;
+  --ve-surface: #24272f;
+  --ve-border: #343843;
+  --ve-border-strong: #7b8395;
+  --ve-text: #e8eaf0;
+  --ve-muted: #a3aab9;
+  --ve-accent: #8fabff;
+  --ve-accent-soft: #27345c;
+  --ve-on-accent: #10131c;
+  --ve-danger: #ff8f80;
+  --ve-warning: #f0a020;
+  --ve-warning-bg: #3b2c0a;
+  --ve-warning-text: #fcd98a;
+  --ve-device-frame: #3b404c;
+  --ve-scrim: rgb(0 0 0 / 0.6);
+  --ve-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 4px 12px rgb(0 0 0 / 0.4);
+  --ve-code-tag: #93b4ff;
+  --ve-code-attribute: #d0a2ff;
+  --ve-code-value: #5fd3a6;
+  --ve-code-comment: #9299a8;
 }
 
 @media (width < 1024px), (pointer: coarse) {
@@ -108,6 +148,10 @@
     color: var(--ve-text);
     background: var(--ve-bg);
     overflow: hidden;
+  }
+
+  iframe {
+    color-scheme: normal;
   }
 
   :focus-visible {

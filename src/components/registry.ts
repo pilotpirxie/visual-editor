@@ -165,6 +165,11 @@ export function blockComponentId(block: Block): string | null {
   return block.sourceComponentId ?? null;
 }
 
+export function isBlockOfPack(block: Block, packId: string): boolean {
+  const componentId = blockComponentId(block);
+  return componentId !== null && componentId.startsWith(`${packId}/`);
+}
+
 export type DefinitionSource = Pick<Project, 'packBlocks'>;
 
 export function definitionOf(

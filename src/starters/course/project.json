@@ -1,0 +1,2440 @@
+{
+  "schemaVersion": 1,
+  "id": "starter-course",
+  "settings": {
+    "title": "Plainspoken",
+    "description": "Plainspoken is a six-week online course in UX writing for designers, product managers and developers, taught live by Ines Okafor.",
+    "language": "en",
+    "titleTemplate": "{{page.title}} | {{site.title}}",
+    "indexable": true
+  },
+  "designSystem": {
+    "presetId": "pastel",
+    "tokens": {
+      "--color-primary": {
+        "name": "--color-primary",
+        "label": "Primary",
+        "group": "color",
+        "value": "#6d28d9"
+      },
+      "--color-primary-contrast": {
+        "name": "--color-primary-contrast",
+        "label": "Primary contrast",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--color-background": {
+        "name": "--color-background",
+        "label": "Background",
+        "group": "color",
+        "value": "#fdfcff"
+      },
+      "--color-surface": {
+        "name": "--color-surface",
+        "label": "Surface",
+        "group": "color",
+        "value": "#f3effc"
+      },
+      "--color-text": {
+        "name": "--color-text",
+        "label": "Text",
+        "group": "color",
+        "value": "#2e2a3b"
+      },
+      "--color-text-muted": {
+        "name": "--color-text-muted",
+        "label": "Muted text",
+        "group": "color",
+        "value": "#5d5870"
+      },
+      "--color-border": {
+        "name": "--color-border",
+        "label": "Border",
+        "group": "color",
+        "value": "#e7e1f5"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#2e2a3b"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#3b3650"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#fdfcff"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#c9c3dc"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#4b4563"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#c4b5fd"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#2e2a3b"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--font-heading": {
+        "name": "--font-heading",
+        "label": "Heading font",
+        "group": "typography",
+        "value": "\"Poppins\", system-ui, sans-serif"
+      },
+      "--font-body": {
+        "name": "--font-body",
+        "label": "Body font",
+        "group": "typography",
+        "value": "\"Poppins\", system-ui, sans-serif"
+      },
+      "--font-mono": {
+        "name": "--font-mono",
+        "label": "Mono font",
+        "group": "typography",
+        "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+      },
+      "--font-weight-heading": {
+        "name": "--font-weight-heading",
+        "label": "Heading weight",
+        "group": "typography",
+        "value": "600"
+      },
+      "--font-weight-regular": {
+        "name": "--font-weight-regular",
+        "label": "Body weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-bold": {
+        "name": "--font-weight-bold",
+        "label": "Bold weight",
+        "group": "typography",
+        "value": "600"
+      },
+      "--text-xs": {
+        "name": "--text-xs",
+        "label": "Extra small",
+        "group": "typography",
+        "value": "0.64rem"
+      },
+      "--text-sm": {
+        "name": "--text-sm",
+        "label": "Small",
+        "group": "typography",
+        "value": "0.8rem"
+      },
+      "--text-base": {
+        "name": "--text-base",
+        "label": "Base",
+        "group": "typography",
+        "value": "1rem"
+      },
+      "--text-lg": {
+        "name": "--text-lg",
+        "label": "Large",
+        "group": "typography",
+        "value": "1.25rem"
+      },
+      "--text-xl": {
+        "name": "--text-xl",
+        "label": "XL",
+        "group": "typography",
+        "value": "1.5625rem"
+      },
+      "--text-2xl": {
+        "name": "--text-2xl",
+        "label": "2XL",
+        "group": "typography",
+        "value": "1.9531rem"
+      },
+      "--text-3xl": {
+        "name": "--text-3xl",
+        "label": "3XL",
+        "group": "typography",
+        "value": "clamp(1.6018rem, 1.3219rem + 1.3993vw, 2.4414rem)"
+      },
+      "--text-4xl": {
+        "name": "--text-4xl",
+        "label": "4XL",
+        "group": "typography",
+        "value": "clamp(1.802rem, 1.3855rem + 2.0829vw, 3.0518rem)"
+      },
+      "--text-5xl": {
+        "name": "--text-5xl",
+        "label": "5XL",
+        "group": "typography",
+        "value": "clamp(2.0273rem, 1.4315rem + 2.979vw, 3.8147rem)"
+      },
+      "--line-height-tight": {
+        "name": "--line-height-tight",
+        "label": "Heading line height",
+        "group": "typography",
+        "value": "1.2"
+      },
+      "--line-height-normal": {
+        "name": "--line-height-normal",
+        "label": "Body line height",
+        "group": "typography",
+        "value": "1.65"
+      },
+      "--space-1": {
+        "name": "--space-1",
+        "label": "Space 1",
+        "group": "spacing",
+        "value": "0.25rem"
+      },
+      "--space-2": {
+        "name": "--space-2",
+        "label": "Space 2",
+        "group": "spacing",
+        "value": "0.5rem"
+      },
+      "--space-3": {
+        "name": "--space-3",
+        "label": "Space 3",
+        "group": "spacing",
+        "value": "0.75rem"
+      },
+      "--space-4": {
+        "name": "--space-4",
+        "label": "Space 4",
+        "group": "spacing",
+        "value": "1rem"
+      },
+      "--space-6": {
+        "name": "--space-6",
+        "label": "Space 6",
+        "group": "spacing",
+        "value": "1.5rem"
+      },
+      "--space-8": {
+        "name": "--space-8",
+        "label": "Space 8",
+        "group": "spacing",
+        "value": "2rem"
+      },
+      "--space-12": {
+        "name": "--space-12",
+        "label": "Space 12",
+        "group": "spacing",
+        "value": "3rem"
+      },
+      "--space-16": {
+        "name": "--space-16",
+        "label": "Space 16",
+        "group": "spacing",
+        "value": "4rem"
+      },
+      "--section-padding-y": {
+        "name": "--section-padding-y",
+        "label": "Section padding",
+        "group": "spacing",
+        "value": "clamp(3rem, 2rem + 4vw, 6rem)"
+      },
+      "--container-max-width": {
+        "name": "--container-max-width",
+        "label": "Container width",
+        "group": "spacing",
+        "value": "72rem"
+      },
+      "--container-padding-x": {
+        "name": "--container-padding-x",
+        "label": "Container padding",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--radius-sm": {
+        "name": "--radius-sm",
+        "label": "Small radius",
+        "group": "shape",
+        "value": "0.75rem"
+      },
+      "--radius-md": {
+        "name": "--radius-md",
+        "label": "Medium radius",
+        "group": "shape",
+        "value": "1.25rem"
+      },
+      "--radius-lg": {
+        "name": "--radius-lg",
+        "label": "Large radius",
+        "group": "shape",
+        "value": "2rem"
+      },
+      "--radius-full": {
+        "name": "--radius-full",
+        "label": "Full radius",
+        "group": "shape",
+        "value": "9999px"
+      },
+      "--border-width": {
+        "name": "--border-width",
+        "label": "Border width",
+        "group": "shape",
+        "value": "1px"
+      },
+      "--shadow-sm": {
+        "name": "--shadow-sm",
+        "label": "Small shadow",
+        "group": "elevation",
+        "value": "0 1px 2px rgb(76 29 149 / 0.05)"
+      },
+      "--shadow-md": {
+        "name": "--shadow-md",
+        "label": "Medium shadow",
+        "group": "elevation",
+        "value": "0 4px 14px rgb(76 29 149 / 0.08)"
+      },
+      "--shadow-lg": {
+        "name": "--shadow-lg",
+        "label": "Large shadow",
+        "group": "elevation",
+        "value": "0 14px 36px rgb(76 29 149 / 0.12)"
+      },
+      "--button-radius": {
+        "name": "--button-radius",
+        "label": "Button radius",
+        "group": "component",
+        "value": "var(--radius-full)"
+      },
+      "--button-padding-y": {
+        "name": "--button-padding-y",
+        "label": "Button padding Y",
+        "group": "component",
+        "value": "0.75rem"
+      },
+      "--button-padding-x": {
+        "name": "--button-padding-x",
+        "label": "Button padding X",
+        "group": "component",
+        "value": "1.375rem"
+      },
+      "--card-radius": {
+        "name": "--card-radius",
+        "label": "Card radius",
+        "group": "component",
+        "value": "var(--radius-lg)"
+      },
+      "--card-shadow": {
+        "name": "--card-shadow",
+        "label": "Card shadow",
+        "group": "component",
+        "value": "var(--shadow-sm)"
+      },
+      "--transition-fast": {
+        "name": "--transition-fast",
+        "label": "Fast",
+        "group": "motion",
+        "value": "120ms"
+      },
+      "--transition-normal": {
+        "name": "--transition-normal",
+        "label": "Normal",
+        "group": "motion",
+        "value": "200ms"
+      }
+    },
+    "fonts": [
+      {
+        "role": "heading",
+        "family": "Poppins",
+        "weights": [600]
+      },
+      {
+        "role": "body",
+        "family": "Poppins",
+        "weights": [400, 600]
+      }
+    ],
+    "generators": {
+      "typeBasePx": 16,
+      "typeRatio": 1.25,
+      "spaceUnitPx": 4
+    },
+    "iconSet": "lucide"
+  },
+  "pages": {
+    "ids": ["home", "curriculum", "pricing", "instructor", "faq"],
+    "entities": {
+      "home": {
+        "id": "home",
+        "name": "Home",
+        "slug": "home",
+        "blockIds": [
+          "home-hero",
+          "home-graduates",
+          "home-rewrites",
+          "home-week",
+          "home-outcomes",
+          "home-notes",
+          "home-cta"
+        ],
+        "seo": {
+          "description": "Plainspoken is a six-week online UX writing course with 36 short lessons, live Thursday workshops and written feedback. The winter cohort starts January 11, 2027.",
+          "title": "UX writing course, live online in six weeks",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "curriculum": {
+        "id": "curriculum",
+        "name": "Curriculum",
+        "slug": "curriculum",
+        "blockIds": [
+          "curriculum-hero",
+          "curriculum-weeks",
+          "curriculum-annotated",
+          "curriculum-glossary",
+          "curriculum-portfolio",
+          "curriculum-call"
+        ],
+        "seo": {
+          "description": "Week by week: plain language, error messages, buttons and forms, voice and tone, accessibility and testing. Four portfolio pieces and a certificate.",
+          "title": "Curriculum: six weeks of UX writing",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "pricing": {
+        "id": "pricing",
+        "name": "Pricing",
+        "slug": "pricing",
+        "blockIds": [
+          "pricing-hero",
+          "pricing-plans",
+          "pricing-discounts",
+          "pricing-result",
+          "pricing-guarantee"
+        ],
+        "seo": {
+          "description": "Self-paced for $290, the live cohort for $690 and cohort plus coaching for $1,190. Student, nonprofit and team discounts, with a full refund for 14 days.",
+          "title": "Pricing and discounts",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "instructor": {
+        "id": "instructor",
+        "name": "Instructor",
+        "slug": "instructor",
+        "blockIds": [
+          "instructor-hero",
+          "instructor-facts",
+          "instructor-interview",
+          "instructor-letter",
+          "instructor-press",
+          "instructor-sample"
+        ],
+        "seo": {
+          "description": "Ines Okafor has written interface text for banking and travel apps since 2011 and has taught 1,900 students to do the same since 2021.",
+          "title": "Your instructor, Ines Okafor",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "faq": {
+        "id": "faq",
+        "name": "FAQ",
+        "slug": "faq",
+        "blockIds": ["faq-hero", "faq-quick", "faq-questions", "faq-contact"],
+        "seo": {
+          "description": "Schedule, workload, payment, refunds, certificates and what happens after the course. Or write to us and a person replies within one working day.",
+          "title": "Questions and answers",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      }
+    },
+    "homePageId": "home"
+  },
+  "blocks": {
+    "ids": [
+      "banner",
+      "nav",
+      "footer",
+      "home-hero",
+      "home-graduates",
+      "home-rewrites",
+      "home-week",
+      "home-outcomes",
+      "home-notes",
+      "home-cta",
+      "curriculum-hero",
+      "curriculum-weeks",
+      "curriculum-annotated",
+      "curriculum-glossary",
+      "curriculum-portfolio",
+      "curriculum-call",
+      "pricing-hero",
+      "pricing-plans",
+      "pricing-discounts",
+      "pricing-result",
+      "pricing-guarantee",
+      "instructor-hero",
+      "instructor-facts",
+      "instructor-interview",
+      "instructor-letter",
+      "instructor-press",
+      "instructor-sample",
+      "faq-hero",
+      "faq-quick",
+      "faq-questions",
+      "faq-contact"
+    ],
+    "entities": {
+      "banner": {
+        "id": "banner",
+        "kind": "component",
+        "componentId": "banner-deadline",
+        "values": {
+          "text": "Winter cohort: January 11 to February 19, 2027. 60 seats.",
+          "label": "Enrollment closes",
+          "endsOn": "2027-01-08",
+          "showButton": true,
+          "button": {
+            "label": "Save a seat",
+            "link": {
+              "type": "section",
+              "pageId": "pricing",
+              "anchor": "plans",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "nav": {
+        "id": "nav",
+        "kind": "component",
+        "componentId": "nav-cta",
+        "values": {
+          "logoIcon": "lucide:pen-line",
+          "links": [
+            {
+              "label": "Curriculum",
+              "link": {
+                "type": "page",
+                "pageId": "curriculum",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Pricing",
+              "link": {
+                "type": "page",
+                "pageId": "pricing",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Instructor",
+              "link": {
+                "type": "page",
+                "pageId": "instructor",
+                "newTab": false
+              }
+            },
+            {
+              "label": "FAQ",
+              "link": {
+                "type": "page",
+                "pageId": "faq",
+                "newTab": false
+              }
+            }
+          ],
+          "signIn": {
+            "label": "Student login",
+            "link": {
+              "type": "url",
+              "url": "https://learn.plainspoken.example",
+              "newTab": false
+            },
+            "variant": "ghost"
+          },
+          "cta": {
+            "label": "Enroll",
+            "link": {
+              "type": "section",
+              "pageId": "pricing",
+              "anchor": "plans",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "menuIcon": "menu"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "footer": {
+        "id": "footer",
+        "kind": "component",
+        "componentId": "footer-statement",
+        "values": {
+          "eyebrow": "Before you go",
+          "statement": "Every screen you ship deserves",
+          "highlight": "words people understand.",
+          "ctaLabel": "Enroll for January",
+          "ctaLink": {
+            "type": "section",
+            "pageId": "pricing",
+            "anchor": "plans",
+            "newTab": false
+          },
+          "links": [
+            {
+              "label": "Curriculum",
+              "link": {
+                "type": "page",
+                "pageId": "curriculum",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Pricing",
+              "link": {
+                "type": "page",
+                "pageId": "pricing",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Instructor",
+              "link": {
+                "type": "page",
+                "pageId": "instructor",
+                "newTab": false
+              }
+            },
+            {
+              "label": "FAQ",
+              "link": {
+                "type": "page",
+                "pageId": "faq",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Email us",
+              "link": {
+                "type": "email",
+                "url": "hello@plainspoken.example",
+                "newTab": false
+              }
+            }
+          ],
+          "copyright": "© 2026 Plainspoken Learning Lda. Made in Lisbon."
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-hero": {
+        "id": "home-hero",
+        "kind": "component",
+        "componentId": "hero-highlight",
+        "values": {
+          "eyebrow": "Winter cohort starts January 11",
+          "titleStart": "Write interface text people",
+          "highlight": "understand the first time",
+          "titleEnd": "",
+          "text": "Plainspoken is a six-week online course in UX writing for designers, product managers and developers. Thirty-six short lessons, a live workshop every Thursday and written feedback on everything you hand in.",
+          "primaryButton": {
+            "label": "Enroll for January",
+            "link": {
+              "type": "section",
+              "pageId": "pricing",
+              "anchor": "plans",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "See the curriculum",
+            "link": {
+              "type": "page",
+              "pageId": "curriculum",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "avatars": [
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "",
+                "decorative": true,
+                "width": 200,
+                "height": 200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "",
+                "decorative": true,
+                "width": 200,
+                "height": 200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "",
+                "decorative": true,
+                "width": 200,
+                "height": 200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "",
+                "decorative": true,
+                "width": 200,
+                "height": 200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            }
+          ],
+          "proof": "Join 1,900 graduates from 41 countries",
+          "showStars": true,
+          "rating": "4.8 from 1,140 reviews"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-graduates": {
+        "id": "home-graduates",
+        "kind": "component",
+        "componentId": "logos-industries",
+        "values": {
+          "eyebrow": "Where graduates work",
+          "title": "Graduates now write for products in every industry",
+          "text": "Most students arrive as designers or product managers who ended up owning the words. These are some of the teams they went back to.",
+          "groups": [
+            {
+              "icon": "dollar",
+              "industry": "Banking and payments",
+              "logos": [
+                {
+                  "company": "Marlowe Bank",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Marlowe Bank",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Kestrel Pay",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Kestrel Pay",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Tallyho",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Tallyho",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Fennel Money",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Fennel Money",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "icon": "heart",
+              "industry": "Health and care",
+              "logos": [
+                {
+                  "company": "Pinecrest Health",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Pinecrest Health",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Juniper Clinics",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Juniper Clinics",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Daybreak Care",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Daybreak Care",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Medwell",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Medwell",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "icon": "compass",
+              "industry": "Travel and transport",
+              "logos": [
+                {
+                  "company": "Orbit Rail",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Orbit Rail",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Saltwater Ferries",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Saltwater Ferries",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Northline Air",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Northline Air",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Wayfarer",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Wayfarer",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-rewrites": {
+        "id": "home-rewrites",
+        "kind": "component",
+        "componentId": "features-notebook",
+        "values": {
+          "eyebrow": "What changes",
+          "title": "The rewrites you will be able to do by week two",
+          "intro": "Every line on this page came from a real product and was fixed by a student in a feedback group. The crossed-out text is the original. The note beside it is what shipped.",
+          "paperTitle": "Feedback group 4, week 2",
+          "items": [
+            {
+              "task": "Error: invalid input (code 4012)",
+              "result": "That card number is too short. Check the 16 digits on the front."
+            },
+            {
+              "task": "Submit",
+              "result": "Pay $48.00"
+            },
+            {
+              "task": "Are you sure you want to proceed with deletion?",
+              "result": "Delete this invoice? You can’t undo this."
+            },
+            {
+              "task": "No data available",
+              "result": "No orders yet. They show up here as soon as someone buys."
+            },
+            {
+              "task": "Please be advised that your session has expired",
+              "result": "You were signed out after 30 minutes. Sign in to carry on."
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "See all six weeks",
+            "link": {
+              "type": "page",
+              "pageId": "curriculum",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-week": {
+        "id": "home-week",
+        "kind": "component",
+        "componentId": "steps-week",
+        "values": {
+          "eyebrow": "A week in the course",
+          "title": "Three to four hours a week, already on your calendar",
+          "intro": "Lessons are short and recorded. The only fixed time is Thursday, and the recording is up within the hour if you miss it.",
+          "days": [
+            {
+              "day": "Mon",
+              "date": "11",
+              "slot": "morning",
+              "time": "08:00 UTC",
+              "title": "Six lessons unlock",
+              "text": "Each one is 8 to 12 minutes, with a one-page summary to keep."
+            },
+            {
+              "day": "Tue",
+              "date": "12",
+              "slot": "midday",
+              "time": "Your pace",
+              "title": "Start the exercise",
+              "text": "A real screen from a real product, with a brief and a word limit."
+            },
+            {
+              "day": "Wed",
+              "date": "13",
+              "slot": "afternoon",
+              "time": "By 22:00 UTC",
+              "title": "Hand in your draft",
+              "text": "Post it to your feedback group of six."
+            },
+            {
+              "day": "Thu",
+              "date": "14",
+              "slot": "afternoon",
+              "time": "17:00 UTC",
+              "title": "Live workshop",
+              "text": "75 minutes with Ines: three student drafts rewritten on screen."
+            },
+            {
+              "day": "Fri",
+              "date": "15",
+              "slot": "morning",
+              "time": "By 12:00 UTC",
+              "title": "Feedback arrives",
+              "text": "Written notes on your draft from a teaching assistant and two classmates."
+            }
+          ],
+          "note": "Workshops are recorded and captioned. About 4 in 10 students watch the recording instead of joining live."
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-outcomes": {
+        "id": "home-outcomes",
+        "kind": "component",
+        "componentId": "stats-pictogram",
+        "values": {
+          "eyebrow": "Graduate survey 2026",
+          "title": "What graduates told us six months later",
+          "intro": "We wrote to everyone who finished the course in 2025 and asked what had changed at work. 612 people answered.",
+          "icon": "user",
+          "ofLabel": "in 10 graduates",
+          "items": [
+            {
+              "count": 9,
+              "text": "use the Plainspoken checklist at least once a week."
+            },
+            {
+              "count": 7,
+              "text": "have rewritten a live screen in their own product since the course."
+            },
+            {
+              "count": 4,
+              "text": "now have writing in their job title or job description."
+            }
+          ],
+          "source": "Plainspoken graduate survey, March 2026, 612 responses."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-notes": {
+        "id": "home-notes",
+        "kind": "component",
+        "componentId": "testimonials-notes",
+        "values": {
+          "eyebrow": "From the last cohort",
+          "title": "Notes students left on the way out",
+          "intro": "On the last Friday we ask everyone to write one line for the next cohort. These are from autumn 2026.",
+          "items": [
+            {
+              "quote": "I deleted 40% of the words in our onboarding and completion went up. Nobody missed them.",
+              "name": "Hannah Vogel",
+              "role": "Product designer, Tallyho"
+            },
+            {
+              "quote": "The Thursday workshops are the course. Watching Ines fix my error message in ninety seconds rewired something.",
+              "name": "Kofi Mensah",
+              "role": "Front-end developer, Orbit Rail"
+            },
+            {
+              "quote": "I finally have reasons, not opinions, when I argue for a label.",
+              "name": "Priyanka Shah",
+              "role": "Product manager, Pinecrest Health"
+            },
+            {
+              "quote": "English is my third language. Week five made me the person my team asks about translation.",
+              "name": "Mateus Carvalho",
+              "role": "UX designer, Fennel Money"
+            },
+            {
+              "quote": "Do the exercises. All of them. The feedback is worth more than the videos.",
+              "name": "Sara Lindholm",
+              "role": "Content designer, Marlowe Bank"
+            },
+            {
+              "quote": "Three hours a week was honest. I did it with a newborn.",
+              "name": "Tom Adeyemi",
+              "role": "Designer, Juniper Clinics"
+            },
+            {
+              "quote": "My manager asked where I learned to push back on “Submit”. I sent her the week three slides.",
+              "name": "Lena Fischer",
+              "role": "Product designer, Wayfarer"
+            },
+            {
+              "quote": "I came for the error messages and stayed for the voice chart. We use mine in every design review.",
+              "name": "Amara Nwosu",
+              "role": "Content designer, Kestrel Pay"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "notes"
+      },
+      "home-cta": {
+        "id": "home-cta",
+        "kind": "component",
+        "componentId": "cta-big-link",
+        "values": {
+          "kicker": "Winter cohort, January 11 to February 19",
+          "label": "Save your seat",
+          "link": {
+            "type": "section",
+            "pageId": "pricing",
+            "anchor": "plans",
+            "newTab": false
+          },
+          "details": [
+            {
+              "text": "60 seats per cohort"
+            },
+            {
+              "text": "From $290"
+            },
+            {
+              "text": "Full refund for 14 days"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--theme-primary-background)",
+          "--color-surface": "var(--theme-primary-surface)",
+          "--color-text": "var(--theme-primary-text)",
+          "--color-text-muted": "var(--theme-primary-text-muted)",
+          "--color-border": "var(--theme-primary-border)",
+          "--color-primary": "var(--theme-primary-accent)",
+          "--color-primary-contrast": "var(--theme-primary-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "curriculum-hero": {
+        "id": "curriculum-hero",
+        "kind": "component",
+        "componentId": "hero-outline",
+        "values": {
+          "eyebrow": "The curriculum",
+          "title": "Six weeks.",
+          "outlineTitle": "Six habits.",
+          "text": "One skill a week, in the order you need them at work: say it plainly first, then handle what goes wrong, then make it sound like you. Each week ends with something you can put in a portfolio.",
+          "primaryButton": {
+            "label": "Enroll for January",
+            "link": {
+              "type": "section",
+              "pageId": "pricing",
+              "anchor": "plans",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Meet your instructor",
+            "link": {
+              "type": "page",
+              "pageId": "instructor",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "facts": [
+            {
+              "value": "36",
+              "label": "short video lessons"
+            },
+            {
+              "value": "6",
+              "label": "live workshops"
+            },
+            {
+              "value": "4",
+              "label": "portfolio pieces"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "curriculum-weeks": {
+        "id": "curriculum-weeks",
+        "kind": "component",
+        "componentId": "steps-accordion",
+        "values": {
+          "eyebrow": "Week by week",
+          "title": "What you learn, and what you hand in",
+          "intro": "Open a week to see what it covers and its exercise. Every exercise uses a real screen, a brief and a word limit.",
+          "steps": [
+            {
+              "title": "Week 1: Say it plainly",
+              "duration": "6 lessons, 62 min",
+              "text": "Plain language, front-loading and sentence length. You learn to cut a screen to half its words without losing meaning.\nExercise: rewrite the first three screens of a banking app’s onboarding in 120 words.",
+              "linkLabel": "",
+              "link": {
+                "type": "section",
+                "pageId": "instructor",
+                "anchor": "sample",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Week 2: When things go wrong",
+              "duration": "6 lessons, 58 min",
+              "text": "Error messages, empty states and confirmations. Every message answers three questions: what happened, why, and what to do next.\nExercise: rewrite five errors from a checkout flow.",
+              "linkLabel": "Read a sample lesson from this week",
+              "link": {
+                "type": "section",
+                "pageId": "instructor",
+                "anchor": "sample",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Week 3: Buttons, labels and forms",
+              "duration": "6 lessons, 66 min",
+              "text": "Verbs on buttons, labels versus placeholders, help text and the order of fields.\nExercise: redo a nine-field sign-up form and justify every label in one line.",
+              "linkLabel": "",
+              "link": {
+                "type": "section",
+                "pageId": "instructor",
+                "anchor": "sample",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Week 4: Voice and tone",
+              "duration": "6 lessons, 71 min",
+              "text": "What a product voice is, how tone bends with the situation, and how to write it down so other people can use it.\nExercise: a one-page voice chart for a product you know.",
+              "linkLabel": "",
+              "link": {
+                "type": "section",
+                "pageId": "instructor",
+                "anchor": "sample",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Week 5: Everyone can read it",
+              "duration": "6 lessons, 64 min",
+              "text": "Writing for screen readers, alt text, reading levels and text that survives translation into longer languages.\nExercise: audit one flow and fix its ten worst lines.",
+              "linkLabel": "",
+              "link": {
+                "type": "section",
+                "pageId": "instructor",
+                "anchor": "sample",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Week 6: Prove it and ship it",
+              "duration": "6 lessons, 69 min",
+              "text": "Cloze tests, five-second tests and how to present a change so it gets approved.\nCapstone: a before and after case study of one flow, presented to your group.",
+              "linkLabel": "",
+              "link": {
+                "type": "section",
+                "pageId": "instructor",
+                "anchor": "sample",
+                "newTab": false
+              }
+            }
+          ],
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A printed app screen with words crossed out in pencil and shorter ones written in the margin",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "weeks"
+      },
+      "curriculum-annotated": {
+        "id": "curriculum-annotated",
+        "kind": "component",
+        "componentId": "content-annotated",
+        "values": {
+          "eyebrow": "A lesson in miniature",
+          "title": "One password reset email, annotated",
+          "items": [
+            {
+              "text": "Subject: Reset your Tallyho password",
+              "note": "Week 1. The subject line is the action. No “Important notice”, no exclamation mark."
+            },
+            {
+              "text": "Someone asked to reset the password for hannah@example.com. If that was you, choose a new one with the button below. The link works for 30 minutes.",
+              "note": "Week 2. Say what happened, then what to do, then the limit. In that order."
+            },
+            {
+              "text": "Button: Choose a new password",
+              "note": "Week 3. A button finishes the sentence “I want to”. “Click here” and “Submit” never do."
+            },
+            {
+              "text": "If you didn’t ask for this, you can ignore this email. Your password stays the same and nobody has seen it.",
+              "note": "Week 4. Calm, not chirpy. The reader may be worried, so the tone drops a notch."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "curriculum-glossary": {
+        "id": "curriculum-glossary",
+        "kind": "component",
+        "componentId": "features-glossary",
+        "values": {
+          "eyebrow": "Course vocabulary",
+          "title": "Six words you will use with confidence",
+          "intro": "You will hear these in every workshop. By week three you will be the one explaining them in meetings.",
+          "items": [
+            {
+              "term": "Microcopy",
+              "sound": "/ˈmaɪ.krəʊ.kɒp.i/",
+              "kind": "noun",
+              "definition": "The small words inside a product: labels, buttons, hints, errors and confirmations.",
+              "example": "“The microcopy on that form is doing the work of a help page.”"
+            },
+            {
+              "term": "Front-load",
+              "sound": "/ˈfrʌnt.ləʊd/",
+              "kind": "verb",
+              "definition": "To put the most useful words first, because most people read only the start of a line.",
+              "example": "“Front-load the amount: $48.00 due Friday.”"
+            },
+            {
+              "term": "Voice",
+              "sound": "/vɔɪs/",
+              "kind": "noun",
+              "definition": "The personality of a product’s writing. It stays the same on every screen.",
+              "example": "“Our voice is a calm colleague, not a mascot.”"
+            },
+            {
+              "term": "Tone",
+              "sound": "/təʊn/",
+              "kind": "noun",
+              "definition": "How the voice adapts to the moment: lighter after a success, plainer after an error.",
+              "example": "“Nobody wants a joke when a payment fails.”"
+            },
+            {
+              "term": "Empty state",
+              "sound": "/ˈemp.ti steɪt/",
+              "kind": "noun",
+              "definition": "What a screen says before there is anything to show, and the best place to explain what to do next.",
+              "example": "“The empty state should be the tutorial.”"
+            },
+            {
+              "term": "Cloze test",
+              "sound": "/kləʊz test/",
+              "kind": "noun",
+              "definition": "A test where readers fill in every fifth word you removed. Above 60% right means the text is clear.",
+              "example": "“The new terms page scored 71% on a cloze test.”"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "curriculum-portfolio": {
+        "id": "curriculum-portfolio",
+        "kind": "component",
+        "componentId": "features-tiles",
+        "values": {
+          "eyebrow": "What you leave with",
+          "title": "Four portfolio pieces and the tools to make more",
+          "intro": "Everything you hand in is yours. Most graduates use the capstone as the writing sample in their next interview.",
+          "items": [
+            {
+              "icon": "smartphone",
+              "title": "Onboarding rewrite",
+              "text": "Three screens, before and after, with the word count halved."
+            },
+            {
+              "icon": "alert",
+              "title": "Error message set",
+              "text": "Five errors from one checkout flow, each with the rule you applied."
+            },
+            {
+              "icon": "sliders",
+              "title": "Voice chart",
+              "text": "One page that tells any teammate how the product should sound."
+            },
+            {
+              "icon": "file",
+              "title": "Capstone case study",
+              "text": "One whole flow rewritten, tested with five readers and written up."
+            },
+            {
+              "icon": "check-circle",
+              "title": "The Plainspoken checklist",
+              "text": "The 24 questions Ines asks of every screen, as a printable page and a Figma file."
+            },
+            {
+              "icon": "award",
+              "title": "Certificate",
+              "text": "Issued when you hand in five of the six exercises. 86% of cohort students get there."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "curriculum-call": {
+        "id": "curriculum-call",
+        "kind": "component",
+        "componentId": "cta-calendar",
+        "values": {
+          "eyebrow": "Before you enroll",
+          "title": "Ask about the curriculum in a 15-minute call",
+          "text": "Bring the screen you are stuck on. Tomas or Ines will tell you which week covers it, and whether the course is the right size for what you need.",
+          "facts": [
+            {
+              "icon": "clock",
+              "text": "15 minutes"
+            },
+            {
+              "icon": "video",
+              "text": "Video call, no install needed"
+            },
+            {
+              "icon": "globe",
+              "text": "Times shown in UTC"
+            }
+          ],
+          "month": "December 2026",
+          "bookingLink": {
+            "type": "url",
+            "url": "https://learn.plainspoken.example/call",
+            "newTab": false
+          },
+          "days": [
+            {
+              "weekday": "Tue",
+              "date": "8",
+              "slots": [
+                {
+                  "time": "10:00"
+                },
+                {
+                  "time": "14:30"
+                },
+                {
+                  "time": "17:00"
+                }
+              ]
+            },
+            {
+              "weekday": "Wed",
+              "date": "9",
+              "slots": [
+                {
+                  "time": "09:00"
+                },
+                {
+                  "time": "16:00"
+                }
+              ]
+            },
+            {
+              "weekday": "Thu",
+              "date": "10",
+              "slots": [
+                {
+                  "time": "11:30"
+                },
+                {
+                  "time": "15:00"
+                },
+                {
+                  "time": "18:30"
+                }
+              ]
+            },
+            {
+              "weekday": "Fri",
+              "date": "11",
+              "slots": [
+                {
+                  "time": "10:00"
+                },
+                {
+                  "time": "13:00"
+                }
+              ]
+            }
+          ],
+          "button": {
+            "label": "See all times",
+            "link": {
+              "type": "url",
+              "url": "https://learn.plainspoken.example/call",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "pricing-hero": {
+        "id": "pricing-hero",
+        "kind": "component",
+        "componentId": "hero-checklist",
+        "values": {
+          "eyebrow": "Pricing",
+          "title": "One course, three ways to take it",
+          "text": "Pick how much company you want. The lessons are the same in every plan. What changes is who reads your work.",
+          "benefits": [
+            {
+              "text": "All 36 lessons, yours to keep"
+            },
+            {
+              "text": "The checklist, templates and Figma file"
+            },
+            {
+              "text": "Certificate when you hand in five of six exercises"
+            },
+            {
+              "text": "Full refund in the first 14 days"
+            }
+          ],
+          "primaryButton": {
+            "label": "Compare plans",
+            "link": {
+              "type": "section",
+              "pageId": "pricing",
+              "anchor": "plans",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Read the FAQ",
+            "link": {
+              "type": "page",
+              "pageId": "faq",
+              "newTab": false
+            },
+            "variant": "ghost"
+          },
+          "note": "Prices in US dollars. VAT is added at checkout where it applies.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A student at a kitchen table marking up a printed app screen with a pencil, laptop open beside her",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "showStat": true,
+          "statValue": "86%",
+          "statLabel": "of cohort students finish all six weeks"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "pricing-plans": {
+        "id": "pricing-plans",
+        "kind": "component",
+        "componentId": "pricing-spotlight",
+        "values": {
+          "eyebrow": "Plans",
+          "title": "Most people take the cohort",
+          "intro": "Every plan includes the full course. Move from Self-paced to the next cohort at any time and pay only the difference.",
+          "featuredLabel": "Picked by 8 in 10 students",
+          "plans": [
+            {
+              "name": "Self-paced",
+              "description": "For people who want the lessons now and are happy to check their own work.",
+              "price": "$290",
+              "period": "one payment",
+              "button": {
+                "label": "Start today",
+                "link": {
+                  "type": "url",
+                  "url": "https://learn.plainspoken.example/enroll/self-paced",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              },
+              "features": "<ul><li>All 36 lessons and summaries</li><li>Six exercises with model answers</li><li>Checklist, templates and Figma file</li><li>Access for as long as the course exists</li></ul>",
+              "featured": false
+            },
+            {
+              "name": "Cohort",
+              "description": "Six weeks with a group, a deadline and a person reading your work.",
+              "price": "$690",
+              "period": "once, or 3 payments of $240",
+              "button": {
+                "label": "Enroll for January",
+                "link": {
+                  "type": "url",
+                  "url": "https://learn.plainspoken.example/enroll/cohort",
+                  "newTab": false
+                },
+                "variant": "primary"
+              },
+              "features": "<ul><li>Everything in Self-paced</li><li>Six live workshops with Ines</li><li>Written feedback on every exercise</li><li>A feedback group of six</li><li>Certificate of completion</li></ul>",
+              "featured": true
+            },
+            {
+              "name": "Cohort plus coaching",
+              "description": "For career changers who want a portfolio reviewed line by line. 12 places per cohort.",
+              "price": "$1,190",
+              "period": "once, or 3 payments of $410",
+              "button": {
+                "label": "Enroll with coaching",
+                "link": {
+                  "type": "url",
+                  "url": "https://learn.plainspoken.example/enroll/coaching",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              },
+              "features": "<ul><li>Everything in Cohort</li><li>Three 45-minute calls with Ines</li><li>Portfolio and CV review</li><li>A reference letter if you earn it</li></ul>",
+              "featured": false
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "plans"
+      },
+      "pricing-discounts": {
+        "id": "pricing-discounts",
+        "kind": "component",
+        "componentId": "pricing-discounts",
+        "values": {
+          "eyebrow": "Discounts",
+          "title": "The price should not be the reason you skip it",
+          "intro": "These apply to the Cohort plan and can’t be combined. Tell us which one fits and we send a code the same day.",
+          "offLabel": "off",
+          "offers": [
+            {
+              "percent": "40%",
+              "icon": "book",
+              "title": "Students",
+              "text": "Anyone enrolled at a university or college. Write from your school email address.",
+              "linkLabel": "Ask for the student code",
+              "link": {
+                "type": "email",
+                "url": "hello@plainspoken.example",
+                "newTab": false
+              }
+            },
+            {
+              "percent": "30%",
+              "icon": "heart",
+              "title": "Nonprofits and public sector",
+              "text": "Charities, government teams and public health services of any size.",
+              "linkLabel": "Ask for the nonprofit code",
+              "link": {
+                "type": "email",
+                "url": "hello@plainspoken.example",
+                "newTab": false
+              }
+            },
+            {
+              "percent": "20%",
+              "icon": "users",
+              "title": "Teams of four or more",
+              "text": "Enroll together and share one feedback group. Includes a private kickoff call.",
+              "linkLabel": "Ask for a team quote",
+              "link": {
+                "type": "email",
+                "url": "hello@plainspoken.example",
+                "newTab": false
+              }
+            }
+          ],
+          "note": "We also adjust prices for students in lower-income countries. Write to us with where you live and we reply with a fair price."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "pricing-result": {
+        "id": "pricing-result",
+        "kind": "component",
+        "componentId": "testimonial-result",
+        "values": {
+          "eyebrow": "Marlowe Bank",
+          "metric": "31%",
+          "metricLabel": "fewer support tickets about failed transfers",
+          "quote": "I rewrote eleven transfer errors as my capstone, tested them with five customers and showed my manager the before and after. We shipped them in March. The course cost less than one day of that support queue.",
+          "name": "Sara Lindholm",
+          "role": "Content designer, Marlowe Bank",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sara Lindholm",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "linkLabel": "Read more notes from students",
+          "link": {
+            "type": "section",
+            "pageId": "home",
+            "anchor": "notes",
+            "newTab": false
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "pricing-guarantee": {
+        "id": "pricing-guarantee",
+        "kind": "component",
+        "componentId": "cta-guarantee",
+        "values": {
+          "sealNumber": "14",
+          "sealUnit": "days",
+          "sealText": "Full refund",
+          "eyebrow": "No risk",
+          "title": "Take the first two weeks. Then decide.",
+          "text": "If the course isn’t what you hoped for, write to us before day 15 and we refund every cent. Two weeks is enough to watch twelve lessons, join two workshops and get feedback twice.",
+          "points": [
+            {
+              "text": "No form and no questions"
+            },
+            {
+              "text": "Refund lands within five working days"
+            },
+            {
+              "text": "You keep the checklist either way"
+            }
+          ],
+          "primaryButton": {
+            "label": "Enroll for January",
+            "link": {
+              "type": "section",
+              "pageId": "pricing",
+              "anchor": "plans",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Read the refund answer",
+            "link": {
+              "type": "section",
+              "pageId": "faq",
+              "anchor": "questions",
+              "newTab": false
+            },
+            "variant": "ghost"
+          },
+          "note": "One email to hello@plainspoken.example is all it takes."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "instructor-hero": {
+        "id": "instructor-hero",
+        "kind": "component",
+        "componentId": "hero-personal",
+        "values": {
+          "portrait": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ines Okafor smiling at her desk, with printed app screens pinned to the wall behind her",
+            "decorative": false,
+            "width": 800,
+            "height": 800,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "showStatus": true,
+          "status": "Teaching the winter cohort from January 11",
+          "title": "Hi, I’m Ines Okafor. I teach people to write the words inside products",
+          "text": "For fifteen years I wrote the buttons, errors and emails for banking and travel apps. Since 2021 I have taught 1,900 designers, developers and product managers to do the same, from my desk in Lisbon.",
+          "primaryButton": {
+            "label": "See the curriculum",
+            "link": {
+              "type": "page",
+              "pageId": "curriculum",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Email Ines",
+            "link": {
+              "type": "email",
+              "url": "ines@plainspoken.example",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "socials": [
+            {
+              "icon": "simple-icons:linkedin",
+              "label": "LinkedIn",
+              "link": {
+                "type": "url",
+                "url": "https://www.linkedin.com",
+                "newTab": true
+              }
+            },
+            {
+              "icon": "simple-icons:bluesky",
+              "label": "Bluesky",
+              "link": {
+                "type": "url",
+                "url": "https://bsky.app",
+                "newTab": true
+              }
+            },
+            {
+              "icon": "simple-icons:substack",
+              "label": "Substack",
+              "link": {
+                "type": "url",
+                "url": "https://substack.com",
+                "newTab": true
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "instructor-facts": {
+        "id": "instructor-facts",
+        "kind": "component",
+        "componentId": "content-facts",
+        "values": {
+          "eyebrow": "About Ines",
+          "title": "Fifteen years of small words",
+          "body": "<p>Ines started as a support agent at a travel company, answering the questions its website failed to answer. She moved to the product team to fix them at the source, and has written for interfaces ever since.</p><p>She led content design at Kestrel Pay for six years, where her team cut payment support tickets by a third by rewriting 140 error messages. She started Plainspoken in 2021 because every course she could find taught marketing copy, not interface text.</p>",
+          "sheetTitle": "At a glance",
+          "updated": "October 2026",
+          "facts": [
+            {
+              "label": "Based in",
+              "value": "Lisbon, Portugal"
+            },
+            {
+              "label": "Writing for products since",
+              "value": "2011"
+            },
+            {
+              "label": "Before Plainspoken",
+              "value": "Kestrel Pay"
+            },
+            {
+              "label": "Cohorts taught",
+              "value": "14"
+            },
+            {
+              "label": "Graduates",
+              "value": "1,900"
+            },
+            {
+              "label": "Replies to email",
+              "value": "Within a day"
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "Read a sample lesson",
+            "link": {
+              "type": "section",
+              "pageId": "instructor",
+              "anchor": "sample",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "instructor-interview": {
+        "id": "instructor-interview",
+        "kind": "component",
+        "componentId": "content-interview",
+        "values": {
+          "eyebrow": "In conversation",
+          "title": "“Nobody reads, so every word has to earn its place”",
+          "intro": "Tomas Reyes took the course in 2022 and now runs the Plainspoken community. He asked Ines the questions new students ask him.",
+          "hostName": "Tomas Reyes",
+          "hostInitials": "TR",
+          "hostRole": "Community lead, Plainspoken",
+          "guestName": "Ines Okafor",
+          "guestInitials": "IO",
+          "guestRole": "Instructor",
+          "turns": [
+            {
+              "speaker": "host",
+              "text": "Most people think of writing as a talent. Can you really teach it in six weeks?",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "Interface writing is closer to a craft than a talent. There are about twenty rules, and you can learn to apply them the way you learn to use a grid. What takes six weeks is the habit of applying them every time.",
+              "highlight": false
+            },
+            {
+              "speaker": "host",
+              "text": "Who struggles most in the course?",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "People who write well. They are attached to their sentences. The developers and the people writing in a second language often do best, because they are happy to cut.",
+              "highlight": true
+            },
+            {
+              "speaker": "host",
+              "text": "Why is everything built around feedback?",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "Because you can’t see your own unclear sentence. You know what you meant. A stranger reading it cold in a feedback group finds the problem in ten seconds.",
+              "highlight": false
+            },
+            {
+              "speaker": "host",
+              "text": "What do you want a graduate to do on the Monday after?",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "Open their own product, find the worst error message and fix it before lunch. Then show someone the before and after. That is how the work spreads.",
+              "highlight": false
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "instructor-letter": {
+        "id": "instructor-letter",
+        "kind": "component",
+        "componentId": "content-letter",
+        "values": {
+          "eyebrow": "A letter",
+          "date": "2026-10-01",
+          "title": "To whoever is nervous about showing their writing to strangers",
+          "salutation": "Dear future student,",
+          "body": "<p>Every cohort, someone writes to me in week one to say they nearly didn’t post their first draft. It felt too rough, or their English wasn’t good enough, or everyone else seemed to be a real writer.</p><p>Here is what I tell them. Nobody in your group is a real writer. They are designers and developers and product managers who got handed the words, same as you. And a rough draft is the only kind we can do anything with.</p><p>The feedback is specific and kind. We talk about the sentence, never the person. By week three you will be the one spotting what is wrong with mine.</p>",
+          "signoff": "See you on a Thursday,",
+          "name": "Ines Okafor",
+          "role": "Instructor, Plainspoken"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "instructor-press": {
+        "id": "instructor-press",
+        "kind": "component",
+        "componentId": "logos-press",
+        "values": {
+          "title": "Ines’s writing and talks",
+          "items": [
+            {
+              "publication": "The Interface Review",
+              "headline": "Your error message is the product",
+              "link": {
+                "type": "url",
+                "url": "https://interfacereview.example/error-message",
+                "newTab": true
+              }
+            },
+            {
+              "publication": "Button Conf",
+              "headline": "Twenty rules for words that work",
+              "link": {
+                "type": "url",
+                "url": "https://buttonconf.example/talks/twenty-rules",
+                "newTab": true
+              }
+            },
+            {
+              "publication": "Small Words",
+              "headline": "Episode 48: writing for people in a hurry",
+              "link": {
+                "type": "url",
+                "url": "https://smallwords.example/48",
+                "newTab": true
+              }
+            },
+            {
+              "publication": "Design Ledger",
+              "headline": "Why your product needs a voice chart",
+              "link": {
+                "type": "url",
+                "url": "https://designledger.example/voice-chart",
+                "newTab": true
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "instructor-sample": {
+        "id": "instructor-sample",
+        "kind": "component",
+        "componentId": "newsletter-sample",
+        "values": {
+          "eyebrow": "Try a lesson first",
+          "title": "Read the opening of a week two lesson",
+          "issueMeta": "Week 2 · Lesson 3 · 9 min read",
+          "issueTitle": "The error message is the product",
+          "excerpt": "<p>When a payment fails, nobody admires your layout. They read one sentence, and that sentence decides whether they try again or leave.</p><p>Most error messages are written last, by whoever is closest to the code, in the five minutes before release. That is why they sound like the code: “Invalid input”, “Request failed”, “Error 4012”.</p><p>A good error answers three questions in order. What happened? Why? What can I do now? Take the card error from this week’s exercise and try it yourself before you read on.</p>",
+          "formTitle": "Get the rest of this lesson by email",
+          "emailLabel": "Email address",
+          "emailPlaceholder": "you@example.com",
+          "buttonLabel": "Send me the lesson",
+          "note": "One email with the full lesson. We only write again if you ask us to.",
+          "formAction": "",
+          "formMethod": "post"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "sample"
+      },
+      "faq-hero": {
+        "id": "faq-hero",
+        "kind": "component",
+        "componentId": "hero-minimal",
+        "values": {
+          "title": "Questions about Plainspoken? Start with the",
+          "linkLabel": "quick answers",
+          "link": {
+            "type": "section",
+            "pageId": "faq",
+            "anchor": "quick",
+            "newTab": false
+          },
+          "titleEnd": "below, or write to us and a person replies within one working day.",
+          "location": "Online, taught in English",
+          "availability": "Enrollment open until January 8",
+          "available": true,
+          "meta": "Help and FAQ",
+          "scrollLabel": "All questions",
+          "scrollLink": {
+            "type": "section",
+            "pageId": "faq",
+            "anchor": "questions",
+            "newTab": false
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "faq-quick": {
+        "id": "faq-quick",
+        "kind": "component",
+        "componentId": "faq-quick",
+        "values": {
+          "eyebrow": "Quick answers",
+          "title": "The short version",
+          "intro": "What people ask us in the first five minutes.",
+          "items": [
+            {
+              "question": "Are the workshops live?",
+              "answer": "Yes",
+              "tone": "yes",
+              "detail": "Thursdays at 17:00 UTC for 75 minutes, recorded and captioned."
+            },
+            {
+              "question": "Do I need to be a writer?",
+              "answer": "No",
+              "tone": "no",
+              "detail": "Most students are designers, developers or product managers."
+            },
+            {
+              "question": "Do I need perfect English?",
+              "answer": "No",
+              "tone": "no",
+              "detail": "A third of every cohort writes English as a second language."
+            },
+            {
+              "question": "Can I get a refund?",
+              "answer": "Yes",
+              "tone": "yes",
+              "detail": "In full, for the first 14 days. One email is enough."
+            },
+            {
+              "question": "Is there a certificate?",
+              "answer": "Yes",
+              "tone": "yes",
+              "detail": "When you hand in five of the six exercises."
+            },
+            {
+              "question": "Is there a course in Spanish?",
+              "answer": "Soon",
+              "tone": "soon",
+              "detail": "We are recording it now and plan a first cohort in autumn 2027."
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "quick"
+      },
+      "faq-questions": {
+        "id": "faq-questions",
+        "kind": "component",
+        "componentId": "faq-index",
+        "values": {
+          "eyebrow": "FAQ",
+          "title": "Everything else, sorted by topic",
+          "intro": "Jump to a topic or read the lot. We update this page after every cohort with the questions we were asked most.",
+          "indexLabel": "Question topics",
+          "topics": [
+            {
+              "icon": "book",
+              "title": "The course",
+              "questions": [
+                {
+                  "question": "Who is the course for?",
+                  "answer": "<p>Designers, developers, product managers and support leads who write the words in a product without having trained as writers. Working writers who are new to interfaces take it too.</p>"
+                },
+                {
+                  "question": "What will I be able to do at the end?",
+                  "answer": "<p>Rewrite any screen so a first-time reader understands it, explain your choices with rules instead of taste, and test whether the new text is clearer. You also leave with four portfolio pieces.</p>"
+                },
+                {
+                  "question": "How is the cohort different from self-paced?",
+                  "answer": "<p>The lessons are identical. In the cohort you also get six live workshops, written feedback on every exercise and a feedback group of six people. Self-paced students get model answers instead.</p>"
+                }
+              ]
+            },
+            {
+              "icon": "clock",
+              "title": "Time and schedule",
+              "questions": [
+                {
+                  "question": "How much time does it take?",
+                  "answer": "<p>Three to four hours a week: about one hour of lessons, one to two hours on the exercise and 75 minutes for the workshop.</p>"
+                },
+                {
+                  "question": "What if I can’t make Thursdays?",
+                  "answer": "<p>Every workshop is recorded, captioned and posted within the hour. About 4 in 10 students watch the recording. You can send your draft in advance and still have it discussed.</p>"
+                },
+                {
+                  "question": "What if I fall behind?",
+                  "answer": "<p>You have until two weeks after the last workshop to hand in exercises and still get feedback. If life gets in the way entirely, you can move to the next cohort once, at no cost.</p>"
+                }
+              ]
+            },
+            {
+              "icon": "credit-card",
+              "title": "Payment and refunds",
+              "questions": [
+                {
+                  "question": "Can I pay in instalments?",
+                  "answer": "<p>Yes. The Cohort plan can be paid in three monthly payments of $240, and Cohort plus coaching in three of $410. There is no credit check.</p>"
+                },
+                {
+                  "question": "How does the refund work?",
+                  "answer": "<p>Write to hello@plainspoken.example within 14 days of the cohort starting and we refund the full amount within five working days. Self-paced students have 14 days from the day they buy.</p>"
+                },
+                {
+                  "question": "Will my employer pay?",
+                  "answer": "<p>Often, yes. We send an invoice with your company’s details and a one-page summary of the course you can forward to your manager. About half of our students are funded this way.</p>"
+                }
+              ]
+            },
+            {
+              "icon": "award",
+              "title": "After the course",
+              "questions": [
+                {
+                  "question": "How long do I keep access?",
+                  "answer": "<p>For as long as the course exists. That includes every lesson, the recordings from your own cohort and any lessons we add later.</p>"
+                },
+                {
+                  "question": "Is the certificate worth anything?",
+                  "answer": "<p>It shows you handed in the work, which is what hiring managers ask us about. The portfolio pieces matter more, and we tell you so.</p>"
+                },
+                {
+                  "question": "Is there a community afterwards?",
+                  "answer": "<p>Yes. Graduates keep their feedback group channel and get a monthly open workshop where Ines rewrites screens that members send in.</p>"
+                }
+              ]
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "questions"
+      },
+      "faq-contact": {
+        "id": "faq-contact",
+        "kind": "component",
+        "componentId": "contact-next-steps",
+        "values": {
+          "eyebrow": "Still not sure?",
+          "title": "Ask us anything about the course",
+          "text": "No sales scripts. Tomas or Ines reads every message and tells you honestly whether the course fits what you need.",
+          "stepsTitle": "What happens next",
+          "steps": [
+            {
+              "title": "A person reads it",
+              "time": "Same day",
+              "text": "Usually Tomas, who took the course himself in 2022."
+            },
+            {
+              "title": "You get a straight answer",
+              "time": "Within one working day",
+              "text": "Including “this is not the right course for you” when that is true."
+            },
+            {
+              "title": "A call if you want one",
+              "time": "Your choice",
+              "text": "Fifteen minutes with someone from the team, at a time that suits you."
+            }
+          ],
+          "nameLabel": "Your name",
+          "emailLabel": "Email address",
+          "messageLabel": "What would you like to know?",
+          "buttonLabel": "Send question",
+          "formAction": "",
+          "formMethod": "post"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      }
+    }
+  },
+  "sharedSlots": {
+    "header": ["banner", "nav"],
+    "footer": ["footer"]
+  },
+  "packBlocks": {},
+  "assets": {}
+}

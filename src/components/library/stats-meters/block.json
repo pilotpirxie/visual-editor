@@ -1,0 +1,106 @@
+{
+  "name": "Numbers, filling meters",
+  "category": "numbers",
+  "description": "Labelled meters that fill from zero to their value as they scroll into view, each with its own figure and a short note. Still for visitors who prefer reduced motion.",
+  "tags": [
+    "numbers",
+    "stats",
+    "meters",
+    "progress",
+    "bars",
+    "percent",
+    "survey",
+    "results",
+    "animated",
+    "animation"
+  ],
+  "fieldGroups": ["Heading", "Meters"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "2026 customer survey",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What changed for teams after 90 days",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Answers from 1,240 research and product teams, collected in April 2026.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Meters",
+      "type": "list",
+      "group": "Meters",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        { "name": "label", "label": "Label", "type": "text", "default": "Label", "required": true },
+        {
+          "name": "display",
+          "label": "Figure",
+          "type": "text",
+          "default": "50%",
+          "maxLength": 12,
+          "help": "The number shown beside the label, for example 82% or 4.6 / 5."
+        },
+        {
+          "name": "value",
+          "label": "Fill (%)",
+          "type": "range",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "help": "How far the meter fills."
+        },
+        { "name": "note", "label": "Note", "type": "text", "default": "" }
+      ],
+      "default": [
+        {
+          "label": "Find a past interview in under a minute",
+          "display": "94%",
+          "value": 94,
+          "note": "Up from 31% before switching."
+        },
+        {
+          "label": "Share findings on the same day",
+          "display": "82%",
+          "value": 82,
+          "note": "Most teams used to need a full week."
+        },
+        {
+          "label": "Fewer repeated questions to customers",
+          "display": "76%",
+          "value": 76,
+          "note": "Past answers show up before the next interview."
+        },
+        {
+          "label": "Average rating from team leads",
+          "display": "4.6 / 5",
+          "value": 92,
+          "note": "Across 312 team leads."
+        }
+      ]
+    }
+  ]
+}

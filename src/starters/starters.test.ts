@@ -20,6 +20,10 @@ const EXPECTED_SLUGS: Record<string, string[]> = {
   event: ['home', 'schedule', 'speakers', 'tickets'],
   restaurant: ['home', 'menu', 'about', 'booking'],
   consultant: ['home', 'services', 'testimonials', 'contact'],
+  nonprofit: ['home', 'programs', 'about', 'donate', 'contact'],
+  podcast: ['home', 'episodes', 'about', 'subscribe'],
+  studio: ['home', 'projects', 'studio', 'journal', 'contact'],
+  course: ['home', 'curriculum', 'pricing', 'instructor', 'faq'],
 };
 
 const loaded = new Map<string, Project>();

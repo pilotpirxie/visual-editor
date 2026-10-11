@@ -10,6 +10,7 @@ import {
   builtInComponents,
   createBlock,
   definitionOf,
+  isBlockOfPack,
 } from '../components/registry';
 import type { PackBlock } from '../components/types';
 import { iconSetInfo } from '../../packages/icon-data/src/sets';
@@ -371,6 +372,19 @@ export const projectSlice = createSlice({
       Object.assign(state.packBlocks, action.payload.definitions);
       for (const block of action.payload.blocks) {
         if (state.blocks.entities[block.id] !== undefined) state.blocks.entities[block.id] = block;
+      }
+    },
+    packRemoved(state, action: PayloadAction<{ packId: string }>) {
+      const { packId } = action.payload;
+      for (const blockId of [...state.blocks.ids]) {
+        const block = state.blocks.entities[blockId];
+        if (block === undefined || !isBlockOfPack(block, packId)) continue;
+        const list = findBlockList(state, blockId);
+        if (list !== null) list.splice(list.indexOf(blockId), 1);
+        blocksAdapter.removeOne(state.blocks, blockId);
+      }
+      for (const [componentId, custom] of Object.entries(state.packBlocks)) {
+        if (custom.pack.id === packId) delete state.packBlocks[componentId];
       }
     },
     pageAdded(state, action: PayloadAction<NewPage>) {
@@ -843,6 +857,7 @@ export const {
   blockInserted,
   blockPasted,
   customBlocksUpgraded,
+  packRemoved,
   blockMoved,
   blockDuplicated,
   blockRemoved,

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from './projectFactory';
-import { quoteCardDefinition } from '../test/packFixtures';
+import { projectUsingPacks, quoteCardDefinition } from '../test/packFixtures';
 import {
   componentBlockOf,
   createTestStore,
@@ -26,6 +26,7 @@ import {
   blockValueSet,
   fontSet,
   iconSetChanged,
+  packRemoved,
   pageAdded,
   pageSharedSlotShown,
   pageNoindexSet,
@@ -682,5 +683,39 @@ describe('custom blocks', () => {
     expect(componentBlockOf(store.getState().project, block.id).values.quote).toBe(
       block.values.quote,
     );
+  });
+});
+
+describe('packRemoved', () => {
+  it('removes the pack from pages, shared slots, converted blocks and saved definitions', () => {
+    const { project, packBlockIds, otherBlockId } = projectUsingPacks();
+    const store = createTestStore(project);
+    store.dispatch(packRemoved({ packId: 'acme' }));
+    const after = store.getState().project;
+    for (const blockId of packBlockIds) {
+      expect(after.blocks.entities[blockId]).toBeUndefined();
+      expect(pageBlockIds(store)).not.toContain(blockId);
+    }
+    expect(after.sharedSlots.footer).toEqual([]);
+    expect(pageBlockIds(store)).toContain(otherBlockId);
+    expect(Object.keys(after.packBlocks)).toEqual(['acme-extra/quote-card']);
+  });
+
+  it('comes back whole with one undo and clears a selection it removed', () => {
+    const { project, packBlockIds } = projectUsingPacks();
+    const store = createTestStore(project);
+    const before = store.getState().project;
+    store.dispatch(blockSelected(packBlockIds[0] ?? ''));
+    store.dispatch(packRemoved({ packId: 'acme' }));
+    expect(store.getState().editor.selectedBlockId).toBeNull();
+    expect(store.getState().history.past).toHaveLength(1);
+    store.dispatch(undo());
+    expect(store.getState().project).toEqual(before);
+  });
+
+  it('records no undo step when the project has nothing from the pack', () => {
+    const store = createTestStore(projectUsingPacks().project);
+    store.dispatch(packRemoved({ packId: 'unknown' }));
+    expect(store.getState().history.past).toHaveLength(0);
   });
 });

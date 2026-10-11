@@ -38,7 +38,7 @@ test('presets open first in the design panel and apply by group in one undo step
 }) => {
   await page.getByRole('button', { name: 'Design', exact: true }).click();
   const list = page.getByRole('list', { name: 'Presets' });
-  await expect(list.getByRole('listitem')).toHaveCount(12);
+  await expect(list.getByRole('listitem')).toHaveCount(20);
   await expect(page.getByRole('button', { name: 'Save current as preset…' })).toHaveCount(0);
 
   const white = await canvasBackground(page);
@@ -79,4 +79,20 @@ test('the heading weight comes from the weights the heading font offers', async 
   await weight.selectOption('900');
   await expect.poll(() => headingStyle(page, 'fontWeight')).toBe('900');
   await expect.poll(() => fontsHref(page)).toContain('family=Inter:wght@400;700;900&');
+});
+
+test('Randomize builds a new readable design and one undo brings the last one back', async ({
+  page,
+}) => {
+  await openPresets(page);
+  const cleanFont = await headingStyle(page, 'fontFamily');
+  const cleanHref = await fontsHref(page);
+  await page.getByRole('button', { name: 'Randomize' }).click();
+  await expect.poll(() => fontsHref(page)).not.toBe(cleanHref);
+  await expect(page.locator('.ve-design-warnings')).toHaveCount(0);
+  await expect(page.getByRole('list', { name: 'Presets' }).getByText('Current')).toHaveCount(0);
+
+  await page.keyboard.press('ControlOrMeta+Z');
+  await expect.poll(() => fontsHref(page)).toBe(cleanHref);
+  expect(await headingStyle(page, 'fontFamily')).toBe(cleanFont);
 });

@@ -23,7 +23,7 @@
     .b-row {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: var(--space-8);
+      gap: var(--space-8) var(--space-6);
       counter-reset: arch;
     }
 
@@ -46,6 +46,7 @@
       display: grid;
       gap: var(--space-1);
       counter-increment: arch;
+      overflow-wrap: anywhere;
     }
 
     .b-caption::before {
@@ -57,7 +58,7 @@
 
     .b-title {
       font-family: var(--font-heading);
-      font-size: var(--text-xl);
+      font-size: var(--text-lg);
       font-style: italic;
       line-height: var(--line-height-tight);
     }
@@ -75,6 +76,14 @@
 
       .b-intro {
         justify-self: end;
+      }
+
+      .b-row {
+        gap: var(--space-8);
+      }
+
+      .b-title {
+        font-size: var(--text-xl);
       }
     }
 

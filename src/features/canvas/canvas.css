@@ -15,7 +15,7 @@
     position: relative;
     flex: none;
     overflow: clip;
-    background: #ffffff;
+    background: var(--ve-paper);
     box-shadow: var(--ve-shadow);
   }
 
@@ -28,7 +28,7 @@
     display: block;
     border: 0;
     transform-origin: 0 0;
-    background: #ffffff;
+    background: var(--ve-paper);
   }
 
   .ve-read-only {
@@ -116,8 +116,8 @@
   .ve-outline--moving {
     background: repeating-linear-gradient(
       -45deg,
-      rgb(47 91 234 / 0.1) 0 8px,
-      rgb(47 91 234 / 0.18) 8px 16px
+      color-mix(in srgb, var(--ve-accent) 10%, transparent) 0 8px,
+      color-mix(in srgb, var(--ve-accent) 18%, transparent) 8px 16px
     );
     outline: 1px dashed var(--ve-accent);
     outline-offset: -1px;
@@ -126,8 +126,8 @@
   .ve-outline--hidden {
     background: repeating-linear-gradient(
       -45deg,
-      rgb(17 24 39 / 0.08) 0 8px,
-      rgb(17 24 39 / 0.16) 8px 16px
+      color-mix(in srgb, var(--ve-text) 8%, transparent) 0 8px,
+      color-mix(in srgb, var(--ve-text) 16%, transparent) 8px 16px
     );
     outline: 1px dashed var(--ve-border-strong);
     outline-offset: -1px;
@@ -140,7 +140,7 @@
     padding: 2px 8px;
     border-bottom-left-radius: 4px;
     background: var(--ve-text);
-    color: #ffffff;
+    color: var(--ve-bg);
     font-size: 11px;
     font-weight: 600;
     white-space: nowrap;
@@ -170,14 +170,14 @@
 
   .ve-outline-label--selected {
     background: var(--ve-accent);
-    color: #ffffff;
+    color: var(--ve-on-accent);
   }
 
   .ve-outline-badge {
     margin-left: 6px;
     padding: 0 6px;
     border-radius: 3px;
-    background: rgb(255 255 255 / 0.22);
+    background: color-mix(in srgb, var(--ve-bg) 22%, transparent);
   }
 
   .ve-outline-label--selected .ve-outline-badge {
@@ -200,7 +200,7 @@
   }
 
   .ve-block-toolbar {
-    color: #ffffff;
+    color: var(--ve-on-accent);
   }
 
   .ve-block-toolbar > .ui-icon-button {
@@ -212,14 +212,14 @@
   .ve-block-toolbar > .ve-block-edit {
     min-height: var(--ve-target);
     margin-inline-start: var(--ve-space-1);
-    border-color: #ffffff;
+    border-color: var(--ve-on-accent);
     border-radius: 4px;
-    background: #ffffff;
+    background: var(--ve-on-accent);
     color: var(--ve-accent);
   }
 
   .ve-block-toolbar > :focus-visible {
-    outline: 2px solid #ffffff;
+    outline: 2px solid var(--ve-on-accent);
     outline-offset: -4px;
   }
 
@@ -235,7 +235,7 @@
     margin-top: -2px;
     border-radius: 2px;
     background: var(--ve-accent);
-    box-shadow: 0 0 0 2px rgb(255 255 255 / 0.85);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ve-paper) 85%, transparent);
     transition: top 80ms ease-out;
   }
 
@@ -268,7 +268,7 @@
     padding: 6px 10px;
     border-radius: 6px;
     background: var(--ve-text);
-    color: #ffffff;
+    color: var(--ve-bg);
     font-size: 12px;
     font-weight: 600;
     white-space: nowrap;

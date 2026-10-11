@@ -1,0 +1,92 @@
+{
+  "name": "Banner, moving headlines",
+  "category": "banners",
+  "description": "A dark strip of short headlines that glides sideways in an endless loop and pauses under the pointer or keyboard focus. Visitors who prefer reduced motion get a still strip they can swipe.",
+  "tags": [
+    "marquee",
+    "ticker",
+    "animated",
+    "moving",
+    "scrolling",
+    "headlines",
+    "banner",
+    "loop",
+    "launch"
+  ],
+  "fieldGroups": ["Headlines", "Motion", "Button"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "separator",
+      "label": "Separator icon",
+      "type": "icon",
+      "default": "zap",
+      "group": "Headlines"
+    },
+    {
+      "name": "items",
+      "label": "Headlines",
+      "type": "list",
+      "group": "Headlines",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Headline",
+          "required": true,
+          "maxLength": 60
+        }
+      ],
+      "default": [
+        { "text": "Fieldnote 4 is live" },
+        { "text": "Live transcripts in 32 languages" },
+        { "text": "Highlight reels in one click" },
+        { "text": "Free for teams of five" },
+        { "text": "Launch stream on May 14 at 17:00 CET" }
+      ]
+    },
+    {
+      "name": "speed",
+      "label": "Speed",
+      "type": "select",
+      "default": "normal",
+      "group": "Motion",
+      "help": "The strip stands still for visitors who ask their device for less motion.",
+      "options": [
+        { "value": "slow", "label": "Slow" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "fast", "label": "Fast" }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See what is new",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

@@ -1,8 +1,9 @@
 import { noticeShown } from '../../app/editorSlice';
 import { describeError } from '../../app/errors';
+import { packRemoved } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
 import type { ParsedPackFile } from '../../components/packFormat';
-import type { BlockPack } from '../../components/types';
+import type { BlockPack, PackInfo } from '../../components/types';
 import { slugify } from '../../app/slugs';
 import { downloadBlob } from '../export/download';
 import { pickFile, type FilePicker } from '../files/fileAccess';
@@ -11,10 +12,13 @@ import {
   addProjectPackToLibrary,
   blockCountLabel,
   loadPackBlocks,
+  packInLibrary,
   removePackFromLibrary,
   takenClasses,
 } from './packLibrary';
+import { packUsage } from './packUpdates';
 import { packZip } from './packZip';
+import { takeSnapshot } from '../snapshots/snapshots';
 
 export type PackDialog =
   { kind: 'load'; fileName: string; reading: ParsedPackFile } | { kind: 'manage' } | null;
@@ -28,6 +32,7 @@ export type PackCommands = {
   loadFile(file: File): void;
   confirm(pack: BlockPack): void;
   remove(packId: string): void;
+  removeFromProject(packId: string): void;
   addFromProject(packId: string): void;
   download(pack: BlockPack): void;
 };
@@ -42,6 +47,39 @@ const PACK_PICKER: FilePicker = {
 function reportFailure(action: string, error: unknown): void {
   console.error(`${action} failed`, error);
   dispatch(noticeShown('error', `${action} failed: ${describeError(error)}`));
+}
+
+function removeFromOpenProject(pack: PackInfo): number {
+  const { project } = store.getState();
+  const { blockCount } = packUsage(project, pack.id);
+  void dispatch(takeSnapshot(`Before removing ${pack.name}`, 'auto'));
+  dispatch(packRemoved({ packId: pack.id }));
+  return blockCount;
+}
+
+async function removePack(packId: string): Promise<void> {
+  const state = store.getState();
+  const pack = packInLibrary(state, packId);
+  if (state.editor.isReadOnly || pack === undefined) return;
+  await dispatch(removePackFromLibrary(packId));
+  const blockCount = removeFromOpenProject(pack);
+  const removed =
+    blockCount === 0
+      ? `Removed ${pack.name} from your library.`
+      : `Removed ${pack.name} from your library and ${blockCountLabel(blockCount)} from this project. Undo brings the blocks back.`;
+  dispatch(noticeShown('info', removed));
+}
+
+function removePackFromProject(packId: string): void {
+  const state = store.getState();
+  const embedded = Object.values(state.project.packBlocks).find(({ pack }) => pack.id === packId);
+  if (state.editor.isReadOnly || embedded === undefined) return;
+  const blockCount = removeFromOpenProject(embedded.pack);
+  const removed =
+    blockCount === 0
+      ? `Removed ${embedded.pack.name} from this project.`
+      : `Removed ${blockCountLabel(blockCount)} of ${embedded.pack.name} from this project. Undo brings them back.`;
+  dispatch(noticeShown('info', removed));
 }
 
 function createPackCommands(): PackCommands {
@@ -98,10 +136,9 @@ function createPackCommands(): PackCommands {
       addPack(pack).catch((error: unknown) => reportFailure('Adding the block pack', error));
     },
     remove(packId) {
-      dispatch(removePackFromLibrary(packId)).catch((error: unknown) =>
-        reportFailure('Removing the block pack', error),
-      );
+      removePack(packId).catch((error: unknown) => reportFailure('Removing the block pack', error));
     },
+    removeFromProject: removePackFromProject,
     addFromProject(packId) {
       dispatch(addProjectPackToLibrary(packId)).catch((error: unknown) =>
         reportFailure('Adding the block pack', error),

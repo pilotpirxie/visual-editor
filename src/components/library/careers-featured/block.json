@@ -120,7 +120,7 @@
       "name": "salary",
       "label": "Salary",
       "type": "text",
-      "default": "€85,000 – €105,000 a year",
+      "default": "€85,000 - €105,000 a year",
       "group": "Details"
     },
     {

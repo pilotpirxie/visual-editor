@@ -15,12 +15,24 @@ import {
 const STARTERS_LOAD_TIMEOUT_MS = 15_000;
 const MVP_STARTERS = ['SaaS product', 'Mobile app launch', 'Startup waitlist'];
 const SITE_WIDTHS = [375, 1440];
+const APPEARANCES = ['light', 'dark'] as const;
 
 function expectNoViolations(violations: Violation[]): void {
   expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
 }
 
+async function transitionsFinished(page: Page): Promise<void> {
+  await page.evaluate(async () => {
+    const running: Promise<Animation>[] = [];
+    for (const animation of document.getAnimations()) {
+      if (animation instanceof CSSTransition) running.push(animation.finished);
+    }
+    await Promise.allSettled(running);
+  });
+}
+
 async function expectAccessible(page: Page): Promise<void> {
+  await transitionsFinished(page);
   expectNoViolations(await checkAccessibility(page));
 }
 
@@ -65,69 +77,85 @@ async function startFromStarter(page: Page, name: string): Promise<void> {
   await expect(page.locator('.ve-toolbar')).toBeVisible();
 }
 
-test('the home screen and the new project dialog are accessible', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Start a new site' })).toBeVisible();
-  await expectAccessible(page);
-  await page.getByRole('button', { name: 'New project' }).click();
-  await expectAccessible(page);
-  await closeDialog(page);
-  await createProject(page);
-  await page.goto('/');
-  await expect(page.getByRole('list', { name: 'Projects' })).toBeVisible();
-  await expectAccessible(page);
-});
+for (const appearance of APPEARANCES) {
+  test.describe(`in ${appearance} mode`, () => {
+    test.beforeEach(async ({ page }) => {
+      if (appearance === 'light') return;
+      await page.addInitScript(() => localStorage.setItem('ve-appearance', 'dark'));
+    });
 
-test('the editor panels and tabs are accessible', async ({ page }) => {
-  await createProject(page);
-  await expectAccessible(page);
-  await insertBlock(page, 'Headers', 'Hero, centered text');
-  await expectAccessible(page);
-  for (const tab of ['Style', 'Advanced', 'Content']) {
-    await page.getByRole('tab', { name: tab }).click();
-    await expectAccessible(page);
-  }
-  await openLibraryTab(page, 'Layers');
-  await expectAccessible(page);
-  await openLibraryTab(page, 'Pages');
-  await expectAccessible(page);
-  await page.getByRole('button', { name: 'Design', exact: true }).click();
-  await expectAccessible(page);
-});
+    test.afterEach(async ({ page }) => {
+      const shown = await page.locator('html').getAttribute('data-ve-appearance');
+      expect(shown ?? 'light').toBe(appearance);
+    });
 
-test('the editor dialogs are accessible', async ({ page }) => {
-  await createProject(page);
-  await insertBlock(page, 'Headers', 'Hero, centered text');
+    test('the home screen and the new project dialog are accessible', async ({ page }) => {
+      await page.goto('/');
+      await expect(page.getByRole('heading', { name: 'Start a new site' })).toBeVisible();
+      await expectAccessible(page);
+      await page.getByRole('button', { name: 'New project' }).click();
+      await expectAccessible(page);
+      await closeDialog(page);
+      await createProject(page);
+      await page.goto('/');
+      await expect(page.getByRole('list', { name: 'Projects' })).toBeVisible();
+      await expectAccessible(page);
+    });
 
-  await page.getByRole('button', { name: 'Export', exact: true }).click();
-  await expect(page.getByRole('dialog', { name: 'Export site' }).getByText(/files,/)).toBeVisible();
-  await expectAccessible(page);
-  await closeDialog(page);
+    test('the editor panels and tabs are accessible', async ({ page }) => {
+      await createProject(page);
+      await expectAccessible(page);
+      await insertBlock(page, 'Headers', 'Hero, centered text');
+      await expectAccessible(page);
+      for (const tab of ['Style', 'Advanced', 'Content']) {
+        await page.getByRole('tab', { name: tab }).click();
+        await expectAccessible(page);
+      }
+      await openLibraryTab(page, 'Layers');
+      await expectAccessible(page);
+      await openLibraryTab(page, 'Pages');
+      await expectAccessible(page);
+      await page.getByRole('button', { name: 'Design', exact: true }).click();
+      await expectAccessible(page);
+    });
 
-  await expect(await openProjectSettings(page)).toBeVisible();
-  await expectAccessible(page);
-  await closeLibraryDrawer(page);
+    test('the editor dialogs are accessible', async ({ page }) => {
+      await createProject(page);
+      await insertBlock(page, 'Headers', 'Hero, centered text');
 
-  for (const [menu, item] of [
-    ['File', 'Snapshots…'],
-    ['Edit', 'Find and replace…'],
-    ['Edit', 'Save block…'],
-  ] as const) {
-    await openFromMenu(page, menu, item);
-    await expectAccessible(page);
-    await closeDialog(page);
-  }
+      await page.getByRole('button', { name: 'Export', exact: true }).click();
+      await expect(
+        page.getByRole('dialog', { name: 'Export site' }).getByText(/files,/),
+      ).toBeVisible();
+      await expectAccessible(page);
+      await closeDialog(page);
 
-  await page.keyboard.press('ControlOrMeta+K');
-  await expect(page.getByRole('dialog', { name: 'Command palette' })).toBeVisible();
-  await expectAccessible(page);
-  await closeDialog(page);
+      await expect(await openProjectSettings(page)).toBeVisible();
+      await expectAccessible(page);
+      await closeLibraryDrawer(page);
 
-  await page.getByRole('button', { name: 'Help' }).click();
-  await expect(page.getByRole('dialog', { name: 'Help' })).toBeVisible();
-  await expectAccessible(page);
-  await closeDialog(page);
-});
+      for (const [menu, item] of [
+        ['File', 'Snapshots…'],
+        ['Edit', 'Find and replace…'],
+        ['Edit', 'Save block…'],
+      ] as const) {
+        await openFromMenu(page, menu, item);
+        await expectAccessible(page);
+        await closeDialog(page);
+      }
+
+      await page.keyboard.press('ControlOrMeta+K');
+      await expect(page.getByRole('dialog', { name: 'Command palette' })).toBeVisible();
+      await expectAccessible(page);
+      await closeDialog(page);
+
+      await page.getByRole('button', { name: 'Help' }).click();
+      await expect(page.getByRole('dialog', { name: 'Help' })).toBeVisible();
+      await expectAccessible(page);
+      await closeDialog(page);
+    });
+  });
+}
 
 for (const starter of MVP_STARTERS) {
   test(`the exported ${starter} starter meets the checks at phone and desktop widths`, async ({

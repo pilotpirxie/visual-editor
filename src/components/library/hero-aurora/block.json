@@ -1,0 +1,113 @@
+{
+  "name": "Hero, aurora glow",
+  "category": "headers",
+  "description": "Centered headline, text and buttons over soft colored light that drifts slowly behind them. The light stands still when motion is reduced.",
+  "tags": [
+    "hero",
+    "heading",
+    "animated",
+    "animation",
+    "aurora",
+    "glow",
+    "gradient",
+    "launch",
+    "ai"
+  ],
+  "fieldGroups": ["Heading", "Buttons", "Layout"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Pill text",
+      "type": "text",
+      "default": "New: summaries in 32 languages",
+      "group": "Heading",
+      "maxLength": 48
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Hear what your customers mean, not only what they say",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Fieldnote listens to every interview, pulls out the moments that matter and files them where your team already works.",
+      "group": "Heading"
+    },
+    {
+      "name": "note",
+      "label": "Note under the buttons",
+      "type": "text",
+      "default": "Free for 14 days. No credit card needed.",
+      "group": "Heading"
+    },
+    {
+      "name": "primaryButton",
+      "label": "Primary button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "showSecondary",
+      "label": "Show second button",
+      "type": "boolean",
+      "default": true,
+      "group": "Buttons"
+    },
+    {
+      "name": "secondaryButton",
+      "label": "Second button",
+      "type": "button",
+      "default": {
+        "label": "Watch the 2-minute demo",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showSecondary",
+        "equals": true
+      },
+      "group": "Buttons"
+    },
+    {
+      "name": "glow",
+      "label": "Glow",
+      "type": "segmented",
+      "default": "soft",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "soft",
+          "label": "Soft"
+        },
+        {
+          "value": "bright",
+          "label": "Bright"
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import { Suspense, useEffect, useRef, useState, type JSX, type KeyboardEvent } from 'react';
+import { setAppearance, useAppearance } from '../../app/appearance';
 import { describeError } from '../../app/errors';
 import { editorPath, followLink, navigate, projectPath } from '../../app/router';
 import { autosave } from '../../app/store';
@@ -24,7 +25,7 @@ import { DeleteProjectDialog } from './DeleteProjectDialog';
 import { duplicateProject, formatLastEdit, withTitle } from './projects';
 import { PageThumbnail, StarterGallery, useIsNearViewport } from './StarterGallery';
 import './home.css';
-import { Button, Icon, IconButton, TextInput, Title } from '../../../packages/ui/src';
+import { Button, Icon, IconButton, Switch, TextInput, Title } from '../../../packages/ui/src';
 
 async function requireProject(id: string): Promise<Project> {
   const project = await getProject(id);
@@ -163,6 +164,7 @@ export function HomeScreen(): JSX.Element {
   const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
   const [deleting, setDeleting] = useState<PendingDelete | null>(null);
   const [isCreating, setIsCreating] = useState(false);
+  const isDark = useAppearance() === 'dark';
   const newProjectRef = useRef<HTMLButtonElement>(null);
   const gridRef = useRef<HTMLUListElement>(null);
   const renameButtonsRef = useRef(new Map<string, HTMLButtonElement>());
@@ -371,6 +373,11 @@ export function HomeScreen(): JSX.Element {
         >
           Open-source licenses
         </button>
+        <Switch
+          label="Dark mode"
+          checked={isDark}
+          onChange={(event) => setAppearance(event.currentTarget.checked ? 'dark' : 'light')}
+        />
       </footer>
       <Suspense fallback={null}>
         {isLicensesOpen && <LicensesDialog onClose={() => setIsLicensesOpen(false)} />}

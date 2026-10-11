@@ -2,10 +2,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './app/theme.css';
 import { App } from './app/App';
+import { applyStoredAppearance } from './app/appearance';
 import { browserFeatureChecks, missingFeatures } from './app/browserSupport';
 import { CrashScreen } from './app/CrashScreen';
 import { autosave } from './app/store';
 import { ErrorBoundary } from '../packages/ui/src';
+
+applyStoredAppearance();
 
 const rootElement = document.getElementById('root');
 if (rootElement === null) throw new Error('index.html is missing the #root element');

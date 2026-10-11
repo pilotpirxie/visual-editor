@@ -1,0 +1,120 @@
+@layer components {
+  @scope (.b-gallery-marquee) {
+    :scope {
+      --b-time: 50s;
+    }
+
+    :scope[data-speed='slow'] {
+      --b-time: 90s;
+    }
+
+    :scope[data-speed='fast'] {
+      --b-time: 28s;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      margin-block-end: var(--space-8);
+    }
+
+    .b-intro {
+      max-width: 40rem;
+      color: var(--color-text-muted);
+    }
+
+    .b-strip {
+      padding-inline: var(--space-2);
+    }
+
+    .b-track {
+      position: relative;
+    }
+
+    .b-set {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .b-copy {
+      position: absolute;
+      inset: 0;
+      visibility: hidden;
+    }
+
+    .b-photo {
+      position: relative;
+      height: clamp(11rem, 28vw, 16rem);
+      max-width: calc(100% - var(--space-4));
+      margin: var(--space-2);
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+    }
+
+    .b-photo img {
+      width: auto;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .b-caption {
+      position: absolute;
+      inset: auto var(--space-3) var(--space-3);
+      width: fit-content;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-md);
+      background: var(--color-background);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-strip {
+        padding-inline: 0;
+        overflow: clip;
+      }
+
+      .b-track {
+        display: flex;
+        width: max-content;
+        animation: b-gallery-marquee--slide var(--b-time) linear infinite;
+      }
+
+      .b-track:dir(rtl) {
+        --b-flow: -1;
+      }
+
+      .b-set {
+        flex-wrap: nowrap;
+        min-width: 100vw;
+        justify-content: space-around;
+      }
+
+      .b-copy {
+        position: static;
+        visibility: visible;
+      }
+
+      .b-photo {
+        flex: none;
+        max-width: none;
+        margin-block-end: var(--space-8);
+      }
+
+      .b-photo:nth-child(even) {
+        margin-block: var(--space-8) var(--space-2);
+      }
+
+      .b-strip:hover .b-track,
+      .b-strip:focus-within .b-track {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  @keyframes b-gallery-marquee--slide {
+    to {
+      translate: calc(-50% * var(--b-flow, 1));
+    }
+  }
+}

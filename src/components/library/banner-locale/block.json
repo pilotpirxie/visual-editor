@@ -26,7 +26,7 @@
       "name": "text",
       "label": "Text",
       "type": "text",
-      "default": "Shopping from Germany? Visit our German store for prices in euros and delivery in 2–3 days.",
+      "default": "Shopping from Germany? Visit our German store for prices in euros and delivery in 2-3 days.",
       "required": true,
       "maxLength": 140,
       "group": "Message"

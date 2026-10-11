@@ -5,7 +5,7 @@ import type { Field } from '../../components/types';
 
 export type LinkUsage = { blockId: string; place: string; blockName: string; fieldLabel: string };
 
-type BlockPlace = { blockId: string; place: string };
+export type BlockPlace = { blockId: string; place: string };
 
 const SLOT_PLACES = { header: 'Shared header', footer: 'Shared footer' };
 
@@ -28,7 +28,7 @@ function linkingFieldLabels(field: Field, value: unknown, pageId: string): strin
   return labels;
 }
 
-function blockPlaces(project: Project, deletedPageId: string): BlockPlace[] {
+export function blockPlaces(project: Project, deletedPageId: string | null): BlockPlace[] {
   const places: BlockPlace[] = [];
   for (const pageId of project.pages.ids) {
     const page = project.pages.entities[pageId];

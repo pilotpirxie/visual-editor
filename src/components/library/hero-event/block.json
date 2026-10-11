@@ -65,7 +65,7 @@
       "default": [
         {
           "icon": "calendar",
-          "text": "October 14–16, 2026"
+          "text": "October 14-16, 2026"
         },
         {
           "icon": "map-pin",
@@ -155,7 +155,7 @@
       "name": "badgeDays",
       "label": "Date badge, days",
       "type": "text",
-      "default": "14–16",
+      "default": "14-16",
       "maxLength": 12,
       "group": "Image"
     }

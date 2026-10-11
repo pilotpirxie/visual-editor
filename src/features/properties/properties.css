@@ -545,19 +545,19 @@
   }
 
   ::highlight(ve-code-tag) {
-    color: #1d4ed8;
+    color: var(--ve-code-tag);
   }
 
   ::highlight(ve-code-attribute) {
-    color: #9333ea;
+    color: var(--ve-code-attribute);
   }
 
   ::highlight(ve-code-value) {
-    color: #047857;
+    color: var(--ve-code-value);
   }
 
   ::highlight(ve-code-comment) {
-    color: #6b7280;
+    color: var(--ve-code-comment);
   }
 
   .ve-missing-component {

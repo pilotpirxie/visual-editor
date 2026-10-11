@@ -1,0 +1,127 @@
+@layer components {
+  @scope (.b-testimonials-marquee) {
+    :scope {
+      --section-bg: var(--color-surface);
+      --b-time: 64s;
+    }
+
+    :scope[data-speed='slow'] {
+      --b-time: 110s;
+    }
+
+    :scope[data-speed='fast'] {
+      --b-time: 36s;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 44rem;
+      margin-block-end: var(--space-8);
+      text-align: center;
+    }
+
+    .b-intro,
+    .b-role {
+      color: var(--color-text-muted);
+    }
+
+    .b-rows {
+      max-width: var(--container-max-width);
+      margin-inline: auto;
+      padding-inline: var(--space-2);
+    }
+
+    .b-track {
+      position: relative;
+    }
+
+    .b-set {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+    }
+
+    .b-copy {
+      position: absolute;
+      inset: 0;
+      visibility: hidden;
+    }
+
+    .b-card {
+      --stack-gap: var(--space-6);
+      display: grid;
+      margin: var(--space-2);
+    }
+
+    .b-person {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      column-gap: var(--space-3);
+      margin-block-start: auto;
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      grid-row: span 2;
+      width: 2.5rem;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      font-size: var(--text-sm);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-rows {
+        max-width: none;
+        padding-inline: 0;
+        overflow: clip;
+        mask-image: linear-gradient(90deg, transparent, currentColor 8% 92%, transparent);
+      }
+
+      .b-track {
+        display: flex;
+        width: max-content;
+        animation: b-testimonials-marquee--slide var(--b-time) linear infinite;
+      }
+
+      .b-track:dir(rtl) {
+        --b-flow: -1;
+      }
+
+      .b-back {
+        animation-direction: reverse;
+      }
+
+      .b-set {
+        display: flex;
+        min-width: 100vw;
+      }
+
+      .b-copy {
+        position: static;
+        visibility: visible;
+      }
+
+      .b-card {
+        flex: none;
+        width: min(22rem, 80vw);
+      }
+
+      .b-rows:hover .b-track,
+      .b-rows:focus-within .b-track {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  @keyframes b-testimonials-marquee--slide {
+    to {
+      translate: calc(-50% * var(--b-flow, 1));
+    }
+  }
+}

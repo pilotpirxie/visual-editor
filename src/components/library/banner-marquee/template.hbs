@@ -1,0 +1,21 @@
+<aside class="b-banner-marquee" data-speed="{{speed}}" aria-label="Announcements">
+  <div class="b-bar">
+    <div class="b-marquee" role="group" aria-label="Moving headlines, paused while focused" tabindex="0">
+      <div class="b-track">
+        <ul class="b-set" role="list">
+          {{#each items}}
+          <li class="b-item" data-field="items.{{@index}}"><span class="b-mark" data-field="separator">{{svgIcon ../separator}}</span><span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+        <ul class="b-set b-copy" role="list" aria-hidden="true">
+          {{#each items}}
+          <li class="b-item"><span class="b-mark">{{svgIcon ../separator}}</span><span>{{text}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+    {{#if showButton}}
+    <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    {{/if}}
+  </div>
+</aside>

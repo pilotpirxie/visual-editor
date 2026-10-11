@@ -1,0 +1,125 @@
+{
+  "name": "Features, light beam card",
+  "category": "features",
+  "description": "Feature cards in even columns, where a beam of light travels around the border of the cards you mark as featured. The featured cards stay highlighted for visitors who prefer reduced motion.",
+  "tags": [
+    "features",
+    "cards",
+    "beam",
+    "border",
+    "glow",
+    "highlight",
+    "featured",
+    "animated",
+    "animation"
+  ],
+  "fieldGroups": ["Heading", "Items"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Built for research teams",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Everything after the interview, handled",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Record once. Fieldnote turns every conversation into notes, themes and quotes your whole team can search.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Items",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "title",
+      "itemFields": [
+        { "name": "icon", "label": "Icon", "type": "icon", "default": "zap" },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Feature title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Describe the benefit in one or two sentences."
+        },
+        {
+          "name": "featured",
+          "label": "Light beam",
+          "type": "boolean",
+          "default": false,
+          "help": "Highlights the card and sends a beam of light around its border."
+        },
+        { "name": "badge", "label": "Badge", "type": "text", "default": "", "maxLength": 20 }
+      ],
+      "default": [
+        {
+          "icon": "mic",
+          "title": "Record anywhere",
+          "text": "Join from Zoom, Meet or Teams, or record in person from your phone.",
+          "featured": false,
+          "badge": ""
+        },
+        {
+          "icon": "sparkles",
+          "title": "Themes found for you",
+          "text": "Fieldnote groups what customers said into themes and links each one to the exact quotes behind it.",
+          "featured": true,
+          "badge": "New"
+        },
+        {
+          "icon": "search",
+          "title": "Search every interview",
+          "text": "Ask a question in plain words and get the moments where customers answered it.",
+          "featured": false,
+          "badge": ""
+        },
+        {
+          "icon": "share",
+          "title": "Share a highlight reel",
+          "text": "Cut the best clips into a two-minute reel your stakeholders will watch.",
+          "featured": false,
+          "badge": ""
+        },
+        {
+          "icon": "shield",
+          "title": "Consent built in",
+          "text": "Participants agree before recording starts, and you can delete their data in one step.",
+          "featured": false,
+          "badge": ""
+        },
+        {
+          "icon": "workflow",
+          "title": "Works with your tools",
+          "text": "Send findings to Jira, Linear, Notion and Slack without copying and pasting.",
+          "featured": false,
+          "badge": ""
+        }
+      ]
+    }
+  ]
+}

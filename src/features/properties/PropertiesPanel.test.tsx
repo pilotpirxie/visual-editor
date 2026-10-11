@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { blockSelected, fieldFocusRequested } from '../../app/editorSlice';
 import { dispatch, store } from '../../app/store';
-import { changeValue, click, render, runInAct } from '../../test/dom';
+import { changeValue, click, getButton, render, runInAct } from '../../test/dom';
 import { componentBlockOf, homePage, loadIntoAppStore } from '../../test/fixtures';
 import { convertToHtml } from '../editor/htmlBlockActions';
 import { PropertiesPanel } from './PropertiesPanel';
@@ -136,6 +136,26 @@ describe('PropertiesPanel', () => {
     expect(store.getState().project.sharedSlots.footer).toEqual([]);
     expect(homePage(store.getState().project).blockIds.at(-1)).toBe(footerId);
     expect(store.getState().editor.selectedBlockId).toBe(footerId);
+  });
+});
+
+describe('PropertiesPanel with a block whose component is gone', () => {
+  it('explains that it cannot be edited and offers to delete it', () => {
+    const project = loadIntoAppStore();
+    const blockId = homePage(project).blockIds[1] ?? '';
+    const orphaned = structuredClone(project);
+    componentBlockOf(orphaned, blockId).componentId = 'acme/quote-card';
+    runInAct(() => {
+      loadIntoAppStore(orphaned);
+      dispatch(blockSelected(blockId));
+    });
+    const { container } = render(<PropertiesPanel />);
+    expect(container.querySelector('.ve-missing-component')?.textContent).toContain(
+      'This block’s component isn’t available',
+    );
+    click(getButton(container, 'Delete block'));
+    expect(store.getState().project.blocks.entities[blockId]).toBeUndefined();
+    expect(homePage(store.getState().project).blockIds).not.toContain(blockId);
   });
 });
 

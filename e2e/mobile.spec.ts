@@ -187,7 +187,7 @@ test('the design system, project settings and export work on a phone', async ({ 
   const settingsBox = await settings.boundingBox();
   expect(settingsBox?.width ?? 0).toBeLessThanOrEqual(page.viewportSize()?.width ?? 0);
   expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
-  await expect(page).toHaveTitle(/ · Pocket site – Visual Editor$/);
+  await expect(page).toHaveTitle(/ · Pocket site - Visual Editor$/);
 
   await page.getByRole('button', { name: 'File', exact: true }).tap();
   await page.getByRole('menuitem', { name: 'Export site…' }).tap();

@@ -65,7 +65,7 @@
       "name": "hours",
       "label": "Hours",
       "type": "text",
-      "default": "Mon–Fri, 9–6 ET",
+      "default": "Mon-Fri, 9-6 ET",
       "maxLength": 40,
       "group": "Contact"
     }

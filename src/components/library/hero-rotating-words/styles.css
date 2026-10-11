@@ -1,0 +1,97 @@
+@layer components {
+  @scope (.b-hero-rotating-words) {
+    .b-inner {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    :scope[data-align='center'] .b-inner {
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-title {
+      max-width: 52rem;
+    }
+
+    .b-words {
+      --n: 2;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      padding-block: 0.1em;
+      overflow: clip;
+      color: var(--color-primary);
+    }
+
+    .b-words:has(:nth-child(3)) {
+      --n: 3;
+    }
+
+    .b-words:has(:nth-child(4)) {
+      --n: 4;
+    }
+
+    .b-words:has(:nth-child(5)) {
+      --n: 5;
+    }
+
+    .b-word {
+      grid-area: 1 / 1;
+      overflow-wrap: anywhere;
+    }
+
+    .b-word:not(:first-child) {
+      visibility: hidden;
+    }
+
+    .b-lead {
+      max-width: 40rem;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    :scope[data-align='center'] .b-actions {
+      --cluster-justify: center;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-word {
+        --step: 2.4s;
+        visibility: visible;
+        animation:
+          b-hero-rotating-words--turn calc(var(--n) * var(--step)) steps(var(--n)) infinite,
+          b-hero-rotating-words--fade var(--step) ease-in-out infinite;
+        animation-delay: calc((var(--i) - var(--n)) * var(--step)), 0s;
+      }
+
+      .b-title:hover .b-word,
+      :scope:focus-within .b-word {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  @keyframes b-hero-rotating-words--turn {
+    to {
+      translate: 0 calc(var(--n) * -10em);
+    }
+  }
+
+  @keyframes b-hero-rotating-words--fade {
+    0% {
+      opacity: 0;
+      transform: translateY(0.35em);
+    }
+
+    14%,
+    86% {
+      opacity: 1;
+      transform: none;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateY(-0.35em);
+    }
+  }
+}

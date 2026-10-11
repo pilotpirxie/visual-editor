@@ -78,7 +78,11 @@ async function generateThumbnails(onlyIds: string[]): Promise<void> {
     await openHarness(harness, `${baseUrl}${HARNESS_PATH}`);
     const ids = await harness.evaluate(() => window.thumbnailHarness?.ids() ?? []);
     const folders = await componentFolders();
-    const shotPage = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: 1 });
+    const shotPage = await browser.newPage({
+      viewport: VIEWPORT,
+      deviceScaleFactor: 1,
+      reducedMotion: 'reduce',
+    });
     for (const id of ids) {
       if (onlyIds.length > 0 && !onlyIds.includes(id)) continue;
       const folder = folders.get(id);

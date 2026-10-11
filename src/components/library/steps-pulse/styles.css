@@ -1,0 +1,110 @@
+@layer components {
+  @scope (.b-steps-pulse) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+      --b-dot: 2.75rem;
+      --b-off: calc((var(--b-dot) - var(--space-3)) / 2);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro,
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-steps {
+      position: relative;
+      display: grid;
+      gap: var(--space-8);
+      counter-reset: step;
+    }
+
+    .b-steps::before {
+      content: '';
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: calc(var(--b-dot) / 2);
+      width: var(--border-width);
+      background: var(--color-border);
+    }
+
+    .b-step {
+      z-index: 1;
+      display: flex;
+      align-items: start;
+      gap: var(--space-4);
+      counter-increment: step;
+    }
+
+    .b-step::before {
+      content: counter(step);
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: var(--b-dot);
+      aspect-ratio: 1;
+      border: var(--border-width) solid;
+      border-radius: 50%;
+      background: var(--color-background);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    h3 {
+      margin-block: var(--space-2);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-steps::after {
+        content: '';
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-start: var(--b-off);
+        padding: calc(var(--space-3) / 2);
+        border-radius: 50%;
+        background: var(--color-primary);
+        box-shadow: 0 0 var(--space-2) var(--color-primary);
+        animation: b-steps-pulse--y 6s linear infinite;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-steps {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+      }
+
+      .b-steps::before {
+        inset: calc(var(--b-dot) / 2) 0 auto;
+        width: auto;
+        height: var(--border-width);
+      }
+
+      .b-steps::after {
+        inset-block-start: var(--b-off);
+        inset-inline-start: 0;
+        animation-name: b-steps-pulse--x;
+      }
+
+      .b-step {
+        flex-direction: column;
+      }
+    }
+  }
+
+  @keyframes b-steps-pulse--y {
+    to {
+      inset-block-start: calc(100% - var(--space-3));
+    }
+  }
+
+  @keyframes b-steps-pulse--x {
+    to {
+      inset-inline-start: calc(100% - var(--space-3));
+    }
+  }
+}

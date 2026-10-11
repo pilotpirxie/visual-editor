@@ -1,0 +1,111 @@
+@layer components {
+  @scope (.b-logos-marquee) {
+    :scope {
+      --b-time: 40s;
+    }
+
+    :scope[data-speed='slow'] {
+      --b-time: 70s;
+    }
+
+    :scope[data-speed='fast'] {
+      --b-time: 22s;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+      margin-block-end: var(--space-8);
+      text-align: center;
+    }
+
+    .b-title {
+      font-size: var(--text-xl);
+    }
+
+    .b-rows {
+      padding-inline: var(--container-padding-x);
+    }
+
+    .b-track {
+      position: relative;
+    }
+
+    .b-set {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .b-copy {
+      position: absolute;
+      inset: 0;
+      visibility: hidden;
+    }
+
+    .b-logo {
+      flex: 1 1 6.5rem;
+      max-width: 9rem;
+      margin: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+    }
+
+    .b-logo img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-sm);
+      opacity: 0.8;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-rows {
+        padding-inline: 0;
+        overflow: clip;
+        mask-image: linear-gradient(90deg, transparent, currentColor 12% 88%, transparent);
+      }
+
+      .b-track {
+        display: flex;
+        width: max-content;
+        animation: b-logos-marquee--slide var(--b-time) linear infinite;
+      }
+
+      .b-track:dir(rtl) {
+        --b-flow: -1;
+      }
+
+      .b-back {
+        animation-direction: reverse;
+      }
+
+      .b-set {
+        flex-wrap: nowrap;
+        min-width: 100vw;
+        justify-content: space-around;
+      }
+
+      .b-copy {
+        position: static;
+        visibility: visible;
+      }
+
+      .b-logo {
+        flex: none;
+        width: 9rem;
+      }
+
+      .b-rows:hover .b-track,
+      .b-rows:focus-within .b-track {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  @keyframes b-logos-marquee--slide {
+    to {
+      translate: calc(-50% * var(--b-flow, 1));
+    }
+  }
+}

@@ -1,27 +1,32 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { blockPacksLoaded } from '../../app/editorSlice';
-import { dispatch } from '../../app/store';
+import { blockPacksLoaded, readOnlyChanged } from '../../app/editorSlice';
+import { dispatch, store } from '../../app/store';
 import { ensurePackBlocks } from '../../components/registry';
 import { parsePackFiles } from '../../components/packFormat';
 import { readBlockPack } from '../../components/validatePack';
-import { getButton, render, runInAct } from '../../test/dom';
+import { deleteBlockPack } from '../../persistence/db';
+import { click, getButton, render, runInAct } from '../../test/dom';
 import { loadIntoAppStore } from '../../test/fixtures';
 import {
   packOf,
+  projectUsingPacks,
   quoteCardBlock,
   quoteCardDefinition,
   testPackZip,
   type FixtureBlock,
 } from '../../test/packFixtures';
 import { LoadPackDialog } from './LoadPackDialog';
+import { ManagePacksDialog } from './ManagePacksDialog';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
   listBlockPacks: vi.fn(async () => []),
   putBlockPack: vi.fn(async () => {}),
   deleteBlockPack: vi.fn(async () => {}),
+  latestSnapshotText: vi.fn(async () => null),
+  putSnapshot: vi.fn(async () => {}),
 }));
 
 const EXAMPLE_PACK = join(import.meta.dirname, 'example-pack');
@@ -47,7 +52,21 @@ function examplePackFiles(): Map<string, Uint8Array> {
 beforeEach(() => {
   loadIntoAppStore();
   runInAct(() => dispatch(blockPacksLoaded([])));
+  vi.mocked(deleteBlockPack).mockClear();
 });
+
+function packRow(container: HTMLElement, packName: string): HTMLElement {
+  for (const row of container.querySelectorAll<HTMLElement>('.ve-pack-row')) {
+    if (row.textContent.includes(packName)) return row;
+  }
+  throw new Error(`No row for the pack ${packName}`);
+}
+
+function embeddedPackIds(): string[] {
+  const ids = new Set<string>();
+  for (const { pack } of Object.values(store.getState().project.packBlocks)) ids.add(pack.id);
+  return [...ids];
+}
 
 describe('LoadPackDialog', () => {
   it('shows the pack, a preview at three widths and offers to add it', async () => {
@@ -86,6 +105,82 @@ describe('LoadPackDialog', () => {
     const reading = await readingOf();
     const { container } = render(<LoadPackDialog fileName="acme.zip" reading={reading} />);
     expect(getButton(container, 'Update to 1.0.0').disabled).toBe(false);
+  });
+});
+
+describe('ManagePacksDialog', () => {
+  it('says what removing a pack deletes from the open project', () => {
+    loadIntoAppStore(projectUsingPacks().project);
+    runInAct(() => dispatch(blockPacksLoaded([packOf([quoteCardDefinition()])])));
+    const { container } = render(<ManagePacksDialog />);
+    const row = packRow(container, 'Acme blocks');
+    click(getButton(row, 'Remove'));
+    expect(row.querySelector('.ve-pack-removal')?.textContent).toBe(
+      'Deletes 3 blocks from this project: Home (2), Shared footer (1). Undo brings the blocks back. Other projects keep their saved copy.',
+    );
+    click(getButton(row, 'Keep'));
+    expect(row.querySelector('.ve-pack-removal')).toBeNull();
+  });
+
+  it('removes the pack from the library and its blocks from the project', async () => {
+    const { project, packBlockIds } = projectUsingPacks();
+    loadIntoAppStore(project);
+    runInAct(() => dispatch(blockPacksLoaded([packOf([quoteCardDefinition()])])));
+    const { container } = render(<ManagePacksDialog />);
+    const row = packRow(container, 'Acme blocks');
+    click(getButton(row, 'Remove'));
+    click(getButton(row, 'Remove pack and its blocks'));
+    await vi.waitFor(() => expect(embeddedPackIds()).toEqual(['acme-extra']));
+    expect(deleteBlockPack).toHaveBeenCalledWith('acme');
+    expect(store.getState().editor.blockPacks).toEqual([]);
+    for (const blockId of packBlockIds) {
+      expect(store.getState().project.blocks.entities[blockId]).toBeUndefined();
+    }
+    expect(store.getState().history.past).toHaveLength(1);
+  });
+
+  it('leaves the project alone when the library cannot be changed', async () => {
+    const logged = vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.mocked(deleteBlockPack).mockRejectedValueOnce(new Error('The disk is full'));
+    loadIntoAppStore(projectUsingPacks().project);
+    runInAct(() => dispatch(blockPacksLoaded([packOf([quoteCardDefinition()])])));
+    const { container } = render(<ManagePacksDialog />);
+    const row = packRow(container, 'Acme blocks');
+    click(getButton(row, 'Remove'));
+    click(getButton(row, 'Remove pack and its blocks'));
+    await vi.waitFor(() => expect(logged).toHaveBeenCalled());
+    logged.mockRestore();
+    expect(embeddedPackIds()).toEqual(['acme', 'acme-extra']);
+    expect(store.getState().history.past).toHaveLength(0);
+    expect(store.getState().editor.notices.at(-1)?.text).toBe(
+      'Removing the block pack failed: The disk is full',
+    );
+  });
+
+  it('removes a pack that is not in the library from the project only', () => {
+    loadIntoAppStore(projectUsingPacks().project);
+    const { container } = render(<ManagePacksDialog />);
+    const row = packRow(container, 'Acme blocks');
+    click(getButton(row, 'Remove'));
+    expect(row.querySelector('.ve-pack-removal')?.textContent).toBe(
+      'Deletes 3 blocks from this project: Home (2), Shared footer (1). Undo brings the blocks back.',
+    );
+    click(getButton(row, 'Remove from project'));
+    expect(embeddedPackIds()).toEqual(['acme-extra']);
+    expect(deleteBlockPack).not.toHaveBeenCalled();
+    expect(getButton(packRow(container, 'Acme extras'), 'Add to library').disabled).toBe(false);
+  });
+
+  it('offers no removal in a read-only tab', () => {
+    loadIntoAppStore(projectUsingPacks().project);
+    runInAct(() => {
+      dispatch(blockPacksLoaded([packOf([quoteCardDefinition()])]));
+      dispatch(readOnlyChanged(true));
+    });
+    const { container } = render(<ManagePacksDialog />);
+    expect(getButton(packRow(container, 'Acme blocks'), 'Remove').disabled).toBe(true);
+    expect(getButton(packRow(container, 'Acme extras'), 'Remove').disabled).toBe(true);
+    runInAct(() => dispatch(readOnlyChanged(false)));
   });
 });
 

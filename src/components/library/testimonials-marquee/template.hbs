@@ -1,0 +1,69 @@
+<section class="b-testimonials-marquee section" data-speed="{{speed}}">
+  <div class="container stack b-head">
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h2 data-field="title">{{title}}</h2>
+    {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+  </div>
+  <div class="b-rows" role="group" aria-label="{{title}}" tabindex="0">
+    <div class="b-track">
+      <ul class="b-set" role="list">
+        {{#each topRow}}
+        <li class="card b-card" data-field="topRow.{{@index}}">
+          <figure class="stack">
+            <blockquote class="b-quote"><p>{{quote}}</p></blockquote>
+            <figcaption class="b-person">
+              <span class="media b-photo">{{img photo}}</span>
+              <span class="b-name">{{name}}</span>
+              <span class="b-role">{{role}}</span>
+            </figcaption>
+          </figure>
+        </li>
+        {{/each}}
+      </ul>
+      <ul class="b-set b-copy" role="list" aria-hidden="true">
+        {{#each topRow}}
+        <li class="card b-card">
+          <figure class="stack">
+            <blockquote class="b-quote"><p>{{quote}}</p></blockquote>
+            <figcaption class="b-person">
+              <span class="media b-photo">{{img photo}}</span>
+              <span class="b-name">{{name}}</span>
+              <span class="b-role">{{role}}</span>
+            </figcaption>
+          </figure>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="b-track b-back">
+      <ul class="b-set" role="list">
+        {{#each bottomRow}}
+        <li class="card b-card" data-field="bottomRow.{{@index}}">
+          <figure class="stack">
+            <blockquote class="b-quote"><p>{{quote}}</p></blockquote>
+            <figcaption class="b-person">
+              <span class="media b-photo">{{img photo}}</span>
+              <span class="b-name">{{name}}</span>
+              <span class="b-role">{{role}}</span>
+            </figcaption>
+          </figure>
+        </li>
+        {{/each}}
+      </ul>
+      <ul class="b-set b-copy" role="list" aria-hidden="true">
+        {{#each bottomRow}}
+        <li class="card b-card">
+          <figure class="stack">
+            <blockquote class="b-quote"><p>{{quote}}</p></blockquote>
+            <figcaption class="b-person">
+              <span class="media b-photo">{{img photo}}</span>
+              <span class="b-name">{{name}}</span>
+              <span class="b-role">{{role}}</span>
+            </figcaption>
+          </figure>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

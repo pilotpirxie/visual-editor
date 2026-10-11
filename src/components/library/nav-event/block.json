@@ -28,7 +28,7 @@
       "name": "details",
       "label": "Dates and place",
       "type": "text",
-      "default": "Oct 14–16, 2026 · Lisbon",
+      "default": "Oct 14-16, 2026 · Lisbon",
       "maxLength": 48,
       "group": "Event"
     },

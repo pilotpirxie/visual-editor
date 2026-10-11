@@ -1,4 +1,7 @@
+import { createSampleProject } from '../app/projectFactory';
+import type { HtmlBlock, Project } from '../app/types';
 import { parsePackFiles, type PackFiles } from '../components/packFormat';
+import { createBlock } from '../components/registry';
 import type { BlockPack, PackBlock } from '../components/types';
 import { createZip, type ZipEntry } from '../features/export/zip';
 
@@ -163,4 +166,47 @@ export function packOf(blocks: PackBlock[]): BlockPack {
   const [first] = blocks;
   if (first === undefined) throw new Error('A pack needs at least one block');
   return { ...first.pack, blocks, isPartial: false };
+}
+
+export type ProjectUsingPacks = { project: Project; packBlockIds: string[]; otherBlockId: string };
+
+export function otherPackDefinition(): PackBlock {
+  const custom = quoteCardDefinition();
+  return {
+    ...custom,
+    pack: { ...custom.pack, id: 'acme-extra', name: 'Acme extras' },
+    definition: { ...custom.definition, id: 'acme-extra/quote-card' },
+  };
+}
+
+export function projectUsingPacks(): ProjectUsingPacks {
+  const project = createSampleProject();
+  const custom = quoteCardDefinition();
+  const other = otherPackDefinition();
+  project.packBlocks[custom.definition.id] = custom;
+  project.packBlocks[other.definition.id] = other;
+  const onPage = createBlock(custom.definition);
+  const inFooter = createBlock(custom.definition);
+  const fromOtherPack = createBlock(other.definition);
+  const converted: HtmlBlock = {
+    id: crypto.randomUUID(),
+    kind: 'html',
+    html: '<section class="b-acme-quote-card">Converted</section>',
+    sourceComponentId: custom.definition.id,
+    disabled: false,
+    extraClasses: [],
+    hideOn: [],
+  };
+  for (const block of [onPage, inFooter, fromOtherPack, converted]) {
+    project.blocks.ids.push(block.id);
+    project.blocks.entities[block.id] = block;
+  }
+  const home = project.pages.entities[project.pages.homePageId];
+  home.blockIds.push(onPage.id, converted.id, fromOtherPack.id);
+  project.sharedSlots.footer.push(inFooter.id);
+  return {
+    project,
+    packBlockIds: [onPage.id, converted.id, inFooter.id],
+    otherBlockId: fromOtherPack.id,
+  };
 }

@@ -99,9 +99,9 @@
         }
       ],
       "default": [
-        { "label": "1–49 employees" },
-        { "label": "50–249 employees" },
-        { "label": "250–999 employees" },
+        { "label": "1-49 employees" },
+        { "label": "50-249 employees" },
+        { "label": "250-999 employees" },
         { "label": "1,000 or more" }
       ]
     },

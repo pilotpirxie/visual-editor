@@ -29,12 +29,12 @@ describe('ProjectSettingsPanel', () => {
     changeValue(input(container, '#ve-field-project-title'), 'Acme');
     changeValue(input(container, '#ve-field-project-description'), 'Research, tagged.');
     changeValue(input(container, '#ve-field-project-language'), 'pl');
-    changeValue(input(container, '#ve-field-project-title-template'), '{{page.title}} – Acme');
+    changeValue(input(container, '#ve-field-project-title-template'), '{{page.title}} - Acme');
     expect(settings()).toMatchObject({
       title: 'Acme',
       description: 'Research, tagged.',
       language: 'pl',
-      titleTemplate: '{{page.title}} – Acme',
+      titleTemplate: '{{page.title}} - Acme',
     });
   });
 

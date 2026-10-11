@@ -1,0 +1,2553 @@
+{
+  "schemaVersion": 1,
+  "id": "starter-podcast",
+  "settings": {
+    "title": "Load-Bearing",
+    "description": "Load-Bearing is a weekly podcast and a Friday email about the infrastructure nobody notices until it fails, made in Sheffield by Ines Okafor and Tomasz Brandt.",
+    "language": "en",
+    "titleTemplate": "{{page.title}} | {{site.title}}",
+    "indexable": true
+  },
+  "designSystem": {
+    "presetId": "brutalist",
+    "tokens": {
+      "--color-primary": {
+        "name": "--color-primary",
+        "label": "Primary",
+        "group": "color",
+        "value": "#000000"
+      },
+      "--color-primary-contrast": {
+        "name": "--color-primary-contrast",
+        "label": "Primary contrast",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--color-background": {
+        "name": "--color-background",
+        "label": "Background",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--color-surface": {
+        "name": "--color-surface",
+        "label": "Surface",
+        "group": "color",
+        "value": "#fff36b"
+      },
+      "--color-text": {
+        "name": "--color-text",
+        "label": "Text",
+        "group": "color",
+        "value": "#000000"
+      },
+      "--color-text-muted": {
+        "name": "--color-text-muted",
+        "label": "Muted text",
+        "group": "color",
+        "value": "#3d3d3d"
+      },
+      "--color-border": {
+        "name": "--color-border",
+        "label": "Border",
+        "group": "color",
+        "value": "#000000"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#000000"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#1a1a1a"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#cccccc"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#fff36b"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#000000"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--font-heading": {
+        "name": "--font-heading",
+        "label": "Heading font",
+        "group": "typography",
+        "value": "\"Space Mono\", ui-monospace, monospace"
+      },
+      "--font-body": {
+        "name": "--font-body",
+        "label": "Body font",
+        "group": "typography",
+        "value": "\"Space Grotesk\", system-ui, sans-serif"
+      },
+      "--font-mono": {
+        "name": "--font-mono",
+        "label": "Mono font",
+        "group": "typography",
+        "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+      },
+      "--font-weight-heading": {
+        "name": "--font-weight-heading",
+        "label": "Heading weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--font-weight-regular": {
+        "name": "--font-weight-regular",
+        "label": "Body weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-bold": {
+        "name": "--font-weight-bold",
+        "label": "Bold weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--text-xs": {
+        "name": "--text-xs",
+        "label": "Extra small",
+        "group": "typography",
+        "value": "0.64rem"
+      },
+      "--text-sm": {
+        "name": "--text-sm",
+        "label": "Small",
+        "group": "typography",
+        "value": "0.8rem"
+      },
+      "--text-base": {
+        "name": "--text-base",
+        "label": "Base",
+        "group": "typography",
+        "value": "1rem"
+      },
+      "--text-lg": {
+        "name": "--text-lg",
+        "label": "Large",
+        "group": "typography",
+        "value": "1.25rem"
+      },
+      "--text-xl": {
+        "name": "--text-xl",
+        "label": "XL",
+        "group": "typography",
+        "value": "1.5625rem"
+      },
+      "--text-2xl": {
+        "name": "--text-2xl",
+        "label": "2XL",
+        "group": "typography",
+        "value": "1.9531rem"
+      },
+      "--text-3xl": {
+        "name": "--text-3xl",
+        "label": "3XL",
+        "group": "typography",
+        "value": "clamp(1.6018rem, 1.3219rem + 1.3993vw, 2.4414rem)"
+      },
+      "--text-4xl": {
+        "name": "--text-4xl",
+        "label": "4XL",
+        "group": "typography",
+        "value": "clamp(1.802rem, 1.3855rem + 2.0829vw, 3.0518rem)"
+      },
+      "--text-5xl": {
+        "name": "--text-5xl",
+        "label": "5XL",
+        "group": "typography",
+        "value": "clamp(2.0273rem, 1.4315rem + 2.979vw, 3.8147rem)"
+      },
+      "--line-height-tight": {
+        "name": "--line-height-tight",
+        "label": "Heading line height",
+        "group": "typography",
+        "value": "1.1"
+      },
+      "--line-height-normal": {
+        "name": "--line-height-normal",
+        "label": "Body line height",
+        "group": "typography",
+        "value": "1.6"
+      },
+      "--space-1": {
+        "name": "--space-1",
+        "label": "Space 1",
+        "group": "spacing",
+        "value": "0.25rem"
+      },
+      "--space-2": {
+        "name": "--space-2",
+        "label": "Space 2",
+        "group": "spacing",
+        "value": "0.5rem"
+      },
+      "--space-3": {
+        "name": "--space-3",
+        "label": "Space 3",
+        "group": "spacing",
+        "value": "0.75rem"
+      },
+      "--space-4": {
+        "name": "--space-4",
+        "label": "Space 4",
+        "group": "spacing",
+        "value": "1rem"
+      },
+      "--space-6": {
+        "name": "--space-6",
+        "label": "Space 6",
+        "group": "spacing",
+        "value": "1.5rem"
+      },
+      "--space-8": {
+        "name": "--space-8",
+        "label": "Space 8",
+        "group": "spacing",
+        "value": "2rem"
+      },
+      "--space-12": {
+        "name": "--space-12",
+        "label": "Space 12",
+        "group": "spacing",
+        "value": "3rem"
+      },
+      "--space-16": {
+        "name": "--space-16",
+        "label": "Space 16",
+        "group": "spacing",
+        "value": "4rem"
+      },
+      "--section-padding-y": {
+        "name": "--section-padding-y",
+        "label": "Section padding",
+        "group": "spacing",
+        "value": "clamp(3rem, 2rem + 4vw, 6rem)"
+      },
+      "--container-max-width": {
+        "name": "--container-max-width",
+        "label": "Container width",
+        "group": "spacing",
+        "value": "72rem"
+      },
+      "--container-padding-x": {
+        "name": "--container-padding-x",
+        "label": "Container padding",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--radius-sm": {
+        "name": "--radius-sm",
+        "label": "Small radius",
+        "group": "shape",
+        "value": "0rem"
+      },
+      "--radius-md": {
+        "name": "--radius-md",
+        "label": "Medium radius",
+        "group": "shape",
+        "value": "0rem"
+      },
+      "--radius-lg": {
+        "name": "--radius-lg",
+        "label": "Large radius",
+        "group": "shape",
+        "value": "0rem"
+      },
+      "--radius-full": {
+        "name": "--radius-full",
+        "label": "Full radius",
+        "group": "shape",
+        "value": "9999px"
+      },
+      "--border-width": {
+        "name": "--border-width",
+        "label": "Border width",
+        "group": "shape",
+        "value": "2px"
+      },
+      "--shadow-sm": {
+        "name": "--shadow-sm",
+        "label": "Small shadow",
+        "group": "elevation",
+        "value": "none"
+      },
+      "--shadow-md": {
+        "name": "--shadow-md",
+        "label": "Medium shadow",
+        "group": "elevation",
+        "value": "none"
+      },
+      "--shadow-lg": {
+        "name": "--shadow-lg",
+        "label": "Large shadow",
+        "group": "elevation",
+        "value": "none"
+      },
+      "--button-radius": {
+        "name": "--button-radius",
+        "label": "Button radius",
+        "group": "component",
+        "value": "var(--radius-md)"
+      },
+      "--button-padding-y": {
+        "name": "--button-padding-y",
+        "label": "Button padding Y",
+        "group": "component",
+        "value": "0.75rem"
+      },
+      "--button-padding-x": {
+        "name": "--button-padding-x",
+        "label": "Button padding X",
+        "group": "component",
+        "value": "1.25rem"
+      },
+      "--card-radius": {
+        "name": "--card-radius",
+        "label": "Card radius",
+        "group": "component",
+        "value": "var(--radius-lg)"
+      },
+      "--card-shadow": {
+        "name": "--card-shadow",
+        "label": "Card shadow",
+        "group": "component",
+        "value": "var(--shadow-sm)"
+      },
+      "--transition-fast": {
+        "name": "--transition-fast",
+        "label": "Fast",
+        "group": "motion",
+        "value": "120ms"
+      },
+      "--transition-normal": {
+        "name": "--transition-normal",
+        "label": "Normal",
+        "group": "motion",
+        "value": "200ms"
+      }
+    },
+    "fonts": [
+      {
+        "role": "heading",
+        "family": "Space Mono",
+        "weights": [700]
+      },
+      {
+        "role": "body",
+        "family": "Space Grotesk",
+        "weights": [400, 700]
+      }
+    ],
+    "generators": {
+      "typeBasePx": 16,
+      "typeRatio": 1.25,
+      "spaceUnitPx": 4
+    },
+    "iconSet": "tabler"
+  },
+  "pages": {
+    "ids": ["home", "episodes", "about", "subscribe"],
+    "entities": {
+      "home": {
+        "id": "home",
+        "name": "Home",
+        "slug": "home",
+        "blockIds": [
+          "home-hero",
+          "home-episodes",
+          "home-clip",
+          "home-numbers",
+          "home-press",
+          "home-letter",
+          "home-cta"
+        ],
+        "seo": {
+          "title": "A weekly podcast about infrastructure",
+          "description": "Load-Bearing is a weekly podcast about the pipes, pylons, timetables and night shifts that hold everything up, hosted by Ines Okafor and Tomasz Brandt.",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "episodes": {
+        "id": "episodes",
+        "name": "Episodes",
+        "slug": "episodes",
+        "blockIds": [
+          "episodes-hero",
+          "episodes-series",
+          "episodes-start",
+          "episodes-cta",
+          "episodes-archive",
+          "episodes-quotes"
+        ],
+        "seo": {
+          "description": "All 118 episodes of Load-Bearing: the current series The Water Year, six episodes to start with and the full archive by year.",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "about": {
+        "id": "about",
+        "name": "About",
+        "slug": "about",
+        "blockIds": [
+          "about-hero",
+          "about-team",
+          "about-interview",
+          "about-facts",
+          "about-awards",
+          "about-sponsors",
+          "about-pitch"
+        ],
+        "seo": {
+          "description": "Meet the four people who make Load-Bearing in a former substation in Sheffield, how the show is funded and how to pitch an episode.",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "subscribe": {
+        "id": "subscribe",
+        "name": "Subscribe",
+        "slug": "subscribe",
+        "blockIds": [
+          "subscribe-hero",
+          "subscribe-follow",
+          "subscribe-sample",
+          "subscribe-members",
+          "subscribe-notes",
+          "subscribe-faq"
+        ],
+        "seo": {
+          "description": "Follow Load-Bearing in your podcast app, get The Inspection Report by email every Friday, or join 2,140 members who pay for the show.",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      }
+    },
+    "homePageId": "home"
+  },
+  "blocks": {
+    "ids": [
+      "banner",
+      "nav",
+      "footer",
+      "home-hero",
+      "home-episodes",
+      "home-clip",
+      "home-numbers",
+      "home-press",
+      "home-letter",
+      "home-cta",
+      "episodes-hero",
+      "episodes-series",
+      "episodes-start",
+      "episodes-cta",
+      "episodes-archive",
+      "episodes-quotes",
+      "about-hero",
+      "about-team",
+      "about-interview",
+      "about-facts",
+      "about-awards",
+      "about-sponsors",
+      "about-pitch",
+      "subscribe-hero",
+      "subscribe-follow",
+      "subscribe-sample",
+      "subscribe-members",
+      "subscribe-notes",
+      "subscribe-faq"
+    ],
+    "entities": {
+      "banner": {
+        "id": "banner",
+        "kind": "component",
+        "componentId": "banner-announcement",
+        "values": {
+          "showIcon": true,
+          "icon": "headphones",
+          "text": "New series: The Water Year. Four episodes on where your tap water comes from.",
+          "linkLabel": "Start with part 1",
+          "link": {
+            "type": "section",
+            "pageId": "episodes",
+            "anchor": "series",
+            "newTab": false
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "nav": {
+        "id": "nav",
+        "kind": "component",
+        "componentId": "nav-boxed",
+        "values": {
+          "links": [
+            {
+              "label": "Episodes",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            },
+            {
+              "label": "The Water Year",
+              "link": {
+                "type": "section",
+                "pageId": "episodes",
+                "anchor": "series",
+                "newTab": false
+              }
+            },
+            {
+              "label": "About",
+              "link": {
+                "type": "page",
+                "pageId": "about",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Subscribe",
+              "link": {
+                "type": "page",
+                "pageId": "subscribe",
+                "newTab": false
+              }
+            }
+          ],
+          "showCta": true,
+          "cta": {
+            "label": "Listen now",
+            "link": {
+              "type": "section",
+              "pageId": "subscribe",
+              "anchor": "follow",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "menuIcon": "menu"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "footer": {
+        "id": "footer",
+        "kind": "component",
+        "componentId": "footer-posts",
+        "values": {
+          "tagline": "A weekly podcast and a Friday email about the infrastructure nobody notices until it fails. Made in a former substation in Sheffield.",
+          "columns": [
+            {
+              "title": "The show",
+              "links": [
+                {
+                  "label": "All episodes",
+                  "link": {
+                    "type": "page",
+                    "pageId": "episodes",
+                    "newTab": false
+                  }
+                },
+                {
+                  "label": "The Water Year",
+                  "link": {
+                    "type": "section",
+                    "pageId": "episodes",
+                    "anchor": "series",
+                    "newTab": false
+                  }
+                },
+                {
+                  "label": "About us",
+                  "link": {
+                    "type": "page",
+                    "pageId": "about",
+                    "newTab": false
+                  }
+                },
+                {
+                  "label": "Pitch an episode",
+                  "link": {
+                    "type": "section",
+                    "pageId": "about",
+                    "anchor": "pitch",
+                    "newTab": false
+                  }
+                }
+              ]
+            },
+            {
+              "title": "Subscribe",
+              "links": [
+                {
+                  "label": "Pick your app",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                },
+                {
+                  "label": "The Inspection Report",
+                  "link": {
+                    "type": "page",
+                    "pageId": "subscribe",
+                    "newTab": false
+                  }
+                },
+                {
+                  "label": "Become a member",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "members",
+                    "newTab": false
+                  }
+                },
+                {
+                  "label": "Sponsor an episode",
+                  "link": {
+                    "type": "section",
+                    "pageId": "about",
+                    "anchor": "sponsors",
+                    "newTab": false
+                  }
+                }
+              ]
+            }
+          ],
+          "postsTitle": "Latest episodes",
+          "posts": [
+            {
+              "title": "118: The reservoir that drowned a village",
+              "date": "2026-10-06",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            },
+            {
+              "title": "117: The pipe under your street is older than your nan",
+              "date": "2026-09-29",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            },
+            {
+              "title": "116: Why your bus is always two minutes early",
+              "date": "2026-09-22",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            }
+          ],
+          "allLabel": "All episodes",
+          "allLink": {
+            "type": "page",
+            "pageId": "episodes",
+            "newTab": false
+          },
+          "socials": [
+            {
+              "label": "YouTube",
+              "icon": "simple-icons:youtube",
+              "link": {
+                "type": "url",
+                "url": "https://www.youtube.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "Bluesky",
+              "icon": "simple-icons:bluesky",
+              "link": {
+                "type": "url",
+                "url": "https://bsky.app",
+                "newTab": true
+              }
+            },
+            {
+              "label": "Instagram",
+              "icon": "simple-icons:instagram",
+              "link": {
+                "type": "url",
+                "url": "https://www.instagram.com",
+                "newTab": true
+              }
+            }
+          ],
+          "copyright": "© 2026 Load-Bearing Audio Ltd. Made in Sheffield."
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-hero": {
+        "id": "home-hero",
+        "kind": "component",
+        "componentId": "hero-outline",
+        "values": {
+          "eyebrow": "A weekly podcast about infrastructure",
+          "title": "Nobody notices.",
+          "outlineTitle": "Until it fails.",
+          "text": "Load-Bearing is a show about the pipes, pylons, timetables and night shifts that hold everything up. Every Tuesday, Ines Okafor and Tomasz Brandt go and stand next to one.",
+          "primaryButton": {
+            "label": "Play the latest episode",
+            "link": {
+              "type": "page",
+              "pageId": "episodes",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Get the Friday email",
+            "link": {
+              "type": "page",
+              "pageId": "subscribe",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "facts": [
+            {
+              "value": "118",
+              "label": "episodes since 2024"
+            },
+            {
+              "value": "46,000",
+              "label": "listeners every week"
+            },
+            {
+              "value": "Tuesdays",
+              "label": "new episode at 6 am"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-episodes": {
+        "id": "home-episodes",
+        "kind": "component",
+        "componentId": "blog-podcast",
+        "values": {
+          "cover": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Load-Bearing artwork: a black steel beam across a yellow square",
+            "decorative": false,
+            "width": 1000,
+            "height": 1000,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "eyebrow": "Latest episodes",
+          "title": "This month on Load-Bearing",
+          "text": "New every Tuesday at 6 am. Each episode comes with a full transcript, our sources and any corrections.",
+          "platforms": [
+            {
+              "label": "Apple Podcasts",
+              "icon": "simple-icons:applepodcasts",
+              "link": {
+                "type": "url",
+                "url": "https://podcasts.apple.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "Spotify",
+              "icon": "simple-icons:spotify",
+              "link": {
+                "type": "url",
+                "url": "https://open.spotify.com",
+                "newTab": true
+              }
+            },
+            {
+              "label": "YouTube",
+              "icon": "simple-icons:youtube",
+              "link": {
+                "type": "url",
+                "url": "https://www.youtube.com",
+                "newTab": true
+              }
+            }
+          ],
+          "episodeLabel": "EP",
+          "episodes": [
+            {
+              "number": "118",
+              "date": "2026-10-06",
+              "duration": "47 min",
+              "title": "The reservoir that drowned a village",
+              "guest": "The Water Year, part 2, with dam historian Dr. Helen Marsh",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            },
+            {
+              "number": "117",
+              "date": "2026-09-29",
+              "duration": "49 min",
+              "title": "The pipe under your street is older than your nan",
+              "guest": "The Water Year, part 1, with leakage manager Gareth Pugh",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            },
+            {
+              "number": "116",
+              "date": "2026-09-22",
+              "duration": "41 min",
+              "title": "Why your bus is always two minutes early",
+              "guest": "with Lena Farrow, timetable planner at Calder Buses",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            },
+            {
+              "number": "115",
+              "date": "2026-09-15",
+              "duration": "39 min",
+              "title": "The substation next door",
+              "guest": "with Amir Haddad, grid maintenance engineer",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-clip": {
+        "id": "home-clip",
+        "kind": "component",
+        "componentId": "testimonial-audio",
+        "values": {
+          "cover": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Episode 115 cover: a grey substation box on a terraced street at night",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "show": "Load-Bearing · Episode 115",
+          "episode": "The substation next door",
+          "linkLabel": "Play clip",
+          "link": {
+            "type": "page",
+            "pageId": "episodes",
+            "newTab": false
+          },
+          "duration": "1:52",
+          "eyebrow": "From the transcript",
+          "quote": "People think the grid is one big machine. It is ten thousand small ones and a lot of phone calls. When your lights stay on in a storm, that is somebody in a van at three in the morning who knew which box to open.",
+          "name": "Amir Haddad",
+          "role": "Grid maintenance engineer, 22 years on the network"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-numbers": {
+        "id": "home-numbers",
+        "kind": "component",
+        "componentId": "stats-sentence",
+        "values": {
+          "eyebrow": "Since January 2024",
+          "title": "The show in numbers",
+          "segments": [
+            {
+              "text": "We have published",
+              "number": "118"
+            },
+            {
+              "text": "episodes, recorded in",
+              "number": "61"
+            },
+            {
+              "text": "places you are not usually allowed into, for",
+              "number": "46,000"
+            },
+            {
+              "text": "listeners a week in",
+              "number": "96"
+            },
+            {
+              "text": "countries.",
+              "number": ""
+            }
+          ],
+          "numberStyle": "marker",
+          "source": "Download figures from our podcast host, January 2024 to September 2026.",
+          "button": {
+            "label": "More about the show",
+            "link": {
+              "type": "page",
+              "pageId": "about",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-press": {
+        "id": "home-press",
+        "kind": "component",
+        "componentId": "logos-press",
+        "values": {
+          "title": "As written about in",
+          "items": [
+            {
+              "publication": "The Yorkshire Dispatch",
+              "headline": "The podcast that made a county care about culverts",
+              "link": {
+                "type": "page",
+                "pageId": "about",
+                "newTab": false
+              }
+            },
+            {
+              "publication": "Civic Quarterly",
+              "headline": "Two hosts, one hammer and the quiet state of our bridges",
+              "link": {
+                "type": "page",
+                "pageId": "about",
+                "newTab": false
+              }
+            },
+            {
+              "publication": "Pod Review Weekly",
+              "headline": "The most soothing show about things going wrong",
+              "link": {
+                "type": "page",
+                "pageId": "about",
+                "newTab": false
+              }
+            },
+            {
+              "publication": "The Sunday Ledger",
+              "headline": "Why 46,000 people listen to a bus planner every Tuesday",
+              "link": {
+                "type": "page",
+                "pageId": "about",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-letter": {
+        "id": "home-letter",
+        "kind": "component",
+        "componentId": "newsletter-preview",
+        "values": {
+          "eyebrow": "The Inspection Report",
+          "title": "One email on Friday about the thing behind the wall",
+          "text": "Ines writes up what we learned that week: one site visit, one diagram and one number worth knowing. Four minutes, with photos.",
+          "emailLabel": "Email address",
+          "emailPlaceholder": "you@example.com",
+          "buttonLabel": "Subscribe",
+          "note": "Join 31,400 readers. Unsubscribe in one click.",
+          "formAction": "",
+          "formMethod": "post",
+          "inboxLabel": "Inbox",
+          "sender": "The Inspection Report",
+          "issues": [
+            {
+              "subject": "The valve nobody had turned since 1987",
+              "preview": "Plus: why every reservoir has a plughole",
+              "date": "Fri"
+            },
+            {
+              "subject": "A bus timetable is a promise with footnotes",
+              "preview": "What two minutes early really means",
+              "date": "Sep 25"
+            },
+            {
+              "subject": "Your street has a birthday",
+              "preview": "How to read the date cast into a manhole cover",
+              "date": "Sep 18"
+            },
+            {
+              "subject": "The hum is 50 hertz",
+              "preview": "A night inside a substation, in photos",
+              "date": "Sep 11"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-cta": {
+        "id": "home-cta",
+        "kind": "component",
+        "componentId": "cta-big-link",
+        "values": {
+          "kicker": "Work somewhere we should visit?",
+          "label": "Pitch us an episode",
+          "link": {
+            "type": "section",
+            "pageId": "about",
+            "anchor": "pitch",
+            "newTab": false
+          },
+          "details": [
+            {
+              "text": "pitch@loadbearing.example"
+            },
+            {
+              "text": "A reply within 3 days"
+            },
+            {
+              "text": "Sources never named without asking"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "episodes-hero": {
+        "id": "episodes-hero",
+        "kind": "component",
+        "componentId": "hero-editorial",
+        "values": {
+          "eyebrow": "118 episodes and counting",
+          "title": "Every inspection so far",
+          "intro": "Bridges, buses, substations, sewers and the people who keep them going. Start with the current series, try the six episodes new listeners like best, or dig through the archive by year.",
+          "facts": [
+            {
+              "label": "New episodes",
+              "value": "Tuesdays, 6 am"
+            },
+            {
+              "label": "Average length",
+              "value": "43 minutes"
+            },
+            {
+              "label": "Transcripts",
+              "value": "Every episode, free"
+            }
+          ],
+          "linkLabel": "Jump to the archive",
+          "link": {
+            "type": "section",
+            "pageId": "episodes",
+            "anchor": "archive",
+            "newTab": false
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "episodes-series": {
+        "id": "episodes-series",
+        "kind": "component",
+        "componentId": "blog-series",
+        "values": {
+          "eyebrow": "A four-part series",
+          "title": "The Water Year",
+          "intro": "Where your tap water comes from, who looks after it on the way and why a fifth of it leaks out before it reaches you. Four episodes, one a week.",
+          "showButton": true,
+          "button": {
+            "label": "Play part 2 in your app",
+            "link": {
+              "type": "section",
+              "pageId": "subscribe",
+              "anchor": "follow",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "parts": [
+            {
+              "label": "Part 1",
+              "status": "read",
+              "statusLabel": "Out now",
+              "title": "The pipe under your street is older than your nan",
+              "excerpt": "A night with the leakage crew who listen to Victorian mains through a stick.",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Part 2",
+              "status": "read",
+              "statusLabel": "Out now",
+              "title": "The reservoir that drowned a village",
+              "excerpt": "What was moved, what was left and who still keeps the keys to the dam.",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Part 3",
+              "status": "next",
+              "statusLabel": "Out 13 October",
+              "title": "A night at the treatment works",
+              "excerpt": "Six stages, two operators and one very large spoon.",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Part 4",
+              "status": "upcoming",
+              "statusLabel": "Out 20 October",
+              "title": "Who pays for a leak?",
+              "excerpt": "We follow one burst main from the first phone call to the final bill.",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "series"
+      },
+      "episodes-start": {
+        "id": "episodes-start",
+        "kind": "component",
+        "componentId": "blog-numbered",
+        "values": {
+          "eyebrow": "Start here",
+          "title": "Six episodes new listeners like best",
+          "intro": "Never heard the show? These stand on their own, and each one changes how you see something you walk past every day.",
+          "posts": [
+            {
+              "category": "Transport",
+              "readingTime": "41 min",
+              "title": "Why your bus is always two minutes early",
+              "excerpt": "Lena Farrow plans timetables for 212 buses. She explains bunching, padding and the stop she would delete tomorrow.",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            },
+            {
+              "category": "Power",
+              "readingTime": "39 min",
+              "title": "The substation next door",
+              "excerpt": "A grey box on a terraced street keeps 6,000 homes lit. We spend a night shift with the crew who look after it.",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            },
+            {
+              "category": "Bridges",
+              "readingTime": "55 min",
+              "title": "The bridge inspector’s hammer",
+              "excerpt": "Tomasz goes back to his old job and taps his way along a 1960s footbridge. You can hear the bad concrete.",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            },
+            {
+              "category": "Waste",
+              "readingTime": "44 min",
+              "title": "Where the bin lorry goes at 5 am",
+              "excerpt": "One round, 1,340 bins and a route nobody has dared to redraw since 2009.",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            },
+            {
+              "category": "Roads",
+              "readingTime": "36 min",
+              "title": "The woman who times the traffic lights",
+              "excerpt": "Every green wave in the city is set from one desk. Meet the person who sits at it.",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            },
+            {
+              "category": "Streets",
+              "readingTime": "52 min",
+              "title": "Four thousand manhole covers",
+              "excerpt": "Ruth Adeyemi counts, maps and replaces them. She can date your street from the ironwork.",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "episodes-cta": {
+        "id": "episodes-cta",
+        "kind": "component",
+        "componentId": "cta-stripes",
+        "values": {
+          "sticker": "New every Tuesday",
+          "eyebrow": "Missed a week?",
+          "title": "Let the next episode find you",
+          "text": "Follow Load-Bearing in your podcast app and every Tuesday episode downloads itself. It costs nothing and there is no account to make.",
+          "primaryButton": {
+            "label": "Pick your app",
+            "link": {
+              "type": "section",
+              "pageId": "subscribe",
+              "anchor": "follow",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Get the Friday email",
+            "link": {
+              "type": "page",
+              "pageId": "subscribe",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "note": "On Apple Podcasts, Spotify, YouTube and anything that reads RSS."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "episodes-archive": {
+        "id": "episodes-archive",
+        "kind": "component",
+        "componentId": "blog-archive",
+        "values": {
+          "eyebrow": "Archive",
+          "title": "Everything we have recorded",
+          "intro": "Three years of site visits, with a transcript for every one. The newest are at the top.",
+          "years": [
+            {
+              "year": "2026",
+              "posts": [
+                {
+                  "title": "118: The reservoir that drowned a village",
+                  "category": "Water",
+                  "date": "2026-10-06",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                },
+                {
+                  "title": "117: The pipe under your street is older than your nan",
+                  "category": "Water",
+                  "date": "2026-09-29",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                },
+                {
+                  "title": "116: Why your bus is always two minutes early",
+                  "category": "Transport",
+                  "date": "2026-09-22",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                },
+                {
+                  "title": "115: The substation next door",
+                  "category": "Power",
+                  "date": "2026-09-15",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                },
+                {
+                  "title": "114: Four thousand manhole covers",
+                  "category": "Streets",
+                  "date": "2026-09-08",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                }
+              ]
+            },
+            {
+              "year": "2025",
+              "posts": [
+                {
+                  "title": "88: The lift engineer is always on call",
+                  "category": "Buildings",
+                  "date": "2025-12-09",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                },
+                {
+                  "title": "79: Where the bin lorry goes at 5 am",
+                  "category": "Waste",
+                  "date": "2025-09-30",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                },
+                {
+                  "title": "67: A lighthouse with nobody in it",
+                  "category": "Coast",
+                  "date": "2025-06-03",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                },
+                {
+                  "title": "52: Gritting 900 miles before breakfast",
+                  "category": "Roads",
+                  "date": "2025-01-21",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                }
+              ]
+            },
+            {
+              "year": "2024",
+              "posts": [
+                {
+                  "title": "41: The woman who times the traffic lights",
+                  "category": "Roads",
+                  "date": "2024-11-12",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                },
+                {
+                  "title": "26: Why the tram stops there",
+                  "category": "Transport",
+                  "date": "2024-07-02",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                },
+                {
+                  "title": "9: The night the pumps stopped",
+                  "category": "Water",
+                  "date": "2024-03-05",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                },
+                {
+                  "title": "1: Who owns a wobbly footbridge?",
+                  "category": "Bridges",
+                  "date": "2024-01-09",
+                  "link": {
+                    "type": "section",
+                    "pageId": "subscribe",
+                    "anchor": "follow",
+                    "newTab": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "archive"
+      },
+      "episodes-quotes": {
+        "id": "episodes-quotes",
+        "kind": "component",
+        "componentId": "blog-quotes",
+        "values": {
+          "eyebrow": "Overheard on site",
+          "title": "Lines listeners keep quoting back to us",
+          "showButton": true,
+          "button": {
+            "label": "Follow the show",
+            "link": {
+              "type": "section",
+              "pageId": "subscribe",
+              "anchor": "follow",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "fromLabel": "From",
+          "posts": [
+            {
+              "quote": "A bridge does not fall down on the day it fails. It fails slowly for twenty years, and then one morning it is in the papers.",
+              "title": "The bridge inspector’s hammer",
+              "author": "Tomasz Brandt",
+              "date": "2026-03-17",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            },
+            {
+              "quote": "If a timetable is doing its job, nobody ever thanks you for it.",
+              "title": "Why your bus is always two minutes early",
+              "author": "Lena Farrow",
+              "date": "2026-09-22",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            },
+            {
+              "quote": "The cheapest repair is always the one you did five years ago.",
+              "title": "Four thousand manhole covers",
+              "author": "Ruth Adeyemi",
+              "date": "2026-09-08",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            },
+            {
+              "quote": "Water wants to leave. The whole job is politely asking it not to.",
+              "title": "The pipe under your street is older than your nan",
+              "author": "Gareth Pugh",
+              "date": "2026-09-29",
+              "link": {
+                "type": "section",
+                "pageId": "subscribe",
+                "anchor": "follow",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-hero": {
+        "id": "about-hero",
+        "kind": "component",
+        "componentId": "hero-manifesto",
+        "values": {
+          "eyebrow": "About the show",
+          "title": "We make a show about the boring bits",
+          "text": "Load-Bearing started as an argument in a pub about who is responsible for a wobbly footbridge. 118 episodes later we are still finding out. These are the rules we make it by.",
+          "button": {
+            "label": "Meet the four of us",
+            "link": {
+              "type": "section",
+              "pageId": "about",
+              "anchor": "team",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "principles": [
+            {
+              "title": "Go and stand next to it",
+              "text": "Every episode is recorded on site at least once. You can hear the pumps."
+            },
+            {
+              "title": "Ask the night shift",
+              "text": "The person holding the torch knows more than the press office."
+            },
+            {
+              "title": "No villains, only budgets",
+              "text": "Most failures are slow and shared. We explain them without a pile-on."
+            },
+            {
+              "title": "Show the working",
+              "text": "Transcripts, sources and corrections for every episode, free."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-team": {
+        "id": "about-team",
+        "kind": "component",
+        "componentId": "team-badges",
+        "values": {
+          "eyebrow": "The team",
+          "title": "Four people and a lot of hi-vis",
+          "intro": "Two hosts, a producer and a researcher, working from a converted 1950s substation in Kelham Island. These are the passes we wear on site.",
+          "people": [
+            {
+              "department": "Host",
+              "tone": "primary",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ines Okafor in a yellow jacket at a bus depot",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Ines Okafor",
+              "role": "Planned bus networks for nine years",
+              "since": "Pass 001 · On air since episode 1"
+            },
+            {
+              "department": "Host",
+              "tone": "primary",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tomasz Brandt holding an inspection hammer under a footbridge",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Tomasz Brandt",
+              "role": "Structural engineer, still carries the hammer",
+              "since": "Pass 002 · On air since episode 1"
+            },
+            {
+              "department": "Producer",
+              "tone": "dark",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Priya Nandakumar wearing headphones beside a recording desk",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Priya Nandakumar",
+              "role": "Edits every pump, hum and reversing lorry",
+              "since": "Pass 003 · Joined March 2024"
+            },
+            {
+              "department": "Research",
+              "tone": "dark",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Callum Reid reading a bound maintenance log in an archive",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Callum Reid",
+              "role": "Checks every number we say out loud",
+              "since": "Pass 004 · Joined January 2025"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "team"
+      },
+      "about-interview": {
+        "id": "about-interview",
+        "kind": "component",
+        "componentId": "content-interview",
+        "values": {
+          "eyebrow": "The hosts, interviewed by each other",
+          "title": "“Nobody posts a photo of a drain that worked”",
+          "intro": "For episode 100 Ines and Tomasz swapped chairs and asked each other the questions listeners send most. This is a short extract.",
+          "hostName": "Ines Okafor",
+          "hostInitials": "IO",
+          "hostRole": "Host, former bus network planner",
+          "guestName": "Tomasz Brandt",
+          "guestInitials": "TB",
+          "guestRole": "Host, structural engineer",
+          "turns": [
+            {
+              "speaker": "host",
+              "text": "Why make a show about infrastructure at all? You had a perfectly good job.",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "Because I spent eleven years writing reports that three people read. A bridge I flagged in 2016 was closed in 2022 and everyone was surprised. I wanted to explain these things before the closure, not after.",
+              "highlight": false
+            },
+            {
+              "speaker": "host",
+              "text": "People assume it is a show about disasters.",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "It is the opposite. Nobody posts a photo of a drain that worked. We go and find the people who made it work, usually at four in the morning.",
+              "highlight": true
+            },
+            {
+              "speaker": "host",
+              "text": "What is the one question you ask every guest?",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "“What would you fix first if nobody had to approve it?” The answer is never the expensive thing. It is always a valve, a spreadsheet or a phone number.",
+              "highlight": false
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-facts": {
+        "id": "about-facts",
+        "kind": "component",
+        "componentId": "content-facts",
+        "values": {
+          "eyebrow": "For the record",
+          "title": "A small, listener-funded operation",
+          "body": "<p>Load-Bearing is made by four people in a converted 1950s substation in Kelham Island, Sheffield. We publish every Tuesday, with a break in August when the team goes outside.</p><p>About seven tenths of our income comes from 2,140 members. The rest comes from one sponsor per episode, chosen by us and always read by a host. Sponsors never see a script in advance.</p>",
+          "sheetTitle": "At a glance",
+          "updated": "October 2026",
+          "facts": [
+            {
+              "label": "Launched",
+              "value": "January 2024"
+            },
+            {
+              "label": "Episodes",
+              "value": "118"
+            },
+            {
+              "label": "Weekly listeners",
+              "value": "46,000"
+            },
+            {
+              "label": "Newsletter readers",
+              "value": "31,400"
+            },
+            {
+              "label": "Paying members",
+              "value": "2,140"
+            },
+            {
+              "label": "Studio",
+              "value": "Sheffield"
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "Email for the media kit",
+            "link": {
+              "type": "email",
+              "url": "press@loadbearing.example",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-awards": {
+        "id": "about-awards",
+        "kind": "component",
+        "componentId": "content-awards",
+        "values": {
+          "eyebrow": "Recognition",
+          "title": "Awards and other surprises",
+          "summary": "Five awards in three years, all of them for episodes about things people walk past.",
+          "awards": [
+            {
+              "year": "2026",
+              "award": "Northern Audio Awards",
+              "project": "Best documentary series, gold",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            },
+            {
+              "year": "2026",
+              "award": "Civic Press Prize",
+              "project": "Explanatory reporting, shortlist",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            },
+            {
+              "year": "2025",
+              "award": "Independent Podcast Guild",
+              "project": "Best science and technology show",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            },
+            {
+              "year": "2025",
+              "award": "Northern Audio Awards",
+              "project": "Best new show, silver",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            },
+            {
+              "year": "2024",
+              "award": "Society of Public Works",
+              "project": "Medal for public understanding",
+              "link": {
+                "type": "page",
+                "pageId": "episodes",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-sponsors": {
+        "id": "about-sponsors",
+        "kind": "component",
+        "componentId": "logos-sponsors",
+        "values": {
+          "eyebrow": "Sponsors",
+          "title": "One sponsor per episode, read by a human",
+          "intro": "We only take companies we would use ourselves, and no sponsor sees a script before it goes out. These are the ones paying for the 2026 season.",
+          "tiers": [
+            {
+              "name": "Season partner",
+              "size": "large",
+              "logos": [
+                {
+                  "company": "Northgauge",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Northgauge",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Series sponsors",
+              "size": "medium",
+              "logos": [
+                {
+                  "company": "Halden Rail Supply",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Halden Rail Supply",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Brightwater Mutual",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Brightwater Mutual",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Ordnance Coffee",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Ordnance Coffee",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Episode sponsors",
+              "size": "small",
+              "logos": [
+                {
+                  "company": "Kestrel Cycles",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Kestrel Cycles",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Corbel Type",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Corbel Type",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Tarn Workwear",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Tarn Workwear",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                },
+                {
+                  "company": "Sett Mapping",
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Sett Mapping",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 514,
+                    "placeholder": {
+                      "ratio": "21:9",
+                      "subject": "logo"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "Sponsor an episode",
+            "link": {
+              "type": "email",
+              "url": "sponsors@loadbearing.example",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "sponsors"
+      },
+      "about-pitch": {
+        "id": "about-pitch",
+        "kind": "component",
+        "componentId": "contact-next-steps",
+        "values": {
+          "eyebrow": "Pitch an episode",
+          "title": "Know a pump, bridge or timetable we should cover?",
+          "text": "The best episodes start with an email from someone who works there. Tell us what it is and why it matters. You do not need to be the boss, and we never name a source without asking.",
+          "stepsTitle": "What happens next",
+          "steps": [
+            {
+              "title": "Callum reads it",
+              "time": "Within 3 days",
+              "text": "Every pitch gets a reply, including the ones we cannot make."
+            },
+            {
+              "title": "A 20-minute call",
+              "time": "That week",
+              "text": "Ines or Tomasz rings to hear the story in your own words."
+            },
+            {
+              "title": "We come to you",
+              "time": "Within 2 months",
+              "text": "We record on site, around your shift, and you hear the edit before it goes out."
+            }
+          ],
+          "nameLabel": "Your name",
+          "emailLabel": "Email address",
+          "messageLabel": "What should we come and look at?",
+          "buttonLabel": "Send the pitch",
+          "formAction": "",
+          "formMethod": "post"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "pitch"
+      },
+      "subscribe-hero": {
+        "id": "subscribe-hero",
+        "kind": "component",
+        "componentId": "hero-stats",
+        "values": {
+          "eyebrow": "Free every Tuesday",
+          "title": "Follow Load-Bearing wherever you listen",
+          "text": "New episodes land at 6 am on Tuesdays in every podcast app, with a full transcript. The Inspection Report follows on Friday. Both are free, and 2,140 members keep them that way.",
+          "primaryButton": {
+            "label": "Pick your app",
+            "link": {
+              "type": "section",
+              "pageId": "subscribe",
+              "anchor": "follow",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Become a member",
+            "link": {
+              "type": "section",
+              "pageId": "subscribe",
+              "anchor": "members",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "stats": [
+            {
+              "value": "46,000",
+              "label": "Weekly listeners"
+            },
+            {
+              "value": "31,400",
+              "label": "Newsletter readers"
+            },
+            {
+              "value": "2,140",
+              "label": "Paying members"
+            },
+            {
+              "value": "118",
+              "label": "Episodes so far"
+            }
+          ],
+          "countUp": true
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "subscribe-follow": {
+        "id": "subscribe-follow",
+        "kind": "component",
+        "componentId": "newsletter-channels",
+        "values": {
+          "eyebrow": "Follow the show",
+          "title": "Same episode, your favourite app",
+          "text": "Follow once and every Tuesday episode turns up on its own. Add the Friday email if you like to read as well as listen.",
+          "emailTitle": "The Inspection Report",
+          "emailText": "Ines’s Friday email: one thing we learned that week, with photos.",
+          "emailLabel": "Email address",
+          "emailPlaceholder": "you@example.com",
+          "buttonLabel": "Subscribe",
+          "formAction": "",
+          "formMethod": "post",
+          "channels": [
+            {
+              "icon": "simple-icons:applepodcasts",
+              "name": "Apple Podcasts",
+              "meta": "4.9 from 3,200 ratings",
+              "link": {
+                "type": "url",
+                "url": "https://podcasts.apple.com",
+                "newTab": true
+              }
+            },
+            {
+              "icon": "simple-icons:spotify",
+              "name": "Spotify",
+              "meta": "Episodes and video clips",
+              "link": {
+                "type": "url",
+                "url": "https://open.spotify.com",
+                "newTab": true
+              }
+            },
+            {
+              "icon": "simple-icons:youtube",
+              "name": "YouTube",
+              "meta": "Site visits on camera",
+              "link": {
+                "type": "url",
+                "url": "https://www.youtube.com",
+                "newTab": true
+              }
+            },
+            {
+              "icon": "simple-icons:rss",
+              "name": "RSS feed",
+              "meta": "For every other podcast app",
+              "link": {
+                "type": "url",
+                "url": "https://loadbearing.example/feed.xml",
+                "newTab": true
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "follow"
+      },
+      "subscribe-sample": {
+        "id": "subscribe-sample",
+        "kind": "component",
+        "componentId": "newsletter-sample",
+        "values": {
+          "eyebrow": "Read before you subscribe",
+          "title": "Here’s what lands in your inbox on Friday",
+          "issueMeta": "Issue 131 · 2 October 2026 · 4 min read",
+          "issueTitle": "The valve nobody had turned since 1987",
+          "excerpt": "<p>On Tuesday night Gareth from Pennine Water took us to a junction in Hillsborough and lifted a cover I must have walked over a thousand times. Underneath was a valve the size of a bin lid, last turned, according to the chalk on the chamber wall, in <strong>March 1987</strong>.</p><p>It still turned. That is the part that got me. Somebody greased it properly thirty-nine years ago, wrote the date on the wall and went home, and their work was still good on the night we needed it.</p><p>This week’s number is 2,900: the kilometres of water main under Sheffield alone. About a third of them were laid before 1920. Here is how Gareth decides which ones to listen to first.</p>",
+          "formTitle": "Get the rest of this issue, and the next one",
+          "emailLabel": "Email address",
+          "emailPlaceholder": "you@example.com",
+          "buttonLabel": "Keep reading",
+          "note": "Free every Friday. Unsubscribe in one click.",
+          "formAction": "",
+          "formMethod": "post"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "subscribe-members": {
+        "id": "subscribe-members",
+        "kind": "component",
+        "componentId": "pricing-membership",
+        "values": {
+          "eyebrow": "The Maintenance Crew",
+          "title": "Listeners pay for this show, so sponsors never steer it",
+          "intro": "Everything we make is free. Members pay because they want it to exist next year too. Cancel in two clicks, any time.",
+          "featuredLabel": "Most chosen",
+          "tiers": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A phone playing Load-Bearing on a bus seat",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "name": "Listener",
+              "price": "£0",
+              "period": "always",
+              "description": "Every episode, transcript and Friday email. No account needed.",
+              "features": [
+                {
+                  "text": "A new episode every Tuesday"
+                },
+                {
+                  "text": "Full transcripts and sources"
+                },
+                {
+                  "text": "The Inspection Report on Fridays"
+                }
+              ],
+              "featured": false,
+              "button": {
+                "label": "Pick your app",
+                "link": {
+                  "type": "section",
+                  "pageId": "subscribe",
+                  "anchor": "follow",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The recording desk inside the old substation, lit by one lamp",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "name": "Crew",
+              "price": "£5",
+              "period": "per month",
+              "description": "Keeps the lights on in the substation and gets you the long cuts.",
+              "features": [
+                {
+                  "text": "Everything in Listener"
+                },
+                {
+                  "text": "A feed with no sponsor reads"
+                },
+                {
+                  "text": "Two extended interviews a month"
+                },
+                {
+                  "text": "A members-only Q&A every quarter"
+                }
+              ],
+              "featured": true,
+              "button": {
+                "label": "Join the Crew",
+                "link": {
+                  "type": "url",
+                  "url": "https://loadbearing.example/join",
+                  "newTab": true
+                },
+                "variant": "primary"
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Members in hard hats on a site visit inside a pumping station",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "name": "Chief Engineer",
+              "price": "£12",
+              "period": "per month",
+              "description": "For people who want to come and stand next to it with us.",
+              "features": [
+                {
+                  "text": "Everything in Crew"
+                },
+                {
+                  "text": "Two site visits a year"
+                },
+                {
+                  "text": "Your name in the credits"
+                },
+                {
+                  "text": "An enamel inspector’s badge by post"
+                }
+              ],
+              "featured": false,
+              "button": {
+                "label": "Become a Chief Engineer",
+                "link": {
+                  "type": "url",
+                  "url": "https://loadbearing.example/join",
+                  "newTab": true
+                },
+                "variant": "secondary"
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "members"
+      },
+      "subscribe-notes": {
+        "id": "subscribe-notes",
+        "kind": "component",
+        "componentId": "testimonials-notes",
+        "values": {
+          "eyebrow": "From the listener inbox",
+          "title": "What people write after an episode",
+          "intro": "We read every email and stick the best ones on the studio wall. These are up there now.",
+          "items": [
+            {
+              "quote": "I drive a gritter in winter. First time anyone has explained my job to my own family.",
+              "name": "Dave Pearson",
+              "role": "Highways operative, Barnsley"
+            },
+            {
+              "quote": "I now point at substations on walks. My children are mortified.",
+              "name": "Hannah Whitlow",
+              "role": "Member since 2024"
+            },
+            {
+              "quote": "Required listening for our graduate engineers. The bridge hammer episode is their first week.",
+              "name": "Dr. Samira Qureshi",
+              "role": "Principal engineer, Aldgate Structures"
+            },
+            {
+              "quote": "The only newsletter I read before my coffee, not after.",
+              "name": "Owen Batty",
+              "role": "Reader, Leeds"
+            },
+            {
+              "quote": "You pronounced our village correctly. Nobody ever does.",
+              "name": "Margaret Ellis",
+              "role": "Listener, Slaithwaite"
+            },
+            {
+              "quote": "I joined the Crew after the reservoir episode. Best fiver I spend each month.",
+              "name": "Kofi Mensah",
+              "role": "Crew member, Manchester"
+            },
+            {
+              "quote": "My dad built that pumping station. He cried at minute twelve.",
+              "name": "Elin Roberts",
+              "role": "Listener, Wrexham"
+            },
+            {
+              "quote": "Forty minutes on traffic lights and I was late for nothing. Sorcery.",
+              "name": "Jonah Fielding",
+              "role": "Cycle courier, Bristol"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "subscribe-faq": {
+        "id": "subscribe-faq",
+        "kind": "component",
+        "componentId": "faq-large",
+        "values": {
+          "eyebrow": "Good questions",
+          "title": "Before you subscribe",
+          "intro": "The things people ask most about listening, the Friday email and membership.",
+          "items": [
+            {
+              "question": "Is the show really free?",
+              "answer": "<p>Yes. Every episode, transcript and Friday email is free and always will be. Members pay so that it stays that way for everyone else.</p>"
+            },
+            {
+              "question": "What do members get that I don’t?",
+              "answer": "<p>A feed with no sponsor reads, two extended interviews a month and a members-only Q&amp;A every quarter. Chief Engineers also come on two site visits a year.</p>"
+            },
+            {
+              "question": "Can I cancel a membership?",
+              "answer": "<p>In two clicks from any receipt email, with no questions and no exit survey. You keep access until the end of the month you paid for.</p>"
+            },
+            {
+              "question": "What do you do with my email address?",
+              "answer": "<p>We send you The Inspection Report on Fridays and nothing else. We never sell, share or rent the list, and every email has an unsubscribe link at the top.</p>"
+            },
+            {
+              "question": "Is there a transcript?",
+              "answer": "<p>Yes, with every episode on the day it comes out, checked by a human. If you spot a mistake, reply to any email and Callum will fix it.</p>"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      }
+    }
+  },
+  "sharedSlots": {
+    "header": ["banner", "nav"],
+    "footer": ["footer"]
+  },
+  "packBlocks": {},
+  "assets": {}
+}

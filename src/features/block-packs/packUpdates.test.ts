@@ -3,8 +3,18 @@ import { createSampleProject } from '../../app/projectFactory';
 import type { ComponentBlock, Project } from '../../app/types';
 import { createBlock } from '../../components/registry';
 import { homePage } from '../../test/fixtures';
-import { packOf, quoteCardBlockJson, quoteCardDefinition } from '../../test/packFixtures';
-import { upgradeNotice, upgradeProjectToPack, withoutUnusedDefinitions } from './packUpdates';
+import {
+  packOf,
+  projectUsingPacks,
+  quoteCardBlockJson,
+  quoteCardDefinition,
+} from '../../test/packFixtures';
+import {
+  packUsage,
+  upgradeNotice,
+  upgradeProjectToPack,
+  withoutUnusedDefinitions,
+} from './packUpdates';
 
 function fieldsWithout(name: string): unknown[] {
   const fields = quoteCardBlockJson().fields;
@@ -66,5 +76,27 @@ describe('withoutUnusedDefinitions', () => {
     const unused = quoteCardDefinition({}, '1.0.0', 'other-card');
     project.packBlocks[unused.definition.id] = unused;
     expect(Object.keys(withoutUnusedDefinitions(project).packBlocks)).toEqual([block.componentId]);
+  });
+});
+
+describe('packUsage', () => {
+  it('counts the blocks per page and shared slot, with blocks converted to HTML', () => {
+    const { project } = projectUsingPacks();
+    expect(packUsage(project, 'acme')).toEqual({
+      blockCount: 3,
+      places: [
+        { name: 'Home', blockCount: 2 },
+        { name: 'Shared footer', blockCount: 1 },
+      ],
+    });
+  });
+
+  it('keeps packs with a similar id apart', () => {
+    const { project } = projectUsingPacks();
+    expect(packUsage(project, 'acme-extra')).toEqual({
+      blockCount: 1,
+      places: [{ name: 'Home', blockCount: 1 }],
+    });
+    expect(packUsage(project, 'unknown')).toEqual({ blockCount: 0, places: [] });
   });
 });

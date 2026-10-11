@@ -52,7 +52,7 @@
           "name": "hours",
           "label": "Hours",
           "type": "text",
-          "default": "9–1",
+          "default": "9-1",
           "maxLength": 16
         },
         {
@@ -65,17 +65,17 @@
       "default": [
         {
           "date": "Dec 24",
-          "hours": "9–1",
+          "hours": "9-1",
           "closed": false
         },
         {
-          "date": "Dec 25–26",
+          "date": "Dec 25-26",
           "hours": "Closed",
           "closed": true
         },
         {
           "date": "Dec 31",
-          "hours": "9–3",
+          "hours": "9-3",
           "closed": false
         },
         {

@@ -1,0 +1,80 @@
+{
+  "name": "Utilities, scroll hint",
+  "category": "utilities",
+  "description": "A small centered label with a gently bouncing arrow or a scrolling mouse outline that links to the next section. Stands still when motion is reduced.",
+  "tags": ["scroll", "scroll down", "hint", "arrow", "animated", "animation", "anchor", "utility"],
+  "fieldGroups": ["Link", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--color-primary"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Label",
+      "type": "text",
+      "default": "Scroll",
+      "group": "Link",
+      "required": true,
+      "maxLength": 32
+    },
+    {
+      "name": "link",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Link",
+      "help": "Pick the section this should scroll to."
+    },
+    {
+      "name": "indicator",
+      "label": "Indicator",
+      "type": "segmented",
+      "default": "arrow",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "arrow",
+          "label": "Arrow"
+        },
+        {
+          "value": "mouse",
+          "label": "Mouse"
+        }
+      ]
+    },
+    {
+      "name": "icon",
+      "label": "Arrow icon",
+      "type": "icon",
+      "default": "arrow-down",
+      "group": "Layout",
+      "visibleWhen": {
+        "field": "indicator",
+        "equals": "arrow"
+      }
+    },
+    {
+      "name": "spacing",
+      "label": "Space around",
+      "type": "select",
+      "default": "medium",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ]
+    }
+  ]
+}

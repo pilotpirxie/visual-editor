@@ -1,0 +1,112 @@
+@layer components {
+  @scope (.b-banner-marquee) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      --b-time: 32s;
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    :scope[data-speed='slow'] {
+      --b-time: 56s;
+    }
+
+    :scope[data-speed='fast'] {
+      --b-time: 18s;
+    }
+
+    .b-bar,
+    .b-track,
+    .b-set,
+    .b-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .b-bar {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .b-marquee {
+      flex: 1 1 16rem;
+      min-width: 0;
+      padding-block: var(--space-3);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .b-marquee:focus-visible {
+      outline: 2px solid var(--color-text);
+      outline-offset: -2px;
+    }
+
+    .b-track {
+      width: max-content;
+    }
+
+    .b-copy {
+      display: none;
+    }
+
+    .b-item {
+      gap: var(--space-6);
+      padding-inline-start: var(--space-6);
+      font-family: var(--font-heading);
+      font-weight: var(--font-weight-heading);
+      white-space: nowrap;
+    }
+
+    .b-mark {
+      --icon-size: 1rem;
+      display: flex;
+      color: var(--color-primary);
+    }
+
+    .b-button {
+      --button-padding-y: var(--space-1);
+      --button-padding-x: var(--space-4);
+      margin: var(--space-1) var(--container-padding-x);
+      font-size: var(--text-sm);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-marquee {
+        overflow: clip;
+      }
+
+      .b-set {
+        min-width: 100vw;
+        justify-content: space-around;
+      }
+
+      .b-copy {
+        display: flex;
+      }
+
+      .b-track {
+        animation: b-banner-marquee--slide var(--b-time) linear infinite;
+      }
+
+      .b-track:dir(rtl) {
+        --b-flow: -1;
+      }
+
+      .b-marquee:hover .b-track,
+      .b-marquee:focus-within .b-track {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  @keyframes b-banner-marquee--slide {
+    to {
+      translate: calc(-50% * var(--b-flow, 1));
+    }
+  }
+}

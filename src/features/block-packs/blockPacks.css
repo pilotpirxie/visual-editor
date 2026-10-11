@@ -19,7 +19,7 @@
     overflow: hidden;
     border: 1px solid var(--ve-border);
     border-radius: var(--ve-radius);
-    background: var(--ve-bg);
+    background: var(--ve-paper);
   }
 
   .ve-pack-preview-frame {
@@ -58,6 +58,13 @@
 
   .ve-pack-info .ui-muted {
     flex-basis: 100%;
+  }
+
+  .ve-pack-removal {
+    flex-basis: 100%;
+    margin: 0;
+    color: var(--ve-danger);
+    font-size: var(--ve-text-sm);
   }
 
   .ve-pack-actions {

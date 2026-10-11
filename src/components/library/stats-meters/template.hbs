@@ -1,0 +1,18 @@
+<section class="b-stats-meters section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-list" role="list">
+      {{#each items}}
+      <li class="b-item" data-field="items.{{@index}}">
+        <p class="b-row"><span>{{label}}</span><span class="b-value">{{display}}</span></p>
+        <div class="b-track" role="meter" aria-label="{{label}}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{value}}" aria-valuetext="{{display}}" style="--value: {{value}}"><span class="b-fill"></span></div>
+        {{#if note}}<p class="b-note">{{note}}</p>{{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

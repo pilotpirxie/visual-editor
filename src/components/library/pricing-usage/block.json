@@ -71,15 +71,15 @@
           "price": "Free"
         },
         {
-          "range": "10,001 – 100,000",
+          "range": "10,001 - 100,000",
           "price": "$0.80 per 1,000"
         },
         {
-          "range": "100,001 – 1 million",
+          "range": "100,001 - 1 million",
           "price": "$0.60 per 1,000"
         },
         {
-          "range": "1 million – 10 million",
+          "range": "1 million - 10 million",
           "price": "$0.40 per 1,000"
         },
         {

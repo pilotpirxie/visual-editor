@@ -1,0 +1,54 @@
+{
+  "name": "Call to action, glowing button",
+  "category": "call-to-action",
+  "description": "A dark centered panel whose button sits on a soft light that breathes in and out, with a ring that ripples away from it. The light stands still when motion is reduced.",
+  "tags": ["cta", "animated", "animation", "glow", "pulse", "button", "dark", "signup"],
+  "fieldGroups": ["Content"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Ready when you are",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your next interview could write your next roadmap",
+      "required": true,
+      "group": "Content"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Invite your team, record one call and see the summary land in your workspace before the coffee gets cold.",
+      "group": "Content"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Start free trial",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Content"
+    },
+    {
+      "name": "note",
+      "label": "Note under the button",
+      "type": "text",
+      "default": "Free for 14 days. Cancel in two clicks.",
+      "group": "Content"
+    }
+  ]
+}

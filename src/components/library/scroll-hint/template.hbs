@@ -1,0 +1,8 @@
+<div class="b-scroll-hint" data-spacing="{{spacing}}">
+  <div class="container b-row">
+    <a class="b-link" href="{{href link}}" {{linkAttrs link}} data-field="label">
+      <span>{{label}}</span>
+      {{#if (eq indicator "mouse")}}<span class="b-mouse" aria-hidden="true"></span>{{else}}<span class="b-arrow" data-field="icon">{{svgIcon icon}}</span>{{/if}}
+    </a>
+  </div>
+</div>

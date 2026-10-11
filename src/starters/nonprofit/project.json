@@ -1,0 +1,2570 @@
+{
+  "schemaVersion": 1,
+  "id": "starter-nonprofit",
+  "settings": {
+    "title": "Sparrow Hill Commons",
+    "description": "A neighbourhood nonprofit in Spokane, Washington, growing food in three community gardens and sharing it at a free market every Wednesday since 2011.",
+    "language": "en",
+    "titleTemplate": "{{page.title}} | {{site.title}}",
+    "indexable": true
+  },
+  "designSystem": {
+    "presetId": "nature",
+    "tokens": {
+      "--color-primary": {
+        "name": "--color-primary",
+        "label": "Primary",
+        "group": "color",
+        "value": "#166534"
+      },
+      "--color-primary-contrast": {
+        "name": "--color-primary-contrast",
+        "label": "Primary contrast",
+        "group": "color",
+        "value": "#f0fdf4"
+      },
+      "--color-background": {
+        "name": "--color-background",
+        "label": "Background",
+        "group": "color",
+        "value": "#fbfdf8"
+      },
+      "--color-surface": {
+        "name": "--color-surface",
+        "label": "Surface",
+        "group": "color",
+        "value": "#eef5ea"
+      },
+      "--color-text": {
+        "name": "--color-text",
+        "label": "Text",
+        "group": "color",
+        "value": "#1b2a1f"
+      },
+      "--color-text-muted": {
+        "name": "--color-text-muted",
+        "label": "Muted text",
+        "group": "color",
+        "value": "#4d5f52"
+      },
+      "--color-border": {
+        "name": "--color-border",
+        "label": "Border",
+        "group": "color",
+        "value": "#d7e4d2"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#1b2a1f"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#263a2b"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#f0fdf4"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#b5c9b9"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#355040"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#86efac"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#14321f"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--font-heading": {
+        "name": "--font-heading",
+        "label": "Heading font",
+        "group": "typography",
+        "value": "\"Lora\", ui-serif, Georgia, serif"
+      },
+      "--font-body": {
+        "name": "--font-body",
+        "label": "Body font",
+        "group": "typography",
+        "value": "\"Work Sans\", system-ui, sans-serif"
+      },
+      "--font-mono": {
+        "name": "--font-mono",
+        "label": "Mono font",
+        "group": "typography",
+        "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+      },
+      "--font-weight-heading": {
+        "name": "--font-weight-heading",
+        "label": "Heading weight",
+        "group": "typography",
+        "value": "600"
+      },
+      "--font-weight-regular": {
+        "name": "--font-weight-regular",
+        "label": "Body weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-bold": {
+        "name": "--font-weight-bold",
+        "label": "Bold weight",
+        "group": "typography",
+        "value": "600"
+      },
+      "--text-xs": {
+        "name": "--text-xs",
+        "label": "Extra small",
+        "group": "typography",
+        "value": "0.64rem"
+      },
+      "--text-sm": {
+        "name": "--text-sm",
+        "label": "Small",
+        "group": "typography",
+        "value": "0.8rem"
+      },
+      "--text-base": {
+        "name": "--text-base",
+        "label": "Base",
+        "group": "typography",
+        "value": "1rem"
+      },
+      "--text-lg": {
+        "name": "--text-lg",
+        "label": "Large",
+        "group": "typography",
+        "value": "1.25rem"
+      },
+      "--text-xl": {
+        "name": "--text-xl",
+        "label": "XL",
+        "group": "typography",
+        "value": "1.5625rem"
+      },
+      "--text-2xl": {
+        "name": "--text-2xl",
+        "label": "2XL",
+        "group": "typography",
+        "value": "1.9531rem"
+      },
+      "--text-3xl": {
+        "name": "--text-3xl",
+        "label": "3XL",
+        "group": "typography",
+        "value": "clamp(1.6018rem, 1.3219rem + 1.3993vw, 2.4414rem)"
+      },
+      "--text-4xl": {
+        "name": "--text-4xl",
+        "label": "4XL",
+        "group": "typography",
+        "value": "clamp(1.802rem, 1.3855rem + 2.0829vw, 3.0518rem)"
+      },
+      "--text-5xl": {
+        "name": "--text-5xl",
+        "label": "5XL",
+        "group": "typography",
+        "value": "clamp(2.0273rem, 1.4315rem + 2.979vw, 3.8147rem)"
+      },
+      "--line-height-tight": {
+        "name": "--line-height-tight",
+        "label": "Heading line height",
+        "group": "typography",
+        "value": "1.2"
+      },
+      "--line-height-normal": {
+        "name": "--line-height-normal",
+        "label": "Body line height",
+        "group": "typography",
+        "value": "1.65"
+      },
+      "--space-1": {
+        "name": "--space-1",
+        "label": "Space 1",
+        "group": "spacing",
+        "value": "0.25rem"
+      },
+      "--space-2": {
+        "name": "--space-2",
+        "label": "Space 2",
+        "group": "spacing",
+        "value": "0.5rem"
+      },
+      "--space-3": {
+        "name": "--space-3",
+        "label": "Space 3",
+        "group": "spacing",
+        "value": "0.75rem"
+      },
+      "--space-4": {
+        "name": "--space-4",
+        "label": "Space 4",
+        "group": "spacing",
+        "value": "1rem"
+      },
+      "--space-6": {
+        "name": "--space-6",
+        "label": "Space 6",
+        "group": "spacing",
+        "value": "1.5rem"
+      },
+      "--space-8": {
+        "name": "--space-8",
+        "label": "Space 8",
+        "group": "spacing",
+        "value": "2rem"
+      },
+      "--space-12": {
+        "name": "--space-12",
+        "label": "Space 12",
+        "group": "spacing",
+        "value": "3rem"
+      },
+      "--space-16": {
+        "name": "--space-16",
+        "label": "Space 16",
+        "group": "spacing",
+        "value": "4rem"
+      },
+      "--section-padding-y": {
+        "name": "--section-padding-y",
+        "label": "Section padding",
+        "group": "spacing",
+        "value": "clamp(3rem, 2rem + 4vw, 6rem)"
+      },
+      "--container-max-width": {
+        "name": "--container-max-width",
+        "label": "Container width",
+        "group": "spacing",
+        "value": "72rem"
+      },
+      "--container-padding-x": {
+        "name": "--container-padding-x",
+        "label": "Container padding",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--radius-sm": {
+        "name": "--radius-sm",
+        "label": "Small radius",
+        "group": "shape",
+        "value": "0.5rem"
+      },
+      "--radius-md": {
+        "name": "--radius-md",
+        "label": "Medium radius",
+        "group": "shape",
+        "value": "1rem"
+      },
+      "--radius-lg": {
+        "name": "--radius-lg",
+        "label": "Large radius",
+        "group": "shape",
+        "value": "1.5rem"
+      },
+      "--radius-full": {
+        "name": "--radius-full",
+        "label": "Full radius",
+        "group": "shape",
+        "value": "9999px"
+      },
+      "--border-width": {
+        "name": "--border-width",
+        "label": "Border width",
+        "group": "shape",
+        "value": "1px"
+      },
+      "--shadow-sm": {
+        "name": "--shadow-sm",
+        "label": "Small shadow",
+        "group": "elevation",
+        "value": "0 1px 2px rgb(27 42 31 / 0.06)"
+      },
+      "--shadow-md": {
+        "name": "--shadow-md",
+        "label": "Medium shadow",
+        "group": "elevation",
+        "value": "0 4px 12px rgb(27 42 31 / 0.08)"
+      },
+      "--shadow-lg": {
+        "name": "--shadow-lg",
+        "label": "Large shadow",
+        "group": "elevation",
+        "value": "0 12px 32px rgb(27 42 31 / 0.12)"
+      },
+      "--button-radius": {
+        "name": "--button-radius",
+        "label": "Button radius",
+        "group": "component",
+        "value": "var(--radius-md)"
+      },
+      "--button-padding-y": {
+        "name": "--button-padding-y",
+        "label": "Button padding Y",
+        "group": "component",
+        "value": "0.75rem"
+      },
+      "--button-padding-x": {
+        "name": "--button-padding-x",
+        "label": "Button padding X",
+        "group": "component",
+        "value": "1.25rem"
+      },
+      "--card-radius": {
+        "name": "--card-radius",
+        "label": "Card radius",
+        "group": "component",
+        "value": "var(--radius-lg)"
+      },
+      "--card-shadow": {
+        "name": "--card-shadow",
+        "label": "Card shadow",
+        "group": "component",
+        "value": "var(--shadow-sm)"
+      },
+      "--transition-fast": {
+        "name": "--transition-fast",
+        "label": "Fast",
+        "group": "motion",
+        "value": "120ms"
+      },
+      "--transition-normal": {
+        "name": "--transition-normal",
+        "label": "Normal",
+        "group": "motion",
+        "value": "200ms"
+      }
+    },
+    "fonts": [
+      {
+        "role": "heading",
+        "family": "Lora",
+        "weights": [600]
+      },
+      {
+        "role": "body",
+        "family": "Work Sans",
+        "weights": [400, 600]
+      }
+    ],
+    "generators": {
+      "typeBasePx": 16,
+      "typeRatio": 1.25,
+      "spaceUnitPx": 4
+    },
+    "iconSet": "heroicons"
+  },
+  "pages": {
+    "ids": ["home", "programs", "about", "donate", "contact"],
+    "entities": {
+      "home": {
+        "id": "home",
+        "name": "Home",
+        "slug": "home",
+        "blockIds": [
+          "home-hero",
+          "home-impact",
+          "home-programs",
+          "home-voices",
+          "home-seasons",
+          "home-letter",
+          "home-cta"
+        ],
+        "seo": {
+          "description": "Sparrow Hill Commons grows food in three community gardens in Spokane and shares it at a free market every Wednesday. Volunteer, take a plot or give.",
+          "title": "A neighbourhood food nonprofit in Spokane",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "programs": {
+        "id": "programs",
+        "name": "Programs",
+        "slug": "programs",
+        "blockIds": [
+          "programs-hero",
+          "programs-list",
+          "programs-market",
+          "programs-week",
+          "programs-faq",
+          "programs-volunteer"
+        ],
+        "seo": {
+          "description": "Community garden plots, the Wednesday free market, Sprouts after-school clubs and a tool library. All free, all on Sparrow Hill in Spokane.",
+          "title": "Gardens, free market and youth clubs",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "about": {
+        "id": "about",
+        "name": "About",
+        "slug": "about",
+        "blockIds": [
+          "about-hero",
+          "about-history",
+          "about-growth",
+          "about-team",
+          "about-partners",
+          "about-cta"
+        ],
+        "seo": {
+          "description": "How eleven neighbours and one vacant lot became three gardens and a free market feeding 480 households a week, and the people who run it today.",
+          "title": "Our story, team and partners",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "donate": {
+        "id": "donate",
+        "name": "Donate",
+        "slug": "donate",
+        "blockIds": [
+          "donate-hero",
+          "donate-levels",
+          "donate-receipt",
+          "donate-letter",
+          "donate-faq",
+          "donate-report"
+        ],
+        "seo": {
+          "description": "A monthly gift keeps three gardens and a free market running. See exactly where each dollar goes and read the 2025 harvest report.",
+          "title": "Give to Sparrow Hill Commons",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "contact": {
+        "id": "contact",
+        "name": "Contact",
+        "slug": "contact",
+        "blockIds": [
+          "contact-hero",
+          "contact-food",
+          "contact-write",
+          "contact-directions",
+          "contact-call"
+        ],
+        "seo": {
+          "description": "Call, write or visit Sparrow Hill Commons at 1418 East Larkin Avenue, Spokane. Find the three gardens and the right person to talk to.",
+          "title": "Contact and directions",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      }
+    },
+    "homePageId": "home"
+  },
+  "blocks": {
+    "ids": [
+      "header-banner",
+      "header-nav",
+      "footer",
+      "home-hero",
+      "home-impact",
+      "home-programs",
+      "home-voices",
+      "home-seasons",
+      "home-letter",
+      "home-cta",
+      "programs-hero",
+      "programs-list",
+      "programs-market",
+      "programs-week",
+      "programs-faq",
+      "programs-volunteer",
+      "about-hero",
+      "about-history",
+      "about-growth",
+      "about-team",
+      "about-partners",
+      "about-cta",
+      "donate-hero",
+      "donate-levels",
+      "donate-receipt",
+      "donate-letter",
+      "donate-faq",
+      "donate-report",
+      "contact-hero",
+      "contact-food",
+      "contact-write",
+      "contact-directions",
+      "contact-call"
+    ],
+    "entities": {
+      "header-banner": {
+        "id": "header-banner",
+        "kind": "component",
+        "componentId": "banner-fundraising",
+        "values": {
+          "text": "Help us build a winter greenhouse on Orchard Terrace before the first frost.",
+          "progress": 68,
+          "raised": "$34,200 raised",
+          "goal": "of $50,000",
+          "button": {
+            "label": "Give to the greenhouse",
+            "link": {
+              "type": "page",
+              "pageId": "donate",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "header-nav": {
+        "id": "header-nav",
+        "kind": "component",
+        "componentId": "nav-cta",
+        "values": {
+          "logoIcon": "leaf",
+          "links": [
+            {
+              "label": "Programs",
+              "link": {
+                "type": "page",
+                "pageId": "programs",
+                "newTab": false
+              }
+            },
+            {
+              "label": "About",
+              "link": {
+                "type": "page",
+                "pageId": "about",
+                "newTab": false
+              }
+            },
+            {
+              "label": "This week",
+              "link": {
+                "type": "section",
+                "pageId": "programs",
+                "anchor": "week",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "page",
+                "pageId": "contact",
+                "newTab": false
+              }
+            }
+          ],
+          "signIn": {
+            "label": "Volunteer",
+            "link": {
+              "type": "section",
+              "pageId": "programs",
+              "anchor": "volunteer",
+              "newTab": false
+            },
+            "variant": "ghost"
+          },
+          "cta": {
+            "label": "Donate",
+            "link": {
+              "type": "page",
+              "pageId": "donate",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "menuIcon": "menu"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "footer": {
+        "id": "footer",
+        "kind": "component",
+        "componentId": "footer-local",
+        "values": {
+          "tagline": "Sparrow Hill Commons is a neighbourhood nonprofit in Spokane, Washington. We grow food in three shared gardens and give it away every Wednesday, no questions asked.",
+          "visitTitle": "Commons House",
+          "address": "1418 East Larkin Avenue\nSpokane, WA 99202",
+          "directionsLabel": "Get directions",
+          "directionsLink": {
+            "type": "url",
+            "url": "https://www.openstreetmap.org/search?query=1418+East+Larkin+Avenue+Spokane",
+            "newTab": true
+          },
+          "contactTitle": "Call or write",
+          "phone": "+1 509 555 0164",
+          "email": "hello@sparrowhill.example",
+          "hoursTitle": "Open hours",
+          "hours": [
+            {
+              "days": "Monday and Tuesday",
+              "time": "9:00-17:00"
+            },
+            {
+              "days": "Wednesday (free market)",
+              "time": "9:00-18:30"
+            },
+            {
+              "days": "Thursday and Friday",
+              "time": "9:00-17:00"
+            },
+            {
+              "days": "Saturday (gardens)",
+              "time": "9:00-13:00"
+            }
+          ],
+          "links": [
+            {
+              "label": "Programs",
+              "link": {
+                "type": "page",
+                "pageId": "programs",
+                "newTab": false
+              }
+            },
+            {
+              "label": "About us",
+              "link": {
+                "type": "page",
+                "pageId": "about",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Donate",
+              "link": {
+                "type": "page",
+                "pageId": "donate",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Volunteer",
+              "link": {
+                "type": "section",
+                "pageId": "programs",
+                "anchor": "volunteer",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "page",
+                "pageId": "contact",
+                "newTab": false
+              }
+            }
+          ],
+          "copyright": "© 2026 Sparrow Hill Commons, a 501(c)(3) nonprofit. Gifts are tax-deductible."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-hero": {
+        "id": "home-hero",
+        "kind": "component",
+        "componentId": "hero-polaroids",
+        "values": {
+          "eyebrow": "Sparrow Hill, Spokane · since 2011",
+          "title": "Good food, grown by the neighbours who eat it",
+          "text": "We tend three community gardens on Sparrow Hill and give the harvest away at a free market every Wednesday. Bring a bag, or bring a shovel.",
+          "primaryButton": {
+            "label": "Give monthly",
+            "link": {
+              "type": "page",
+              "pageId": "donate",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Join a work party",
+            "link": {
+              "type": "section",
+              "pageId": "programs",
+              "anchor": "volunteer",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "photos": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Volunteers harvesting chard and kale at the Larkin Lot garden",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Larkin Lot harvest"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Crates of tomatoes, squash and greens on the free market tables",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Wednesday market"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Two children holding carrots they pulled at the schoolyard garden",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "photo"
+                }
+              },
+              "caption": "Sprouts club"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-impact": {
+        "id": "home-impact",
+        "kind": "component",
+        "componentId": "stats-sentence",
+        "values": {
+          "eyebrow": "Sparrow Hill in 2025",
+          "title": "One hill, one growing season",
+          "segments": [
+            {
+              "text": "Last year",
+              "number": "312"
+            },
+            {
+              "text": "volunteers grew and gleaned",
+              "number": "61,400 lb"
+            },
+            {
+              "text": "of fresh food and shared it with",
+              "number": "480"
+            },
+            {
+              "text": "households a week, while",
+              "number": "210"
+            },
+            {
+              "text": "kids learned to grow their own lunch.",
+              "number": ""
+            }
+          ],
+          "numberStyle": "marker",
+          "source": "From our 2025 harvest log and free market sign-in tallies.",
+          "button": {
+            "label": "Read the 2025 report",
+            "link": {
+              "type": "section",
+              "pageId": "donate",
+              "anchor": "report",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-programs": {
+        "id": "home-programs",
+        "kind": "component",
+        "componentId": "features-cards-image",
+        "values": {
+          "eyebrow": "What we do",
+          "title": "Three ways the hill feeds itself",
+          "intro": "Everything we run is free to join and led by people who live within a mile of the gardens.",
+          "items": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Raised beds full of vegetables at the Larkin Lot community garden",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "title": "Community gardens",
+              "text": "142 plots across three gardens. Half are tended by households, half are grown together for the free market.",
+              "linkLabel": "Get a plot",
+              "link": {
+                "type": "section",
+                "pageId": "programs",
+                "anchor": "programs",
+                "newTab": false
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Neighbours choosing vegetables at the Wednesday free market",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "title": "Wednesday free market",
+              "text": "Fresh produce, bread and eggs laid out like a farm stand. No forms, no ID and no limit on visits.",
+              "linkLabel": "See market hours",
+              "link": {
+                "type": "section",
+                "pageId": "programs",
+                "anchor": "week",
+                "newTab": false
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A Sprouts club leader showing children how to plant bean seeds",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "title": "Sprouts youth clubs",
+              "text": "After-school growing and cooking clubs in six Spokane elementary schools, taught in the garden.",
+              "linkLabel": "Bring Sprouts to a school",
+              "link": {
+                "type": "section",
+                "pageId": "contact",
+                "anchor": "write",
+                "newTab": false
+              }
+            }
+          ],
+          "columns": "3"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-voices": {
+        "id": "home-voices",
+        "kind": "component",
+        "componentId": "testimonials-notes",
+        "values": {
+          "eyebrow": "From the market noticeboard",
+          "title": "Notes neighbours left us this summer",
+          "intro": "There is a corkboard by the market door and a jar of pens. These are some of the cards from July and August.",
+          "items": [
+            {
+              "quote": "First place I have ever picked up food where nobody asked me to prove anything. I just got to shop.",
+              "name": "Darlene",
+              "role": "Market neighbour since 2022"
+            },
+            {
+              "quote": "My plot fed us salad for four months. My daughter now eats radishes on purpose.",
+              "name": "Minh Chau Pham",
+              "role": "Plot 37, Orchard Terrace"
+            },
+            {
+              "quote": "I came to drop off zucchini and left with a Saturday job I do not get paid for and would not give up.",
+              "name": "Walt Kessler",
+              "role": "Compost crew volunteer"
+            },
+            {
+              "quote": "The kids cooked soup from what they grew and then asked for seconds. Of soup.",
+              "name": "Ms. Renee Abara",
+              "role": "Third grade teacher, Whitcomb Elementary"
+            },
+            {
+              "quote": "Thank you for the eggs and for remembering my name every single week.",
+              "name": "Tomas",
+              "role": "Market neighbour"
+            },
+            {
+              "quote": "We moved here in March. The garden is how we met everyone on our street.",
+              "name": "Aisha and Karim Haddad",
+              "role": "Plot 12, Larkin Lot"
+            },
+            {
+              "quote": "I borrowed a pruning saw, took the fruit tree class and saved the old plum in my yard.",
+              "name": "Joanne Riddell",
+              "role": "Tool library member"
+            },
+            {
+              "quote": "Our bakery sends the unsold loaves every Wednesday. Best use of bread we have found yet.",
+              "name": "Luis Herrera",
+              "role": "Owner, Riverbend Bakery"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-seasons": {
+        "id": "home-seasons",
+        "kind": "component",
+        "componentId": "gallery-arches",
+        "values": {
+          "eyebrow": "The gardens",
+          "title": "Four seasons on the hill",
+          "intro": "The gardens are open to everyone from dawn to dusk. Come for a walk even if you never plan to pull a weed.",
+          "items": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Seedling trays under grow lights in the Commons House basement",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "photo"
+                }
+              },
+              "title": "Spring",
+              "text": "9,000 seedlings started indoors"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tall tomato rows and sunflowers at the Larkin Lot garden in July",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "photo"
+                }
+              },
+              "title": "Summer",
+              "text": "Work parties three evenings a week"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Volunteers pressing apples into cider at the Orchard Terrace harvest fair",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "photo"
+                }
+              },
+              "title": "Autumn",
+              "text": "Harvest fair and cider pressing"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Garden beds under straw mulch and a light dusting of snow",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "photo"
+                }
+              },
+              "title": "Winter",
+              "text": "Soup nights and seed swaps"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-letter": {
+        "id": "home-letter",
+        "kind": "component",
+        "componentId": "newsletter-envelope",
+        "values": {
+          "stamp": "Spokane",
+          "title": "Letters from the hill",
+          "text": "Once a month Rosa writes about what is growing, what the market needs and where an extra pair of hands would help most.",
+          "emailLabel": "Email address",
+          "emailPlaceholder": "you@example.com",
+          "buttonLabel": "Send me the letter",
+          "note": "One letter a month. 2,300 neighbours already read it.",
+          "formAction": "",
+          "formMethod": "post"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-cta": {
+        "id": "home-cta",
+        "kind": "component",
+        "componentId": "cta-split",
+        "values": {
+          "firstIcon": "heart",
+          "firstTitle": "Give $25 a month",
+          "firstText": "It buys seed, soil and water for one market bed, which grows about 190 pounds of food a season.",
+          "firstButton": {
+            "label": "Become a monthly giver",
+            "link": {
+              "type": "page",
+              "pageId": "donate",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "secondIcon": "users",
+          "secondTitle": "Give a Saturday morning",
+          "secondText": "No experience needed. We supply gloves, tools, coffee and someone to show you what is a weed.",
+          "secondButton": {
+            "label": "Pick an orientation",
+            "link": {
+              "type": "section",
+              "pageId": "programs",
+              "anchor": "volunteer",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "orLabel": "or"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "programs-hero": {
+        "id": "programs-hero",
+        "kind": "component",
+        "componentId": "hero-split-color",
+        "values": {
+          "eyebrow": "Programs",
+          "title": "Grow it, share it, teach it",
+          "text": "Four programs, all free, all run with neighbours rather than for them. Start with whichever one fits your week.",
+          "primaryButton": {
+            "label": "See this week",
+            "link": {
+              "type": "section",
+              "pageId": "programs",
+              "anchor": "week",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Ask about a plot",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "write",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "note": "Everything is free. Nothing needs an ID.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A volunteer handing a crate of fresh greens across a market table",
+            "decorative": false,
+            "width": 1200,
+            "height": 1600,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "sticker": "Free every Wednesday"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "programs-list": {
+        "id": "programs-list",
+        "kind": "component",
+        "componentId": "features-checkerboard",
+        "values": {
+          "eyebrow": "What we run",
+          "title": "Four programs, one harvest",
+          "intro": "The gardens feed the market, the market asks for nothing in return, and the clubs and workshops raise the next crew of growers.",
+          "items": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Neighbours watering raised beds at the Orchard Terrace garden in the evening",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "label": "01 · Community gardens",
+              "title": "A plot of your own, or a row of ours",
+              "text": "Larkin Lot, Orchard Terrace and the Whitcomb schoolyard hold 142 plots. Household plots are free and come with water, tools and seedlings. Prefer company? Join a work party and grow for the market."
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tables of squash, onions, bread and eggs at the free market in Commons House",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "label": "02 · Wednesday free market",
+              "title": "Shop like it is a farm stand",
+              "text": "Every Wednesday from 3 to 6:30 pm we set out what the gardens, local farms and two bakeries brought in. Take what your household will eat. We never ask for ID, income or an address."
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Children chopping vegetables with a Sprouts club leader in a school kitchen",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "label": "03 · Sprouts youth clubs",
+              "title": "Lunch they planted themselves",
+              "text": "Sprouts clubs meet after school in six elementary schools. Kids from kindergarten to fifth grade sow, weed, harvest and cook, and take a bag of vegetables home each week."
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Shovels, rakes and a wheelbarrow hanging in the tool library shed",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "label": "04 · Tool library and workshops",
+              "title": "Borrow a broadfork, learn to prune",
+              "text": "Members borrow from 260 tools for free. Saturday workshops cover composting, seed saving, canning and fruit tree care, taught by neighbours who have done it for decades."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "programs"
+      },
+      "programs-market": {
+        "id": "programs-market",
+        "kind": "component",
+        "componentId": "stats-pictogram",
+        "values": {
+          "eyebrow": "Market survey 2025",
+          "title": "What the free market changes at home",
+          "intro": "Each autumn we ask market neighbours a few questions on paper cards. Last year 318 households answered.",
+          "icon": "user",
+          "ofLabel": "in 10 households",
+          "items": [
+            {
+              "count": 8,
+              "text": "eat vegetables on more days of the week than before they came."
+            },
+            {
+              "count": 7,
+              "text": "say the market cut their grocery bill by $40 or more a month."
+            },
+            {
+              "count": 4,
+              "text": "have since joined a work party or taken a garden plot."
+            }
+          ],
+          "source": "Sparrow Hill Commons market survey, October 2025, 318 households."
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "programs-week": {
+        "id": "programs-week",
+        "kind": "component",
+        "componentId": "steps-week",
+        "values": {
+          "eyebrow": "This week",
+          "title": "A week on the hill",
+          "intro": "The same rhythm from April to November. Drop in to any of it. You do not need to sign up first.",
+          "days": [
+            {
+              "day": "Mon",
+              "date": "9",
+              "slot": "afternoon",
+              "time": "17:30",
+              "title": "Larkin Lot work party",
+              "text": "Weeding, watering and planting until dusk. Tools and gloves provided."
+            },
+            {
+              "day": "Tue",
+              "date": "10",
+              "slot": "afternoon",
+              "time": "15:15",
+              "title": "Sprouts clubs",
+              "text": "After-school clubs meet in six schoolyard gardens."
+            },
+            {
+              "day": "Wed",
+              "date": "11",
+              "slot": "afternoon",
+              "time": "15:00",
+              "title": "Free market",
+              "text": "Commons House, open until 6:30 pm. Bring a bag if you have one."
+            },
+            {
+              "day": "Thu",
+              "date": "12",
+              "slot": "morning",
+              "time": "9:00",
+              "title": "Gleaning run",
+              "text": "A van of volunteers picks surplus fruit at two partner farms."
+            },
+            {
+              "day": "Fri",
+              "date": "13",
+              "slot": "midday",
+              "time": "12:00",
+              "title": "Community lunch",
+              "text": "Soup from the week’s harvest, cooked by the Friday kitchen crew."
+            },
+            {
+              "day": "Sat",
+              "date": "14",
+              "slot": "morning",
+              "time": "10:00",
+              "title": "Workshop and open garden",
+              "text": "This week: putting beds to sleep for winter, with Marcus."
+            }
+          ],
+          "note": "Work parties move to Saturday mornings from December to March."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "week"
+      },
+      "programs-faq": {
+        "id": "programs-faq",
+        "kind": "component",
+        "componentId": "faq-quick",
+        "values": {
+          "eyebrow": "Quick answers",
+          "title": "Before you come",
+          "intro": "The questions we hear most at the garden gate and the market door.",
+          "items": [
+            {
+              "question": "Is the market really free?",
+              "answer": "Yes",
+              "tone": "yes",
+              "detail": "Take what your household will eat. There is no charge and no limit on visits."
+            },
+            {
+              "question": "Do I need ID or proof of income?",
+              "answer": "No",
+              "tone": "no",
+              "detail": "We ask your first name and household size, and only so we can plan the harvest."
+            },
+            {
+              "question": "Do I need gardening experience?",
+              "answer": "No",
+              "tone": "no",
+              "detail": "Every work party starts with a ten-minute walk-through for newcomers."
+            },
+            {
+              "question": "Can children come along?",
+              "answer": "Yes",
+              "tone": "yes",
+              "detail": "All ages are welcome with an adult. We keep child-size tools in the shed."
+            },
+            {
+              "question": "Are plots open right now?",
+              "answer": "Waitlist",
+              "tone": "soon",
+              "detail": "Plots are assigned each March. The 2027 list opens on January 5."
+            },
+            {
+              "question": "Can I drop off garden surplus?",
+              "answer": "Yes",
+              "tone": "yes",
+              "detail": "Bring it to Commons House any Wednesday morning before noon."
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "programs-volunteer": {
+        "id": "programs-volunteer",
+        "kind": "component",
+        "componentId": "cta-calendar",
+        "values": {
+          "eyebrow": "Volunteer",
+          "title": "Start with a one-hour orientation",
+          "text": "Hal walks you around Larkin Lot, shows you the tool shed and the wash station, and finds a crew that fits your week.",
+          "facts": [
+            {
+              "icon": "clock",
+              "text": "One hour, outdoors"
+            },
+            {
+              "icon": "map-pin",
+              "text": "Larkin Lot, 1418 East Larkin Avenue"
+            },
+            {
+              "icon": "users",
+              "text": "Groups of up to 12, all ages"
+            }
+          ],
+          "month": "November 2026",
+          "bookingLink": {
+            "type": "section",
+            "pageId": "contact",
+            "anchor": "write",
+            "newTab": false
+          },
+          "days": [
+            {
+              "weekday": "Sat",
+              "date": "7",
+              "slots": [
+                {
+                  "time": "9:00"
+                },
+                {
+                  "time": "11:00"
+                }
+              ]
+            },
+            {
+              "weekday": "Wed",
+              "date": "11",
+              "slots": [
+                {
+                  "time": "17:30"
+                }
+              ]
+            },
+            {
+              "weekday": "Sat",
+              "date": "14",
+              "slots": [
+                {
+                  "time": "9:00"
+                },
+                {
+                  "time": "11:00"
+                }
+              ]
+            },
+            {
+              "weekday": "Wed",
+              "date": "18",
+              "slots": [
+                {
+                  "time": "17:30"
+                }
+              ]
+            }
+          ],
+          "button": {
+            "label": "Ask about other times",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "write",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "volunteer"
+      },
+      "about-hero": {
+        "id": "about-hero",
+        "kind": "component",
+        "componentId": "hero-manifesto",
+        "values": {
+          "eyebrow": "About us",
+          "title": "Food is a neighbourhood project",
+          "text": "Sparrow Hill Commons began in 2011, when eleven neighbours cleared a vacant lot on Larkin Avenue and built 24 garden beds from salvaged cedar. Fifteen years on, these are still the rules we work by.",
+          "button": {
+            "label": "Meet the team",
+            "link": {
+              "type": "section",
+              "pageId": "about",
+              "anchor": "team",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "principles": [
+            {
+              "title": "Nobody proves they are hungry",
+              "text": "We do not ask for ID, income or a reason. Dignity comes first."
+            },
+            {
+              "title": "Grown here, by us",
+              "text": "Most of what we share is planted within a mile of the market door."
+            },
+            {
+              "title": "Neighbours lead",
+              "text": "Seven of our eleven board members grow or shop with us."
+            },
+            {
+              "title": "Share the know-how too",
+              "text": "Every harvest comes with a recipe, a workshop or a seed packet."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-history": {
+        "id": "about-history",
+        "kind": "component",
+        "componentId": "content-history",
+        "values": {
+          "eyebrow": "Our story",
+          "title": "From one vacant lot to three gardens",
+          "intro": "We have grown slowly and on purpose, adding a garden or a program only when neighbours asked for it and offered to help run it.",
+          "milestones": [
+            {
+              "year": "2011",
+              "title": "The Larkin Lot is cleared",
+              "text": "Eleven neighbours haul out two dumpsters of rubble and build 24 beds. The first harvest is mostly zucchini."
+            },
+            {
+              "year": "2014",
+              "title": "A card table becomes the free market",
+              "text": "Gardeners start leaving surplus on a table by the gate each Wednesday. By autumn, 60 households stop by every week."
+            },
+            {
+              "year": "2017",
+              "title": "Orchard Terrace is planted",
+              "text": "The city leases us a hillside. Volunteers terrace it and plant 48 apple, pear and plum trees."
+            },
+            {
+              "year": "2019",
+              "title": "Sprouts starts at Whitcomb Elementary",
+              "text": "One teacher, one raised bed and 14 kids. Six schools have joined since."
+            },
+            {
+              "year": "2022",
+              "title": "We move into Commons House",
+              "text": "A former corner grocery becomes our market hall, kitchen, seed room and tool library."
+            },
+            {
+              "year": "2026",
+              "title": "A winter greenhouse breaks ground",
+              "text": "With a heated greenhouse on Orchard Terrace, the market will have fresh greens in January for the first time."
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-growth": {
+        "id": "about-growth",
+        "kind": "component",
+        "componentId": "stats-growth",
+        "values": {
+          "eyebrow": "The harvest",
+          "title": "Five seasons of food shared",
+          "intro": "Pounds of produce given away at the free market each year, weighed crate by crate at the wash station.",
+          "highlight": "2.9×",
+          "highlightLabel": "more food shared than in 2021",
+          "years": [
+            {
+              "year": "2021",
+              "value": "21k lb",
+              "height": 34
+            },
+            {
+              "year": "2022",
+              "value": "33k lb",
+              "height": 54
+            },
+            {
+              "year": "2023",
+              "value": "44k lb",
+              "height": 72
+            },
+            {
+              "year": "2024",
+              "value": "52k lb",
+              "height": 85
+            },
+            {
+              "year": "2025",
+              "value": "61k lb",
+              "height": 100
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-team": {
+        "id": "about-team",
+        "kind": "component",
+        "componentId": "team-polaroids",
+        "values": {
+          "eyebrow": "The crew",
+          "title": "Seven staff, 312 volunteers",
+          "intro": "You will find most of us in a garden on any dry afternoon, and at Commons House every Wednesday.",
+          "people": [
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Rosa Delgado",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Rosa Delgado",
+              "role": "Executive director",
+              "note": "Grew up two blocks from Larkin Lot"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Marcus Whitfield",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Marcus Whitfield",
+              "role": "Garden manager",
+              "note": "Ask me about cover crops"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ngoc Anh Tran",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Ngoc Anh Tran",
+              "role": "Free market coordinator",
+              "note": "Knows every regular by name"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Dee Okonkwo",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Dee Okonkwo",
+              "role": "Youth programs lead",
+              "note": "Former third grade teacher"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Hal Brenner",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Hal Brenner",
+              "role": "Volunteer coordinator",
+              "note": "Runs every orientation"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Priya Nair",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Priya Nair",
+              "role": "Development and finance",
+              "note": "Writes your thank-you notes"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Sam Ortega",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Sam Ortega",
+              "role": "Tool library and workshops",
+              "note": "Sharpens 40 pruners a month"
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Lorraine Beck",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Lorraine Beck",
+              "role": "Board chair",
+              "note": "Plot 3 since 2011"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "team"
+      },
+      "about-partners": {
+        "id": "about-partners",
+        "kind": "component",
+        "componentId": "logos-ruled",
+        "values": {
+          "eyebrow": "Partners and funders",
+          "title": "We do not do this alone",
+          "text": "Farms, bakeries, schools and foundations across Spokane County give food, land, time and money to keep the market free.",
+          "logos": [
+            {
+              "company": "Palouse Family Farms",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Palouse Family Farms",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Inland Northwest Community Fund",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Inland Northwest Community Fund",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Spokane Public Schools",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Spokane Public Schools",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Riverbend Bakery",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Riverbend Bakery",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Cedar Street Credit Union",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Cedar Street Credit Union",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Hillyard Hardware",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Hillyard Hardware",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "Second Harvest Growers",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Second Harvest Growers",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            },
+            {
+              "company": "City of Spokane Parks",
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "City of Spokane Parks",
+                "decorative": false,
+                "width": 1200,
+                "height": 514,
+                "placeholder": {
+                  "ratio": "21:9",
+                  "subject": "logo"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "about-cta": {
+        "id": "about-cta",
+        "kind": "component",
+        "componentId": "cta-big-link",
+        "values": {
+          "kicker": "Want to help it keep growing?",
+          "label": "Give to Sparrow Hill",
+          "link": {
+            "type": "page",
+            "pageId": "donate",
+            "newTab": false
+          },
+          "details": [
+            {
+              "text": "84 cents of every dollar goes to programs"
+            },
+            {
+              "text": "Tax-deductible in the US"
+            },
+            {
+              "text": "Cancel a monthly gift any time"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--theme-primary-background)",
+          "--color-surface": "var(--theme-primary-surface)",
+          "--color-text": "var(--theme-primary-text)",
+          "--color-text-muted": "var(--theme-primary-text-muted)",
+          "--color-border": "var(--theme-primary-border)",
+          "--color-primary": "var(--theme-primary-accent)",
+          "--color-primary-contrast": "var(--theme-primary-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "donate-hero": {
+        "id": "donate-hero",
+        "kind": "component",
+        "componentId": "hero-checklist",
+        "values": {
+          "eyebrow": "Donate",
+          "title": "Every dollar stays on the hill",
+          "text": "Your gift buys seed, soil, water and wages for the people who keep three gardens and a free market running all year.",
+          "benefits": [
+            {
+              "text": "$10 starts 60 seedlings in the spring"
+            },
+            {
+              "text": "$25 keeps one market bed growing for a month"
+            },
+            {
+              "text": "$60 sends a child to Sprouts for a season"
+            },
+            {
+              "text": "$250 stocks the free market for one Wednesday"
+            }
+          ],
+          "primaryButton": {
+            "label": "Choose a monthly gift",
+            "link": {
+              "type": "section",
+              "pageId": "donate",
+              "anchor": "give",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Give once",
+            "link": {
+              "type": "email",
+              "url": "giving@sparrowhill.example",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "note": "Tax-deductible · Cancel any time",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A volunteer weighing a crate of freshly washed carrots at the wash station",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "showStat": true,
+          "statValue": "$1 = 3 lb",
+          "statLabel": "of fresh food on the market table"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "donate-levels": {
+        "id": "donate-levels",
+        "kind": "component",
+        "componentId": "pricing-membership",
+        "values": {
+          "eyebrow": "Monthly giving",
+          "title": "Join the Growers Circle",
+          "intro": "Monthly gifts let us plan a whole season ahead. Every level gets the letter from the hill and an invitation to the harvest fair.",
+          "featuredLabel": "Most chosen",
+          "tiers": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Trays of tomato and pepper seedlings under grow lights",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "name": "Seedling",
+              "price": "$10",
+              "period": "per month",
+              "description": "Starts 60 seedlings every spring.",
+              "features": [
+                {
+                  "text": "Monthly letter from the hill"
+                },
+                {
+                  "text": "Harvest fair invitation"
+                },
+                {
+                  "text": "A packet of saved seeds each March"
+                }
+              ],
+              "featured": false,
+              "button": {
+                "label": "Give $10 a month",
+                "link": {
+                  "type": "email",
+                  "url": "giving@sparrowhill.example",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A raised market bed thick with lettuce, chard and onions",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "name": "Grower",
+              "price": "$25",
+              "period": "per month",
+              "description": "Keeps one market bed planted, watered and harvested.",
+              "features": [
+                {
+                  "text": "Everything in Seedling"
+                },
+                {
+                  "text": "Your name on a market bed"
+                },
+                {
+                  "text": "First pick of workshop places"
+                },
+                {
+                  "text": "A jar of Orchard Terrace honey"
+                }
+              ],
+              "featured": true,
+              "button": {
+                "label": "Give $25 a month",
+                "link": {
+                  "type": "email",
+                  "url": "giving@sparrowhill.example",
+                  "newTab": false
+                },
+                "variant": "primary"
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Children holding bowls of soup they cooked at a Sprouts club",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "name": "Harvest",
+              "price": "$60",
+              "period": "per month",
+              "description": "Pays for one child in a Sprouts club all year.",
+              "features": [
+                {
+                  "text": "Everything in Grower"
+                },
+                {
+                  "text": "A drawing from your Sprouts club"
+                },
+                {
+                  "text": "Dinner in the orchard each September"
+                }
+              ],
+              "featured": false,
+              "button": {
+                "label": "Give $60 a month",
+                "link": {
+                  "type": "email",
+                  "url": "giving@sparrowhill.example",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "give"
+      },
+      "donate-receipt": {
+        "id": "donate-receipt",
+        "kind": "component",
+        "componentId": "pricing-receipt",
+        "values": {
+          "eyebrow": "Where it goes",
+          "title": "Here is the receipt for a $100 gift",
+          "intro": "We spent $612,000 in 2025. Scaled down to one hundred dollars, this is exactly where the money went.",
+          "details": "<ul><li>84 cents of every dollar goes straight to programs</li><li>Books reviewed each year by an independent accountant</li><li>Full financial statements in the annual report</li></ul>",
+          "receiptTitle": "Sparrow Hill Commons",
+          "receiptMeta": "2025 spending · per $100 given",
+          "totalLabel": "Total",
+          "total": "$100",
+          "note": "Figures from our 2025 audited statements, rounded to the nearest dollar.",
+          "button": {
+            "label": "Read the annual report",
+            "link": {
+              "type": "section",
+              "pageId": "donate",
+              "anchor": "report",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "lines": [
+            {
+              "label": "Gardens: seed, soil, water, tools",
+              "amount": "$31"
+            },
+            {
+              "label": "Free market: food, van, cold storage",
+              "amount": "$29"
+            },
+            {
+              "label": "Sprouts youth clubs",
+              "amount": "$18"
+            },
+            {
+              "label": "Workshops and tool library",
+              "amount": "$6"
+            },
+            {
+              "label": "Rent, insurance and bookkeeping",
+              "amount": "$10"
+            },
+            {
+              "label": "Fundraising",
+              "amount": "$6"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "donate-letter": {
+        "id": "donate-letter",
+        "kind": "component",
+        "componentId": "testimonial-letter",
+        "values": {
+          "eyebrow": "From a neighbour",
+          "title": "A letter we read aloud at the harvest fair",
+          "date": "Spokane, September 2026",
+          "stamp": "With thanks",
+          "greeting": "Dear everyone at Sparrow Hill,",
+          "letter": "When my hours were cut last winter I started coming to the market on Wednesdays. Nobody asked me a single question. Ngoc Anh just handed me a bag and told me the squash was good that week.\nIn April I took a plot at Orchard Terrace. This month I carried my own tomatoes to the market table for somebody else to take home. I wanted the people who pay for all of this to know what it turned into.",
+          "signoff": "With gratitude,",
+          "name": "Darlene Whitaker",
+          "role": "Plot 41, Orchard Terrace"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "donate-faq": {
+        "id": "donate-faq",
+        "kind": "component",
+        "componentId": "faq-large",
+        "values": {
+          "eyebrow": "Giving questions",
+          "title": "Before you give",
+          "intro": "Four things donors ask Priya most often.",
+          "items": [
+            {
+              "question": "Is my gift tax-deductible?",
+              "answer": "<p>Yes. Sparrow Hill Commons is a 501(c)(3) nonprofit, and gifts are deductible in the United States as far as the law allows. You get a receipt by email right away and a yearly summary each January.</p>"
+            },
+            {
+              "question": "Can I change or cancel a monthly gift?",
+              "answer": "<p>Any time. Reply to any receipt or call Priya on +1 509 555 0164 and it is done the same day, with no forms to fill in.</p>"
+            },
+            {
+              "question": "Can I give something other than money?",
+              "answer": "<p>Gladly. We take garden surplus on Wednesday mornings, clean tools for the library, and stock or donor-advised fund gifts. Many employers also match gifts, so it is worth asking yours.</p>"
+            },
+            {
+              "question": "Can I leave a gift in my will?",
+              "answer": "<p>Yes, and several neighbours have. Write to <a href=\"mailto:giving@sparrowhill.example\">giving@sparrowhill.example</a> and Priya will send the wording your lawyer needs.</p>"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "donate-report": {
+        "id": "donate-report",
+        "kind": "component",
+        "componentId": "content-download",
+        "values": {
+          "eyebrow": "Annual report",
+          "title": "The 2025 harvest report",
+          "text": "Every pound grown, every dollar spent and what we got wrong last season, written for neighbours rather than accountants.",
+          "contents": [
+            {
+              "text": "Harvest totals for all three gardens, bed by bed"
+            },
+            {
+              "text": "Full income and spending, with the audit letter"
+            },
+            {
+              "text": "Plans for the Orchard Terrace greenhouse"
+            }
+          ],
+          "cover": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Cover of the Sparrow Hill Commons 2025 harvest report",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "product"
+            }
+          },
+          "button": {
+            "label": "Ask for the report",
+            "link": {
+              "type": "email",
+              "url": "giving@sparrowhill.example",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "fileMeta": "PDF, 28 pages, sent by email"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "report"
+      },
+      "contact-hero": {
+        "id": "contact-hero",
+        "kind": "component",
+        "componentId": "hero-map",
+        "values": {
+          "eyebrow": "Contact",
+          "title": "Three gardens, one front door",
+          "text": "Commons House is the place to find us, drop off surplus or pick up the garden gate code. The gardens themselves are open from dawn to dusk.",
+          "primaryButton": {
+            "label": "Call +1 509 555 0164",
+            "link": {
+              "type": "phone",
+              "url": "+15095550164",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Get directions",
+            "link": {
+              "type": "url",
+              "url": "https://www.openstreetmap.org/search?query=1418+East+Larkin+Avenue+Spokane",
+              "newTab": true
+            },
+            "variant": "secondary"
+          },
+          "hours": "Commons House: Monday to Friday, 9 am to 5 pm",
+          "mapLabel": "Spokane River",
+          "pins": [
+            {
+              "label": "Larkin Lot",
+              "detail": "1418 E Larkin Ave",
+              "x": 28,
+              "y": 44
+            },
+            {
+              "label": "Orchard Terrace",
+              "detail": "Top of South Finch Street",
+              "x": 64,
+              "y": 34
+            },
+            {
+              "label": "Whitcomb schoolyard",
+              "detail": "2205 E Ninth Avenue",
+              "x": 76,
+              "y": 66
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-food": {
+        "id": "contact-food",
+        "kind": "component",
+        "componentId": "contact-urgent",
+        "values": {
+          "label": "Food today",
+          "title": "Need groceries before Wednesday?",
+          "text": "Call or come by Commons House on any weekday. We keep a shelf of staples and a fridge of fresh produce for exactly this, and you will not be asked why.",
+          "phone": "+1 509 555 0164",
+          "emailLabel": "Or email",
+          "email": "market@sparrowhill.example",
+          "responseTime": "Same day",
+          "responseLabel": "Every caller this year left with food the day they rang",
+          "statusText": "Free market open this Wednesday, 3 to 6:30 pm",
+          "statusLink": {
+            "label": "See the week",
+            "link": {
+              "type": "section",
+              "pageId": "programs",
+              "anchor": "week",
+              "newTab": false
+            },
+            "variant": "ghost"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-write": {
+        "id": "contact-write",
+        "kind": "component",
+        "componentId": "contact-departments",
+        "values": {
+          "eyebrow": "Write to us",
+          "title": "Who would you like to reach?",
+          "text": "Pick a topic and your note goes straight to the right person. We answer within two working days, usually sooner.",
+          "departmentsLabel": "What is it about?",
+          "departments": [
+            {
+              "icon": "leaf",
+              "title": "Garden plots",
+              "text": "Waitlist, gate codes and plot care, with Marcus"
+            },
+            {
+              "icon": "users",
+              "title": "Volunteering",
+              "text": "Orientations and group work days, with Hal"
+            },
+            {
+              "icon": "gift",
+              "title": "Food donations",
+              "text": "Farm, bakery and garden surplus, with Ngoc Anh"
+            },
+            {
+              "icon": "book",
+              "title": "Schools and Sprouts",
+              "text": "Start a club at your school, with Dee"
+            },
+            {
+              "icon": "heart",
+              "title": "Giving",
+              "text": "Gifts, receipts and legacies, with Priya"
+            },
+            {
+              "icon": "mail",
+              "title": "Press and partners",
+              "text": "Stories, photos and joint projects, with Rosa"
+            }
+          ],
+          "detailsLabel": "Your details",
+          "nameLabel": "Your name",
+          "emailLabel": "Email",
+          "messageLabel": "How can we help?",
+          "buttonLabel": "Send message",
+          "formAction": "",
+          "formMethod": "post"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "write"
+      },
+      "contact-directions": {
+        "id": "contact-directions",
+        "kind": "component",
+        "componentId": "content-directions",
+        "values": {
+          "eyebrow": "Visit us",
+          "title": "Getting to Commons House",
+          "address": "Sparrow Hill Commons\n1418 East Larkin Avenue\nSpokane, WA 99202",
+          "pinLabel": "Commons House",
+          "modes": [
+            {
+              "icon": "lucide:bus",
+              "mode": "By bus",
+              "text": "Routes 12 and 45 stop at Larkin and Finch, right outside the door."
+            },
+            {
+              "icon": "lucide:bike",
+              "mode": "By bike",
+              "text": "Racks for 20 bikes by the garden gate, and a free pump and repair stand."
+            },
+            {
+              "icon": "lucide:car",
+              "mode": "By car",
+              "text": "Free street parking on Larkin Avenue. Two accessible spaces sit beside the ramp."
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "Open in maps",
+            "link": {
+              "type": "url",
+              "url": "https://www.openstreetmap.org/search?query=1418+East+Larkin+Avenue+Spokane",
+              "newTab": true
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-call": {
+        "id": "contact-call",
+        "kind": "component",
+        "componentId": "cta-phone",
+        "values": {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Rosa Delgado smiling in the doorway of Commons House",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Rosa Delgado",
+          "role": "Executive director",
+          "statusLabel": "In the office today",
+          "eyebrow": "Prefer to talk?",
+          "title": "Call the hill and a neighbour picks up",
+          "phone": "+1 509 555 0164",
+          "hours": "Monday to Friday, 9 am to 5 pm Pacific time",
+          "note": "Hablamos español. Chúng tôi nói tiếng Việt."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      }
+    }
+  },
+  "sharedSlots": {
+    "header": ["header-banner", "header-nav"],
+    "footer": ["footer"]
+  },
+  "packBlocks": {},
+  "assets": {}
+}

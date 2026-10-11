@@ -9,6 +9,8 @@ type CssContext = { blockId: string; rootClass: string; category: Category };
 
 type Report = (line: number | null, message: string) => void;
 
+type BlockRules = { scope: CSSRule; keyframes: CSSRule[] };
+
 const LAYER_NAME = 'components';
 const NESTED_RULES = new Set([
   'CSSStyleRule',
@@ -18,6 +20,9 @@ const NESTED_RULES = new Set([
   'CSSContainerRule',
   'CSSStartingStyleRule',
 ]);
+const KEYFRAMES_RULE = 'CSSKeyframesRule';
+const KEYFRAMES_SOURCE = /@(?:-webkit-)?keyframes\b/gi;
+const CSS_COMMENT = /\/\*[\s\S]*?\*\//g;
 const FIXED_POSITION_CATEGORIES: Category[] = ['navigations', 'banners', 'modals', 'cookies'];
 const SOURCE_RULES: Array<{ pattern: RegExp; message: string }> = [
   { pattern: /@import\b/gi, message: '@import is not allowed' },
@@ -75,7 +80,38 @@ function checkScopedRules(rules: CSSRule[], context: CssContext, report: Report)
   }
 }
 
-function scopeRuleOf(sheet: CSSStyleSheet, context: CssContext, report: Report): CSSRule | null {
+function countKeyframes(rules: readonly CSSRule[]): number {
+  let count = 0;
+  for (const rule of rules) {
+    count += ruleType(rule) === KEYFRAMES_RULE ? 1 : countKeyframes(childRules(rule));
+  }
+  return count;
+}
+
+function checkKeyframes(rules: readonly CSSRule[], context: CssContext, report: Report): void {
+  const prefix = `${context.rootClass}--`;
+  for (const rule of rules) {
+    const name: unknown = Reflect.get(rule, 'name');
+    if (typeof name !== 'string' || !name.startsWith(prefix)) {
+      const given = typeof name === 'string' ? name : '';
+      report(null, `@keyframes ${given} must be named ${prefix}<name>`);
+    }
+    for (const frame of childRules(rule)) checkDeclarations(frame, context, report);
+  }
+}
+
+function checkKeyframesKept(source: string, sheet: CSSStyleSheet, report: Report): void {
+  const written = [...source.replace(CSS_COMMENT, '').matchAll(KEYFRAMES_SOURCE)];
+  if (written.length <= countKeyframes([...sheet.cssRules])) return;
+  const first = source.search(KEYFRAMES_SOURCE);
+  report(lineAt(source, first), '@keyframes must sit next to the @scope, inside the layer');
+}
+
+function blockRulesOf(
+  sheet: CSSStyleSheet,
+  context: CssContext,
+  report: Report,
+): BlockRules | null {
   const shape = `@layer ${LAYER_NAME} { @scope (.${context.rootClass}) { … } }`;
   const topRules = [...sheet.cssRules].filter((rule) => ruleType(rule) !== 'CSSImportRule');
   const [layer] = topRules;
@@ -89,7 +125,9 @@ function scopeRuleOf(sheet: CSSStyleSheet, context: CssContext, report: Report):
     report(1, `must be exactly one ${shape}`);
     return null;
   }
-  const [scope, ...others] = childRules(layer);
+  const layerRules = childRules(layer);
+  const keyframes = layerRules.filter((rule) => ruleType(rule) === KEYFRAMES_RULE);
+  const [scope, ...others] = layerRules.filter((rule) => ruleType(rule) !== KEYFRAMES_RULE);
   const start: unknown = scope === undefined ? undefined : Reflect.get(scope, 'start');
   const end: unknown = scope === undefined ? undefined : Reflect.get(scope, 'end');
   if (scope === undefined || others.length > 0 || ruleType(scope) !== 'CSSScopeRule') {
@@ -104,7 +142,7 @@ function scopeRuleOf(sheet: CSSStyleSheet, context: CssContext, report: Report):
     report(1, `must scope to its own root class only: @scope (.${context.rootClass})`);
     return null;
   }
-  return scope;
+  return { scope, keyframes };
 }
 
 export function validateCss(source: string, context: CssContext): CssCheck {
@@ -120,8 +158,12 @@ export function validateCss(source: string, context: CssContext): CssCheck {
     report(null, `is not valid CSS: ${describeError(error)}`);
     return { styles: null, errors };
   }
-  const scope = scopeRuleOf(sheet, context, report);
-  if (scope !== null) checkScopedRules(childRules(scope), context, report);
+  checkKeyframesKept(source, sheet, report);
+  const rules = blockRulesOf(sheet, context, report);
+  if (rules !== null) {
+    checkScopedRules(childRules(rules.scope), context, report);
+    checkKeyframes(rules.keyframes, context, report);
+  }
   if (errors.length > 0) return { styles: null, errors };
   const [layer] = sheet.cssRules;
   return { styles: layer === undefined ? null : layer.cssText, errors };

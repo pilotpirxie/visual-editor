@@ -23,7 +23,17 @@
   }
 
   .ve-home-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ve-space-3) var(--ve-space-5);
     margin-top: 48px;
+  }
+
+  .ve-home-footer .ui-field-label {
+    color: var(--ve-muted);
+    font-size: var(--ve-text-sm);
   }
 
   .ve-home-footer-link {
@@ -77,10 +87,10 @@
   .ve-home-error {
     margin-bottom: 16px;
     padding: 10px 12px;
-    border: 1px solid #f3c1c1;
+    border: 1px solid color-mix(in srgb, var(--ve-danger) 30%, var(--ve-bg));
     border-radius: var(--ve-radius);
-    background: #fdf0f0;
-    color: #a12020;
+    background: color-mix(in srgb, var(--ve-danger) 8%, var(--ve-bg));
+    color: var(--ve-danger);
   }
 
   .ve-home-error .ui-button {
@@ -332,7 +342,7 @@
     inset-block-start: 0;
     inset-inline-start: 0;
     border: 0;
-    background: #ffffff;
+    background: var(--ve-paper);
     transform-origin: 0 0;
   }
 }

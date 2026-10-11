@@ -1,0 +1,21 @@
+<section class="b-gallery-marquee section" data-speed="{{speed}}">
+  <div class="container stack b-head">
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h2 data-field="title">{{title}}</h2>
+    {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+  </div>
+  <div class="b-strip" role="group" aria-label="{{title}}" tabindex="0">
+    <div class="b-track">
+      <ul class="b-set" role="list">
+        {{#each items}}
+        <li class="b-photo" data-field="items.{{@index}}">{{img image}}{{#if caption}}<span class="b-caption">{{caption}}</span>{{/if}}</li>
+        {{/each}}
+      </ul>
+      <ul class="b-set b-copy" role="list" aria-hidden="true">
+        {{#each items}}
+        <li class="b-photo">{{img image}}{{#if caption}}<span class="b-caption">{{caption}}</span>{{/if}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

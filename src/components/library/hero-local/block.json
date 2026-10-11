@@ -109,14 +109,14 @@
           "name": "time",
           "label": "Hours",
           "type": "text",
-          "default": "9:00–17:00",
+          "default": "9:00-17:00",
           "maxLength": 24
         }
       ],
       "default": [
-        { "days": "Monday to Friday", "time": "7:00–18:00" },
-        { "days": "Saturday", "time": "8:00–18:00" },
-        { "days": "Sunday", "time": "9:00–16:00" }
+        { "days": "Monday to Friday", "time": "7:00-18:00" },
+        { "days": "Saturday", "time": "8:00-18:00" },
+        { "days": "Sunday", "time": "9:00-16:00" }
       ]
     },
     {

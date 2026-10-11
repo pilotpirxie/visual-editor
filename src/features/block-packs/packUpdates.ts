@@ -1,7 +1,9 @@
 import type { Block, Project } from '../../app/types';
 import { fitValues } from '../../components/fieldValues';
 import { compareVersions } from '../../components/packFormat';
+import { isBlockOfPack } from '../../components/registry';
 import type { BlockPack, PackBlock } from '../../components/types';
+import { blockPlaces } from '../pages/linkUsage';
 
 export type FieldChange = { blockName: string; field: string; pageNames: string[] };
 
@@ -13,6 +15,10 @@ export type PackUpgrade = {
 };
 
 export type UpgradeRule = 'newer' | 'newer-or-changed';
+
+export type PackPlace = { name: string; blockCount: number };
+
+export type PackUsage = { blockCount: number; places: PackPlace[] };
 
 function shouldUpgrade(embedded: PackBlock, offered: PackBlock, rule: UpgradeRule): boolean {
   const order = compareVersions(offered.pack.version, embedded.pack.version);
@@ -118,4 +124,18 @@ export function withoutUnusedDefinitions(project: Project): Project {
     if (used.has(id)) packBlocks[id] = custom;
   }
   return { ...project, packBlocks };
+}
+
+export function packUsage(project: Project, packId: string): PackUsage {
+  const places: PackPlace[] = [];
+  let blockCount = 0;
+  for (const { blockId, place } of blockPlaces(project, null)) {
+    const block = project.blocks.entities[blockId];
+    if (block === undefined || !isBlockOfPack(block, packId)) continue;
+    blockCount += 1;
+    const known = places.find(({ name }) => name === place);
+    if (known === undefined) places.push({ name: place, blockCount: 1 });
+    else known.blockCount += 1;
+  }
+  return { blockCount, places };
 }

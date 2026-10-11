@@ -7,6 +7,19 @@
     list-style: none;
   }
 
+  .ve-preset-random {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-block-end: 8px;
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-preset-random p {
+    margin: 0;
+    font-size: var(--ve-text-sm);
+  }
+
   .ve-preset-row {
     display: flex;
     align-items: center;
@@ -147,8 +160,8 @@
     gap: 8px;
     padding: 8px 10px;
     border-radius: var(--ve-radius);
-    background: #fef3c7;
-    color: #78350f;
+    background: var(--ve-warning-bg);
+    color: var(--ve-warning-text);
   }
 
   .ve-token-row .ui-field-control {

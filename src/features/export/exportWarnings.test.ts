@@ -96,6 +96,16 @@ describe('collectExportWarnings', () => {
   });
 });
 
+describe('blocks from a pack that is gone', () => {
+  it('warns that a block with no saved component is left out', () => {
+    const project = sampleProject();
+    blockOf(project, 1).componentId = 'acme/quote-card';
+    expect(warningTexts(project)).toEqual([
+      'A block needs the missing component “acme/quote-card” and is left out.',
+    ]);
+  });
+});
+
 describe('modal warnings', () => {
   it('warns about a modal with no anchor, because no link can open it', () => {
     const project = sampleProject();

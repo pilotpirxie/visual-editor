@@ -3,7 +3,7 @@ import { undo } from '../../app/history';
 import { BUILTIN_PRESETS } from '../../presets/presets';
 import { createTestStore } from '../../test/fixtures';
 import { ensureIconSets } from '../icons/ensureIconSets';
-import { applyPresetGroups } from './presetActions';
+import { applyPresetGroups, randomizeDesignSystem } from './presetActions';
 
 vi.mock('../icons/ensureIconSets', () => ({ ensureIconSets: vi.fn(async () => {}) }));
 
@@ -40,6 +40,41 @@ describe('applyPresetGroups', () => {
     const store = createTestStore();
     const before = store.getState().project;
     await expect(store.dispatch(applyPresetGroups(midnight, ['icons']))).rejects.toThrow('Offline');
+    expect(store.getState().project).toBe(before);
+  });
+});
+
+describe('randomizeDesignSystem', () => {
+  it('applies a new design in one undo step and loads its icon set first', async () => {
+    vi.mocked(ensureIconSets).mockClear();
+    const store = createTestStore();
+    const before = store.getState().project.designSystem;
+    await store.dispatch(randomizeDesignSystem());
+    const after = store.getState().project.designSystem;
+    expect(after.tokens['--color-primary']?.value).not.toBe(
+      before.tokens['--color-primary']?.value,
+    );
+    expect(after.presetId).toBeUndefined();
+    expect(ensureIconSets).toHaveBeenCalledWith([after.iconSet]);
+    expect(store.getState().history.past).toHaveLength(1);
+    store.dispatch(undo());
+    expect(store.getState().project.designSystem).toEqual(before);
+  });
+
+  it('gives a different design on every use', async () => {
+    const store = createTestStore();
+    await store.dispatch(randomizeDesignSystem());
+    const first = store.getState().project.designSystem;
+    await store.dispatch(randomizeDesignSystem());
+    expect(store.getState().project.designSystem).not.toEqual(first);
+    expect(store.getState().history.past).toHaveLength(2);
+  });
+
+  it('changes nothing when icons fail to load', async () => {
+    vi.mocked(ensureIconSets).mockRejectedValueOnce(new Error('Offline'));
+    const store = createTestStore();
+    const before = store.getState().project;
+    await expect(store.dispatch(randomizeDesignSystem())).rejects.toThrow('Offline');
     expect(store.getState().project).toBe(before);
   });
 });

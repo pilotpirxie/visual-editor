@@ -27,7 +27,7 @@ function preset(id: string): DesignSystemPreset {
 }
 
 describe('built-in presets', () => {
-  it('are the twelve presets of the PRD, in its order', () => {
+  it('are the twelve presets of the PRD, in its order, then the eight added later', () => {
     expect(BUILTIN_PRESETS.map((item) => item.name)).toEqual([
       'Clean',
       'Midnight',
@@ -41,6 +41,14 @@ describe('built-in presets', () => {
       'Pastel',
       'Luxury',
       'Brutalist',
+      'Ocean',
+      'Sunset',
+      'Neon',
+      'Retro',
+      'Slate',
+      'Noir',
+      'Blueprint',
+      'Sand',
     ]);
   });
 

@@ -46,7 +46,7 @@
       "name": "hours",
       "label": "Opening hours",
       "type": "textarea",
-      "default": "Monday to Friday, 9:00–17:30",
+      "default": "Monday to Friday, 9:00-17:30",
       "group": "Contact"
     },
     {

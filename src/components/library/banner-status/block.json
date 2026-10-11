@@ -41,7 +41,7 @@
       "name": "text",
       "label": "Text",
       "type": "text",
-      "default": "Sunday, October 19, 02:00–03:00 UTC. The dashboard is read-only; the API stays up.",
+      "default": "Sunday, October 19, 02:00-03:00 UTC. The dashboard is read-only; the API stays up.",
       "required": true,
       "maxLength": 160,
       "group": "Message"

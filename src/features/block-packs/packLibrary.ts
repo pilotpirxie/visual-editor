@@ -5,7 +5,12 @@ import { compareVersions, rootClassOf, type PackError } from '../../components/p
 import { builtInComponents, ensurePackBlocks } from '../../components/registry';
 import type { BlockPack, LibraryEntry, PackBlock, PackInfo } from '../../components/types';
 import { deleteBlockPack, listBlockPacks, putBlockPack } from '../../persistence/db';
-import { upgradeNotice, upgradeProjectToPack, type UpgradeRule } from './packUpdates';
+import {
+  upgradeNotice,
+  upgradeProjectToPack,
+  withoutUnusedDefinitions,
+  type UpgradeRule,
+} from './packUpdates';
 
 export function blockCountLabel(count: number): string {
   return count === 1 ? '1 block' : `${count} blocks`;
@@ -91,7 +96,8 @@ export function syncProjectWithLibrary(): AppThunk<Promise<void>> {
     const packs = await dispatch(loadPackLibrary());
     for (const pack of packs) await dispatch(upgradeOpenProject(pack, 'newer'));
     const { project, editor } = getState();
-    for (const pack of missingPacks(project.packBlocks, editor.blockPacks)) {
+    const usedBlocks = withoutUnusedDefinitions(project).packBlocks;
+    for (const pack of missingPacks(usedBlocks, editor.blockPacks)) {
       dispatch(
         noticeShown(
           'info',

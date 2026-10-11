@@ -10,7 +10,7 @@
       "name": "windowTitle",
       "label": "Window title",
       "type": "text",
-      "default": "fieldnote — zsh",
+      "default": "fieldnote - zsh",
       "group": "Window"
     },
     {

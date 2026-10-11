@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createBlankProject } from '../../app/projectFactory';
 import type { Token } from '../../app/types';
-import { contrastRatio, contrastWarnings, resolveColor, toPickerHex } from './colors';
+import { contrastRatio, contrastWarnings, oklchToHex, resolveColor, toPickerHex } from './colors';
 
 function cleanTokens(): Record<string, Token> {
   return createBlankProject('Test').designSystem.tokens;
@@ -99,5 +99,32 @@ describe('contrastWarnings', () => {
         background: expect.objectContaining({ name: '--theme-dark-background' }),
       }),
     ]);
+  });
+});
+
+describe('oklchToHex', () => {
+  it('converts white, black and a mid grey', () => {
+    expect(oklchToHex(1, 0, 0)).toBe('#ffffff');
+    expect(oklchToHex(0, 0, 0)).toBe('#000000');
+    expect(oklchToHex(0.5, 0, 0)).toBe('#636363');
+  });
+
+  it.each([
+    { hue: 29, strongest: 'red', start: 1 },
+    { hue: 145, strongest: 'green', start: 3 },
+    { hue: 264, strongest: 'blue', start: 5 },
+  ])('makes $strongest the strongest channel at hue $hue', ({ hue, start }) => {
+    const hex = oklchToHex(0.6, 0.12, hue);
+    const strongest = Number.parseInt(hex.slice(start, start + 2), 16);
+    for (const other of [1, 3, 5]) {
+      if (other === start) continue;
+      expect(strongest).toBeGreaterThan(Number.parseInt(hex.slice(other, other + 2), 16));
+    }
+  });
+
+  it('tones down a color no screen can show instead of breaking it', () => {
+    const hex = oklchToHex(0.9, 0.4, 150);
+    expect(hex).toMatch(/^#[0-9a-f]{6}$/);
+    expect(contrastRatio('#000000', hex)).toBeGreaterThan(10);
   });
 });

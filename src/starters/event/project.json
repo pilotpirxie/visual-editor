@@ -3,7 +3,7 @@
   "id": "starter-event",
   "settings": {
     "title": "Gridlines",
-    "description": "Gridlines is a two-day conference on software for the energy transition, 19–20 November 2026 at Kraftwerk Berlin.",
+    "description": "Gridlines is a two-day conference on software for the energy transition, 19-20 November 2026 at Kraftwerk Berlin.",
     "language": "en",
     "titleTemplate": "{{page.title}} | {{site.title}}",
     "indexable": true
@@ -432,7 +432,7 @@
           "home-cta"
         ],
         "seo": {
-          "description": "Gridlines 2026: two days of talks and workshops on software for the energy transition, 19–20 November at Kraftwerk Berlin.",
+          "description": "Gridlines 2026: two days of talks and workshops on software for the energy transition, 19-20 November at Kraftwerk Berlin.",
           "noindex": false
         },
         "showSharedHeader": true,
@@ -444,7 +444,7 @@
         "slug": "schedule",
         "blockIds": ["schedule-hero", "schedule-agenda", "schedule-party", "schedule-cta"],
         "seo": {
-          "description": "The full Gridlines 2026 schedule: keynotes, track talks, workshops and the Thursday party, 19–20 November in Berlin.",
+          "description": "The full Gridlines 2026 schedule: keynotes, track talks, workshops and the Thursday party, 19-20 November in Berlin.",
           "noindex": false
         },
         "showSharedHeader": true,
@@ -611,7 +611,7 @@
         "kind": "component",
         "componentId": "footer-columns",
         "values": {
-          "tagline": "The conference for people who write software for the energy transition. 19–20 November 2026 at Kraftwerk Berlin.",
+          "tagline": "The conference for people who write software for the energy transition. 19-20 November 2026 at Kraftwerk Berlin.",
           "productTitle": "Conference",
           "productLinks": [
             {
@@ -752,7 +752,7 @@
         "kind": "component",
         "componentId": "hero-background",
         "values": {
-          "eyebrow": "19–20 November 2026 · Kraftwerk Berlin",
+          "eyebrow": "19-20 November 2026 · Kraftwerk Berlin",
           "title": "Software for a grid that runs on wind and sun",
           "text": "Two days of talks and hands-on workshops for the engineers, data scientists and product people building the energy transition, inside a former power station.",
           "primaryButton": {

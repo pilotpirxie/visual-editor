@@ -47,7 +47,7 @@
       "name": "window",
       "label": "Time window",
       "type": "text",
-      "default": "Sat 02:00–04:00 ET",
+      "default": "Sat 02:00-04:00 ET",
       "maxLength": 40,
       "group": "Notice"
     },

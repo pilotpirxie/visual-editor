@@ -1,0 +1,2668 @@
+{
+  "schemaVersion": 1,
+  "id": "starter-studio",
+  "settings": {
+    "title": "Hartwell Arden",
+    "description": "Hartwell Arden is an architecture and interiors studio in Bath, designing houses, listed building repairs and small public buildings across the West of England since 2008.",
+    "language": "en",
+    "titleTemplate": "{{page.title}} | {{site.title}}",
+    "indexable": true
+  },
+  "designSystem": {
+    "presetId": "luxury",
+    "tokens": {
+      "--color-primary": {
+        "name": "--color-primary",
+        "label": "Primary",
+        "group": "color",
+        "value": "#d4a64a"
+      },
+      "--color-primary-contrast": {
+        "name": "--color-primary-contrast",
+        "label": "Primary contrast",
+        "group": "color",
+        "value": "#1a1408"
+      },
+      "--color-background": {
+        "name": "--color-background",
+        "label": "Background",
+        "group": "color",
+        "value": "#14110d"
+      },
+      "--color-surface": {
+        "name": "--color-surface",
+        "label": "Surface",
+        "group": "color",
+        "value": "#1f1a14"
+      },
+      "--color-text": {
+        "name": "--color-text",
+        "label": "Text",
+        "group": "color",
+        "value": "#f5efe4"
+      },
+      "--color-text-muted": {
+        "name": "--color-text-muted",
+        "label": "Muted text",
+        "group": "color",
+        "value": "#bfb4a2"
+      },
+      "--color-border": {
+        "name": "--color-border",
+        "label": "Border",
+        "group": "color",
+        "value": "#3a3126"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#0b0906"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#17130e"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#f5efe4"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#bfb4a2"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#2e271e"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#d4a64a"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#1a1408"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--font-heading": {
+        "name": "--font-heading",
+        "label": "Heading font",
+        "group": "typography",
+        "value": "\"Playfair Display\", ui-serif, Georgia, serif"
+      },
+      "--font-body": {
+        "name": "--font-body",
+        "label": "Body font",
+        "group": "typography",
+        "value": "\"Manrope\", system-ui, sans-serif"
+      },
+      "--font-mono": {
+        "name": "--font-mono",
+        "label": "Mono font",
+        "group": "typography",
+        "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+      },
+      "--font-weight-heading": {
+        "name": "--font-weight-heading",
+        "label": "Heading weight",
+        "group": "typography",
+        "value": "600"
+      },
+      "--font-weight-regular": {
+        "name": "--font-weight-regular",
+        "label": "Body weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-bold": {
+        "name": "--font-weight-bold",
+        "label": "Bold weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--text-xs": {
+        "name": "--text-xs",
+        "label": "Extra small",
+        "group": "typography",
+        "value": "0.598rem"
+      },
+      "--text-sm": {
+        "name": "--text-sm",
+        "label": "Small",
+        "group": "typography",
+        "value": "0.7971rem"
+      },
+      "--text-base": {
+        "name": "--text-base",
+        "label": "Base",
+        "group": "typography",
+        "value": "1.0625rem"
+      },
+      "--text-lg": {
+        "name": "--text-lg",
+        "label": "Large",
+        "group": "typography",
+        "value": "1.4163rem"
+      },
+      "--text-xl": {
+        "name": "--text-xl",
+        "label": "XL",
+        "group": "typography",
+        "value": "1.8879rem"
+      },
+      "--text-2xl": {
+        "name": "--text-2xl",
+        "label": "2XL",
+        "group": "typography",
+        "value": "2.5166rem"
+      },
+      "--text-3xl": {
+        "name": "--text-3xl",
+        "label": "3XL",
+        "group": "typography",
+        "value": "clamp(1.9673rem, 1.5048rem + 2.3123vw, 3.3547rem)"
+      },
+      "--text-4xl": {
+        "name": "--text-4xl",
+        "label": "4XL",
+        "group": "typography",
+        "value": "clamp(2.2948rem, 1.5692rem + 3.6282vw, 4.4718rem)"
+      },
+      "--text-5xl": {
+        "name": "--text-5xl",
+        "label": "5XL",
+        "group": "typography",
+        "value": "clamp(2.6769rem, 1.5823rem + 5.4732vw, 5.9609rem)"
+      },
+      "--line-height-tight": {
+        "name": "--line-height-tight",
+        "label": "Heading line height",
+        "group": "typography",
+        "value": "1.15"
+      },
+      "--line-height-normal": {
+        "name": "--line-height-normal",
+        "label": "Body line height",
+        "group": "typography",
+        "value": "1.7"
+      },
+      "--space-1": {
+        "name": "--space-1",
+        "label": "Space 1",
+        "group": "spacing",
+        "value": "0.3125rem"
+      },
+      "--space-2": {
+        "name": "--space-2",
+        "label": "Space 2",
+        "group": "spacing",
+        "value": "0.625rem"
+      },
+      "--space-3": {
+        "name": "--space-3",
+        "label": "Space 3",
+        "group": "spacing",
+        "value": "0.9375rem"
+      },
+      "--space-4": {
+        "name": "--space-4",
+        "label": "Space 4",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--space-6": {
+        "name": "--space-6",
+        "label": "Space 6",
+        "group": "spacing",
+        "value": "1.875rem"
+      },
+      "--space-8": {
+        "name": "--space-8",
+        "label": "Space 8",
+        "group": "spacing",
+        "value": "2.5rem"
+      },
+      "--space-12": {
+        "name": "--space-12",
+        "label": "Space 12",
+        "group": "spacing",
+        "value": "3.75rem"
+      },
+      "--space-16": {
+        "name": "--space-16",
+        "label": "Space 16",
+        "group": "spacing",
+        "value": "5rem"
+      },
+      "--section-padding-y": {
+        "name": "--section-padding-y",
+        "label": "Section padding",
+        "group": "spacing",
+        "value": "clamp(4rem, 3rem + 5vw, 8rem)"
+      },
+      "--container-max-width": {
+        "name": "--container-max-width",
+        "label": "Container width",
+        "group": "spacing",
+        "value": "72rem"
+      },
+      "--container-padding-x": {
+        "name": "--container-padding-x",
+        "label": "Container padding",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--radius-sm": {
+        "name": "--radius-sm",
+        "label": "Small radius",
+        "group": "shape",
+        "value": "0rem"
+      },
+      "--radius-md": {
+        "name": "--radius-md",
+        "label": "Medium radius",
+        "group": "shape",
+        "value": "0rem"
+      },
+      "--radius-lg": {
+        "name": "--radius-lg",
+        "label": "Large radius",
+        "group": "shape",
+        "value": "0rem"
+      },
+      "--radius-full": {
+        "name": "--radius-full",
+        "label": "Full radius",
+        "group": "shape",
+        "value": "9999px"
+      },
+      "--border-width": {
+        "name": "--border-width",
+        "label": "Border width",
+        "group": "shape",
+        "value": "1px"
+      },
+      "--shadow-sm": {
+        "name": "--shadow-sm",
+        "label": "Small shadow",
+        "group": "elevation",
+        "value": "0 1px 2px rgb(0 0 0 / 0.35)"
+      },
+      "--shadow-md": {
+        "name": "--shadow-md",
+        "label": "Medium shadow",
+        "group": "elevation",
+        "value": "0 6px 16px rgb(0 0 0 / 0.4)"
+      },
+      "--shadow-lg": {
+        "name": "--shadow-lg",
+        "label": "Large shadow",
+        "group": "elevation",
+        "value": "0 16px 40px rgb(0 0 0 / 0.5)"
+      },
+      "--button-radius": {
+        "name": "--button-radius",
+        "label": "Button radius",
+        "group": "component",
+        "value": "var(--radius-md)"
+      },
+      "--button-padding-y": {
+        "name": "--button-padding-y",
+        "label": "Button padding Y",
+        "group": "component",
+        "value": "0.75rem"
+      },
+      "--button-padding-x": {
+        "name": "--button-padding-x",
+        "label": "Button padding X",
+        "group": "component",
+        "value": "1.25rem"
+      },
+      "--card-radius": {
+        "name": "--card-radius",
+        "label": "Card radius",
+        "group": "component",
+        "value": "var(--radius-lg)"
+      },
+      "--card-shadow": {
+        "name": "--card-shadow",
+        "label": "Card shadow",
+        "group": "component",
+        "value": "var(--shadow-sm)"
+      },
+      "--transition-fast": {
+        "name": "--transition-fast",
+        "label": "Fast",
+        "group": "motion",
+        "value": "120ms"
+      },
+      "--transition-normal": {
+        "name": "--transition-normal",
+        "label": "Normal",
+        "group": "motion",
+        "value": "200ms"
+      }
+    },
+    "fonts": [
+      {
+        "role": "heading",
+        "family": "Playfair Display",
+        "weights": [600]
+      },
+      {
+        "role": "body",
+        "family": "Manrope",
+        "weights": [400, 700]
+      }
+    ],
+    "generators": {
+      "typeBasePx": 17,
+      "typeRatio": 1.333,
+      "spaceUnitPx": 5
+    },
+    "iconSet": "iconoir"
+  },
+  "pages": {
+    "ids": ["home", "projects", "studio", "journal", "contact"],
+    "entities": {
+      "home": {
+        "id": "home",
+        "name": "Home",
+        "slug": "home",
+        "blockIds": [
+          "home-hero",
+          "home-press",
+          "home-projects",
+          "home-numbers",
+          "home-letter",
+          "home-awards",
+          "home-cta"
+        ],
+        "seo": {
+          "description": "Hartwell Arden is a studio of fourteen in Bath designing new houses, listed building repairs, interiors and small public buildings in stone, timber and lime.",
+          "title": "Architecture and interiors studio in Bath",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "projects": {
+        "id": "projects",
+        "name": "Projects",
+        "slug": "projects",
+        "blockIds": [
+          "projects-hero",
+          "projects-albums",
+          "projects-featured",
+          "projects-retrofit",
+          "projects-case",
+          "projects-cta"
+        ],
+        "seo": {
+          "description": "Sixty-four completed buildings since 2008, including Lime Kiln House, Saltford Boathouse, The Orangery at Combe Hay and Walcot Yard.",
+          "title": "Houses, retrofits and public buildings",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "studio": {
+        "id": "studio",
+        "name": "Studio",
+        "slug": "studio",
+        "blockIds": [
+          "studio-hero",
+          "studio-founder",
+          "studio-team",
+          "studio-process",
+          "studio-history",
+          "studio-credits",
+          "studio-cta"
+        ],
+        "seo": {
+          "description": "Meet the people of Hartwell Arden, read the four rules we design by and see how a project runs from the first site walk to the one-year visit.",
+          "title": "The studio, the team and how we work",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "journal": {
+        "id": "journal",
+        "name": "Journal",
+        "slug": "journal",
+        "blockIds": [
+          "journal-hero",
+          "journal-front",
+          "journal-series",
+          "journal-interview",
+          "journal-press",
+          "journal-letter"
+        ],
+        "seo": {
+          "description": "Pieces from the Hartwell Arden studio on lime, stone, retrofit, planning and the makers we work with, plus a quarterly letter.",
+          "title": "Journal: notes on building well",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "contact": {
+        "id": "contact",
+        "name": "Contact",
+        "slug": "contact",
+        "blockIds": [
+          "contact-hero",
+          "contact-form",
+          "contact-person",
+          "contact-directions",
+          "contact-faq"
+        ],
+        "seo": {
+          "description": "Send a project brief, call the studio or visit us at The Old Maltings, 12 Walcot Street, Bath. First site visits are free within ninety minutes of Bath.",
+          "title": "Start a project or visit the studio",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      }
+    },
+    "homePageId": "home"
+  },
+  "blocks": {
+    "ids": [
+      "nav",
+      "footer",
+      "home-hero",
+      "home-press",
+      "home-projects",
+      "home-numbers",
+      "home-letter",
+      "home-awards",
+      "home-cta",
+      "projects-hero",
+      "projects-albums",
+      "projects-featured",
+      "projects-retrofit",
+      "projects-case",
+      "projects-cta",
+      "studio-hero",
+      "studio-founder",
+      "studio-team",
+      "studio-process",
+      "studio-history",
+      "studio-credits",
+      "studio-cta",
+      "journal-hero",
+      "journal-front",
+      "journal-series",
+      "journal-interview",
+      "journal-press",
+      "journal-letter",
+      "contact-hero",
+      "contact-form",
+      "contact-person",
+      "contact-directions",
+      "contact-faq"
+    ],
+    "entities": {
+      "nav": {
+        "id": "nav",
+        "kind": "component",
+        "componentId": "nav-index",
+        "values": {
+          "meta": "Bath · Architecture and interiors",
+          "links": [
+            {
+              "label": "Projects",
+              "link": {
+                "type": "page",
+                "pageId": "projects",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Studio",
+              "link": {
+                "type": "page",
+                "pageId": "studio",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Journal",
+              "link": {
+                "type": "page",
+                "pageId": "journal",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "page",
+                "pageId": "contact",
+                "newTab": false
+              }
+            }
+          ],
+          "menuIcon": "menu"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "footer": {
+        "id": "footer",
+        "kind": "component",
+        "componentId": "footer-sitemap",
+        "values": {
+          "eyebrow": "Site index",
+          "pages": [
+            {
+              "label": "Projects",
+              "note": "Houses, retrofits and public buildings since 2008",
+              "link": {
+                "type": "page",
+                "pageId": "projects",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Studio",
+              "note": "Fourteen people in an old maltings on Walcot Street",
+              "link": {
+                "type": "page",
+                "pageId": "studio",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Journal",
+              "note": "Notes on stone, daylight and building well",
+              "link": {
+                "type": "page",
+                "pageId": "journal",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "note": "Start with a conversation and a walk around the site",
+              "link": {
+                "type": "page",
+                "pageId": "contact",
+                "newTab": false
+              }
+            }
+          ],
+          "copyright": "© 2026 Hartwell Arden Architects Ltd. The Old Maltings, 12 Walcot Street, Bath BA1 5BG.",
+          "legal": [
+            {
+              "label": "Privacy",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Terms of appointment",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Instagram",
+              "link": {
+                "type": "url",
+                "url": "https://www.instagram.com",
+                "newTab": true
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-hero": {
+        "id": "home-hero",
+        "kind": "component",
+        "componentId": "hero-cover",
+        "values": {
+          "eyebrow": "Architecture and interiors, Bath",
+          "title": "Buildings that belong to the ground they stand on",
+          "text": "Hartwell Arden is a studio of fourteen designing houses, interiors and small public buildings across the West of England since 2008. We work in stone, timber and lime, and we stay with every project until the keys change hands.",
+          "primaryButton": {
+            "label": "See the projects",
+            "link": {
+              "type": "page",
+              "pageId": "projects",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Start a project",
+            "link": {
+              "type": "page",
+              "pageId": "contact",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Lime Kiln House at dusk, a low stone and oak house set against the face of a disused quarry near Mells",
+            "decorative": false,
+            "width": 1200,
+            "height": 675,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "photo"
+            }
+          },
+          "showScroll": true,
+          "scrollLink": {
+            "type": "section",
+            "anchor": "work",
+            "newTab": false
+          },
+          "scrollLabel": "Scroll to selected work"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-press": {
+        "id": "home-press",
+        "kind": "component",
+        "componentId": "logos-press",
+        "values": {
+          "title": "As featured in",
+          "items": [
+            {
+              "publication": "Dwelling Quarterly",
+              "headline": "A quarry house that barely disturbs the quarry",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": true
+              }
+            },
+            {
+              "publication": "The Stone Review",
+              "headline": "Bath stone, cut thick and used honestly",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": true
+              }
+            },
+            {
+              "publication": "West Country Life",
+              "headline": "The boathouse a rowing club helped to build",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": true
+              }
+            },
+            {
+              "publication": "Plan & Section",
+              "headline": "A Georgian townhouse at a third of the energy",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": true
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-projects": {
+        "id": "home-projects",
+        "kind": "component",
+        "componentId": "gallery-projects",
+        "values": {
+          "eyebrow": "Selected work",
+          "title": "Four recent buildings",
+          "showButton": true,
+          "button": {
+            "label": "All projects",
+            "link": {
+              "type": "page",
+              "pageId": "projects",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "projects": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Lime Kiln House seen from the quarry floor, with a long oak-framed window under a meadow roof",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "title": "Lime Kiln House",
+              "summary": "A three-bedroom house built into a disused quarry near Mells",
+              "category": "New house",
+              "year": "2023",
+              "size": "wide",
+              "link": {
+                "type": "page",
+                "pageId": "projects",
+                "newTab": false
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Saltford Boathouse on the bank of the River Avon, clad in silvered larch with its boat hall doors open",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "title": "Saltford Boathouse",
+              "summary": "A timber boat hall and clubroom on the River Avon",
+              "category": "Community",
+              "year": "2024",
+              "size": "regular",
+              "link": {
+                "type": "page",
+                "pageId": "projects",
+                "newTab": false
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A slim steel and glass garden room against the stone wall of a Georgian rectory at Combe Hay",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "title": "The Orangery, Combe Hay",
+              "summary": "A glazed garden room for a Grade II* listed rectory",
+              "category": "Listed building",
+              "year": "2022",
+              "size": "regular",
+              "link": {
+                "type": "page",
+                "pageId": "projects",
+                "newTab": false
+              }
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A cobbled mews of six Bath stone houses with oak doors and small walled courts at Walcot Yard",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "title": "Walcot Yard",
+              "summary": "Six mews houses on a former builder’s yard in Bath",
+              "category": "Housing",
+              "year": "2021",
+              "size": "wide",
+              "link": {
+                "type": "page",
+                "pageId": "projects",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "anchor": "work",
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-numbers": {
+        "id": "home-numbers",
+        "kind": "component",
+        "componentId": "stats-sentence",
+        "values": {
+          "eyebrow": "Since 2008",
+          "title": "The studio in numbers",
+          "segments": [
+            {
+              "text": "Since 2008 we have finished",
+              "number": "64"
+            },
+            {
+              "text": "buildings across",
+              "number": "9"
+            },
+            {
+              "text": "counties, including",
+              "number": "23"
+            },
+            {
+              "text": "listed ones, taking an average of",
+              "number": "31"
+            },
+            {
+              "text": "months from first sketch to moving in.",
+              "number": ""
+            }
+          ],
+          "numberStyle": "marker",
+          "source": "Completed projects, January 2008 to December 2025. Timings leave out projects paused by the client.",
+          "button": {
+            "label": "Read how we work",
+            "link": {
+              "type": "page",
+              "pageId": "studio",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-letter": {
+        "id": "home-letter",
+        "kind": "component",
+        "componentId": "testimonial-letter",
+        "values": {
+          "eyebrow": "From a client",
+          "title": "A letter that arrived after the first winter",
+          "date": "Mells, February 2024",
+          "stamp": "With thanks",
+          "greeting": "Dear Imogen, Tobias and everyone at the studio,",
+          "letter": "We have now spent a full winter in the house. The second boiler we budgeted for was never fitted, the kitchen is warm by eight every morning from the sun alone, and the children have stopped noticing that their bedroom wall is a quarry face.\nYou told us at the first meeting that the site would do half the work if we let it. It has. Thank you for arguing with us about the size of the windows, and for being right.",
+          "signoff": "With love from all four of us,",
+          "name": "Catherine Aldridge",
+          "role": "Client, Lime Kiln House"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-awards": {
+        "id": "home-awards",
+        "kind": "component",
+        "componentId": "content-awards",
+        "values": {
+          "eyebrow": "Recognition",
+          "title": "Awards and shortlists",
+          "summary": "Nineteen awards since 2011. We only enter buildings that have been lived in for a year.",
+          "awards": [
+            {
+              "year": "2025",
+              "award": "West of England Design Award",
+              "project": "Saltford Boathouse",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "year": "2024",
+              "award": "Somerset House of the Year",
+              "project": "Lime Kiln House",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "year": "2024",
+              "award": "Timber Building Award, shortlist",
+              "project": "Saltford Boathouse",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "year": "2023",
+              "award": "Georgian City Conservation Award",
+              "project": "The Orangery, Combe Hay",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "year": "2022",
+              "award": "National Retrofit Prize, finalist",
+              "project": "Lansdown Townhouse",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "year": "2021",
+              "award": "Bath Housing Design Award",
+              "project": "Walcot Yard",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-cta": {
+        "id": "home-cta",
+        "kind": "component",
+        "componentId": "cta-big-link",
+        "values": {
+          "kicker": "Have a site, a house or just a question?",
+          "label": "Start a project with us",
+          "link": {
+            "type": "page",
+            "pageId": "contact",
+            "newTab": false
+          },
+          "details": [
+            {
+              "text": "studio@hartwellarden.example"
+            },
+            {
+              "text": "+44 1632 960142"
+            },
+            {
+              "text": "12 Walcot Street, Bath BA1 5BG"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--theme-primary-background)",
+          "--color-surface": "var(--theme-primary-surface)",
+          "--color-text": "var(--theme-primary-text)",
+          "--color-text-muted": "var(--theme-primary-text-muted)",
+          "--color-border": "var(--theme-primary-border)",
+          "--color-primary": "var(--theme-primary-accent)",
+          "--color-primary-contrast": "var(--theme-primary-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "projects-hero": {
+        "id": "projects-hero",
+        "kind": "component",
+        "componentId": "hero-editorial",
+        "values": {
+          "eyebrow": "Projects, 2008 to 2026",
+          "title": "Sixty-four buildings, each drawn for one site",
+          "intro": "We take on six to eight commissions a year, most of them within ninety minutes of Bath. About half are new houses, a third are listed buildings and retrofits, and the rest are interiors and small public buildings.",
+          "facts": [
+            {
+              "label": "On site now",
+              "value": "Kennet Reading Room, Devizes"
+            },
+            {
+              "label": "Most recent",
+              "value": "Saltford Boathouse, 2024"
+            },
+            {
+              "label": "Typical build cost",
+              "value": "£450k to £2.4m"
+            }
+          ],
+          "linkLabel": "Browse by kind of building",
+          "link": {
+            "type": "section",
+            "anchor": "albums",
+            "newTab": false
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "projects-albums": {
+        "id": "projects-albums",
+        "kind": "component",
+        "componentId": "gallery-albums",
+        "values": {
+          "eyebrow": "By type",
+          "title": "Browse the work by kind of building",
+          "intro": "Three albums, five photographs each. Every building here has been lived in or used for at least a year.",
+          "albums": [
+            {
+              "name": "New houses",
+              "text": "Lime Kiln House, Tithe Barn and Walcot Yard",
+              "photos": [
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "The living room of Lime Kiln House with the raw quarry face as its back wall and an oak floor",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                },
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "The meadow roof of Lime Kiln House seen from the top of the quarry",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                },
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "The oak-framed gable of Tithe Barn at Priston with a new glazed threshing door",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                },
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "A walled court at Walcot Yard with a fig tree and a bench of Bath stone",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                },
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "A kitchen at Walcot Yard with pale ash cabinets and a rooflight over the table",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Listed and retrofit",
+              "text": "The Orangery, Lansdown Townhouse and Sion Hill",
+              "photos": [
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Inside the Orangery at Combe Hay, with slim steel columns and a lime floor running to the garden wall",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                },
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "The rear of Lansdown Townhouse in repaired Bath stone with new sash windows",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                },
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "A restored stone staircase and iron balustrade at Lansdown Townhouse",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                },
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "The drawing room of the Sion Hill apartment with lime plaster walls and an oak bookcase",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                },
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "A bathroom at Sion Hill lined in honed limestone with a brass towel rail",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Public and community",
+              "text": "Saltford Boathouse and Kennet Reading Room",
+              "photos": [
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Rowing shells on timber racks inside the boat hall at Saltford Boathouse",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                },
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "The clubroom at Saltford Boathouse with a Douglas fir roof and a long window to the river",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                },
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "Club members carrying a boat down the larch slipway at Saltford",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                },
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "A card model of the Kennet Reading Room on the studio table",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                },
+                {
+                  "image": {
+                    "source": "placeholder",
+                    "src": "",
+                    "alt": "The timber frame of the Kennet Reading Room going up on site in Devizes",
+                    "decorative": false,
+                    "width": 1200,
+                    "height": 1200,
+                    "placeholder": {
+                      "ratio": "1:1",
+                      "subject": "photo"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "anchor": "albums",
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "projects-featured": {
+        "id": "projects-featured",
+        "kind": "component",
+        "componentId": "gallery-sticky",
+        "values": {
+          "eyebrow": "In depth",
+          "title": "Four buildings, told in order",
+          "intro": "The same questions for each: what was there, what we added and what it is like to live with.",
+          "items": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Lime Kiln House in morning light, its oak front facing a meadow and its back to the quarry wall",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "title": "Lime Kiln House, Mells",
+              "text": "A three-bedroom house tucked against the face of a quarry that last produced stone in 1961. The quarry wall is the back of every room. The front is oak, glass and a meadow roof.",
+              "meta": "2023 · 212 m² · New house"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Saltford Boathouse from the water, with the clubroom balcony above the open boat hall",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "title": "Saltford Boathouse",
+              "text": "A boat hall for forty shells with a clubroom above, built in larch and Douglas fir. Club members laid the balcony decking themselves over three weekends.",
+              "meta": "2024 · 640 m² · Community building"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The Orangery at Combe Hay at night, glowing against the dark stone of the rectory",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "title": "The Orangery, Combe Hay",
+              "text": "A garden room added to a Grade II* listed rectory. Slim steel, hand-blown glass and a lime floor that follows the line of the old kitchen garden wall.",
+              "meta": "2022 · 58 m² · Listed building"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The entrance to Walcot Yard from Walcot Street, through a stone arch into the mews",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "title": "Walcot Yard, Bath",
+              "text": "Six mews houses on a former builder’s yard, each with its own walled court. All six sold to people who already lived within a mile.",
+              "meta": "2021 · 6 homes · Housing"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "projects-retrofit": {
+        "id": "projects-retrofit",
+        "kind": "component",
+        "componentId": "gallery-before-after",
+        "values": {
+          "eyebrow": "Retrofit",
+          "title": "Lansdown Townhouse, before and after",
+          "intro": "A Grade II listed Georgian house of 1792, taken from an F to a B energy rating without touching the street front.",
+          "pairs": [
+            {
+              "title": "Basement kitchen",
+              "text": "A damp servants’ kitchen became the main family room, with a lime and hemp floor and a new opening to the garden.",
+              "before": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The basement kitchen before work, with peeling paint, a concrete floor and one small barred window",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "after": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The finished basement kitchen with a pale lime floor, an oak table and glazed doors open to the garden",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            },
+            {
+              "title": "Rear elevation",
+              "text": "Cement render came off, the Bath stone was repaired and slim double-glazed sashes went into the original boxes.",
+              "before": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The rear of the townhouse before work, covered in cracked grey cement render",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "after": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The repaired rear elevation in honey-coloured Bath stone with new sash windows",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              }
+            }
+          ],
+          "beforeLabel": "Before",
+          "afterLabel": "After"
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "projects-case": {
+        "id": "projects-case",
+        "kind": "component",
+        "componentId": "testimonial-case-study",
+        "values": {
+          "logo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Saltford Rowing Club",
+            "decorative": false,
+            "width": 1200,
+            "height": 514,
+            "placeholder": {
+              "ratio": "21:9",
+              "subject": "logo"
+            }
+          },
+          "eyebrow": "Case study",
+          "title": "A boathouse built in three phases for £1.9m",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The larch-clad boathouse at the river’s edge with its boat hall doors open at dawn",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "quote": "We came with a flooded shed and a fundraising target that kept moving. Hartwell Arden designed something we could build in stages, and put our own members to work on the parts we could do ourselves.",
+          "name": "David Okonkwo",
+          "role": "Chair, Saltford Rowing Club",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "David Okonkwo",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "metrics": [
+            {
+              "value": "£1.9m",
+              "label": "total build cost"
+            },
+            {
+              "value": "3",
+              "label": "building phases"
+            },
+            {
+              "value": "140",
+              "label": "new members since opening"
+            }
+          ],
+          "linkLabel": "Read the full story in the journal",
+          "link": {
+            "type": "page",
+            "pageId": "journal",
+            "newTab": false
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "projects-cta": {
+        "id": "projects-cta",
+        "kind": "component",
+        "componentId": "cta-two-cards",
+        "values": {
+          "title": "Two ways to begin",
+          "paths": [
+            {
+              "icon": "house",
+              "title": "A new house or extension",
+              "text": "Send us the site address and a rough budget. We will visit, walk the plot with you and tell you honestly what it can take.",
+              "button": {
+                "label": "Send a project brief",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "brief",
+                  "newTab": false
+                },
+                "variant": "primary"
+              },
+              "highlight": true
+            },
+            {
+              "icon": "search",
+              "title": "A listed building or retrofit",
+              "text": "Start with a one-day survey and a written report on fabric, damp and energy. It costs £950 and is yours to keep, whoever you appoint.",
+              "button": {
+                "label": "Ask about a survey",
+                "link": {
+                  "type": "page",
+                  "pageId": "contact",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              },
+              "highlight": false
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "studio-hero": {
+        "id": "studio-hero",
+        "kind": "component",
+        "componentId": "hero-manifesto",
+        "values": {
+          "eyebrow": "The studio",
+          "title": "Fourteen people who would rather build less, better",
+          "text": "We are architects, interior designers and one very patient studio manager, working from a converted maltings on Walcot Street. These four rules decide what we take on and how we draw it.",
+          "button": {
+            "label": "Meet the team",
+            "link": {
+              "type": "section",
+              "anchor": "team",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "principles": [
+            {
+              "title": "The site draws the first line",
+              "text": "We visit in morning and evening light before anyone opens a laptop."
+            },
+            {
+              "title": "Repair before replace",
+              "text": "The greenest wall is usually the one already standing."
+            },
+            {
+              "title": "Three materials, used honestly",
+              "text": "Stone, timber and lime, each left to look like itself."
+            },
+            {
+              "title": "We stay until the snagging is done",
+              "text": "The same architect from first sketch to the one-year visit."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "studio-founder": {
+        "id": "studio-founder",
+        "kind": "component",
+        "componentId": "content-founder",
+        "values": {
+          "eyebrow": "A note from Imogen",
+          "title": "Why we turned down the biggest job we were ever offered",
+          "letter": "<p>In 2016 a developer asked us to design 140 houses on a field outside Keynsham. It would have tripled the size of the studio. Tobias and I spent a weekend with the drawings and then said no.</p><p>We had worked out that neither of us would ever stand inside more than a handful of those houses. The practice we wanted was one where the person who draws the staircase is the person who checks it on site with a tape measure.</p><p>So we stayed small. We take six to eight commissions a year, and each one has a director on it from the first walk around the site to the visit a year after moving in. It is a slower way to run a studio. We think the buildings are better for it.</p>",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Imogen Hartwell at her drawing board in the Walcot Street studio",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "person"
+            }
+          },
+          "name": "Imogen Hartwell",
+          "role": "Founding director, Hartwell Arden"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "studio-team": {
+        "id": "studio-team",
+        "kind": "component",
+        "componentId": "team-bios",
+        "values": {
+          "eyebrow": "The team",
+          "title": "Who you will be working with",
+          "intro": "Six of the fourteen. Open a card to read how each of us came to the studio.",
+          "people": [
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Imogen Hartwell",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Imogen Hartwell",
+              "role": "Founding director, architect",
+              "bio": "Trained in Bath and London, then spent seven years on conservation projects in Edinburgh before coming home to start the studio. Leads our new houses and still draws every first scheme by hand.",
+              "askMe": "Ask me about quarries, lime mortar and river swimming."
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tobias Arden",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Tobias Arden",
+              "role": "Founding director, interiors",
+              "bio": "Began as a furniture maker in Frome and joined forces with Imogen in 2008. Runs the interiors team and our workshop relationships, and still chooses every door handle himself.",
+              "askMe": "Ask me about English oak and where to eat in Frome."
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Nkechi Balogun",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Nkechi Balogun",
+              "role": "Associate, conservation architect",
+              "bio": "An accredited conservation architect who joined in 2014 from a cathedral works department. Leads every listed building job and writes the heritage statements that planners enjoy reading.",
+              "askMe": "Ask me about sash windows and choir practice."
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Rafael Montes",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Rafael Montes",
+              "role": "Associate, technical lead",
+              "bio": "A certified Passivhaus designer from Valencia. Joined in 2017 and has since modelled the energy use of every project before it reaches planning.",
+              "askMe": "Ask me about airtightness tests and road cycling."
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Hannah Whitcombe",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Hannah Whitcombe",
+              "role": "Senior interior designer",
+              "bio": "Came to us from a hotel design studio in London in 2019. Designs kitchens, bathrooms and the quiet details: where the light switch sits and how a drawer closes.",
+              "askMe": "Ask me about plaster finishes and second-hand rugs."
+            },
+            {
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Sadie Ferris",
+                "decorative": false,
+                "width": 900,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "3:4",
+                  "subject": "person"
+                }
+              },
+              "name": "Sadie Ferris",
+              "role": "Studio manager",
+              "bio": "The first voice you hear when you call. Sadie has run the studio since 2012, keeps fourteen diaries and every programme honest, and organises the Friday site lunch.",
+              "askMe": "Ask me anything. I will know who to ask."
+            }
+          ],
+          "moreLabel": "Read bio",
+          "closeLabel": "Close"
+        },
+        "anchor": "team",
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "studio-process": {
+        "id": "studio-process",
+        "kind": "component",
+        "componentId": "steps-path",
+        "values": {
+          "eyebrow": "How a project runs",
+          "title": "From the first walk to the one-year visit",
+          "intro": "A typical house takes about 31 months. These are the five stages, and what you will have in your hands at the end of each.",
+          "steps": [
+            {
+              "label": "Weeks 1 to 4",
+              "title": "Walk the site and write the brief",
+              "text": "Two visits, a measured survey and a four-page brief that we both sign."
+            },
+            {
+              "label": "Months 2 to 5",
+              "title": "Sketch schemes and a model",
+              "text": "Three options drawn by hand, then one card model at 1:100 that is yours to keep."
+            },
+            {
+              "label": "Months 6 to 11",
+              "title": "Planning and listed building consent",
+              "text": "We prepare and submit the application and go to every meeting with the council."
+            },
+            {
+              "label": "Months 12 to 16",
+              "title": "Technical drawings and tender",
+              "text": "A full set of construction drawings, priced by three builders we have worked with before."
+            },
+            {
+              "label": "Months 17 to 31",
+              "title": "On site, then moving in",
+              "text": "Fortnightly site visits, a snagging list we close out, and a visit one year after you move in."
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "Talk to us about your site",
+            "link": {
+              "type": "page",
+              "pageId": "contact",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "studio-history": {
+        "id": "studio-history",
+        "kind": "component",
+        "componentId": "content-history",
+        "values": {
+          "eyebrow": "Our story",
+          "title": "Eighteen years at one address",
+          "intro": "The studio has only ever had one front door. A few of the moments that shaped what goes on behind it.",
+          "milestones": [
+            {
+              "year": "2008",
+              "title": "Two desks in the old maltings",
+              "text": "Imogen Hartwell and Tobias Arden rent a corner of the top floor at 12 Walcot Street and take on a kitchen extension in Larkhall."
+            },
+            {
+              "year": "2011",
+              "title": "The first new house",
+              "text": "Tithe Barn at Priston is finished and wins the studio its first award. The team grows to five."
+            },
+            {
+              "year": "2014",
+              "title": "Conservation becomes a discipline",
+              "text": "Nkechi Balogun joins from a cathedral works department and we take on our first Grade I listed building."
+            },
+            {
+              "year": "2017",
+              "title": "Every project gets an energy model",
+              "text": "Rafael Montes joins and we commit to modelling energy use on every job before it reaches planning."
+            },
+            {
+              "year": "2021",
+              "title": "Walcot Yard",
+              "text": "Six mews houses a hundred metres from our own front door, and our first housing scheme as lead designer."
+            },
+            {
+              "year": "2024",
+              "title": "A boathouse and a bigger studio",
+              "text": "Saltford Boathouse opens and we take the whole top floor of the maltings. Fourteen people, still one address."
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "studio-credits": {
+        "id": "studio-credits",
+        "kind": "component",
+        "componentId": "team-credits",
+        "values": {
+          "eyebrow": "Credits",
+          "title": "Our buildings are also made by",
+          "intro": "The engineers, makers and growers we call first, all within forty miles of Bath.",
+          "credits": [
+            {
+              "role": "Structural engineers",
+              "names": "Corbel Structures"
+            },
+            {
+              "role": "Stonemasons",
+              "names": "Box Ground Masonry"
+            },
+            {
+              "role": "Joinery",
+              "names": "Harptree Joinery\nFosse Workshop"
+            },
+            {
+              "role": "Lime plaster",
+              "names": "Vellum Plasterwork"
+            },
+            {
+              "role": "Landscape",
+              "names": "Fen & Field"
+            },
+            {
+              "role": "Building services",
+              "names": "Tidewell Engineers"
+            },
+            {
+              "role": "Photography",
+              "names": "Jacob Ellory"
+            }
+          ],
+          "closing": "And the 64 clients who trusted us with the place they live. Thank you."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "studio-cta": {
+        "id": "studio-cta",
+        "kind": "component",
+        "componentId": "cta-quote",
+        "values": {
+          "title": "Thinking about a project in the next two years?",
+          "text": "The best time to talk is before you buy the site or apply for anything. A first conversation and a site visit cost nothing within ninety minutes of Bath.",
+          "primaryButton": {
+            "label": "Send a project brief",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "brief",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "See the projects",
+            "link": {
+              "type": "page",
+              "pageId": "projects",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "quote": "They talked us out of the extension we asked for and into the one we needed. It cost less and we use every inch of it.",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Marcus Field",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Marcus Field",
+          "role": "Client, Sion Hill apartment"
+        },
+        "overrides": {
+          "--color-background": "var(--theme-primary-background)",
+          "--color-surface": "var(--theme-primary-surface)",
+          "--color-text": "var(--theme-primary-text)",
+          "--color-text-muted": "var(--theme-primary-text-muted)",
+          "--color-border": "var(--theme-primary-border)",
+          "--color-primary": "var(--theme-primary-accent)",
+          "--color-primary-contrast": "var(--theme-primary-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "journal-hero": {
+        "id": "journal-hero",
+        "kind": "component",
+        "componentId": "hero-outline",
+        "values": {
+          "eyebrow": "The journal",
+          "title": "Notes from",
+          "outlineTitle": "the drawing board",
+          "text": "Four or five pieces a year on materials, planning, energy and the people who build our buildings, written by whoever in the studio knows the subject best.",
+          "primaryButton": {
+            "label": "Read the latest",
+            "link": {
+              "type": "section",
+              "anchor": "latest",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Get the quarterly letter",
+            "link": {
+              "type": "section",
+              "anchor": "letter",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "facts": [
+            {
+              "value": "62",
+              "label": "pieces since 2012"
+            },
+            {
+              "value": "4",
+              "label": "letters a year"
+            },
+            {
+              "value": "9",
+              "label": "writers in the studio"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "journal-front": {
+        "id": "journal-front",
+        "kind": "component",
+        "componentId": "blog-newspaper",
+        "values": {
+          "title": "The Walcot Street Journal",
+          "edition": "No. 62 · Autumn 2026",
+          "issueDate": "2026-10-01",
+          "tagline": "Building notes from Hartwell Arden, Bath",
+          "leadImage": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Members of Saltford Rowing Club laying larch decking on the boathouse balcony",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "leadKicker": "Project story",
+          "leadTitle": "Three weekends, forty volunteers: how a rowing club helped build its own boathouse",
+          "leadText": "When the tender for Saltford Boathouse came back £280,000 over budget, the club did not cut the clubroom. It asked which parts of the building its own members could safely build. This is the list we drew up together, and what we would do differently next time.",
+          "leadByline": "By Owen Pryce, project architect",
+          "leadLink": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          },
+          "stories": [
+            {
+              "kicker": "Materials",
+              "title": "Why we still specify lime in 2026",
+              "excerpt": "It moves, it breathes and it forgives. Cement does none of these.",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "kicker": "Planning",
+              "title": "What a conservation officer wants to see first",
+              "excerpt": "Nkechi on the two drawings that decide most listed building applications.",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "kicker": "Energy",
+              "title": "A Georgian house at a third of the energy",
+              "excerpt": "The Lansdown Townhouse numbers after two winters of monitoring.",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "kicker": "Interiors",
+              "title": "The case for one good table",
+              "excerpt": "Tobias on why we design a kitchen around a piece of furniture.",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "kicker": "Studio",
+              "title": "Friday site lunch, eleven years on",
+              "excerpt": "A tradition that began with a broken kettle at Tithe Barn.",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "kicker": "Costs",
+              "title": "What building actually costs this year",
+              "excerpt": "Our rates per square metre for new houses, retrofits and interiors.",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "anchor": "latest",
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "journal-series": {
+        "id": "journal-series",
+        "kind": "component",
+        "componentId": "blog-series",
+        "values": {
+          "eyebrow": "A four-part series",
+          "title": "Buying a listed building without regretting it",
+          "intro": "Written for people who are about to make an offer. Read it before the survey, not after.",
+          "showButton": true,
+          "button": {
+            "label": "Continue with part 3",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "parts": [
+            {
+              "label": "Part 1",
+              "status": "read",
+              "statusLabel": "Read",
+              "title": "What the listing covers, and what it does not",
+              "excerpt": "Grade II, II* and I in plain English, and the garden wall trap.",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Part 2",
+              "status": "read",
+              "statusLabel": "Read",
+              "title": "The survey to ask for",
+              "excerpt": "Why a standard homebuyer report misses most of what matters.",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Part 3",
+              "status": "next",
+              "statusLabel": "Up next",
+              "title": "Budgeting for repairs you cannot see yet",
+              "excerpt": "Roofs, lintels and drains: the three places money hides.",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Part 4",
+              "status": "upcoming",
+              "statusLabel": "Out 14 Nov",
+              "title": "Getting consent for the changes you want",
+              "excerpt": "How to talk to the conservation officer before you apply.",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "journal-interview": {
+        "id": "journal-interview",
+        "kind": "component",
+        "componentId": "content-interview",
+        "values": {
+          "eyebrow": "In conversation",
+          "title": "“Stone tells you where it wants to be cut”",
+          "intro": "Imogen Hartwell talks to the mason who has dressed the stone for eleven of our buildings, in his yard at Corsham.",
+          "hostName": "Imogen Hartwell",
+          "hostInitials": "IH",
+          "hostRole": "Founding director, Hartwell Arden",
+          "guestName": "Peter Lowther",
+          "guestInitials": "PL",
+          "guestRole": "Master mason, Box Ground Masonry",
+          "turns": [
+            {
+              "speaker": "host",
+              "text": "You have been cutting Bath stone for forty-one years. Has the stone changed, or have the architects?",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "The stone has not changed in a hundred and sixty million years. The drawings have. They used to come with a thickness on them. Now half of them say “stone cladding” and leave me to guess.",
+              "highlight": false
+            },
+            {
+              "speaker": "host",
+              "text": "What do you wish we asked you earlier?",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "Which bed the block comes from. Stone tells you where it wants to be cut. Lay it the way it lay in the ground and it will outlast the house. Turn it on edge to save money and it will shed its face in twenty winters.",
+              "highlight": true
+            },
+            {
+              "speaker": "host",
+              "text": "At Lime Kiln House we left the quarry wall bare inside. Were you worried?",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "I was worried you would seal it. You did not, so it breathes, and it will be fine. The best thing an architect can do to old stone is very little.",
+              "highlight": false
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "journal-press": {
+        "id": "journal-press",
+        "kind": "component",
+        "componentId": "content-press",
+        "values": {
+          "eyebrow": "In the press",
+          "title": "What others have written about the work",
+          "mentions": [
+            {
+              "quote": "A house that seems to have been in the quarry longer than the quarry has been disused.",
+              "publication": "Dwelling Quarterly",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": true
+              }
+            },
+            {
+              "quote": "The most persuasive argument for retrofit we have visited this year, and the least showy.",
+              "publication": "Plan & Section",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": true
+              }
+            },
+            {
+              "quote": "The boathouse is modest, exact and already loved. You cannot ask more of a public building.",
+              "publication": "The Stone Review",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": true
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "journal-letter": {
+        "id": "journal-letter",
+        "kind": "component",
+        "componentId": "newsletter-envelope",
+        "values": {
+          "stamp": "Bath",
+          "title": "The quarterly letter",
+          "text": "Four times a year we send one letter: a building we have just finished, a material we are testing and something worth visiting in the West Country. About 2,300 people read it.",
+          "emailLabel": "Email address",
+          "emailPlaceholder": "you@example.com",
+          "buttonLabel": "Send me the letter",
+          "note": "Four letters a year. Unsubscribe with one click.",
+          "formAction": "",
+          "formMethod": "post"
+        },
+        "anchor": "letter",
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-hero": {
+        "id": "contact-hero",
+        "kind": "component",
+        "componentId": "hero-map",
+        "values": {
+          "eyebrow": "Visit us in Bath",
+          "title": "See the models before you decide",
+          "text": "The studio is on the top floor of the old maltings on Walcot Street, ten minutes on foot from Bath Spa station. Most first meetings happen here, and the second one on your site.",
+          "primaryButton": {
+            "label": "Send a project brief",
+            "link": {
+              "type": "section",
+              "anchor": "brief",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Get directions",
+            "link": {
+              "type": "section",
+              "anchor": "directions",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "hours": "Monday to Friday, 9 am to 5.30 pm",
+          "mapLabel": "River Avon",
+          "pins": [
+            {
+              "label": "The studio",
+              "detail": "12 Walcot Street",
+              "x": 44,
+              "y": 34
+            },
+            {
+              "label": "Model workshop",
+              "detail": "Walcot Yard, unit 3",
+              "x": 68,
+              "y": 30
+            },
+            {
+              "label": "Bath Spa station",
+              "detail": "10 minutes on foot",
+              "x": 34,
+              "y": 68
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-form": {
+        "id": "contact-form",
+        "kind": "component",
+        "componentId": "contact-brief",
+        "values": {
+          "eyebrow": "Start a project",
+          "title": "Tell us about your site",
+          "text": "A few details help us come to the first conversation prepared. We read every brief ourselves and reply within three working days.",
+          "points": [
+            {
+              "text": "A reply from a director within three working days"
+            },
+            {
+              "text": "A first site visit at no cost within ninety minutes of Bath"
+            },
+            {
+              "text": "An honest view on budget before any drawing starts"
+            }
+          ],
+          "nameLabel": "Your name",
+          "emailLabel": "Email address",
+          "timelineLabel": "When would you like to start on site?",
+          "detailsLabel": "Tell us about the site and what you have in mind",
+          "buttonLabel": "Send brief",
+          "formAction": "",
+          "formMethod": "post",
+          "servicesLabel": "What kind of project is it?",
+          "services": [
+            {
+              "label": "New house"
+            },
+            {
+              "label": "Extension"
+            },
+            {
+              "label": "Listed building"
+            },
+            {
+              "label": "Retrofit"
+            },
+            {
+              "label": "Interiors"
+            },
+            {
+              "label": "Not sure yet"
+            }
+          ],
+          "budgetLabel": "Build budget",
+          "budgets": [
+            {
+              "label": "Under £250k"
+            },
+            {
+              "label": "£250k to £750k"
+            },
+            {
+              "label": "£750k to £1.5m"
+            },
+            {
+              "label": "Over £1.5m"
+            }
+          ],
+          "timelines": [
+            {
+              "label": "Within 6 months"
+            },
+            {
+              "label": "In 6 to 12 months"
+            },
+            {
+              "label": "In 1 to 2 years"
+            },
+            {
+              "label": "Just exploring"
+            }
+          ]
+        },
+        "anchor": "brief",
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-person": {
+        "id": "contact-person",
+        "kind": "component",
+        "componentId": "contact-person",
+        "values": {
+          "eyebrow": "Talk to a person",
+          "title": "Prefer to call? Ask for Sadie.",
+          "text": "Sadie Ferris has run the studio since 2012. She can tell you in five minutes whether we are the right practice for your project, and book you a visit if we are.",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sadie Ferris",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Sadie Ferris",
+          "role": "Studio manager",
+          "email": "sadie@hartwellarden.example",
+          "phone": "+44 1632 960142",
+          "button": {
+            "label": "Book a studio visit",
+            "link": {
+              "type": "email",
+              "url": "studio@hartwellarden.example",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "note": "Phones answered 9 am to 5.30 pm, Monday to Friday"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-directions": {
+        "id": "contact-directions",
+        "kind": "component",
+        "componentId": "content-directions",
+        "values": {
+          "eyebrow": "Find us",
+          "title": "Getting to the studio",
+          "address": "Hartwell Arden Architects\nThe Old Maltings, 12 Walcot Street\nBath BA1 5BG",
+          "pinLabel": "Hartwell Arden",
+          "modes": [
+            {
+              "icon": "lucide:train-front",
+              "mode": "By train",
+              "text": "Bath Spa station is ten minutes away on foot. London Paddington is 80 minutes by train, Bristol Temple Meads 12."
+            },
+            {
+              "icon": "lucide:car",
+              "mode": "By car",
+              "text": "Park at Cattle Market or Walcot Street car park, both two minutes away. There is no parking at the maltings."
+            },
+            {
+              "icon": "lucide:bike",
+              "mode": "By bike",
+              "text": "Racks in the courtyard behind the building, and the river path brings you almost to the door."
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "Open in maps",
+            "link": {
+              "type": "url",
+              "url": "https://maps.google.com/?q=12+Walcot+Street+Bath",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "anchor": "directions",
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-faq": {
+        "id": "contact-faq",
+        "kind": "component",
+        "componentId": "faq-large",
+        "values": {
+          "eyebrow": "Before you write",
+          "title": "Questions people ask first",
+          "intro": "Straight answers on fees, size of project and how far we travel.",
+          "items": [
+            {
+              "question": "How do you charge?",
+              "answer": "<p>For most projects, a fixed fee for each stage, agreed before the stage begins. As a guide, full services on a new house come to between 10 and 13 percent of the build cost. Listed buildings sit at the higher end.</p>"
+            },
+            {
+              "question": "Is our project too small?",
+              "answer": "<p>Our smallest recent job was a garden room of 58 m². We take on small projects when the building is interesting or the brief is unusual. We tend to say no to loft conversions and standard rear extensions, and can suggest good local practices who do them well.</p>"
+            },
+            {
+              "question": "How far from Bath do you work?",
+              "answer": "<p>Mostly within ninety minutes: Somerset, Wiltshire, Gloucestershire, Bristol and Dorset. We have built further away for returning clients, with an agreed travel budget.</p>"
+            },
+            {
+              "question": "When could you start?",
+              "answer": "<p>There is usually a wait of three to five months before a new project begins. Surveys of listed buildings can often be booked within three weeks.</p>"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      }
+    }
+  },
+  "sharedSlots": {
+    "header": ["nav"],
+    "footer": ["footer"]
+  },
+  "packBlocks": {},
+  "assets": {}
+}
