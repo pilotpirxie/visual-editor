@@ -206,24 +206,45 @@ export function buildExportFiles(
   return assembleSite(prepareExportInput(project, registry), runtime);
 }
 
-export function renderStandalonePage(
+export type StandalonePage = { title: string; styles: string; body: string };
+
+export function standalonePageParts(
   project: Project,
   pageId: string,
   registry: ReadonlyMap<string, RegisteredComponent>,
-  options: { shouldLinkFonts: boolean; isEditing?: boolean },
-): string {
+  isEditing: boolean,
+): StandalonePage {
   const page = project.pages.entities[pageId];
   if (page === undefined) throw new Error(`Page ${pageId} does not exist`);
   const ctx = renderContextFor(
     siteContextOf(project),
     pageSlugsOf(project.pages),
-    options.isEditing === true ? 'canvas' : 'preview',
+    isEditing ? 'canvas' : 'preview',
     pageId,
   );
   const usedComponents: UsedComponents = new Map();
   const { header, main, footer } = renderPageBlocks(project, page, registry, ctx, usedComponents);
   const styles = [CANVAS_BASE_CSS, buildTokensCss(project.designSystem.tokens)];
   for (const component of sortedComponents(usedComponents)) styles.push(component.styles);
+  return {
+    title: page.name,
+    styles: styles.join('\n'),
+    body: `${htmlOf(header)}<main>${htmlOf(main)}</main>${htmlOf(footer)}`,
+  };
+}
+
+export function renderStandalonePage(
+  project: Project,
+  pageId: string,
+  registry: ReadonlyMap<string, RegisteredComponent>,
+  options: { shouldLinkFonts: boolean; isEditing?: boolean },
+): string {
+  const { title, styles, body } = standalonePageParts(
+    project,
+    pageId,
+    registry,
+    options.isEditing === true,
+  );
   const fontsHref = options.shouldLinkFonts ? googleFontsHref(project.designSystem.fonts) : null;
   const fontsLink =
     fontsHref === null ? '' : `<link rel="stylesheet" href="${escapeHtml(fontsHref)}">`;
@@ -231,11 +252,11 @@ export function renderStandalonePage(
     '<!doctype html>',
     `<html lang="${escapeHtml(project.settings.language)}" dir="${textDirection(project.settings.language)}">`,
     '<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">',
-    `<title>${escapeHtml(page.name)}</title>`,
+    `<title>${escapeHtml(title)}</title>`,
     fontsLink,
-    `<style>${styles.join('\n')}</style>`,
+    `<style>${styles}</style>`,
     '</head>',
-    `<body>${htmlOf(header)}<main>${htmlOf(main)}</main>${htmlOf(footer)}</body>`,
+    `<body>${body}</body>`,
     '</html>',
   ].join('\n');
 }

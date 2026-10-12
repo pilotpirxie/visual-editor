@@ -12,9 +12,11 @@ import type { SectionPlan, SectionWriting, SitePlan } from './siteSteps';
 import { safeValues, type SitePages } from './siteValues';
 
 export type SiteWriting = {
-  shared: readonly SectionWriting[] | null;
-  pages: Readonly<Record<string, readonly SectionWriting[] | null>>;
+  shared: readonly (SectionWriting | null)[] | null;
+  pages: Readonly<Record<string, readonly (SectionWriting | null)[] | null>>;
 };
+
+export const UNWRITTEN_CLASS = 'site-unwritten';
 
 const REMOVED_ELEMENTS = 'img, picture, video, audio, source, track, form, input, select, textarea';
 const LOADING_ATTRIBUTES = ['src', 'srcset', 'poster', 'background'];
@@ -35,7 +37,7 @@ export function safeCustomHtml(html: string): string {
 
 function componentBlock(
   blockId: string,
-  writing: SectionWriting | undefined,
+  writing: SectionWriting | null,
   pages: SitePages,
 ): ComponentBlock | null {
   const definition = siteBlock(blockId);
@@ -43,12 +45,13 @@ function componentBlock(
   const block = createBlock(definition);
   const values = writing?.kind === 'values' ? writing.values : undefined;
   block.values = safeValues(definition.fields, values, pages);
+  if (writing?.kind === 'unwritten') block.extraClasses = [UNWRITTEN_CLASS];
   return block;
 }
 
 function sectionBlock(
   section: SectionPlan,
-  writing: SectionWriting | undefined,
+  writing: SectionWriting | null,
   pages: SitePages,
 ): Block | null {
   if (section.kind === 'block') {
@@ -152,13 +155,15 @@ export function buildSiteProject(
     const page = createPage(pagePlan.slug, pagePlan.name, pagePlan.slug);
     const written = writing.pages[pagePlan.slug] ?? null;
     for (const [index, section] of pagePlan.sections.entries()) {
-      keep(sectionBlock(section, written?.[index], pages), page.blockIds);
+      keep(sectionBlock(section, written?.[index] ?? null, pages), page.blockIds);
     }
     draft.pages.ids.push(page.id);
     draft.pages.entities[page.id] = page;
   }
-  keep(componentBlock(plan.headerBlockId, writing.shared?.[0], pages), draft.sharedSlots.header);
-  keep(componentBlock(plan.footerBlockId, writing.shared?.[1], pages), draft.sharedSlots.footer);
+  const header = componentBlock(plan.headerBlockId, writing.shared?.[0] ?? null, pages);
+  const footer = componentBlock(plan.footerBlockId, writing.shared?.[1] ?? null, pages);
+  keep(header, draft.sharedSlots.header);
+  keep(footer, draft.sharedSlots.footer);
 
   return parseProjectDocument(copyProjectWithNewIds(draft, title));
 }

@@ -11,7 +11,7 @@ import {
   openProjectSettings,
   readZip,
 } from './editor';
-import { stubOpenRouter } from './fixtures/assistant';
+import { stubOpenRouter, useAssistantSettings } from './fixtures/assistant';
 
 const STARTERS_LOAD_TIMEOUT_MS = 15_000;
 const MAX_TRANSITION_PASSES = 30;
@@ -130,6 +130,31 @@ for (const appearance of APPEARANCES) {
       await expectAccessible(page);
       await questions.getByRole('button', { name: 'By phone only' }).click();
       await questions.getByRole('button', { name: 'Menu' }).click();
+      await expectAccessible(page);
+      await closeDialog(page);
+    });
+
+    test('the build screen of the site assistant is accessible', async ({ page }) => {
+      const stub = await stubOpenRouter(page, { holdsWriting: true });
+      await useAssistantSettings(page);
+      await page.goto('/');
+      await page.getByRole('textbox', { name: 'Tell us about your site' }).fill('A bakery site');
+      await page.getByRole('button', { name: 'Build my site' }).click();
+      const question = page.getByRole('dialog', { name: 'One quick question' });
+      await expect(
+        question.getByRole('heading', { name: 'How big should the site be?' }),
+      ).toBeFocused({ timeout: STARTERS_LOAD_TIMEOUT_MS });
+      await page.keyboard.press('Enter');
+
+      const building = page.getByRole('dialog', { name: 'Building your site' });
+      const preview = building.frameLocator('.ve-site-preview-frame');
+      await expect(preview.locator('.b-hero-centered')).toBeVisible();
+      await expectAccessible(page);
+      await expect.poll(() => stub.steps).toContain('Home');
+      stub.releaseWriting('Home');
+      await expect(preview.locator('h1')).toHaveText('Bread worth getting up for');
+      await building.getByRole('radio', { name: 'Menu' }).check({ force: true });
+      await expect(preview.locator('.b-pricing-3-plans')).toBeVisible();
       await expectAccessible(page);
       await closeDialog(page);
     });

@@ -1,12 +1,17 @@
 import type { Page, Route } from '@playwright/test';
 
-export type OpenRouterStub = { steps: string[] };
+export type OpenRouterStub = { steps: string[]; releaseWriting(step?: string): void };
 
 export type OpenRouterOptions = {
   hasQuestions?: boolean;
   hasImagePage?: boolean;
   failingStatus?: number;
+  holdsWriting?: boolean;
 };
+
+type HeldAnswer = { step: string; release(): void };
+
+const PLANNING_STEPS = ['site_clarification', 'design_brief', 'site_plan'];
 
 export const IMAGE_MODEL = { id: 'acme/painter', name: 'Acme Painter' };
 
@@ -208,8 +213,18 @@ export async function stubOpenRouter(
   page: Page,
   options: OpenRouterOptions = {},
 ): Promise<OpenRouterStub> {
-  const stub: OpenRouterStub = { steps: [] };
   let clarifyCount = 0;
+  let isHolding = options.holdsWriting === true;
+  const held: HeldAnswer[] = [];
+
+  function releaseWriting(step?: string): void {
+    if (step === undefined) isHolding = false;
+    for (const answer of held) {
+      if (step === undefined || answer.step === step) answer.release();
+    }
+  }
+
+  const stub: OpenRouterStub = { steps: [], releaseWriting };
 
   async function answer(route: Route): Promise<void> {
     const request = route.request();
@@ -250,6 +265,11 @@ export async function stubOpenRouter(
       return;
     }
     if (step === 'site_clarification') clarifyCount += 1;
+    if (isHolding && !PLANNING_STEPS.includes(step)) {
+      await new Promise<void>((release) => {
+        held.push({ step, release });
+      });
+    }
     const content = JSON.stringify(answerFor(step, clarifyCount, options));
     await route.fulfill({
       json: { choices: [{ message: { content } }], usage: { total_tokens: 1500, cost: 0.012 } },

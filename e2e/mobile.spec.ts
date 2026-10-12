@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { stubOpenRouter, useAssistantSettings } from './fixtures/assistant';
 
 const MIN_INPUT_FONT_SIZE_PX = 16;
 
@@ -251,6 +252,32 @@ test('a second tap on a selected heading edits it in place', async ({ page }) =>
   await canvas.locator('.b-hero-centered .btn').first().tap();
   await expect(page.locator('.ve-properties')).toBeVisible();
   await expect(page.locator('.ve-compact-tabs [aria-current]')).toHaveCount(0);
+});
+
+test('the assistant shows the site being built above its steps on a phone', async ({ page }) => {
+  const stub = await stubOpenRouter(page, { holdsWriting: true });
+  await useAssistantSettings(page);
+  await page.goto('/');
+  await page.getByRole('textbox', { name: 'Tell us about your site' }).fill('A site for my bakery');
+  await page.getByRole('button', { name: 'Build my site' }).tap();
+  await page.getByRole('button', { name: 'Home plus a few pages (suggested)' }).tap();
+
+  const building = page.getByRole('dialog', { name: 'Building your site' });
+  const preview = building.frameLocator('.ve-site-preview-frame');
+  await expect(preview.locator('.b-hero-centered')).toHaveClass(/site-unwritten/);
+  const previewBox = await building.locator('.ve-site-preview').boundingBox();
+  const viewportWidth = page.viewportSize()?.width ?? 0;
+  expect(previewBox?.width).toBe(viewportWidth);
+  expect(await preview.locator('html').evaluate((root) => root.clientWidth)).toBe(viewportWidth);
+  const stepsBox = await building.locator('.ve-build-steps').boundingBox();
+  expect(previewBox?.y ?? 0).toBeLessThan(stepsBox?.y ?? 0);
+  const sideways = await building.locator('.ve-build-page').evaluate((buildPage) => {
+    return buildPage.scrollWidth - buildPage.clientWidth;
+  });
+  expect(sideways).toBe(0);
+
+  stub.releaseWriting();
+  await expect(page.locator('.ve-compact-tabs')).toBeVisible({ timeout: 30_000 });
 });
 
 test.describe('on the narrowest phones', () => {

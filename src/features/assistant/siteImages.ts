@@ -15,6 +15,7 @@ export type ImageSlot = {
   alt: string;
   ratio: PlaceholderRatio;
   subject: PlaceholderSubject;
+  pageSlug: string | null;
 };
 
 export type Picture = { src: string; width: number; height: number };
@@ -38,6 +39,15 @@ const WEBP_QUALITY = 0.8;
 const JPEG_QUALITY = 0.82;
 const STOPPING_KINDS = ['key', 'credit'];
 
+const REQUESTED_RATIOS: Record<PlaceholderRatio, PlaceholderRatio> = {
+  '1:1': '1:1',
+  '4:3': '4:3',
+  '3:2': '4:3',
+  '16:9': '16:9',
+  '3:4': '3:4',
+  '21:9': '16:9',
+};
+
 const SUBJECT_STYLES: Record<PlaceholderSubject, string> = {
   photo: 'a photograph',
   product: 'a clean product photograph',
@@ -46,11 +56,15 @@ const SUBJECT_STYLES: Record<PlaceholderSubject, string> = {
   screenshot: 'a photograph',
 };
 
-function collectSlots(values: Record<string, unknown>, slots: ImageSlot[]): void {
+function collectSlots(
+  values: Record<string, unknown>,
+  pageSlug: string | null,
+  slots: ImageSlot[],
+): void {
   for (const [key, value] of Object.entries(values)) {
     if (Array.isArray(value)) {
       for (const item of value) {
-        if (isRecord(item)) collectSlots(item, slots);
+        if (isRecord(item)) collectSlots(item, pageSlug, slots);
       }
       continue;
     }
@@ -58,20 +72,25 @@ function collectSlots(values: Record<string, unknown>, slots: ImageSlot[]): void
     const { ratio, subject } = value.placeholder;
     const alt = value.alt.trim();
     if (alt === '' || !PAINTED_SUBJECTS.includes(subject)) continue;
-    slots.push({ holder: values, key, alt, ratio, subject });
+    slots.push({ holder: values, key, alt, ratio, subject, pageSlug });
   }
 }
 
 export function imageSlots(project: Project): ImageSlot[] {
-  const blockIds = [...project.sharedSlots.header];
+  const places: { blockIds: readonly string[]; pageSlug: string | null }[] = [
+    { blockIds: project.sharedSlots.header, pageSlug: null },
+  ];
   for (const pageId of project.pages.ids) {
-    blockIds.push(...(project.pages.entities[pageId]?.blockIds ?? []));
+    const page = project.pages.entities[pageId];
+    if (page !== undefined) places.push({ blockIds: page.blockIds, pageSlug: page.slug });
   }
-  blockIds.push(...project.sharedSlots.footer);
+  places.push({ blockIds: project.sharedSlots.footer, pageSlug: null });
   const slots: ImageSlot[] = [];
-  for (const blockId of blockIds) {
-    const block = project.blocks.entities[blockId];
-    if (block?.kind === 'component') collectSlots(block.values, slots);
+  for (const { blockIds, pageSlug } of places) {
+    for (const blockId of blockIds) {
+      const block = project.blocks.entities[blockId];
+      if (block?.kind === 'component') collectSlots(block.values, pageSlug, slots);
+    }
   }
   return slots;
 }
@@ -150,7 +169,7 @@ export async function withSiteImages(
   brief: string,
   painter: Painter,
   signal: AbortSignal,
-  onProgress: (progress: ImageProgress) => void,
+  onProgress: (progress: ImageProgress, site: Project, paintedPage: string | null) => void,
 ): Promise<SiteImages> {
   const site = structuredClone(project);
   const waiting = imageSlots(site);
@@ -159,10 +178,11 @@ export async function withSiteImages(
   let made = 0;
   let failed = 0;
   let isStopped = false;
-  onProgress({ done: 0, total });
+  onProgress({ done: 0, total }, site, null);
 
   async function paintSlot(slot: ImageSlot, number: number): Promise<void> {
-    const answer = await painter.paint(imagePrompt(brief, slot), slot.ratio, signal);
+    const requestedRatio = REQUESTED_RATIOS[slot.ratio];
+    const answer = await painter.paint(imagePrompt(brief, slot), requestedRatio, signal);
     usage = { tokens: usage.tokens + answer.usage.tokens, cost: usage.cost + answer.usage.cost };
     const picture = await painter.fit(answer.dataUrl, slot.ratio, slot.subject);
     const extension = picture.src.startsWith(`data:${WEBP_TYPE}`) ? 'webp' : 'jpg';
@@ -182,12 +202,14 @@ export async function withSiteImages(
       const number = total - waiting.length;
       if (isStopped) {
         failed += 1;
-        onProgress({ done: made + failed, total });
+        onProgress({ done: made + failed, total }, site, null);
         continue;
       }
+      let paintedPage: string | null = null;
       try {
         await paintSlot(slot, number);
         made += 1;
+        paintedPage = slot.pageSlug;
       } catch (error) {
         const kind = error instanceof AssistantError ? error.kind : null;
         if (kind === 'cancelled' || signal.aborted) throw error;
@@ -198,7 +220,7 @@ export async function withSiteImages(
         );
         failed += 1;
       }
-      onProgress({ done: made + failed, total });
+      onProgress({ done: made + failed, total }, site, paintedPage);
     }
   }
 

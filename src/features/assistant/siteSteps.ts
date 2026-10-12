@@ -22,7 +22,6 @@ import { blockBrief, catalogText, isPageBlock, siteBlock } from './siteCatalog';
 import { playbookText } from './sitePlaybooks';
 
 export const MAX_QUESTIONS = 4;
-export const MAX_QUESTION_ROUNDS = 2;
 export const MAX_PAGES = 8;
 export const MAX_SECTIONS = 16;
 export const MAX_CUSTOM_SECTIONS = 2;
@@ -30,6 +29,7 @@ export const DEFAULT_HEADER_ID = 'nav-simple';
 export const DEFAULT_FOOTER_ID = 'footer-simple';
 
 const MAX_SUGGESTIONS = 4;
+const MAX_PART_SECTIONS = 5;
 const MAX_MANY_SUGGESTIONS = 8;
 const MAX_TITLE_LENGTH = 60;
 const MAX_PAGE_NAME_LENGTH = 40;
@@ -102,7 +102,10 @@ export type SitePlan = {
   pages: PagePlan[];
 };
 
-export type SectionWriting = { kind: 'values'; values: unknown } | { kind: 'html'; html: string };
+export type SectionWriting =
+  { kind: 'values'; values: unknown } | { kind: 'html'; html: string } | { kind: 'unwritten' };
+
+export type PagePart = { page: PagePlan; first: number; count: number };
 
 export type StepRequest = { system: string; user: string; schema: JsonSchema | null };
 
@@ -153,19 +156,10 @@ const CLARIFY_SCHEMA: JsonSchema = {
   }),
 };
 
-export function clarifyRequest(
-  description: string,
-  answers: readonly Answered[],
-  canAsk: boolean,
-): StepRequest {
-  const lines = ['A person wants a website. Their description:', `"""${description}"""`];
-  if (answers.length > 0) {
-    lines.push('', 'They already answered these questions:');
-    for (const { question, answer } of answers) {
-      lines.push(`- ${question}`, `  ${answer === '' ? '(no answer, decide yourself)' : answer}`);
-    }
-  }
-  lines.push(
+export function clarifyRequest(description: string): StepRequest {
+  const user = [
+    'A person wants a website. Their description:',
+    `"""${description}"""`,
     '',
     'Most people are not web designers and do not know what a good site needs, so think for them.',
     'First work out what kind of site this is (for example a local service, a restaurant, a portfolio, a shop, an app, an event).',
@@ -175,45 +169,50 @@ export function clarifyRequest(
     '',
     'Then decide whether you know enough to build a site they will be happy with:',
     'what it is for, who it is for, the one action visitors should take, which pages and sections it needs, and the tone and look.',
-  );
-  if (canAsk) {
-    lines.push(
-      `If something that would change the site is unclear, set "isClear" to false and ask up to ${MAX_QUESTIONS} short questions.`,
-      'Ask only what the person alone can know, such as the name, the town, what they offer or the style they like.',
-      'For a business people visit or that serves an area, ask for the town or the address when it is missing.',
-      'Ask nothing you can sensibly decide yourself.',
-      'If the name of the business, person or project is missing, ask for it and give that question no suggestions.',
-      `Give every other question 2 to ${MAX_SUGGESTIONS} short suggested answers.`,
-      'Set "allowsMany" to true when several suggested answers can apply together, for example which sections to include.',
-      'Then make each suggestion one single item (one page, one section, one feature), never a combination.',
-      'When the description is short or vague, one question must propose the structure you worked out:',
-      `ask which sections the site should have, set "allowsMany" to true and suggest up to ${MAX_MANY_SUGGESTIONS} sections that fit this kind of site.`,
-      'In "recommended", repeat the suggested answers you would choose yourself (several only when "allowsMany" is true).',
-      'For the structure question that is every section a typical great site of this kind has.',
-      'If the description is already enough, set "isClear" to true and return no questions.',
-    );
-  } else {
-    lines.push(
-      'Do not ask anything now: set "isClear" to true, return no questions and decide the open points yourself,',
-      'including the structure you worked out.',
-    );
-  }
-  lines.push(
+    `If something that would change the site is unclear, set "isClear" to false and ask up to ${MAX_QUESTIONS} short questions.`,
+    'You can ask only this once, so ask everything that matters now.',
+    'Ask only what the person alone can know, such as the name, the town, what they offer or the style they like.',
+    'For a business people visit or that serves an area, ask for the town or the address when it is missing.',
+    'Ask nothing you can sensibly decide yourself.',
+    'If the name of the business, person or project is missing, ask for it and give that question no suggestions.',
+    `Give every other question 2 to ${MAX_SUGGESTIONS} short suggested answers.`,
+    'Set "allowsMany" to true when several suggested answers can apply together, for example which sections to include.',
+    'Then make each suggestion one single item (one page, one section, one feature), never a combination.',
+    'When the description is short or vague, one question must propose the structure you worked out:',
+    `ask which sections the site should have, set "allowsMany" to true and suggest up to ${MAX_MANY_SUGGESTIONS} sections that fit this kind of site.`,
+    'In "recommended", repeat the suggested answers you would choose yourself (several only when "allowsMany" is true).',
+    'For the structure question that is every section a typical great site of this kind has.',
+    'If the description is already enough, set "isClear" to true and return no questions.',
     'Always write "brief": a compact build brief in plain sentences covering the site name, purpose, audience,',
     'main call to action, the pages and the sections of each page from top to bottom, tone of voice, visual direction,',
     'language, and every concrete fact the person gave (names, prices, address, opening hours, contact details).',
     'Never leave a placeholder in square brackets in the brief: when a fact is missing, choose something plausible.',
     'The exceptions are street addresses, phone numbers and email addresses: never make those up, and leave them out when the person did not give them.',
+    'Leave out of the brief whatever you ask about. The answers are added below the brief afterwards.',
     '',
     'Return JSON: { "isClear": boolean, "questions": [{ "question": string, "suggestions": [string], "allowsMany": boolean, "recommended": [string] }], "brief": string }',
-  );
-  return { system: SYSTEM_PROMPT, user: lines.join('\n'), schema: CLARIFY_SCHEMA };
+  ].join('\n');
+  return { system: SYSTEM_PROMPT, user, schema: CLARIFY_SCHEMA };
 }
 
-export function parseClarification(value: unknown, canAsk: boolean): Clarification {
+export function briefWithAnswers(brief: string, answers: readonly Answered[]): string {
+  const given: string[] = [];
+  for (const { question, answer } of answers) {
+    if (answer !== '') given.push(`- ${question}`, `  ${answer}`);
+  }
+  if (given.length === 0) return brief;
+  return [
+    brief,
+    '',
+    'The person then answered these questions. Their answers win over anything above:',
+    ...given,
+  ].join('\n');
+}
+
+export function parseClarification(value: unknown): Clarification {
   const answer = isRecord(value) ? value : {};
   const questions: Question[] = [];
-  const given = canAsk && Array.isArray(answer.questions) ? answer.questions : [];
+  const given = Array.isArray(answer.questions) ? answer.questions : [];
   for (const entry of given) {
     if (questions.length === MAX_QUESTIONS) break;
     if (!isRecord(entry) || text(entry.question) === '') continue;
@@ -351,7 +350,7 @@ export function planRequest(brief: string, size: SiteSize = DEFAULT_SITE_SIZE): 
     '- Use a block with a live map only when the brief names a real address or town.',
     '- Most pages should end with a Call to action block.',
     '- "theme" sets the section colors: "default", "surface", "dark" or "primary". Alternate "default" and "surface" for rhythm, and use "dark" or "primary" sparingly for emphasis. Never put two "dark" sections next to each other.',
-    '- "note" is one sentence telling the copywriter what this section must say.',
+    '- "note" tells the copywriter what this section must say, in at most 12 words. "purpose" is a few words too.',
     `- Only when no block can show the content, describe a custom section in "custom" and leave "block" empty. At most ${MAX_CUSTOM_SECTIONS} per page. Otherwise leave "custom" empty.`,
     '- "title" is the site name. "description" is one sentence for search engines. "language" is a code like "en" or "pl".',
     '- Slugs use lowercase letters, digits and hyphens.',
@@ -497,28 +496,63 @@ function definitionsOf(blockIds: readonly string[]): Map<string, ComponentDefini
   return definitions;
 }
 
-export function pageRequest(brief: string, plan: SitePlan, page: PagePlan): StepRequest {
+export function pageParts(page: PagePlan): PagePart[] {
+  const sectionCount = page.sections.length;
+  const partCount = Math.ceil(sectionCount / MAX_PART_SECTIONS);
+  const partSize = Math.ceil(sectionCount / partCount);
+  const parts: PagePart[] = [];
+  for (let first = 0; first < sectionCount; first += partSize) {
+    parts.push({ page, first, count: Math.min(partSize, sectionCount - first) });
+  }
+  return parts;
+}
+
+function pageOutline(page: PagePlan, definitions: Map<string, ComponentDefinition>): string[] {
+  const outline: string[] = [];
+  for (const [index, section] of page.sections.entries()) {
+    if (section.kind === 'custom') {
+      outline.push(`${index + 1}. Custom section: ${section.description}`);
+      continue;
+    }
+    const name = definitions.get(section.blockId)?.name ?? section.blockId;
+    outline.push(`${index + 1}. ${name}: ${section.note}`);
+  }
+  return outline;
+}
+
+export function pageRequest(brief: string, plan: SitePlan, part: PagePart): StepRequest {
+  const { page, first, count } = part;
   const blockIds: string[] = [];
   for (const section of page.sections) {
     if (section.kind === 'block') blockIds.push(section.blockId);
   }
   const definitions = definitionsOf(blockIds);
-  const tasks = page.sections.map((section) => sectionTask(section, definitions));
-  const hasCustom = page.sections.some((section) => section.kind === 'custom');
-  const user = [
-    `Write the content of the page "${page.name}" (${page.purpose}).`,
-    ...siteSummary(brief, plan),
-    '',
-    ...valueRules(plan),
-    '',
-    ...(hasCustom ? [...CUSTOM_RULES, ''] : []),
-    `Return JSON: { "sections": [...] } with exactly ${page.sections.length} entries, in the same order as below.`,
+  const tasks: unknown[] = [];
+  let hasCustom = false;
+  for (const section of page.sections.slice(first, first + count)) {
+    tasks.push(sectionTask(section, definitions));
+    if (section.kind === 'custom') hasCustom = true;
+  }
+  const isWholePage = count === page.sections.length;
+  const lines = [`Write the content of the page "${page.name}" (${page.purpose}).`];
+  if (!isWholePage) {
+    lines.push(
+      `Write only sections ${first + 1} to ${first + count} of this page. The other sections are written separately at the same time.`,
+      'The whole page from top to bottom, so your sections fit the ones around them and do not repeat them:',
+      ...pageOutline(page, definitions),
+      '',
+    );
+  }
+  lines.push(...siteSummary(brief, plan), '', ...valueRules(plan), '');
+  if (hasCustom) lines.push(...CUSTOM_RULES, '');
+  lines.push(
+    `Return JSON: { "sections": [...] } with exactly ${count} entries, in the same order as below.`,
     'Each entry is { "values": { fieldName: value } } for a library block.',
     '',
-    'Sections of this page:',
+    isWholePage ? 'Sections of this page:' : 'Sections to write:',
     JSON.stringify(tasks),
-  ].join('\n');
-  return { system: SYSTEM_PROMPT, user, schema: null };
+  );
+  return { system: SYSTEM_PROMPT, user: lines.join('\n'), schema: null };
 }
 
 export function sharedRequest(brief: string, plan: SitePlan): StepRequest {

@@ -1,27 +1,30 @@
-import type { Project } from '../../app/types';
+import type { DesignSystem, Project } from '../../app/types';
 import { CLEAN_PRESET, withoutPresetId } from '../../presets/presets';
+import { designSystemFromBrief, parseDesignBrief } from '../design-system/designFromBrief';
+import { loadFontList, type FontFamily } from '../design-system/fontList';
+import { ensureIconSets, ensureProjectIconSets } from '../icons/ensureIconSets';
 import {
-  designSystemFromBrief,
-  parseDesignBrief,
-  type DesignBrief,
-} from '../design-system/designFromBrief';
-import { loadFontList } from '../design-system/fontList';
-import { ensureProjectIconSets } from '../icons/ensureIconSets';
-import { buildSiteProject, withKnownMapAddresses, withRenderableBlocks } from './buildSite';
+  buildSiteProject,
+  withKnownMapAddresses,
+  withRenderableBlocks,
+  type SiteWriting,
+} from './buildSite';
 import { AssistantError, type JsonAnswer, type Usage } from './openRouter';
 import { withSiteImages, type ImageProgress, type Painter } from './siteImages';
 import {
   clarifyRequest,
   DEFAULT_SITE_SIZE,
   designRequest,
+  pageParts,
   pageRequest,
   parseClarification,
   parseSections,
   parseSitePlan,
   planRequest,
   sharedRequest,
-  type Answered,
   type Clarification,
+  type PagePart,
+  type PagePlan,
   type SectionWriting,
   type SitePlan,
   type SiteSize,
@@ -35,11 +38,18 @@ export type Written = readonly SectionWriting[] | null;
 export type SiteDraft = {
   brief: string;
   size: SiteSize;
-  design: DesignBrief | null;
+  look: DesignSystem | null;
   plan: SitePlan | null;
   written: Readonly<Record<string, Written>>;
   images: (ImageProgress & { isFinished: boolean }) | null;
   usage: Usage;
+};
+
+export type BuildProgress = {
+  draft: SiteDraft;
+  working: readonly string[];
+  site: Project | null;
+  changedPage: string | null;
 };
 
 export type BuildStage = 'design' | 'plan' | 'writing' | 'images' | 'assemble';
@@ -55,19 +65,33 @@ export type BuiltSite = {
   failedImages: number;
 };
 
+type WritingPart = { id: string; stepId: string; count: number; pagePart: PagePart | null };
+
+type BuildRun = {
+  draft(): SiteDraft;
+  ask(stepId: string, request: StepRequest): Promise<unknown>;
+  started(stepId: string): void;
+  ended(stepId: string): void;
+  update(changes: Partial<SiteDraft>, page: string | null): void;
+  painted(changes: Partial<SiteDraft>, paintedSite: Project, page: string | null): void;
+};
+
 export const SHARED_ID = 'shared';
+export const PARTS_AT_ONCE = 8;
 
 const DESIGN_ID = 'design';
 const PLAN_ID = 'plan';
 const IMAGES_ID = 'images';
 const ASSEMBLE_ID = 'assemble';
-const WRITERS_AT_ONCE = 3;
+const SHARED_SECTION_COUNT = 2;
 const FATAL_KINDS = ['cancelled', 'key', 'credit', 'network'];
 
 const NO_USAGE: Usage = { tokens: 0, cost: 0 };
+const NO_IMAGES = { done: 0, total: 0, isFinished: false };
+const UNWRITTEN: SectionWriting = { kind: 'unwritten' };
 
 export function emptyDraft(brief: string, size: SiteSize = DEFAULT_SITE_SIZE): SiteDraft {
-  return { brief, size, design: null, plan: null, written: {}, images: null, usage: NO_USAGE };
+  return { brief, size, look: null, plan: null, written: {}, images: null, usage: NO_USAGE };
 }
 
 export function addUsage(total: Usage, added: Usage): Usage {
@@ -77,49 +101,146 @@ export function addUsage(total: Usage, added: Usage): Usage {
 export async function clarifySite(
   ask: Ask,
   description: string,
-  answers: readonly Answered[],
-  canAsk: boolean,
   signal: AbortSignal,
 ): Promise<{ clarification: Clarification; usage: Usage }> {
-  const answer = await ask(clarifyRequest(description, answers, canAsk), signal);
-  const clarification = parseClarification(answer.value, canAsk);
+  const answer = await ask(clarifyRequest(description), signal);
+  const clarification = parseClarification(answer.value);
   const brief = clarification.brief === '' ? description : clarification.brief;
   return { clarification: { ...clarification, brief }, usage: answer.usage };
 }
 
-function writingJobs(plan: SitePlan): { id: string; label: string }[] {
-  const jobs = [{ id: SHARED_ID, label: 'Writing the navigation and footer' }];
-  for (const page of plan.pages) jobs.push({ id: page.slug, label: `Writing ${page.name}` });
-  return jobs;
+function pageStepId(page: PagePlan): string {
+  return `page:${page.slug}`;
+}
+
+function writingParts(plan: SitePlan): WritingPart[] {
+  const parts: WritingPart[] = [];
+  for (const [pageIndex, page] of plan.pages.entries()) {
+    const stepId = pageStepId(page);
+    for (const pagePart of pageParts(page)) {
+      parts.push({ id: `${stepId}:${pagePart.first}`, stepId, count: pagePart.count, pagePart });
+    }
+    const isHome = pageIndex === 0;
+    if (isHome) {
+      parts.push({
+        id: SHARED_ID,
+        stepId: SHARED_ID,
+        count: SHARED_SECTION_COUNT,
+        pagePart: null,
+      });
+    }
+  }
+  return parts;
+}
+
+function sectionsOf(draft: SiteDraft, part: WritingPart): (SectionWriting | null)[] {
+  const written = draft.written[part.id];
+  const sections: (SectionWriting | null)[] = [];
+  for (let index = 0; index < part.count; index += 1) {
+    if (written === undefined) {
+      sections.push(UNWRITTEN);
+    } else if (written === null) {
+      sections.push(null);
+    } else {
+      sections.push(written[index] ?? null);
+    }
+  }
+  return sections;
+}
+
+function siteWriting(draft: SiteDraft, plan: SitePlan): SiteWriting {
+  const pages: Record<string, (SectionWriting | null)[]> = {};
+  let shared: (SectionWriting | null)[] = [];
+  for (const part of writingParts(plan)) {
+    if (part.pagePart === null) {
+      shared = sectionsOf(draft, part);
+      continue;
+    }
+    const { slug } = part.pagePart.page;
+    const pageSections = pages[slug] ?? [];
+    pageSections.push(...sectionsOf(draft, part));
+    pages[slug] = pageSections;
+  }
+  return { shared, pages };
+}
+
+function siteOf(draft: SiteDraft, plan: SitePlan): Project {
+  const look = draft.look ?? withoutPresetId(structuredClone(CLEAN_PRESET.designSystem));
+  const project = buildSiteProject(plan, look, siteWriting(draft, plan));
+  return withRenderableBlocks(withKnownMapAddresses(project, draft.brief));
+}
+
+function defaultedPages(draft: SiteDraft, plan: SitePlan): string[] {
+  const names: string[] = [];
+  for (const part of writingParts(plan)) {
+    if (part.pagePart === null || draft.written[part.id] !== null) continue;
+    const { name } = part.pagePart.page;
+    if (!names.includes(name)) names.push(name);
+  }
+  return names;
+}
+
+function stepStatus(isDone: boolean, isWorking: boolean): StepStatus {
+  if (isDone) {
+    return 'done';
+  } else if (isWorking) {
+    return 'working';
+  } else {
+    return 'waiting';
+  }
+}
+
+function writingStep(
+  id: string,
+  label: string,
+  parts: readonly WritingPart[],
+  draft: SiteDraft,
+  working: readonly string[],
+): BuildStep {
+  let isDone = true;
+  let isWorking = false;
+  for (const part of parts) {
+    if (part.stepId !== id) continue;
+    if (!(part.id in draft.written)) isDone = false;
+    if (working.includes(part.id)) isWorking = true;
+  }
+  return { id, label, status: stepStatus(isDone, isWorking) };
 }
 
 export function buildSteps(draft: SiteDraft, working: readonly string[]): BuildStep[] {
-  function status(id: string, isDone: boolean): StepStatus {
-    if (isDone) return 'done';
-    return working.includes(id) ? 'working' : 'waiting';
-  }
   const steps: BuildStep[] = [
     {
       id: DESIGN_ID,
       label: 'Designing the look',
-      status: status(DESIGN_ID, draft.design !== null),
+      status: stepStatus(draft.look !== null, working.includes(DESIGN_ID)),
     },
-    { id: PLAN_ID, label: 'Planning the pages', status: status(PLAN_ID, draft.plan !== null) },
+    {
+      id: PLAN_ID,
+      label: 'Planning the pages',
+      status: stepStatus(draft.plan !== null, working.includes(PLAN_ID)),
+    },
   ];
   if (draft.plan !== null) {
-    for (const job of writingJobs(draft.plan)) {
-      steps.push({ ...job, status: status(job.id, job.id in draft.written) });
+    const parts = writingParts(draft.plan);
+    const sharedLabel = 'Writing the navigation and footer';
+    steps.push(writingStep(SHARED_ID, sharedLabel, parts, draft, working));
+    for (const page of draft.plan.pages) {
+      steps.push(writingStep(pageStepId(page), `Writing ${page.name}`, parts, draft, working));
     }
   }
   if (draft.images !== null) {
     const { done, total, isFinished } = draft.images;
     const label = total === 0 ? 'Creating images' : `Creating images (${done} of ${total})`;
-    steps.push({ id: IMAGES_ID, label, status: status(IMAGES_ID, isFinished) });
+    steps.push({
+      id: IMAGES_ID,
+      label,
+      status: stepStatus(isFinished, working.includes(IMAGES_ID)),
+    });
   }
   steps.push({
     id: ASSEMBLE_ID,
     label: 'Putting it together',
-    status: status(ASSEMBLE_ID, false),
+    status: stepStatus(false, working.includes(ASSEMBLE_ID)),
   });
   return steps;
 }
@@ -129,7 +250,7 @@ export function buildStage(draft: SiteDraft, working: readonly string[]): BuildS
     return 'assemble';
   } else if (working.includes(IMAGES_ID)) {
     return 'images';
-  } else if (draft.design === null) {
+  } else if (draft.look === null) {
     return 'design';
   } else if (draft.plan === null) {
     return 'plan';
@@ -138,120 +259,154 @@ export function buildStage(draft: SiteDraft, working: readonly string[]): BuildS
   }
 }
 
-export async function buildSite(
+function createBuildRun(
   ask: Ask,
   start: SiteDraft,
   signal: AbortSignal,
-  onChange: (draft: SiteDraft, working: readonly string[]) => void,
-  painter: Painter | null = null,
-): Promise<BuiltSite> {
-  const noImages = { done: 0, total: 0, isFinished: false };
-  let draft: SiteDraft = { ...start, images: painter === null ? null : noImages };
+  onChange: (progress: BuildProgress) => void,
+): BuildRun {
+  let draft = start;
+  let site = draft.plan === null ? null : siteOf(draft, draft.plan);
+  let changedPage: string | null = null;
   const working = new Set<string>();
 
   function report(): void {
-    onChange(draft, [...working]);
+    onChange({ draft, working: [...working], site, changedPage });
   }
 
-  async function run(id: string, request: StepRequest): Promise<unknown> {
-    if (signal.aborted) throw new AssistantError('cancelled', 'Cancelled.');
-    working.add(id);
+  function currentDraft(): SiteDraft {
+    return draft;
+  }
+
+  function started(stepId: string): void {
+    working.add(stepId);
     report();
+  }
+
+  function ended(stepId: string): void {
+    working.delete(stepId);
+    report();
+  }
+
+  async function askStep(stepId: string, request: StepRequest): Promise<unknown> {
+    if (signal.aborted) throw new AssistantError('cancelled', 'Cancelled.');
+    started(stepId);
     try {
       const answer = await ask(request, signal);
       draft = { ...draft, usage: addUsage(draft.usage, answer.usage) };
       return answer.value;
     } finally {
-      working.delete(id);
+      working.delete(stepId);
     }
   }
 
-  if (draft.design === null) {
-    const design = parseDesignBrief(await run(DESIGN_ID, designRequest(draft.brief)));
-    draft = { ...draft, design };
-    report();
-  }
-  if (draft.plan === null) {
-    const plan = parseSitePlan(await run(PLAN_ID, planRequest(draft.brief, draft.size)));
-    draft = { ...draft, plan };
-    report();
-  }
-  const { design, plan } = draft;
-  if (design === null || plan === null) throw new Error('The site draft lost its design or plan');
-
-  async function write(id: string): Promise<void> {
-    const page = plan?.pages.find(({ slug }) => slug === id);
-    if (plan === null || (id !== SHARED_ID && page === undefined)) return;
-    const request =
-      page === undefined ? sharedRequest(draft.brief, plan) : pageRequest(draft.brief, plan, page);
-    const count = page === undefined ? 2 : page.sections.length;
-    let sections: Written;
-    try {
-      sections = parseSections(await run(id, request), count);
-    } catch (error) {
-      const isFatal = !(error instanceof AssistantError) || FATAL_KINDS.includes(error.kind);
-      if (isFatal) throw error;
-      console.warn(`Writing "${id}" failed, so its blocks keep their default text`, error);
-      sections = null;
-    }
-    draft = { ...draft, written: { ...draft.written, [id]: sections } };
+  function update(changes: Partial<SiteDraft>, page: string | null): void {
+    draft = { ...draft, ...changes };
+    site = draft.plan === null ? null : siteOf(draft, draft.plan);
+    if (page !== null) changedPage = page;
     report();
   }
 
-  const waiting: string[] = [];
-  for (const job of writingJobs(plan)) {
-    if (!(job.id in draft.written)) waiting.push(job.id);
+  function painted(changes: Partial<SiteDraft>, paintedSite: Project, page: string | null): void {
+    draft = { ...draft, ...changes };
+    site = { ...paintedSite };
+    if (page !== null) changedPage = page;
+    report();
   }
-  let hasFailed = false;
-  async function writeNext(): Promise<void> {
-    for (let id = waiting.shift(); id !== undefined && !hasFailed; id = waiting.shift()) {
-      try {
-        await write(id);
-      } catch (error) {
-        hasFailed = true;
-        throw error;
-      }
-    }
-  }
-  const writers: Promise<void>[] = [];
-  for (let index = 0; index < WRITERS_AT_ONCE; index += 1) writers.push(writeNext());
-  await Promise.all(writers);
 
-  working.add(painter === null ? ASSEMBLE_ID : IMAGES_ID);
-  report();
-  const fontList = await loadFontList();
+  return { draft: currentDraft, ask: askStep, started, ended, update, painted };
+}
+
+async function designLook(run: BuildRun, fontList: readonly FontFamily[]): Promise<void> {
+  if (run.draft().look !== null) return;
+  const answer = await run.ask(DESIGN_ID, designRequest(run.draft().brief));
   const base = withoutPresetId(structuredClone(CLEAN_PRESET.designSystem));
-  const designSystem = designSystemFromBrief(base, fontList, design);
-  const pages: Record<string, Written> = {};
-  const defaultedPages: string[] = [];
-  for (const page of plan.pages) {
-    const written = draft.written[page.slug] ?? null;
-    pages[page.slug] = written;
-    if (written === null) defaultedPages.push(page.name);
+  const look = designSystemFromBrief(base, fontList, parseDesignBrief(answer));
+  await ensureIconSets([look.iconSet]);
+  run.update({ look }, null);
+}
+
+async function planPages(run: BuildRun): Promise<SitePlan> {
+  const { brief, size, plan: knownPlan } = run.draft();
+  if (knownPlan !== null) return knownPlan;
+  const plan = parseSitePlan(await run.ask(PLAN_ID, planRequest(brief, size)));
+  run.update({ plan }, null);
+  return plan;
+}
+
+async function writePart(run: BuildRun, plan: SitePlan, part: WritingPart): Promise<void> {
+  const { brief } = run.draft();
+  let request = sharedRequest(brief, plan);
+  let page: string | null = null;
+  if (part.pagePart !== null) {
+    request = pageRequest(brief, plan, part.pagePart);
+    page = part.pagePart.page.slug;
   }
-  const assembled = buildSiteProject(plan, designSystem, {
-    shared: draft.written[SHARED_ID] ?? null,
-    pages,
-  });
-  let project = withKnownMapAddresses(assembled, draft.brief);
+  let sections: Written;
+  try {
+    sections = parseSections(await run.ask(part.id, request), part.count);
+  } catch (error) {
+    const isFatal = !(error instanceof AssistantError) || FATAL_KINDS.includes(error.kind);
+    if (isFatal) throw error;
+    console.warn(`Writing "${part.id}" failed, so its blocks keep their default text`, error);
+    sections = null;
+  }
+  run.update({ written: { ...run.draft().written, [part.id]: sections } }, page);
+}
+
+async function writeText(run: BuildRun, plan: SitePlan): Promise<void> {
+  const waiting: WritingPart[] = [];
+  for (const part of writingParts(plan)) {
+    if (!(part.id in run.draft().written)) waiting.push(part);
+  }
+  for (let first = 0; first < waiting.length; first += PARTS_AT_ONCE) {
+    const batch = waiting.slice(first, first + PARTS_AT_ONCE);
+    await Promise.all(batch.map((part) => writePart(run, plan, part)));
+  }
+}
+
+export async function buildSite(
+  ask: Ask,
+  start: SiteDraft,
+  signal: AbortSignal,
+  onChange: (progress: BuildProgress) => void,
+  painter: Painter | null = null,
+): Promise<BuiltSite> {
+  const fontList = await loadFontList();
+  const images = painter === null ? null : NO_IMAGES;
+  const run = createBuildRun(ask, { ...start, images }, signal, onChange);
+
+  const [plan] = await Promise.all([planPages(run), designLook(run, fontList)]);
+  await writeText(run, plan);
+
+  let project = siteOf(run.draft(), plan);
   let failedImages = 0;
   if (painter !== null) {
-    const images = await withSiteImages(project, draft.brief, painter, signal, (progress) => {
-      draft = { ...draft, images: { ...progress, isFinished: false } };
-      report();
-    });
-    project = images.project;
-    failedImages = images.failed;
-    const total = images.made + images.failed;
-    draft = {
-      ...draft,
-      images: { done: total, total, isFinished: true },
-      usage: addUsage(draft.usage, images.usage),
-    };
-    working.delete(IMAGES_ID);
-    working.add(ASSEMBLE_ID);
-    report();
+    run.started(IMAGES_ID);
+    const { brief } = run.draft();
+    const painting = await withSiteImages(
+      project,
+      brief,
+      painter,
+      signal,
+      (progress, site, paintedPage) => {
+        run.painted({ images: { ...progress, isFinished: false } }, site, paintedPage);
+      },
+    );
+    project = painting.project;
+    failedImages = painting.failed;
+    const total = painting.made + painting.failed;
+    const usage = addUsage(run.draft().usage, painting.usage);
+    run.painted({ images: { done: total, total, isFinished: true }, usage }, project, null);
+    run.ended(IMAGES_ID);
   }
+
+  run.started(ASSEMBLE_ID);
   await ensureProjectIconSets(project);
-  return { project: withRenderableBlocks(project), draft, defaultedPages, failedImages };
+  return {
+    project,
+    draft: run.draft(),
+    defaultedPages: defaultedPages(run.draft(), plan),
+    failedImages,
+  };
 }

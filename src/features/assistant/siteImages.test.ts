@@ -101,6 +101,14 @@ describe('imageSlots', () => {
       'person',
       'product',
     ]);
+    expect(slots.map(({ pageSlug }) => pageSlug)).toEqual([
+      'home',
+      'home',
+      'home',
+      'home',
+      'home',
+      'cakes',
+    ]);
   });
 
   it('skips an image with nothing to show', () => {
@@ -126,10 +134,21 @@ describe('withSiteImages', () => {
   it('replaces every listed placeholder and leaves the given project alone', async () => {
     const project = siteProject();
     const progress: string[] = [];
+    const paintedPages: (string | null)[] = [];
     const paint = vi.fn(painted);
-    const result = await withSiteImages(project, BRIEF, painterWith(paint), live(), (step) =>
-      progress.push(`${step.done}/${step.total}`),
+    const result = await withSiteImages(
+      project,
+      BRIEF,
+      painterWith(paint),
+      live(),
+      (step, _site, paintedPage) => {
+        progress.push(`${step.done}/${step.total}`);
+        paintedPages.push(paintedPage);
+      },
     );
+    expect(paintedPages[0]).toBeNull();
+    expect(paintedPages.filter((page) => page === 'home')).toHaveLength(5);
+    expect(paintedPages.at(-1)).toBe('cakes');
     expect(result.made).toBe(6);
     expect(result.failed).toBe(0);
     expect(result.usage.tokens).toBe(60);
@@ -144,6 +163,35 @@ describe('withSiteImages', () => {
     expect(imagesOf(project).some((image) => image.source === 'upload')).toBe(false);
     const saved: unknown = JSON.parse(JSON.stringify(result.project));
     expect(() => parseProjectDocument(saved)).not.toThrow();
+  });
+
+  it('asks only for shapes every image model makes and crops to the shape of the slot', async () => {
+    const design = withoutPresetId(structuredClone(CLEAN_PRESET.designSystem));
+    const wide = { alt: 'A long table', subject: 'photo', ratio: '21:9' };
+    const classic = { alt: 'A loaf', subject: 'product', ratio: '3:2' };
+    const project = buildSiteProject(PLAN, design, {
+      shared: null,
+      pages: {
+        home: [{ kind: 'values', values: { image: wide } }],
+        cakes: [null, { kind: 'values', values: { image: classic } }],
+      },
+    });
+    const paint = vi.fn(painted);
+    const fit = vi.fn(async () => FITTED);
+    const progress: Project[] = [];
+    await withSiteImages(project, BRIEF, { paint, fit }, live(), (_step, site) => {
+      progress.push(site);
+    });
+    const asked = paint.mock.calls.map((call) => call[1]);
+    const fitted = fit.mock.calls.map((call: unknown[]) => call[1]);
+    expect(asked).toContain('16:9');
+    expect(asked).not.toContain('21:9');
+    expect(asked).not.toContain('3:2');
+    expect(fitted).toContain('21:9');
+    expect(fitted).toContain('3:2');
+    expect(imagesOf(progress.at(-1) ?? project).some((image) => image.source === 'upload')).toBe(
+      true,
+    );
   });
 
   it('keeps the placeholder of an image that fails and goes on', async () => {

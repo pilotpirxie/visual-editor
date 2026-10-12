@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 import { createProject, insertBlock, layerNames, openPage, storedProject } from './editor';
 import { stubOpenRouter, useAssistantSettings } from './fixtures/assistant';
 
@@ -25,6 +25,16 @@ async function describeSite(page: Page): Promise<void> {
   await page.goto('/');
   await page.getByRole('textbox', { name: 'Tell us about your site' }).fill('A site for my bakery');
   await page.getByRole('button', { name: 'Build my site' }).click();
+}
+
+async function startBuilding(page: Page): Promise<Locator> {
+  await describeSite(page);
+  const question = page.getByRole('dialog', { name: 'One quick question' });
+  await expect(
+    question.getByRole('heading', { name: 'How big should the site be?' }),
+  ).toBeFocused();
+  await page.keyboard.press('Enter');
+  return page.getByRole('dialog', { name: 'Building your site' });
 }
 
 async function projectCount(page: Page): Promise<number> {
@@ -160,14 +170,10 @@ test('a description becomes a site after one round of questions', async ({ page 
   await page.keyboard.press('Enter');
 
   await expect(page.locator('.ve-toolbar')).toBeVisible({ timeout: BUILD_TIMEOUT_MS });
-  await expect(page.getByText(/Your site is ready\. It used 10,500 tokens/)).toBeVisible();
-  expect(stub.steps.slice(0, 4)).toEqual([
-    'site_clarification',
-    'site_clarification',
-    'design_brief',
-    'site_plan',
-  ]);
-  expect([...stub.steps.slice(4)].sort()).toEqual(['Home', 'Menu', 'shared']);
+  await expect(page.getByText(/Your site is ready\. It used 9,000 tokens/)).toBeVisible();
+  expect(stub.steps[0]).toBe('site_clarification');
+  expect([...stub.steps.slice(1, 3)].sort()).toEqual(['design_brief', 'site_plan']);
+  expect([...stub.steps.slice(3)].sort()).toEqual(['Home', 'Menu', 'shared']);
 
   const canvas = page.frameLocator('.ve-canvas-frame');
   await expect(canvas.locator('.b-nav-simple')).toContainText('Our menu');
@@ -191,6 +197,90 @@ test('a description becomes a site after one round of questions', async ({ page 
   expect(pageNames).toEqual(['Home', 'Menu']);
   expect(project?.settings.title).toBe('Crumb & Co');
   expect(await layerNames(page)).toContain('HTML block');
+});
+
+test('the site shows up in a preview while it is built', async ({ page }) => {
+  const stub = await stubOpenRouter(page, { holdsWriting: true });
+  await useAssistantSettings(page);
+  const building = await startBuilding(page);
+  const preview = building.frameLocator('.ve-site-preview-frame');
+  const hero = preview.locator('.b-hero-centered');
+  await expect(hero).toHaveClass(/site-unwritten/);
+  await expect(hero).toHaveCSS('filter', /blur/);
+  await expect(hero).toHaveCSS('animation-name', 'none');
+  await expect(preview.locator('h1')).toHaveCSS('font-family', /Fraunces/);
+  const background = await preview.locator('body').evaluate((body) => {
+    return getComputedStyle(body).getPropertyValue('--color-background').trim();
+  });
+  expect(background).toBe('#fff8f0');
+  await expect(building.getByText('Writing Home', { exact: true })).toBeVisible();
+  await expect(building.getByRole('radio', { name: 'Home' })).toBeChecked();
+  const frame = building.locator('.ve-site-preview-frame');
+  const frameBox = await frame.boundingBox();
+  const stepsBox = await building.locator('.ve-build-status').boundingBox();
+  const pageBox = await building.locator('.ve-build-page').boundingBox();
+  const divider = 1;
+  expect(frameBox?.x).toBe((stepsBox?.width ?? 0) + divider);
+  expect((frameBox?.x ?? 0) + (frameBox?.width ?? 0)).toBe(pageBox?.width);
+  expect((frameBox?.y ?? 0) + (frameBox?.height ?? 0)).toBe(page.viewportSize()?.height);
+  expect(await preview.locator('html').evaluate((root) => root.clientWidth)).toBe(
+    Math.round(frameBox?.width ?? 0),
+  );
+
+  await expect.poll(() => stub.steps).toContain('Home');
+  stub.releaseWriting('Home');
+  await expect(preview.locator('h1')).toHaveText('Bread worth getting up for');
+  await expect(hero).not.toHaveClass(/site-unwritten/);
+  await expect(preview.locator('.b-nav-simple')).toHaveClass(/site-unwritten/);
+  await expect(preview.locator('[data-html-block] h2')).toHaveText('Opening hours');
+
+  await expect.poll(() => stub.steps).toContain('Menu');
+  stub.releaseWriting('Menu');
+  await expect(building.getByRole('radio', { name: 'Menu' })).toBeChecked();
+  await expect(preview.locator('.b-pricing-3-plans')).not.toHaveClass(/site-unwritten/);
+  await expect(preview.locator('.b-hero-centered')).toHaveCount(0);
+
+  await building.getByRole('radio', { name: 'Home' }).check({ force: true });
+  await expect(hero).toBeVisible();
+  await frame.hover();
+  await page.mouse.wheel(0, 300);
+  await expect
+    .poll(() => preview.locator('html').evaluate((root) => root.ownerDocument.defaultView?.scrollY))
+    .toBeGreaterThan(0);
+  await preview.locator('.b-hero-centered a').first().click({ force: true });
+  await expect(building).toBeVisible();
+
+  stub.releaseWriting();
+  await expect(page.locator('.ve-toolbar')).toBeVisible({ timeout: BUILD_TIMEOUT_MS });
+  const canvas = page.frameLocator('.ve-canvas-frame');
+  await expect(canvas.locator('.b-hero-centered h1')).toHaveText('Bread worth getting up for');
+  await expect(canvas.locator('.site-unwritten')).toHaveCount(0);
+});
+
+test('the preview moves while the site is built when motion is allowed', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  const stub = await stubOpenRouter(page, { holdsWriting: true });
+  await useAssistantSettings(page);
+  const building = await startBuilding(page);
+  const preview = building.frameLocator('.ve-site-preview-frame');
+  const hero = preview.locator('.b-hero-centered');
+  await expect(hero).toHaveCSS('animation-name', 'site-writing');
+
+  await expect.poll(() => stub.steps).toContain('Home');
+  stub.releaseWriting('Home');
+  await expect(preview.locator('h1')).toHaveText('Bread worth getting up for');
+  await expect(hero).toHaveCSS('animation-name', 'none');
+  await expect(hero).toHaveCSS('filter', 'none');
+  await expect(hero).toHaveCSS('opacity', '1');
+
+  await expect.poll(() => stub.steps).toContain('Menu');
+  stub.releaseWriting('Menu');
+  await expect(building.getByRole('radio', { name: 'Menu' })).toBeChecked();
+  await expect(preview.locator('.b-pricing-3-plans')).toBeVisible();
+  await expect(preview.locator('body')).toHaveCSS('opacity', '1');
+
+  stub.releaseWriting();
+  await expect(page.locator('.ve-toolbar')).toBeVisible({ timeout: BUILD_TIMEOUT_MS });
 });
 
 test('an image model is picked in App settings and can be removed', async ({ page }) => {

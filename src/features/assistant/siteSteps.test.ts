@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { builtInComponents } from '../../components/registry';
 import { AssistantError } from './openRouter';
 import {
+  briefWithAnswers,
   clarifyRequest,
   DEFAULT_FOOTER_ID,
   DEFAULT_HEADER_ID,
@@ -10,6 +11,7 @@ import {
   MAX_PAGES,
   MAX_QUESTIONS,
   MAX_SECTIONS,
+  pageParts,
   pageRequest,
   parseClarification,
   parseSections,
@@ -17,6 +19,8 @@ import {
   planRequest,
   sharedRequest,
   siteSizeOf,
+  type PagePlan,
+  type SectionPlan,
   type SitePlan,
 } from './siteSteps';
 
@@ -71,39 +75,54 @@ function strictObjects(schema: unknown, path: string): string[] {
 }
 
 describe('clarifyRequest', () => {
-  it('sends the description and earlier answers, and allows questions', () => {
-    const request = clarifyRequest(
-      'A bakery site',
-      [{ question: 'Where?', answer: 'Leeds' }],
-      true,
-    );
+  it('sends the description and asks everything in one go', () => {
+    const request = clarifyRequest('A bakery site');
     expect(request.user).toContain('"""A bakery site"""');
-    expect(request.user).toContain('- Where?');
-    expect(request.user).toContain('Leeds');
     expect(request.user).toContain(`up to ${MAX_QUESTIONS} short questions`);
+    expect(request.user).toContain('You can ask only this once');
+    expect(request.user).toContain('Leave out of the brief whatever you ask about');
+  });
+});
+
+describe('briefWithAnswers', () => {
+  it('adds the given answers below the brief and says they win', () => {
+    const brief = briefWithAnswers('A bakery site.', [
+      { question: 'Where?', answer: 'Leeds' },
+      { question: 'What is it called?', answer: '' },
+      { question: 'Which pages?', answer: 'Menu, Our story' },
+    ]);
+    expect(brief).toBe(
+      [
+        'A bakery site.',
+        '',
+        'The person then answered these questions. Their answers win over anything above:',
+        '- Where?',
+        '  Leeds',
+        '- Which pages?',
+        '  Menu, Our story',
+      ].join('\n'),
+    );
   });
 
-  it('forbids questions in the last round', () => {
-    const request = clarifyRequest('A bakery site', [{ question: 'Where?', answer: '' }], false);
-    expect(request.user).toContain('Do not ask anything now');
-    expect(request.user).toContain('(no answer, decide yourself)');
+  it('leaves the brief alone when nothing was answered', () => {
+    expect(briefWithAnswers('A bakery site.', [])).toBe('A bakery site.');
+    expect(briefWithAnswers('A bakery site.', [{ question: 'Where?', answer: '' }])).toBe(
+      'A bakery site.',
+    );
   });
 });
 
 describe('parseClarification', () => {
   it('keeps real questions with their suggestions', () => {
-    const clarification = parseClarification(
-      {
-        isClear: true,
-        brief: '  A bakery in Leeds.  ',
-        questions: [
-          { question: 'Do you take orders online?', suggestions: ['Yes', 'No', 7, '', 'By phone'] },
-          { question: '   ' },
-          'What?',
-        ],
-      },
-      true,
-    );
+    const clarification = parseClarification({
+      isClear: true,
+      brief: '  A bakery in Leeds.  ',
+      questions: [
+        { question: 'Do you take orders online?', suggestions: ['Yes', 'No', 7, '', 'By phone'] },
+        { question: '   ' },
+        'What?',
+      ],
+    });
     expect(clarification).toEqual({
       isClear: false,
       brief: 'A bakery in Leeds.',
@@ -119,16 +138,13 @@ describe('parseClarification', () => {
   });
 
   it('lets several answers be picked only when there are several to pick from', () => {
-    const { questions } = parseClarification(
-      {
-        questions: [
-          { question: 'Which pages?', suggestions: ['Menu', 'Story'], allowsMany: true },
-          { question: 'Which city?', suggestions: ['Leeds'], allowsMany: true },
-          { question: 'What tone?', suggestions: ['Warm', 'Formal'], allowsMany: 'yes' },
-        ],
-      },
-      true,
-    );
+    const { questions } = parseClarification({
+      questions: [
+        { question: 'Which pages?', suggestions: ['Menu', 'Story'], allowsMany: true },
+        { question: 'Which city?', suggestions: ['Leeds'], allowsMany: true },
+        { question: 'What tone?', suggestions: ['Warm', 'Formal'], allowsMany: 'yes' },
+      ],
+    });
     expect(questions.map(({ allowsMany }) => allowsMany)).toEqual([true, false, false]);
   });
 
@@ -143,40 +159,34 @@ describe('parseClarification', () => {
       'FAQ',
       'Contact',
     ];
-    const { questions } = parseClarification(
-      {
-        questions: [
-          { question: 'Which sections?', suggestions: [...sections, 'Blog'], allowsMany: true },
-          { question: 'Which style?', suggestions: sections, allowsMany: false },
-        ],
-      },
-      true,
-    );
+    const { questions } = parseClarification({
+      questions: [
+        { question: 'Which sections?', suggestions: [...sections, 'Blog'], allowsMany: true },
+        { question: 'Which style?', suggestions: sections, allowsMany: false },
+      ],
+    });
     expect(questions[0].suggestions).toEqual(sections);
     expect(questions[1].suggestions).toEqual(['Hero', 'Services', 'Prices', 'Gallery']);
   });
 
   it('keeps only recommended answers that were suggested, one unless several fit', () => {
-    const { questions } = parseClarification(
-      {
-        questions: [
-          {
-            question: 'Which pages?',
-            suggestions: ['Menu', 'Story', 'Gallery'],
-            allowsMany: true,
-            recommended: ['Story', ' Menu ', 'Story', 'Shop', 4],
-          },
-          {
-            question: 'What tone?',
-            suggestions: ['Warm', 'Formal'],
-            allowsMany: false,
-            recommended: ['Bold', 'Formal', 'Warm'],
-          },
-          { question: 'Which city?', suggestions: ['Leeds'], recommended: 'Leeds' },
-        ],
-      },
-      true,
-    );
+    const { questions } = parseClarification({
+      questions: [
+        {
+          question: 'Which pages?',
+          suggestions: ['Menu', 'Story', 'Gallery'],
+          allowsMany: true,
+          recommended: ['Story', ' Menu ', 'Story', 'Shop', 4],
+        },
+        {
+          question: 'What tone?',
+          suggestions: ['Warm', 'Formal'],
+          allowsMany: false,
+          recommended: ['Bold', 'Formal', 'Warm'],
+        },
+        { question: 'Which city?', suggestions: ['Leeds'], recommended: 'Leeds' },
+      ],
+    });
     expect(questions.map(({ recommended }) => recommended)).toEqual([
       ['Story', 'Menu'],
       ['Formal'],
@@ -184,28 +194,19 @@ describe('parseClarification', () => {
     ]);
   });
 
-  it('asks at most four questions and none in the last round', () => {
+  it('asks at most four questions', () => {
     const questions = [1, 2, 3, 4, 5, 6].map((number) => ({ question: `Question ${number}?` }));
-    expect(parseClarification({ questions }, true).questions).toHaveLength(MAX_QUESTIONS);
-    expect(parseClarification({ questions, brief: 'B' }, false)).toEqual({
-      isClear: true,
-      questions: [],
-      brief: 'B',
-    });
+    expect(parseClarification({ questions }).questions).toHaveLength(MAX_QUESTIONS);
   });
 
   it.each([null, 'ready', [], 3])('treats %j as clear with no brief', (value) => {
-    expect(parseClarification(value, true)).toEqual({ isClear: true, questions: [], brief: '' });
+    expect(parseClarification(value)).toEqual({ isClear: true, questions: [], brief: '' });
   });
 });
 
 describe('request schemas', () => {
   it('are strict enough for structured output', () => {
-    const requests = [
-      clarifyRequest('A site', [], true),
-      designRequest('Brief'),
-      planRequest('Brief'),
-    ];
+    const requests = [clarifyRequest('A site'), designRequest('Brief'), planRequest('Brief')];
     for (const request of requests) {
       expect(request.schema).not.toBeNull();
       expect(strictObjects(request.schema?.schema, request.schema?.name ?? '')).toEqual([]);
@@ -243,7 +244,7 @@ describe('request schemas', () => {
   it('give the planner and the questions the typical sections of common kinds of site', () => {
     const playbook = 'Beauty and grooming (hairdresser, barber';
     expect(planRequest('A salon').user).toContain(playbook);
-    expect(clarifyRequest('A salon', [], true).user).toContain(playbook);
+    expect(clarifyRequest('A salon').user).toContain(playbook);
     expect(planRequest('A salon').user).toContain('one long text section for search engines');
   });
 
@@ -372,9 +373,40 @@ describe('parseSitePlan', () => {
   );
 });
 
+function longPage(sectionCount: number): PagePlan {
+  const sections: SectionPlan[] = [];
+  for (const { definition } of builtInComponents.values()) {
+    if (sections.length === sectionCount) break;
+    if (definition.category !== 'features') continue;
+    const note = `Note ${sections.length + 1}`;
+    sections.push({ kind: 'block', blockId: definition.id, theme: 'default', note });
+  }
+  return { name: 'Home', slug: 'home', purpose: 'Welcome', sections };
+}
+
+describe('pageParts', () => {
+  it.each([
+    { sectionCount: 1, sizes: [1] },
+    { sectionCount: 5, sizes: [5] },
+    { sectionCount: 6, sizes: [3, 3] },
+    { sectionCount: 11, sizes: [4, 4, 3] },
+    { sectionCount: 14, sizes: [5, 5, 4] },
+    { sectionCount: 16, sizes: [4, 4, 4, 4] },
+  ])('splits $sectionCount sections into parts of $sizes', ({ sectionCount, sizes }) => {
+    const parts = pageParts(longPage(sectionCount));
+    expect(parts.map(({ count }) => count)).toEqual(sizes);
+    let next = 0;
+    for (const part of parts) {
+      expect(part.first).toBe(next);
+      next += part.count;
+    }
+  });
+});
+
 describe('writing requests', () => {
   it('describe each section of the page in order', () => {
-    const request = pageRequest('Brief text', plan(), plan().pages[0]);
+    const [whole] = pageParts(plan().pages[0]);
+    const request = pageRequest('Brief text', plan(), whole);
     expect(request.schema).toBeNull();
     expect(request.user).toContain('exactly 4 entries');
     expect(request.user).toContain('"block":"hero-centered"');
@@ -383,11 +415,31 @@ describe('writing requests', () => {
     expect(request.user).toContain('For a custom section return');
     expect(request.user).toContain('"home" (Home), "menu-prices" (Our Menu)');
     expect(request.user).toContain('rocket');
+    expect(request.user).not.toContain('Write only sections');
   });
 
   it('leave the custom rules out when a page has no custom section', () => {
-    const request = pageRequest('Brief text', plan(), plan().pages[1]);
+    const [whole] = pageParts(plan().pages[1]);
+    const request = pageRequest('Brief text', plan(), whole);
     expect(request.user).not.toContain('For a custom section return');
+  });
+
+  it('give one part of a long page its own sections and the outline of the whole page', () => {
+    const page = longPage(11);
+    const site: SitePlan = { ...plan(), pages: [page] };
+    const second = pageParts(page)[1];
+    const request = pageRequest('Brief text', site, second);
+    expect(request.user).toContain('Write the content of the page "Home" (Welcome).');
+    expect(request.user).toContain('Write only sections 5 to 8 of this page.');
+    expect(request.user).toContain('exactly 4 entries');
+    for (let number = 1; number <= 11; number += 1) {
+      expect(request.user).toContain(`: Note ${number}`);
+    }
+    const tasks = request.user.slice(request.user.indexOf('Sections to write:'));
+    expect(tasks).toContain('"note":"Note 5"');
+    expect(tasks).toContain('"note":"Note 8"');
+    expect(tasks).not.toContain('"note":"Note 4"');
+    expect(tasks).not.toContain('"note":"Note 9"');
   });
 
   it('ask for the navigation and footer together', () => {
