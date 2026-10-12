@@ -213,6 +213,91 @@ describe('template rules', () => {
   });
 });
 
+describe('template scanning', () => {
+  const OTHER_SITE = 'points to another site; use a link field instead';
+  const NO_HANDLERS = 'blocks get behavior from the site runtime';
+
+  async function scanned(line: string): Promise<string[]> {
+    return templateErrors(quoteCardWith(line));
+  }
+
+  it('reads values in single quotes, in double quotes and without quotes', async () => {
+    expect(await scanned("<a href='https://evil.example/'>x</a>")).toEqual([
+      `template.hbs@9: href="https://evil.example/" ${OTHER_SITE}`,
+    ]);
+    expect(await scanned('<a href=https://evil.example/>x</a>')).toEqual([
+      `template.hbs@9: href="https://evil.example/" ${OTHER_SITE}`,
+    ]);
+    expect(await scanned('<p id=ve-page title=ok>Hi</p>')).toEqual([
+      'template.hbs@9: ids starting with ve- belong to the editor',
+    ]);
+    expect(await scanned(`<p title='say "hi"' id="it's">Hi</p>`)).toEqual([]);
+  });
+
+  it('reads an attribute with spaces around its equals sign', async () => {
+    expect(await scanned('<a href = "https://evil.example/">x</a>')).toEqual([
+      `template.hbs@9: href="https://evil.example/" ${OTHER_SITE}`,
+    ]);
+  });
+
+  it('checks attributes without a value, wherever the tag ends', async () => {
+    expect(await scanned('<p onclick>Hi</p>')).toEqual([
+      `template.hbs@9: can’t use the onclick attribute: ${NO_HANDLERS}`,
+    ]);
+    expect(await scanned('<p hidden onfocus="x()">Hi</p>')).toEqual([
+      `template.hbs@9: can’t use the onfocus attribute: ${NO_HANDLERS}`,
+    ]);
+    expect(await scanned('<p hidden >Hi</p>')).toEqual([]);
+    expect(await scanned('<p title=>Hi</p>')).toEqual([]);
+  });
+
+  it('reads tag and attribute names in any letter case', async () => {
+    expect(await scanned('<SCRIPT>alert(1)</SCRIPT>')).toEqual([
+      'template.hbs@9: can’t use <script>',
+    ]);
+    expect(await scanned('<P ONCLICK="x()">Hi</P>')).toEqual([
+      `template.hbs@9: can’t use the onclick attribute: ${NO_HANDLERS}`,
+    ]);
+  });
+
+  it('checks self-closing tags', async () => {
+    expect(await scanned('<img src="//evil.example/a.png" alt=""/>')).toEqual([
+      `template.hbs@9: src="//evil.example/a.png" ${OTHER_SITE}`,
+    ]);
+    expect(await scanned('<br/><hr />')).toEqual([]);
+  });
+
+  it('leaves comments, closing tags, plain text and textarea content unread', async () => {
+    expect(await scanned('<!-- <script> -->')).toEqual([]);
+    expect(await scanned('<p>Hi</p onclick="x()">')).toEqual([]);
+    expect(await scanned('<p>1 < 2 and onclick="x()"</p>')).toEqual([]);
+    expect(await scanned('<textarea><p onclick="x()"></textarea>')).toEqual([]);
+  });
+
+  it('goes on reading after a comment and after a textarea', async () => {
+    expect(await scanned('<!-- note --><p onclick="x()">Hi</p>')).toEqual([
+      `template.hbs@9: can’t use the onclick attribute: ${NO_HANDLERS}`,
+    ]);
+    expect(await scanned('<textarea>Hi</textarea><p onclick="x()">Hi</p>')).toEqual([
+      `template.hbs@9: can’t use the onclick attribute: ${NO_HANDLERS}`,
+    ]);
+  });
+
+  it('reports the line an attribute is on inside a tag that spans lines', async () => {
+    expect(await scanned('<a\n      href="#top"\n      ping="//evil.example">x</a>')).toEqual([
+      `template.hbs@11: ping="//evil.example" ${OTHER_SITE}`,
+    ]);
+  });
+
+  it('reports every problem of one tag in order', async () => {
+    expect(await scanned('<iframe onload="x()" src="https://evil.example/"></iframe>')).toEqual([
+      'template.hbs@9: can’t use <iframe>',
+      `template.hbs@9: can’t use the onload attribute: ${NO_HANDLERS}`,
+      `template.hbs@9: src="https://evil.example/" ${OTHER_SITE}`,
+    ]);
+  });
+});
+
 describe('CSS rules', () => {
   it('requires one scope for the block root inside the components layer', async () => {
     expect(await cssErrors('.b-acme-quote-card { color: red; }')).toEqual([

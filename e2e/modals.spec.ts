@@ -1,10 +1,16 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { expect, test, type Page, type TestInfo } from '@playwright/test';
-import { addPage, createProject, insertBlock, openPage, readZip } from './editor';
+import { expect, test, type Page, type TestInfo, type FrameLocator } from '@playwright/test';
+import {
+  addPage,
+  createProject,
+  insertBlock,
+  openPage,
+  exportedFiles,
+  writeSiteFiles,
+} from './editor';
 
-function canvas(page: Page) {
+function canvas(page: Page): FrameLocator {
   return page.frameLocator('.ve-canvas-frame');
 }
 
@@ -16,17 +22,9 @@ async function linkCtaToModal(page: Page): Promise<void> {
 }
 
 async function exportToFolder(page: Page, testInfo: TestInfo): Promise<Map<string, Buffer>> {
-  await page.getByRole('button', { name: 'Export', exact: true }).click();
-  const dialog = page.getByRole('dialog', { name: 'Export site' });
-  const downloadPromise = page.waitForEvent('download');
-  await dialog.getByRole('button', { name: 'Download zip' }).click();
-  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const files = await exportedFiles(page);
   const folder = testInfo.outputPath('site');
-  for (const [path, content] of files) {
-    const target = join(folder, path);
-    await mkdir(dirname(target), { recursive: true });
-    await writeFile(target, content);
-  }
+  await writeSiteFiles(files, folder);
   return files;
 }
 

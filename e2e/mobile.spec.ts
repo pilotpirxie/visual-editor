@@ -1,24 +1,11 @@
 import { expect, test, type Page } from '@playwright/test';
 import { stubOpenRouter, useAssistantSettings } from './fixtures/assistant';
+import { isCanvasDocumentKept, markCanvasDocument } from './editor';
 
 const MIN_INPUT_FONT_SIZE_PX = 16;
 
 async function tapTab(page: Page, name: string): Promise<void> {
   await page.locator('.ve-compact-tabs').getByRole('button', { name }).tap();
-}
-
-async function markCanvasDocument(page: Page): Promise<void> {
-  await page.evaluate(() => {
-    const view = document.querySelector<HTMLIFrameElement>('.ve-canvas-frame')?.contentWindow;
-    if (view) Object.assign(view, { keptAlive: true });
-  });
-}
-
-async function isCanvasDocumentKept(page: Page): Promise<boolean> {
-  return page.evaluate(() => {
-    const view = document.querySelector<HTMLIFrameElement>('.ve-canvas-frame')?.contentWindow;
-    return view !== null && view !== undefined && 'keptAlive' in view;
-  });
 }
 
 test('a site can be built on a phone, one view at a time', async ({ page }) => {

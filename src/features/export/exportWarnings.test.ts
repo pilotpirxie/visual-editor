@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from '../../app/projectFactory';
-import type { Project } from '../../app/types';
+import type { Project, ComponentBlock } from '../../app/types';
 import { builtInComponents, createBlock } from '../../components/registry';
 import { placeholderImage } from '../../render/placeholder';
 import { componentBlockOf, homePage, withSearchDetails } from '../../test/fixtures';
@@ -17,7 +17,7 @@ function warningTexts(project: Project): string[] {
   return texts;
 }
 
-function blockOf(project: Project, index: number) {
+function blockOf(project: Project, index: number): ComponentBlock {
   return componentBlockOf(project, homePage(project).blockIds[index] ?? '');
 }
 

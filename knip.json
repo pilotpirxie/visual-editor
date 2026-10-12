@@ -1,0 +1,9 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "packages/site-runtime/src/core.ts",
+    "packages/site-runtime/src/behaviors/*.ts",
+    "packages/block-thumbnails/src/harness.ts"
+  ],
+  "ignoreDependencies": ["@iconify-json/.+"]
+}

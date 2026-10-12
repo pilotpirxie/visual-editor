@@ -6,21 +6,9 @@ import {
   insertBlock,
   openPage,
   storedProject,
+  isCanvasDocumentKept,
+  markCanvasDocument,
 } from './editor';
-
-async function markCanvasDocument(page: Page): Promise<void> {
-  await page.evaluate(() => {
-    const view = document.querySelector<HTMLIFrameElement>('.ve-canvas-frame')?.contentWindow;
-    if (view) Object.assign(view, { keptAlive: true });
-  });
-}
-
-async function isCanvasDocumentKept(page: Page): Promise<boolean> {
-  return page.evaluate(() => {
-    const view = document.querySelector<HTMLIFrameElement>('.ve-canvas-frame')?.contentWindow;
-    return view !== null && view !== undefined && 'keptAlive' in view;
-  });
-}
 
 async function canvasScrollY(page: Page): Promise<number> {
   return page.evaluate(

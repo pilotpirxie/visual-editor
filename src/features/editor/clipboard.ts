@@ -88,7 +88,7 @@ export function createEnvelope(project: Project, blockId: string): BlockEnvelope
   };
 }
 
-export function envelopeHtml(project: Project, block: Block): string {
+function envelopeHtml(project: Project, block: Block): string {
   try {
     const components = componentsFor(project);
     return renderAnyBlock(block, components, createRenderContext(project, 'export')) ?? '';

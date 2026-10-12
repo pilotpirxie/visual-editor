@@ -1,7 +1,7 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page, type Locator } from '@playwright/test';
 import { createProject, insertBlock, layerNames } from './editor';
 
-async function openSnapshots(page: Page) {
+async function openSnapshots(page: Page): Promise<Locator> {
   await page.getByRole('button', { name: /^File/ }).click();
   await page.getByRole('menuitem', { name: 'Snapshots…' }).click();
   return page.getByRole('dialog', { name: 'Snapshots' });

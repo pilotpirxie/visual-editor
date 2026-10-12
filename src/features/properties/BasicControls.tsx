@@ -30,7 +30,7 @@ function numberFromInput(event: ChangeEvent<HTMLInputElement>): number | string 
 
 const LINE_BREAKS = /\r\n?|\n/g;
 
-export function singleLine(text: string): string {
+function singleLine(text: string): string {
   return text.replace(LINE_BREAKS, ' ');
 }
 

@@ -1,6 +1,12 @@
 import { readFile } from 'node:fs/promises';
-import { expect, test, type Page } from '@playwright/test';
-import { createProject, insertBlock, readZip, showAllBlockCategories } from './editor';
+import { expect, test, type Page, type FrameLocator, type Locator } from '@playwright/test';
+import {
+  createProject,
+  insertBlock,
+  readZip,
+  showAllBlockCategories,
+  exportedFiles,
+} from './editor';
 import {
   animatedPack,
   bylinePack,
@@ -17,7 +23,7 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-function canvas(page: Page) {
+function canvas(page: Page): FrameLocator {
   return page.frameLocator('.ve-canvas-frame');
 }
 
@@ -40,7 +46,7 @@ async function addPack(page: Page, pack: Promise<Buffer>, confirmLabel: string):
   await expect(dialog).toBeHidden();
 }
 
-async function openManagePacks(page: Page) {
+async function openManagePacks(page: Page): Promise<Locator> {
   await showAllBlockCategories(page);
   await page.locator('.ve-blocks').getByRole('button', { name: 'Manage packs' }).click();
   return page.getByRole('dialog', { name: 'Block packs' });
@@ -91,11 +97,7 @@ test('a valid pack previews at three widths and its blocks join the library', as
   await expect(block.locator('blockquote')).toHaveText('It changed how our team works.');
   const canvasText = normalized(await block.textContent());
 
-  await page.getByRole('button', { name: 'Export', exact: true }).click();
-  const exportDialog = page.getByRole('dialog', { name: 'Export site' });
-  const downloadPromise = page.waitForEvent('download');
-  await exportDialog.getByRole('button', { name: 'Download zip' }).click();
-  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const files = await exportedFiles(page);
   const html = files.get('index.html')?.toString('utf8') ?? '';
   const css = files.get('assets/css/site.css')?.toString('utf8') ?? '';
   expect(html).toContain('data-component="acme/quote-card"');
@@ -243,11 +245,7 @@ test('a pack block animates with keyframes named after it, on the canvas and in 
     });
   expect(keyframeNames).toContain('b-acme-quote-card--glow');
 
-  await page.getByRole('button', { name: 'Export', exact: true }).click();
-  const exportDialog = page.getByRole('dialog', { name: 'Export site' });
-  const downloadPromise = page.waitForEvent('download');
-  await exportDialog.getByRole('button', { name: 'Download zip' }).click();
-  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const files = await exportedFiles(page);
   const css = files.get('assets/css/site.css')?.toString('utf8') ?? '';
   expect(css).toContain('@keyframes b-acme-quote-card--glow');
   expect(css).toContain('animation-iteration-count: 1 !important');

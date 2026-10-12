@@ -57,7 +57,9 @@ function Harness({
   );
 }
 
-function renderField(field: Field, initial: unknown = field.default) {
+type RenderedField = { onChange: ReturnType<typeof vi.fn>; element: HTMLDivElement };
+
+function renderField(field: Field, initial: unknown = field.default): RenderedField {
   const onChange = vi.fn();
   const { container } = render(<Harness field={field} initial={initial} onChange={onChange} />);
   return { onChange, element: container };

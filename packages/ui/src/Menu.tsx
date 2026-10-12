@@ -28,7 +28,7 @@ export type MenuAction = {
   onSelect(): void;
 };
 
-export type MenuSeparator = { id: string; isSeparator: true };
+type MenuSeparator = { id: string; isSeparator: true };
 
 export type MenuItem = MenuAction | MenuSeparator;
 
@@ -55,7 +55,7 @@ export function afterPointerRelease(event: { buttons: number }, callback: () => 
   window.addEventListener('pointerup', () => setTimeout(callback), { once: true, capture: true });
 }
 
-export function closeOwningPopover(element: Element): void {
+function closeOwningPopover(element: Element): void {
   const popover = element.closest<HTMLElement>('[popover]');
   if (popover !== null && isPopoverOpen(popover)) popover.hidePopover();
 }

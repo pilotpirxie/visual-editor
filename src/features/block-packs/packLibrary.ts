@@ -112,7 +112,7 @@ export function packInLibrary(state: RootState, packId: string): BlockPack | und
   return state.editor.blockPacks.find(({ id }) => id === packId);
 }
 
-export function canReplacePack(existing: BlockPack | undefined, offered: PackInfo): boolean {
+function canReplacePack(existing: BlockPack | undefined, offered: PackInfo): boolean {
   return existing === undefined || compareVersions(offered.version, existing.version) >= 0;
 }
 

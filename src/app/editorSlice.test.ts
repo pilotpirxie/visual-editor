@@ -28,7 +28,7 @@ import {
   selectCompactTab,
   type EditorState,
 } from './editorSlice';
-import { blockInserted, projectLoaded } from './projectSlice';
+import { blockInserted, blockPasted, projectLoaded } from './projectSlice';
 
 function initialEditor(): EditorState {
   return editorSlice.reducer(undefined, { type: 'init' });
@@ -281,6 +281,50 @@ describe('compactTabSelected', () => {
     const store = createTestStore();
     store.dispatch(propertiesOpened());
     store.dispatch(blockInserted(store.getState().project.pages.homePageId, 0, 'cta-centered'));
+    expect(store.getState().editor.compactView).toBe('properties');
+  });
+
+  it('shows a pasted block the same way as an inserted one', () => {
+    const store = createTestStore();
+    const home = homePage(store.getState().project);
+    const copied = store.getState().project.blocks.entities[home.blockIds[0]];
+    store.dispatch(propertiesTabChanged('style'));
+    store.dispatch(compactTabSelected('blocks'));
+    store.dispatch(
+      blockPasted({
+        target: { kind: 'page', pageId: home.id },
+        index: 1,
+        block: { ...copied, id: 'pasted' },
+      }),
+    );
+    const { editor } = store.getState();
+    expect(editor.selectedBlockId).toBe('pasted');
+    expect(editor.propertiesTab).toBe('content');
+    expect(editor.isLibraryDrawerOpen).toBe(false);
+    expect(editor.compactView).toBe('canvas');
+  });
+
+  it('selects an inserted block and opens its content tab', () => {
+    const store = createTestStore();
+    store.dispatch(propertiesTabChanged('advanced'));
+    store.dispatch(blockInserted(store.getState().project.pages.homePageId, 0, 'cta-centered'));
+    const { editor, project } = store.getState();
+    expect(editor.selectedBlockId).toBe(homePage(project).blockIds[0]);
+    expect(editor.propertiesTab).toBe('content');
+  });
+
+  it('stays on properties when a block is pasted from elsewhere', () => {
+    const store = createTestStore();
+    const home = homePage(store.getState().project);
+    const copied = store.getState().project.blocks.entities[home.blockIds[0]];
+    store.dispatch(propertiesOpened());
+    store.dispatch(
+      blockPasted({
+        target: { kind: 'page', pageId: home.id },
+        index: 0,
+        block: { ...copied, id: 'pasted' },
+      }),
+    );
     expect(store.getState().editor.compactView).toBe('properties');
   });
 });

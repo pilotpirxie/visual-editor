@@ -1,6 +1,5 @@
-import { readFile } from 'node:fs/promises';
 import { expect, test, type Page } from '@playwright/test';
-import { createProject, insertBlock, readZip } from './editor';
+import { createProject, insertBlock, exportedFiles } from './editor';
 
 const WHITE = 'rgb(255, 255, 255)';
 const CLEAN_PRIMARY = 'rgb(79, 70, 229)';
@@ -13,16 +12,6 @@ async function chooseTheme(page: Page, label: string): Promise<void> {
     .getByRole('group', { name: 'Section theme' })
     .getByText(label, { exact: true })
     .click();
-}
-
-async function exportedFiles(page: Page): Promise<Map<string, Buffer>> {
-  await page.getByRole('button', { name: 'Export', exact: true }).click();
-  const downloadPromise = page.waitForEvent('download');
-  await page
-    .getByRole('dialog', { name: 'Export site' })
-    .getByRole('button', { name: 'Download zip' })
-    .click();
-  return readZip(await readFile(await (await downloadPromise).path()));
 }
 
 test('a section theme recolors one block, keeps buttons visible and undoes in one step', async ({

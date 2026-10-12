@@ -1,4 +1,11 @@
-import { useRef, useState, type JSX, type KeyboardEvent, type RefObject } from 'react';
+import {
+  useRef,
+  useState,
+  type JSX,
+  type KeyboardEvent,
+  type PointerEvent,
+  type RefObject,
+} from 'react';
 import type { EditKind } from '../../app/projectSlice';
 import {
   addItem,
@@ -16,7 +23,7 @@ import {
 import type { Field } from '../../components/types';
 import { dragController, type DragPayload } from '../canvas/dragController';
 import { dropEdgeAt, finalMoveIndex } from '../canvas/geometry';
-import { useListDropTarget } from '../canvas/useListDropTarget';
+import { isNoopListItemDrop, useListDropTarget } from '../canvas/useListDropTarget';
 import { FieldControl, type ControlProps } from './FieldControl';
 import { Icon, IconButton } from '../../../packages/ui/src';
 
@@ -86,6 +93,69 @@ function visibleItemFields(itemFields: Field[], item: ListItem): Field[] {
   return visible;
 }
 
+type ItemFieldsProps = {
+  itemFields: Field[];
+  item: ListItem;
+  itemPath: string;
+  onFieldChange(name: string, next: unknown, kind: EditKind): void;
+};
+
+function ItemFields({ itemFields, item, itemPath, onFieldChange }: ItemFieldsProps): JSX.Element {
+  return (
+    <div className="ve-list-item-fields">
+      {visibleItemFields(itemFields, item).map((itemField) => (
+        <FieldControl
+          key={itemField.name}
+          field={itemField}
+          value={item[itemField.name]}
+          path={`${itemPath}.${itemField.name}`}
+          onChange={(next, kind) => onFieldChange(itemField.name, next, kind)}
+        />
+      ))}
+    </div>
+  );
+}
+
+type ItemActionsProps = {
+  title: string;
+  canAdd: boolean;
+  canRemove: boolean;
+  onGrab(event: PointerEvent<HTMLButtonElement>): void;
+  onMoveKey(event: KeyboardEvent<HTMLButtonElement>): void;
+  onDuplicate(): void;
+  onRemove(): void;
+};
+
+function ItemActions({
+  title,
+  canAdd,
+  canRemove,
+  onGrab,
+  onMoveKey,
+  onDuplicate,
+  onRemove,
+}: ItemActionsProps): JSX.Element {
+  return (
+    <div className="ve-list-item-actions">
+      <IconButton
+        className="ve-list-handle"
+        label={`Move ${title}`}
+        icon="grip"
+        hint="Drag to reorder, or press Alt with an arrow key"
+        onPointerDown={onGrab}
+        onKeyDown={onMoveKey}
+      />
+      <IconButton
+        label={`Duplicate ${title}`}
+        icon="copy"
+        disabled={!canAdd}
+        onClick={onDuplicate}
+      />
+      <IconButton label={`Remove ${title}`} icon="trash" disabled={!canRemove} onClick={onRemove} />
+    </div>
+  );
+}
+
 export function ListField({ field, value, id, path, onChange }: ControlProps): JSX.Element {
   const items = asListItems(value);
   const listRef = useRef<HTMLOListElement>(null);
@@ -104,10 +174,7 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
     listRef,
     edgeMargin: DROP_EDGE_MARGIN,
     accepts: isOwnItem,
-    isNoopDrop(payload, index) {
-      if (payload.kind !== 'list-item') return true;
-      return finalMoveIndex(payload.index, index) === payload.index;
-    },
+    isNoopDrop: isNoopListItemDrop,
     drop(payload, index) {
       if (payload.kind !== 'list-item') return;
       const to = finalMoveIndex(payload.index, index);
@@ -159,47 +226,27 @@ export function ListField({ field, value, id, path, onChange }: ControlProps): J
                     <Icon name="chevron-down" />
                     <span>{title}</span>
                   </summary>
-                  <div className="ve-list-item-fields">
-                    {visibleItemFields(itemFields, item).map((itemField) => (
-                      <FieldControl
-                        key={itemField.name}
-                        field={itemField}
-                        value={item[itemField.name]}
-                        path={`${itemPath}.${itemField.name}`}
-                        onChange={(next, kind) =>
-                          changeItemField(index, itemField.name, next, kind)
-                        }
-                      />
-                    ))}
-                  </div>
+                  <ItemFields
+                    itemFields={itemFields}
+                    item={item}
+                    itemPath={itemPath}
+                    onFieldChange={(name, next, kind) => changeItemField(index, name, next, kind)}
+                  />
                 </details>
-                <div className="ve-list-item-actions">
-                  <IconButton
-                    className="ve-list-handle"
-                    label={`Move ${title}`}
-                    icon="grip"
-                    hint="Drag to reorder, or press Alt with an arrow key"
-                    onPointerDown={(event) =>
-                      dragController.start(
-                        { kind: 'list-item', ownerKey: path, index, label: title },
-                        event,
-                      )
-                    }
-                    onKeyDown={(event) => moveWithKeyboard(event, index)}
-                  />
-                  <IconButton
-                    label={`Duplicate ${title}`}
-                    icon="copy"
-                    disabled={!canAdd}
-                    onClick={() => onChange(duplicateItem(field, items, index), 'discrete')}
-                  />
-                  <IconButton
-                    label={`Remove ${title}`}
-                    icon="trash"
-                    disabled={!canRemove}
-                    onClick={() => onChange(removeItem(field, items, index), 'discrete')}
-                  />
-                </div>
+                <ItemActions
+                  title={title}
+                  canAdd={canAdd}
+                  canRemove={canRemove}
+                  onGrab={(event) =>
+                    dragController.start(
+                      { kind: 'list-item', ownerKey: path, index, label: title },
+                      event,
+                    )
+                  }
+                  onMoveKey={(event) => moveWithKeyboard(event, index)}
+                  onDuplicate={() => onChange(duplicateItem(field, items, index), 'discrete')}
+                  onRemove={() => onChange(removeItem(field, items, index), 'discrete')}
+                />
               </li>
             );
           })}

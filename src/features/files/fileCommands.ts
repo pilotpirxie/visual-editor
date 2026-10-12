@@ -14,8 +14,7 @@ import type { FileLink } from '../../persistence/db';
 const DOWNLOAD_NOTICE =
   'Downloaded a copy of the project file. This browser can’t save back to the same file, so each save downloads a new copy.';
 
-export type FileDialog =
-  { kind: 'conflict'; conflict: OpenConflict } | { kind: 'outside-change' } | null;
+type FileDialog = { kind: 'conflict'; conflict: OpenConflict } | { kind: 'outside-change' } | null;
 
 export type FileCommands = {
   subscribe(listener: () => void): () => void;
@@ -29,7 +28,7 @@ export type FileCommands = {
   reload(): void;
 };
 
-function reportFailure(action: string, error: unknown): void {
+export function reportFailure(action: string, error: unknown): void {
   console.error(`${action} failed`, error);
   dispatch(noticeShown('error', `${action} failed: ${describeError(error)}`));
 }

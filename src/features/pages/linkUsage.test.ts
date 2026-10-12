@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createPage, createSampleProject } from '../../app/projectFactory';
-import type { Project } from '../../app/types';
+import type { Project, ComponentBlock } from '../../app/types';
 import { linksToPage } from './linkUsage';
 
 function projectWithAbout(): { project: Project; homeId: string } {
@@ -11,7 +11,7 @@ function projectWithAbout(): { project: Project; homeId: string } {
   return { project, homeId: project.pages.homePageId };
 }
 
-function blockOf(project: Project, componentId: string) {
+function blockOf(project: Project, componentId: string): ComponentBlock {
   for (const block of Object.values(project.blocks.entities)) {
     if (block.kind === 'component' && block.componentId === componentId) return block;
   }

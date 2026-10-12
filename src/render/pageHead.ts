@@ -20,7 +20,7 @@ const PAGE_TITLE_PLACEHOLDER = '{{page.title}}';
 const SITE_TITLE_PLACEHOLDER = '{{site.title}}';
 const TRAILING_SLASHES = /\/+$/;
 const LOCALE_WITH_REGION = /^(?<language>[a-z]{2,3})-(?<region>[A-Z]{2})$/;
-export const HOME_FILE = 'index.html';
+const HOME_FILE = 'index.html';
 
 const VERIFICATION_META_NAMES: Record<VerificationService, string> = {
   google: 'google-site-verification',
@@ -30,7 +30,7 @@ const VERIFICATION_META_NAMES: Record<VerificationService, string> = {
   facebook: 'facebook-domain-verification',
 };
 
-export type HeadSite = Pick<Project, 'settings' | 'assets' | 'designSystem'>;
+type HeadSite = Pick<Project, 'settings' | 'assets' | 'designSystem'>;
 
 export type PageHeadInput = {
   project: HeadSite;
@@ -50,7 +50,7 @@ export function isPageIndexed(project: Pick<Project, 'settings'>, page: Page): b
   return project.settings.indexable && !page.seo.noindex;
 }
 
-export function siteBaseUrl(baseUrl: string | undefined): string | null {
+function siteBaseUrl(baseUrl: string | undefined): string | null {
   const base = baseUrl?.trim().replace(TRAILING_SLASHES, '') ?? '';
   return base === '' ? null : base;
 }
@@ -61,7 +61,7 @@ export function absoluteUrl(baseUrl: string | undefined, path: string): string |
   return path === HOME_FILE ? `${base}/` : `${base}/${path}`;
 }
 
-export function canonicalUrlOf(
+function canonicalUrlOf(
   project: Pick<Project, 'settings'>,
   page: Page,
   fileName: string,
@@ -93,7 +93,7 @@ function sameTag(left: MetaTag, right: MetaTag): boolean {
   return left.attribute === right.attribute && left.key === right.key;
 }
 
-export function mergeMetaTags(base: MetaTag[], overrides: MetaTag[]): MetaTag[] {
+function mergeMetaTags(base: MetaTag[], overrides: MetaTag[]): MetaTag[] {
   const merged = [...base];
   for (const tag of overrides) {
     if (tag.key === '') continue;

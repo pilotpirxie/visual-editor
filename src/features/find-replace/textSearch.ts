@@ -2,7 +2,7 @@ import type { ComponentBlock, Project } from '../../app/types';
 import type { SeoTextKey, SiteTextKey, TextEdit } from '../../app/projectSlice';
 import { definitionOf } from '../../components/registry';
 import { asListItems, isButtonValue, isImageValue, isLinkValue } from '../../components/fields';
-import type { Field, LinkValue } from '../../components/types';
+import type { ButtonValue, Field, LinkValue } from '../../components/types';
 import { normalizeRichText } from '../../render/sanitize';
 import { cachedByText } from '../../render/textCache';
 
@@ -10,12 +10,12 @@ export type SearchOptions = { isCaseSensitive: boolean; isWholeWord: boolean };
 
 type TextPart = 'text' | 'label' | 'url' | 'alt';
 
-export type MatchLocation =
+type MatchLocation =
   | { kind: 'block'; blockId: string; pageId: string | null; path: string; part: TextPart }
   | { kind: 'page-seo'; pageId: string; key: SeoTextKey }
   | { kind: 'setting'; key: SiteTextKey };
 
-export type MatchPreview = { before: string; match: string; after: string };
+type MatchPreview = { before: string; match: string; after: string };
 
 export type FindMatch = {
   id: string;
@@ -221,6 +221,18 @@ function replacedLink(link: LinkValue, isSelected: boolean, replacer: Replacer):
   return { ...link, url: replaceText(url, replacer.pattern, replacer.replacement) };
 }
 
+function replacedButton(
+  button: ButtonValue,
+  isLabelSelected: boolean,
+  link: LinkValue,
+  replacer: Replacer,
+): ButtonValue {
+  const label = isLabelSelected
+    ? replaceText(button.label, replacer.pattern, replacer.replacement)
+    : button.label;
+  return label === button.label && link === button.link ? button : { ...button, label, link };
+}
+
 function replaceInValue(
   field: Field,
   value: unknown,
@@ -235,11 +247,8 @@ function replaceInValue(
   } else if (field.type === 'richtext' && typeof value === 'string') {
     return isSelected('text') ? replaceInRichText(value, pattern, replacement) : value;
   } else if (field.type === 'button' && isButtonValue(value)) {
-    const label = isSelected('label')
-      ? replaceText(value.label, pattern, replacement)
-      : value.label;
     const link = replacedLink(value.link, isSelected('url'), replacer);
-    return label === value.label && link === value.link ? value : { ...value, label, link };
+    return replacedButton(value, isSelected('label'), link, replacer);
   } else if (field.type === 'link' && isLinkValue(value)) {
     return replacedLink(value, isSelected('url'), replacer);
   } else if (field.type === 'image' && isImageValue(value)) {
@@ -247,23 +256,36 @@ function replaceInValue(
       ? { ...value, alt: replaceText(value.alt, pattern, replacement) }
       : value;
   } else if (field.type === 'list' && Array.isArray(value)) {
-    return asListItems(value).map((item, index) => {
-      const replacedItem: Record<string, unknown> = { ...item };
-      for (const itemField of field.itemFields ?? []) {
-        const itemPath = `${path}.${index}.${itemField.name}`;
-        replacedItem[itemField.name] = replaceInValue(
-          itemField,
-          item[itemField.name],
-          blockId,
-          itemPath,
-          replacer,
-        );
-      }
-      return replacedItem;
-    });
+    return replacedListItems(field, value, blockId, path, replacer);
   } else {
     return value;
   }
+}
+
+function replacedListItems(
+  field: Field,
+  items: unknown[],
+  blockId: string,
+  path: string,
+  replacer: Replacer,
+): Record<string, unknown>[] {
+  const replacedItems: Record<string, unknown>[] = [];
+  for (const [index, item] of asListItems(items).entries()) {
+    const replacedItem: Record<string, unknown> = { ...item };
+    for (const itemField of field.itemFields ?? []) {
+      const itemPath = `${path}.${index}.${itemField.name}`;
+      const itemValue = item[itemField.name];
+      replacedItem[itemField.name] = replaceInValue(
+        itemField,
+        itemValue,
+        blockId,
+        itemPath,
+        replacer,
+      );
+    }
+    replacedItems.push(replacedItem);
+  }
+  return replacedItems;
 }
 
 function blockEdits(

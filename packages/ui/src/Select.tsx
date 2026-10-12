@@ -2,7 +2,7 @@ import type { ComponentPropsWithRef, JSX } from 'react';
 import { classNames } from './classNames';
 import './Input.css';
 
-export type SelectOption = { value: string; label: string; isDisabled?: boolean };
+type SelectOption = { value: string; label: string; isDisabled?: boolean };
 
 type SelectProps = ComponentPropsWithRef<'select'> & {
   options?: readonly SelectOption[];

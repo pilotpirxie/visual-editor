@@ -1,5 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { expect, test, type Page, type TestInfo } from '@playwright/test';
 import { checkAccessibility, type Violation } from './a11y';
@@ -9,7 +8,8 @@ import {
   insertBlock,
   openLibraryTab,
   openProjectSettings,
-  readZip,
+  exportedFiles,
+  writeSiteFiles,
 } from './editor';
 import { stubOpenRouter, useAssistantSettings } from './fixtures/assistant';
 
@@ -53,17 +53,9 @@ async function openFromMenu(page: Page, menu: 'File' | 'Edit', item: string): Pr
 }
 
 async function exportSite(page: Page, testInfo: TestInfo, folderName: string): Promise<string> {
-  await page.getByRole('button', { name: 'Export', exact: true }).click();
-  const dialog = page.getByRole('dialog', { name: 'Export site' });
-  const downloadPromise = page.waitForEvent('download');
-  await dialog.getByRole('button', { name: 'Download zip' }).click();
-  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const files = await exportedFiles(page);
   const folder = testInfo.outputPath(folderName);
-  for (const [path, content] of files) {
-    const target = join(folder, path);
-    await mkdir(dirname(target), { recursive: true });
-    await writeFile(target, content);
-  }
+  await writeSiteFiles(files, folder);
   return pathToFileURL(join(folder, 'index.html')).href;
 }
 

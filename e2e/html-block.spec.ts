@@ -1,11 +1,13 @@
-import { expect, test, type Page } from '@playwright/test';
-import { boxOf, createProject, insertBlock } from './editor';
+import { expect, test, type Page, type FrameLocator } from '@playwright/test';
+import { boxOf, createProject, insertBlock, type Box } from './editor';
 
-function canvas(page: Page) {
+function canvas(page: Page): FrameLocator {
   return page.frameLocator('.ve-canvas-frame');
 }
 
-async function heroLook(page: Page) {
+type HeroLook = { title: Box; titleColor: string; buttonBackground: string };
+
+async function heroLook(page: Page): Promise<HeroLook> {
   const title = canvas(page).locator('h1');
   const button = canvas(page).locator('.btn-primary');
   return {

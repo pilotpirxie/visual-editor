@@ -10,7 +10,7 @@ test('the editor opens even when icon sets cannot load, and says so', async ({ p
 });
 
 test('a loading message shows before the app starts', async ({ page }) => {
-  let releaseApp = () => {};
+  let releaseApp: () => void = () => {};
   const appRequested = new Promise<void>((resolve) => {
     void page.route(/\/src\/main\.tsx/, async (route) => {
       resolve();

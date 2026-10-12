@@ -1,7 +1,7 @@
 import { deviceChanged, dialogOpened, type DeviceMode } from '../../app/editorSlice';
 import type { AppThunk } from '../../app/store';
 import type { Page } from '../../app/types';
-import { CATEGORIES } from '../../components/types';
+import { categoryLabel } from '../../components/types';
 import type { SavedBlockRecord } from '../../persistence/db';
 import type { LibraryEntry } from '../../components/types';
 import { insertComponent } from '../editor/blockActions';
@@ -10,7 +10,7 @@ import { searchWords } from '../library/search';
 import { openPage } from '../pages/pageActions';
 import { insertSavedBlock } from '../saved-blocks/savedBlockActions';
 
-export type PaletteDialog = 'export' | 'find' | 'snapshots' | 'help';
+type PaletteDialog = 'export' | 'find' | 'snapshots' | 'help';
 
 export type PaletteAction =
   | { kind: 'insert-block'; componentId: string }
@@ -52,13 +52,6 @@ const SITE_COMMANDS: {
   { dialog: 'help', label: 'Help and keyboard shortcuts', keywords: 'keys', isEditing: false },
 ];
 
-function categoryLabel(categoryId: string): string {
-  for (const category of CATEGORIES) {
-    if (category.id === categoryId) return category.label;
-  }
-  return '';
-}
-
 function blockCommands(entries: readonly LibraryEntry[]): PaletteCommand[] {
   const commands: PaletteCommand[] = [];
   for (const { definition } of entries) {
@@ -66,7 +59,7 @@ function blockCommands(entries: readonly LibraryEntry[]): PaletteCommand[] {
       id: `block:${definition.id}`,
       group: 'Blocks',
       label: `Insert ${definition.name}`,
-      keywords: [categoryLabel(definition.category), ...(definition.tags ?? [])].join(' '),
+      keywords: [categoryLabel(definition.category) ?? '', ...(definition.tags ?? [])].join(' '),
       action: { kind: 'insert-block', componentId: definition.id },
     });
   }

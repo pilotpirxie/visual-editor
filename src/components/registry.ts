@@ -3,14 +3,12 @@ import { hashText } from '../render/textCache';
 import { interpretTemplate } from '../render/templateInterpreter';
 import { loadTemplateParser } from '../render/templateParser';
 import { defaultValues } from './fields';
-import manifest from './library/pack.json';
-import type { PackError } from './packFormat';
+import { BUILT_IN_PACK, type PackError } from './packFormat';
 import type {
   BlockJson,
   Category,
   ComponentDefinition,
   PackBlock,
-  PackInfo,
   RegisteredComponent,
 } from './types';
 
@@ -35,8 +33,6 @@ const thumbnails = import.meta.glob<string>('./library/*/thumbnail.webp', {
 
 const LIBRARY_FOLDER = './library/';
 const BLOCK_FILE = '/block.json';
-
-export const BUILT_IN_PACK: PackInfo = manifest;
 
 type ComponentCache = { generation: number; components: ReadonlyMap<string, RegisteredComponent> };
 
@@ -69,18 +65,6 @@ function loadBuiltInComponents(): ReadonlyMap<string, RegisteredComponent> {
 }
 
 export const builtInComponents = loadBuiltInComponents();
-
-export function isBuiltIn(pack: PackInfo): boolean {
-  return pack.id === BUILT_IN_PACK.id;
-}
-
-export function componentIdOf(packId: string, blockId: string): string {
-  return packId === BUILT_IN_PACK.id ? blockId : `${packId}/${blockId}`;
-}
-
-export function rootClassOf(componentId: string): string {
-  return `b-${componentId.replace('/', '-')}`;
-}
 
 function contentKeyOf(packBlock: PackBlock): string {
   const cached = contentKeys.get(packBlock);

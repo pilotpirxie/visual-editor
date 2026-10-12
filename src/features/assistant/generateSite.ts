@@ -33,7 +33,7 @@ import {
 
 export type Ask = (request: StepRequest, signal: AbortSignal) => Promise<JsonAnswer>;
 
-export type Written = readonly SectionWriting[] | null;
+type Written = readonly SectionWriting[] | null;
 
 export type SiteDraft = {
   brief: string;
@@ -94,7 +94,7 @@ export function emptyDraft(brief: string, size: SiteSize = DEFAULT_SITE_SIZE): S
   return { brief, size, look: null, plan: null, written: {}, images: null, usage: NO_USAGE };
 }
 
-export function addUsage(total: Usage, added: Usage): Usage {
+function addUsage(total: Usage, added: Usage): Usage {
   return { tokens: total.tokens + added.tokens, cost: total.cost + added.cost };
 }
 

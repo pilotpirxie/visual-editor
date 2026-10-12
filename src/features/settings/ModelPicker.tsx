@@ -24,7 +24,7 @@ export function modelDetails(model: AssistantModel): string {
   return details.join(' · ');
 }
 
-export type PickerModel = { id: string; name: string; details: string };
+type PickerModel = { id: string; name: string; details: string };
 
 function matchingModels(models: readonly PickerModel[], query: string): PickerModel[] {
   const wanted = query.trim().toLowerCase();

@@ -7,7 +7,14 @@ import { CLEAN_PRESET } from '../../presets/presets';
 import { FONT_ROLES } from '../../app/types';
 import { contrastRatio, contrastWarnings, MIN_TEXT_CONTRAST } from './colors';
 import { loadFontList, type FontFamily } from './fontList';
-import { randomDesignSystem } from './randomDesignSystem';
+import {
+  hasReadableBody,
+  randomDesignSystem,
+  tokensWithValues,
+  withFonts,
+  withStandardPrimaryTheme,
+  type TypeChoice,
+} from './randomDesignSystem';
 
 const SEED_COUNT = 300;
 const base = CLEAN_PRESET.designSystem;
@@ -116,5 +123,128 @@ describe('randomDesignSystem', () => {
     expect(system.tokens['--font-weight-heading'].value).toBe(
       base.tokens['--font-weight-heading'].value,
     );
+  });
+});
+
+function family(name: string, weights: number[]): FontFamily {
+  return { family: name, category: 'sans-serif', weights };
+}
+
+describe('hasReadableBody', () => {
+  it('accepts a family with a regular and a bold weight', () => {
+    expect(hasReadableBody(family('Inter', [400, 700]))).toBe(true);
+  });
+
+  it('accepts semibold in place of bold', () => {
+    expect(hasReadableBody(family('Inter', [400, 600]))).toBe(true);
+  });
+
+  it('refuses a family without a regular weight', () => {
+    expect(hasReadableBody(family('Heavy', [600, 700]))).toBe(false);
+  });
+
+  it('refuses a family with only a regular weight, or with no weights', () => {
+    expect(hasReadableBody(family('Thin', [400]))).toBe(false);
+    expect(hasReadableBody(family('Empty', []))).toBe(false);
+  });
+});
+
+describe('withFonts', () => {
+  const plain: TypeChoice = {
+    values: { '--text-base': '1rem' },
+    families: null,
+    typeBasePx: 16,
+    typeRatio: 1.25,
+  };
+
+  it('adds both font stacks and the three weights, and names the families', () => {
+    const heading = family('Fraunces', [400, 600, 900]);
+    const body = family('Inter', [400, 700]);
+    expect(withFonts(plain, heading, body, 900)).toEqual({
+      values: {
+        '--text-base': '1rem',
+        '--font-heading': '"Fraunces", system-ui, sans-serif',
+        '--font-body': '"Inter", system-ui, sans-serif',
+        '--font-weight-heading': '900',
+        '--font-weight-regular': '400',
+        '--font-weight-bold': '700',
+      },
+      families: { heading: 'Fraunces', body: 'Inter' },
+      typeBasePx: 16,
+      typeRatio: 1.25,
+    });
+  });
+
+  it('uses the nearest heading weight the family has', () => {
+    const heading = family('Fraunces', [400, 600]);
+    const typed = withFonts(plain, heading, family('Inter', [400, 700]), 800);
+    expect(typed.values['--font-weight-heading']).toBe('600');
+  });
+
+  it('falls back to semibold when the body has no bold', () => {
+    const body = family('Soft', [400, 600]);
+    expect(withFonts(plain, body, body, 600).values['--font-weight-bold']).toBe('600');
+  });
+
+  it('keeps the wanted heading weight when the family lists none', () => {
+    const typed = withFonts(plain, family('Bare', []), family('Inter', [400, 700]), 500);
+    expect(typed.values['--font-weight-heading']).toBe('500');
+  });
+
+  it('leaves the given choice alone', () => {
+    withFonts(plain, family('Fraunces', [700]), family('Inter', [400, 700]), 700);
+    expect(plain).toEqual({
+      values: { '--text-base': '1rem' },
+      families: null,
+      typeBasePx: 16,
+      typeRatio: 1.25,
+    });
+  });
+});
+
+describe('tokensWithValues', () => {
+  it('replaces the values that are given and keeps the rest of each token', () => {
+    const tokens = tokensWithValues(base.tokens, { '--color-primary': '#123456' });
+    expect(tokens['--color-primary']).toEqual({
+      ...base.tokens['--color-primary'],
+      value: '#123456',
+    });
+    expect(tokens['--color-text']).toEqual(base.tokens['--color-text']);
+    expect(Object.keys(tokens)).toEqual(Object.keys(base.tokens));
+  });
+
+  it('ignores values for tokens the design does not have', () => {
+    const tokens = tokensWithValues(base.tokens, { '--not-a-token': 'red' });
+    expect(tokens).toEqual(base.tokens);
+    expect(tokens).not.toHaveProperty('--not-a-token');
+  });
+
+  it('gives an empty set for a design without tokens and leaves the given tokens alone', () => {
+    expect(tokensWithValues({}, { '--color-primary': '#123456' })).toEqual({});
+    const before = structuredClone(base.tokens);
+    tokensWithValues(base.tokens, { '--color-primary': '#123456' });
+    expect(base.tokens).toEqual(before);
+  });
+});
+
+describe('withStandardPrimaryTheme', () => {
+  it('sets the primary section theme to the standard one and keeps the other values', () => {
+    const themed = withStandardPrimaryTheme({
+      '--color-primary': '#123456',
+      '--theme-primary-background': 'hotpink',
+    });
+    expect(themed['--color-primary']).toBe('#123456');
+    expect(themed['--theme-primary-background']).toBe(
+      base.tokens['--theme-primary-background'].value,
+    );
+    expect(themed['--theme-primary-accent-contrast']).toBe(
+      base.tokens['--theme-primary-accent-contrast'].value,
+    );
+  });
+
+  it('leaves the given values alone', () => {
+    const values = { '--color-primary': '#123456' };
+    withStandardPrimaryTheme(values);
+    expect(values).toEqual({ '--color-primary': '#123456' });
   });
 });

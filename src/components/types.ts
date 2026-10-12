@@ -32,6 +32,13 @@ export const CATEGORIES = [
 
 export type Category = (typeof CATEGORIES)[number]['id'];
 
+export function categoryLabel(categoryId: string): string | null {
+  for (const category of CATEGORIES) {
+    if (category.id === categoryId) return category.label;
+  }
+  return null;
+}
+
 export const FIELD_TYPES = [
   'text',
   'textarea',

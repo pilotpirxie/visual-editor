@@ -190,6 +190,60 @@ function CategoryList({
   );
 }
 
+type SearchResultsProps = {
+  query: string;
+  entries: LibraryEntry[];
+  savedBlocks: SavedBlockRecord[];
+};
+
+function SearchResults({ query, entries, savedBlocks }: SearchResultsProps): JSX.Element {
+  const results = filterComponents(entries, query);
+  const savedResults = filterSavedBlocks(savedBlocks, query);
+  const hasResults = results.length > 0 || savedResults.length > 0;
+  return (
+    <>
+      {savedResults.length > 0 && <SavedBlockGrid records={savedResults} />}
+      {results.length > 0 && <ComponentGrid components={results} />}
+      {!hasResults && <p className="ui-muted">No blocks match “{query.trim()}”.</p>}
+    </>
+  );
+}
+
+type GroupListProps = {
+  myBlockLinks: GroupLink[];
+  categoryLinks: GroupLink[];
+  onOpen(id: string): void;
+};
+
+function GroupList({ myBlockLinks, categoryLinks, onOpen }: GroupListProps): JSX.Element {
+  return (
+    <>
+      {myBlockLinks.length > 0 && (
+        <section className="ve-my-blocks" aria-label="My blocks">
+          <Title className="ve-blocks-heading">My blocks</Title>
+          <CategoryList groups={myBlockLinks} onOpen={onOpen} />
+        </section>
+      )}
+      <CategoryList groups={categoryLinks} onOpen={onOpen} />
+      <div className="ve-pack-buttons">
+        <Button variant="ghost" icon="upload" onClick={packCommands.loadFromDisk}>
+          Load block pack
+        </Button>
+        <Button variant="ghost" onClick={packCommands.manage}>
+          Manage packs
+        </Button>
+      </div>
+    </>
+  );
+}
+
+function myBlockLinksOf(packGroups: CategoryGroup[], savedCount: number): GroupLink[] {
+  const links = groupLinks(packGroups);
+  if (savedCount > 0)
+    links.unshift({ id: SAVED_GROUP_ID, label: 'Saved blocks', count: savedCount });
+  return links;
+}
+
 export function BlocksTab(): JSX.Element {
   const [query, setQuery] = useState('');
   const [categoryId, setCategoryId] = useState<string | null>(null);
@@ -201,16 +255,11 @@ export function BlocksTab(): JSX.Element {
   const categoryGroups = useMemo(() => groupByCategory(entries), [entries]);
   const packGroups = useMemo(() => groupByPack(packs), [packs]);
   const isSearching = query.trim() !== '';
-  const results = isSearching ? filterComponents(entries, query) : [];
-  const savedResults = isSearching ? filterSavedBlocks(savedBlocks, query) : [];
-  const hasResults = results.length > 0 || savedResults.length > 0;
   const isSavedOpen = categoryId === SAVED_GROUP_ID && savedBlocks.length > 0;
   const category = [...packGroups, ...categoryGroups].find(({ id }) => id === categoryId);
-  const myBlockLinks = groupLinks(packGroups);
-  if (savedBlocks.length > 0) {
-    myBlockLinks.unshift({ id: SAVED_GROUP_ID, label: 'Saved blocks', count: savedBlocks.length });
-  }
-  const isListShown = !isSearching && !category && !isSavedOpen;
+  const isListShown = !isSearching && category === undefined && !isSavedOpen;
+  const isSavedShown = !isSearching && isSavedOpen;
+  const shownCategory = isSearching ? undefined : category;
 
   useLayoutEffect(() => {
     const panel = scrollPanelOf(rootRef.current);
@@ -236,46 +285,33 @@ export function BlocksTab(): JSX.Element {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
         />
-        {!isSearching && isSavedOpen && (
+        {isSavedShown && (
           <GroupHeader
             link={{ id: SAVED_GROUP_ID, label: 'Saved blocks', count: savedBlocks.length }}
             onBack={closeGroup}
           />
         )}
-        {!isSearching && category && (
+        {shownCategory !== undefined && (
           <GroupHeader
-            link={{ id: category.id, label: category.label, count: category.components.length }}
+            link={{
+              id: shownCategory.id,
+              label: shownCategory.label,
+              count: shownCategory.components.length,
+            }}
             onBack={closeGroup}
           />
         )}
       </div>
 
-      {isSearching && savedResults.length > 0 && <SavedBlockGrid records={savedResults} />}
-      {isSearching && results.length > 0 && <ComponentGrid components={results} />}
-      {isSearching && !hasResults && <p className="ui-muted">No blocks match “{query.trim()}”.</p>}
-
-      {!isSearching && isSavedOpen && <SavedBlockGrid records={savedBlocks} />}
-
-      {!isSearching && category && <ComponentGrid components={category.components} />}
-
-      {isListShown && myBlockLinks.length > 0 && (
-        <section className="ve-my-blocks" aria-label="My blocks">
-          <Title className="ve-blocks-heading">My blocks</Title>
-          <CategoryList groups={myBlockLinks} onOpen={openGroup} />
-        </section>
-      )}
-
-      {isListShown && <CategoryList groups={groupLinks(categoryGroups)} onOpen={openGroup} />}
-
+      {isSearching && <SearchResults query={query} entries={entries} savedBlocks={savedBlocks} />}
+      {isSavedShown && <SavedBlockGrid records={savedBlocks} />}
+      {shownCategory !== undefined && <ComponentGrid components={shownCategory.components} />}
       {isListShown && (
-        <div className="ve-pack-buttons">
-          <Button variant="ghost" icon="upload" onClick={packCommands.loadFromDisk}>
-            Load block pack
-          </Button>
-          <Button variant="ghost" onClick={packCommands.manage}>
-            Manage packs
-          </Button>
-        </div>
+        <GroupList
+          myBlockLinks={myBlockLinksOf(packGroups, savedBlocks.length)}
+          categoryLinks={groupLinks(categoryGroups)}
+          onOpen={openGroup}
+        />
       )}
     </div>
   );

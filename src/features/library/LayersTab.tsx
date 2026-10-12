@@ -10,14 +10,13 @@ import { useListDropTarget } from '../canvas/useListDropTarget';
 import { dropBlock, isNoopDrop } from '../editor/blockActions';
 import { BlockContextMenu } from '../editor/BlockContextMenu';
 import { useBlockMenuItems } from '../editor/blockMenu';
-import { useSection } from '../editor/useSection';
+import { RememberedSection } from '../editor/useSection';
 import {
   afterPointerRelease,
   focusNeighbour,
   Icon,
   IconButton,
   MenuButton,
-  Section,
 } from '../../../packages/ui/src';
 
 const DROP_EDGE_MARGIN = 12;
@@ -182,23 +181,6 @@ function LayerGroup({ label, blockIds }: LayerGroupProps): JSX.Element {
   );
 }
 
-function LayerSection({
-  id,
-  title,
-  children,
-}: {
-  id: string;
-  title: string;
-  children: JSX.Element;
-}): JSX.Element {
-  const section = useSection(`layers:${id}`);
-  return (
-    <Section title={title} isOpen={section.isOpen} onToggle={section.onToggle}>
-      {children}
-    </Section>
-  );
-}
-
 function SharedGroup({
   id,
   label,
@@ -206,9 +188,9 @@ function SharedGroup({
 }: LayerGroupProps & { id: string }): JSX.Element | null {
   if (blockIds.length === 0) return null;
   return (
-    <LayerSection id={id} title={label}>
+    <RememberedSection id={`layers:${id}`} title={label}>
       <LayerGroup label={label} blockIds={blockIds} />
-    </LayerSection>
+    </RememberedSection>
   );
 }
 
@@ -229,9 +211,9 @@ export function LayersTab(): JSX.Element {
   return (
     <div className="ve-layer-groups">
       <SharedGroup id="header" label="Shared header" blockIds={headerIds} />
-      <LayerSection id="page" title="This page">
+      <RememberedSection id="layers:page" title="This page">
         {pageGroup}
-      </LayerSection>
+      </RememberedSection>
       <SharedGroup id="footer" label="Shared footer" blockIds={footerIds} />
     </div>
   );

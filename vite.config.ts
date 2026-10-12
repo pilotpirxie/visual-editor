@@ -47,7 +47,7 @@ function siteRuntime(): Plugin {
     async load(id) {
       if (id !== RESOLVED_RUNTIME_ID) return null;
 
-      const compile = async (file: string) => {
+      const compile = async (file: string): Promise<string> => {
         this.addWatchFile(file);
         const { code } = await transformWithOxc(await readFile(file, 'utf8'), file);
         return `(() => {\n${code}})();\n`;

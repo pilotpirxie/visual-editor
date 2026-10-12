@@ -1,6 +1,6 @@
 import { useEffect, useEffectEvent, useState, type RefObject } from 'react';
 import { dragController, type DragPayload } from './dragController';
-import { listDropIndex, type VerticalSpan } from './geometry';
+import { finalMoveIndex, listDropIndex, type VerticalSpan } from './geometry';
 
 type ListDropTargetOptions = {
   listRef: RefObject<HTMLElement | null>;
@@ -9,6 +9,11 @@ type ListDropTargetOptions = {
   isNoopDrop(payload: DragPayload, index: number): boolean;
   drop(payload: DragPayload, index: number): void;
 };
+
+export function isNoopListItemDrop(payload: DragPayload, index: number): boolean {
+  if (payload.kind !== 'list-item') return true;
+  return finalMoveIndex(payload.index, index) === payload.index;
+}
 
 function rowSpans(list: HTMLElement): VerticalSpan[] {
   const spans: VerticalSpan[] = [];

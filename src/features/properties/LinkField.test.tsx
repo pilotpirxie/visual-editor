@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { blockAdvancedSet, pageAdded } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
 import type { ButtonValue, Field, LinkValue } from '../../components/types';
-import { changeValue, click, render, runInAct } from '../../test/dom';
+import { changeValue, click, render, runInAct, type Rendered } from '../../test/dom';
 import { homePage, loadIntoAppStore } from '../../test/fixtures';
 import { FieldControl } from './FieldControl';
 
@@ -16,7 +16,7 @@ vi.mock('../../persistence/db', () => ({
 const LINK_FIELD: Field = { name: 'link', label: 'Link', type: 'link', default: null };
 const BUTTON_FIELD: Field = { name: 'cta', label: 'Button', type: 'button', default: null };
 
-function renderLink(value: LinkValue) {
+function renderLink(value: LinkValue): Rendered & { onChange: ReturnType<typeof vi.fn> } {
   const onChange = vi.fn();
   const rendered = render(
     <FieldControl field={LINK_FIELD} value={value} path="link" onChange={onChange} />,

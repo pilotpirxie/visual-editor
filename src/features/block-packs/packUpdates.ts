@@ -5,7 +5,7 @@ import { isBlockOfPack } from '../../components/registry';
 import type { BlockPack, PackBlock } from '../../components/types';
 import { blockPlaces } from '../pages/linkUsage';
 
-export type FieldChange = { blockName: string; field: string; pageNames: string[] };
+type FieldChange = { blockName: string; field: string; pageNames: string[] };
 
 export type PackUpgrade = {
   definitions: Record<string, PackBlock>;
@@ -16,7 +16,7 @@ export type PackUpgrade = {
 
 export type UpgradeRule = 'newer' | 'newer-or-changed';
 
-export type PackPlace = { name: string; blockCount: number };
+type PackPlace = { name: string; blockCount: number };
 
 export type PackUsage = { blockCount: number; places: PackPlace[] };
 
@@ -106,7 +106,7 @@ export function upgradeNotice(pack: BlockPack, upgrade: PackUpgrade): string {
   ].join(' ');
 }
 
-export function usedComponentIds(project: Project): Set<string> {
+function usedComponentIds(project: Project): Set<string> {
   const used = new Set<string>();
   for (const blockId of project.blocks.ids) {
     const block = project.blocks.entities[blockId];

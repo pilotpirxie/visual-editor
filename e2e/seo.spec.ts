@@ -1,6 +1,13 @@
 import { readFile } from 'node:fs/promises';
 import { expect, test } from '@playwright/test';
-import { addPage, closeLibraryDrawer, createProject, openProjectSettings, readZip } from './editor';
+import {
+  addPage,
+  closeLibraryDrawer,
+  createProject,
+  openProjectSettings,
+  readZip,
+  exportedFiles,
+} from './editor';
 
 test('a base URL adds a sitemap of indexed pages and a robots file', async ({ page }) => {
   await createProject(page);
@@ -37,11 +44,7 @@ test('a base URL adds a sitemap of indexed pages and a robots file', async ({ pa
 
 test('without a base URL there is no sitemap or robots file', async ({ page }) => {
   await createProject(page);
-  await page.getByRole('button', { name: 'Export', exact: true }).click();
-  const dialog = page.getByRole('dialog', { name: 'Export site' });
-  const downloadPromise = page.waitForEvent('download');
-  await dialog.getByRole('button', { name: 'Download zip' }).click();
-  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const files = await exportedFiles(page);
   expect(files.has('sitemap.xml')).toBe(false);
   expect(files.has('robots.txt')).toBe(false);
 });
@@ -62,11 +65,7 @@ test('site meta defaults reach every page and a page can override them', async (
   await properties.getByText('Structured data').click();
   await properties.getByLabel('Kind of page').selectOption('ContactPage');
 
-  await page.getByRole('button', { name: 'Export', exact: true }).click();
-  const dialog = page.getByRole('dialog', { name: 'Export site' });
-  const downloadPromise = page.waitForEvent('download');
-  await dialog.getByRole('button', { name: 'Download zip' }).click();
-  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const files = await exportedFiles(page);
 
   const home = files.get('index.html')?.toString('utf8') ?? '';
   expect(home).toContain('<meta name="keywords" content="research, interviews">');

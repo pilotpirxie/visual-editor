@@ -167,6 +167,53 @@ describe('shortcutFor with the command palette key', () => {
   });
 });
 
+describe('shortcutFor with the help key', () => {
+  it('opens help with a question mark, with or without Shift', () => {
+    expect(shortcutFor(keyEvent('?'))).toEqual({ kind: 'help' });
+    expect(shortcutFor(keyEvent('?', { shiftKey: true }))).toEqual({ kind: 'help' });
+    const inPanel = placeInside(propertiesPanel(), 'div');
+    expect(shortcutFor(keyEvent('?', { target: inPanel }))).toEqual({ kind: 'help' });
+  });
+
+  it('leaves the question mark to fields, dialogs and other key combinations', () => {
+    const input = placeInside(document.createElement('div'), 'input');
+    const inDialog = placeInside(document.createElement('dialog'), 'button');
+    expect(shortcutFor(keyEvent('?', { target: input }))).toBeNull();
+    expect(shortcutFor(keyEvent('?', { target: inDialog }))).toBeNull();
+    expect(shortcutFor(keyEvent('?', { metaKey: true }))).toBeNull();
+    expect(shortcutFor(keyEvent('?', { ctrlKey: true }))).toBeNull();
+    expect(shortcutFor(keyEvent('?', { altKey: true }))).toBeNull();
+    expect(shortcutFor(keyEvent('?', { defaultPrevented: true }))).toBeNull();
+  });
+});
+
+describe('shortcutFor when several shortcuts could match', () => {
+  it('prefers undo, redo, save and the palette over everything else', () => {
+    const input = placeInside(document.createElement('div'), 'input');
+    const used = { defaultPrevented: true, target: input };
+    expect(shortcutFor(keyEvent('z', { metaKey: true, ...used }))).toEqual({ kind: 'undo' });
+    expect(shortcutFor(keyEvent('s', { ctrlKey: true, ...used }))).toEqual({
+      kind: 'save',
+      isSaveAs: false,
+    });
+    expect(shortcutFor(keyEvent('k', { ctrlKey: true, ...used }))).toEqual({
+      kind: 'command-palette',
+    });
+  });
+
+  it('leaves the palette key alone during text composition', () => {
+    expect(shortcutFor(keyEvent('k', { metaKey: true, isComposing: true }))).toBeNull();
+  });
+
+  it('opens a file from the properties panel but not after another handler used the key', () => {
+    const inPanel = placeInside(propertiesPanel(), 'div');
+    expect(shortcutFor(keyEvent('o', { metaKey: true, target: inPanel }))).toEqual({
+      kind: 'open',
+    });
+    expect(shortcutFor(keyEvent('o', { metaKey: true, defaultPrevented: true }))).toBeNull();
+  });
+});
+
 describe('applyShortcut', () => {
   it('opens the command palette, also while previewing', () => {
     const store = createTestStore();

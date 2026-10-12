@@ -109,21 +109,29 @@ function fileShortcut(event: ShortcutKeyEvent): Shortcut | null {
   return null;
 }
 
-export function shortcutFor(event: ShortcutKeyEvent, isFromCanvas = false): Shortcut | null {
+function alwaysOnShortcut(event: ShortcutKeyEvent, file: Shortcut | null): Shortcut | null {
   const history = historyShortcut(event);
   if (history !== null) return history;
-  const file = fileShortcut(event);
   if (file?.kind === 'save') return file;
   if (isPaletteKey(event) && !event.isComposing && !isInside(event.target, 'dialog')) {
     return { kind: 'command-palette' };
   }
+  return null;
+}
+
+function isHelpKey(event: ShortcutKeyEvent): boolean {
+  return event.key === '?' && !event.metaKey && !event.ctrlKey && !event.altKey;
+}
+
+export function shortcutFor(event: ShortcutKeyEvent, isFromCanvas = false): Shortcut | null {
+  const file = fileShortcut(event);
+  const alwaysOn = alwaysOnShortcut(event, file);
+  if (alwaysOn !== null) return alwaysOn;
 
   const isTyping = isElementTarget(event.target) && event.target.matches(TEXT_ENTRY);
   if (event.defaultPrevented || isTyping || isInside(event.target, 'dialog')) return null;
   if (event.key === 'Escape') return { kind: 'clear-selection' };
-  if (event.key === '?' && !event.metaKey && !event.ctrlKey && !event.altKey) {
-    return { kind: 'help' };
-  }
+  if (isHelpKey(event)) return { kind: 'help' };
   if (isPreviewKey(event)) return { kind: 'toggle-preview' };
   if (file !== null) return file;
   if (isInside(event.target, EDITING_PANELS)) return null;

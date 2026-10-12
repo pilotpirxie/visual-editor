@@ -41,7 +41,7 @@ type Shape = {
 
 type TokenValues = Record<string, string>;
 
-type TypeChoice = {
+export type TypeChoice = {
   values: TokenValues;
   families: { heading: string; body: string } | null;
   typeBasePx: number;
@@ -296,7 +296,7 @@ export const DARK_SHADOWS: TokenValues = {
   '--shadow-lg': '0 16px 40px rgb(0 0 0 / 0.5)',
 };
 
-export const PRIMARY_THEME_TOKENS = [
+const PRIMARY_THEME_TOKENS = [
   '--theme-primary-background',
   '--theme-primary-surface',
   '--theme-primary-text',
@@ -328,6 +328,15 @@ function hexOf({ lightness, chroma, hue }: Oklch): string {
 
 function contrastOf(foreground: string, background: string): number {
   return contrastRatio(foreground, background) ?? 1;
+}
+
+export function withStandardPrimaryTheme(values: TokenValues): TokenValues {
+  const themed: TokenValues = { ...values };
+  for (const name of PRIMARY_THEME_TOKENS) {
+    const standard = CLEAN_PRESET.designSystem.tokens[name];
+    if (standard !== undefined) themed[name] = standard.value;
+  }
+  return themed;
 }
 
 export function isDarkColor(hex: string): boolean {
@@ -528,11 +537,12 @@ function randomColors(mood: Mood, random: Random): TokenValues {
   const values = mood.isDark
     ? darkColors(mood, band, hues, random)
     : lightColors(mood, band, hues, random);
-  for (const name of PRIMARY_THEME_TOKENS) {
-    const standard = CLEAN_PRESET.designSystem.tokens[name];
-    if (standard !== undefined) values[name] = standard.value;
-  }
-  return values;
+  return withStandardPrimaryTheme(values);
+}
+
+export function hasReadableBody(family: FontFamily): boolean {
+  const hasBold = family.weights.includes(BOLD_WEIGHT) || family.weights.includes(SEMIBOLD_WEIGHT);
+  return family.weights.includes(REGULAR_WEIGHT) && hasBold;
 }
 
 function availableFamilies(
@@ -544,9 +554,7 @@ function availableFamilies(
   for (const name of names) {
     const family = fontList.get(name);
     if (family === undefined) continue;
-    const hasBold =
-      family.weights.includes(BOLD_WEIGHT) || family.weights.includes(SEMIBOLD_WEIGHT);
-    if (isBody && !(family.weights.includes(REGULAR_WEIGHT) && hasBold)) continue;
+    if (isBody && !hasReadableBody(family)) continue;
     families.push(family);
   }
   return families;
@@ -566,6 +574,24 @@ function bodyFamily(
   return random.pick(candidates);
 }
 
+export function withFonts(
+  plain: TypeChoice,
+  heading: FontFamily,
+  body: FontFamily,
+  wantedHeadingWeight: number,
+): TypeChoice {
+  const boldWeight = body.weights.includes(BOLD_WEIGHT) ? BOLD_WEIGHT : SEMIBOLD_WEIGHT;
+  const values: TokenValues = {
+    ...plain.values,
+    '--font-heading': fontStack(heading.family, heading.category),
+    '--font-body': fontStack(body.family, body.category),
+    '--font-weight-heading': String(nearestWeight(wantedHeadingWeight, heading.weights)),
+    '--font-weight-regular': String(REGULAR_WEIGHT),
+    '--font-weight-bold': String(boldWeight),
+  };
+  return { ...plain, values, families: { heading: heading.family, body: body.family } };
+}
+
 function randomType(fontList: ReadonlyMap<string, FontFamily>, random: Random): TypeChoice {
   const voice = random.pick(VOICES);
   const typeBasePx = random.pick(voice.basesPx);
@@ -575,25 +601,13 @@ function randomType(fontList: ReadonlyMap<string, FontFamily>, random: Random): 
     '--line-height-tight': random.pick(voice.lineHeights),
     '--line-height-normal': random.pick(BODY_LINE_HEIGHTS),
   };
+  const plain: TypeChoice = { values, families: null, typeBasePx, typeRatio };
   const headings = availableFamilies(voice.families, fontList, false);
-  if (headings.length === 0) return { values, families: null, typeBasePx, typeRatio };
+  if (headings.length === 0) return plain;
   const heading = random.pick(headings);
   const body = bodyFamily(heading, voice, fontList, random);
-  if (body === null) return { values, families: null, typeBasePx, typeRatio };
-  const boldWeight = body.weights.includes(BOLD_WEIGHT) ? BOLD_WEIGHT : SEMIBOLD_WEIGHT;
-  values['--font-heading'] = fontStack(heading.family, heading.category);
-  values['--font-body'] = fontStack(body.family, body.category);
-  values['--font-weight-heading'] = String(
-    nearestWeight(random.pick(voice.weights), heading.weights),
-  );
-  values['--font-weight-regular'] = String(REGULAR_WEIGHT);
-  values['--font-weight-bold'] = String(boldWeight);
-  return {
-    values,
-    families: { heading: heading.family, body: body.family },
-    typeBasePx,
-    typeRatio,
-  };
+  if (body === null) return plain;
+  return withFonts(plain, heading, body, random.pick(voice.weights));
 }
 
 function randomShape(random: Random): TokenValues {
@@ -634,6 +648,17 @@ export function fontsFor(
   ];
 }
 
+export function tokensWithValues(
+  baseTokens: Record<string, Token>,
+  values: TokenValues,
+): Record<string, Token> {
+  const tokens: Record<string, Token> = {};
+  for (const [name, token] of Object.entries(baseTokens)) {
+    tokens[name] = { ...token, value: values[name] ?? token.value };
+  }
+  return tokens;
+}
+
 export function randomDesignSystem(
   base: DesignSystem,
   fontList: readonly FontFamily[],
@@ -654,10 +679,7 @@ export function randomDesignSystem(
     ...randomShape(random),
     ...randomShadows(mood, random),
   };
-  const tokens: Record<string, Token> = {};
-  for (const [name, token] of Object.entries(base.tokens)) {
-    tokens[name] = { ...token, value: values[name] ?? token.value };
-  }
+  const tokens = tokensWithValues(base.tokens, values);
   return {
     tokens,
     fonts: type.families === null ? base.fonts : fontsFor(type.families, tokens),

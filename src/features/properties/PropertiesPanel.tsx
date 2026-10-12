@@ -9,7 +9,8 @@ import { blockShared, blockUnshared } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, useStore } from '../../app/store';
 import { blockComponentId, blockLabel, definitionOf } from '../../components/registry';
 import type { Block } from '../../app/types';
-import { CATEGORIES, type ComponentDefinition } from '../../components/types';
+import type { PackBlock } from '../../components/types';
+import { categoryLabel, type ComponentDefinition } from '../../components/types';
 import { AdvancedTab } from './AdvancedTab';
 import { CodeField } from './CodeField';
 import { ContentTab } from './ContentTab';
@@ -59,13 +60,6 @@ function focusField(container: HTMLElement, path: string): boolean {
   if (target === null) return false;
   target.focus();
   return target.ownerDocument.activeElement === target;
-}
-
-function categoryLabelOf(definition: ComponentDefinition): string | null {
-  for (const category of CATEGORIES) {
-    if (category.id === definition.category) return category.label;
-  }
-  return null;
 }
 
 function PanelHeading({ title, detail }: { title: string; detail: string | null }): JSX.Element {
@@ -130,6 +124,64 @@ function PropertiesTabs({
   );
 }
 
+function MissingComponent({ blockId }: { blockId: string }): JSX.Element {
+  return (
+    <div className="ve-missing-component">
+      <p>
+        This block’s component isn’t available, so it can’t be edited or shown. Its content is kept
+        in case the component comes back.
+      </p>
+      <Button variant="danger" icon="trash" onClick={() => dispatch(removeBlock(blockId))}>
+        Delete block
+      </Button>
+    </div>
+  );
+}
+
+type BlockSettingsProps = {
+  block: Block;
+  definition: ComponentDefinition | null;
+  tab: PropertiesTab;
+};
+
+function BlockSettings({ block, definition, tab }: BlockSettingsProps): JSX.Element | null {
+  if (block.kind === 'html') {
+    if (tab === 'code') return <CodeField id="ve-html-code" blockId={block.id} html={block.html} />;
+    return tab === 'advanced' ? <AdvancedTab block={block} /> : null;
+  }
+  if (definition === null) return <MissingComponent blockId={block.id} />;
+  if (tab === 'content') {
+    return <ContentTab block={block} definition={definition} />;
+  } else if (tab === 'style') {
+    return <StyleTab block={block} definition={definition} />;
+  } else if (tab === 'advanced') {
+    return <AdvancedTab block={block} />;
+  } else {
+    return null;
+  }
+}
+
+type BlockHeading = { title: string; detail: string | null; tabs: TabOption[] | null };
+
+function blockHeadingOf(
+  block: Block,
+  definition: ComponentDefinition | null,
+  packBlocks: Record<string, PackBlock>,
+): BlockHeading {
+  if (block.kind === 'html') {
+    const detail = definition === null ? null : `From ${definition.name}`;
+    return { title: 'HTML block', detail, tabs: HTML_TABS };
+  }
+  if (definition === null) {
+    return { title: blockLabel(block, { packBlocks }), detail: null, tabs: null };
+  }
+  return {
+    title: definition.name,
+    detail: categoryLabel(definition.category),
+    tabs: COMPONENT_TABS,
+  };
+}
+
 export function PropertiesPanel(): JSX.Element {
   const block = useStore((state) => {
     const { selectedBlockId } = state.editor;
@@ -161,42 +213,16 @@ export function PropertiesPanel(): JSX.Element {
   const componentId = blockComponentId(block);
   const definition =
     componentId === null ? null : (definitionOf({ packBlocks }, componentId) ?? null);
-  const categoryLabel = definition === null ? null : categoryLabelOf(definition);
   const tab = shownTab(block, activeTab);
-  if (block.kind === 'html') {
-    return (
-      <aside className="ve-panel ve-properties" aria-label="Properties">
-        <header className="ve-panel-header">
-          <PanelHeading
-            title="HTML block"
-            detail={definition === null ? null : `From ${definition.name}`}
-          />
-          {definition !== null && <SharedSwitch blockId={block.id} definition={definition} />}
-        </header>
-        <PropertiesTabs tabs={HTML_TABS} activeTab={tab} />
-        <div
-          className="ve-properties-body"
-          key={block.id}
-          ref={bodyRef}
-          role="tabpanel"
-          id="ve-properties-panel"
-          aria-labelledby={`ve-properties-tab-${tab}`}
-        >
-          {tab === 'code' && <CodeField id="ve-html-code" blockId={block.id} html={block.html} />}
-          {tab === 'advanced' && <AdvancedTab block={block} />}
-        </div>
-      </aside>
-    );
-  }
-  const title = definition === null ? blockLabel(block, { packBlocks }) : definition.name;
+  const heading = blockHeadingOf(block, definition, packBlocks);
 
   return (
     <aside className="ve-panel ve-properties" aria-label="Properties">
       <header className="ve-panel-header">
-        <PanelHeading title={title} detail={categoryLabel} />
+        <PanelHeading title={heading.title} detail={heading.detail} />
         {definition !== null && <SharedSwitch blockId={block.id} definition={definition} />}
       </header>
-      {definition !== null && <PropertiesTabs tabs={COMPONENT_TABS} activeTab={tab} />}
+      {heading.tabs !== null && <PropertiesTabs tabs={heading.tabs} activeTab={tab} />}
       <div
         className="ve-properties-body"
         key={block.id}
@@ -205,24 +231,7 @@ export function PropertiesPanel(): JSX.Element {
         id="ve-properties-panel"
         aria-labelledby={`ve-properties-tab-${tab}`}
       >
-        {definition !== null && tab === 'content' && (
-          <ContentTab block={block} definition={definition} />
-        )}
-        {definition !== null && tab === 'style' && (
-          <StyleTab block={block} definition={definition} />
-        )}
-        {definition !== null && tab === 'advanced' && <AdvancedTab block={block} />}
-        {definition === null && (
-          <div className="ve-missing-component">
-            <p>
-              This block’s component isn’t available, so it can’t be edited or shown. Its content is
-              kept in case the component comes back.
-            </p>
-            <Button variant="danger" icon="trash" onClick={() => dispatch(removeBlock(block.id))}>
-              Delete block
-            </Button>
-          </div>
-        )}
+        <BlockSettings block={block} definition={definition} tab={tab} />
       </div>
     </aside>
   );

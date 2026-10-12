@@ -1,15 +1,8 @@
-import { CATEGORIES, type ComponentDefinition } from '../../components/types';
+import { categoryLabel, type ComponentDefinition } from '../../components/types';
 
 type Searchable = { definition: ComponentDefinition };
 
 const WHITESPACE = /\s+/;
-
-function categoryLabel(categoryId: string): string {
-  for (const category of CATEGORIES) {
-    if (category.id === categoryId) return category.label;
-  }
-  return '';
-}
 
 function searchableText(component: Searchable): string {
   const { definition } = component;
@@ -17,7 +10,7 @@ function searchableText(component: Searchable): string {
     definition.name,
     definition.description ?? '',
     ...(definition.tags ?? []),
-    categoryLabel(definition.category),
+    categoryLabel(definition.category) ?? '',
   ];
   return parts.join(' ').toLowerCase();
 }

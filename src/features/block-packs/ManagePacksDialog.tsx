@@ -1,4 +1,4 @@
-import { useMemo, useState, type JSX } from 'react';
+import { useMemo, useState, type JSX, type ReactNode } from 'react';
 import { noticeShown } from '../../app/editorSlice';
 import { describeError } from '../../app/errors';
 import { dispatch, useStore } from '../../app/store';
@@ -74,7 +74,25 @@ function RemovalNote({ packId, isInLibrary }: RemovalNoteProps): JSX.Element {
   );
 }
 
-function PackRow({ pack }: { pack: BlockPack }): JSX.Element {
+type PackRowFrameProps = {
+  pack: PackInfo;
+  details: string;
+  isPartial: boolean;
+  isInLibrary: boolean;
+  removeLabel: string;
+  onRemove(): void;
+  children: ReactNode;
+};
+
+function PackRowFrame({
+  pack,
+  details,
+  isPartial,
+  isInLibrary,
+  removeLabel,
+  onRemove,
+  children,
+}: PackRowFrameProps): JSX.Element {
   const isReadOnly = useStore((state) => state.editor.isReadOnly);
   const [isConfirmingRemove, setIsConfirmingRemove] = useState(false);
   return (
@@ -83,11 +101,9 @@ function PackRow({ pack }: { pack: BlockPack }): JSX.Element {
         <strong>
           {pack.name} {pack.version}
         </strong>
-        {pack.isPartial && <span className="ve-pack-badge">Partial</span>}
-        <span className="ui-muted">
-          {pack.author} · {pack.license} · {blockCountLabel(pack.blocks.length)}
-        </span>
-        {isConfirmingRemove && <RemovalNote packId={pack.id} isInLibrary />}
+        {isPartial && <span className="ve-pack-badge">Partial</span>}
+        <span className="ui-muted">{details}</span>
+        {isConfirmingRemove && <RemovalNote packId={pack.id} isInLibrary={isInLibrary} />}
       </div>
       <div className="ve-pack-actions">
         {isConfirmingRemove ? (
@@ -95,20 +111,13 @@ function PackRow({ pack }: { pack: BlockPack }): JSX.Element {
             <Button autoFocus variant="secondary" onClick={() => setIsConfirmingRemove(false)}>
               Keep
             </Button>
-            <Button variant="danger" onClick={() => packCommands.remove(pack.id)}>
-              Remove pack and its blocks
+            <Button variant="danger" onClick={onRemove}>
+              {removeLabel}
             </Button>
           </>
         ) : (
           <>
-            <Button variant="ghost" onClick={packCommands.loadFromDisk}>
-              Update
-            </Button>
-            {!pack.isPartial && (
-              <Button variant="ghost" onClick={() => packCommands.download(pack)}>
-                Download
-              </Button>
-            )}
+            {children}
             <Button
               variant="ghost"
               disabled={isReadOnly}
@@ -123,46 +132,42 @@ function PackRow({ pack }: { pack: BlockPack }): JSX.Element {
   );
 }
 
-function MissingPackRow({ pack }: { pack: PackInfo }): JSX.Element {
-  const isReadOnly = useStore((state) => state.editor.isReadOnly);
-  const [isConfirmingRemove, setIsConfirmingRemove] = useState(false);
+function PackRow({ pack }: { pack: BlockPack }): JSX.Element {
   return (
-    <li className="ve-pack-row">
-      <div className="ve-pack-info">
-        <strong>
-          {pack.name} {pack.version}
-        </strong>
-        <span className="ui-muted">
-          {pack.author} · {pack.license}
-        </span>
-        {isConfirmingRemove && <RemovalNote packId={pack.id} isInLibrary={false} />}
-      </div>
-      <div className="ve-pack-actions">
-        {isConfirmingRemove ? (
-          <>
-            <Button autoFocus variant="secondary" onClick={() => setIsConfirmingRemove(false)}>
-              Keep
-            </Button>
-            <Button variant="danger" onClick={() => packCommands.removeFromProject(pack.id)}>
-              Remove from project
-            </Button>
-          </>
-        ) : (
-          <>
-            <Button variant="ghost" onClick={() => packCommands.addFromProject(pack.id)}>
-              Add to library
-            </Button>
-            <Button
-              variant="ghost"
-              disabled={isReadOnly}
-              onClick={() => setIsConfirmingRemove(true)}
-            >
-              Remove
-            </Button>
-          </>
-        )}
-      </div>
-    </li>
+    <PackRowFrame
+      pack={pack}
+      details={`${pack.author} · ${pack.license} · ${blockCountLabel(pack.blocks.length)}`}
+      isPartial={pack.isPartial}
+      isInLibrary
+      removeLabel="Remove pack and its blocks"
+      onRemove={() => packCommands.remove(pack.id)}
+    >
+      <Button variant="ghost" onClick={packCommands.loadFromDisk}>
+        Update
+      </Button>
+      {!pack.isPartial && (
+        <Button variant="ghost" onClick={() => packCommands.download(pack)}>
+          Download
+        </Button>
+      )}
+    </PackRowFrame>
+  );
+}
+
+function MissingPackRow({ pack }: { pack: PackInfo }): JSX.Element {
+  return (
+    <PackRowFrame
+      pack={pack}
+      details={`${pack.author} · ${pack.license}`}
+      isPartial={false}
+      isInLibrary={false}
+      removeLabel="Remove from project"
+      onRemove={() => packCommands.removeFromProject(pack.id)}
+    >
+      <Button variant="ghost" onClick={() => packCommands.addFromProject(pack.id)}>
+        Add to library
+      </Button>
+    </PackRowFrame>
   );
 }
 

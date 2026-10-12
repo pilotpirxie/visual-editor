@@ -16,6 +16,91 @@ function answerOf(reply: Reply): string {
   return parts.join(', ');
 }
 
+function answersUntil(
+  questions: readonly Question[],
+  replies: readonly Reply[],
+  end: number,
+): Answered[] {
+  const answers: Answered[] = [];
+  for (const [index, asked] of questions.entries()) {
+    if (index === end) break;
+    answers.push({ question: asked.question, answer: answerOf(replies[index] ?? EMPTY_REPLY) });
+  }
+  return answers;
+}
+
+function withToggled(picked: readonly string[], suggestion: string): string[] {
+  if (picked.includes(suggestion)) return picked.filter((existing) => existing !== suggestion);
+  return [...picked, suggestion];
+}
+
+function suggestionForKey(key: string, suggestions: readonly string[]): string | undefined {
+  const keyIndex = key.length === 1 ? CHOICE_KEYS.indexOf(key.toUpperCase()) : -1;
+  return suggestions[keyIndex];
+}
+
+type ChoiceListProps = {
+  question: Question;
+  picked: readonly string[];
+  onPick(suggestion: string): void;
+};
+
+function ChoiceList({ question, picked, onPick }: ChoiceListProps): JSX.Element {
+  return (
+    <div className="ve-questions-choices" role="group" aria-labelledby={QUESTION_ID}>
+      {question.suggestions.map((suggestion, index) => {
+        const isSuggested = question.recommended.includes(suggestion);
+        const isPicked = picked.includes(suggestion);
+        const key = CHOICE_KEYS.charAt(index);
+        return (
+          <button
+            key={suggestion}
+            type="button"
+            className="ve-questions-choice"
+            aria-label={isSuggested ? `${suggestion} (suggested)` : suggestion}
+            aria-pressed={isPicked}
+            aria-keyshortcuts={key === '' ? undefined : key}
+            onClick={() => onPick(suggestion)}
+          >
+            <kbd className="ve-questions-key">{key}</kbd>
+            <span className="ve-questions-choice-text">{suggestion}</span>
+            {isSuggested && <span className="ve-questions-suggested">Suggested</span>}
+            {isPicked && <Icon name="check" />}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+type QuestionsFooterProps = {
+  canGoBack: boolean;
+  onBack(): void;
+  onSkip(): void;
+  onBuildNow(): void;
+};
+
+function QuestionsFooter({
+  canGoBack,
+  onBack,
+  onSkip,
+  onBuildNow,
+}: QuestionsFooterProps): JSX.Element {
+  return (
+    <div className="ve-questions-footer">
+      {canGoBack && (
+        <Button icon="arrow-up" onClick={onBack}>
+          Back
+        </Button>
+      )}
+      <Button onClick={onSkip}>Skip</Button>
+      <Button className="ve-questions-build" onClick={onBuildNow}>
+        Just build it
+      </Button>
+    </div>
+  );
+}
+
 type SiteQuestionsProps = {
   questions: readonly Question[];
   onDone(answers: Answered[]): void;
@@ -44,21 +129,12 @@ export function SiteQuestions({
     return replies.map((existing, index) => (index === position ? next : existing));
   }
 
-  function answersUntil(given: readonly Reply[], end: number): Answered[] {
-    const answers: Answered[] = [];
-    for (const [index, asked] of questions.entries()) {
-      if (index === end) break;
-      answers.push({ question: asked.question, answer: answerOf(given[index] ?? EMPTY_REPLY) });
-    }
-    return answers;
-  }
-
   function advance(given: Reply[]): void {
     setReplies(given);
     if (position < questions.length - 1) {
       setPosition(position + 1);
     } else {
-      onDone(answersUntil(given, questions.length));
+      onDone(answersUntil(questions, given, questions.length));
     }
   }
 
@@ -71,11 +147,7 @@ export function SiteQuestions({
       advance(withReply({ picked: [suggestion], typed: '' }));
       return;
     }
-    const isPicked = reply.picked.includes(suggestion);
-    const picked = isPicked
-      ? reply.picked.filter((existing) => existing !== suggestion)
-      : [...reply.picked, suggestion];
-    setReplies(withReply({ ...reply, picked }));
+    setReplies(withReply({ ...reply, picked: withToggled(reply.picked, suggestion) }));
   }
 
   const onKeyDown = useEffectEvent((event: KeyboardEvent): void => {
@@ -90,8 +162,7 @@ export function SiteQuestions({
       confirm();
       return;
     }
-    const keyIndex = event.key.length === 1 ? CHOICE_KEYS.indexOf(event.key.toUpperCase()) : -1;
-    const suggestion = current.suggestions[keyIndex];
+    const suggestion = suggestionForKey(event.key, current.suggestions);
     if (suggestion === undefined) return;
     event.preventDefault();
     pick(suggestion);
@@ -103,7 +174,7 @@ export function SiteQuestions({
   }, []);
 
   if (current === undefined) return null;
-  const { question, suggestions, allowsMany, recommended } = current;
+  const { question, suggestions, allowsMany } = current;
 
   function submit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
@@ -112,7 +183,7 @@ export function SiteQuestions({
 
   function buildNow(): void {
     const confirmed: Answered[] = [];
-    for (const answer of answersUntil(replies, position)) {
+    for (const answer of answersUntil(questions, replies, position)) {
       if (answer.answer !== '') confirmed.push(answer);
     }
     onBuildNow(confirmed);
@@ -135,29 +206,7 @@ export function SiteQuestions({
         </h3>
         {allowsMany && <p className="ui-muted">Choose as many as you like.</p>}
         {suggestions.length > 0 && (
-          <div className="ve-questions-choices" role="group" aria-labelledby={QUESTION_ID}>
-            {suggestions.map((suggestion, index) => {
-              const isSuggested = recommended.includes(suggestion);
-              const isPicked = reply.picked.includes(suggestion);
-              const key = CHOICE_KEYS.charAt(index);
-              return (
-                <button
-                  key={suggestion}
-                  type="button"
-                  className="ve-questions-choice"
-                  aria-label={isSuggested ? `${suggestion} (suggested)` : suggestion}
-                  aria-pressed={isPicked}
-                  aria-keyshortcuts={key === '' ? undefined : key}
-                  onClick={() => pick(suggestion)}
-                >
-                  <kbd className="ve-questions-key">{key}</kbd>
-                  <span className="ve-questions-choice-text">{suggestion}</span>
-                  {isSuggested && <span className="ve-questions-suggested">Suggested</span>}
-                  {isPicked && <Icon name="check" />}
-                </button>
-              );
-            })}
-          </div>
+          <ChoiceList question={current} picked={reply.picked} onPick={pick} />
         )}
         <TextInput
           className="ve-questions-own"
@@ -176,17 +225,12 @@ export function SiteQuestions({
           <span className="ui-muted">or press Enter</span>
         </div>
       </div>
-      <div className="ve-questions-footer">
-        {position > 0 && (
-          <Button icon="arrow-up" onClick={() => setPosition(position - 1)}>
-            Back
-          </Button>
-        )}
-        <Button onClick={() => advance(withReply(EMPTY_REPLY))}>Skip</Button>
-        <Button className="ve-questions-build" onClick={buildNow}>
-          Just build it
-        </Button>
-      </div>
+      <QuestionsFooter
+        canGoBack={position > 0}
+        onBack={() => setPosition(position - 1)}
+        onSkip={() => advance(withReply(EMPTY_REPLY))}
+        onBuildNow={buildNow}
+      />
     </form>
   );
 }

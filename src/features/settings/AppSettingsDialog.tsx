@@ -5,8 +5,6 @@ import {
   updateAppSettings,
   useAppSettings,
   type AppSettings,
-  type AssistantModel,
-  type ImageModel,
 } from '../../app/appSettings';
 import { describeError } from '../../app/errors';
 import { AssistantError, listImageModels, listModels } from '../assistant/openRouter';
@@ -71,6 +69,49 @@ function effortLabel(effort: string): string {
   return EFFORT_LABELS[effort] ?? effort;
 }
 
+type ModelLoader<Model> = {
+  list: ModelList<Model>;
+  loadModels(key: string): Promise<void>;
+};
+
+function useModelList<Model>(
+  listFor: (key: string, signal: AbortSignal) => Promise<Model[]>,
+  failureLog: string,
+): ModelLoader<Model> {
+  const [list, setList] = useState<ModelList<Model>>({ status: 'idle' });
+  const loadingRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => loadingRef.current?.abort();
+  }, []);
+
+  async function loadModels(key: string): Promise<void> {
+    loadingRef.current?.abort();
+    const loading = new AbortController();
+    loadingRef.current = loading;
+    setList({ status: 'loading' });
+    try {
+      const models = await listFor(key.trim(), loading.signal);
+      setList({ status: 'ready', models });
+    } catch (error) {
+      if (error instanceof AssistantError && error.kind === 'cancelled') return;
+      console.error(failureLog, error);
+      setList({ status: 'failed', message: describeError(error) });
+    }
+  }
+
+  return { list, loadModels };
+}
+
+function ModelListFailure<Model>({ list }: { list: ModelList<Model> }): JSX.Element | null {
+  if (list.status !== 'failed') return null;
+  return (
+    <p className="ui-field-error" role="alert">
+      {list.message}
+    </p>
+  );
+}
+
 function GeneralSettings({ settings }: { settings: AppSettings }): JSX.Element {
   const isDark = useAppearance() === 'dark';
   return (
@@ -104,29 +145,9 @@ function GeneralSettings({ settings }: { settings: AppSettings }): JSX.Element {
 
 function AssistantSettings({ settings }: { settings: AppSettings }): JSX.Element {
   const [isKeyShown, setIsKeyShown] = useState(false);
-  const [list, setList] = useState<ModelList<AssistantModel>>({ status: 'idle' });
-  const loadingRef = useRef<AbortController | null>(null);
+  const { list, loadModels } = useModelList(listModels, 'The OpenRouter model list did not load');
   const { openRouterKey, assistantModel, assistantEffort } = settings;
   const efforts = assistantModel?.efforts ?? [];
-
-  useEffect(() => {
-    return () => loadingRef.current?.abort();
-  }, []);
-
-  async function loadModels(): Promise<void> {
-    loadingRef.current?.abort();
-    const loading = new AbortController();
-    loadingRef.current = loading;
-    setList({ status: 'loading' });
-    try {
-      const models = await listModels(openRouterKey.trim(), loading.signal);
-      setList({ status: 'ready', models });
-    } catch (error) {
-      if (error instanceof AssistantError && error.kind === 'cancelled') return;
-      console.error('The OpenRouter model list did not load', error);
-      setList({ status: 'failed', message: describeError(error) });
-    }
-  }
 
   const effortOptions = [
     { value: DEFAULT_EFFORT, label: 'Model default' },
@@ -173,7 +194,7 @@ function AssistantSettings({ settings }: { settings: AppSettings }): JSX.Element
         </div>
         <Button
           disabled={openRouterKey.trim() === '' || list.status === 'loading'}
-          onClick={() => void loadModels()}
+          onClick={() => void loadModels(openRouterKey)}
         >
           {list.status === 'ready' ? 'Reload models' : 'Load models'}
         </Button>
@@ -184,11 +205,7 @@ function AssistantSettings({ settings }: { settings: AppSettings }): JSX.Element
           <p className="ui-muted">{list.models.length} models can build sites.</p>
         )}
       </div>
-      {list.status === 'failed' && (
-        <p className="ui-field-error" role="alert">
-          {list.message}
-        </p>
-      )}
+      <ModelListFailure list={list} />
       {list.status === 'ready' && (
         <ModelPicker
           label="Models"
@@ -223,28 +240,11 @@ function AssistantSettings({ settings }: { settings: AppSettings }): JSX.Element
 }
 
 function ImageModelSettings({ settings }: { settings: AppSettings }): JSX.Element {
-  const [list, setList] = useState<ModelList<ImageModel>>({ status: 'idle' });
-  const loadingRef = useRef<AbortController | null>(null);
+  const { list, loadModels } = useModelList(
+    listImageModels,
+    'The OpenRouter image model list did not load',
+  );
   const { openRouterKey, imageModel } = settings;
-
-  useEffect(() => {
-    return () => loadingRef.current?.abort();
-  }, []);
-
-  async function loadModels(): Promise<void> {
-    loadingRef.current?.abort();
-    const loading = new AbortController();
-    loadingRef.current = loading;
-    setList({ status: 'loading' });
-    try {
-      const models = await listImageModels(openRouterKey.trim(), loading.signal);
-      setList({ status: 'ready', models });
-    } catch (error) {
-      if (error instanceof AssistantError && error.kind === 'cancelled') return;
-      console.error('The OpenRouter image model list did not load', error);
-      setList({ status: 'failed', message: describeError(error) });
-    }
-  }
 
   return (
     <>
@@ -256,7 +256,7 @@ function ImageModelSettings({ settings }: { settings: AppSettings }): JSX.Elemen
         <div className="ve-settings-model-actions">
           <Button
             disabled={openRouterKey.trim() === '' || list.status === 'loading'}
-            onClick={() => void loadModels()}
+            onClick={() => void loadModels(openRouterKey)}
           >
             {list.status === 'ready' ? 'Reload image models' : 'Load image models'}
           </Button>
@@ -282,11 +282,7 @@ function ImageModelSettings({ settings }: { settings: AppSettings }): JSX.Elemen
           </p>
         )}
       </div>
-      {list.status === 'failed' && (
-        <p className="ui-field-error" role="alert">
-          {list.message}
-        </p>
-      )}
+      <ModelListFailure list={list} />
       {list.status === 'ready' && (
         <ModelPicker
           label="Image models"

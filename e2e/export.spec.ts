@@ -1,5 +1,5 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { expect, test, type Page } from '@playwright/test';
 import {
@@ -11,6 +11,8 @@ import {
   openPage,
   openProjectSettings,
   readZip,
+  exportedFiles,
+  writeSiteFiles,
 } from './editor';
 
 async function buildSite(page: Page): Promise<void> {
@@ -57,11 +59,7 @@ test('the exported zip holds pages, one CSS file, one JS file and works from dis
   expect(files.get('assets/css/site.css')?.toString('utf8')).not.toContain('b-cta-centered');
 
   const folder = testInfo.outputPath('site');
-  for (const [path, content] of files) {
-    const target = join(folder, path);
-    await mkdir(dirname(target), { recursive: true });
-    await writeFile(target, content);
-  }
+  await writeSiteFiles(files, folder);
   await page.goto(pathToFileURL(join(folder, 'index.html')).href);
   const button = page.locator('.b-hero-centered .btn-primary');
   await expect(button).toBeVisible();
@@ -149,13 +147,7 @@ test('an uploaded image shows on the canvas and ships as its own file', async ({
   await expect(canvasImage).toHaveAttribute('width', '2');
   await expect(canvasImage).toHaveAttribute('height', '1');
 
-  await page.getByRole('button', { name: 'Export', exact: true }).click();
-  const downloadPromise = page.waitForEvent('download');
-  await page
-    .getByRole('dialog', { name: 'Export site' })
-    .getByRole('button', { name: 'Download zip' })
-    .click();
-  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const files = await exportedFiles(page);
   const imagePaths = [...files.keys()].filter((path) => path.startsWith('assets/images/'));
   expect(imagePaths).toEqual([
     expect.stringMatching(/^assets\/images\/team-photo-[a-z0-9]+\.png$/),

@@ -11,7 +11,7 @@ import {
 } from '../../persistence/db';
 import { loadProjectAssets } from '../../app/projectAssets';
 
-export const MAX_SNAPSHOTS = 20;
+const MAX_SNAPSHOTS = 20;
 
 const SUFFIX_LENGTH = 8;
 const NAME_FORMAT = new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeStyle: 'short' });

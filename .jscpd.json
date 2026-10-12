@@ -1,0 +1,9 @@
+{
+  "path": ["src", "packages", "e2e"],
+  "format": ["typescript", "tsx", "css"],
+  "ignore": ["src/components/library/**", "**/node_modules/**"],
+  "minTokens": 50,
+  "minLines": 5,
+  "reporters": ["console"],
+  "threshold": 1
+}

@@ -4,6 +4,7 @@ import { store } from '../../app/store';
 import { blur, changeValue, click, render, runInAct } from '../../test/dom';
 import { loadIntoAppStore } from '../../test/fixtures';
 import { ProjectSettingsPanel } from './ProjectSettingsPanel';
+import type { ProjectSettings } from '../../app/types';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
@@ -20,7 +21,7 @@ function input(container: HTMLElement, selector: string): Element | null {
   return container.ownerDocument.querySelector(selector);
 }
 
-function settings() {
+function settings(): ProjectSettings {
   return store.getState().project.settings;
 }
 

@@ -2,7 +2,7 @@ import { useSyncExternalStore, type JSX } from 'react';
 import { useStore } from '../../app/store';
 import type { OpenConflict } from './fileActions';
 import { fileCommands } from './fileCommands';
-import { closeDialogOf, Dialog } from '../../../packages/ui/src';
+import { Button, closeDialogOf, Dialog, DialogActions } from '../../../packages/ui/src';
 
 const CONFLICT_TITLE_ID = 've-open-conflict-title';
 const OUTSIDE_CHANGE_TITLE_ID = 've-outside-change-title';
@@ -21,32 +21,22 @@ function SameProjectDialog({ conflict }: { conflict: OpenConflict }): JSX.Elemen
             ? `${picked.name} is newer than the copy saved in this browser. Replace it, or open the file as a separate copy.`
             : `The copy saved in this browser is newer than ${picked.name}. You can open the file as a separate copy.`}
         </p>
-        <div className="ui-dialog-actions">
-          <button
-            type="button"
-            className="ui-button ui-button--secondary"
-            autoFocus
-            onClick={(event) => closeDialogOf(event.currentTarget)}
-          >
+        <DialogActions>
+          <Button autoFocus onClick={(event) => closeDialogOf(event.currentTarget)}>
             Cancel
-          </button>
-          <button
-            type="button"
-            className="ui-button ui-button--secondary"
-            onClick={() => fileCommands.resolveConflict('copy', conflict)}
-          >
+          </Button>
+          <Button onClick={() => fileCommands.resolveConflict('copy', conflict)}>
             Open as copy
-          </button>
+          </Button>
           {canReplace && (
-            <button
-              type="button"
-              className="ui-button ui-button--primary"
+            <Button
+              variant="primary"
               onClick={() => fileCommands.resolveConflict('replace', conflict)}
             >
               Replace
-            </button>
+            </Button>
           )}
-        </div>
+        </DialogActions>
       </div>
     </Dialog>
   );
@@ -61,40 +51,23 @@ function OutsideChangeDialog(): JSX.Element {
           {fileName} changed outside the editor
         </h2>
         <p>Overwrite it with this project, save to a new file, or load the file’s version.</p>
-        <div className="ui-dialog-actions">
-          <button
-            type="button"
-            className="ui-button ui-button--secondary"
-            autoFocus
-            onClick={(event) => closeDialogOf(event.currentTarget)}
-          >
+        <DialogActions>
+          <Button autoFocus onClick={(event) => closeDialogOf(event.currentTarget)}>
             Cancel
-          </button>
-          <button
-            type="button"
-            className="ui-button ui-button--secondary"
-            onClick={fileCommands.reload}
-          >
-            Reload from file
-          </button>
-          <button
-            type="button"
-            className="ui-button ui-button--secondary"
+          </Button>
+          <Button onClick={fileCommands.reload}>Reload from file</Button>
+          <Button
             onClick={() => {
               fileCommands.closeDialog();
               fileCommands.save(true);
             }}
           >
             Save as…
-          </button>
-          <button
-            type="button"
-            className="ui-button ui-button--danger"
-            onClick={fileCommands.overwrite}
-          >
+          </Button>
+          <Button variant="danger" onClick={fileCommands.overwrite}>
             Overwrite
-          </button>
-        </div>
+          </Button>
+        </DialogActions>
       </div>
     </Dialog>
   );

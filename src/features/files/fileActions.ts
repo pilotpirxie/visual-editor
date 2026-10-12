@@ -155,7 +155,7 @@ async function saveAsNewFile(project: Project): Promise<SaveResult> {
   return { kind: 'saved' };
 }
 
-export async function isChangedElsewhere(link: FileLink): Promise<boolean> {
+async function isChangedElsewhere(link: FileLink): Promise<boolean> {
   const file = await link.handle.getFile();
   return file.lastModified !== link.lastModified;
 }

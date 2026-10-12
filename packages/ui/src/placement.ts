@@ -4,7 +4,7 @@ export type Size = { width: number; height: number };
 
 export type Position = { top: number; left: number };
 
-export const VIEWPORT_MARGIN = 8;
+const VIEWPORT_MARGIN = 8;
 
 const ANCHOR_GAP = 6;
 

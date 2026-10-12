@@ -13,9 +13,9 @@ type HeldAnswer = { step: string; release(): void };
 
 const PLANNING_STEPS = ['site_clarification', 'design_brief', 'site_plan'];
 
-export const IMAGE_MODEL = { id: 'acme/painter', name: 'Acme Painter' };
+const IMAGE_MODEL = { id: 'acme/painter', name: 'Acme Painter' };
 
-export const ASSISTANT_SETTINGS = {
+const ASSISTANT_SETTINGS = {
   openRouterKey: 'sk-or-test',
   assistantModel: {
     id: 'acme/writer',

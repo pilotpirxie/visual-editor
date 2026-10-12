@@ -142,3 +142,87 @@ describe('RichTextField', () => {
     expect(document.activeElement).toBe(editor);
   });
 });
+
+describe('RichTextField links', () => {
+  function addressOf(container: HTMLElement): HTMLInputElement {
+    const input = container.querySelector<HTMLInputElement>('input[aria-label="Link address"]');
+    if (input === null) throw new Error('The link row is not open');
+    return input;
+  }
+
+  function selectInside(node: Node): void {
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+  }
+
+  it('opens the link row from the toolbar with a web address started', () => {
+    const { container } = renderEditor('<p>Hello</p>');
+    const toolbar = container.querySelector('[role="toolbar"]');
+    expect(toolbar?.getAttribute('aria-label')).toBe('Intro formatting');
+    expect(getButton(container, 'Link').getAttribute('aria-expanded')).toBe('false');
+    click(getButton(container, 'Link'));
+    expect(getButton(container, 'Link').getAttribute('aria-expanded')).toBe('true');
+    expect(addressOf(container).value).toBe('https://');
+  });
+
+  it('starts from the address of the link the cursor is in', () => {
+    const { container, editor } = renderEditor('<p>See <a href="https://acme.test">Acme</a></p>');
+    const link = editor.querySelector('a');
+    if (link === null) throw new Error('The editor has no link');
+    selectInside(link);
+    click(getButton(container, 'Link'));
+    expect(addressOf(container).value).toBe('https://acme.test');
+  });
+
+  it('links the selected text to the trimmed address and closes the row', () => {
+    const { container, editor } = renderEditor('<p>Hello</p>');
+    const calls = stubExecCommand(() => {});
+    click(getButton(container, 'Link'));
+    changeValue(addressOf(container), '  https://acme.test/docs ');
+    click(getButton(container, 'Apply'));
+    expect(calls).toEqual([{ command: 'createLink', argument: 'https://acme.test/docs' }]);
+    expect(container.querySelector('.ve-richtext-link')).toBeNull();
+    expect(document.activeElement).toBe(editor);
+  });
+
+  it('keeps the row open and links nothing for an empty address', () => {
+    const { container } = renderEditor('<p>Hello</p>');
+    const calls = stubExecCommand(() => {});
+    click(getButton(container, 'Link'));
+    changeValue(addressOf(container), '   ');
+    click(getButton(container, 'Apply'));
+    expect(calls).toEqual([]);
+    expect(container.querySelector('.ve-richtext-link')).not.toBeNull();
+  });
+
+  it('marks an unsafe address and links nothing with it', () => {
+    const { container } = renderEditor('<p>Hello</p>');
+    const calls = stubExecCommand(() => {});
+    click(getButton(container, 'Link'));
+    changeValue(addressOf(container), 'javascript:alert(1)');
+    expect(addressOf(container).getAttribute('aria-invalid')).toBe('true');
+    const form = container.querySelector('.ve-richtext-link');
+    runInAct(() => {
+      form?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    });
+    expect(calls).toEqual([]);
+  });
+
+  it('removes a link and reports it as one discrete change', () => {
+    const { container, editor, onChange } = renderEditor(
+      '<p>See <a href="https://acme.test">Acme</a></p>',
+    );
+    const calls = stubExecCommand(() => {
+      editor.innerHTML = '<p>See Acme</p>';
+    });
+    click(getButton(container, 'Link'));
+    click(getButton(container, 'Remove'));
+    expect(calls).toEqual([{ command: 'unlink', argument: undefined }]);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith('<p>See Acme</p>', 'discrete');
+    expect(container.querySelector('.ve-richtext-link')).toBeNull();
+  });
+});

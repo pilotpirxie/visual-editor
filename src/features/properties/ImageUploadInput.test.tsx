@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { ImageUpload } from '../../app/projectSlice';
 import type { Asset } from '../../app/types';
-import { click, getButton, queryButton, render, runInAct } from '../../test/dom';
+import { click, getButton, queryButton, render, runInAct, chooseFile } from '../../test/dom';
 import { ImageUploadInput, MAX_IMAGE_UPLOAD_BYTES } from './ImageUploadInput';
 
 const PNG_ONLY = ['image/png'];
@@ -35,14 +35,6 @@ function fileInput(container: HTMLElement): HTMLInputElement {
   const input = container.querySelector<HTMLInputElement>('input[type="file"]');
   if (input === null) throw new Error('The file input is missing');
   return input;
-}
-
-function chooseFile(container: HTMLElement, file: File): void {
-  const input = fileInput(container);
-  Object.defineProperty(input, 'files', { value: [file], configurable: true });
-  runInAct(() => {
-    input.dispatchEvent(new Event('change', { bubbles: true }));
-  });
 }
 
 function pngOfSize(bytes: number, name = 'icon.png'): File {

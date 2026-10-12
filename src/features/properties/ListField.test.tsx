@@ -2,7 +2,8 @@ import { useState, type JSX } from 'react';
 import { describe, expect, it } from 'vitest';
 import type { EditKind } from '../../app/projectSlice';
 import type { Field } from '../../components/types';
-import { changeValue, click, getButton, pressKey, render } from '../../test/dom';
+import { changeValue, click, firePointer, getButton, pressKey, render } from '../../test/dom';
+import { dragController } from '../canvas/dragController';
 import { ListField } from './ListField';
 
 const list: Field = {
@@ -160,5 +161,68 @@ describe('ListField', () => {
       value: [{ title: 'One' }, { title: 'One' }, { title: 'Two' }],
       kind: 'discrete',
     });
+  });
+
+  it('removes an item as one discrete change', () => {
+    const { element, changes } = renderList(roomyList, [{ title: 'One' }, { title: 'Two' }]);
+    click(getButton(element, 'Remove One'));
+    expect(changes).toEqual([{ value: [{ title: 'Two' }], kind: 'discrete' }]);
+    expect(element.querySelectorAll('.ve-list-item')).toHaveLength(1);
+  });
+
+  it('shows no list for no items and still lets one be added', () => {
+    const { element } = renderList(roomyList, []);
+    expect(element.querySelector('.ve-list-items')).toBeNull();
+    expect(getButton(element, 'Add item').disabled).toBe(false);
+    expect(element.querySelector('#ve-field-items-label')?.textContent).toBe('Features');
+  });
+
+  it('treats a value that is not a list as an empty list', () => {
+    const { element } = renderList(roomyList, 'not a list');
+    expect(element.querySelectorAll('.ve-list-item')).toHaveLength(0);
+  });
+
+  it('counts the items against the most a list can hold, and says nothing without a limit', () => {
+    const limited = renderList(list, [{ title: 'One' }]);
+    expect(limited.element.querySelector('.ui-muted')?.textContent).toBe('1 of 2 items');
+    const unlimited = renderList({ ...list, maxItems: undefined }, [{ title: 'One' }]);
+    expect(unlimited.element.querySelector('.ui-muted')).toBeNull();
+  });
+
+  it('marks every item and item field with its path so the canvas can focus it', () => {
+    const { element } = renderList(roomyList, [{ title: 'One' }, { title: 'Two' }]);
+    const items = [...element.querySelectorAll('.ve-list-item')];
+    expect(items.map((item) => item.getAttribute('data-field-path'))).toEqual([
+      'items.0',
+      'items.1',
+    ]);
+    expect(element.querySelector('[data-field-path="items.1.title"]')).not.toBeNull();
+  });
+
+  it('starts dragging an item from its handle, named after the item', () => {
+    const { element } = renderList(roomyList, [{ title: 'One' }, { title: 'Two' }]);
+    firePointer(getButton(element, 'Move Two'), 'pointerdown', {
+      clientX: 10,
+      clientY: 10,
+      button: 0,
+      pointerType: 'mouse',
+    });
+    firePointer(window, 'pointermove', { clientX: 10, clientY: 80, buttons: 1 });
+    expect(dragController.isActive()).toBe(true);
+    expect(dragController.getSnapshot()?.payload).toEqual({
+      kind: 'list-item',
+      ownerKey: 'items',
+      index: 1,
+      label: 'Two',
+    });
+    firePointer(window, 'pointerup', { clientX: 10, clientY: 80, buttons: 0 });
+    expect(dragController.isActive()).toBe(false);
+  });
+
+  it('does not move the first item up or the last item down', () => {
+    const { element, changes } = renderList(roomyList, [{ title: 'One' }, { title: 'Two' }]);
+    pressKey(getButton(element, 'Move One'), 'ArrowUp', { altKey: true });
+    pressKey(getButton(element, 'Move Two'), 'ArrowDown', { altKey: true });
+    expect(changes).toEqual([]);
   });
 });

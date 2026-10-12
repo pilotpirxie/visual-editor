@@ -1,7 +1,7 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page, type FrameLocator } from '@playwright/test';
 import { addPage, createProject, insertBlock } from './editor';
 
-function canvas(page: Page) {
+function canvas(page: Page): FrameLocator {
   return page.frameLocator('.ve-canvas-frame');
 }
 

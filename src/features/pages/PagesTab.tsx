@@ -5,7 +5,7 @@ import { dispatch, selectCurrentPage, useStore } from '../../app/store';
 import type { Page, Project } from '../../app/types';
 import { dragController, type DragPayload } from '../canvas/dragController';
 import { dropEdgeAt, finalMoveIndex } from '../canvas/geometry';
-import { useListDropTarget } from '../canvas/useListDropTarget';
+import { isNoopListItemDrop, useListDropTarget } from '../canvas/useListDropTarget';
 import { DeletePageDialog } from './DeletePageDialog';
 import { duplicatePage, openPage } from './pageActions';
 import { PageDialog } from './PageDialog';
@@ -19,7 +19,7 @@ type PageSummary = Pick<Page, 'id' | 'name' | 'slug'>;
 
 type PageRow = { page: PageSummary; index: number; isHome: boolean; isCurrent: boolean };
 
-export const PAGES_DRAG_OWNER = 'project:pages';
+const PAGES_DRAG_OWNER = 'project:pages';
 
 const DROP_EDGE_MARGIN = 12;
 
@@ -146,10 +146,7 @@ export function PagesTab(): JSX.Element {
     listRef,
     edgeMargin: DROP_EDGE_MARGIN,
     accepts: isOwnPage,
-    isNoopDrop(payload, index) {
-      if (payload.kind !== 'list-item') return true;
-      return finalMoveIndex(payload.index, index) === payload.index;
-    },
+    isNoopDrop: isNoopListItemDrop,
     drop(payload, index) {
       if (payload.kind !== 'list-item') return;
       const pageId = pageIds[payload.index];

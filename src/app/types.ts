@@ -57,11 +57,11 @@ export type DesignSystemPreset = {
 
 export const OPEN_GRAPH_TYPES = ['website', 'article', 'profile'] as const;
 
-export type OpenGraphType = (typeof OPEN_GRAPH_TYPES)[number];
+type OpenGraphType = (typeof OPEN_GRAPH_TYPES)[number];
 
 export const IMAGE_PREVIEW_SIZES = ['large', 'standard', 'none'] as const;
 
-export type ImagePreviewSize = (typeof IMAGE_PREVIEW_SIZES)[number];
+type ImagePreviewSize = (typeof IMAGE_PREVIEW_SIZES)[number];
 
 export const SITEMAP_FREQUENCIES = [
   'always',
@@ -73,7 +73,7 @@ export const SITEMAP_FREQUENCIES = [
   'never',
 ] as const;
 
-export type SitemapFrequency = (typeof SITEMAP_FREQUENCIES)[number];
+type SitemapFrequency = (typeof SITEMAP_FREQUENCIES)[number];
 
 export const PAGE_SCHEMA_TYPES = [
   'WebPage',
@@ -84,15 +84,13 @@ export const PAGE_SCHEMA_TYPES = [
   'ProfilePage',
 ] as const;
 
-export type PageSchemaType = (typeof PAGE_SCHEMA_TYPES)[number];
+type PageSchemaType = (typeof PAGE_SCHEMA_TYPES)[number];
 
 export const SITE_ENTITY_TYPES = ['Organization', 'Person'] as const;
 
-export type SiteEntityType = (typeof SITE_ENTITY_TYPES)[number];
+type SiteEntityType = (typeof SITE_ENTITY_TYPES)[number];
 
-export const META_ATTRIBUTES = ['name', 'property'] as const;
-
-export type MetaAttribute = (typeof META_ATTRIBUTES)[number];
+export type MetaAttribute = 'name' | 'property';
 
 export type MetaTag = { attribute: MetaAttribute; key: string; content: string };
 
@@ -157,7 +155,7 @@ export type Page = {
   showSharedFooter: boolean;
 };
 
-export type BlockBase = {
+type BlockBase = {
   id: string;
   disabled: boolean;
   anchor?: string;

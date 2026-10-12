@@ -278,6 +278,12 @@ describe('askForJson', () => {
     expect(await kindOf(askForJson(REQUEST, live()))).toBe('network');
   });
 
+  it('refuses an answer that is not an object without asking again', async () => {
+    replies.push(reply(200, ['not', 'an', 'answer']), completion('{}'));
+    expect(await kindOf(askForJson(REQUEST, live()))).toBe('answer');
+    expect(calls).toHaveLength(1);
+  });
+
   it('stops at once when cancelled before or during the call', async () => {
     const cancelled = new AbortController();
     cancelled.abort();
@@ -352,6 +358,16 @@ describe('listImageModels', () => {
     replies.push(reply(401, { error: { message: 'No auth' } }));
     expect(await kindOf(listImageModels('sk-bad', live()))).toBe('key');
   });
+
+  it('refuses a list it cannot read', async () => {
+    replies.push(reply(200, { data: 'none' }));
+    expect(await kindOf(listImageModels('sk-test', live()))).toBe('answer');
+  });
+
+  it('returns no models for an empty list', async () => {
+    replies.push(reply(200, { data: [] }));
+    expect(await listImageModels('sk-test', live())).toEqual([]);
+  });
 });
 
 describe('askForImage', () => {
@@ -409,6 +425,18 @@ describe('askForImage', () => {
   it('reports missing credit', async () => {
     replies.push(reply(402, { error: { message: 'Insufficient credits' } }));
     expect(await kindOf(askForImage(PAINT, live()))).toBe('credit');
+  });
+
+  it('reports an error that arrives inside a 200 answer', async () => {
+    replies.push(reply(200, { error: { code: 402, message: 'Pay first' } }));
+    expect(await kindOf(askForImage(PAINT, live()))).toBe('credit');
+    expect(calls).toHaveLength(1);
+  });
+
+  it('refuses an answer that is not an object without asking again', async () => {
+    replies.push(reply(200, 'nothing'), picture('image/png'));
+    expect(await kindOf(askForImage(PAINT, live()))).toBe('answer');
+    expect(calls).toHaveLength(1);
   });
 });
 

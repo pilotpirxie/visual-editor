@@ -55,7 +55,7 @@ function cssValueError(text: string): string | null {
   return isSafeCssValue(text) ? null : CSS_VALUE_ERROR;
 }
 
-export function componentTokenOptions(token: Token, tokens: Record<string, Token>): Token[] {
+function componentTokenOptions(token: Token, tokens: Record<string, Token>): Token[] {
   const source = COMPONENT_TOKEN_SOURCES.find(({ keyword }) => token.name.includes(keyword));
   const options: Token[] = [];
   if (source === undefined) return options;

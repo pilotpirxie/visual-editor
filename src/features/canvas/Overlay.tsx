@@ -236,6 +236,60 @@ function BlockToolbar({ blockId, rect, name, overlayHeight }: BlockToolbarProps)
   );
 }
 
+function EmptyArea({ rect }: { rect: Rect }): JSX.Element {
+  return (
+    <div className="ve-empty-area" style={boxStyle(rect)}>
+      <div className="ve-empty">
+        <Button variant="primary" icon="plus" onClick={openBlockLibrary}>
+          Add a block
+        </Button>
+        <span className="ve-wide-only">or drag one here from the library</span>
+      </div>
+    </div>
+  );
+}
+
+type HoverOutlineProps = { doc: Document; blockId: string; scale: number };
+
+function HoverOutline({ doc, blockId, scale }: HoverOutlineProps): JSX.Element | null {
+  const rect = useBlockRect(doc, blockId, scale);
+  const name = useBlockName(blockId);
+  const isShared = useIsShared(blockId);
+  if (rect === null) return null;
+  return (
+    <div className="ve-outline ve-outline--hover" style={boxStyle(rect)}>
+      <span className="ve-outline-label">
+        {name}
+        {isShared && <SharedBadge />}
+      </span>
+    </div>
+  );
+}
+
+type SelectedOutlineProps = { blockId: string; rect: Rect; overlayHeight: number };
+
+function SelectedOutline({
+  blockId,
+  rect,
+  overlayHeight,
+}: SelectedOutlineProps): JSX.Element | null {
+  const name = useBlockName(blockId);
+  const isShared = useIsShared(blockId);
+  if (name === null) return null;
+  return (
+    <>
+      <div className="ve-outline ve-outline--selected" style={boxStyle(rect)}>
+        {isShared && (
+          <span className="ve-outline-label ve-outline-label--selected">
+            <SharedBadge />
+          </span>
+        )}
+      </div>
+      <BlockToolbar blockId={blockId} rect={rect} name={name} overlayHeight={overlayHeight} />
+    </>
+  );
+}
+
 export function Overlay({
   doc,
   scale,
@@ -250,13 +304,8 @@ export function Overlay({
   pageDevice,
 }: OverlayProps): JSX.Element {
   const visibleHoverId = hoveredId === selectedId ? null : hoveredId;
-  const hoverRect = useBlockRect(doc, visibleHoverId, scale);
   const selectedRect = useBlockRect(doc, selectedId, scale);
   const movingRect = useBlockRect(doc, movingId, scale);
-  const hoverName = useBlockName(visibleHoverId);
-  const selectedName = useBlockName(selectedId);
-  const isHoverShared = useIsShared(visibleHoverId);
-  const isSelectedShared = useIsShared(selectedId);
   const isSelectedInFooter = useIsInFooter(selectedId);
   const isPageRectNeeded = isEmpty || selectedId === null;
   const pageRect = useElementRect(doc, isPageRectNeeded ? `#${PAGE_ROOT_ID}` : null, scale);
@@ -265,49 +314,19 @@ export function Overlay({
 
   return (
     <div className="ve-overlay">
-      {isEmpty && pageRect !== null && (
-        <div className="ve-empty-area" style={boxStyle(pageRect)}>
-          <div className="ve-empty">
-            <Button variant="primary" icon="plus" onClick={openBlockLibrary}>
-              Add a block
-            </Button>
-            <span className="ve-wide-only">or drag one here from the library</span>
-          </div>
-        </div>
-      )}
+      {isEmpty && pageRect !== null && <EmptyArea rect={pageRect} />}
       {hiddenIds.map((blockId) => (
         <HiddenShade key={blockId} doc={doc} blockId={blockId} scale={scale} device={pageDevice} />
       ))}
       {modalIds.map((blockId) => (
         <ModalNote key={blockId} doc={doc} blockId={blockId} scale={scale} />
       ))}
-      {visibleHoverId !== null && hoverRect !== null && (
-        <div className="ve-outline ve-outline--hover" style={boxStyle(hoverRect)}>
-          <span className="ve-outline-label">
-            {hoverName}
-            {isHoverShared && <SharedBadge />}
-          </span>
-        </div>
-      )}
+      {visibleHoverId !== null && <HoverOutline doc={doc} blockId={visibleHoverId} scale={scale} />}
       {movingRect !== null && (
         <div className="ve-outline ve-outline--moving" style={boxStyle(movingRect)} />
       )}
-      {selectedId !== null && selectedRect !== null && selectedName !== null && (
-        <>
-          <div className="ve-outline ve-outline--selected" style={boxStyle(selectedRect)}>
-            {isSelectedShared && (
-              <span className="ve-outline-label ve-outline-label--selected">
-                <SharedBadge />
-              </span>
-            )}
-          </div>
-          <BlockToolbar
-            blockId={selectedId}
-            rect={selectedRect}
-            name={selectedName}
-            overlayHeight={height}
-          />
-        </>
+      {selectedId !== null && selectedRect !== null && (
+        <SelectedOutline blockId={selectedId} rect={selectedRect} overlayHeight={height} />
       )}
       {!isAddHidden && addRect !== null && <AddBlockButton rect={addRect} />}
       {dropY !== null && (

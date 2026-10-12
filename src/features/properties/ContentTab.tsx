@@ -1,12 +1,12 @@
-import { useState, type JSX, type ReactNode } from 'react';
+import { useState, type JSX } from 'react';
 import { blockValueSet, type EditKind } from '../../app/projectSlice';
 import { dispatch } from '../../app/store';
 import type { ComponentBlock } from '../../app/types';
 import { groupFields, isFieldVisible, type FieldGroup } from '../../components/fields';
 import type { ComponentDefinition } from '../../components/types';
 import { FieldControl } from './FieldControl';
-import { useSection } from '../editor/useSection';
-import { Section } from '../../../packages/ui/src';
+import { RememberedSection } from '../editor/useSection';
+import {} from '../../../packages/ui/src';
 
 function editableGroups(
   definition: ComponentDefinition,
@@ -28,23 +28,6 @@ function repeatsGroupName(group: FieldGroup): boolean {
   const [onlyField] = group.fields;
   if (group.fields.length !== 1 || onlyField === undefined) return false;
   return normalizedLabel(onlyField.label) === normalizedLabel(group.name);
-}
-
-function ContentSection({
-  id,
-  title,
-  children,
-}: {
-  id: string;
-  title: string;
-  children: ReactNode;
-}): JSX.Element {
-  const section = useSection(id);
-  return (
-    <Section title={title} isOpen={section.isOpen} onToggle={section.onToggle}>
-      {children}
-    </Section>
-  );
 }
 
 type ValueChange = (value: unknown, kind: EditKind) => void;
@@ -72,7 +55,7 @@ export function ContentTab({
   return (
     <>
       {editableGroups(definition, block.values).map((group) => (
-        <ContentSection
+        <RememberedSection
           key={group.name}
           id={`content:${definition.id}:${group.name}`}
           title={group.name}
@@ -87,7 +70,7 @@ export function ContentTab({
               onChange={changeHandlerFor(field.name)}
             />
           ))}
-        </ContentSection>
+        </RememberedSection>
       ))}
     </>
   );

@@ -35,6 +35,7 @@ import {
   tokenSet,
   tokensSet,
 } from './projectSlice';
+import type { Block } from './types';
 
 function pageBlockIds(store: TestStore): string[] {
   return homePage(store.getState().project).blockIds;
@@ -266,7 +267,7 @@ describe('blockOverrideRemoved', () => {
   });
 });
 
-function hero(store: TestStore) {
+function hero(store: TestStore): Block {
   return store.getState().project.blocks.entities[pageBlockIds(store)[1]];
 }
 
@@ -569,7 +570,7 @@ describe('pageSharedSlotShown', () => {
 });
 
 describe('blockPasted', () => {
-  function pastedCopy(store: TestStore, blockId: string, newId: string) {
+  function pastedCopy(store: TestStore, blockId: string, newId: string): Block {
     return { ...store.getState().project.blocks.entities[blockId], id: newId };
   }
 

@@ -1,7 +1,7 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page, type Locator } from '@playwright/test';
 import { createProject, insertBlock, storedProject } from './editor';
 
-function canvasNav(page: Page) {
+function canvasNav(page: Page): Locator {
   return page.frameLocator('.ve-canvas-frame').locator('.b-nav-simple');
 }
 

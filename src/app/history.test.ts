@@ -1,17 +1,19 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from './projectFactory';
 import { componentBlockOf, createTestStore, homePage, type TestStore } from '../test/fixtures';
-import { blockSelected, readOnlyChanged } from './editorSlice';
-import { MAX_HISTORY_STEPS, projectRefreshed, redo, undo } from './history';
+import { blockSelected, editorSlice, readOnlyChanged } from './editorSlice';
+import { createRootReducer, MAX_HISTORY_STEPS, projectRefreshed, redo, undo } from './history';
 import {
   blockInserted,
   blockRemoved,
   blockValueSet,
   projectLoaded,
   projectRestored,
+  projectSlice,
   tokensSet,
   type EditKind,
 } from './projectSlice';
+import type { Token } from './types';
 
 type HistoryFixture = {
   store: TestStore;
@@ -60,7 +62,7 @@ describe('undo', () => {
 
   it('merges continuous edits that replace the same set of values into one step', () => {
     const { store } = setup();
-    const tokens = () => store.getState().project.designSystem.tokens;
+    const tokens = (): Record<string, Token> => store.getState().project.designSystem.tokens;
     const original = tokens()['--radius-md']?.value;
     for (const [at, value] of [
       [1000, '0.6rem'],
@@ -183,6 +185,52 @@ describe('createRootReducer', () => {
     const { store } = setup();
     store.dispatch(blockInserted('missing-page', 0, 'cta-centered'));
     expect(store.getState().editor.selectedBlockId).toBeNull();
+  });
+
+  it('builds the first state from nothing, or around the parts it is given', () => {
+    const reducer = createRootReducer(projectSlice.reducer, editorSlice.reducer);
+    const fresh = reducer(undefined, { type: 'test/start' });
+    expect(fresh.project.pages.ids.length).toBeGreaterThan(0);
+    expect(fresh.editor.selectedBlockId).toBeNull();
+    expect(fresh.history).toEqual({ past: [], future: [], lastMergeKey: null, lastEditAt: 0 });
+    const project = createSampleProject();
+    const around = reducer({ project }, { type: 'test/start' });
+    expect(around.project).toBe(project);
+    expect(around.editor).toEqual(fresh.editor);
+    expect(around.history.past).toEqual([]);
+  });
+
+  it('keeps the very same state for an action that changes nothing', () => {
+    const { store } = setup();
+    const before = store.getState();
+    store.dispatch({ type: 'test/nothing' });
+    expect(store.getState()).toBe(before);
+    store.dispatch(blockValueSet('missing-block', 'title', 'x', 'discrete'));
+    expect(store.getState()).toBe(before);
+  });
+
+  it('leaves the project and the history alone for an editor action', () => {
+    const { store, heroId, edit } = setup();
+    edit('Changed', 1000);
+    const before = store.getState();
+    store.dispatch(blockSelected(heroId));
+    const after = store.getState();
+    expect(after.editor.selectedBlockId).toBe(heroId);
+    expect(after.project).toBe(before.project);
+    expect(after.history).toBe(before.history);
+  });
+
+  it('records one step with the way back for a project change', () => {
+    const { store, title, edit } = setup();
+    const original = title();
+    edit('Changed', 1000);
+    const { past, future } = store.getState().history;
+    expect(past).toHaveLength(1);
+    expect(past[0]?.patches.length).toBeGreaterThan(0);
+    expect(past[0]?.inversePatches.length).toBeGreaterThan(0);
+    expect(future).toEqual([]);
+    store.dispatch(undo());
+    expect(title()).toBe(original);
   });
 });
 

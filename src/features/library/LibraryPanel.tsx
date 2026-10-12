@@ -15,7 +15,7 @@ import './library.css';
 
 const ID_PREFIX = 've-library';
 
-const TABS: { id: LibraryTab; label: string; icon: string }[] = [
+export const LIBRARY_TABS: { id: LibraryTab; label: string; icon: string }[] = [
   { id: 'blocks', label: 'Blocks', icon: 'layout-grid' },
   { id: 'layers', label: 'Layers', icon: 'layers' },
   { id: 'pages', label: 'Pages', icon: 'file' },
@@ -52,10 +52,10 @@ export function LibraryPanel(): JSX.Element {
         idPrefix={ID_PREFIX}
         className="ve-library-tabs"
         orientation="vertical"
-        tabs={TABS}
+        tabs={LIBRARY_TABS}
         activeId={activeTab}
         onChange={(id) => {
-          const tab = TABS.find((item) => item.id === id);
+          const tab = LIBRARY_TABS.find((item) => item.id === id);
           if (tab !== undefined) dispatch(libraryRailClicked({ tab: tab.id, isDrawer }));
         }}
       />

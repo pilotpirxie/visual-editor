@@ -9,9 +9,9 @@ enablePatches();
 export const MAX_HISTORY_STEPS = 100;
 const MERGE_WINDOW_MS = 500;
 
-export type HistoryStep = { patches: Patch[]; inversePatches: Patch[] };
+type HistoryStep = { patches: Patch[]; inversePatches: Patch[] };
 
-export type HistoryState = {
+type HistoryState = {
   past: HistoryStep[];
   future: HistoryStep[];
   lastMergeKey: string | null;
@@ -139,18 +139,44 @@ function isInitialized(state: Partial<RootState> | undefined): state is RootStat
   return state?.project !== undefined && state.editor !== undefined && state.history !== undefined;
 }
 
+function withEditor(state: RootState, editor: EditorState): RootState {
+  const reconciledEditor = reconcileEditor(editor, state.project);
+  return reconciledEditor === state.editor ? state : { ...state, editor: reconciledEditor };
+}
+
+function isProjectAction(action: UnknownAction): boolean {
+  return action.type.startsWith(PROJECT_ACTION_PREFIX);
+}
+
 export function createRootReducer(
   projectReducer: Reducer<Project>,
   editorReducer: Reducer<EditorState>,
 ): Reducer<RootState, UnknownAction, Partial<RootState>> {
+  function firstState(state: Partial<RootState> | undefined, action: UnknownAction): RootState {
+    return {
+      project: state?.project ?? projectReducer(undefined, action),
+      editor: state?.editor ?? editorReducer(undefined, action),
+      history: state?.history ?? EMPTY_HISTORY,
+    };
+  }
+
+  function withProjectChange(state: RootState, action: UnknownAction): RootState {
+    const editor = editorReducer(state.editor, action);
+    if (!isProjectAction(action)) return withEditor(state, editor);
+
+    const [project, patches, inversePatches] = produceWithPatches(state.project, (draft) =>
+      projectReducer(draft, action),
+    );
+    if (project === state.project || patches.length === 0) return withEditor(state, editor);
+    return {
+      project,
+      editor: reconcileEditor(editor, project),
+      history: recordStep(state.history, { patches, inversePatches }, editMetaOf(action)),
+    };
+  }
+
   return function rootReducer(state, action) {
-    if (!isInitialized(state)) {
-      return {
-        project: state?.project ?? projectReducer(undefined, action),
-        editor: state?.editor ?? editorReducer(undefined, action),
-        history: state?.history ?? EMPTY_HISTORY,
-      };
-    }
+    if (!isInitialized(state)) return firstState(state, action);
 
     if (projectLoaded.match(action)) {
       const { project } = action.payload;
@@ -164,29 +190,10 @@ export function createRootReducer(
       const project = action.payload;
       return { project, editor: reconcileEditor(state.editor, project), history: EMPTY_HISTORY };
     }
-    const isProjectChange =
-      undo.match(action) || redo.match(action) || action.type.startsWith(PROJECT_ACTION_PREFIX);
+    const isProjectChange = undo.match(action) || redo.match(action) || isProjectAction(action);
     if (state.editor.isReadOnly && isProjectChange) return state;
     if (undo.match(action)) return undoStep(state);
     if (redo.match(action)) return redoStep(state);
-
-    const editor = editorReducer(state.editor, action);
-    if (!action.type.startsWith(PROJECT_ACTION_PREFIX)) {
-      const reconciledEditor = reconcileEditor(editor, state.project);
-      return reconciledEditor === state.editor ? state : { ...state, editor: reconciledEditor };
-    }
-
-    const [project, patches, inversePatches] = produceWithPatches(state.project, (draft) =>
-      projectReducer(draft, action),
-    );
-    if (project === state.project || patches.length === 0) {
-      const reconciledEditor = reconcileEditor(editor, state.project);
-      return reconciledEditor === state.editor ? state : { ...state, editor: reconciledEditor };
-    }
-    return {
-      project,
-      editor: reconcileEditor(editor, project),
-      history: recordStep(state.history, { patches, inversePatches }, editMetaOf(action)),
-    };
+    return withProjectChange(state, action);
   };
 }

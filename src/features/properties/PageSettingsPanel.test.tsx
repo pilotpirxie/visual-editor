@@ -4,6 +4,7 @@ import { dispatch, selectCurrentPage, store } from '../../app/store';
 import { blur, changeValue, click, getButton, render, runInAct } from '../../test/dom';
 import { loadIntoAppStore, shareNavAndFooter } from '../../test/fixtures';
 import { PageSettingsPanel } from './PageSettingsPanel';
+import type { Page } from '../../app/types';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
@@ -12,7 +13,7 @@ vi.mock('../../persistence/db', () => ({
   deleteProject: vi.fn(async () => {}),
 }));
 
-function seo() {
+function seo(): Page['seo'] {
   return selectCurrentPage(store.getState()).seo;
 }
 

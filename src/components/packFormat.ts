@@ -31,7 +31,7 @@ export type ParsedPackFile = {
   errors: PackError[];
 };
 
-export type PackBlockSources = { template: unknown; styles: unknown; thumbnail: unknown };
+type PackBlockSources = { template: unknown; styles: unknown; thumbnail: unknown };
 
 type Report = (field: string | null, message: string, line?: number | null) => void;
 
@@ -81,7 +81,7 @@ export function packBlockId(packBlock: PackBlock): string {
   return packBlock.definition.id.slice(packBlock.pack.id.length + 1);
 }
 
-export function isPackVersion(value: unknown): value is string {
+function isPackVersion(value: unknown): value is string {
   return typeof value === 'string' && VERSION.test(value);
 }
 
@@ -361,7 +361,7 @@ function sourceTextAt(value: unknown, file: string, report: Report): string {
   return '';
 }
 
-export function parsePackBlock(
+function parsePackBlock(
   pack: PackInfo,
   blockId: string,
   raw: unknown,
@@ -436,7 +436,7 @@ export function parsePackInfo(raw: unknown): { info: PackInfo | null; errors: Pa
   return { info: { id: raw.id, name, version: raw.version, author, license }, errors };
 }
 
-export function base64Of(bytes: Uint8Array): string {
+function base64Of(bytes: Uint8Array): string {
   let binary = '';
   for (let index = 0; index < bytes.length; index += BASE64_CHUNK) {
     binary += String.fromCharCode(...bytes.subarray(index, index + BASE64_CHUNK));

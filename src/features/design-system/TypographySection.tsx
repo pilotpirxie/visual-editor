@@ -4,8 +4,8 @@ import { dispatch, useStore } from '../../app/store';
 import type { FontRole, TokenGenerators } from '../../app/types';
 import { SYSTEM_FONT_WEIGHTS, WEIGHT_TOKENS } from '../../app/typography';
 import { fontStack } from '../../render/fonts';
-import { Button, DraftInput, Field, Section, Select } from '../../../packages/ui/src';
-import { useSection } from '../editor/useSection';
+import { Button, DraftInput, Field, Select } from '../../../packages/ui/src';
+import { RememberedSection } from '../editor/useSection';
 import { FontBrowser, loadPreviewFont, previewWeight, useFontList } from './FontBrowser';
 import { TYPE_RATIOS, typeScaleTokens } from './generators';
 import type { FontFamily } from './fontList';
@@ -55,7 +55,7 @@ function rangeError(
   return `Use ${limits.min} to ${limits.max}${unit}`;
 }
 
-function setToken(name: string, value: string, kind: EditKind): void {
+export function setToken(name: string, value: string, kind: EditKind): void {
   dispatch(tokenSet({ name, value }, kind));
 }
 
@@ -206,13 +206,12 @@ function TypeScaleControls({ generators }: { generators: TokenGenerators }): JSX
 }
 
 export function TypographySection(): JSX.Element {
-  const section = useSection('design:typography');
   const generators = useStore((state) => state.project.designSystem.generators);
   const fontList = useFontList();
   const families = fontList.status === 'ready' ? fontList.families : [];
 
   return (
-    <Section title="Typography" isOpen={section.isOpen} onToggle={section.onToggle}>
+    <RememberedSection id="design:typography" title="Typography">
       {fontList.status === 'failed' && (
         <p className="ui-field-error" role="alert">
           The font list could not be loaded: {fontList.message}
@@ -225,6 +224,6 @@ export function TypographySection(): JSX.Element {
       />
       <FontRoleControls role="body" families={families} isListReady={fontList.status === 'ready'} />
       <TypeScaleControls generators={generators} />
-    </Section>
+    </RememberedSection>
   );
 }

@@ -17,9 +17,8 @@ import {
   Dialog,
   DialogActions,
   DialogBody,
-  Section,
 } from '../../../packages/ui/src';
-import { useSection } from '../editor/useSection';
+import { RememberedSection } from '../editor/useSection';
 import { applyPresetGroups, randomizeDesignSystem } from './presetActions';
 
 const SWATCH_TOKENS = [
@@ -70,7 +69,7 @@ type PresetListProps = {
   renderAction(preset: DesignSystemPreset): ReactNode;
 };
 
-export function PresetList({
+function PresetList({
   label,
   presets,
   currentPresetId,
@@ -182,7 +181,6 @@ function ApplyPresetDialog({
 }
 
 export function PresetsSection(): JSX.Element {
-  const section = useSection('design:presets', true);
   const currentPresetId = useStore((state) => state.project.designSystem.presetId);
   const [applying, setApplying] = useState<DesignSystemPreset | null>(null);
   const [isRandomizing, setIsRandomizing] = useState(false);
@@ -200,7 +198,7 @@ export function PresetsSection(): JSX.Element {
   }
 
   return (
-    <Section title="Presets" isOpen={section.isOpen} onToggle={section.onToggle}>
+    <RememberedSection id="design:presets" title="Presets">
       <div className="ve-preset-random">
         <Button icon="sparkles" disabled={isRandomizing} onClick={() => void randomize()}>
           Randomize
@@ -222,6 +220,6 @@ export function PresetsSection(): JSX.Element {
       {applying !== null && (
         <ApplyPresetDialog preset={applying} onClose={() => setApplying(null)} />
       )}
-    </Section>
+    </RememberedSection>
   );
 }

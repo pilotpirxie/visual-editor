@@ -73,29 +73,143 @@ function refLabel(ref: string): string {
   return `${name} · ${iconSetInfo(set)?.label ?? set}`;
 }
 
-export function IconField({ field, value, id, describedBy, onChange }: ControlProps): JSX.Element {
-  const defaultSet = useStore((state) => state.project.designSystem.iconSet);
-  const [query, setQuery] = useState<string | null>(null);
-  const [filter, setFilter] = useState(DEFAULT_FILTER);
-  const [style, setStyle] = useState(ANY_STYLE);
-  const [loadState, setLoadState] = useState<LoadState>({ status: 'idle' });
-  const toggleRef = useRef<HTMLButtonElement>(null);
-  const ref = typeof value === 'string' ? value : '';
-  const allowed = allowedIconSets(field);
-  const allowedIds = allowed.map((info) => info.id);
-  const sets = setsToSearch(filter, defaultSet, allowedIds);
-  const isPickerOpen = query !== null;
-  const labelId = `${id}-label`;
-  const singleSet = sets.length === 1 ? sets[0] : undefined;
-  const styles = singleSet === undefined ? [] : (iconSetData(singleSet)?.styles ?? []);
-  const searchStyle = styles.length > 0 ? style : ANY_STYLE;
-  const matches = query === null ? [] : cachedSearch(sets, query, searchStyle);
-  const shown = matches.slice(0, MAX_RESULTS);
-  const canUseDefault =
-    typeof field.default === 'string' && isSemanticIcon(field.default) && ref !== field.default;
+type IconSetChoice = { id: string; label: string };
 
-  async function requestSets(nextFilter: string): Promise<void> {
-    const missing = setsToLoad(nextFilter, defaultSet, allowedIds);
+type IconStyle = { suffix: string; label: string };
+
+type IconFiltersProps = {
+  allowed: IconSetChoice[];
+  defaultSet: string;
+  filter: string;
+  style: string;
+  styles: readonly IconStyle[];
+  onFilter(filter: string): void;
+  onStyle(style: string): void;
+};
+
+function IconFilters({
+  allowed,
+  defaultSet,
+  filter,
+  style,
+  styles,
+  onFilter,
+  onStyle,
+}: IconFiltersProps): JSX.Element {
+  const hasDefaultSet = allowed.some((info) => info.id === defaultSet);
+  return (
+    <div className="ve-icon-filters">
+      <select
+        className="ui-input ui-select"
+        aria-label="Icon set"
+        value={filter}
+        onChange={(event) => onFilter(event.target.value)}
+      >
+        {hasDefaultSet && (
+          <option value={DEFAULT_FILTER}>
+            Default set ({iconSetInfo(defaultSet)?.label ?? defaultSet})
+          </option>
+        )}
+        {allowed.map((info) => (
+          <option key={info.id} value={info.id}>
+            {info.label}
+          </option>
+        ))}
+        <option value={ALL_SETS}>All sets</option>
+      </select>
+      {styles.length > 0 && (
+        <select
+          className="ui-input ui-select"
+          aria-label="Icon style"
+          value={style}
+          onChange={(event) => onStyle(event.target.value)}
+        >
+          <option value={ANY_STYLE}>All styles</option>
+          {styles.map((option) => (
+            <option key={option.suffix} value={option.suffix}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      )}
+    </div>
+  );
+}
+
+type IconSearchProps = { query: string; onQuery(query: string): void; onClose(): void };
+
+function IconSearch({ query, onQuery, onClose }: IconSearchProps): JSX.Element {
+  return (
+    <label className="ui-search">
+      <Icon name="search" />
+      <input
+        type="search"
+        placeholder="Search icons"
+        aria-label="Search icons"
+        value={query}
+        autoFocus
+        onChange={(event) => onQuery(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key !== 'Escape') return;
+          event.preventDefault();
+          onClose();
+        }}
+      />
+    </label>
+  );
+}
+
+type IconGridProps = {
+  matches: IconMatch[];
+  hasSeveralSets: boolean;
+  currentRef: string;
+  defaultSet: string;
+  labelId: string;
+  onPick(match: IconMatch): void;
+};
+
+function IconGrid({
+  matches,
+  hasSeveralSets,
+  currentRef,
+  defaultSet,
+  labelId,
+  onPick,
+}: IconGridProps): JSX.Element {
+  return (
+    <div className="ve-icon-grid" role="group" aria-labelledby={labelId}>
+      {matches.map((match) => {
+        const matchRef = `${match.set}:${match.name}`;
+        const setLabel = iconSetInfo(match.set)?.label ?? match.set;
+        return (
+          <button
+            key={matchRef}
+            type="button"
+            className="ve-icon-option"
+            title={hasSeveralSets ? `${match.name} (${setLabel})` : match.name}
+            aria-label={hasSeveralSets ? `${match.name}, ${setLabel}` : match.name}
+            aria-pressed={currentRef === matchRef}
+            onClick={() => onPick(match)}
+            dangerouslySetInnerHTML={{ __html: iconMarkup(matchRef, defaultSet) }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+function resultSummary(loadState: LoadState, shownCount: number, matchCount: number): string {
+  if (loadState.status === 'loading') return 'Loading icons…';
+  return matchCount > shownCount ? `${shownCount} of ${matchCount} icons` : `${matchCount} icons`;
+}
+
+type IconSetLoading = { loadState: LoadState; requestSets(filter: string): Promise<void> };
+
+function useIconSetLoading(defaultSet: string, allowedIds: string[]): IconSetLoading {
+  const [loadState, setLoadState] = useState<LoadState>({ status: 'idle' });
+
+  async function requestSets(filter: string): Promise<void> {
+    const missing = setsToLoad(filter, defaultSet, allowedIds);
     if (missing.length === 0) return;
     setLoadState({ status: 'loading' });
     try {
@@ -108,6 +222,30 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
     setLoadState({ status: 'idle' });
   }
 
+  return { loadState, requestSets };
+}
+
+export function IconField({ field, value, id, describedBy, onChange }: ControlProps): JSX.Element {
+  const defaultSet = useStore((state) => state.project.designSystem.iconSet);
+  const [query, setQuery] = useState<string | null>(null);
+  const [filter, setFilter] = useState(DEFAULT_FILTER);
+  const [style, setStyle] = useState(ANY_STYLE);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const ref = typeof value === 'string' ? value : '';
+  const allowed = allowedIconSets(field);
+  const allowedIds = allowed.map((info) => info.id);
+  const sets = setsToSearch(filter, defaultSet, allowedIds);
+  const { loadState, requestSets } = useIconSetLoading(defaultSet, allowedIds);
+  const isPickerOpen = query !== null;
+  const labelId = `${id}-label`;
+  const singleSet = sets.length === 1 ? sets[0] : undefined;
+  const styles = singleSet === undefined ? [] : (iconSetData(singleSet)?.styles ?? []);
+  const searchStyle = styles.length > 0 ? style : ANY_STYLE;
+  const matches = query === null ? [] : cachedSearch(sets, query, searchStyle);
+  const shown = matches.slice(0, MAX_RESULTS);
+  const canUseDefault =
+    typeof field.default === 'string' && isSemanticIcon(field.default) && ref !== field.default;
+
   function closePicker(): void {
     setQuery(null);
     toggleRef.current?.focus();
@@ -116,6 +254,21 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
   function pick(match: IconMatch): void {
     onChange(`${match.set}:${match.name}`, 'discrete');
     closePicker();
+  }
+
+  function togglePicker(): void {
+    if (isPickerOpen) {
+      setQuery(null);
+      return;
+    }
+    setQuery('');
+    void requestSets(filter);
+  }
+
+  function changeFilter(nextFilter: string): void {
+    setFilter(nextFilter);
+    setStyle(ANY_STYLE);
+    void requestSets(nextFilter);
   }
 
   return (
@@ -137,14 +290,7 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
           aria-labelledby={`${labelId} ${id}`}
           aria-expanded={isPickerOpen}
           aria-describedby={describedBy}
-          onClick={() => {
-            if (isPickerOpen) {
-              setQuery(null);
-              return;
-            }
-            setQuery('');
-            void requestSets(filter);
-          }}
+          onClick={togglePicker}
         >
           {isPickerOpen ? 'Close' : 'Change'}
         </button>
@@ -158,92 +304,33 @@ export function IconField({ field, value, id, describedBy, onChange }: ControlPr
           </button>
         )}
       </div>
-      {isPickerOpen && (
+      {query !== null && (
         <div className="ve-icon-picker">
-          <div className="ve-icon-filters">
-            <select
-              className="ui-input ui-select"
-              aria-label="Icon set"
-              value={filter}
-              onChange={(event) => {
-                setFilter(event.target.value);
-                setStyle(ANY_STYLE);
-                void requestSets(event.target.value);
-              }}
-            >
-              {allowedIds.includes(defaultSet) && (
-                <option value={DEFAULT_FILTER}>
-                  Default set ({iconSetInfo(defaultSet)?.label ?? defaultSet})
-                </option>
-              )}
-              {allowed.map((info) => (
-                <option key={info.id} value={info.id}>
-                  {info.label}
-                </option>
-              ))}
-              <option value={ALL_SETS}>All sets</option>
-            </select>
-            {styles.length > 0 && (
-              <select
-                className="ui-input ui-select"
-                aria-label="Icon style"
-                value={style}
-                onChange={(event) => setStyle(event.target.value)}
-              >
-                <option value={ANY_STYLE}>All styles</option>
-                {styles.map((option) => (
-                  <option key={option.suffix} value={option.suffix}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            )}
-          </div>
-          <label className="ui-search">
-            <Icon name="search" />
-            <input
-              type="search"
-              placeholder="Search icons"
-              aria-label="Search icons"
-              value={query}
-              autoFocus
-              onChange={(event) => setQuery(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key !== 'Escape') return;
-                event.preventDefault();
-                closePicker();
-              }}
-            />
-          </label>
+          <IconFilters
+            allowed={allowed}
+            defaultSet={defaultSet}
+            filter={filter}
+            style={style}
+            styles={styles}
+            onFilter={changeFilter}
+            onStyle={setStyle}
+          />
+          <IconSearch query={query} onQuery={setQuery} onClose={closePicker} />
           {loadState.status === 'failed' && (
             <p className="ui-field-error" role="alert">
               {loadState.message}
             </p>
           )}
-          <div className="ve-icon-grid" role="group" aria-labelledby={labelId}>
-            {shown.map((match) => {
-              const matchRef = `${match.set}:${match.name}`;
-              const setLabel = iconSetInfo(match.set)?.label ?? match.set;
-              return (
-                <button
-                  key={matchRef}
-                  type="button"
-                  className="ve-icon-option"
-                  title={sets.length > 1 ? `${match.name} (${setLabel})` : match.name}
-                  aria-label={sets.length > 1 ? `${match.name}, ${setLabel}` : match.name}
-                  aria-pressed={ref === matchRef}
-                  onClick={() => pick(match)}
-                  dangerouslySetInnerHTML={{ __html: iconMarkup(matchRef, defaultSet) }}
-                />
-              );
-            })}
-          </div>
+          <IconGrid
+            matches={shown}
+            hasSeveralSets={sets.length > 1}
+            currentRef={ref}
+            defaultSet={defaultSet}
+            labelId={labelId}
+            onPick={pick}
+          />
           <p className="ui-muted" aria-live="polite">
-            {loadState.status === 'loading' && 'Loading icons…'}
-            {loadState.status !== 'loading' &&
-              (matches.length > shown.length
-                ? `${shown.length} of ${matches.length} icons`
-                : `${matches.length} icons`)}
+            {resultSummary(loadState, shown.length, matches.length)}
           </p>
         </div>
       )}

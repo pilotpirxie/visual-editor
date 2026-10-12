@@ -3,7 +3,17 @@ import { acquireProjectLock, isProjectOpenElsewhere, waitForProjectLock } from '
 
 type Waiter = { grant(): void };
 
-function createFakeLocks() {
+type FakeLocks = {
+  heldNames: Set<string>;
+  request(
+    name: string,
+    options: LockOptions,
+    callback: LockGrantedCallback<unknown>,
+  ): Promise<unknown>;
+  query(): Promise<LockManagerSnapshot>;
+};
+
+function createFakeLocks(): FakeLocks {
   const heldNames = new Set<string>();
   const waiters = new Map<string, Waiter[]>();
 
@@ -24,7 +34,11 @@ function createFakeLocks() {
 
   return {
     heldNames,
-    async request(name: string, options: LockOptions, callback: LockGrantedCallback<unknown>) {
+    async request(
+      name: string,
+      options: LockOptions,
+      callback: LockGrantedCallback<unknown>,
+    ): Promise<unknown> {
       if (!heldNames.has(name)) return hold(name, callback);
       if (options.ifAvailable === true) return callback(null);
       return new Promise((resolve, reject) => {
@@ -41,7 +55,7 @@ function createFakeLocks() {
 }
 
 function holdElsewhere(locks: ReturnType<typeof createFakeLocks>, projectId: string): () => void {
-  let releaseOther = () => {};
+  let releaseOther: () => void = () => {};
   void locks.request(`visual-editor-project:${projectId}`, {}, () => {
     return new Promise<void>((resolve) => {
       releaseOther = resolve;

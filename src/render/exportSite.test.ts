@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { createPage, createSampleProject } from '../app/projectFactory';
-import type { Project } from '../app/types';
+import type { Project, Page } from '../app/types';
 import { builtInComponents } from '../components/registry';
 import { loadIconSet } from '../features/icons/loadIconSet';
 import { placeholderImage } from './placeholder';
@@ -17,7 +17,7 @@ beforeAll(async () => {
   await loadIconSet('lucide');
 });
 
-function homePage(project: Project) {
+function homePage(project: Project): Page {
   return project.pages.entities[project.pages.homePageId];
 }
 
@@ -28,7 +28,7 @@ function blockIdOf(project: Project, componentId: string): string {
   return blockId;
 }
 
-function filesOf(project: Project) {
+function filesOf(project: Project): ReturnType<typeof buildExportFiles>['files'] {
   return buildExportFiles(project, builtInComponents, runtime).files;
 }
 

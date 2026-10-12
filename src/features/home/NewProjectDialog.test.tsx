@@ -1,9 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { Project } from '../../app/types';
+import type {} from '../../app/types';
 import { putProject } from '../../persistence/db';
 import { BUILTIN_PRESETS } from '../../presets/presets';
 import { changeValue, choiceInput, click, getButton, render } from '../../test/dom';
 import { NewProjectDialog } from './NewProjectDialog';
+import { savedProjects } from '../../test/fixtures';
 
 const STARTERS_LOAD_TIMEOUT_MS = 5000;
 
@@ -27,12 +28,6 @@ async function renderDialog(onClose: () => void = () => {}): Promise<HTMLDivElem
   const { container } = render(<NewProjectDialog onClose={onClose} />);
   await Promise.resolve();
   return container;
-}
-
-function savedProjects(): Project[] {
-  const projects: Project[] = [];
-  for (const call of vi.mocked(putProject).mock.calls) projects.push(call[0]);
-  return projects;
 }
 
 function presetButtons(container: HTMLElement): HTMLButtonElement[] {

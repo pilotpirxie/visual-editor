@@ -1,4 +1,4 @@
-import type { JSX, ReactNode } from 'react';
+import type { JSX } from 'react';
 import {
   pageMetaSet,
   pageNoindexSet,
@@ -30,7 +30,6 @@ import {
   FREQUENCY_OPTIONS,
   IMAGE_PREVIEW_OPTIONS,
   labelOf,
-  MetaSection,
   MetaSelect,
   MetaTagsInput,
   MetaTextInput,
@@ -47,9 +46,9 @@ import {
 import { pageFileName } from '../pages/PagesTab';
 import { FieldControl } from './FieldControl';
 import { ImageUploadInput } from './ImageUploadInput';
-import { useSection } from '../editor/useSection';
+import { RememberedSection } from '../editor/useSection';
 import { BackToCanvasButton } from '../editor/CompactTabs';
-import { DraftInput, Field, Section, Switch, Title } from '../../../packages/ui/src';
+import { DraftInput, Field, Switch, Title } from '../../../packages/ui/src';
 
 export const SOCIAL_IMAGE_TYPE_ERROR = 'Use a PNG, JPEG, WebP or GIF image';
 
@@ -74,23 +73,6 @@ const SEO_FIELDS: Record<SeoTextKey, FieldSchema> = {
     default: '',
   },
 };
-
-function PageSection({
-  id,
-  title,
-  children,
-}: {
-  id: string;
-  title: string;
-  children: ReactNode;
-}): JSX.Element {
-  const section = useSection(`page:${id}`);
-  return (
-    <Section title={title} isOpen={section.isOpen} onToggle={section.onToggle}>
-      {children}
-    </Section>
-  );
-}
 
 function SocialImageInput({ page }: { page: Page }): JSX.Element {
   const assetId = page.seo.socialImageAssetId;
@@ -366,7 +348,7 @@ export function PageSettingsPanel(): JSX.Element {
           <BackToCanvasButton />
         </div>
       </header>
-      <PageSection id="seo" title="Search engines">
+      <RememberedSection id="page:seo" title="Search engines">
         {renderSeoField('title')}
         <SlugControl page={page} />
         {renderSeoField('description')}
@@ -383,14 +365,14 @@ export function PageSettingsPanel(): JSX.Element {
           settings={settings}
           fileName={pageFileName(page, homePageId)}
         />
-      </PageSection>
-      <PageSection id="social" title="Social sharing">
+      </RememberedSection>
+      <RememberedSection id="page:social" title="Social sharing">
         {renderSeoField('socialTitle')}
         {renderSeoField('socialDescription')}
         <SocialImageInput page={page} />
         <SharingOverrides page={page} settings={settings} />
-      </PageSection>
-      <MetaSection id="page:color" title="Colors">
+      </RememberedSection>
+      <RememberedSection id="page:color" title="Colors" defaultOpen={false}>
         <ThemeColorInput
           id="ve-page-theme-color"
           label="Browser theme color"
@@ -400,26 +382,26 @@ export function PageSettingsPanel(): JSX.Element {
           resetLabel="Use the site default"
           onChange={(value, kind) => setPageMeta(page, 'themeColor', value, kind)}
         />
-      </MetaSection>
-      <MetaSection id="page:sitemap" title="Sitemap">
+      </RememberedSection>
+      <RememberedSection id="page:sitemap" title="Sitemap" defaultOpen={false}>
         <SitemapOverrides page={page} settings={settings} />
-      </MetaSection>
-      <MetaSection id="page:schema" title="Structured data">
+      </RememberedSection>
+      <RememberedSection id="page:schema" title="Structured data" defaultOpen={false}>
         <StructuredDataOverrides page={page} />
-      </MetaSection>
-      <MetaSection id="page:meta-tags" title="Custom meta tags">
+      </RememberedSection>
+      <RememberedSection id="page:meta-tags" title="Custom meta tags" defaultOpen={false}>
         <MetaTagsInput
           id="ve-page-meta-tags"
           label="Meta tags on this page"
           value={page.seo.metaTags}
           onChange={(tags, kind) => setPageMeta(page, 'metaTags', tags, kind)}
         />
-      </MetaSection>
+      </RememberedSection>
       {hasSharedBlocks && (
-        <PageSection id="shared" title="Shared header and footer">
+        <RememberedSection id="page:shared" title="Shared header and footer">
           <SharedSlotSwitch page={page} slot="header" />
           <SharedSlotSwitch page={page} slot="footer" />
-        </PageSection>
+        </RememberedSection>
       )}
     </div>
   );

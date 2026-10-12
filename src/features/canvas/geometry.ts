@@ -17,7 +17,7 @@ export const AUTO_SCROLL_EDGE_PX = 56;
 export const AUTO_SCROLL_MAX_SPEED_PX = 18;
 export const BLOCK_TOOLBAR_HEIGHT_PX = 32;
 export const BLOCK_TOOLBAR_GAP_PX = 4;
-export const TABLET_MIN_WIDTH_PX = 768;
+const TABLET_MIN_WIDTH_PX = 768;
 export const DESKTOP_MIN_WIDTH_PX = 1024;
 
 export function clamp(value: number, min: number, max: number): number {

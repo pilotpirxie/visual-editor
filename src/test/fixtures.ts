@@ -1,7 +1,9 @@
+import { vi } from 'vitest';
 import { createSampleProject } from '../app/projectFactory';
 import { blockShared, projectLoaded } from '../app/projectSlice';
 import { createAppStore, dispatch, store } from '../app/store';
 import { FONT_ROLES, type ComponentBlock, type Page, type Project } from '../app/types';
+import { putProject } from '../persistence/db';
 import { SYSTEM_FONT_STACKS } from '../render/fonts';
 
 export type TestStore = ReturnType<typeof createAppStore>;
@@ -59,4 +61,14 @@ export function shareNavAndFooter(target: TestStore = store): { navId: string; f
   target.dispatch(blockShared({ blockId: navId, slot: 'header', pageId: page.id }));
   target.dispatch(blockShared({ blockId: footerId, slot: 'footer', pageId: page.id }));
   return { navId, footerId };
+}
+
+export function savedProjects(): Project[] {
+  const projects: Project[] = [];
+  for (const call of vi.mocked(putProject).mock.calls) projects.push(call[0]);
+  return projects;
+}
+
+export function blockIdAt(index: number): string {
+  return homePage(store.getState().project).blockIds[index];
 }

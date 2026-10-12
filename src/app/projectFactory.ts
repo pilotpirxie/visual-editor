@@ -7,16 +7,9 @@ import {
   type DesignSystemPreset,
   type Page,
   type Project,
-  type TokenGenerators,
 } from './types';
 
 export const UNTITLED_PROJECT_TITLE = 'Untitled site';
-
-export const DEFAULT_GENERATORS: TokenGenerators = {
-  typeBasePx: 16,
-  typeRatio: 1.25,
-  spaceUnitPx: 4,
-};
 
 const SAMPLE_PAGE_COMPONENTS = ['nav-simple', 'hero-centered', 'features-grid-3', 'footer-simple'];
 

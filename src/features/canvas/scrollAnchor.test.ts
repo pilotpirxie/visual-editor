@@ -28,18 +28,29 @@ function elementAt(top: number): { element: HTMLElement; moveTo(nextTop: number)
   };
 }
 
+type Anchored = {
+  view: FakeView;
+  anchored: ReturnType<typeof elementAt>;
+  anchor: ReturnType<typeof createScrollAnchor>;
+};
+
+function anchoredAt(top: number): Anchored {
+  const view = createFakeView();
+  const anchored = elementAt(top);
+  const anchor = createScrollAnchor(
+    () => view.window,
+    () => anchored.element,
+  );
+  return { view, anchored, anchor };
+}
+
 async function afterMicrotasks(): Promise<void> {
   await Promise.resolve();
 }
 
 describe('createScrollAnchor', () => {
   it('scrolls by however far the anchored element moved after a change', async () => {
-    const view = createFakeView();
-    const anchored = elementAt(200);
-    const anchor = createScrollAnchor(
-      () => view.window,
-      () => anchored.element,
-    );
+    const { view, anchored, anchor } = anchoredAt(200);
     anchor.capture();
     anchored.moveTo(260);
     await afterMicrotasks();
@@ -47,24 +58,14 @@ describe('createScrollAnchor', () => {
   });
 
   it('does not scroll when the element stayed in place', async () => {
-    const view = createFakeView();
-    const anchored = elementAt(200);
-    const anchor = createScrollAnchor(
-      () => view.window,
-      () => anchored.element,
-    );
+    const { view, anchor } = anchoredAt(200);
     anchor.capture();
     await afterMicrotasks();
     expect(view.scrolls).toEqual([]);
   });
 
   it('measures once per batch of changes, from the first capture', async () => {
-    const view = createFakeView();
-    const anchored = elementAt(200);
-    const anchor = createScrollAnchor(
-      () => view.window,
-      () => anchored.element,
-    );
+    const { view, anchored, anchor } = anchoredAt(200);
     anchor.capture();
     anchored.moveTo(230);
     anchor.capture();
@@ -85,12 +86,7 @@ describe('createScrollAnchor', () => {
   });
 
   it('skips the correction when the anchored element was removed by the change', async () => {
-    const view = createFakeView();
-    const anchored = elementAt(200);
-    const anchor = createScrollAnchor(
-      () => view.window,
-      () => anchored.element,
-    );
+    const { view, anchored, anchor } = anchoredAt(200);
     anchor.capture();
     anchored.element.remove();
     await afterMicrotasks();
@@ -98,12 +94,7 @@ describe('createScrollAnchor', () => {
   });
 
   it('does not undo a deliberate scroll made while the change was applied', async () => {
-    const view = createFakeView();
-    const anchored = elementAt(200);
-    const anchor = createScrollAnchor(
-      () => view.window,
-      () => anchored.element,
-    );
+    const { view, anchored, anchor } = anchoredAt(200);
     anchor.capture();
     view.window.scrollY = 500;
     anchored.moveTo(-300);
@@ -112,12 +103,7 @@ describe('createScrollAnchor', () => {
   });
 
   it('corrects only the layout shift when content grows and the view also scrolls', async () => {
-    const view = createFakeView();
-    const anchored = elementAt(200);
-    const anchor = createScrollAnchor(
-      () => view.window,
-      () => anchored.element,
-    );
+    const { view, anchored, anchor } = anchoredAt(200);
     anchor.capture();
     view.window.scrollY = 100;
     anchored.moveTo(140);
@@ -126,12 +112,7 @@ describe('createScrollAnchor', () => {
   });
 
   it('drops a captured position when the change is cancelled, such as a page switch', async () => {
-    const view = createFakeView();
-    const anchored = elementAt(200);
-    const anchor = createScrollAnchor(
-      () => view.window,
-      () => anchored.element,
-    );
+    const { view, anchored, anchor } = anchoredAt(200);
     anchor.capture();
     anchored.moveTo(900);
     anchor.cancel();

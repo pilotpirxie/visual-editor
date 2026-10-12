@@ -109,7 +109,7 @@ export type PagePart = { page: PagePlan; first: number; count: number };
 
 export type StepRequest = { system: string; user: string; schema: JsonSchema | null };
 
-export const SYSTEM_PROMPT = [
+const SYSTEM_PROMPT = [
   'You are the site-building assistant inside a visual website builder.',
   'People describe a website in plain language and you plan and write it.',
   'Answer with exactly one JSON object and nothing else: no prose, no markdown fences.',

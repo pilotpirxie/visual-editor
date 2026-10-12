@@ -21,7 +21,7 @@ export type SiteRuntimeChunks = { core: string; behaviors: Record<string, string
 
 export type ExportFiles = Record<string, string | Blob>;
 
-export type ExportOmissions = { components: number; primitives: string[]; tokens: number };
+type ExportOmissions = { components: number; primitives: string[]; tokens: number };
 
 export type ExportResult = { files: ExportFiles; notes: string[]; omitted: ExportOmissions };
 
@@ -36,7 +36,7 @@ export type PreparedPage = {
 
 export type PreparedFile = { path: string; content: string };
 
-export type ExportSite = Pick<Project, 'settings' | 'pages' | 'assets' | 'designSystem'>;
+type ExportSite = Pick<Project, 'settings' | 'pages' | 'assets' | 'designSystem'>;
 
 export type ExportInput = {
   site: ExportSite;
@@ -48,7 +48,7 @@ export type ExportInput = {
   omittedComponents: number;
 };
 
-export const SITE_JS_PATH = 'assets/js/site.js';
+const SITE_JS_PATH = 'assets/js/site.js';
 
 const LICENSES_PATH = 'licenses.txt';
 const SITEMAP_PATH = 'sitemap.xml';
@@ -100,9 +100,9 @@ const PNG_HEADER_LENGTH = 24;
 const PNG_HEADER_BASE64_LENGTH = 32;
 const PNG_SIGNATURE = [137, 80, 78, 71, 13, 10, 26, 10];
 
-export type ImageSize = { width: number; height: number };
+type ImageSize = { width: number; height: number };
 
-export function pngSize(dataUrl: string): ImageSize | null {
+function pngSize(dataUrl: string): ImageSize | null {
   const data = DATA_URL.exec(dataUrl)?.groups?.data;
   if (data === undefined) return null;
   let binary: string;
@@ -210,7 +210,7 @@ function sitemapEntry(location: string, site: Pick<Project, 'settings'>, page: P
   return `  <url>${entry}</url>`;
 }
 
-export function buildSitemap(site: Pick<Project, 'settings'>, files: IndexedFile[]): string | null {
+function buildSitemap(site: Pick<Project, 'settings'>, files: IndexedFile[]): string | null {
   const entries: string[] = [];
   for (const { page, fileName } of files) {
     const location = absoluteUrl(site.settings.baseUrl, fileName);
@@ -235,7 +235,7 @@ function extraRobotsLines(rules: string | undefined): string[] {
   return lines;
 }
 
-export function buildRobotsTxt(settings: ProjectSettings, sitemapUrl: string | null): string {
+function buildRobotsTxt(settings: ProjectSettings, sitemapUrl: string | null): string {
   const lines = ['User-agent: *', 'Allow: /', ...extraRobotsLines(settings.robotsRules)];
   if (settings.blockAiCrawlers === true) {
     lines.push('');
@@ -266,10 +266,7 @@ function manifestColor(
   return resolveColor(value, tokens);
 }
 
-export function buildWebManifest(
-  site: ExportSite,
-  assetFiles: Record<string, string>,
-): string | null {
+function buildWebManifest(site: ExportSite, assetFiles: Record<string, string>): string | null {
   const { settings, assets, designSystem } = site;
   const iconId = settings.appIconAssetId;
   const icon = iconId === undefined ? undefined : assets[iconId];

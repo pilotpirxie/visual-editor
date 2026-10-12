@@ -1,8 +1,5 @@
 import type { DesignSystem, FontRole, Token } from '../../app/types';
-import { nearestWeight } from '../../app/typography';
 import { isRecord } from '../../components/fields';
-import { CLEAN_PRESET } from '../../presets/presets';
-import { fontStack } from '../../render/fonts';
 import {
   contrastRatio,
   contrastWarnings,
@@ -22,15 +19,19 @@ import {
   DARK_SHADOWS,
   defaultIconSetIds,
   fontsFor,
+  hasReadableBody,
   isDarkColor,
   NO_SHADOWS,
-  PRIMARY_THEME_TOKENS,
   randomDesignSystem,
   readableOn,
   ROOMY_PADDING,
   SHAPES,
+  tokensWithValues,
   VOICES,
+  withFonts,
+  withStandardPrimaryTheme,
   type Random,
+  type TypeChoice,
 } from './randomDesignSystem';
 
 export const TYPE_SCALES = ['compact', 'balanced', 'dramatic'] as const;
@@ -79,9 +80,6 @@ const DEFAULT_BASE_PX = 16;
 const MIN_HEADING_WEIGHT = 400;
 const MAX_HEADING_WEIGHT = 900;
 const DEFAULT_HEADING_WEIGHT = 700;
-const REGULAR_WEIGHT = 400;
-const BOLD_WEIGHT = 700;
-const SEMIBOLD_WEIGHT = 600;
 const DEFAULT_TIGHT_LINE_HEIGHT = '1.15';
 const NORMAL_LINE_HEIGHT = '1.65';
 const SURFACE_SHIFT = 0.035;
@@ -223,16 +221,7 @@ function briefColors(brief: DesignBrief, base: Record<string, Token>): TokenValu
     '--color-primary-contrast': contrastColorFor(primaryHex, primary.hue, MIDPOINT),
     ...darkSectionColors(ground, accent),
   };
-  for (const name of PRIMARY_THEME_TOKENS) {
-    const standard = CLEAN_PRESET.designSystem.tokens[name];
-    if (standard !== undefined) values[name] = standard.value;
-  }
-  return values;
-}
-
-function hasReadableBody(family: FontFamily): boolean {
-  const hasBold = family.weights.includes(BOLD_WEIGHT) || family.weights.includes(SEMIBOLD_WEIGHT);
-  return family.weights.includes(REGULAR_WEIGHT) && hasBold;
+  return withStandardPrimaryTheme(values);
 }
 
 function nearestOf(wanted: number, allowed: readonly number[]): number {
@@ -242,13 +231,6 @@ function nearestOf(wanted: number, allowed: readonly number[]): number {
   }
   return nearest;
 }
-
-type BriefType = {
-  values: TokenValues;
-  families: { heading: string; body: string } | null;
-  typeBasePx: number;
-  typeRatio: number;
-};
 
 function baseFamily(
   base: DesignSystem,
@@ -263,7 +245,7 @@ function briefType(
   brief: DesignBrief,
   base: DesignSystem,
   fontsByName: ReadonlyMap<string, FontFamily>,
-): BriefType {
+): TypeChoice {
   const heading = fontsByName.get(brief.headingFont) ?? baseFamily(base, 'heading', fontsByName);
   const wantedBody = fontsByName.get(brief.bodyFont);
   const isBodyReadable = wantedBody !== undefined && hasReadableBody(wantedBody);
@@ -276,21 +258,9 @@ function briefType(
     '--line-height-tight': voice?.lineHeights[0] ?? DEFAULT_TIGHT_LINE_HEIGHT,
     '--line-height-normal': NORMAL_LINE_HEIGHT,
   };
-  if (heading === undefined || body === undefined) {
-    return { values, families: null, typeBasePx, typeRatio };
-  }
-  const boldWeight = body.weights.includes(BOLD_WEIGHT) ? BOLD_WEIGHT : SEMIBOLD_WEIGHT;
-  values['--font-heading'] = fontStack(heading.family, heading.category);
-  values['--font-body'] = fontStack(body.family, body.category);
-  values['--font-weight-heading'] = String(nearestWeight(brief.headingWeight, heading.weights));
-  values['--font-weight-regular'] = String(REGULAR_WEIGHT);
-  values['--font-weight-bold'] = String(boldWeight);
-  return {
-    values,
-    families: { heading: heading.family, body: body.family },
-    typeBasePx,
-    typeRatio,
-  };
+  const plain: TypeChoice = { values, families: null, typeBasePx, typeRatio };
+  if (heading === undefined || body === undefined) return plain;
+  return withFonts(plain, heading, body, brief.headingWeight);
 }
 
 function briefShape(corners: Corners): TokenValues {
@@ -357,10 +327,7 @@ export function designSystemFromBrief(
     ...briefShape(brief.corners),
     ...briefShadows(brief.shadows, isDarkColor(colors['--color-background'])),
   };
-  const tokens: Record<string, Token> = {};
-  for (const [name, token] of Object.entries(base.tokens)) {
-    tokens[name] = { ...token, value: values[name] ?? token.value };
-  }
+  const tokens = tokensWithValues(base.tokens, values);
   const designSystem: DesignSystem = {
     tokens,
     fonts: type.families === null ? base.fonts : fontsFor(type.families, tokens),

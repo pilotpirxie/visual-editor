@@ -26,24 +26,40 @@ function positionOf(project: Project, blockId: string): string | null {
   return `${list.indexOf(blockId) + 1} of ${list.length}`;
 }
 
-export function announcementFor(
+function selectionAnnouncement(
+  blockId: string | null,
+  before: RootState,
+  after: RootState,
+): string | null {
+  if (blockId === null || blockId === before.editor.selectedBlockId) return null;
+  const label = labelOf(after.project, blockId);
+  const position = positionOf(after.project, blockId);
+  if (label === null || position === null) return null;
+  return `${label} selected, ${position}`;
+}
+
+function moveAnnouncement(blockId: string, before: RootState, after: RootState): string | null {
+  const label = labelOf(after.project, blockId);
+  const position = positionOf(after.project, blockId);
+  if (label === null || position === null || before.project === after.project) return null;
+  return `Moved ${label} to position ${position}`;
+}
+
+function pageAnnouncement(pageId: string, fromPageId: string, after: RootState): string | null {
+  const page = after.project.pages.entities[pageId];
+  if (page === undefined || pageId === fromPageId) return null;
+  return `Page ${page.name} opened`;
+}
+
+function blockAnnouncement(
   action: UnknownAction,
   before: RootState,
   after: RootState,
 ): string | null {
   if (blockSelected.match(action)) {
-    const blockId = action.payload;
-    if (blockId === null || blockId === before.editor.selectedBlockId) return null;
-    const label = labelOf(after.project, blockId);
-    const position = positionOf(after.project, blockId);
-    if (label === null || position === null) return null;
-    return `${label} selected, ${position}`;
+    return selectionAnnouncement(action.payload, before, after);
   } else if (blockMoved.match(action)) {
-    const { blockId } = action.payload;
-    const label = labelOf(after.project, blockId);
-    const position = positionOf(after.project, blockId);
-    if (label === null || position === null || before.project === after.project) return null;
-    return `Moved ${label} to position ${position}`;
+    return moveAnnouncement(action.payload.blockId, before, after);
   } else if (blockDuplicated.match(action)) {
     const label = labelOf(after.project, action.payload.newBlockId);
     return label === null ? null : `Duplicated ${label}`;
@@ -53,15 +69,24 @@ export function announcementFor(
   } else if (blockInserted.match(action) || blockPasted.match(action)) {
     const label = labelOf(after.project, action.payload.block.id);
     return label === null ? null : `Added ${label}`;
-  } else if (pageOpened.match(action)) {
-    const page = after.project.pages.entities[action.payload.pageId];
-    if (page === undefined || action.payload.pageId === action.payload.fromPageId) return null;
-    return `Page ${page.name} opened`;
-  } else if (undo.match(action) && before.project !== after.project) {
-    return 'Undone';
-  } else if (redo.match(action) && before.project !== after.project) {
-    return 'Redone';
   } else {
     return null;
+  }
+}
+
+export function announcementFor(
+  action: UnknownAction,
+  before: RootState,
+  after: RootState,
+): string | null {
+  const hasProjectChanged = before.project !== after.project;
+  if (pageOpened.match(action)) {
+    return pageAnnouncement(action.payload.pageId, action.payload.fromPageId, after);
+  } else if (undo.match(action)) {
+    return hasProjectChanged ? 'Undone' : null;
+  } else if (redo.match(action)) {
+    return hasProjectChanged ? 'Redone' : null;
+  } else {
+    return blockAnnouncement(action, before, after);
   }
 }

@@ -5,16 +5,16 @@ import { createBlock } from '../components/registry';
 import type { BlockPack, PackBlock } from '../components/types';
 import { createZip, type ZipEntry } from '../features/export/zip';
 
-export const TEST_THUMBNAIL_BYTES = Uint8Array.from(
+const TEST_THUMBNAIL_BYTES = Uint8Array.from(
   atob('UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA=='),
   (char) => char.charCodeAt(0),
 );
 
 export const TEST_THUMBNAIL = `data:image/webp;base64,${btoa(String.fromCharCode(...TEST_THUMBNAIL_BYTES))}`;
 
-export const QUOTE_CARD_ID = 'quote-card';
+const QUOTE_CARD_ID = 'quote-card';
 
-export function quoteCardTemplate(blockId = QUOTE_CARD_ID): string {
+function quoteCardTemplate(blockId = QUOTE_CARD_ID): string {
   return [
     `<section class="b-acme-${blockId} section">`,
     '  <div class="container stack">',
@@ -29,7 +29,7 @@ export function quoteCardTemplate(blockId = QUOTE_CARD_ID): string {
   ].join('\n');
 }
 
-export function quoteCardStyles(blockId = QUOTE_CARD_ID): string {
+function quoteCardStyles(blockId = QUOTE_CARD_ID): string {
   return [
     '@layer components {',
     `  @scope (.b-acme-${blockId}) {`,
@@ -170,7 +170,7 @@ export function packOf(blocks: PackBlock[]): BlockPack {
 
 export type ProjectUsingPacks = { project: Project; packBlockIds: string[]; otherBlockId: string };
 
-export function otherPackDefinition(): PackBlock {
+function otherPackDefinition(): PackBlock {
   const custom = quoteCardDefinition();
   return {
     ...custom,

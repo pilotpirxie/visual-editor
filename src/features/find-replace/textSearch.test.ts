@@ -1,9 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from '../../app/projectFactory';
-import { textReplaced } from '../../app/projectSlice';
+import { blockInserted, textReplaced } from '../../app/projectSlice';
 import type { Project } from '../../app/types';
+import { isImageValue } from '../../components/fields';
 import { componentBlockOf, createTestStore, homePage } from '../../test/fixtures';
-import { buildPattern, findMatches, planReplacement, replacementCount } from './textSearch';
+import {
+  buildPattern,
+  findMatches,
+  planReplacement,
+  replacementCount,
+  type FindMatch,
+} from './textSearch';
 
 const ANY_CASE = { isCaseSensitive: false, isWholeWord: false };
 
@@ -127,5 +134,104 @@ describe('planReplacement', () => {
     const matches = findMatches(project, 'acme', ANY_CASE);
     store.dispatch(textReplaced(planReplacement(project, matches, 'acme', '', ANY_CASE)));
     expect(store.getState().project.settings.title).toBe('Acme');
+  });
+
+  function blockMatches(project: Project, path: string, part: string): FindMatch[] {
+    const matches: FindMatch[] = [];
+    for (const match of findMatches(project, 'acme', ANY_CASE)) {
+      const { location } = match;
+      if (location.kind !== 'block') continue;
+      if (location.path === path && location.part === part) matches.push(match);
+    }
+    return matches;
+  }
+
+  function afterReplacing(project: Project, matches: FindMatch[]): Project {
+    const store = createTestStore(project);
+    store.dispatch(textReplaced(planReplacement(project, matches, 'acme', 'Zed', ANY_CASE)));
+    return store.getState().project;
+  }
+
+  it('replaces only the label or only the address of a button', () => {
+    const project = sampleWithAcme();
+    const heroId = blockIdOf(project, 'hero-centered');
+    const labelOnly = afterReplacing(project, blockMatches(project, 'primaryButton', 'label'));
+    expect(componentBlockOf(labelOnly, heroId).values.primaryButton).toMatchObject({
+      label: 'Try Zed',
+      link: { url: 'https://acme.test' },
+    });
+    const urlOnly = afterReplacing(project, blockMatches(project, 'primaryButton', 'url'));
+    expect(componentBlockOf(urlOnly, heroId).values.primaryButton).toMatchObject({
+      label: 'Try Acme',
+      link: { type: 'url', url: 'https://Zed.test', newTab: false },
+      variant: 'primary',
+    });
+  });
+
+  it('replaces inside one list item and keeps the other items and their fields', () => {
+    const project = sampleWithAcme();
+    const featuresId = blockIdOf(project, 'features-grid-3');
+    const replaced = afterReplacing(project, blockMatches(project, 'items.1.text', 'text'));
+    expect(componentBlockOf(replaced, featuresId).values.items).toEqual([
+      { icon: 'zap', title: 'Acme speed', text: 'Fast.' },
+      { icon: 'shield', title: 'Secure', text: 'Zeds everywhere.' },
+    ]);
+  });
+
+  it('replaces the address of a link in a list, and leaves links to pages alone', () => {
+    const project = sampleWithAcme();
+    const navId = blockIdOf(project, 'nav-simple');
+    const pageLink = { type: 'page', pageId: homePage(project).id, newTab: false };
+    componentBlockOf(project, navId).values.links = [
+      { label: 'Docs', link: { type: 'url', url: 'https://docs.acme.test', newTab: true } },
+      { label: 'Home', link: pageLink },
+    ];
+    const replaced = afterReplacing(project, blockMatches(project, 'links.0.link', 'url'));
+    expect(componentBlockOf(replaced, navId).values.links).toEqual([
+      { label: 'Docs', link: { type: 'url', url: 'https://docs.Zed.test', newTab: true } },
+      { label: 'Home', link: pageLink },
+    ]);
+  });
+
+  it('replaces the alt text of an image and keeps the image', () => {
+    const store = createTestStore(sampleWithAcme());
+    const homeId = homePage(store.getState().project).id;
+    store.dispatch(blockInserted(homeId, 0, 'hero-image'));
+    const project = structuredClone(store.getState().project);
+    const imageHeroId = homePage(project).blockIds[0];
+    const imageHero = componentBlockOf(project, imageHeroId);
+    const placeholder = imageHero.values.image;
+    if (!isImageValue(placeholder)) throw new Error('The image hero has no image');
+    const image = { ...placeholder, alt: 'The Acme office', decorative: false };
+    imageHero.values.image = image;
+    const replaced = afterReplacing(project, blockMatches(project, 'image', 'alt'));
+    expect(componentBlockOf(replaced, imageHeroId).values.image).toEqual({
+      ...image,
+      alt: 'The Zed office',
+    });
+  });
+
+  it('plans no edit for a block whose matches are not selected', () => {
+    const project = sampleWithAcme();
+    const heroId = blockIdOf(project, 'hero-centered');
+    const edits = planReplacement(
+      project,
+      blockMatches(project, 'items.1.text', 'text'),
+      'acme',
+      'Zed',
+      ANY_CASE,
+    );
+    expect(edits).toHaveLength(1);
+    expect(edits[0]).toMatchObject({ kind: 'block-value', name: 'items' });
+    expect(edits.some((edit) => edit.kind === 'block-value' && edit.blockId === heroId)).toBe(
+      false,
+    );
+  });
+
+  it('plans nothing without matches or without a query', () => {
+    const project = sampleWithAcme();
+    expect(planReplacement(project, [], 'acme', 'Zed', ANY_CASE)).toEqual([]);
+    const matches = findMatches(project, 'acme', ANY_CASE);
+    expect(planReplacement(project, matches, '  ', 'Zed', ANY_CASE)).toEqual([]);
   });
 });

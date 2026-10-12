@@ -4,7 +4,7 @@ import { Icon } from './Icon';
 import { rovingIndex, type RovingOrientation } from './roving';
 import './Tabs.css';
 
-export type TabItem = { id: string; label: string; icon?: string };
+type TabItem = { id: string; label: string; icon?: string };
 
 type TabsProps = {
   label: string;
@@ -16,11 +16,11 @@ type TabsProps = {
   onChange(id: string): void;
 };
 
-export function tabId(idPrefix: string, id: string): string {
+function tabId(idPrefix: string, id: string): string {
   return `${idPrefix}-tab-${id}`;
 }
 
-export function tabPanelId(idPrefix: string): string {
+function tabPanelId(idPrefix: string): string {
   return `${idPrefix}-panel`;
 }
 

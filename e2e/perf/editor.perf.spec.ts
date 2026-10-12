@@ -129,13 +129,14 @@ test('a design token change reaches the canvas in under 200 ms', async ({ page }
     ) {
       throw new Error('The primary color field or a primary button is missing');
     }
-    const before = view.getComputedStyle(button).backgroundColor;
+    const watched = button;
+    const before = view.getComputedStyle(watched).backgroundColor;
     const startedAt = performance.now();
     setValue.call(input, '#0f766e');
     input.dispatchEvent(new Event('input', { bubbles: true }));
     await new Promise<void>((resolve) => {
       function check(): void {
-        if (view?.getComputedStyle(button as Element).backgroundColor !== before) {
+        if (view?.getComputedStyle(watched).backgroundColor !== before) {
           resolve();
           return;
         }

@@ -236,6 +236,54 @@ describe('isImageValue', () => {
   ])('rejects %s', (_name, value) => {
     expect(isImageValue(value)).toBe(false);
   });
+
+  const placeholder = {
+    source: 'placeholder',
+    src: '',
+    alt: 'A loaf of bread',
+    decorative: false,
+    width: 1200,
+    height: 800,
+    placeholder: { ratio: '3:2', subject: 'photo' },
+  };
+
+  it('accepts a placeholder with a known ratio and subject', () => {
+    expect(isImageValue(placeholder)).toBe(true);
+    expect(isImageValue({ ...placeholder, alt: '', decorative: true, width: 0, height: 0 })).toBe(
+      true,
+    );
+  });
+
+  it.each([
+    ['nothing', null],
+    ['text', 'team.png'],
+    ['a list', [placeholder]],
+    ['a missing source', { ...placeholder, source: undefined }],
+    ['a missing address', { ...uploaded, src: undefined }],
+    ['an address that is not text', { ...placeholder, src: 5 }],
+    ['alt text that is not text', { ...placeholder, alt: null }],
+    ['a missing decorative mark', { ...placeholder, decorative: undefined }],
+    ['a decorative mark that is not on or off', { ...placeholder, decorative: 'yes' }],
+    ['a width that is not a number', { ...placeholder, width: '1200' }],
+    ['an endless height', { ...placeholder, height: Infinity }],
+    ['a height that is not a number at all', { ...uploaded, height: NaN }],
+    ['a placeholder without its choice', { ...placeholder, placeholder: undefined }],
+    ['a placeholder choice that is not an object', { ...placeholder, placeholder: '3:2' }],
+    ['an unknown ratio', { ...placeholder, placeholder: { ratio: '5:4', subject: 'photo' } }],
+    ['an unknown subject', { ...placeholder, placeholder: { ratio: '3:2', subject: 'cat' } }],
+    ['a placeholder without a subject', { ...placeholder, placeholder: { ratio: '3:2' } }],
+    ['a file name that is not text', { ...uploaded, name: 7 }],
+  ])('rejects %s', (_name, value) => {
+    expect(isImageValue(value)).toBe(false);
+  });
+
+  it('rejects an image with one of its parts left out', () => {
+    for (const key of ['source', 'src', 'alt', 'decorative', 'width', 'height']) {
+      const partial: Record<string, unknown> = { ...placeholder };
+      Reflect.deleteProperty(partial, key);
+      expect(isImageValue(partial)).toBe(false);
+    }
+  });
 });
 
 describe('isButtonValue', () => {

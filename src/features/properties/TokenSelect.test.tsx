@@ -1,6 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi, type Mock } from 'vitest';
+import type { EditKind } from '../../app/projectSlice';
 import type { Token } from '../../app/types';
-import { blur, changeValue, render } from '../../test/dom';
+import { blur, changeValue, render, type Rendered } from '../../test/dom';
 import { TokenSelect } from './TokenSelect';
 
 const OPTIONS: Token[] = [
@@ -8,8 +9,10 @@ const OPTIONS: Token[] = [
   { name: '--radius-md', label: 'Medium radius', group: 'shape', value: '0.5rem' },
 ];
 
-function renderSelect(value: string) {
-  const onChange = vi.fn();
+type TokenChange = (value: string, kind: EditKind) => void;
+
+function renderSelect(value: string): Rendered & { onChange: Mock<TokenChange> } {
+  const onChange = vi.fn<TokenChange>();
   const rendered = render(
     <TokenSelect id="radius" label="Radius" value={value} options={OPTIONS} onChange={onChange} />,
   );

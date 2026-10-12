@@ -1,3 +1,5 @@
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
 import { inflateRawSync } from 'node:zlib';
 import { expect, type Locator, type Page } from '@playwright/test';
 
@@ -168,4 +170,36 @@ export async function insertEveryBlock(page: Page): Promise<number> {
   }
   await closeLibraryDrawer(page);
   return count;
+}
+
+export async function exportedFiles(page: Page): Promise<Map<string, Buffer>> {
+  await page.getByRole('button', { name: 'Export', exact: true }).click();
+  const downloadPromise = page.waitForEvent('download');
+  await page
+    .getByRole('dialog', { name: 'Export site' })
+    .getByRole('button', { name: 'Download zip' })
+    .click();
+  return readZip(await readFile(await (await downloadPromise).path()));
+}
+
+export async function writeSiteFiles(files: Map<string, Buffer>, folder: string): Promise<void> {
+  for (const [path, content] of files) {
+    const target = join(folder, path);
+    await mkdir(dirname(target), { recursive: true });
+    await writeFile(target, content);
+  }
+}
+
+export async function markCanvasDocument(page: Page): Promise<void> {
+  await page.evaluate(() => {
+    const view = document.querySelector<HTMLIFrameElement>('.ve-canvas-frame')?.contentWindow;
+    if (view) Object.assign(view, { keptAlive: true });
+  });
+}
+
+export async function isCanvasDocumentKept(page: Page): Promise<boolean> {
+  return page.evaluate(() => {
+    const view = document.querySelector<HTMLIFrameElement>('.ve-canvas-frame')?.contentWindow;
+    return view !== null && view !== undefined && 'keptAlive' in view;
+  });
 }

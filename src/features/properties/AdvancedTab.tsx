@@ -1,18 +1,17 @@
-import { useState, type JSX, type ReactNode } from 'react';
+import { useState, type JSX } from 'react';
 import { visibleBlockLists } from '../../app/blockLists';
 import { conversionRequested } from '../../app/editorSlice';
 import { blockAdvancedSet } from '../../app/projectSlice';
 import { dispatch, selectCurrentPage, useStore } from '../../app/store';
 import { DEVICES, type Block, type Device } from '../../app/types';
 import { isValidAnchor, isValidClassName, parseClassNames } from '../../render/attributes';
-import { useSection } from '../editor/useSection';
+import { RememberedSection } from '../editor/useSection';
 import {
   Button,
   Checkbox,
   DraftInput,
   Field,
   fieldErrorId,
-  Section,
   TextInput,
 } from '../../../packages/ui/src';
 
@@ -136,35 +135,18 @@ function HideOnControl({ block }: { block: Block }): JSX.Element {
   );
 }
 
-function AdvancedSection({
-  id,
-  title,
-  children,
-}: {
-  id: string;
-  title: string;
-  children: ReactNode;
-}): JSX.Element {
-  const section = useSection(`advanced:${id}`);
-  return (
-    <Section title={title} isOpen={section.isOpen} onToggle={section.onToggle}>
-      {children}
-    </Section>
-  );
-}
-
 export function AdvancedTab({ block }: { block: Block }): JSX.Element {
   return (
     <>
-      <AdvancedSection id="attributes" title="Anchor and classes">
+      <RememberedSection id="advanced:attributes" title="Anchor and classes">
         <AnchorControl block={block} />
         <ClassesControl block={block} />
-      </AdvancedSection>
-      <AdvancedSection id="visibility" title="Visibility">
+      </RememberedSection>
+      <RememberedSection id="advanced:visibility" title="Visibility">
         <HideOnControl block={block} />
-      </AdvancedSection>
+      </RememberedSection>
       {block.kind === 'component' && (
-        <AdvancedSection id="convert" title="Code">
+        <RememberedSection id="advanced:convert" title="Code">
           <Button
             icon="code"
             className="ve-convert-button"
@@ -172,7 +154,7 @@ export function AdvancedTab({ block }: { block: Block }): JSX.Element {
           >
             Convert to HTML…
           </Button>
-        </AdvancedSection>
+        </RememberedSection>
       )}
     </>
   );

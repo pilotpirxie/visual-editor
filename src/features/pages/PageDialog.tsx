@@ -2,6 +2,7 @@ import { useState, type FormEvent, type JSX } from 'react';
 import { pageRenamed } from '../../app/projectSlice';
 import { slugError, uniqueSlug } from '../../app/slugs';
 import { dispatch, useStore } from '../../app/store';
+import type { Page } from '../../app/types';
 import { addPage } from './pageActions';
 import {
   Button,
@@ -21,8 +22,17 @@ const BLANK = '';
 const TITLE_ID = 've-page-dialog-title';
 const NAME_REQUIRED = 'Enter a page name';
 
-function useSlugsExcept(pageId: string | null): string[] {
-  const pages = useStore((state) => state.project.pages);
+type PageList = { ids: string[]; entities: Record<string, Page | undefined> };
+
+type PageForm = {
+  slug: string;
+  nameError: string | null;
+  slugError: string | null;
+  shownNameError: string | null;
+  shownSlugError: string | null;
+};
+
+function slugsExcept(pages: PageList, pageId: string | null): string[] {
   const slugs: string[] = [];
   for (const id of pages.ids) {
     const page = pages.entities[id];
@@ -31,38 +41,54 @@ function useSlugsExcept(pageId: string | null): string[] {
   return slugs;
 }
 
+function sourceOptionsOf(pages: PageList): { value: string; label: string }[] {
+  const options = [{ value: BLANK, label: 'Blank page' }];
+  for (const id of pages.ids) {
+    options.push({ value: id, label: `Duplicate of ${pages.entities[id]?.name ?? id}` });
+  }
+  return options;
+}
+
+function pageFormOf(
+  name: string,
+  typedSlug: string | null,
+  takenSlugs: readonly string[],
+  isSubmitted: boolean,
+): PageForm {
+  const isNameEmpty = name.trim() === '';
+  const slug = typedSlug ?? (isNameEmpty ? '' : uniqueSlug(name, takenSlugs));
+  const nameError = isNameEmpty ? NAME_REQUIRED : null;
+  const slugProblem = slugError(slug, takenSlugs);
+  return {
+    slug,
+    nameError,
+    slugError: slugProblem,
+    shownNameError: isSubmitted ? nameError : null,
+    shownSlugError: isSubmitted || typedSlug !== null ? slugProblem : null,
+  };
+}
+
 export function PageDialog({ pageId, onClose }: PageDialogProps): JSX.Element {
   const pages = useStore((state) => state.project.pages);
   const editedPage = pageId === null ? undefined : pages.entities[pageId];
   const isEditing = editedPage !== undefined;
-  const takenSlugs = useSlugsExcept(pageId);
   const [name, setName] = useState(editedPage?.name ?? '');
   const [typedSlug, setTypedSlug] = useState<string | null>(editedPage?.slug ?? null);
   const [sourcePageId, setSourcePageId] = useState(BLANK);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const autoSlug = name.trim() === '' ? '' : uniqueSlug(name, takenSlugs);
-  const slug = typedSlug ?? autoSlug;
-  const nameError = name.trim() === '' ? NAME_REQUIRED : null;
-  const slugProblem = slugError(slug, takenSlugs);
+  const form = pageFormOf(name, typedSlug, slugsExcept(pages, pageId), isSubmitted);
+  const { slug, shownNameError, shownSlugError } = form;
 
   function submit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     setIsSubmitted(true);
-    if (nameError !== null || slugProblem !== null) return;
+    if (form.nameError !== null || form.slugError !== null) return;
     if (pageId !== null) {
       dispatch(pageRenamed({ pageId, name, slug }));
     } else {
       dispatch(addPage({ name, slug, sourcePageId: sourcePageId === BLANK ? null : sourcePageId }));
     }
     closeDialogOf(event.currentTarget);
-  }
-
-  const shownNameError = isSubmitted ? nameError : null;
-  const shownSlugError = isSubmitted || typedSlug !== null ? slugProblem : null;
-
-  const sourceOptions = [{ value: BLANK, label: 'Blank page' }];
-  for (const id of pages.ids) {
-    sourceOptions.push({ value: id, label: `Duplicate of ${pages.entities[id]?.name ?? id}` });
   }
 
   return (
@@ -97,7 +123,7 @@ export function PageDialog({ pageId, onClose }: PageDialogProps): JSX.Element {
             <Select
               id="ve-page-source"
               value={sourcePageId}
-              options={sourceOptions}
+              options={sourceOptionsOf(pages)}
               onChange={(event) => setSourcePageId(event.target.value)}
             />
           </Field>

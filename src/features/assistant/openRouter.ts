@@ -189,15 +189,19 @@ function headersFor(key: string): Record<string, string> {
   };
 }
 
-export async function listModels(key: string, signal: AbortSignal): Promise<AssistantModel[]> {
-  const reply = await send('/models', { headers: headersFor(key) }, signal);
+async function modelEntries(path: string, key: string, signal: AbortSignal): Promise<unknown[]> {
+  const reply = await send(path, { headers: headersFor(key) }, signal);
   const isOk = reply.status >= 200 && reply.status < 300;
   if (!isOk) throw errorForStatus(reply.status, serverMessage(reply.body));
   if (!isRecord(reply.body) || !Array.isArray(reply.body.data)) {
     throw new AssistantError('answer', 'OpenRouter sent a model list that could not be read.');
   }
+  return reply.body.data;
+}
+
+export async function listModels(key: string, signal: AbortSignal): Promise<AssistantModel[]> {
   const models: AssistantModel[] = [];
-  for (const entry of reply.body.data) {
+  for (const entry of await modelEntries('/models', key, signal)) {
     const model = modelFrom(entry);
     if (model !== null) models.push(model);
   }
@@ -205,15 +209,8 @@ export async function listModels(key: string, signal: AbortSignal): Promise<Assi
 }
 
 export async function listImageModels(key: string, signal: AbortSignal): Promise<ImageModel[]> {
-  const path = '/models?output_modalities=image';
-  const reply = await send(path, { headers: headersFor(key) }, signal);
-  const isOk = reply.status >= 200 && reply.status < 300;
-  if (!isOk) throw errorForStatus(reply.status, serverMessage(reply.body));
-  if (!isRecord(reply.body) || !Array.isArray(reply.body.data)) {
-    throw new AssistantError('answer', 'OpenRouter sent a model list that could not be read.');
-  }
   const models: ImageModel[] = [];
-  for (const entry of reply.body.data) {
+  for (const entry of await modelEntries('/models?output_modalities=image', key, signal)) {
     if (!isRecord(entry) || typeof entry.id !== 'string' || entry.id === '') continue;
     const architecture = isRecord(entry.architecture) ? entry.architecture : {};
     if (!strings(architecture.output_modalities).includes('image')) continue;
@@ -324,14 +321,15 @@ function usageOf(body: Record<string, unknown>): Usage {
   };
 }
 
-async function askOnce(request: JsonRequest, signal: AbortSignal): Promise<JsonAnswer> {
+async function postForAnswer(
+  path: string,
+  key: string,
+  payload: Record<string, unknown>,
+  signal: AbortSignal,
+): Promise<Record<string, unknown>> {
   const reply = await send(
-    '/chat/completions',
-    {
-      method: 'POST',
-      headers: headersFor(request.key),
-      body: JSON.stringify(requestBody(request)),
-    },
+    path,
+    { method: 'POST', headers: headersFor(key), body: JSON.stringify(payload) },
     signal,
   );
   const isOk = reply.status >= 200 && reply.status < 300;
@@ -343,6 +341,12 @@ async function askOnce(request: JsonRequest, signal: AbortSignal): Promise<JsonA
   if (isRecord(body.error)) {
     throw errorForStatus(finiteNumber(body.error.code) ?? 0, serverMessage(body));
   }
+  return body;
+}
+
+async function askOnce(request: JsonRequest, signal: AbortSignal): Promise<JsonAnswer> {
+  const payload = requestBody(request);
+  const body = await postForAnswer('/chat/completions', request.key, payload, signal);
   const choice: unknown = Array.isArray(body.choices) ? body.choices[0] : undefined;
   if (!isRecord(choice)) {
     throw new AssistantError('answer', 'The model sent an empty answer. Try again.', {
@@ -396,24 +400,8 @@ export function askForJson(request: JsonRequest, signal: AbortSignal): Promise<J
 
 async function imageOnce(request: ImageRequest, signal: AbortSignal): Promise<ImageAnswer> {
   const { model, prompt, aspectRatio } = request;
-  const reply = await send(
-    '/images',
-    {
-      method: 'POST',
-      headers: headersFor(request.key),
-      body: JSON.stringify({ model: model.id, prompt, aspect_ratio: aspectRatio, n: 1 }),
-    },
-    signal,
-  );
-  const isOk = reply.status >= 200 && reply.status < 300;
-  if (!isOk) throw errorForStatus(reply.status, serverMessage(reply.body));
-  const { body } = reply;
-  if (!isRecord(body)) {
-    throw new AssistantError('answer', 'OpenRouter sent an answer that could not be read.');
-  }
-  if (isRecord(body.error)) {
-    throw errorForStatus(finiteNumber(body.error.code) ?? 0, serverMessage(body));
-  }
+  const payload = { model: model.id, prompt, aspect_ratio: aspectRatio, n: 1 };
+  const body = await postForAnswer('/images', request.key, payload, signal);
   const image: unknown = Array.isArray(body.data) ? body.data[0] : undefined;
   const data = isRecord(image) ? image.b64_json : undefined;
   const mediaType = isRecord(image) ? image.media_type : undefined;

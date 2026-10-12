@@ -1,3 +1,5 @@
+import { VOID_ELEMENTS } from '../../render/formatHtml';
+
 export type HtmlTokenKind = 'tag' | 'attribute' | 'value' | 'comment';
 
 export type HtmlToken = { kind: HtmlTokenKind; start: number; end: number };
@@ -5,22 +7,6 @@ export type HtmlToken = { kind: HtmlTokenKind; start: number; end: number };
 const COMMENT = /<!--[\s\S]*?-->/g;
 const TAG = /<(?<slash>\/?)(?<name>[a-zA-Z][\w:-]*)(?<attributes>[^<>]*?)(?<selfClose>\/?)>/g;
 const ATTRIBUTE = /(?<name>[^\s=/"'<>]+)(?:\s*=\s*(?<value>"[^"]*"|'[^']*'|[^\s"'<>=`]+))?/g;
-
-const VOID_ELEMENTS = new Set([
-  'area',
-  'base',
-  'br',
-  'col',
-  'embed',
-  'hr',
-  'img',
-  'input',
-  'link',
-  'meta',
-  'source',
-  'track',
-  'wbr',
-]);
 
 function isInside(position: number, comments: readonly HtmlToken[]): boolean {
   for (const comment of comments) {

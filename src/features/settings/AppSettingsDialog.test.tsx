@@ -37,7 +37,9 @@ const MODELS_REPLY = {
 };
 
 let requests: string[] = [];
-let reply: () => Response = () => new Response(JSON.stringify(MODELS_REPLY));
+let sentKeys: (string | null)[] = [];
+let signals: (AbortSignal | null)[] = [];
+let reply: () => Response | Promise<Response> = () => new Response(JSON.stringify(MODELS_REPLY));
 
 function renderDialog(initialTab: AppSettingsTab = 'general'): HTMLDivElement {
   return render(<AppSettingsDialog initialTab={initialTab} onClose={() => {}} />).container;
@@ -71,9 +73,13 @@ beforeEach(() => {
   localStorage.clear();
   document.documentElement.removeAttribute('data-ve-appearance');
   requests = [];
+  sentKeys = [];
+  signals = [];
   reply = () => new Response(JSON.stringify(MODELS_REPLY));
-  vi.stubGlobal('fetch', async (url: string) => {
+  vi.stubGlobal('fetch', async (url: string, init: RequestInit = {}) => {
     requests.push(url);
+    sentKeys.push(new Headers(init.headers).get('Authorization'));
+    signals.push(init.signal ?? null);
     return reply();
   });
 });
@@ -222,5 +228,55 @@ describe('AppSettingsDialog, Assistant', () => {
       'OpenRouter did not accept the API key. Check it in App settings.',
     );
     expect(container.querySelector('.ve-model-picker')).toBeNull();
+  });
+
+  it('says why the image models did not load and keeps the model list', async () => {
+    const logged = vi.spyOn(console, 'error').mockImplementation(() => {});
+    updateAppSettings({ openRouterKey: 'sk-or-test' });
+    const container = renderDialog('assistant');
+    await loadModels(container);
+    reply = () => new Response(JSON.stringify({ error: { code: 402 } }), { status: 402 });
+    click(getButton(container, 'Load image models'));
+    await vi.waitFor(() => {
+      expect(container.querySelector('[role="alert"]')).not.toBeNull();
+    });
+    expect(logged.mock.calls[0][0]).toBe('The OpenRouter image model list did not load');
+    expect(container.textContent).toContain('2 models can build sites.');
+    expect(container.querySelector('[aria-label="Image models"]')).toBeNull();
+    expect(queryButton(container, 'Load image models')).not.toBeNull();
+  });
+
+  it('sends the key without the spaces around it', async () => {
+    updateAppSettings({ openRouterKey: '  sk-or-test ' });
+    const container = renderDialog('assistant');
+    await loadModels(container);
+    expect(sentKeys).toEqual(['Bearer sk-or-test']);
+  });
+
+  it('cannot load models while a list is loading', async () => {
+    updateAppSettings({ openRouterKey: 'sk-or-test' });
+    reply = () => new Promise<Response>(() => {});
+    const container = renderDialog('assistant');
+    click(getButton(container, 'Load models'));
+    await vi.waitFor(() => {
+      expect(container.textContent).toContain('Loading models…');
+    });
+    expect(getButton(container, 'Load models').disabled).toBe(true);
+    expect(getButton(container, 'Load image models').disabled).toBe(false);
+  });
+
+  it('cancels a list that is still loading when the dialog goes away', async () => {
+    const logged = vi.spyOn(console, 'error').mockImplementation(() => {});
+    updateAppSettings({ openRouterKey: 'sk-or-test' });
+    reply = () => new Promise<Response>(() => {});
+    const rendered = render(<AppSettingsDialog initialTab="assistant" onClose={() => {}} />);
+    click(getButton(rendered.container, 'Load models'));
+    await vi.waitFor(() => {
+      expect(signals).toHaveLength(1);
+    });
+    expect(signals[0]?.aborted).toBe(false);
+    rendered.unmount();
+    expect(signals[0]?.aborted).toBe(true);
+    expect(logged).not.toHaveBeenCalled();
   });
 });

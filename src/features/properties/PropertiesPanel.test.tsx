@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { blockSelected, fieldFocusRequested } from '../../app/editorSlice';
+import { blockSelected, fieldFocusRequested, propertiesTabChanged } from '../../app/editorSlice';
 import { dispatch, store } from '../../app/store';
 import { changeValue, click, getButton, render, runInAct } from '../../test/dom';
-import { componentBlockOf, homePage, loadIntoAppStore } from '../../test/fixtures';
+import { componentBlockOf, homePage, loadIntoAppStore, blockIdAt } from '../../test/fixtures';
 import { convertToHtml } from '../editor/htmlBlockActions';
 import { PropertiesPanel } from './PropertiesPanel';
 
@@ -12,10 +12,6 @@ vi.mock('../../persistence/db', () => ({
   listProjects: vi.fn(async () => []),
   deleteProject: vi.fn(async () => {}),
 }));
-
-function blockIdAt(index: number): string {
-  return homePage(store.getState().project).blockIds[index];
-}
 
 function select(index: number): string {
   const blockId = blockIdAt(index);
@@ -157,6 +153,23 @@ describe('PropertiesPanel with a block whose component is gone', () => {
     expect(store.getState().project.blocks.entities[blockId]).toBeUndefined();
     expect(homePage(store.getState().project).blockIds).not.toContain(blockId);
   });
+
+  it('shows no tabs, no category and no shared switch for it', () => {
+    const project = loadIntoAppStore();
+    const blockId = homePage(project).blockIds[0] ?? '';
+    const orphaned = structuredClone(project);
+    componentBlockOf(orphaned, blockId).componentId = 'acme/quote-card';
+    runInAct(() => {
+      loadIntoAppStore(orphaned);
+      dispatch(blockSelected(blockId));
+    });
+    const { container } = render(<PropertiesPanel />);
+    expect(container.querySelectorAll('[role="tab"]')).toHaveLength(0);
+    expect(container.querySelector('.ve-panel-detail')).toBeNull();
+    expect(container.querySelector('#ve-shared-switch')).toBeNull();
+    expect(container.querySelector('.ui-title')?.textContent).not.toBe('');
+    expect(container.querySelector('.ve-properties-body')?.children).toHaveLength(1);
+  });
 });
 
 describe('PropertiesPanel with an HTML block', () => {
@@ -172,5 +185,41 @@ describe('PropertiesPanel with an HTML block', () => {
     const tabs = [...container.querySelectorAll('[role="tab"]')].map((tab) => tab.textContent);
     expect(tabs).toEqual(['Code', 'Advanced']);
     expect(container.querySelector('[role="textbox"][aria-label="HTML"]')).not.toBeNull();
+  });
+
+  it('swaps the code editor for the advanced settings on the Advanced tab', () => {
+    const heroId = homePage(store.getState().project).blockIds[1] ?? '';
+    runInAct(() => {
+      dispatch(convertToHtml(heroId));
+      dispatch(blockSelected(heroId));
+      dispatch(propertiesTabChanged('advanced'));
+    });
+    const { container } = render(<PropertiesPanel />);
+    expect(container.querySelector('[role="textbox"][aria-label="HTML"]')).toBeNull();
+    expect(container.textContent).toContain('Anchor and classes');
+    const body = container.querySelector('.ve-properties-body');
+    expect(body?.getAttribute('aria-labelledby')).toBe('ve-properties-tab-advanced');
+  });
+
+  it('falls back to the code editor when a tab of component blocks is still active', () => {
+    const heroId = homePage(store.getState().project).blockIds[1] ?? '';
+    runInAct(() => {
+      dispatch(propertiesTabChanged('style'));
+      dispatch(convertToHtml(heroId));
+      dispatch(blockSelected(heroId));
+      dispatch(propertiesTabChanged('style'));
+    });
+    const { container } = render(<PropertiesPanel />);
+    expect(container.querySelector('[role="textbox"][aria-label="HTML"]')).not.toBeNull();
+  });
+
+  it('offers the shared switch for an HTML block made from a navigation', () => {
+    const navId = homePage(store.getState().project).blockIds[0] ?? '';
+    runInAct(() => {
+      dispatch(convertToHtml(navId));
+      dispatch(blockSelected(navId));
+    });
+    const { container } = render(<PropertiesPanel />);
+    expect(container.querySelector('#ve-shared-switch')).not.toBeNull();
   });
 });

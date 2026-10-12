@@ -43,7 +43,7 @@ const BLOCK_ELEMENTS = new Set([
   'ul',
 ]);
 
-const VOID_ELEMENTS = new Set([
+export const VOID_ELEMENTS = new Set([
   'area',
   'base',
   'br',

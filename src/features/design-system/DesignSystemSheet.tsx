@@ -1,6 +1,6 @@
-import { memo, useEffect, useRef, type JSX, type KeyboardEvent, type ReactNode } from 'react';
+import { memo, useEffect, useRef, type JSX, type KeyboardEvent } from 'react';
 import { designSheetToggled } from '../../app/editorSlice';
-import { tokenSet, tokensSet, type EditKind } from '../../app/projectSlice';
+import { tokensSet } from '../../app/projectSlice';
 import { isThemeToken, themeFamilyTokenNames, type ThemeFamily } from '../../app/sectionThemes';
 import { dispatch, useStore } from '../../app/store';
 import type { Token, TokenGenerators, TokenGroup } from '../../app/types';
@@ -9,17 +9,16 @@ import {
   Field,
   Icon,
   IconButton,
-  Section,
   SegmentedControl,
   Title,
 } from '../../../packages/ui/src';
-import { useSection } from '../editor/useSection';
+import { RememberedSection } from '../editor/useSection';
 import { contrastWarnings, MIN_TEXT_CONTRAST } from './colors';
 import { activeShadowPreset, SHADOW_PRESETS, spacingTokens } from './generators';
 import { IconSetPicker } from './IconSetPicker';
 import { PresetsSection } from './PresetList';
 import { TokenControl } from './TokenControls';
-import { TypographySection } from './TypographySection';
+import { setToken, TypographySection } from './TypographySection';
 import './designSystem.css';
 
 const SPACE_UNIT_LIMITS = { min: 2, max: 12 };
@@ -62,29 +61,6 @@ function themeColorTokens(tokens: Record<string, Token>, family: ThemeFamily): T
     if (token !== undefined) familyTokens.push(token);
   }
   return familyTokens;
-}
-
-function setToken(name: string, value: string, kind: EditKind): void {
-  dispatch(tokenSet({ name, value }, kind));
-}
-
-function DesignSection({
-  id,
-  title,
-  defaultOpen = true,
-  children,
-}: {
-  id: string;
-  title: string;
-  defaultOpen?: boolean;
-  children: ReactNode;
-}): JSX.Element {
-  const section = useSection(`design:${id}`, defaultOpen);
-  return (
-    <Section title={title} isOpen={section.isOpen} onToggle={section.onToggle}>
-      {children}
-    </Section>
-  );
 }
 
 type TokenRowProps = { token: Token; tokens: Record<string, Token> };
@@ -232,37 +208,37 @@ export function DesignSystemSheet(): JSX.Element {
       </header>
       <div className="ve-design-sheet-body">
         <PresetsSection />
-        <DesignSection id="colors" title="Colors">
+        <RememberedSection id="design:colors" title="Colors">
           <ContrastNotes tokens={tokens} />
           <TokenList tokens={tokens} shown={baseColorTokens(tokens)} />
-        </DesignSection>
+        </RememberedSection>
         <TypographySection />
-        <DesignSection id="icons" title="Icons">
+        <RememberedSection id="design:icons" title="Icons">
           <IconSetPicker />
-        </DesignSection>
-        <DesignSection id="spacing" title="Spacing" defaultOpen={false}>
+        </RememberedSection>
+        <RememberedSection id="design:spacing" title="Spacing" defaultOpen={false}>
           <SpacingUnitControl generators={generators} tokens={tokens} />
           <TokenList tokens={tokens} shown={spacing.layout} />
-        </DesignSection>
-        <DesignSection id="space-steps" title="Space steps" defaultOpen={false}>
+        </RememberedSection>
+        <RememberedSection id="design:space-steps" title="Space steps" defaultOpen={false}>
           <TokenList tokens={tokens} shown={spacing.steps} />
-        </DesignSection>
-        <DesignSection id="shape" title="Shape and elevation" defaultOpen={false}>
+        </RememberedSection>
+        <RememberedSection id="design:shape" title="Shape and elevation" defaultOpen={false}>
           <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'shape')} />
           <ShadowPresetPicker tokens={tokens} />
-        </DesignSection>
-        <DesignSection id="theme-dark" title="Dark sections" defaultOpen={false}>
+        </RememberedSection>
+        <RememberedSection id="design:theme-dark" title="Dark sections" defaultOpen={false}>
           <TokenList tokens={tokens} shown={themeColorTokens(tokens, 'dark')} />
-        </DesignSection>
-        <DesignSection id="theme-primary" title="Primary sections" defaultOpen={false}>
+        </RememberedSection>
+        <RememberedSection id="design:theme-primary" title="Primary sections" defaultOpen={false}>
           <TokenList tokens={tokens} shown={themeColorTokens(tokens, 'primary')} />
-        </DesignSection>
-        <DesignSection id="components" title="Components" defaultOpen={false}>
+        </RememberedSection>
+        <RememberedSection id="design:components" title="Components" defaultOpen={false}>
           <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'component')} />
-        </DesignSection>
-        <DesignSection id="motion" title="Motion" defaultOpen={false}>
+        </RememberedSection>
+        <RememberedSection id="design:motion" title="Motion" defaultOpen={false}>
           <TokenList tokens={tokens} shown={tokensInGroup(tokens, 'motion')} />
-        </DesignSection>
+        </RememberedSection>
       </div>
     </aside>
   );

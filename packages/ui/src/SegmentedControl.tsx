@@ -4,7 +4,7 @@ import { hasIcon, Icon } from './Icon';
 import { TooltipLabel } from './Tooltip';
 import './Choice.css';
 
-export type SegmentOption = { value: string; label: string; icon?: string };
+type SegmentOption = { value: string; label: string; icon?: string };
 
 type SegmentedControlProps = {
   legend: string;

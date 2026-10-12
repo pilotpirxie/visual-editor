@@ -1,5 +1,5 @@
 import { noticeShown } from '../../app/editorSlice';
-import { describeError } from '../../app/errors';
+import {} from '../../app/errors';
 import { packRemoved } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
 import type { ParsedPackFile } from '../../components/packFormat';
@@ -7,6 +7,7 @@ import type { BlockPack, PackInfo } from '../../components/types';
 import { slugify } from '../../app/slugs';
 import { downloadBlob } from '../export/download';
 import { pickFile, type FilePicker } from '../files/fileAccess';
+import { reportFailure } from '../files/fileCommands';
 import {
   addPackToLibrary,
   addProjectPackToLibrary,
@@ -20,7 +21,7 @@ import { packUsage } from './packUpdates';
 import { packZip } from './packZip';
 import { takeSnapshot } from '../snapshots/snapshots';
 
-export type PackDialog =
+type PackDialog =
   { kind: 'load'; fileName: string; reading: ParsedPackFile } | { kind: 'manage' } | null;
 
 export type PackCommands = {
@@ -43,11 +44,6 @@ const PACK_PICKER: FilePicker = {
   type: 'application/zip',
   extension: '.zip',
 };
-
-function reportFailure(action: string, error: unknown): void {
-  console.error(`${action} failed`, error);
-  dispatch(noticeShown('error', `${action} failed: ${describeError(error)}`));
-}
 
 function removeFromOpenProject(pack: PackInfo): number {
   const { project } = store.getState();

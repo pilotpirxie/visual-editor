@@ -1,8 +1,7 @@
-import { readFile } from 'node:fs/promises';
-import { expect, test, type Page } from '@playwright/test';
-import { createProject, insertBlock, readZip } from './editor';
+import { expect, test, type Page, type FrameLocator } from '@playwright/test';
+import { createProject, insertBlock, exportedFiles } from './editor';
 
-function canvas(page: Page) {
+function canvas(page: Page): FrameLocator {
   return page.frameLocator('.ve-canvas-frame');
 }
 
@@ -34,13 +33,7 @@ test('icons come from any set, and switching the default set swaps only default 
   expect(await svgOf(page, '.b-toggle svg')).toBe(pickedIcon);
 
   await page.keyboard.press('Escape');
-  await page.getByRole('button', { name: 'Export', exact: true }).click();
-  const downloadPromise = page.waitForEvent('download');
-  await page
-    .getByRole('dialog', { name: 'Export site' })
-    .getByRole('button', { name: 'Download zip' })
-    .click();
-  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const files = await exportedFiles(page);
   const html = files.get('index.html')?.toString('utf8') ?? '';
   expect(html).toContain('<symbol id="icon-tabler-rocket"');
   expect(html).toContain('<symbol id="icon-remix-flashlight-line"');

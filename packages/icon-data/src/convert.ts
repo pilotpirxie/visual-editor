@@ -1,4 +1,4 @@
-export type IconData = { body: string; width?: number; height?: number; hidden?: true };
+type IconData = { body: string; width?: number; height?: number; hidden?: true };
 
 export type IconStyle = { suffix: string; label: string };
 

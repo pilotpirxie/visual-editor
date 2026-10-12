@@ -5,6 +5,8 @@ import {
   isAnyOf,
   type ThunkAction,
   type UnknownAction,
+  type Store,
+  type ThunkDispatch,
 } from '@reduxjs/toolkit';
 import { useSyncExternalStore } from 'react';
 import { pageSlugsOf, renderContextFor } from '../render/renderBlock';
@@ -38,6 +40,10 @@ export type { RootState };
 
 export type AppThunk<Result = void> = ThunkAction<Result, RootState, unknown, UnknownAction>;
 
+type AppStore = Store<RootState, UnknownAction> & {
+  dispatch: ThunkDispatch<RootState, undefined, UnknownAction>;
+};
+
 type AppStoreOptions = {
   preloadedState?: Partial<RootState>;
   onProjectEdited?(project: Project): void;
@@ -55,7 +61,7 @@ export function createAppStore({
   preloadedState,
   onProjectEdited,
   onAnnouncement,
-}: AppStoreOptions = {}) {
+}: AppStoreOptions = {}): AppStore {
   const listener = createListenerMiddleware<RootState>();
   listener.startListening({
     predicate: (action, current, previous) => {

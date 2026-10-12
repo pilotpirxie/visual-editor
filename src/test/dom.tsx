@@ -131,3 +131,12 @@ export function choiceInput(scope: ParentNode, label: string): HTMLInputElement 
   }
   return null;
 }
+
+export function chooseFile(scope: ParentNode, file: File): void {
+  const input = scope.querySelector<HTMLInputElement>('input[type="file"]');
+  if (input === null) throw new Error('The file input is missing');
+  Object.defineProperty(input, 'files', { value: [file], configurable: true });
+  runInAct(() => {
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+}

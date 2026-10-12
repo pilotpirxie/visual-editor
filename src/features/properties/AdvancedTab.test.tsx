@@ -4,8 +4,9 @@ import { undo } from '../../app/history';
 import { blockAdvancedSet } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
 import { blur, changeValue, click, render, runInAct } from '../../test/dom';
-import { homePage, loadIntoAppStore } from '../../test/fixtures';
+import { loadIntoAppStore, blockIdAt } from '../../test/fixtures';
 import { PropertiesPanel } from './PropertiesPanel';
+import type { Block } from '../../app/types';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
@@ -14,11 +15,7 @@ vi.mock('../../persistence/db', () => ({
   deleteProject: vi.fn(async () => {}),
 }));
 
-function blockIdAt(index: number): string {
-  return homePage(store.getState().project).blockIds[index];
-}
-
-function blockAt(index: number) {
+function blockAt(index: number): Block {
   return store.getState().project.blocks.entities[blockIdAt(index)];
 }
 

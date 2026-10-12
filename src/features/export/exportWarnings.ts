@@ -13,7 +13,7 @@ import {
   resolveColor,
 } from '../design-system/colors';
 
-export type SiteArea = 'settings' | 'design';
+type SiteArea = 'settings' | 'design';
 
 export type ExportWarning = {
   pageId: string | null;
@@ -170,7 +170,7 @@ function overrideContrast(project: Project, overrides: Record<string, string>): 
   return contrastRatio(resolveColor(text, tokens), resolveColor(background, tokens));
 }
 
-export function designContrastWarnings(project: Project): ExportWarning[] {
+function designContrastWarnings(project: Project): ExportWarning[] {
   const warnings: ExportWarning[] = [];
   for (const { foreground, background, ratio } of contrastWarnings(project.designSystem.tokens)) {
     warnings.push(

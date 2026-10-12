@@ -41,6 +41,90 @@ function withPreset(project: Project, presetId: string): Project {
   return { ...project, designSystem: applyPreset(project.designSystem, preset, PRESET_GROUPS) };
 }
 
+type Option = { value: string; label: string };
+
+const PRESET_OPTIONS: Option[] = BUILTIN_PRESETS.map((preset) => ({
+  value: preset.id,
+  label: preset.name,
+}));
+
+function pageOptionsOf(project: Project): Option[] {
+  const options: Option[] = [];
+  for (const id of project.pages.ids) {
+    options.push({ value: id, label: project.pages.entities[id]?.name ?? id });
+  }
+  return options;
+}
+
+function linkFonts(doc: Document, project: Project): void {
+  const fontsHref = googleFontsHref(project.designSystem.fonts);
+  if (fontsHref === null) return;
+  const fontsLink = doc.createElement('link');
+  fontsLink.rel = 'stylesheet';
+  fontsLink.href = fontsHref;
+  doc.head.append(fontsLink);
+}
+
+type PreviewBarProps = {
+  starterName: string;
+  pageId: string;
+  pageOptions: Option[];
+  device: Device;
+  presetId: string;
+  isDisabled: boolean;
+  onPage(pageId: string): void;
+  onDevice(device: Device): void;
+  onPreset(presetId: string): void;
+  onUse(): void;
+};
+
+function PreviewBar({
+  starterName,
+  pageId,
+  pageOptions,
+  device,
+  presetId,
+  isDisabled,
+  onPage,
+  onDevice,
+  onPreset,
+  onUse,
+}: PreviewBarProps): JSX.Element {
+  return (
+    <header className="ve-starter-preview-bar">
+      <Title id={TITLE_ID}>{starterName}</Title>
+      <Field id="ve-starter-page" label="Page" layout="inline" className="ve-starter-field">
+        <Select
+          id="ve-starter-page"
+          value={pageId}
+          options={pageOptions}
+          onChange={(event) => onPage(event.target.value)}
+        />
+      </Field>
+      <DeviceToggle
+        name="ve-starter-device"
+        value={device}
+        modes={STARTER_DEVICES}
+        onChange={(mode) => onDevice(mode)}
+      />
+      <Field id="ve-starter-design" label="Design" layout="inline" className="ve-starter-field">
+        <Select
+          id="ve-starter-design"
+          value={presetId}
+          options={PRESET_OPTIONS}
+          onChange={(event) => onPreset(event.target.value)}
+        />
+      </Field>
+      <div className="ve-starter-preview-actions">
+        <Button onClick={(event) => closeDialogOf(event.currentTarget)}>Close</Button>
+        <Button variant="primary" disabled={isDisabled} onClick={onUse}>
+          Use this starter
+        </Button>
+      </div>
+    </header>
+  );
+}
+
 export function StarterPreview({
   starter,
   project,
@@ -78,78 +162,47 @@ export function StarterPreview({
     setPresetId(nextPresetId);
   }
 
+  function followLink(doc: Document, click: MouseEvent): void {
+    const link = isElementTarget(click.target) ? click.target.closest('a[href]') : null;
+    if (link === null) return;
+    click.preventDefault();
+    const destination = canvasLinkTarget(link.getAttribute('href'), pageSlugs);
+    if (destination.kind === 'section') {
+      doc.getElementById(destination.anchor)?.scrollIntoView({ behavior: 'smooth' });
+    } else if (destination.kind === 'page' && destination.pageId === pageId) {
+      if (destination.anchor !== null) doc.getElementById(destination.anchor)?.scrollIntoView();
+    } else if (destination.kind === 'page') {
+      pendingAnchorRef.current = destination.anchor;
+      setPageId(destination.pageId);
+    }
+  }
+
   function handleFrameLoad(event: SyntheticEvent<HTMLIFrameElement>): void {
     const doc = event.currentTarget.contentDocument;
     if (doc === null) return;
-    const fontsHref = googleFontsHref(shown.designSystem.fonts);
-    if (fontsHref !== null) {
-      const fontsLink = doc.createElement('link');
-      fontsLink.rel = 'stylesheet';
-      fontsLink.href = fontsHref;
-      doc.head.append(fontsLink);
-    }
+    linkFonts(doc, shown);
     const anchor = pendingAnchorRef.current;
     pendingAnchorRef.current = null;
     if (anchor !== null) doc.getElementById(anchor)?.scrollIntoView();
     doc.addEventListener('submit', (submit) => submit.preventDefault());
-    doc.addEventListener('click', (click) => {
-      const link = isElementTarget(click.target) ? click.target.closest('a[href]') : null;
-      if (link === null) return;
-      click.preventDefault();
-      const destination = canvasLinkTarget(link.getAttribute('href'), pageSlugs);
-      if (destination.kind === 'section') {
-        doc.getElementById(destination.anchor)?.scrollIntoView({ behavior: 'smooth' });
-      } else if (destination.kind === 'page' && destination.pageId === pageId) {
-        if (destination.anchor !== null) doc.getElementById(destination.anchor)?.scrollIntoView();
-      } else if (destination.kind === 'page') {
-        pendingAnchorRef.current = destination.anchor;
-        setPageId(destination.pageId);
-      }
-    });
+    doc.addEventListener('click', (click) => followLink(doc, click));
   }
-
-  const pageOptions = [];
-  for (const id of project.pages.ids) {
-    pageOptions.push({ value: id, label: project.pages.entities[id]?.name ?? id });
-  }
-  const presetOptions = [];
-  for (const preset of BUILTIN_PRESETS)
-    presetOptions.push({ value: preset.id, label: preset.name });
 
   return (
     <Dialog labelId={TITLE_ID} size="full" className="ve-starter-preview" onClose={onClose}>
       <div className="ve-starter-preview-body">
-        <header className="ve-starter-preview-bar">
-          <Title id={TITLE_ID}>{starter.name}</Title>
-          <Field id="ve-starter-page" label="Page" layout="inline" className="ve-starter-field">
-            <Select
-              id="ve-starter-page"
-              value={pageId}
-              options={pageOptions}
-              onChange={(event) => setPageId(event.target.value)}
-            />
-          </Field>
-          <DeviceToggle
-            name="ve-starter-device"
-            value={device}
-            modes={STARTER_DEVICES}
-            onChange={(mode) => setDevice(mode)}
-          />
-          <Field id="ve-starter-design" label="Design" layout="inline" className="ve-starter-field">
-            <Select
-              id="ve-starter-design"
-              value={presetId}
-              options={presetOptions}
-              onChange={(event) => void choosePreset(event.target.value)}
-            />
-          </Field>
-          <div className="ve-starter-preview-actions">
-            <Button onClick={(event) => closeDialogOf(event.currentTarget)}>Close</Button>
-            <Button variant="primary" disabled={isDisabled} onClick={() => onUse(shown)}>
-              Use this starter
-            </Button>
-          </div>
-        </header>
+        <PreviewBar
+          starterName={starter.name}
+          pageId={pageId}
+          pageOptions={pageOptionsOf(project)}
+          device={device}
+          presetId={presetId}
+          isDisabled={isDisabled}
+          onPage={setPageId}
+          onDevice={setDevice}
+          onPreset={(nextPresetId) => void choosePreset(nextPresetId)}
+          onUse={() => onUse(shown)}
+        />
         <div className="ve-starter-viewport" ref={viewportRef}>
           <div
             className="ve-starter-device"

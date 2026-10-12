@@ -250,6 +250,108 @@ function settleAttribute(walk: Walk): void {
   scanner.state = 'in-tag';
 }
 
+function scanTagOpen(scanner: Scanner, char: string): void {
+  if (LETTER.test(char)) {
+    scanner.state = 'tag-name';
+    scanner.tagName = char.toLowerCase();
+  } else if (char === '/') {
+    scanner.state = 'end-tag';
+  } else if (char === '!') {
+    scanner.state = 'comment';
+    scanner.closingText = '';
+  } else {
+    scanner.state = 'text';
+  }
+}
+
+function scanTagName(walk: Walk, char: string): void {
+  const { scanner } = walk;
+  if (WHITESPACE.test(char) || char === '/') {
+    finishTagName(walk);
+    scanner.state = 'in-tag';
+  } else if (char === '>') {
+    finishTagName(walk);
+    closeTag(walk);
+  } else {
+    scanner.tagName += char.toLowerCase();
+  }
+}
+
+function scanInTag(walk: Walk, char: string): void {
+  if (char === '>') {
+    closeTag(walk);
+  } else if (!WHITESPACE.test(char) && char !== '/') {
+    startAttribute(walk, char);
+  }
+}
+
+function scanAttrName(walk: Walk, char: string): void {
+  const { scanner } = walk;
+  if (char === '=') {
+    finishAttrName(walk);
+    scanner.state = 'before-attr-value';
+  } else if (WHITESPACE.test(char) || char === '/') {
+    finishAttrName(walk);
+    scanner.state = 'after-attr-name';
+  } else if (char === '>') {
+    finishAttrName(walk);
+    finishAttribute(walk);
+    closeTag(walk);
+  } else {
+    scanner.attrName += char.toLowerCase();
+  }
+}
+
+function scanAfterAttrName(walk: Walk, char: string): void {
+  if (char === '=') {
+    walk.scanner.state = 'before-attr-value';
+  } else if (char === '>') {
+    finishAttribute(walk);
+    closeTag(walk);
+  } else if (!WHITESPACE.test(char) && char !== '/') {
+    finishAttribute(walk);
+    startAttribute(walk, char);
+  }
+}
+
+function scanBeforeAttrValue(walk: Walk, char: string): void {
+  const { scanner } = walk;
+  if (char === '"') {
+    scanner.state = 'attr-value-double';
+  } else if (char === "'") {
+    scanner.state = 'attr-value-single';
+  } else if (char === '>') {
+    finishAttribute(walk);
+    closeTag(walk);
+  } else if (!WHITESPACE.test(char)) {
+    scanner.state = 'attr-value-unquoted';
+    scanner.attrValue = char;
+  }
+}
+
+function scanQuotedValue(walk: Walk, char: string, quote: string): void {
+  const { scanner } = walk;
+  if (char === quote) {
+    finishAttribute(walk);
+    scanner.state = 'in-tag';
+  } else {
+    scanner.attrValue += char;
+  }
+}
+
+function scanUnquotedValue(walk: Walk, char: string): void {
+  const { scanner } = walk;
+  if (WHITESPACE.test(char)) {
+    finishAttribute(walk);
+    scanner.state = 'in-tag';
+  } else if (char === '>') {
+    finishAttribute(walk);
+    closeTag(walk);
+  } else {
+    scanner.attrValue += char;
+  }
+}
+
 function scanTextChar(walk: Walk, char: string): void {
   const { scanner } = walk;
   switch (scanner.state) {
@@ -257,99 +359,34 @@ function scanTextChar(walk: Walk, char: string): void {
       if (char === '<') scanner.state = 'tag-open';
       return;
     case 'tag-open':
-      if (LETTER.test(char)) {
-        scanner.state = 'tag-name';
-        scanner.tagName = char.toLowerCase();
-      } else if (char === '/') {
-        scanner.state = 'end-tag';
-      } else if (char === '!') {
-        scanner.state = 'comment';
-        scanner.closingText = '';
-      } else {
-        scanner.state = 'text';
-      }
+      scanTagOpen(scanner, char);
       return;
     case 'tag-name':
-      if (WHITESPACE.test(char) || char === '/') {
-        finishTagName(walk);
-        scanner.state = 'in-tag';
-      } else if (char === '>') {
-        finishTagName(walk);
-        closeTag(walk);
-      } else {
-        scanner.tagName += char.toLowerCase();
-      }
+      scanTagName(walk, char);
       return;
     case 'end-tag':
       if (char === '>') scanner.state = 'text';
       return;
     case 'in-tag':
-      if (char === '>') {
-        closeTag(walk);
-      } else if (!WHITESPACE.test(char) && char !== '/') {
-        startAttribute(walk, char);
-      }
+      scanInTag(walk, char);
       return;
     case 'attr-name':
-      if (char === '=') {
-        finishAttrName(walk);
-        scanner.state = 'before-attr-value';
-      } else if (WHITESPACE.test(char) || char === '/') {
-        finishAttrName(walk);
-        scanner.state = 'after-attr-name';
-      } else if (char === '>') {
-        finishAttrName(walk);
-        finishAttribute(walk);
-        closeTag(walk);
-      } else {
-        scanner.attrName += char.toLowerCase();
-      }
+      scanAttrName(walk, char);
       return;
     case 'after-attr-name':
-      if (char === '=') {
-        scanner.state = 'before-attr-value';
-      } else if (char === '>') {
-        finishAttribute(walk);
-        closeTag(walk);
-      } else if (!WHITESPACE.test(char) && char !== '/') {
-        finishAttribute(walk);
-        startAttribute(walk, char);
-      }
+      scanAfterAttrName(walk, char);
       return;
     case 'before-attr-value':
-      if (char === '"') {
-        scanner.state = 'attr-value-double';
-      } else if (char === "'") {
-        scanner.state = 'attr-value-single';
-      } else if (char === '>') {
-        finishAttribute(walk);
-        closeTag(walk);
-      } else if (!WHITESPACE.test(char)) {
-        scanner.state = 'attr-value-unquoted';
-        scanner.attrValue = char;
-      }
+      scanBeforeAttrValue(walk, char);
       return;
     case 'attr-value-double':
-    case 'attr-value-single': {
-      const quote = scanner.state === 'attr-value-double' ? '"' : "'";
-      if (char === quote) {
-        finishAttribute(walk);
-        scanner.state = 'in-tag';
-      } else {
-        scanner.attrValue += char;
-      }
+      scanQuotedValue(walk, char, '"');
       return;
-    }
+    case 'attr-value-single':
+      scanQuotedValue(walk, char, "'");
+      return;
     case 'attr-value-unquoted':
-      if (WHITESPACE.test(char)) {
-        finishAttribute(walk);
-        scanner.state = 'in-tag';
-      } else if (char === '>') {
-        finishAttribute(walk);
-        closeTag(walk);
-      } else {
-        scanner.attrValue += char;
-      }
+      scanUnquotedValue(walk, char);
       return;
     case 'comment':
       scanner.closingText += char;
@@ -394,13 +431,21 @@ function isStyleSafe(resolved: ResolvedPath): boolean {
   return field.type === 'list' && rest.length === 1 && key === 'length';
 }
 
+function plainPathOf(
+  walk: Walk,
+  node: hbs.AST.MustacheStatement,
+  helper: string | null,
+): ResolvedPath | null {
+  if (helper !== null || !isPath(node.path)) return null;
+  return resolvePath(node.path, walk.scopes);
+}
+
 function checkStyleMustache(
   walk: Walk,
   node: hbs.AST.MustacheStatement,
   helper: string | null,
 ): void {
-  const resolved =
-    helper === null && isPath(node.path) ? resolvePath(node.path, walk.scopes) : null;
+  const resolved = plainPathOf(walk, node, helper);
   if (resolved !== null && isStyleSafe(resolved)) return;
   walk.report(
     lineOf(node),
@@ -413,8 +458,7 @@ function checkTripleBraces(
   node: hbs.AST.MustacheStatement,
   helper: string | null,
 ): void {
-  const resolved =
-    helper === null && isPath(node.path) ? resolvePath(node.path, walk.scopes) : null;
+  const resolved = plainPathOf(walk, node, helper);
   const isRichText =
     resolved?.kind === 'field' && resolved.field.type === 'richtext' && resolved.rest.length === 0;
   if (!isRichText) walk.report(lineOf(node), 'triple braces {{{ }}} are only for rich text fields');
@@ -590,7 +634,7 @@ function firstLine(message: string): string {
   return message.split('\n')[0] ?? message;
 }
 
-export function rootElementProblem(html: string, rootClass: string): string | null {
+function rootElementProblem(html: string, rootClass: string): string | null {
   const container = document.createElement('template');
   container.innerHTML = html;
   const roots = container.content.children;

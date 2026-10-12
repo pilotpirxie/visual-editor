@@ -3,7 +3,7 @@ import { conversionRequested } from '../../app/editorSlice';
 import { dispatch, useStore } from '../../app/store';
 import { blockLabel } from '../../components/registry';
 import { convertToHtml } from '../editor/htmlBlockActions';
-import { closeDialogOf, Dialog } from '../../../packages/ui/src';
+import { Button, closeDialogOf, Dialog, DialogActions } from '../../../packages/ui/src';
 
 const TITLE_ID = 've-convert-title';
 
@@ -27,18 +27,12 @@ export function ConvertToHtmlDialog({ blockId }: { blockId: string }): JSX.Eleme
             <li>Links to your pages become fixed addresses that no longer follow page renames.</li>
           </ul>
         </div>
-        <div className="ui-dialog-actions">
-          <button
-            type="button"
-            className="ui-button ui-button--secondary"
-            autoFocus
-            onClick={(event) => closeDialogOf(event.currentTarget)}
-          >
+        <DialogActions>
+          <Button autoFocus onClick={(event) => closeDialogOf(event.currentTarget)}>
             Cancel
-          </button>
-          <button
-            type="button"
-            className="ui-button ui-button--primary"
+          </Button>
+          <Button
+            variant="primary"
             onClick={(event) => {
               const dialog = event.currentTarget;
               dispatch(convertToHtml(blockId));
@@ -46,8 +40,8 @@ export function ConvertToHtmlDialog({ blockId }: { blockId: string }): JSX.Eleme
             }}
           >
             Convert to HTML
-          </button>
-        </div>
+          </Button>
+        </DialogActions>
       </div>
     </Dialog>
   );

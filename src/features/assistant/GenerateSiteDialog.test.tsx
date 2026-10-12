@@ -4,10 +4,11 @@ import { updateAppSettings, type AssistantModel } from '../../app/appSettings';
 import { noticeDismissed } from '../../app/editorSlice';
 import { navigate } from '../../app/router';
 import { dispatch, store } from '../../app/store';
-import type { Project } from '../../app/types';
+import type {} from '../../app/types';
 import { putProject } from '../../persistence/db';
 import { changeValue, click, getButton, pressKey, queryButton, render } from '../../test/dom';
 import { GenerateSiteDialog } from './GenerateSiteDialog';
+import { savedProjects } from '../../test/fixtures';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
@@ -167,12 +168,6 @@ function designText(): string {
 
 function clarifyCount(): number {
   return steps.filter((step) => step === 'clarify').length;
-}
-
-function savedProjects(): Project[] {
-  const projects: Project[] = [];
-  for (const call of vi.mocked(putProject).mock.calls) projects.push(call[0]);
-  return projects;
 }
 
 function noticeTexts(): string[] {

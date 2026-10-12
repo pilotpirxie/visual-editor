@@ -1,8 +1,7 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { expect, test, type FrameLocator, type Page } from '@playwright/test';
-import { createProject, insertBlock, readZip } from './editor';
+import { createProject, insertBlock, exportedFiles, writeSiteFiles } from './editor';
 
 type Scope = Page | FrameLocator;
 
@@ -64,23 +63,13 @@ test('tabs, pricing toggle, carousel, numbers and dropdowns work in Preview', as
 
 test('the same blocks work in the exported site opened from disk', async ({ page }, testInfo) => {
   await addInteractiveBlocks(page);
-  await page.getByRole('button', { name: 'Export', exact: true }).click();
-  const downloadPromise = page.waitForEvent('download');
-  await page
-    .getByRole('dialog', { name: 'Export site' })
-    .getByRole('button', { name: 'Download zip' })
-    .click();
-  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const files = await exportedFiles(page);
   const siteJs = files.get('assets/js/site.js')?.toString('utf8') ?? '';
   for (const name of ['menu', 'dropdown', 'tabs', 'carousel', 'counter']) {
     expect(siteJs).toContain(`name: "${name}"`);
   }
   const folder = testInfo.outputPath('site');
-  for (const [path, content] of files) {
-    const target = join(folder, path);
-    await mkdir(dirname(target), { recursive: true });
-    await writeFile(target, content);
-  }
+  await writeSiteFiles(files, folder);
   const errors: string[] = [];
   page.on('console', (message) => {
     if (message.type() === 'error' || message.type() === 'warning') errors.push(message.text());

@@ -12,8 +12,8 @@ import type { ComponentDefinition, Field } from '../../components/types';
 import { tokenReference } from '../../render/css';
 import { FieldControl } from './FieldControl';
 import { TokenSelect } from './TokenSelect';
-import { IconButton, Section, SegmentedControl } from '../../../packages/ui/src';
-import { useSection } from '../editor/useSection';
+import { IconButton, SegmentedControl } from '../../../packages/ui/src';
+import { RememberedSection } from '../editor/useSection';
 
 type OverrideRowProps = {
   block: ComponentBlock;
@@ -90,9 +90,8 @@ function OverrideRow({ block, name, tokens }: OverrideRowProps): JSX.Element {
 const THEME_OPTIONS = SECTION_THEMES.map(({ id, label }) => ({ value: id, label }));
 
 function SectionThemePicker({ block }: { block: ComponentBlock }): JSX.Element {
-  const section = useSection('style:theme');
   return (
-    <Section title="Section theme" isOpen={section.isOpen} onToggle={section.onToggle}>
+    <RememberedSection id="style:theme" title="Section theme">
       <SegmentedControl
         legend="Section theme"
         isLegendHidden
@@ -101,7 +100,7 @@ function SectionThemePicker({ block }: { block: ComponentBlock }): JSX.Element {
         value={activeSectionTheme(block.overrides) ?? ''}
         onChange={(themeId) => dispatch(blockSectionThemeSet({ blockId: block.id, themeId }))}
       />
-    </Section>
+    </RememberedSection>
   );
 }
 
@@ -113,7 +112,6 @@ export function StyleTab({
   definition: ComponentDefinition;
 }): JSX.Element {
   const tokens = useStore((state) => state.project.designSystem.tokens);
-  const section = useSection('style:overrides');
 
   if (definition.styleOverrides.length === 0) {
     return <p className="ui-muted ve-properties-empty">This block has no style options.</p>;
@@ -122,11 +120,11 @@ export function StyleTab({
   return (
     <>
       {supportsSectionThemes(definition) && <SectionThemePicker block={block} />}
-      <Section title="Overrides" isOpen={section.isOpen} onToggle={section.onToggle}>
+      <RememberedSection id="style:overrides" title="Overrides">
         {definition.styleOverrides.map((name) => (
           <OverrideRow key={name} block={block} name={name} tokens={tokens} />
         ))}
-      </Section>
+      </RememberedSection>
     </>
   );
 }

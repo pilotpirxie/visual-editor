@@ -24,6 +24,7 @@ import {
   type VerificationService,
 } from '../../app/types';
 import type { Field as FieldSchema } from '../../components/types';
+import { RememberedSection } from '../editor/useSection';
 import { FieldControl } from '../properties/FieldControl';
 import { ImageUploadInput } from '../properties/ImageUploadInput';
 import { SOCIAL_IMAGE_TYPE_ERROR } from '../properties/PageSettingsPanel';
@@ -31,7 +32,6 @@ import { languageOptions } from './languages';
 import {
   FREQUENCY_OPTIONS,
   IMAGE_PREVIEW_OPTIONS,
-  MetaSection,
   MetaSelect,
   MetaTagsInput,
   MetaTextInput,
@@ -125,7 +125,7 @@ function SiteSection({ settings }: { settings: ProjectSettings }): JSX.Element {
   }
 
   return (
-    <MetaSection id="settings:site" title="Site" isInitiallyOpen>
+    <RememberedSection id="settings:site" title="Site">
       <FieldControl
         field={TITLE_FIELD}
         value={isTypedTitleStored ? typedTitle : settings.title}
@@ -155,13 +155,13 @@ function SiteSection({ settings }: { settings: ProjectSettings }): JSX.Element {
           />
         </Field>
       </div>
-    </MetaSection>
+    </RememberedSection>
   );
 }
 
 function SearchSection({ settings }: { settings: ProjectSettings }): JSX.Element {
   return (
-    <MetaSection id="settings:search" title="Search engines" isInitiallyOpen>
+    <RememberedSection id="settings:search" title="Search engines">
       <FieldControl
         field={TITLE_TEMPLATE_FIELD}
         value={settings.titleTemplate}
@@ -223,7 +223,7 @@ function SearchSection({ settings }: { settings: ProjectSettings }): JSX.Element
         validate={validateMeta('author')}
         onCommit={commitText('author')}
       />
-    </MetaSection>
+    </RememberedSection>
   );
 }
 
@@ -234,7 +234,7 @@ function SharingSection({ settings }: { settings: ProjectSettings }): JSX.Elemen
       : state.project.assets[settings.socialImageAssetId],
   );
   return (
-    <MetaSection id="settings:sharing" title="Social sharing">
+    <RememberedSection id="settings:sharing" title="Social sharing" defaultOpen={false}>
       <ImageUploadInput
         id="ve-project-social-image"
         label="Default social image"
@@ -277,7 +277,7 @@ function SharingSection({ settings }: { settings: ProjectSettings }): JSX.Elemen
         validate={validateMeta('twitterCreator')}
         onCommit={commitText('twitterCreator')}
       />
-    </MetaSection>
+    </RememberedSection>
   );
 }
 
@@ -288,7 +288,7 @@ function IconsSection({ settings }: { settings: ProjectSettings }): JSX.Element 
   const appIcon =
     settings.appIconAssetId === undefined ? undefined : assets[settings.appIconAssetId];
   return (
-    <MetaSection id="settings:icons" title="Icons and colors">
+    <RememberedSection id="settings:icons" title="Icons and colors" defaultOpen={false}>
       <ImageUploadInput
         id="ve-project-favicon"
         label="Favicon"
@@ -333,14 +333,14 @@ function IconsSection({ settings }: { settings: ProjectSettings }): JSX.Element 
         resetLabel="Remove background color"
         onChange={(value, kind) => setMeta('backgroundColor', value, kind)}
       />
-    </MetaSection>
+    </RememberedSection>
   );
 }
 
 function VerificationSection({ settings }: { settings: ProjectSettings }): JSX.Element {
   const codes = settings.verification ?? {};
   return (
-    <MetaSection id="settings:verification" title="Site verification">
+    <RememberedSection id="settings:verification" title="Site verification" defaultOpen={false}>
       {VERIFICATION_SERVICES.map((service) => (
         <MetaTextInput
           key={service}
@@ -354,13 +354,13 @@ function VerificationSection({ settings }: { settings: ProjectSettings }): JSX.E
           }
         />
       ))}
-    </MetaSection>
+    </RememberedSection>
   );
 }
 
 function CrawlersSection({ settings }: { settings: ProjectSettings }): JSX.Element {
   return (
-    <MetaSection id="settings:crawlers" title="Sitemap and robots.txt">
+    <RememberedSection id="settings:crawlers" title="Sitemap and robots.txt" defaultOpen={false}>
       <MetaSelect
         id="ve-project-frequency"
         label="How often pages change"
@@ -396,14 +396,14 @@ function CrawlersSection({ settings }: { settings: ProjectSettings }): JSX.Eleme
         validate={validateMeta('robotsRules')}
         onCommit={commitText('robotsRules')}
       />
-    </MetaSection>
+    </RememberedSection>
   );
 }
 
 function StructuredDataSection({ settings }: { settings: ProjectSettings }): JSX.Element {
   const isEnabled = settings.schemaMarkup !== false;
   return (
-    <MetaSection id="settings:schema" title="Structured data">
+    <RememberedSection id="settings:schema" title="Structured data" defaultOpen={false}>
       <Switch
         id="ve-project-schema"
         label="Describe the site to search engines"
@@ -466,7 +466,7 @@ function StructuredDataSection({ settings }: { settings: ProjectSettings }): JSX
         validate={validateMeta('jsonLd')}
         onCommit={commitText('jsonLd')}
       />
-    </MetaSection>
+    </RememberedSection>
   );
 }
 
@@ -482,14 +482,14 @@ export function ProjectSettingsPanel(): JSX.Element {
       <VerificationSection settings={settings} />
       <CrawlersSection settings={settings} />
       <StructuredDataSection settings={settings} />
-      <MetaSection id="settings:meta-tags" title="Custom meta tags">
+      <RememberedSection id="settings:meta-tags" title="Custom meta tags" defaultOpen={false}>
         <MetaTagsInput
           id="ve-project-meta-tags"
           label="Meta tags on every page"
           value={settings.metaTags}
           onChange={(tags, kind) => setMeta('metaTags', tags, kind)}
         />
-      </MetaSection>
+      </RememberedSection>
     </div>
   );
 }

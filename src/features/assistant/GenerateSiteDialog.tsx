@@ -168,30 +168,86 @@ function showBuildNotices(built: BuiltSite): void {
   }
 }
 
-export function GenerateSiteDialog({
-  description,
-  onClose,
-  onOpenSettings,
-}: GenerateSiteDialogProps): JSX.Element {
+function askWith(
+  setup: AppSettings,
+  request: StepRequest,
+  signal: AbortSignal,
+): Promise<JsonAnswer> {
+  if (setup.assistantModel === null) {
+    return Promise.reject(new AssistantError('model', 'Pick a model in App settings first.'));
+  }
+  return askForJson(
+    {
+      key: setup.openRouterKey.trim(),
+      model: setup.assistantModel,
+      effort: setup.assistantEffort,
+      ...request,
+    },
+    signal,
+  );
+}
+
+function failedPhase(error: unknown, retry: 'clarify' | 'build', setup: AppSettings): Phase {
+  const kind = error instanceof AssistantError ? error.kind : null;
+  return {
+    kind: 'failed',
+    message: describeError(error),
+    canFixInSettings: kind === 'key' || kind === 'credit' || setup.assistantModel === null,
+    retry,
+  };
+}
+
+function questionsFor(clarification: Clarification, setup: AppSettings): Question[] {
+  const questions = [...clarification.questions, SIZE_QUESTION];
+  if (setup.imageModel !== null) questions.push(IMAGE_QUESTION);
+  return questions;
+}
+
+type BuildChoice = { draft: SiteDraft; withImages: boolean };
+
+function buildChoiceOf(brief: string, usage: Usage, given: readonly Answered[]): BuildChoice {
+  const own: Answered[] = [];
+  let size = DEFAULT_SITE_SIZE;
+  let withImages = false;
+  for (const answered of given) {
+    if (answered.question === SIZE_QUESTION.question) {
+      size = siteSizeOf(answered.answer);
+    } else if (answered.question === IMAGE_QUESTION.question) {
+      withImages = answered.answer.toLowerCase().startsWith('real');
+    } else {
+      own.push(answered);
+    }
+  }
+  return { draft: { ...emptyDraft(briefWithAnswers(brief, own), size), usage }, withImages };
+}
+
+function titleOf(phase: Phase): string {
+  if (phase.kind === 'asking' && phase.questions.length === 1) {
+    return 'One quick question';
+  } else if (phase.kind === 'asking') {
+    return 'A few quick questions';
+  } else {
+    return 'Building your site';
+  }
+}
+
+type SiteBuild = {
+  phase: Phase;
+  progress: BuildProgress | null;
+  buildFromAnswers(given: readonly Answered[]): void;
+  retry(): void;
+  close(): void;
+};
+
+function useSiteBuild(description: string, onClose: () => void): SiteBuild {
   const [setup] = useState(readAppSettings);
   const [phase, setPhase] = useState<Phase>({ kind: 'thinking' });
   const [progress, setProgress] = useState<BuildProgress | null>(null);
   const [wantsImages, setWantsImages] = useState(false);
   const runRef = useRef<AbortController | null>(null);
 
-  async function ask(request: StepRequest, signal: AbortSignal): Promise<JsonAnswer> {
-    if (setup.assistantModel === null) {
-      throw new AssistantError('model', 'Pick a model in App settings first.');
-    }
-    return askForJson(
-      {
-        key: setup.openRouterKey.trim(),
-        model: setup.assistantModel,
-        effort: setup.assistantEffort,
-        ...request,
-      },
-      signal,
-    );
+  function ask(request: StepRequest, signal: AbortSignal): Promise<JsonAnswer> {
+    return askWith(setup, request, signal);
   }
 
   function begin(): AbortSignal {
@@ -204,13 +260,7 @@ export function GenerateSiteDialog({
   function fail(error: unknown, retry: 'clarify' | 'build'): void {
     if (error instanceof AssistantError && error.kind === 'cancelled') return;
     console.error('Building the site with the assistant failed', error);
-    const kind = error instanceof AssistantError ? error.kind : null;
-    setPhase({
-      kind: 'failed',
-      message: describeError(error),
-      canFixInSettings: kind === 'key' || kind === 'credit' || setup.assistantModel === null,
-      retry,
-    });
+    setPhase(failedPhase(error, retry, setup));
   }
 
   async function clarify(): Promise<void> {
@@ -224,8 +274,7 @@ export function GenerateSiteDialog({
       return;
     }
     const { clarification, usage } = clarified;
-    const questions = [...clarification.questions, SIZE_QUESTION];
-    if (setup.imageModel !== null) questions.push(IMAGE_QUESTION);
+    const questions = questionsFor(clarification, setup);
     setPhase({ kind: 'asking', questions, brief: clarification.brief, usage });
   }
 
@@ -255,20 +304,8 @@ export function GenerateSiteDialog({
 
   function buildFromAnswers(given: readonly Answered[]): void {
     if (phase.kind !== 'asking') return;
-    const own: Answered[] = [];
-    let size = DEFAULT_SITE_SIZE;
-    let withImages = false;
-    for (const answered of given) {
-      if (answered.question === SIZE_QUESTION.question) {
-        size = siteSizeOf(answered.answer);
-      } else if (answered.question === IMAGE_QUESTION.question) {
-        withImages = answered.answer.toLowerCase().startsWith('real');
-      } else {
-        own.push(answered);
-      }
-    }
-    const brief = briefWithAnswers(phase.brief, own);
-    void build({ ...emptyDraft(brief, size), usage: phase.usage }, withImages);
+    const { draft, withImages } = buildChoiceOf(phase.brief, phase.usage, given);
+    void build(draft, withImages);
   }
 
   const start = useEffectEvent(() => {
@@ -297,20 +334,68 @@ export function GenerateSiteDialog({
     }
   }
 
-  function title(): string {
-    if (phase.kind === 'asking' && phase.questions.length === 1) {
-      return 'One quick question';
-    } else if (phase.kind === 'asking') {
-      return 'A few quick questions';
-    } else {
-      return 'Building your site';
-    }
+  return { phase, progress, buildFromAnswers, retry, close };
+}
+
+type BuildStatusProps = {
+  phase: Phase;
+  progress: BuildProgress | null;
+  onRetry(): void;
+  onOpenSettings(): void;
+};
+
+function BuildStatus({ phase, progress, onRetry, onOpenSettings }: BuildStatusProps): JSX.Element {
+  return (
+    <div className="ve-build-status">
+      {phase.kind === 'thinking' && (
+        <div className="ve-build-thinking">
+          <span className="ve-build-mark" data-status="working" aria-hidden="true" />
+          <TypedStatus phrases={READING_PHRASES} />
+          <p className="ve-visually-hidden" role="status">
+            {READING_PHRASES[0]}
+          </p>
+        </div>
+      )}
+      {phase.kind === 'building' && progress !== null && (
+        <TypedStatus
+          key={buildStage(progress.draft, progress.working)}
+          phrases={BUILD_PHRASES[buildStage(progress.draft, progress.working)]}
+        />
+      )}
+      {progress !== null && <StepList steps={buildSteps(progress.draft, progress.working)} />}
+      {phase.kind === 'failed' && (
+        <>
+          <p className="ui-field-error" role="alert">
+            {phase.message}
+          </p>
+          <DialogActions>
+            {phase.canFixInSettings && <Button onClick={onOpenSettings}>Open App settings</Button>}
+            <Button variant="primary" onClick={onRetry}>
+              Try again
+            </Button>
+          </DialogActions>
+        </>
+      )}
+    </div>
+  );
+}
+
+export function GenerateSiteDialog({
+  description,
+  onClose,
+  onOpenSettings,
+}: GenerateSiteDialogProps): JSX.Element {
+  const { phase, progress, buildFromAnswers, retry, close } = useSiteBuild(description, onClose);
+
+  function openSettings(): void {
+    close();
+    onOpenSettings();
   }
 
   return (
     <Dialog labelId={TITLE_ID} size="full" className="ve-generate-site" onClose={close}>
       <header className="ve-build-bar">
-        <Title id={TITLE_ID}>{title()}</Title>
+        <Title id={TITLE_ID}>{titleOf(phase)}</Title>
         <Button onClick={(event) => closeDialogOf(event.currentTarget)}>
           {phase.kind === 'failed' ? 'Close' : 'Cancel'}
         </Button>
@@ -324,46 +409,12 @@ export function GenerateSiteDialog({
       )}
       {phase.kind !== 'asking' && (
         <div className="ve-build-page" data-layout={progress === null ? 'centered' : 'preview'}>
-          <div className="ve-build-status">
-            {phase.kind === 'thinking' && (
-              <div className="ve-build-thinking">
-                <span className="ve-build-mark" data-status="working" aria-hidden="true" />
-                <TypedStatus phrases={READING_PHRASES} />
-                <p className="ve-visually-hidden" role="status">
-                  {READING_PHRASES[0]}
-                </p>
-              </div>
-            )}
-            {phase.kind === 'building' && progress !== null && (
-              <TypedStatus
-                key={buildStage(progress.draft, progress.working)}
-                phrases={BUILD_PHRASES[buildStage(progress.draft, progress.working)]}
-              />
-            )}
-            {progress !== null && <StepList steps={buildSteps(progress.draft, progress.working)} />}
-            {phase.kind === 'failed' && (
-              <>
-                <p className="ui-field-error" role="alert">
-                  {phase.message}
-                </p>
-                <DialogActions>
-                  {phase.canFixInSettings && (
-                    <Button
-                      onClick={() => {
-                        close();
-                        onOpenSettings();
-                      }}
-                    >
-                      Open App settings
-                    </Button>
-                  )}
-                  <Button variant="primary" onClick={retry}>
-                    Try again
-                  </Button>
-                </DialogActions>
-              </>
-            )}
-          </div>
+          <BuildStatus
+            phase={phase}
+            progress={progress}
+            onRetry={retry}
+            onOpenSettings={openSettings}
+          />
           {progress !== null && (
             <SitePreview
               look={progress.draft.look}

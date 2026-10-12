@@ -5,6 +5,7 @@ import { blur, changeValue, click, getButton, render } from '../../test/dom';
 import { loadIntoAppStore, withSystemFonts } from '../../test/fixtures';
 import { loadFontList } from './fontList';
 import { TypographySection } from './TypographySection';
+import type { DesignSystem } from '../../app/types';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
@@ -25,7 +26,7 @@ vi.mock('./fontList', async (importOriginal) => {
   };
 });
 
-function designSystem() {
+function designSystem(): DesignSystem {
   return store.getState().project.designSystem;
 }
 

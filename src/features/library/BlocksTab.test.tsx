@@ -1,9 +1,23 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { blockPacksLoaded, blockSelected, compactTabSelected } from '../../app/editorSlice';
+import {
+  blockPacksLoaded,
+  blockSelected,
+  compactTabSelected,
+  savedBlocksLoaded,
+} from '../../app/editorSlice';
 import { dispatch, store } from '../../app/store';
 import { builtInComponents } from '../../components/registry';
 import { CATEGORIES } from '../../components/types';
-import { changeValue, click, firePointer, getButton, render, runInAct } from '../../test/dom';
+import {
+  changeValue,
+  click,
+  firePointer,
+  getButton,
+  queryButton,
+  render,
+  runInAct,
+} from '../../test/dom';
+import type { SavedBlockRecord } from '../../persistence/db';
 import { componentBlockOf, homePage, loadIntoAppStore } from '../../test/fixtures';
 import { packOf, quoteCardDefinition } from '../../test/packFixtures';
 import { dragController } from '../canvas/dragController';
@@ -190,5 +204,109 @@ describe('BlocksTab with block packs', () => {
     const { container } = render(<BlocksTab />);
     searchFor(container, 'author and a few points');
     expect(container.querySelector('.ve-component-card')?.textContent).toBe('Quote card Custom');
+  });
+});
+
+describe('BlocksTab views', () => {
+  const SAVED: SavedBlockRecord[] = [
+    {
+      id: 's1',
+      name: 'Launch hero',
+      componentId: 'hero-centered',
+      savedAt: '2026-10-01',
+      envelope: '{}',
+    },
+    {
+      id: 's2',
+      name: 'Winter footer',
+      componentId: 'footer-simple',
+      savedAt: '2026-10-02',
+      envelope: '{}',
+    },
+  ];
+
+  beforeEach(() => {
+    runInAct(() => {
+      dispatch(blockPacksLoaded([]));
+      dispatch(savedBlocksLoaded([]));
+    });
+  });
+
+  it('shows the category list with the pack buttons and no My blocks when there are none', () => {
+    const { container } = render(<BlocksTab />);
+    expect(container.querySelector('.ve-my-blocks')).toBeNull();
+    expect(container.querySelectorAll('.ve-categories')).toHaveLength(1);
+    expect(queryButton(container, 'Load block pack')).not.toBeNull();
+    expect(queryButton(container, 'Manage packs')).not.toBeNull();
+    expect(container.querySelector('.ve-blocks-back')).toBeNull();
+  });
+
+  it('lists saved blocks first under My blocks, before the packs', () => {
+    runInAct(() => {
+      dispatch(savedBlocksLoaded(SAVED));
+      dispatch(blockPacksLoaded([packOf([quoteCardDefinition()])]));
+    });
+    const { container } = render(<BlocksTab />);
+    expect(container.querySelector('.ve-my-blocks')?.textContent).toBe(
+      'My blocksSaved blocks2Acme blocks1',
+    );
+  });
+
+  it('opens the saved blocks with their count and goes back to the list', () => {
+    runInAct(() => dispatch(savedBlocksLoaded(SAVED)));
+    const { container } = render(<BlocksTab />);
+    click(categoryButton(container, 'Saved blocks'));
+    expect(container.querySelector('.ve-blocks-back')?.textContent).toBe('Saved blocks2');
+    expect(container.querySelectorAll('.ve-component-grid > *')).toHaveLength(2);
+    expect(container.querySelector('.ve-categories')).toBeNull();
+    expect(queryButton(container, 'Manage packs')).toBeNull();
+    click(getButton(container, 'All categories'));
+    expect(container.querySelector('.ve-blocks-back')).toBeNull();
+    expect(container.querySelector('.ve-my-blocks')).not.toBeNull();
+  });
+
+  it('shows the count of an open category and only its blocks', () => {
+    const { container } = render(<BlocksTab />);
+    click(categoryButton(container, 'Headers'));
+    expect(container.querySelector('.ve-blocks-back')?.textContent).toBe('Headers43');
+    expect(container.querySelectorAll('.ve-component-card')).toHaveLength(43);
+    expect(queryButton(container, 'Load block pack')).toBeNull();
+  });
+
+  it('searches saved blocks by name too, and shows results in place of an open category', () => {
+    runInAct(() => dispatch(savedBlocksLoaded(SAVED)));
+    const { container } = render(<BlocksTab />);
+    click(categoryButton(container, 'Headers'));
+    searchFor(container, 'winter');
+    expect(container.querySelector('.ve-blocks-back')).toBeNull();
+    expect(container.querySelectorAll('.ve-component-grid > *')).toHaveLength(1);
+    expect(container.textContent).toContain('Winter footer');
+    expect(container.textContent).not.toContain('No blocks match');
+    expect(queryButton(container, 'Manage packs')).toBeNull();
+    searchFor(container, '');
+    expect(container.querySelector('.ve-blocks-back')?.textContent).toBe('Headers43');
+  });
+
+  it('treats a search of only spaces as no search', () => {
+    const { container } = render(<BlocksTab />);
+    searchFor(container, '   ');
+    expect(container.querySelector('.ve-categories')).not.toBeNull();
+    expect(container.textContent).not.toContain('No blocks match');
+  });
+
+  it('trims the search text in the message when nothing matches', () => {
+    const { container } = render(<BlocksTab />);
+    searchFor(container, '  hologram ');
+    expect(container.querySelector('.ui-muted')?.textContent).toBe('No blocks match “hologram”.');
+    expect(container.querySelector('.ve-component-grid')).toBeNull();
+  });
+
+  it('goes back to the list when the open saved group becomes empty', () => {
+    runInAct(() => dispatch(savedBlocksLoaded(SAVED)));
+    const { container } = render(<BlocksTab />);
+    click(categoryButton(container, 'Saved blocks'));
+    runInAct(() => dispatch(savedBlocksLoaded([])));
+    expect(container.querySelector('.ve-blocks-back')).toBeNull();
+    expect(container.querySelector('.ve-categories')).not.toBeNull();
   });
 });

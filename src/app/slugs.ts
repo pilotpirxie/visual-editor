@@ -17,7 +17,8 @@ export function slugify(name: string): string {
 
 export function uniqueSlug(wanted: string, takenSlugs: readonly string[]): string {
   const base = slugify(wanted);
-  const isTaken = (slug: string) => takenSlugs.includes(slug) || RESERVED_SLUGS.includes(slug);
+  const isTaken = (slug: string): boolean =>
+    takenSlugs.includes(slug) || RESERVED_SLUGS.includes(slug);
   if (!isTaken(base)) return base;
   let suffix = 2;
   while (isTaken(`${base}-${suffix}`)) suffix += 1;

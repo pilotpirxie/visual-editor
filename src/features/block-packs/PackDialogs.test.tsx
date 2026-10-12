@@ -7,7 +7,7 @@ import { ensurePackBlocks } from '../../components/registry';
 import { parsePackFiles } from '../../components/packFormat';
 import { readBlockPack } from '../../components/validatePack';
 import { deleteBlockPack } from '../../persistence/db';
-import { click, getButton, render, runInAct } from '../../test/dom';
+import { click, getButton, queryButton, render, runInAct } from '../../test/dom';
 import { loadIntoAppStore } from '../../test/fixtures';
 import {
   packOf,
@@ -181,6 +181,47 @@ describe('ManagePacksDialog', () => {
     expect(getButton(packRow(container, 'Acme blocks'), 'Remove').disabled).toBe(true);
     expect(getButton(packRow(container, 'Acme extras'), 'Remove').disabled).toBe(true);
     runInAct(() => dispatch(readOnlyChanged(false)));
+  });
+
+  it('describes a library pack and a pack that only the project has', () => {
+    loadIntoAppStore(projectUsingPacks().project);
+    runInAct(() => dispatch(blockPacksLoaded([packOf([quoteCardDefinition()])])));
+    const { container } = render(<ManagePacksDialog />);
+    const inLibrary = packRow(container, 'Acme blocks');
+    expect(inLibrary.querySelector('strong')?.textContent).toBe('Acme blocks 1.0.0');
+    expect(inLibrary.querySelector('.ui-muted')?.textContent).toBe('Acme Studio · MIT · 1 block');
+    expect(queryButton(inLibrary, 'Update')).not.toBeNull();
+    expect(queryButton(inLibrary, 'Download')).not.toBeNull();
+    expect(queryButton(inLibrary, 'Add to library')).toBeNull();
+    const missing = packRow(container, 'Acme extras');
+    expect(missing.querySelector('.ui-muted')?.textContent).toBe('Acme Studio · MIT');
+    expect(queryButton(missing, 'Update')).toBeNull();
+    expect(queryButton(missing, 'Download')).toBeNull();
+    expect(missing.querySelector('.ve-pack-badge')).toBeNull();
+  });
+
+  it('marks a partial pack and offers no download for it', () => {
+    const partial = { ...packOf([quoteCardDefinition()]), isPartial: true };
+    runInAct(() => dispatch(blockPacksLoaded([partial])));
+    const { container } = render(<ManagePacksDialog />);
+    const row = packRow(container, 'Acme blocks');
+    expect(row.querySelector('.ve-pack-badge')?.textContent).toBe('Partial');
+    expect(queryButton(row, 'Download')).toBeNull();
+    expect(queryButton(row, 'Update')).not.toBeNull();
+  });
+
+  it('swaps the idle actions for the confirmation and back', () => {
+    runInAct(() => dispatch(blockPacksLoaded([packOf([quoteCardDefinition()])])));
+    const { container } = render(<ManagePacksDialog />);
+    const row = packRow(container, 'Acme blocks');
+    click(getButton(row, 'Remove'));
+    expect(queryButton(row, 'Update')).toBeNull();
+    expect(row.querySelector('.ve-pack-removal')?.textContent).toBe(
+      'Not used on any page of this project. Other projects keep their saved copy.',
+    );
+    click(getButton(row, 'Keep'));
+    expect(queryButton(row, 'Update')).not.toBeNull();
+    expect(queryButton(row, 'Remove pack and its blocks')).toBeNull();
   });
 });
 

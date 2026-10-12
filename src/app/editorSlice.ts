@@ -17,7 +17,7 @@ export type DeviceMode = 'responsive' | Device;
 export type PanelSide = 'left' | 'right';
 export type LibraryTab = 'blocks' | 'layers' | 'pages' | 'settings';
 export type PropertiesTab = 'content' | 'style' | 'advanced' | 'code';
-export type CompactView = 'library' | 'canvas' | 'properties';
+type CompactView = 'library' | 'canvas' | 'properties';
 export type CompactTab = 'canvas' | LibraryTab;
 export type DeviceViewport = { width: number; height: number | null };
 
@@ -127,6 +127,13 @@ const initialState: EditorState = {
   openDialog: null,
   isReadOnly: false,
 };
+
+function showAddedBlock(state: EditorState, blockId: string): void {
+  state.selectedBlockId = blockId;
+  state.propertiesTab = 'content';
+  state.isLibraryDrawerOpen = false;
+  if (state.compactView === 'library') state.compactView = 'canvas';
+}
 
 export const editorSlice = createSlice({
   name: 'editor',
@@ -287,18 +294,8 @@ export const editorSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(blockInserted, (state, action) => {
-        state.selectedBlockId = action.payload.block.id;
-        state.propertiesTab = 'content';
-        state.isLibraryDrawerOpen = false;
-        if (state.compactView === 'library') state.compactView = 'canvas';
-      })
-      .addCase(blockPasted, (state, action) => {
-        state.selectedBlockId = action.payload.block.id;
-        state.propertiesTab = 'content';
-        state.isLibraryDrawerOpen = false;
-        if (state.compactView === 'library') state.compactView = 'canvas';
-      })
+      .addCase(blockInserted, (state, action) => showAddedBlock(state, action.payload.block.id))
+      .addCase(blockPasted, (state, action) => showAddedBlock(state, action.payload.block.id))
       .addCase(blockConvertedToHtml, (state) => {
         state.propertiesTab = 'code';
         state.conversionBlockId = null;

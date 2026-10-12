@@ -3,7 +3,13 @@ import { createSampleProject } from '../app/projectFactory';
 import type { Project } from '../app/types';
 import { createAutosave, type SaveStatus } from './autosave';
 
-function setup(save: (project: Project) => Promise<void> = async () => {}) {
+type AutosaveFixture = {
+  autosave: ReturnType<typeof createAutosave>;
+  saved: Project[];
+  statuses: SaveStatus[];
+};
+
+function setup(save: (project: Project) => Promise<void> = async () => {}): AutosaveFixture {
   const saved: Project[] = [];
   const statuses: SaveStatus[] = [];
   const autosave = createAutosave({

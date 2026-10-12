@@ -1,7 +1,7 @@
 import { act } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createSampleProject } from '../../app/projectFactory';
-import type { Project } from '../../app/types';
+import type {} from '../../app/types';
 import {
   deleteProject,
   getProject,
@@ -9,8 +9,9 @@ import {
   putProject,
   type ProjectSummary,
 } from '../../persistence/db';
-import { blur, changeValue, click, getButton, pressKey, render } from '../../test/dom';
+import { blur, changeValue, choiceInput, click, getButton, pressKey, render } from '../../test/dom';
 import { HomeScreen } from './HomeScreen';
+import { savedProjects } from '../../test/fixtures';
 
 const STARTERS_LOAD_TIMEOUT_MS = 5000;
 
@@ -29,14 +30,30 @@ const summary: ProjectSummary = {
   updatedAt: new Date().toISOString(),
 };
 
-class VisibleIntersectionObserver {
+class VisibleIntersectionObserver implements IntersectionObserver {
+  readonly root = null;
+  readonly rootMargin = '';
+  readonly scrollMargin = '';
+  readonly thresholds: readonly number[] = [];
   constructor(private readonly callback: IntersectionObserverCallback) {}
   observe(target: Element): void {
-    const entry = { isIntersecting: true, target } as IntersectionObserverEntry;
-    queueMicrotask(() => this.callback([entry], this as unknown as IntersectionObserver));
+    const box = target.getBoundingClientRect();
+    const entry: IntersectionObserverEntry = {
+      boundingClientRect: box,
+      intersectionRatio: 1,
+      intersectionRect: box,
+      isIntersecting: true,
+      rootBounds: null,
+      target,
+      time: 0,
+    };
+    queueMicrotask(() => this.callback([entry], this));
   }
   unobserve(): void {}
   disconnect(): void {}
+  takeRecords(): IntersectionObserverEntry[] {
+    return [];
+  }
 }
 
 function showEverythingOnScreen(): void {
@@ -77,12 +94,6 @@ async function waitForHomeStarters(container: HTMLElement): Promise<HTMLElement>
     },
     { timeout: STARTERS_LOAD_TIMEOUT_MS },
   );
-}
-
-function savedProjects(): Project[] {
-  const projects: Project[] = [];
-  for (const call of vi.mocked(putProject).mock.calls) projects.push(call[0]);
-  return projects;
 }
 
 function renameInput(container: HTMLElement): HTMLInputElement {
@@ -338,5 +349,96 @@ describe('HomeScreen', () => {
     expect(getButton(container, 'Build my site').disabled).toBe(true);
     click(getButton(container, 'Open App settings'));
     await vi.waitFor(() => expect(container.textContent).toContain('OpenRouter API key'));
+  });
+
+  it('explains when a project cannot be duplicated and keeps the list', async () => {
+    const logged = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const container = await renderHome();
+    vi.mocked(putProject).mockRejectedValueOnce(new Error('The disk is full'));
+    click(getButton(container, 'Duplicate Fieldnote'));
+    await vi.waitFor(() => {
+      expect(container.querySelector('[role="alert"]')?.textContent).toBe(
+        'Could not duplicate the project: The disk is full',
+      );
+    });
+    expect(logged).toHaveBeenCalled();
+    expect(container.querySelector('.ve-home-card-title')?.textContent).toBe('Fieldnote');
+    expect(container.querySelector('[role="alert"] button')).toBeNull();
+  });
+
+  it('explains when the project to rename no longer exists', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const container = await renderHome();
+    vi.mocked(getProject).mockResolvedValue(null);
+    click(getButton(container, 'Rename Fieldnote'));
+    const input = renameInput(container);
+    input.value = 'Gone';
+    pressKey(input, 'Enter');
+    await vi.waitFor(() => {
+      expect(container.querySelector('[role="alert"]')?.textContent).toBe(
+        'Could not rename the project: This project no longer exists',
+      );
+    });
+    expect(putProject).not.toHaveBeenCalled();
+  });
+
+  it('clears an earlier problem when the next action works', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const container = await renderHome();
+    vi.mocked(putProject).mockRejectedValueOnce(new Error('The disk is full'));
+    click(getButton(container, 'Duplicate Fieldnote'));
+    await vi.waitFor(() => expect(container.querySelector('[role="alert"]')).not.toBeNull());
+    click(getButton(container, 'Duplicate Fieldnote'));
+    await vi.waitFor(() => expect(container.querySelector('[role="alert"]')).toBeNull());
+  });
+
+  it('links every project card to its project and lists them in the stored order', async () => {
+    const other: ProjectSummary = {
+      id: 'other',
+      title: 'Second site',
+      updatedAt: summary.updatedAt,
+    };
+    vi.mocked(listProjects).mockResolvedValue([summary, other]);
+    const container = await renderHome();
+    const links = [...container.querySelectorAll<HTMLAnchorElement>('.ve-home-card-title a')];
+    expect(links.map((link) => link.textContent)).toEqual(['Fieldnote', 'Second site']);
+    expect(links.map((link) => link.getAttribute('href'))).toEqual([`/p/${stored.id}`, '/p/other']);
+    expect(container.querySelector('.ve-home-grid')?.getAttribute('aria-label')).toBe('Projects');
+  });
+
+  it('moves focus to the next project after one is deleted', async () => {
+    const other: ProjectSummary = {
+      id: 'other',
+      title: 'Second site',
+      updatedAt: summary.updatedAt,
+    };
+    vi.mocked(listProjects).mockResolvedValue([summary, other]);
+    const container = await renderHome();
+    vi.mocked(listProjects).mockResolvedValue([other]);
+    click(getButton(container, 'Delete Fieldnote'));
+    click(await vi.waitFor(() => getButton(container, 'Delete project')));
+    await vi.waitFor(() => {
+      expect(document.activeElement?.textContent).toBe('Second site');
+    });
+  });
+
+  it('moves focus to New project after the last project is deleted', async () => {
+    const container = await renderHome();
+    vi.mocked(listProjects).mockResolvedValue([]);
+    click(getButton(container, 'Delete Fieldnote'));
+    click(await vi.waitFor(() => getButton(container, 'Delete project')));
+    await vi.waitFor(() => {
+      expect(document.activeElement).toBe(getButton(container, 'New project'));
+    });
+    expect(container.querySelector('.ve-home-grid')).toBeNull();
+  });
+
+  it('switches dark mode from the footer', async () => {
+    document.documentElement.removeAttribute('data-ve-appearance');
+    const container = await renderHome();
+    click(choiceInput(container, 'Dark mode'));
+    expect(document.documentElement.getAttribute('data-ve-appearance')).toBe('dark');
+    click(choiceInput(container, 'Dark mode'));
+    expect(document.documentElement.getAttribute('data-ve-appearance')).toBeNull();
   });
 });

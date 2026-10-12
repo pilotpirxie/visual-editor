@@ -5,6 +5,7 @@ import {
   type ClipboardEvent,
   type FormEvent,
   type JSX,
+  type RefObject,
 } from 'react';
 import { isSafeUrl, normalizeRichText, plainTextToHtml } from '../../render/sanitize';
 import type { EditKind } from '../../app/projectSlice';
@@ -50,6 +51,130 @@ function linkAround(range: Range | null): HTMLAnchorElement | null {
   return element?.closest('a') ?? null;
 }
 
+type RunCommand = (command: string, argument?: string) => void;
+
+type LinkEditing = {
+  linkUrl: string | null;
+  setLinkUrl(url: string): void;
+  open(): void;
+  apply(event: FormEvent<HTMLFormElement>): void;
+  remove(): void;
+  cancel(): void;
+};
+
+function useLinkEditing(
+  editorRef: RefObject<HTMLDivElement | null>,
+  runCommand: RunCommand,
+): LinkEditing {
+  const savedRangeRef = useRef<Range | null>(null);
+  const [linkUrl, setLinkUrl] = useState<string | null>(null);
+
+  function open(): void {
+    const editor = editorRef.current;
+    if (editor === null) return;
+    const range = selectionRangeIn(editor);
+    savedRangeRef.current = range;
+    const existingLink = linkAround(range);
+    const existingHref = existingLink === null ? null : existingLink.getAttribute('href');
+    setLinkUrl(existingHref ?? DEFAULT_LINK_URL);
+  }
+
+  function apply(event: FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
+    const editor = editorRef.current;
+    const url = linkUrl === null ? '' : linkUrl.trim();
+    if (editor === null || url === '' || !isSafeUrl(url)) return;
+    restoreSelection(editor, savedRangeRef.current);
+    setLinkUrl(null);
+    runCommand('createLink', url);
+  }
+
+  function remove(): void {
+    const editor = editorRef.current;
+    if (editor === null) return;
+    restoreSelection(editor, savedRangeRef.current);
+    setLinkUrl(null);
+    runCommand('unlink');
+  }
+
+  function cancel(): void {
+    setLinkUrl(null);
+    const editor = editorRef.current;
+    if (editor === null) return;
+    restoreSelection(editor, savedRangeRef.current);
+  }
+
+  return { linkUrl, setLinkUrl, open, apply, remove, cancel };
+}
+
+type LinkRowProps = { url: string; link: LinkEditing };
+
+function LinkRow({ url, link }: LinkRowProps): JSX.Element {
+  const isLinkSafe = isSafeUrl(url);
+  return (
+    <form className="ve-richtext-link" onSubmit={link.apply}>
+      <input
+        className="ui-input"
+        type="text"
+        inputMode="url"
+        aria-label="Link address"
+        value={url}
+        autoFocus
+        aria-invalid={!isLinkSafe}
+        onChange={(event) => link.setLinkUrl(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key !== 'Escape') return;
+          event.preventDefault();
+          link.cancel();
+        }}
+      />
+      <button type="submit" className="ui-button ui-button--secondary" disabled={!isLinkSafe}>
+        Apply
+      </button>
+      <button type="button" className="ui-button ui-button--secondary" onClick={link.remove}>
+        Remove
+      </button>
+    </form>
+  );
+}
+
+type FormatToolbarProps = {
+  label: string;
+  buttons: FormatButton[];
+  isLinkOpen: boolean;
+  onFormat(button: FormatButton): void;
+  onLink(): void;
+};
+
+function FormatToolbar({
+  label,
+  buttons,
+  isLinkOpen,
+  onFormat,
+  onLink,
+}: FormatToolbarProps): JSX.Element {
+  return (
+    <div className="ve-richtext-toolbar" role="toolbar" aria-label={`${label} formatting`}>
+      {buttons.map((button) => (
+        <IconButton
+          key={button.label}
+          label={button.label}
+          icon={button.icon}
+          onMouseDown={(event) => event.preventDefault()}
+          onClick={() => onFormat(button)}
+        />
+      ))}
+      <IconButton
+        label="Link"
+        icon="link"
+        aria-expanded={isLinkOpen}
+        onMouseDown={(event) => event.preventDefault()}
+        onClick={onLink}
+      />
+    </div>
+  );
+}
+
 export function RichTextField({
   field,
   value,
@@ -61,8 +186,6 @@ export function RichTextField({
   const editorRef = useRef<HTMLDivElement>(null);
   const lastEmittedRef = useRef<string | null>(null);
   const isCommandRunningRef = useRef(false);
-  const savedRangeRef = useRef<Range | null>(null);
-  const [linkUrl, setLinkUrl] = useState<string | null>(null);
   const html = typeof value === 'string' ? value : '';
   const labelId = `${id}-label`;
   const allowHeadings = field.allowHeadings === true;
@@ -94,6 +217,8 @@ export function RichTextField({
     emit('discrete');
   }
 
+  const link = useLinkEditing(editorRef, runCommand);
+
   function handleInput(): void {
     if (isCommandRunningRef.current) return;
     emit('continuous');
@@ -114,96 +239,20 @@ export function RichTextField({
     runCommand('insertHTML', normalizeRichText(pasted, { allowHeadings }));
   }
 
-  function openLinkRow(): void {
-    const editor = editorRef.current;
-    if (editor === null) return;
-    const range = selectionRangeIn(editor);
-    savedRangeRef.current = range;
-    const existingLink = linkAround(range);
-    const existingHref = existingLink === null ? null : existingLink.getAttribute('href');
-    setLinkUrl(existingHref ?? DEFAULT_LINK_URL);
-  }
-
-  function applyLink(event: FormEvent<HTMLFormElement>): void {
-    event.preventDefault();
-    const editor = editorRef.current;
-    const url = linkUrl === null ? '' : linkUrl.trim();
-    if (editor === null || url === '' || !isSafeUrl(url)) return;
-    restoreSelection(editor, savedRangeRef.current);
-    setLinkUrl(null);
-    runCommand('createLink', url);
-  }
-
-  function removeLink(): void {
-    const editor = editorRef.current;
-    if (editor === null) return;
-    restoreSelection(editor, savedRangeRef.current);
-    setLinkUrl(null);
-    runCommand('unlink');
-  }
-
-  function cancelLink(): void {
-    setLinkUrl(null);
-    const editor = editorRef.current;
-    if (editor === null) return;
-    restoreSelection(editor, savedRangeRef.current);
-  }
-
-  const isLinkSafe = linkUrl === null || isSafeUrl(linkUrl);
-
   return (
     <>
       <span className="ui-field-label" id={labelId}>
         {field.label}
       </span>
       <div className="ve-richtext" data-invalid={isInvalid || undefined}>
-        <div
-          className="ve-richtext-toolbar"
-          role="toolbar"
-          aria-label={`${field.label} formatting`}
-        >
-          {buttons.map((button) => (
-            <IconButton
-              key={button.label}
-              label={button.label}
-              icon={button.icon}
-              onMouseDown={(event) => event.preventDefault()}
-              onClick={() => format(button)}
-            />
-          ))}
-          <IconButton
-            label="Link"
-            icon="link"
-            aria-expanded={linkUrl !== null}
-            onMouseDown={(event) => event.preventDefault()}
-            onClick={openLinkRow}
-          />
-        </div>
-        {linkUrl !== null && (
-          <form className="ve-richtext-link" onSubmit={applyLink}>
-            <input
-              className="ui-input"
-              type="text"
-              inputMode="url"
-              aria-label="Link address"
-              value={linkUrl}
-              autoFocus
-              aria-invalid={!isLinkSafe}
-              onChange={(event) => setLinkUrl(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key !== 'Escape') return;
-                event.preventDefault();
-                cancelLink();
-              }}
-            />
-            <button type="submit" className="ui-button ui-button--secondary" disabled={!isLinkSafe}>
-              Apply
-            </button>
-            <button type="button" className="ui-button ui-button--secondary" onClick={removeLink}>
-              Remove
-            </button>
-          </form>
-        )}
+        <FormatToolbar
+          label={field.label}
+          buttons={buttons}
+          isLinkOpen={link.linkUrl !== null}
+          onFormat={format}
+          onLink={link.open}
+        />
+        {link.linkUrl !== null && <LinkRow url={link.linkUrl} link={link} />}
         <div
           id={id}
           ref={editorRef}

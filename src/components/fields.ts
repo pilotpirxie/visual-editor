@@ -26,7 +26,7 @@ const ISO_DATE = /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})$/;
 const HTML_TAG = /<[^>]*>/g;
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE = /^\+?[\d\s().-]{3,}$/;
-export const ICON_REF = /^(?:[a-z0-9-]+:)?[a-z0-9-]+$/;
+const ICON_REF = /^(?:[a-z0-9-]+:)?[a-z0-9-]+$/;
 
 export function defaultValues(fields: Field[]): Record<string, unknown> {
   const values: Record<string, unknown> = {};
@@ -127,24 +127,40 @@ const isUploadedImageSrc = cachedByText(UPLOAD_CHECK_CACHE_SIZE, (src) => {
   return false;
 });
 
-export function isImageValue(value: unknown): value is ImageValue {
-  if (typeof value !== 'object' || value === null) return false;
+type ImageBasics = {
+  source: unknown;
+  src: string;
+  alt: string;
+  decorative: boolean;
+  width: unknown;
+  height: unknown;
+};
+
+function hasImageBasics(value: object): value is ImageBasics {
   if (!('source' in value) || !('src' in value) || !('alt' in value)) return false;
   if (!('decorative' in value) || !('width' in value) || !('height' in value)) return false;
   if (typeof value.src !== 'string' || typeof value.alt !== 'string') return false;
   if (typeof value.decorative !== 'boolean') return false;
-  if (!Number.isFinite(value.width) || !Number.isFinite(value.height)) return false;
-  if (value.source === 'upload') {
-    return 'name' in value && typeof value.name === 'string' && isUploadedImageSrc(value.src);
-  }
-  if (value.source !== 'placeholder' || !('placeholder' in value)) return false;
-  const { placeholder } = value;
+  return Number.isFinite(value.width) && Number.isFinite(value.height);
+}
+
+function isPlaceholderChoice(placeholder: unknown): boolean {
   if (typeof placeholder !== 'object' || placeholder === null) return false;
   if (!('ratio' in placeholder) || !('subject' in placeholder)) return false;
   return (
     PLACEHOLDER_RATIOS.some((ratio) => ratio === placeholder.ratio) &&
     PLACEHOLDER_SUBJECTS.some((subject) => subject === placeholder.subject)
   );
+}
+
+export function isImageValue(value: unknown): value is ImageValue {
+  if (typeof value !== 'object' || value === null) return false;
+  if (!hasImageBasics(value)) return false;
+  if (value.source === 'upload') {
+    return 'name' in value && typeof value.name === 'string' && isUploadedImageSrc(value.src);
+  }
+  if (value.source !== 'placeholder' || !('placeholder' in value)) return false;
+  return isPlaceholderChoice(value.placeholder);
 }
 
 function isOptionalString(value: unknown): boolean {

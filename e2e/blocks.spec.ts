@@ -1,8 +1,7 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { expect, test } from '@playwright/test';
-import { createProject, insertEveryBlock, readZip } from './editor';
+import { createProject, insertEveryBlock, exportedFiles, writeSiteFiles } from './editor';
 
 const WIDTHS = [320, 375, 768, 1024, 1440];
 
@@ -15,22 +14,12 @@ test('every block fits from 320 to 1440 pixels wide in the exported site', async
   expect(count).toBeGreaterThanOrEqual(75);
   await expect(page.frameLocator('.ve-canvas-frame').locator('[data-block-id]')).toHaveCount(count);
 
-  await page.getByRole('button', { name: 'Export', exact: true }).click();
-  const downloadPromise = page.waitForEvent('download');
-  await page
-    .getByRole('dialog', { name: 'Export site' })
-    .getByRole('button', { name: 'Download zip' })
-    .click();
-  const files = readZip(await readFile(await (await downloadPromise).path()));
+  const files = await exportedFiles(page);
   expect(files.get('index.html')?.toString('utf8')).toContain(
     '<symbol id="icon-simple-icons-github"',
   );
   const folder = testInfo.outputPath('site');
-  for (const [path, content] of files) {
-    const target = join(folder, path);
-    await mkdir(dirname(target), { recursive: true });
-    await writeFile(target, content);
-  }
+  await writeSiteFiles(files, folder);
 
   const errors: string[] = [];
   page.on('console', (message) => {

@@ -16,7 +16,7 @@ export type BlockMenuContext = {
   canConvert: boolean;
 };
 
-export const PASTE_HINT = 'Copy a block first, or press ⌘V / Ctrl+V to paste from another tab';
+const PASTE_HINT = 'Copy a block first, or press ⌘V / Ctrl+V to paste from another tab';
 
 function pasteAfterSelection(): void {
   dispatch(pasteFromMenu()).catch((error: unknown) => {

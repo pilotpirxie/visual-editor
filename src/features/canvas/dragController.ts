@@ -13,7 +13,7 @@ export type DropTarget = {
   tick?(point: Point): void;
 };
 
-export type DragSnapshot = { payload: DragPayload; point: Point } | null;
+type DragSnapshot = { payload: DragPayload; point: Point } | null;
 
 type PointerStart = {
   clientX: number;
@@ -23,7 +23,7 @@ type PointerStart = {
   currentTarget: EventTarget | null;
 };
 
-export type DragSourceFrame = { view: Window; toPage(point: Point): Point };
+type DragSourceFrame = { view: Window; toPage(point: Point): Point };
 
 type HoveredDrop = { target: DropTarget; index: number };
 
@@ -55,6 +55,25 @@ function suppressClickUntilRelease(views: Window[]): void {
 
 function canCapturePointer(target: EventTarget | null): target is Element {
   return target !== null && 'setPointerCapture' in target;
+}
+
+function findDrop(
+  targets: ReadonlySet<DropTarget>,
+  payload: DragPayload,
+  point: Point,
+): HoveredDrop | null {
+  for (const target of targets) {
+    if (!target.accepts(payload)) continue;
+    const index = target.resolve(point, payload);
+    if (index !== null) return { target, index };
+  }
+  return null;
+}
+
+function markDragging(views: Window[], isDragging: boolean): void {
+  for (const view of views) {
+    view.document.documentElement.classList.toggle('is-dragging', isDragging);
+  }
 }
 
 export type DragController = {
@@ -93,17 +112,8 @@ export function createDragController(): DragController {
     let hovered: HoveredDrop | null = null;
     let animationFrame = 0;
 
-    function findDrop(): HoveredDrop | null {
-      for (const target of targets) {
-        if (!target.accepts(payload)) continue;
-        const index = target.resolve(point, payload);
-        if (index !== null) return { target, index };
-      }
-      return null;
-    }
-
     function updateDrop(): void {
-      const drop = findDrop();
+      const drop = findDrop(targets, payload, point);
       hovered = drop;
       for (const target of targets) {
         const isHovered = drop !== null && drop.target === target;
@@ -118,16 +128,10 @@ export function createDragController(): DragController {
       animationFrame = requestAnimationFrame(loop);
     }
 
-    function setDragging(isDragging: boolean): void {
-      for (const view of views) {
-        view.document.documentElement.classList.toggle('is-dragging', isDragging);
-      }
-    }
-
     function activate(): void {
       isActive = true;
       if (source !== null && source.isConnected) source.setPointerCapture(down.pointerId);
-      setDragging(true);
+      markDragging(views, true);
       suppressClickUntilRelease(views);
       animationFrame = requestAnimationFrame(loop);
     }
@@ -140,7 +144,7 @@ export function createDragController(): DragController {
         view.removeEventListener('pointercancel', finish);
         view.removeEventListener('keydown', onKeyDown, true);
       }
-      setDragging(false);
+      markDragging(views, false);
       for (const target of targets) target.showIndicator(null, payload);
       cancelSession = null;
       snapshot = null;

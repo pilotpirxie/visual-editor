@@ -1,17 +1,16 @@
-import type { JSX, ReactNode } from 'react';
+import type { JSX } from 'react';
 import type { EditKind } from '../../app/projectSlice';
 import { SITE_META_RULES } from '../../app/settingsRules';
 import { useStore } from '../../app/store';
 import type { MetaTag } from '../../app/types';
 import type { Field as FieldSchema } from '../../components/types';
 import { resolveColor } from '../design-system/colors';
-import { useSection } from '../editor/useSection';
 import { FieldControl } from '../properties/FieldControl';
-import { Button, DraftInput, Field, Section, Select } from '../../../packages/ui/src';
+import { Button, DraftInput, Field, Select } from '../../../packages/ui/src';
 
 export type ChoiceOption = { value: string; label: string };
 
-export const DEFAULT_THEME_COLOR = 'var(--color-primary)';
+const DEFAULT_THEME_COLOR = 'var(--color-primary)';
 
 export const IMAGE_PREVIEW_OPTIONS: ChoiceOption[] = [
   { value: 'large', label: 'Large' },
@@ -70,27 +69,6 @@ export function labelOf(options: readonly ChoiceOption[], value: string | undefi
     if (option.value === value) return option.label;
   }
   return '';
-}
-
-type MetaSectionProps = {
-  id: string;
-  title: string;
-  isInitiallyOpen?: boolean;
-  children: ReactNode;
-};
-
-export function MetaSection({
-  id,
-  title,
-  isInitiallyOpen = false,
-  children,
-}: MetaSectionProps): JSX.Element {
-  const section = useSection(id, isInitiallyOpen);
-  return (
-    <Section title={title} isOpen={section.isOpen} onToggle={section.onToggle}>
-      {children}
-    </Section>
-  );
 }
 
 type MetaTextInputProps = {

@@ -1,4 +1,12 @@
-import { Suspense, useEffect, useRef, useState, type JSX, type KeyboardEvent } from 'react';
+import {
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+  type JSX,
+  type KeyboardEvent,
+  type RefObject,
+} from 'react';
 import { setAppearance, useAppearance } from '../../app/appearance';
 import { describeError } from '../../app/errors';
 import { editorPath, followLink, navigate, projectPath } from '../../app/router';
@@ -166,20 +174,19 @@ function RenameInput({
   );
 }
 
-export function HomeScreen(): JSX.Element {
+type Projects = {
+  projectList: ProjectList | null;
+  error: string | null;
+  showError(message: string | null): void;
+  retry(): void;
+  rename(summary: ProjectSummary, title: string): void;
+  duplicate(summary: ProjectSummary): void;
+  remove(summary: ProjectSummary): Promise<void>;
+};
+
+function useProjects(): Projects {
   const [projectList, setProjectList] = useState<ProjectList | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [renamingId, setRenamingId] = useState<string | null>(null);
-  const [isLicensesOpen, setIsLicensesOpen] = useState(false);
-  const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
-  const [settingsTab, setSettingsTab] = useState<AppSettingsTab | null>(null);
-  const [siteDescription, setSiteDescription] = useState<string | null>(null);
-  const [deleting, setDeleting] = useState<PendingDelete | null>(null);
-  const [isCreating, setIsCreating] = useState(false);
-  const isDark = useAppearance() === 'dark';
-  const newProjectRef = useRef<HTMLButtonElement>(null);
-  const gridRef = useRef<HTMLUListElement>(null);
-  const renameButtonsRef = useRef(new Map<string, HTMLButtonElement>());
   const [listAttempt, setListAttempt] = useState(0);
 
   useEffect(() => {
@@ -215,17 +222,18 @@ export function HomeScreen(): JSX.Element {
     }
   }
 
-  function finishRename(summary: ProjectSummary, title: string | null, exit: RenameExit): void {
-    setRenamingId(null);
-    if (exit === 'keyboard') renameButtonsRef.current.get(summary.id)?.focus();
-    const trimmed = title?.trim() ?? '';
-    if (trimmed === '' || trimmed === summary.title) return;
+  function retry(): void {
+    setError(null);
+    setListAttempt((current) => current + 1);
+  }
+
+  function rename(summary: ProjectSummary, title: string): void {
     void runProjectAction('rename the project', async () => {
       if (await isProjectOpenElsewhere(summary.id)) {
         throw new Error(`close “${summary.title}” in your other tab first, or rename it there`);
       }
       const project = await requireProject(summary.id);
-      await putProject(withTitle(project, trimmed));
+      await putProject(withTitle(project, title));
     });
   }
 
@@ -236,15 +244,167 @@ export function HomeScreen(): JSX.Element {
     });
   }
 
+  function remove(summary: ProjectSummary): Promise<void> {
+    return runProjectAction('delete the project', () => deleteProject(summary.id));
+  }
+
+  return { projectList, error, showError: setError, retry, rename, duplicate, remove };
+}
+
+type ProjectGridProps = {
+  summaries: ProjectSummary[];
+  listedAt: number;
+  gridRef: RefObject<HTMLUListElement | null>;
+  onRename(summary: ProjectSummary, title: string): void;
+  onDuplicate(summary: ProjectSummary): void;
+  onDelete(summary: ProjectSummary): void;
+};
+
+function ProjectGrid({
+  summaries,
+  listedAt,
+  gridRef,
+  onRename,
+  onDuplicate,
+  onDelete,
+}: ProjectGridProps): JSX.Element {
+  const [renamingId, setRenamingId] = useState<string | null>(null);
+  const renameButtonsRef = useRef(new Map<string, HTMLButtonElement>());
+
+  function finishRename(summary: ProjectSummary, title: string | null, exit: RenameExit): void {
+    setRenamingId(null);
+    if (exit === 'keyboard') renameButtonsRef.current.get(summary.id)?.focus();
+    const trimmed = title?.trim() ?? '';
+    if (trimmed === '' || trimmed === summary.title) return;
+    onRename(summary, trimmed);
+  }
+
+  return (
+    <ul ref={gridRef} className="ve-home-grid" aria-label="Projects">
+      {summaries.map((summary) => (
+        <li key={summary.id} className="ve-home-card">
+          <ProjectThumbnail summary={summary} />
+          {renamingId === summary.id ? (
+            <RenameInput
+              summary={summary}
+              onDone={(title, exit) => finishRename(summary, title, exit)}
+            />
+          ) : (
+            <h2 className="ve-home-card-title">
+              <a href={projectPath(summary.id)} onClick={followLink}>
+                {summary.title}
+              </a>
+            </h2>
+          )}
+          <p className="ui-muted">Edited {formatLastEdit(summary.updatedAt, listedAt)}</p>
+          <div className="ve-home-card-actions">
+            <IconButton
+              ref={(button) => {
+                if (button === null) return;
+                renameButtonsRef.current.set(summary.id, button);
+                return () => {
+                  renameButtonsRef.current.delete(summary.id);
+                };
+              }}
+              label={`Rename ${summary.title}`}
+              icon="pencil"
+              onClick={() => setRenamingId(summary.id)}
+            />
+            <IconButton
+              label={`Duplicate ${summary.title}`}
+              icon="copy"
+              onClick={() => onDuplicate(summary)}
+            />
+            <IconButton
+              label={`Delete ${summary.title}`}
+              icon="trash"
+              onClick={() => onDelete(summary)}
+            />
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+type HomeErrorProps = { error: string; canRetry: boolean; onRetry(): void };
+
+function HomeError({ error, canRetry, onRetry }: HomeErrorProps): JSX.Element {
+  return (
+    <div className="ve-home-error" role="alert">
+      <p>{error}</p>
+      {canRetry && <Button onClick={onRetry}>Try again</Button>}
+    </div>
+  );
+}
+
+function HomeFooter({ onOpenLicenses }: { onOpenLicenses(): void }): JSX.Element {
+  const isDark = useAppearance() === 'dark';
+  return (
+    <footer className="ve-home-footer">
+      <button type="button" className="ve-home-footer-link" onClick={onOpenLicenses}>
+        Open-source licenses
+      </button>
+      <Switch
+        label="Dark mode"
+        checked={isDark}
+        onChange={(event) => setAppearance(event.currentTarget.checked ? 'dark' : 'light')}
+      />
+    </footer>
+  );
+}
+
+type HomeHeaderProps = {
+  newProjectRef: RefObject<HTMLButtonElement | null>;
+  onOpenSettings(): void;
+  onNewProject(): void;
+};
+
+function HomeHeader({ newProjectRef, onOpenSettings, onNewProject }: HomeHeaderProps): JSX.Element {
+  return (
+    <header className="ve-home-header">
+      <div className="ve-home-actions">
+        <Button icon="settings" aria-haspopup="dialog" onClick={onOpenSettings}>
+          App settings
+        </Button>
+        <Button icon="folder-open" onClick={fileCommands.openFromDisk}>
+          Open from disk
+        </Button>
+        <Button
+          ref={newProjectRef}
+          variant="primary"
+          icon="plus"
+          aria-haspopup="dialog"
+          onClick={onNewProject}
+        >
+          New project
+        </Button>
+      </div>
+    </header>
+  );
+}
+
+export function HomeScreen(): JSX.Element {
+  const projects = useProjects();
+  const { projectList, error } = projects;
+  const [isLicensesOpen, setIsLicensesOpen] = useState(false);
+  const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
+  const [settingsTab, setSettingsTab] = useState<AppSettingsTab | null>(null);
+  const [siteDescription, setSiteDescription] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<PendingDelete | null>(null);
+  const [isCreating, setIsCreating] = useState(false);
+  const newProjectRef = useRef<HTMLButtonElement>(null);
+  const gridRef = useRef<HTMLUListElement>(null);
+
   async function startFromStarter(starter: StarterInfo, project: Project): Promise<void> {
-    setError(null);
+    projects.showError(null);
     setIsCreating(true);
     const created = instantiateStarter(starter, project, project.settings.title);
     try {
       await putProject(created);
     } catch (createError) {
       console.error('Could not create a project from a starter', createError);
-      setError(`Could not create a project: ${describeError(createError)}`);
+      projects.showError(`Could not create a project: ${describeError(createError)}`);
       setIsCreating(false);
       return;
     }
@@ -264,32 +424,18 @@ export function HomeScreen(): JSX.Element {
 
   async function remove(summary: ProjectSummary): Promise<void> {
     const index = projectList?.summaries.indexOf(summary) ?? 0;
-    await runProjectAction('delete the project', () => deleteProject(summary.id));
+    await projects.remove(summary);
     requestAnimationFrame(() => focusCardAt(index));
   }
 
   const hasProjects = projectList !== null && projectList.summaries.length > 0;
   return (
     <main className="ve-home">
-      <header className="ve-home-header">
-        <div className="ve-home-actions">
-          <Button icon="settings" aria-haspopup="dialog" onClick={() => setSettingsTab('general')}>
-            App settings
-          </Button>
-          <Button icon="folder-open" onClick={fileCommands.openFromDisk}>
-            Open from disk
-          </Button>
-          <Button
-            ref={newProjectRef}
-            variant="primary"
-            icon="plus"
-            aria-haspopup="dialog"
-            onClick={() => setIsNewProjectOpen(true)}
-          >
-            New project
-          </Button>
-        </div>
-      </header>
+      <HomeHeader
+        newProjectRef={newProjectRef}
+        onOpenSettings={() => setSettingsTab('general')}
+        onNewProject={() => setIsNewProjectOpen(true)}
+      />
 
       <SitePrompt
         titleId={TITLE_ID}
@@ -298,19 +444,7 @@ export function HomeScreen(): JSX.Element {
         onOpenSettings={() => setSettingsTab('assistant')}
       />
       {error !== null && (
-        <div className="ve-home-error" role="alert">
-          <p>{error}</p>
-          {projectList === null && (
-            <Button
-              onClick={() => {
-                setError(null);
-                setListAttempt((current) => current + 1);
-              }}
-            >
-              Try again
-            </Button>
-          )}
-        </div>
+        <HomeError error={error} canRetry={projectList === null} onRetry={projects.retry} />
       )}
       {projectList === null && error === null && (
         <p className="ui-muted" role="status">
@@ -323,52 +457,14 @@ export function HomeScreen(): JSX.Element {
             My projects
           </h2>
           {hasProjects && (
-            <ul ref={gridRef} className="ve-home-grid" aria-label="Projects">
-              {projectList.summaries.map((summary) => (
-                <li key={summary.id} className="ve-home-card">
-                  <ProjectThumbnail summary={summary} />
-                  {renamingId === summary.id ? (
-                    <RenameInput
-                      summary={summary}
-                      onDone={(title, exit) => finishRename(summary, title, exit)}
-                    />
-                  ) : (
-                    <h2 className="ve-home-card-title">
-                      <a href={projectPath(summary.id)} onClick={followLink}>
-                        {summary.title}
-                      </a>
-                    </h2>
-                  )}
-                  <p className="ui-muted">
-                    Edited {formatLastEdit(summary.updatedAt, projectList.listedAt)}
-                  </p>
-                  <div className="ve-home-card-actions">
-                    <IconButton
-                      ref={(button) => {
-                        if (button === null) return;
-                        renameButtonsRef.current.set(summary.id, button);
-                        return () => {
-                          renameButtonsRef.current.delete(summary.id);
-                        };
-                      }}
-                      label={`Rename ${summary.title}`}
-                      icon="pencil"
-                      onClick={() => setRenamingId(summary.id)}
-                    />
-                    <IconButton
-                      label={`Duplicate ${summary.title}`}
-                      icon="copy"
-                      onClick={() => duplicate(summary)}
-                    />
-                    <IconButton
-                      label={`Delete ${summary.title}`}
-                      icon="trash"
-                      onClick={() => void askToRemove(summary)}
-                    />
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <ProjectGrid
+              summaries={projectList.summaries}
+              listedAt={projectList.listedAt}
+              gridRef={gridRef}
+              onRename={projects.rename}
+              onDuplicate={projects.duplicate}
+              onDelete={(summary) => void askToRemove(summary)}
+            />
           )}
           <RecentFiles links={projectList.recentFiles} />
         </section>
@@ -385,20 +481,7 @@ export function HomeScreen(): JSX.Element {
           />
         </section>
       )}
-      <footer className="ve-home-footer">
-        <button
-          type="button"
-          className="ve-home-footer-link"
-          onClick={() => setIsLicensesOpen(true)}
-        >
-          Open-source licenses
-        </button>
-        <Switch
-          label="Dark mode"
-          checked={isDark}
-          onChange={(event) => setAppearance(event.currentTarget.checked ? 'dark' : 'light')}
-        />
-      </footer>
+      <HomeFooter onOpenLicenses={() => setIsLicensesOpen(true)} />
       <Suspense fallback={null}>
         {isLicensesOpen && <LicensesDialog onClose={() => setIsLicensesOpen(false)} />}
         {isNewProjectOpen && <NewProjectDialog onClose={() => setIsNewProjectOpen(false)} />}

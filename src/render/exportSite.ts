@@ -29,11 +29,11 @@ import {
 } from './renderBlock';
 import { blockComponentId } from '../components/registry';
 
-export type RenderedBlock = { html: string; isComponent: boolean };
+type RenderedBlock = { html: string; isComponent: boolean };
 
 type RenderedBlocks = Record<keyof PageBlocks, RenderedBlock[]>;
 
-export type RenderedPage = {
+type RenderedPage = {
   page: Page;
   fileName: string;
   blocks: RenderedBlocks;
@@ -91,7 +91,7 @@ function renderPageBlocks(
   };
 }
 
-export function renderProjectPage(
+function renderProjectPage(
   project: Project,
   pageId: string,
   registry: ReadonlyMap<string, RegisteredComponent>,

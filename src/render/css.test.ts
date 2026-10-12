@@ -20,7 +20,11 @@ const tokens: Record<string, Token> = {
   '--color-unused': token('--color-unused', '#000000'),
 };
 
-function site(usedClasses: string[], componentStyles: string[] = [], html = '') {
+function site(
+  usedClasses: string[],
+  componentStyles: string[] = [],
+  html = '',
+): ReturnType<typeof buildSiteCss> {
   return buildSiteCss({
     tokens,
     componentStyles,
