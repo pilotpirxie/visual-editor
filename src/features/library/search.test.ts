@@ -96,6 +96,7 @@ describe('filterComponents', () => {
       'cta-dark',
       'cta-download',
       'cta-email',
+      'cta-glow',
       'cta-gradient',
       'cta-guarantee',
       'cta-image',

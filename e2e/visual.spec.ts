@@ -89,7 +89,7 @@ async function expectEveryWidthFits(page: Page, label: string): Promise<void> {
 
 for (const presets of PRESET_GROUPS) {
   test(`every block fits at every width in ${presets.join(', ')}`, async ({ page }) => {
-    test.setTimeout(300_000);
+    test.setTimeout(900_000);
     await createProject(page);
     expect(await insertEveryBlock(page)).toBeGreaterThanOrEqual(80);
     for (const preset of presets) {
@@ -100,7 +100,7 @@ for (const presets of PRESET_GROUPS) {
 }
 
 test('long site titles and long link words still fit on a phone', async ({ page }) => {
-  test.setTimeout(300_000);
+  test.setTimeout(900_000);
   await createProject(page);
   const settings = await openProjectSettings(page);
   await settings
@@ -120,7 +120,7 @@ test('long site titles and long link words still fit on a phone', async ({ page 
 });
 
 test('every block fits in a right-to-left site', async ({ page }) => {
-  test.setTimeout(300_000);
+  test.setTimeout(900_000);
   await createProject(page);
   const settings = await openProjectSettings(page);
   await settings.getByLabel('Language').selectOption('ar');

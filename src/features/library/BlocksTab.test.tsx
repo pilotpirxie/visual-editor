@@ -101,7 +101,7 @@ describe('groupByCategory', () => {
 describe('BlocksTab', () => {
   it('lists categories with how many blocks each has', () => {
     const { container } = render(<BlocksTab />);
-    expect(categoryButton(container, 'Headers').textContent).toBe('Headers41');
+    expect(categoryButton(container, 'Headers').textContent).toBe('Headers43');
   });
 
   it('opens a category and goes back to the list', () => {

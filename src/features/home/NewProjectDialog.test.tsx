@@ -188,15 +188,20 @@ describe('NewProjectDialog tabs', () => {
   it('filters the starters by use case', async () => {
     const container = await renderDialog();
     click(getButton(container, 'Starters'));
-    await vi.waitFor(() => expect(starterNames(container)).toHaveLength(8), {
+    await vi.waitFor(() => expect(starterNames(container)).toHaveLength(14), {
       timeout: STARTERS_LOAD_TIMEOUT_MS,
     });
     click(choiceInput(filterOf(container), 'Personal'));
-    expect(starterNames(container)).toEqual(['Portfolio']);
+    expect(starterNames(container)).toEqual(['Portfolio', 'Podcast']);
     click(choiceInput(filterOf(container), 'Local and events'));
-    expect(starterNames(container)).toEqual(['Event or conference', 'Restaurant or cafe']);
+    expect(starterNames(container)).toEqual([
+      'Event or conference',
+      'Restaurant or cafe',
+      'Nonprofit',
+      'Fitness studio',
+    ]);
     click(choiceInput(filterOf(container), 'All'));
-    expect(starterNames(container)).toHaveLength(8);
+    expect(starterNames(container)).toHaveLength(14);
   });
 
   it('closes without creating anything on Cancel', async () => {

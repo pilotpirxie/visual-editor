@@ -24,6 +24,8 @@ const EXPECTED_SLUGS: Record<string, string[]> = {
   podcast: ['home', 'episodes', 'about', 'subscribe'],
   studio: ['home', 'projects', 'studio', 'journal', 'contact'],
   course: ['home', 'curriculum', 'pricing', 'instructor', 'faq'],
+  fitness: ['home', 'classes', 'trainers', 'membership', 'contact'],
+  devtool: ['home', 'features', 'pricing', 'changelog', '404'],
 };
 
 const loaded = new Map<string, Project>();

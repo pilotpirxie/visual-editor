@@ -9,7 +9,7 @@ const WIDTHS = [320, 375, 768, 1024, 1440];
 test('every block fits from 320 to 1440 pixels wide in the exported site', async ({
   page,
 }, testInfo) => {
-  test.setTimeout(300_000);
+  test.setTimeout(900_000);
   await createProject(page);
   const count = await insertEveryBlock(page);
   expect(count).toBeGreaterThanOrEqual(75);

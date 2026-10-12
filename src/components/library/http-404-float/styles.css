@@ -1,0 +1,113 @@
+@layer components {
+  @scope (.b-http-404-float) {
+    .b-inner {
+      --stack-gap: var(--space-4);
+      text-align: center;
+    }
+
+    .b-stage {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: min(100%, 36rem);
+      margin-inline: auto;
+      aspect-ratio: 16 / 9;
+      overflow: clip;
+      container-type: inline-size;
+    }
+
+    .b-code {
+      position: relative;
+      font-family: var(--font-heading);
+      font-size: 36cqi;
+      font-weight: var(--font-weight-heading);
+      line-height: 1;
+      color: var(--color-primary);
+    }
+
+    .b-shape {
+      position: absolute;
+      inset-block-start: var(--b-y);
+      inset-inline-start: var(--b-x);
+      width: var(--b-size);
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 25%, var(--color-background));
+    }
+
+    .b-ring {
+      --b-x: 5%;
+      --b-y: 10%;
+      --b-size: 16%;
+      border: var(--space-1) solid var(--color-primary);
+      background: none;
+    }
+
+    .b-dot {
+      --b-x: 84%;
+      --b-y: 16%;
+      --b-size: 8%;
+      background: var(--color-text);
+    }
+
+    .b-tile {
+      --b-x: 10%;
+      --b-y: 66%;
+      --b-size: 11%;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      rotate: 14deg;
+    }
+
+    .b-pill {
+      --b-x: 72%;
+      --b-y: 74%;
+      --b-size: 20%;
+      aspect-ratio: 3;
+    }
+
+    .b-text {
+      max-width: 44ch;
+      margin-inline: auto;
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-actions {
+      --cluster-justify: center;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-shape {
+        animation: b-http-404-float--drift 7s ease-in-out infinite alternate;
+      }
+
+      .b-dot,
+      .b-tile {
+        animation-duration: 9s;
+        animation-direction: alternate-reverse;
+      }
+
+      .b-code {
+        animation: b-http-404-float--bob 6s ease-in-out infinite alternate;
+      }
+
+      :scope:is(:hover, :focus-within) :is(.b-shape, .b-code) {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  @keyframes b-http-404-float--drift {
+    to {
+      translate: 0 calc(-1 * var(--space-4));
+    }
+  }
+
+  @keyframes b-http-404-float--bob {
+    to {
+      translate: 0 var(--space-2);
+    }
+  }
+}

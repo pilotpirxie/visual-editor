@@ -1,0 +1,2152 @@
+{
+  "schemaVersion": 1,
+  "id": "starter-devtool",
+  "settings": {
+    "title": "Tack",
+    "description": "A remote build cache and executor for Bazel, Gradle, Nx and Turborepo that shares finished work between every laptop and CI runner.",
+    "language": "en",
+    "titleTemplate": "{{page.title}} | {{site.title}}",
+    "indexable": true
+  },
+  "designSystem": {
+    "presetId": "neon",
+    "tokens": {
+      "--color-primary": {
+        "name": "--color-primary",
+        "label": "Primary",
+        "group": "color",
+        "value": "#c6ff3d"
+      },
+      "--color-primary-contrast": {
+        "name": "--color-primary-contrast",
+        "label": "Primary contrast",
+        "group": "color",
+        "value": "#0a0a0c"
+      },
+      "--color-background": {
+        "name": "--color-background",
+        "label": "Background",
+        "group": "color",
+        "value": "#0a0a0c"
+      },
+      "--color-surface": {
+        "name": "--color-surface",
+        "label": "Surface",
+        "group": "color",
+        "value": "#16161a"
+      },
+      "--color-text": {
+        "name": "--color-text",
+        "label": "Text",
+        "group": "color",
+        "value": "#f4f4f5"
+      },
+      "--color-text-muted": {
+        "name": "--color-text-muted",
+        "label": "Muted text",
+        "group": "color",
+        "value": "#a5a5b0"
+      },
+      "--color-border": {
+        "name": "--color-border",
+        "label": "Border",
+        "group": "color",
+        "value": "#2b2b33"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#000000"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#0f0f12"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#a5a5b0"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#26262d"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#3df2ff"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#001417"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--font-heading": {
+        "name": "--font-heading",
+        "label": "Heading font",
+        "group": "typography",
+        "value": "\"Syne\", system-ui, sans-serif"
+      },
+      "--font-body": {
+        "name": "--font-body",
+        "label": "Body font",
+        "group": "typography",
+        "value": "\"Manrope\", system-ui, sans-serif"
+      },
+      "--font-mono": {
+        "name": "--font-mono",
+        "label": "Mono font",
+        "group": "typography",
+        "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+      },
+      "--font-weight-heading": {
+        "name": "--font-weight-heading",
+        "label": "Heading weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--font-weight-regular": {
+        "name": "--font-weight-regular",
+        "label": "Body weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-bold": {
+        "name": "--font-weight-bold",
+        "label": "Bold weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--text-xs": {
+        "name": "--text-xs",
+        "label": "Extra small",
+        "group": "typography",
+        "value": "0.64rem"
+      },
+      "--text-sm": {
+        "name": "--text-sm",
+        "label": "Small",
+        "group": "typography",
+        "value": "0.8rem"
+      },
+      "--text-base": {
+        "name": "--text-base",
+        "label": "Base",
+        "group": "typography",
+        "value": "1rem"
+      },
+      "--text-lg": {
+        "name": "--text-lg",
+        "label": "Large",
+        "group": "typography",
+        "value": "1.25rem"
+      },
+      "--text-xl": {
+        "name": "--text-xl",
+        "label": "XL",
+        "group": "typography",
+        "value": "1.5625rem"
+      },
+      "--text-2xl": {
+        "name": "--text-2xl",
+        "label": "2XL",
+        "group": "typography",
+        "value": "1.9531rem"
+      },
+      "--text-3xl": {
+        "name": "--text-3xl",
+        "label": "3XL",
+        "group": "typography",
+        "value": "clamp(1.6018rem, 1.3219rem + 1.3993vw, 2.4414rem)"
+      },
+      "--text-4xl": {
+        "name": "--text-4xl",
+        "label": "4XL",
+        "group": "typography",
+        "value": "clamp(1.802rem, 1.3855rem + 2.0829vw, 3.0518rem)"
+      },
+      "--text-5xl": {
+        "name": "--text-5xl",
+        "label": "5XL",
+        "group": "typography",
+        "value": "clamp(2.0273rem, 1.4315rem + 2.979vw, 3.8147rem)"
+      },
+      "--line-height-tight": {
+        "name": "--line-height-tight",
+        "label": "Heading line height",
+        "group": "typography",
+        "value": "1.1"
+      },
+      "--line-height-normal": {
+        "name": "--line-height-normal",
+        "label": "Body line height",
+        "group": "typography",
+        "value": "1.6"
+      },
+      "--space-1": {
+        "name": "--space-1",
+        "label": "Space 1",
+        "group": "spacing",
+        "value": "0.25rem"
+      },
+      "--space-2": {
+        "name": "--space-2",
+        "label": "Space 2",
+        "group": "spacing",
+        "value": "0.5rem"
+      },
+      "--space-3": {
+        "name": "--space-3",
+        "label": "Space 3",
+        "group": "spacing",
+        "value": "0.75rem"
+      },
+      "--space-4": {
+        "name": "--space-4",
+        "label": "Space 4",
+        "group": "spacing",
+        "value": "1rem"
+      },
+      "--space-6": {
+        "name": "--space-6",
+        "label": "Space 6",
+        "group": "spacing",
+        "value": "1.5rem"
+      },
+      "--space-8": {
+        "name": "--space-8",
+        "label": "Space 8",
+        "group": "spacing",
+        "value": "2rem"
+      },
+      "--space-12": {
+        "name": "--space-12",
+        "label": "Space 12",
+        "group": "spacing",
+        "value": "3rem"
+      },
+      "--space-16": {
+        "name": "--space-16",
+        "label": "Space 16",
+        "group": "spacing",
+        "value": "4rem"
+      },
+      "--section-padding-y": {
+        "name": "--section-padding-y",
+        "label": "Section padding",
+        "group": "spacing",
+        "value": "clamp(3rem, 2rem + 4vw, 6rem)"
+      },
+      "--container-max-width": {
+        "name": "--container-max-width",
+        "label": "Container width",
+        "group": "spacing",
+        "value": "72rem"
+      },
+      "--container-padding-x": {
+        "name": "--container-padding-x",
+        "label": "Container padding",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--radius-sm": {
+        "name": "--radius-sm",
+        "label": "Small radius",
+        "group": "shape",
+        "value": "0.25rem"
+      },
+      "--radius-md": {
+        "name": "--radius-md",
+        "label": "Medium radius",
+        "group": "shape",
+        "value": "0.375rem"
+      },
+      "--radius-lg": {
+        "name": "--radius-lg",
+        "label": "Large radius",
+        "group": "shape",
+        "value": "0.75rem"
+      },
+      "--radius-full": {
+        "name": "--radius-full",
+        "label": "Full radius",
+        "group": "shape",
+        "value": "9999px"
+      },
+      "--border-width": {
+        "name": "--border-width",
+        "label": "Border width",
+        "group": "shape",
+        "value": "1px"
+      },
+      "--shadow-sm": {
+        "name": "--shadow-sm",
+        "label": "Small shadow",
+        "group": "elevation",
+        "value": "0 1px 2px rgb(0 0 0 / 0.5)"
+      },
+      "--shadow-md": {
+        "name": "--shadow-md",
+        "label": "Medium shadow",
+        "group": "elevation",
+        "value": "0 8px 20px rgb(0 0 0 / 0.55)"
+      },
+      "--shadow-lg": {
+        "name": "--shadow-lg",
+        "label": "Large shadow",
+        "group": "elevation",
+        "value": "0 0 48px rgb(198 255 61 / 0.16)"
+      },
+      "--button-radius": {
+        "name": "--button-radius",
+        "label": "Button radius",
+        "group": "component",
+        "value": "var(--radius-md)"
+      },
+      "--button-padding-y": {
+        "name": "--button-padding-y",
+        "label": "Button padding Y",
+        "group": "component",
+        "value": "0.75rem"
+      },
+      "--button-padding-x": {
+        "name": "--button-padding-x",
+        "label": "Button padding X",
+        "group": "component",
+        "value": "1.25rem"
+      },
+      "--card-radius": {
+        "name": "--card-radius",
+        "label": "Card radius",
+        "group": "component",
+        "value": "var(--radius-lg)"
+      },
+      "--card-shadow": {
+        "name": "--card-shadow",
+        "label": "Card shadow",
+        "group": "component",
+        "value": "var(--shadow-sm)"
+      },
+      "--transition-fast": {
+        "name": "--transition-fast",
+        "label": "Fast",
+        "group": "motion",
+        "value": "120ms"
+      },
+      "--transition-normal": {
+        "name": "--transition-normal",
+        "label": "Normal",
+        "group": "motion",
+        "value": "200ms"
+      }
+    },
+    "fonts": [
+      {
+        "role": "heading",
+        "family": "Syne",
+        "weights": [700]
+      },
+      {
+        "role": "body",
+        "family": "Manrope",
+        "weights": [400, 700]
+      }
+    ],
+    "generators": {
+      "typeBasePx": 16,
+      "typeRatio": 1.25,
+      "spaceUnitPx": 4
+    },
+    "iconSet": "tabler"
+  },
+  "pages": {
+    "ids": ["home", "features", "pricing", "changelog", "404"],
+    "entities": {
+      "home": {
+        "id": "home",
+        "name": "Home",
+        "slug": "home",
+        "blockIds": [
+          "home-hero",
+          "home-quotes",
+          "home-how",
+          "home-board",
+          "home-index",
+          "home-install"
+        ],
+        "seo": {
+          "description": "Tack is a remote build cache and executor for Bazel, Gradle, Nx and Turborepo. Install the CLI in two minutes and stop rebuilding what another machine already built.",
+          "title": "Remote build cache for monorepos",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "features": {
+        "id": "features",
+        "name": "Features",
+        "slug": "features",
+        "blockIds": [
+          "features-hero",
+          "features-cache",
+          "features-dashboard",
+          "features-integrations",
+          "features-compare",
+          "features-cta"
+        ],
+        "seo": {
+          "description": "Per-task caching, cache miss explanations, signed entries, a keyboard-first dashboard and integrations with Bazel, Gradle, Nx, Turborepo and every major CI.",
+          "title": "Features",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "pricing": {
+        "id": "pricing",
+        "name": "Pricing",
+        "slug": "pricing",
+        "blockIds": [
+          "pricing-hero",
+          "pricing-plans",
+          "pricing-credits",
+          "pricing-result",
+          "pricing-faq",
+          "pricing-cta"
+        ],
+        "seo": {
+          "description": "Tack is free for solo developers and open source. Team plans start at $60 a month for five developers, with unlimited cache reads and optional remote execution credits.",
+          "title": "Pricing",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "changelog": {
+        "id": "changelog",
+        "name": "Changelog",
+        "slug": "changelog",
+        "blockIds": ["changelog-hero", "changelog-releases", "changelog-roadmap", "changelog-cta"],
+        "seo": {
+          "description": "Release notes for every version of Tack, shipped every second Tuesday, plus the public roadmap for the next three releases.",
+          "title": "Changelog and roadmap",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "404": {
+        "id": "404",
+        "name": "Page not found",
+        "slug": "404",
+        "blockIds": ["not-found-terminal"],
+        "seo": {
+          "noindex": true
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      }
+    },
+    "homePageId": "home"
+  },
+  "blocks": {
+    "ids": [
+      "header-banner",
+      "header-nav",
+      "footer",
+      "home-hero",
+      "home-quotes",
+      "home-how",
+      "home-board",
+      "home-index",
+      "home-install",
+      "features-hero",
+      "features-cache",
+      "features-dashboard",
+      "features-integrations",
+      "features-compare",
+      "features-cta",
+      "pricing-hero",
+      "pricing-plans",
+      "pricing-credits",
+      "pricing-result",
+      "pricing-faq",
+      "pricing-cta",
+      "changelog-hero",
+      "changelog-releases",
+      "changelog-roadmap",
+      "changelog-cta",
+      "not-found-terminal"
+    ],
+    "entities": {
+      "header-banner": {
+        "id": "header-banner",
+        "kind": "component",
+        "componentId": "banner-version",
+        "values": {
+          "version": "v3.4",
+          "text": "Dictionary compression, tack why and 9 fixes",
+          "linkLabel": "Read the changelog",
+          "link": {
+            "type": "section",
+            "pageId": "changelog",
+            "anchor": "releases",
+            "newTab": false
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "header-nav": {
+        "id": "header-nav",
+        "kind": "component",
+        "componentId": "nav-status",
+        "values": {
+          "links": [
+            {
+              "label": "Features",
+              "link": {
+                "type": "page",
+                "pageId": "features",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Pricing",
+              "link": {
+                "type": "page",
+                "pageId": "pricing",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Changelog",
+              "link": {
+                "type": "page",
+                "pageId": "changelog",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Docs",
+              "link": {
+                "type": "url",
+                "url": "https://docs.tack.example",
+                "newTab": true
+              }
+            }
+          ],
+          "statusLabel": "All systems normal",
+          "statusMeta": "99.99% uptime",
+          "statusLink": {
+            "type": "url",
+            "url": "https://status.tack.example",
+            "newTab": true
+          },
+          "showCta": true,
+          "cta": {
+            "label": "Install Tack",
+            "link": {
+              "type": "section",
+              "pageId": "home",
+              "anchor": "install",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "menuIcon": "menu"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "footer": {
+        "id": "footer",
+        "kind": "component",
+        "componentId": "footer-status",
+        "values": {
+          "tagline": "The remote build cache for monorepos.\nSOC 2 Type II audited.",
+          "columns": [
+            {
+              "title": "Product",
+              "links": [
+                {
+                  "label": "Features",
+                  "link": {
+                    "type": "page",
+                    "pageId": "features",
+                    "newTab": false
+                  }
+                },
+                {
+                  "label": "Integrations",
+                  "link": {
+                    "type": "section",
+                    "pageId": "features",
+                    "anchor": "integrations",
+                    "newTab": false
+                  }
+                },
+                {
+                  "label": "Tack compared",
+                  "link": {
+                    "type": "section",
+                    "pageId": "features",
+                    "anchor": "compare",
+                    "newTab": false
+                  }
+                },
+                {
+                  "label": "Pricing",
+                  "link": {
+                    "type": "page",
+                    "pageId": "pricing",
+                    "newTab": false
+                  }
+                }
+              ]
+            },
+            {
+              "title": "Developers",
+              "links": [
+                {
+                  "label": "Install",
+                  "link": {
+                    "type": "section",
+                    "pageId": "home",
+                    "anchor": "install",
+                    "newTab": false
+                  }
+                },
+                {
+                  "label": "Documentation",
+                  "link": {
+                    "type": "url",
+                    "url": "https://docs.tack.example",
+                    "newTab": true
+                  }
+                },
+                {
+                  "label": "Changelog",
+                  "link": {
+                    "type": "page",
+                    "pageId": "changelog",
+                    "newTab": false
+                  }
+                },
+                {
+                  "label": "Roadmap",
+                  "link": {
+                    "type": "section",
+                    "pageId": "changelog",
+                    "anchor": "roadmap",
+                    "newTab": false
+                  }
+                }
+              ]
+            },
+            {
+              "title": "Company",
+              "links": [
+                {
+                  "label": "Security",
+                  "link": {
+                    "type": "url",
+                    "url": "https://docs.tack.example/security",
+                    "newTab": true
+                  }
+                },
+                {
+                  "label": "Status",
+                  "link": {
+                    "type": "url",
+                    "url": "https://status.tack.example",
+                    "newTab": true
+                  }
+                },
+                {
+                  "label": "Contact",
+                  "link": {
+                    "type": "email",
+                    "url": "hello@tack.example",
+                    "newTab": false
+                  }
+                }
+              ]
+            }
+          ],
+          "statusLabel": "All systems normal",
+          "statusLink": {
+            "type": "url",
+            "url": "https://status.tack.example",
+            "newTab": true
+          },
+          "version": "v3.4.0",
+          "region": "Cache nodes in 14 regions",
+          "copyright": "© 2026 Tack Labs, Inc."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-hero": {
+        "id": "home-hero",
+        "kind": "component",
+        "componentId": "hero-rotating-words",
+        "values": {
+          "eyebrow": "Remote build cache for monorepos",
+          "title": "Never rebuild",
+          "text": "Tack is a remote cache and executor for Bazel, Gradle, Nx and Turborepo. Point your build at it with one command, and every laptop and CI runner shares the same finished work.",
+          "words": [
+            {
+              "text": "the same commit twice"
+            },
+            {
+              "text": "an untouched package"
+            },
+            {
+              "text": "a green test suite"
+            },
+            {
+              "text": "what CI already built"
+            }
+          ],
+          "primaryButton": {
+            "label": "Install Tack",
+            "link": {
+              "type": "section",
+              "pageId": "home",
+              "anchor": "install",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "See how it works",
+            "link": {
+              "type": "section",
+              "pageId": "home",
+              "anchor": "how",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "align": "center"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-quotes": {
+        "id": "home-quotes",
+        "kind": "component",
+        "componentId": "testimonials-strip",
+        "values": {
+          "title": "Trusted by 2,400 engineering teams",
+          "rating": "4.8 average from 310 reviews",
+          "items": [
+            {
+              "quote": "Our 38 minute pipeline is 9 minutes now, and we changed two lines of config.",
+              "name": "Ines Carvalho, Brightlane",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ines Carvalho",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "tack why told us in one line why a cache key kept changing.",
+              "name": "Dmitri Volkov, Halvorsen Robotics",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Dmitri Volkov",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "We deleted 600 lines of homemade S3 cache scripts.",
+              "name": "Asha Menon, Corvid Labs",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Asha Menon",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "Fresh laptop to green build in four minutes on a 3 million line repo.",
+              "name": "Luke Fenwick, Meridian Freight",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Luke Fenwick",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "Our bill went down the month we added eight engineers.",
+              "name": "Noor Haddad, Pallet",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Noor Haddad",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "Restores are fast enough that we stopped talking about CI.",
+              "name": "Sven Lindqvist, Oystercatcher",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Sven Lindqvist",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-how": {
+        "id": "home-how",
+        "kind": "component",
+        "componentId": "steps-pipeline",
+        "values": {
+          "eyebrow": "How it works",
+          "title": "Hashes in, finished work out",
+          "intro": "Tack sits between the build tool you already use and every machine that runs it. No new build language and nothing to rewrite.",
+          "inputsTitle": "Your build tool",
+          "inputs": [
+            {
+              "icon": "layers",
+              "label": "Bazel"
+            },
+            {
+              "icon": "puzzle",
+              "label": "Gradle"
+            },
+            {
+              "icon": "grid",
+              "label": "Nx"
+            },
+            {
+              "icon": "repeat",
+              "label": "Turborepo"
+            }
+          ],
+          "inLabel": "Task hashes",
+          "coreIcon": "zap",
+          "coreTitle": "Tack",
+          "coreText": "Looks up every task in 14 regional cache nodes and hands back the outputs if any machine has run it before.",
+          "tasks": [
+            {
+              "label": "Hash inputs"
+            },
+            {
+              "label": "Look up"
+            },
+            {
+              "label": "Restore outputs"
+            }
+          ],
+          "outLabel": "Cached outputs",
+          "outputsTitle": "Wherever it runs",
+          "outputs": [
+            {
+              "icon": "monitor",
+              "label": "Developer laptops"
+            },
+            {
+              "icon": "workflow",
+              "label": "GitHub Actions"
+            },
+            {
+              "icon": "cpu",
+              "label": "Buildkite agents"
+            },
+            {
+              "icon": "cloud",
+              "label": "Tack remote workers"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "how"
+      },
+      "home-board": {
+        "id": "home-board",
+        "kind": "component",
+        "componentId": "stats-board",
+        "values": {
+          "eyebrow": "Last 7 days on Tack",
+          "title": "Work nobody had to redo",
+          "intro": "Totals across every workspace, counted at the cache edge.",
+          "metricLabel": "Metric",
+          "valueLabel": "Total",
+          "statusLabel": "Trend",
+          "rows": [
+            {
+              "label": "Cache hits served",
+              "value": "412M",
+              "status": "Up 6%"
+            },
+            {
+              "label": "Build hours saved",
+              "value": "86,400",
+              "status": "Up 9%"
+            },
+            {
+              "label": "Hit rate on main",
+              "value": "93.7%",
+              "status": "Up 0.4 pts"
+            },
+            {
+              "label": "Median restore",
+              "value": "140ms",
+              "status": "Steady"
+            }
+          ],
+          "updated": "Updated every Monday at 09:00 UTC"
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-index": {
+        "id": "home-index",
+        "kind": "component",
+        "componentId": "features-index",
+        "values": {
+          "eyebrow": "The product",
+          "title": "One cache, four ways in",
+          "intro": "Start with the part closest to the problem you have today.",
+          "items": [
+            {
+              "title": "The cache",
+              "text": "Restore any task another machine already ran, in a median 140 ms.",
+              "link": {
+                "type": "section",
+                "pageId": "features",
+                "anchor": "cache",
+                "newTab": false
+              }
+            },
+            {
+              "title": "The dashboard",
+              "text": "See every miss and what caused it without leaving the keyboard.",
+              "link": {
+                "type": "section",
+                "pageId": "features",
+                "anchor": "dashboard",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Integrations",
+              "text": "Bazel, Gradle, Nx and Turborepo on any CI, with no plugin to maintain.",
+              "link": {
+                "type": "section",
+                "pageId": "features",
+                "anchor": "integrations",
+                "newTab": false
+              }
+            },
+            {
+              "title": "Tack compared",
+              "text": "How Tack differs from an S3 bucket and the cache built into your CI.",
+              "link": {
+                "type": "section",
+                "pageId": "features",
+                "anchor": "compare",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-install": {
+        "id": "home-install",
+        "kind": "component",
+        "componentId": "cta-command",
+        "values": {
+          "eyebrow": "Two minute setup",
+          "title": "Install Tack and run your first cached build",
+          "text": "The CLI is a single 11 MB binary for macOS, Linux and Windows. It detects your build tool and writes the remote cache settings for you.",
+          "windowTitle": "~/code/storefront",
+          "command": "brew install tack-dev/tap/tack",
+          "output": "✓ Installed tack 3.4.0\n✓ Found Turborepo 2.5 in turbo.json\nRun tack login to connect this repo.",
+          "primaryButton": {
+            "label": "Read the quickstart",
+            "link": {
+              "type": "url",
+              "url": "https://docs.tack.example/quickstart",
+              "newTab": true
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "See pricing",
+            "link": {
+              "type": "page",
+              "pageId": "pricing",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "install"
+      },
+      "features-hero": {
+        "id": "features-hero",
+        "kind": "component",
+        "componentId": "hero-browser",
+        "values": {
+          "eyebrow": "Tack 3.4 is out",
+          "title": "A build cache you can see inside",
+          "text": "The dashboard lists every task in a run, its cache key and the commit that first produced it. When a task misses, Tack names the input that changed.",
+          "primaryButton": {
+            "label": "Install Tack",
+            "link": {
+              "type": "section",
+              "pageId": "home",
+              "anchor": "install",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Compare caches",
+            "link": {
+              "type": "section",
+              "pageId": "features",
+              "anchor": "compare",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "url": "app.tack.example/storefront/runs/48213",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The Tack dashboard showing one CI run: 214 tasks, 212 restored from cache and two misses with the changed file named",
+            "decorative": false,
+            "width": 1600,
+            "height": 900,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "screenshot"
+            }
+          },
+          "toast": "212 of 214 tasks restored in 38 s"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "features-cache": {
+        "id": "features-cache",
+        "kind": "component",
+        "componentId": "features-mini-ui",
+        "values": {
+          "eyebrow": "The cache",
+          "title": "Fast by default, strict where it counts",
+          "intro": "Four parts of Tack that teams switch on in the first week and never think about again.",
+          "items": [
+            {
+              "kind": "toggle",
+              "uiLabel": "Read-only on pull requests",
+              "uiValue": "",
+              "percent": 60,
+              "title": "Forks cannot poison main",
+              "text": "Pull requests read from the cache, but only protected branches write to it. One switch per workspace."
+            },
+            {
+              "kind": "tags",
+              "uiLabel": "linux-x64",
+              "uiValue": "node 22.9",
+              "percent": 60,
+              "title": "Keys that know the platform",
+              "text": "The OS, CPU and toolchain version are part of every cache key, so a Mac never restores a Linux binary."
+            },
+            {
+              "kind": "progress",
+              "uiLabel": "Hit rate on main",
+              "uiValue": "",
+              "percent": 94,
+              "title": "A hit rate you can watch",
+              "text": "Every workspace shows its hit rate by branch and by task, and marks the commit where it started to fall."
+            },
+            {
+              "kind": "search",
+              "uiLabel": "tack why //api:test",
+              "uiValue": "↵",
+              "percent": 60,
+              "title": "Ask why a task missed",
+              "text": "One command names the file, flag or environment variable that changed the key, and who changed it."
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "cache"
+      },
+      "features-dashboard": {
+        "id": "features-dashboard",
+        "kind": "component",
+        "componentId": "features-shortcuts",
+        "values": {
+          "eyebrow": "The dashboard",
+          "title": "Every run, one keystroke away",
+          "intro": "Press ⌘K anywhere in the Tack dashboard to jump to a run, a task or the commit that broke your hit rate.",
+          "placeholder": "Search runs, tasks and commits…",
+          "barKey": "esc",
+          "groupLabel": "Shortcuts",
+          "items": [
+            {
+              "icon": "search",
+              "action": "Jump to a run, task or commit",
+              "key1": "⌘",
+              "key2": "K",
+              "key3": ""
+            },
+            {
+              "icon": "filter",
+              "action": "Show only cache misses",
+              "key1": "M",
+              "key2": "",
+              "key3": ""
+            },
+            {
+              "icon": "help",
+              "action": "Explain why this task missed",
+              "key1": "⇧",
+              "key2": "W",
+              "key3": ""
+            },
+            {
+              "icon": "layers",
+              "action": "Compare two runs side by side",
+              "key1": "⌘",
+              "key2": "D",
+              "key3": ""
+            },
+            {
+              "icon": "link",
+              "action": "Copy a link to this task",
+              "key1": "⌘",
+              "key2": "⇧",
+              "key3": "C"
+            },
+            {
+              "icon": "terminal",
+              "action": "Copy the command to rerun it locally",
+              "key1": "⌘",
+              "key2": "⇧",
+              "key3": "R"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "dashboard"
+      },
+      "features-integrations": {
+        "id": "features-integrations",
+        "kind": "component",
+        "componentId": "features-integrations",
+        "values": {
+          "eyebrow": "Integrations",
+          "title": "Speaks the protocol your build already uses",
+          "intro": "Tack implements the Bazel Remote Execution API, the Gradle HTTP build cache and the Nx and Turborepo cache APIs. There is no plugin to install or keep up to date.",
+          "items": [
+            {
+              "icon": "simple-icons:bazel",
+              "name": "Bazel",
+              "category": "Cache and execution"
+            },
+            {
+              "icon": "simple-icons:gradle",
+              "name": "Gradle",
+              "category": "Cache and execution"
+            },
+            {
+              "icon": "simple-icons:nx",
+              "name": "Nx",
+              "category": "Task cache"
+            },
+            {
+              "icon": "simple-icons:turborepo",
+              "name": "Turborepo",
+              "category": "Task cache"
+            },
+            {
+              "icon": "simple-icons:githubactions",
+              "name": "GitHub Actions",
+              "category": "CI"
+            },
+            {
+              "icon": "simple-icons:gitlab",
+              "name": "GitLab CI",
+              "category": "CI"
+            },
+            {
+              "icon": "simple-icons:buildkite",
+              "name": "Buildkite",
+              "category": "CI"
+            },
+            {
+              "icon": "simple-icons:docker",
+              "name": "Docker BuildKit",
+              "category": "Layer cache, in beta"
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "See all 23 integrations",
+            "link": {
+              "type": "url",
+              "url": "https://docs.tack.example/integrations",
+              "newTab": true
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "integrations"
+      },
+      "features-compare": {
+        "id": "features-compare",
+        "kind": "component",
+        "componentId": "features-competitors",
+        "values": {
+          "eyebrow": "Compare",
+          "title": "Tack, a bucket or your CI’s cache",
+          "intro": "An honest look at Tack next to the two things teams try first: a shared S3 bucket and the cache that ships with the CI provider.",
+          "featureLabel": "Capability",
+          "usLabel": "Tack",
+          "firstLabel": "S3 bucket",
+          "secondLabel": "CI cache",
+          "rows": [
+            {
+              "label": "Shared by laptops and CI runners",
+              "us": "yes",
+              "first": "yes",
+              "second": "no"
+            },
+            {
+              "label": "Caches single tasks, not whole folders",
+              "us": "yes",
+              "first": "partial",
+              "second": "no"
+            },
+            {
+              "label": "Explains why a task missed",
+              "us": "yes",
+              "first": "no",
+              "second": "no"
+            },
+            {
+              "label": "Read-only access for forks",
+              "us": "yes",
+              "first": "partial",
+              "second": "partial"
+            },
+            {
+              "label": "Remote execution on managed workers",
+              "us": "yes",
+              "first": "no",
+              "second": "no"
+            },
+            {
+              "label": "Edge nodes in 14 regions",
+              "us": "yes",
+              "first": "no",
+              "second": "partial"
+            },
+            {
+              "label": "Storage limits and automatic eviction",
+              "us": "yes",
+              "first": "partial",
+              "second": "yes"
+            },
+            {
+              "label": "Nothing to run or patch yourself",
+              "us": "yes",
+              "first": "no",
+              "second": "yes"
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "Read the migration guide",
+            "link": {
+              "type": "url",
+              "url": "https://docs.tack.example/migrate",
+              "newTab": true
+            },
+            "variant": "primary"
+          },
+          "note": "Comparison as of October 2026."
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "compare"
+      },
+      "features-cta": {
+        "id": "features-cta",
+        "kind": "component",
+        "componentId": "cta-glow",
+        "values": {
+          "eyebrow": "Free for solo developers",
+          "title": "Your next build is already cached",
+          "text": "Install the CLI, run your build once, and watch the second run finish before you can switch windows.",
+          "button": {
+            "label": "Install Tack",
+            "link": {
+              "type": "section",
+              "pageId": "home",
+              "anchor": "install",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "note": "Free for one developer and for open source. No credit card."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "pricing-hero": {
+        "id": "pricing-hero",
+        "kind": "component",
+        "componentId": "hero-aurora",
+        "values": {
+          "eyebrow": "Free for open source",
+          "title": "Free for one, fair for fifty",
+          "text": "Solo developers and public repositories use Tack at no cost, with 10 GB of cache. Teams pay one flat price by size, and cache reads are never metered.",
+          "note": "No credit card to start. Cancel any time with tack billing cancel.",
+          "primaryButton": {
+            "label": "Compare plans",
+            "link": {
+              "type": "section",
+              "pageId": "pricing",
+              "anchor": "plans",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Talk to an engineer",
+            "link": {
+              "type": "email",
+              "url": "engineers@tack.example",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "glow": "soft"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "pricing-plans": {
+        "id": "pricing-plans",
+        "kind": "component",
+        "componentId": "pricing-team-size",
+        "values": {
+          "eyebrow": "Plans",
+          "title": "Pick your team size, see your price",
+          "intro": "Prices are for the whole team, per month. Cache reads, writes and CI runners are unlimited on every plan.",
+          "sizeLegend": "How many developers push to the repository?",
+          "size1": "5 developers",
+          "size2": "20 developers",
+          "size3": "50 developers",
+          "featuredLabel": "Most popular",
+          "plans": [
+            {
+              "name": "Team",
+              "price1": "$60",
+              "price2": "$220",
+              "price3": "$500",
+              "period": "per month for the team, billed yearly",
+              "description": "For product teams who want CI to stop being the slow part of the day.",
+              "features": "<ul><li>250 GB of cache storage</li><li>Unlimited cache reads and writes</li><li>Miss explanations with tack why</li><li>30 days of run history</li></ul>",
+              "featured": true,
+              "button": {
+                "label": "Start a 14 day trial",
+                "link": {
+                  "type": "section",
+                  "pageId": "home",
+                  "anchor": "install",
+                  "newTab": false
+                },
+                "variant": "primary"
+              }
+            },
+            {
+              "name": "Business",
+              "price1": "$140",
+              "price2": "$480",
+              "price3": "$1,050",
+              "period": "per month for the team, billed yearly",
+              "description": "For companies that need single sign-on, audit logs and a region of their own.",
+              "features": "<ul><li>Everything in Team</li><li>2 TB of cache storage</li><li>SAML single sign-on and audit log</li><li>Pinned region and a 99.99% uptime SLA</li></ul>",
+              "featured": false,
+              "button": {
+                "label": "Talk to an engineer",
+                "link": {
+                  "type": "email",
+                  "url": "engineers@tack.example",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            },
+            {
+              "name": "Self-hosted",
+              "price1": "$400",
+              "price2": "$900",
+              "price3": "$1,900",
+              "period": "per month for the team, billed yearly",
+              "description": "For teams whose artifacts are not allowed to leave their own network.",
+              "features": "<ul><li>Everything in Business</li><li>Helm chart for your own Kubernetes</li><li>Storage on your S3, GCS or disks</li><li>Upgrade support from our engineers</li></ul>",
+              "featured": false,
+              "button": {
+                "label": "Request a license",
+                "link": {
+                  "type": "email",
+                  "url": "engineers@tack.example",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            }
+          ],
+          "note": "Bigger team? Every developer after 50 is $9 a month on Team and $19 on Business."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "plans"
+      },
+      "pricing-credits": {
+        "id": "pricing-credits",
+        "kind": "component",
+        "componentId": "pricing-credits",
+        "values": {
+          "eyebrow": "Remote execution",
+          "title": "Worker minutes that never expire",
+          "intro": "Remote execution is optional and paid for with credits. One credit runs one vCPU for one minute on a Tack worker.",
+          "bestLabel": "Best value",
+          "packs": [
+            {
+              "credits": "10,000 credits",
+              "size": 2,
+              "price": "$40",
+              "perCredit": "$0.0040 per credit",
+              "text": "Enough to move one slow test suite off your own runners.",
+              "best": false,
+              "button": {
+                "label": "Buy 10,000 credits",
+                "link": {
+                  "type": "url",
+                  "url": "https://app.tack.example/billing/credits?pack=10k",
+                  "newTab": true
+                },
+                "variant": "secondary"
+              }
+            },
+            {
+              "credits": "50,000 credits",
+              "size": 5,
+              "price": "$175",
+              "perCredit": "$0.0035 per credit",
+              "text": "About a month of remote test runs for a team of 20.",
+              "best": true,
+              "button": {
+                "label": "Buy 50,000 credits",
+                "link": {
+                  "type": "url",
+                  "url": "https://app.tack.example/billing/credits?pack=50k",
+                  "newTab": true
+                },
+                "variant": "primary"
+              }
+            },
+            {
+              "credits": "250,000 credits",
+              "size": 9,
+              "price": "$750",
+              "perCredit": "$0.0030 per credit",
+              "text": "For monorepos that run every test on every push.",
+              "best": false,
+              "button": {
+                "label": "Buy 250,000 credits",
+                "link": {
+                  "type": "url",
+                  "url": "https://app.tack.example/billing/credits?pack=250k",
+                  "newTab": true
+                },
+                "variant": "secondary"
+              }
+            }
+          ],
+          "note": "Credits never expire, are shared across the workspace and are only spent when a task misses the cache."
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "credits"
+      },
+      "pricing-result": {
+        "id": "pricing-result",
+        "kind": "component",
+        "componentId": "testimonial-result",
+        "values": {
+          "eyebrow": "Meridian Freight",
+          "metric": "71%",
+          "metricLabel": "less time waiting on CI after six weeks",
+          "quote": "Our pipeline took 41 minutes and people merged without waiting for it. Six weeks after we pointed Gradle at Tack, the median is 12.",
+          "name": "Luke Fenwick",
+          "role": "Staff Engineer, Meridian Freight",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Luke Fenwick",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "linkLabel": "Read the case study",
+          "link": {
+            "type": "url",
+            "url": "https://docs.tack.example/customers/meridian-freight",
+            "newTab": true
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--theme-dark-background)",
+          "--color-surface": "var(--theme-dark-surface)",
+          "--color-text": "var(--theme-dark-text)",
+          "--color-text-muted": "var(--theme-dark-text-muted)",
+          "--color-border": "var(--theme-dark-border)",
+          "--color-primary": "var(--theme-dark-accent)",
+          "--color-primary-contrast": "var(--theme-dark-accent-contrast)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "pricing-faq": {
+        "id": "pricing-faq",
+        "kind": "component",
+        "componentId": "faq-quick",
+        "values": {
+          "eyebrow": "Quick answers",
+          "title": "Pricing, the short version",
+          "intro": "What engineering managers ask before they put a card in.",
+          "items": [
+            {
+              "question": "Is there a free plan?",
+              "answer": "Yes",
+              "tone": "yes",
+              "detail": "One developer or any public repository, with 10 GB of cache."
+            },
+            {
+              "question": "Do you charge per cache read?",
+              "answer": "No",
+              "tone": "no",
+              "detail": "Reads and writes are unlimited. You pay for team size only."
+            },
+            {
+              "question": "Do CI runners count as seats?",
+              "answer": "No",
+              "tone": "no",
+              "detail": "Only people who push commits in a month are counted."
+            },
+            {
+              "question": "Can we pay monthly?",
+              "answer": "Yes",
+              "tone": "yes",
+              "detail": "Month to month costs 20% more than the yearly price."
+            },
+            {
+              "question": "Do unused credits expire?",
+              "answer": "No",
+              "tone": "no",
+              "detail": "Credits stay in the workspace until a cache miss spends them."
+            },
+            {
+              "question": "Windows remote workers?",
+              "answer": "In beta",
+              "tone": "soon",
+              "detail": "Private beta today, planned for everyone in 3.6."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "faq"
+      },
+      "pricing-cta": {
+        "id": "pricing-cta",
+        "kind": "component",
+        "componentId": "cta-two-cards",
+        "values": {
+          "title": "Two ways to start",
+          "paths": [
+            {
+              "icon": "terminal",
+              "title": "Try it on your repository",
+              "text": "Install the CLI and run a cached build in about two minutes. Free for one developer, with no card.",
+              "button": {
+                "label": "Install Tack",
+                "link": {
+                  "type": "section",
+                  "pageId": "home",
+                  "anchor": "install",
+                  "newTab": false
+                },
+                "variant": "primary"
+              },
+              "highlight": true
+            },
+            {
+              "icon": "message",
+              "title": "Talk to an engineer",
+              "text": "Bring your build graph. In 30 minutes we estimate your hit rate and what it would take off your CI bill.",
+              "button": {
+                "label": "Email the team",
+                "link": {
+                  "type": "email",
+                  "url": "engineers@tack.example",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              },
+              "highlight": false
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "changelog-hero": {
+        "id": "changelog-hero",
+        "kind": "component",
+        "componentId": "hero-minimal",
+        "values": {
+          "title": "Tack ships every second Tuesday. The newest release,",
+          "linkLabel": "version 3.4,",
+          "link": {
+            "type": "section",
+            "pageId": "changelog",
+            "anchor": "releases",
+            "newTab": false
+          },
+          "titleEnd": "makes cold restores 38% faster.",
+          "location": "Built in Rotterdam and Montreal",
+          "availability": "Next release on 20 October",
+          "available": true,
+          "meta": "118 releases since 2021",
+          "scrollLabel": "Release notes",
+          "scrollLink": {
+            "type": "section",
+            "pageId": "changelog",
+            "anchor": "releases",
+            "newTab": false
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "changelog-releases": {
+        "id": "changelog-releases",
+        "kind": "component",
+        "componentId": "blog-changelog",
+        "values": {
+          "eyebrow": "Changelog",
+          "title": "What’s new in Tack",
+          "showButton": true,
+          "button": {
+            "label": "Subscribe by RSS",
+            "link": {
+              "type": "url",
+              "url": "https://docs.tack.example/changelog.xml",
+              "newTab": true
+            },
+            "variant": "secondary"
+          },
+          "newLabel": "New",
+          "improvedLabel": "Improved",
+          "fixedLabel": "Fixed",
+          "releases": [
+            {
+              "version": "v3.4.0",
+              "date": "2026-10-06",
+              "title": "Faster cold restores and tack why",
+              "text": "<p>Cache entries are now compressed with Zstandard dictionaries trained on your own artifacts, which makes cold restores 38% faster on a typical JavaScript monorepo. And when a task misses, <strong>tack why</strong> names the exact input that changed.</p>",
+              "link": {
+                "type": "url",
+                "url": "https://docs.tack.example/releases/3.4.0",
+                "newTab": true
+              },
+              "changes": [
+                {
+                  "type": "new",
+                  "text": "tack why names the file, flag or variable that changed a cache key"
+                },
+                {
+                  "type": "new",
+                  "text": "Zstandard dictionary compression, on by default"
+                },
+                {
+                  "type": "improved",
+                  "text": "Cold restores are 38% faster on repositories over 1 GB"
+                },
+                {
+                  "type": "improved",
+                  "text": "tack login opens the browser correctly under WSL 2"
+                },
+                {
+                  "type": "fixed",
+                  "text": "Gradle configuration cache no longer misses after a JDK patch update"
+                },
+                {
+                  "type": "fixed",
+                  "text": "Uploads resume after a dropped connection instead of starting over"
+                }
+              ]
+            },
+            {
+              "version": "v3.3.0",
+              "date": "2026-09-22",
+              "title": "Read-only tokens for forks",
+              "text": "<p>Pull requests from forks can read from the cache without being able to write to it. Open source projects get warm builds for outside contributors with no risk to main.</p>",
+              "link": {
+                "type": "url",
+                "url": "https://docs.tack.example/releases/3.3.0",
+                "newTab": true
+              },
+              "changes": [
+                {
+                  "type": "new",
+                  "text": "Read-only tokens, issued per pull request and revoked on merge"
+                },
+                {
+                  "type": "new",
+                  "text": "Cache regions in São Paulo and Mumbai, 14 in total"
+                },
+                {
+                  "type": "improved",
+                  "text": "Dashboard run pages load in under 300 ms"
+                },
+                {
+                  "type": "fixed",
+                  "text": "Nx project graph hashes are stable across Windows and Linux"
+                }
+              ]
+            },
+            {
+              "version": "v3.2.0",
+              "date": "2026-09-08",
+              "title": "Remote execution for Gradle tests",
+              "text": "<p>Gradle test tasks can now run on Tack workers, split across up to 64 machines using timings from earlier runs.</p>",
+              "link": {
+                "type": "url",
+                "url": "https://docs.tack.example/releases/3.2.0",
+                "newTab": true
+              },
+              "changes": [
+                {
+                  "type": "new",
+                  "text": "Remote execution for Gradle test tasks"
+                },
+                {
+                  "type": "new",
+                  "text": "Test splitting by historical timing, up to 64 workers"
+                },
+                {
+                  "type": "improved",
+                  "text": "Worker cold start is down from 9 s to 2.5 s"
+                },
+                {
+                  "type": "fixed",
+                  "text": "Turborepo cache signatures verify correctly after a key rotation"
+                }
+              ]
+            },
+            {
+              "version": "v3.1.0",
+              "date": "2026-08-25",
+              "title": "Storage limits you control",
+              "text": "<p>Set a storage limit per project and Tack evicts the least recently used entries first. A full cache no longer fails a build.</p>",
+              "link": {
+                "type": "url",
+                "url": "https://docs.tack.example/releases/3.1.0",
+                "newTab": true
+              },
+              "changes": [
+                {
+                  "type": "new",
+                  "text": "Per-project storage limits with least recently used eviction"
+                },
+                {
+                  "type": "improved",
+                  "text": "tack doctor checks proxy and certificate settings"
+                },
+                {
+                  "type": "fixed",
+                  "text": "Bazel action cache no longer returns stale entries after a toolchain change"
+                }
+              ]
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "releases"
+      },
+      "changelog-roadmap": {
+        "id": "changelog-roadmap",
+        "kind": "component",
+        "componentId": "features-roadmap",
+        "values": {
+          "eyebrow": "Roadmap",
+          "title": "What we are building next",
+          "intro": "Three releases out, in the open. Dates further away are more likely to move.",
+          "columns": [
+            {
+              "label": "Now",
+              "summary": "Shipping in 3.5 on 20 October",
+              "items": [
+                {
+                  "title": "Cache analytics API",
+                  "text": "Query hit rates and saved minutes over HTTP."
+                },
+                {
+                  "title": "Docker layer cache",
+                  "text": "Share BuildKit layers through the same edge nodes."
+                },
+                {
+                  "title": "Pants support",
+                  "text": "Remote cache for Pants 2.21 and later."
+                }
+              ]
+            },
+            {
+              "label": "Next",
+              "summary": "Planned for 3.6 and 3.7",
+              "items": [
+                {
+                  "title": "Windows remote workers",
+                  "text": "In private beta with 12 teams today."
+                },
+                {
+                  "title": "Flaky task detection",
+                  "text": "Flag tasks that pass on retry with the same inputs."
+                },
+                {
+                  "title": "Credit budget alerts",
+                  "text": "A Slack message before a workspace runs out."
+                }
+              ]
+            },
+            {
+              "label": "Later",
+              "summary": "Exploring for 2027",
+              "items": [
+                {
+                  "title": "Local peer cache",
+                  "text": "Share results on the office network before the edge."
+                },
+                {
+                  "title": "ARM workers",
+                  "text": "Graviton and Apple silicon execution pools."
+                },
+                {
+                  "title": "Bring your own key",
+                  "text": "Encrypt entries with a key held in your KMS."
+                }
+              ]
+            }
+          ],
+          "linkLabel": "Vote on the public roadmap",
+          "link": {
+            "type": "url",
+            "url": "https://docs.tack.example/roadmap",
+            "newTab": true
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "roadmap"
+      },
+      "changelog-cta": {
+        "id": "changelog-cta",
+        "kind": "component",
+        "componentId": "cta-minimal",
+        "values": {
+          "title": "Already on Tack? Run tack upgrade and you are on 3.4.",
+          "linkLabel": "Read the upgrade guide",
+          "link": {
+            "type": "url",
+            "url": "https://docs.tack.example/upgrade",
+            "newTab": true
+          },
+          "align": "center"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "not-found-terminal": {
+        "id": "not-found-terminal",
+        "kind": "component",
+        "componentId": "http-404-terminal",
+        "values": {
+          "windowTitle": "tack - zsh",
+          "command": "tack open /this/page",
+          "title": "Error 404: cache miss",
+          "lines": [
+            {
+              "text": "No page is stored under this key.",
+              "tone": "default"
+            },
+            {
+              "text": "It may have been moved, renamed or evicted.",
+              "tone": "muted"
+            }
+          ],
+          "suggestCommand": "tack suggest",
+          "links": [
+            {
+              "label": "Home",
+              "hint": "/",
+              "link": {
+                "type": "page",
+                "pageId": "home",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Features",
+              "hint": "/features",
+              "link": {
+                "type": "page",
+                "pageId": "features",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Pricing",
+              "hint": "/pricing",
+              "link": {
+                "type": "page",
+                "pageId": "pricing",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Changelog",
+              "hint": "/changelog",
+              "link": {
+                "type": "page",
+                "pageId": "changelog",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      }
+    }
+  },
+  "sharedSlots": {
+    "header": ["header-banner", "header-nav"],
+    "footer": ["footer"]
+  },
+  "packBlocks": {},
+  "assets": {}
+}

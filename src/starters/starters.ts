@@ -117,6 +117,22 @@ export const STARTERS: StarterInfo[] = [
     useCase: 'products',
     load: () => import('./course/project.json'),
   },
+  {
+    id: 'fitness',
+    name: 'Fitness studio',
+    description: 'A gym site with classes, coaches, membership and contact pages.',
+    presetId: 'noir',
+    useCase: 'local',
+    load: () => import('./fitness/project.json'),
+  },
+  {
+    id: 'devtool',
+    name: 'Developer tool',
+    description: 'A CLI product site with features, pricing, a changelog and a 404 page.',
+    presetId: 'neon',
+    useCase: 'products',
+    load: () => import('./devtool/project.json'),
+  },
 ];
 
 function moduleDefault(value: unknown): unknown {

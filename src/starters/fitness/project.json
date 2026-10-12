@@ -1,0 +1,2511 @@
+{
+  "schemaVersion": 1,
+  "id": "starter-fitness",
+  "settings": {
+    "title": "Anvil Yard",
+    "description": "An independent strength and conditioning gym in Kelham Island, Sheffield, with coached classes, an open gym and a free first week.",
+    "language": "en",
+    "titleTemplate": "{{page.title}} | {{site.title}}",
+    "indexable": true
+  },
+  "designSystem": {
+    "presetId": "noir",
+    "tokens": {
+      "--color-primary": {
+        "name": "--color-primary",
+        "label": "Primary",
+        "group": "color",
+        "value": "#ff3b3b"
+      },
+      "--color-primary-contrast": {
+        "name": "--color-primary-contrast",
+        "label": "Primary contrast",
+        "group": "color",
+        "value": "#0b0b0b"
+      },
+      "--color-background": {
+        "name": "--color-background",
+        "label": "Background",
+        "group": "color",
+        "value": "#0b0b0b"
+      },
+      "--color-surface": {
+        "name": "--color-surface",
+        "label": "Surface",
+        "group": "color",
+        "value": "#181818"
+      },
+      "--color-text": {
+        "name": "--color-text",
+        "label": "Text",
+        "group": "color",
+        "value": "#f5f5f5"
+      },
+      "--color-text-muted": {
+        "name": "--color-text-muted",
+        "label": "Muted text",
+        "group": "color",
+        "value": "#ababab"
+      },
+      "--color-border": {
+        "name": "--color-border",
+        "label": "Border",
+        "group": "color",
+        "value": "#333333"
+      },
+      "--theme-dark-background": {
+        "name": "--theme-dark-background",
+        "label": "Dark background",
+        "group": "color",
+        "value": "#000000"
+      },
+      "--theme-dark-surface": {
+        "name": "--theme-dark-surface",
+        "label": "Dark surface",
+        "group": "color",
+        "value": "#121212"
+      },
+      "--theme-dark-text": {
+        "name": "--theme-dark-text",
+        "label": "Dark text",
+        "group": "color",
+        "value": "#ffffff"
+      },
+      "--theme-dark-text-muted": {
+        "name": "--theme-dark-text-muted",
+        "label": "Dark muted text",
+        "group": "color",
+        "value": "#b3b3b3"
+      },
+      "--theme-dark-border": {
+        "name": "--theme-dark-border",
+        "label": "Dark border",
+        "group": "color",
+        "value": "#3d3d3d"
+      },
+      "--theme-dark-accent": {
+        "name": "--theme-dark-accent",
+        "label": "Dark accent",
+        "group": "color",
+        "value": "#ff3b3b"
+      },
+      "--theme-dark-accent-contrast": {
+        "name": "--theme-dark-accent-contrast",
+        "label": "Dark accent contrast",
+        "group": "color",
+        "value": "#000000"
+      },
+      "--theme-primary-background": {
+        "name": "--theme-primary-background",
+        "label": "Primary section background",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-surface": {
+        "name": "--theme-primary-surface",
+        "label": "Primary section surface",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--theme-primary-text": {
+        "name": "--theme-primary-text",
+        "label": "Primary section text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-text-muted": {
+        "name": "--theme-primary-text-muted",
+        "label": "Primary section muted text",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-border": {
+        "name": "--theme-primary-border",
+        "label": "Primary section border",
+        "group": "color",
+        "value": "color-mix(in oklab, var(--color-primary-contrast) 30%, transparent)"
+      },
+      "--theme-primary-accent": {
+        "name": "--theme-primary-accent",
+        "label": "Primary section accent",
+        "group": "color",
+        "value": "var(--color-primary-contrast)"
+      },
+      "--theme-primary-accent-contrast": {
+        "name": "--theme-primary-accent-contrast",
+        "label": "Primary section accent contrast",
+        "group": "color",
+        "value": "var(--color-primary)"
+      },
+      "--font-heading": {
+        "name": "--font-heading",
+        "label": "Heading font",
+        "group": "typography",
+        "value": "\"Bebas Neue\", system-ui, sans-serif"
+      },
+      "--font-body": {
+        "name": "--font-body",
+        "label": "Body font",
+        "group": "typography",
+        "value": "\"Barlow\", system-ui, sans-serif"
+      },
+      "--font-mono": {
+        "name": "--font-mono",
+        "label": "Mono font",
+        "group": "typography",
+        "value": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace"
+      },
+      "--font-weight-heading": {
+        "name": "--font-weight-heading",
+        "label": "Heading weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-regular": {
+        "name": "--font-weight-regular",
+        "label": "Body weight",
+        "group": "typography",
+        "value": "400"
+      },
+      "--font-weight-bold": {
+        "name": "--font-weight-bold",
+        "label": "Bold weight",
+        "group": "typography",
+        "value": "700"
+      },
+      "--text-xs": {
+        "name": "--text-xs",
+        "label": "Extra small",
+        "group": "typography",
+        "value": "0.72rem"
+      },
+      "--text-sm": {
+        "name": "--text-sm",
+        "label": "Small",
+        "group": "typography",
+        "value": "0.9rem"
+      },
+      "--text-base": {
+        "name": "--text-base",
+        "label": "Base",
+        "group": "typography",
+        "value": "1.125rem"
+      },
+      "--text-lg": {
+        "name": "--text-lg",
+        "label": "Large",
+        "group": "typography",
+        "value": "1.4063rem"
+      },
+      "--text-xl": {
+        "name": "--text-xl",
+        "label": "XL",
+        "group": "typography",
+        "value": "1.7578rem"
+      },
+      "--text-2xl": {
+        "name": "--text-2xl",
+        "label": "2XL",
+        "group": "typography",
+        "value": "2.1973rem"
+      },
+      "--text-3xl": {
+        "name": "--text-3xl",
+        "label": "3XL",
+        "group": "typography",
+        "value": "clamp(1.802rem, 1.4872rem + 1.5742vw, 2.7466rem)"
+      },
+      "--text-4xl": {
+        "name": "--text-4xl",
+        "label": "4XL",
+        "group": "typography",
+        "value": "clamp(2.0273rem, 1.5586rem + 2.3432vw, 3.4332rem)"
+      },
+      "--text-5xl": {
+        "name": "--text-5xl",
+        "label": "5XL",
+        "group": "typography",
+        "value": "clamp(2.2807rem, 1.6104rem + 3.3514vw, 4.2915rem)"
+      },
+      "--line-height-tight": {
+        "name": "--line-height-tight",
+        "label": "Heading line height",
+        "group": "typography",
+        "value": "1.05"
+      },
+      "--line-height-normal": {
+        "name": "--line-height-normal",
+        "label": "Body line height",
+        "group": "typography",
+        "value": "1.6"
+      },
+      "--space-1": {
+        "name": "--space-1",
+        "label": "Space 1",
+        "group": "spacing",
+        "value": "0.3125rem"
+      },
+      "--space-2": {
+        "name": "--space-2",
+        "label": "Space 2",
+        "group": "spacing",
+        "value": "0.625rem"
+      },
+      "--space-3": {
+        "name": "--space-3",
+        "label": "Space 3",
+        "group": "spacing",
+        "value": "0.9375rem"
+      },
+      "--space-4": {
+        "name": "--space-4",
+        "label": "Space 4",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--space-6": {
+        "name": "--space-6",
+        "label": "Space 6",
+        "group": "spacing",
+        "value": "1.875rem"
+      },
+      "--space-8": {
+        "name": "--space-8",
+        "label": "Space 8",
+        "group": "spacing",
+        "value": "2.5rem"
+      },
+      "--space-12": {
+        "name": "--space-12",
+        "label": "Space 12",
+        "group": "spacing",
+        "value": "3.75rem"
+      },
+      "--space-16": {
+        "name": "--space-16",
+        "label": "Space 16",
+        "group": "spacing",
+        "value": "5rem"
+      },
+      "--section-padding-y": {
+        "name": "--section-padding-y",
+        "label": "Section padding",
+        "group": "spacing",
+        "value": "clamp(4rem, 3rem + 5vw, 8rem)"
+      },
+      "--container-max-width": {
+        "name": "--container-max-width",
+        "label": "Container width",
+        "group": "spacing",
+        "value": "72rem"
+      },
+      "--container-padding-x": {
+        "name": "--container-padding-x",
+        "label": "Container padding",
+        "group": "spacing",
+        "value": "1.25rem"
+      },
+      "--radius-sm": {
+        "name": "--radius-sm",
+        "label": "Small radius",
+        "group": "shape",
+        "value": "0rem"
+      },
+      "--radius-md": {
+        "name": "--radius-md",
+        "label": "Medium radius",
+        "group": "shape",
+        "value": "0rem"
+      },
+      "--radius-lg": {
+        "name": "--radius-lg",
+        "label": "Large radius",
+        "group": "shape",
+        "value": "0rem"
+      },
+      "--radius-full": {
+        "name": "--radius-full",
+        "label": "Full radius",
+        "group": "shape",
+        "value": "9999px"
+      },
+      "--border-width": {
+        "name": "--border-width",
+        "label": "Border width",
+        "group": "shape",
+        "value": "1px"
+      },
+      "--shadow-sm": {
+        "name": "--shadow-sm",
+        "label": "Small shadow",
+        "group": "elevation",
+        "value": "none"
+      },
+      "--shadow-md": {
+        "name": "--shadow-md",
+        "label": "Medium shadow",
+        "group": "elevation",
+        "value": "none"
+      },
+      "--shadow-lg": {
+        "name": "--shadow-lg",
+        "label": "Large shadow",
+        "group": "elevation",
+        "value": "none"
+      },
+      "--button-radius": {
+        "name": "--button-radius",
+        "label": "Button radius",
+        "group": "component",
+        "value": "var(--radius-md)"
+      },
+      "--button-padding-y": {
+        "name": "--button-padding-y",
+        "label": "Button padding Y",
+        "group": "component",
+        "value": "0.875rem"
+      },
+      "--button-padding-x": {
+        "name": "--button-padding-x",
+        "label": "Button padding X",
+        "group": "component",
+        "value": "1.5rem"
+      },
+      "--card-radius": {
+        "name": "--card-radius",
+        "label": "Card radius",
+        "group": "component",
+        "value": "var(--radius-lg)"
+      },
+      "--card-shadow": {
+        "name": "--card-shadow",
+        "label": "Card shadow",
+        "group": "component",
+        "value": "var(--shadow-sm)"
+      },
+      "--transition-fast": {
+        "name": "--transition-fast",
+        "label": "Fast",
+        "group": "motion",
+        "value": "120ms"
+      },
+      "--transition-normal": {
+        "name": "--transition-normal",
+        "label": "Normal",
+        "group": "motion",
+        "value": "200ms"
+      }
+    },
+    "fonts": [
+      {
+        "role": "heading",
+        "family": "Bebas Neue",
+        "weights": [400]
+      },
+      {
+        "role": "body",
+        "family": "Barlow",
+        "weights": [400, 700]
+      }
+    ],
+    "generators": {
+      "typeBasePx": 18,
+      "typeRatio": 1.25,
+      "spaceUnitPx": 5
+    },
+    "iconSet": "material-symbols"
+  },
+  "pages": {
+    "ids": ["home", "classes", "trainers", "membership", "contact"],
+    "entities": {
+      "home": {
+        "id": "home",
+        "name": "Home",
+        "slug": "home",
+        "blockIds": [
+          "home-hero",
+          "home-scoreboard",
+          "home-features",
+          "home-film",
+          "home-result",
+          "home-cta"
+        ],
+        "seo": {
+          "description": "Anvil Yard is an independent strength gym in Kelham Island, Sheffield, with 46 coached classes a week, an open gym and a free first week.",
+          "title": "Strength and conditioning gym in Sheffield",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "classes": {
+        "id": "classes",
+        "name": "Classes",
+        "slug": "classes",
+        "blockIds": [
+          "classes-hero",
+          "classes-week",
+          "classes-types",
+          "classes-survey",
+          "classes-faq",
+          "classes-cta"
+        ],
+        "seo": {
+          "description": "Barbell Basics, Engine, Heavy Day, Lunch Lift, Kettlebell Flow and Mobility Reset. See the weekly timetable and book a free taster class.",
+          "title": "Classes and timetable",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "trainers": {
+        "id": "trainers",
+        "name": "Trainers",
+        "slug": "trainers",
+        "blockIds": [
+          "trainers-hero",
+          "trainers-team",
+          "trainers-interview",
+          "trainers-quotes",
+          "trainers-sessions",
+          "trainers-cta"
+        ],
+        "seo": {
+          "description": "Six qualified strength and conditioning coaches in Sheffield. Meet the team at Anvil Yard and book a free 30 minute intro session.",
+          "title": "Meet the coaches",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "membership": {
+        "id": "membership",
+        "name": "Membership",
+        "slug": "membership",
+        "blockIds": [
+          "membership-hero",
+          "membership-plans",
+          "membership-packs",
+          "membership-quote",
+          "membership-faq",
+          "membership-guarantee"
+        ],
+        "seo": {
+          "description": "Gym memberships from £45 a month with no joining fee and no contract. Start with a free week and a 30 day money-back guarantee.",
+          "title": "Membership and prices",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      },
+      "contact": {
+        "id": "contact",
+        "name": "Contact",
+        "slug": "contact",
+        "blockIds": [
+          "contact-hero",
+          "contact-book",
+          "contact-map",
+          "contact-directions",
+          "contact-cta"
+        ],
+        "seo": {
+          "description": "Find Anvil Yard at 22 Mowbray Street, Kelham Island, Sheffield. Book an intro session, call 0114 496 0153 or get directions.",
+          "title": "Contact and directions",
+          "noindex": false
+        },
+        "showSharedHeader": true,
+        "showSharedFooter": true
+      }
+    },
+    "homePageId": "home"
+  },
+  "blocks": {
+    "ids": [
+      "header-banner",
+      "header-nav",
+      "footer",
+      "home-hero",
+      "home-scoreboard",
+      "home-features",
+      "home-film",
+      "home-result",
+      "home-cta",
+      "classes-hero",
+      "classes-week",
+      "classes-types",
+      "classes-survey",
+      "classes-faq",
+      "classes-cta",
+      "trainers-hero",
+      "trainers-team",
+      "trainers-interview",
+      "trainers-quotes",
+      "trainers-sessions",
+      "trainers-cta",
+      "membership-hero",
+      "membership-plans",
+      "membership-packs",
+      "membership-quote",
+      "membership-faq",
+      "membership-guarantee",
+      "contact-hero",
+      "contact-book",
+      "contact-map",
+      "contact-directions",
+      "contact-cta"
+    ],
+    "entities": {
+      "header-banner": {
+        "id": "header-banner",
+        "kind": "component",
+        "componentId": "banner-marquee",
+        "values": {
+          "separator": "zap",
+          "items": [
+            {
+              "text": "First week free for new members"
+            },
+            {
+              "text": "New: Lunch Lift, weekdays at 12:15"
+            },
+            {
+              "text": "Open every day from 5:30 am"
+            },
+            {
+              "text": "Beginners intake starts Monday 2 November"
+            },
+            {
+              "text": "Never more than 12 lifters in a class"
+            }
+          ],
+          "speed": "normal",
+          "showButton": true,
+          "button": {
+            "label": "Claim your free week",
+            "link": {
+              "type": "page",
+              "pageId": "membership",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "header-nav": {
+        "id": "header-nav",
+        "kind": "component",
+        "componentId": "nav-status",
+        "values": {
+          "links": [
+            {
+              "label": "Classes",
+              "link": {
+                "type": "page",
+                "pageId": "classes",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Coaches",
+              "link": {
+                "type": "page",
+                "pageId": "trainers",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Membership",
+              "link": {
+                "type": "page",
+                "pageId": "membership",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "page",
+                "pageId": "contact",
+                "newTab": false
+              }
+            }
+          ],
+          "statusLabel": "Open today",
+          "statusMeta": "5:30 am to 10 pm",
+          "statusLink": {
+            "type": "page",
+            "pageId": "contact",
+            "newTab": false
+          },
+          "showCta": true,
+          "cta": {
+            "label": "Free week",
+            "link": {
+              "type": "page",
+              "pageId": "membership",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "menuIcon": "menu"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "footer": {
+        "id": "footer",
+        "kind": "component",
+        "componentId": "footer-map",
+        "values": {
+          "mapLabel": "Anvil Yard",
+          "address": "Unit 4, 22 Mowbray Street\nKelham Island, Sheffield S3 8EN",
+          "phone": "0114 496 0153",
+          "email": "hello@anvilyard.example",
+          "hours": "Monday to Friday, 5:30 am to 10 pm\nSaturday and Sunday, 7 am to 8 pm",
+          "directionsLabel": "Get directions",
+          "directionsLink": {
+            "type": "url",
+            "url": "https://www.openstreetmap.org/search?query=22+Mowbray+Street+Sheffield+S3+8EN",
+            "newTab": true
+          },
+          "links": [
+            {
+              "label": "Timetable",
+              "link": {
+                "type": "section",
+                "pageId": "classes",
+                "anchor": "week",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Memberships",
+              "link": {
+                "type": "section",
+                "pageId": "membership",
+                "anchor": "plans",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Book an intro",
+              "link": {
+                "type": "section",
+                "pageId": "contact",
+                "anchor": "book",
+                "newTab": false
+              }
+            }
+          ],
+          "copyright": "© 2026 Anvil Yard Strength Ltd. Registered in England."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-hero": {
+        "id": "home-hero",
+        "kind": "component",
+        "componentId": "hero-split-color",
+        "values": {
+          "eyebrow": "Strength and conditioning in Kelham Island",
+          "title": "Get strong in a room that knows your name",
+          "text": "Anvil Yard is an independent gym in an old Sheffield file works. Eight racks, six platforms, 46 coached classes a week and a coach on the floor from open to close.",
+          "primaryButton": {
+            "label": "Claim your free week",
+            "link": {
+              "type": "page",
+              "pageId": "membership",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "See this week’s classes",
+            "link": {
+              "type": "section",
+              "pageId": "classes",
+              "anchor": "week",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "note": "First week free. No joining fee, no contract.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A coach watching a member set up for a deadlift in the main hall",
+            "decorative": false,
+            "width": 1200,
+            "height": 1600,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "sticker": "New: Lunch Lift at 12:15"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-scoreboard": {
+        "id": "home-scoreboard",
+        "kind": "component",
+        "componentId": "stats-scoreboard",
+        "values": {
+          "eyebrow": "Sixteen weeks in",
+          "title": "What members lift when they start, and four months later",
+          "intro": "Median numbers from the 138 members who finished Barbell Basics in 2025 and kept training three times a week.",
+          "beforeLabel": "Week 1",
+          "vsLabel": "vs",
+          "afterLabel": "Week 16",
+          "metricLabel": "Lift",
+          "rows": [
+            {
+              "metric": "Back squat",
+              "before": "45 kg",
+              "after": "82 kg"
+            },
+            {
+              "metric": "Deadlift",
+              "before": "60 kg",
+              "after": "110 kg"
+            },
+            {
+              "metric": "Overhead press",
+              "before": "22 kg",
+              "after": "38 kg"
+            },
+            {
+              "metric": "2 km row",
+              "before": "9:40",
+              "after": "8:05"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-features": {
+        "id": "home-features",
+        "kind": "component",
+        "componentId": "features-slanted",
+        "values": {
+          "eyebrow": "What you get",
+          "title": "Three ways to train under one roof",
+          "intro": "Come to class, lift on your own or follow a programme written for you. Most members mix all three, and every membership includes a coach you can ask.",
+          "items": [
+            {
+              "icon": "users",
+              "title": "Coached classes",
+              "text": "Forty-six classes a week, from Barbell Basics to Heavy Day, each capped at 12 lifters so the coach sees every rep."
+            },
+            {
+              "icon": "clock",
+              "title": "Open gym",
+              "text": "Eight racks, six platforms, sleds and a 20 metre track, open from 5:30 am on weekdays with a coach always on the floor."
+            },
+            {
+              "icon": "target",
+              "title": "Your own programme",
+              "text": "Coached members get a 12 week plan built around their goal and a sit-down review with their coach every month."
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "Compare memberships",
+            "link": {
+              "type": "section",
+              "pageId": "membership",
+              "anchor": "plans",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-film": {
+        "id": "home-film",
+        "kind": "component",
+        "componentId": "gallery-film",
+        "values": {
+          "eyebrow": "Inside the Yard",
+          "title": "One Saturday morning, frame by frame",
+          "intro": "Member and photographer Jo Castell shot a roll of film during Kettlebell Flow and the open gym hour that followed.",
+          "stock": "ANVIL YARD 400 · SHEFFIELD",
+          "items": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "The roller door of the old file works going up at first light",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "caption": "6:58, doors up"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Chalk bowls and kettlebells lined up along the brick wall",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "caption": "8:45, setting out the bells"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Twelve members swinging kettlebells in two rows",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "caption": "9:20, Kettlebell Flow"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A member locking out a deadlift while a coach watches the bar path",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "caption": "10:35, open gym"
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Members drinking tea on the benches by the front desk",
+                "decorative": false,
+                "width": 1200,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "3:2",
+                  "subject": "photo"
+                }
+              },
+              "caption": "11:10, tea on the benches"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-result": {
+        "id": "home-result",
+        "kind": "component",
+        "componentId": "testimonial-result",
+        "values": {
+          "eyebrow": "Member result",
+          "metric": "+50 kg",
+          "metricLabel": "on her deadlift in 16 weeks",
+          "quote": "I walked in unable to lift the empty bar off the floor properly. Ellie taught me in Barbell Basics, Tom wrote my programme, and in May I pulled 110 kg in front of a room that was shouting my name.",
+          "name": "Hannah Brooks",
+          "role": "Nurse, member since January 2025",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Hannah Brooks",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "linkLabel": "Meet the coaches",
+          "link": {
+            "type": "page",
+            "pageId": "trainers",
+            "newTab": false
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "home-cta": {
+        "id": "home-cta",
+        "kind": "component",
+        "componentId": "cta-stripes",
+        "values": {
+          "sticker": "First week free",
+          "eyebrow": "New here?",
+          "title": "Your first seven days are on us",
+          "text": "Come to any class, use the open gym and sit down with a coach for half an hour. If it is not for you, you owe us nothing.",
+          "primaryButton": {
+            "label": "Claim your free week",
+            "link": {
+              "type": "page",
+              "pageId": "membership",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Book an intro session",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "note": "Bring trainers and a water bottle. We lend you everything else."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "classes-hero": {
+        "id": "classes-hero",
+        "kind": "component",
+        "componentId": "hero-outline",
+        "values": {
+          "eyebrow": "Coached classes",
+          "title": "Lift heavy.",
+          "outlineTitle": "Leave lighter.",
+          "text": "Six kinds of class, every day of the week, each one run by a coach who knows what you lifted last time. Pick a slot, turn up, and we handle the plan.",
+          "primaryButton": {
+            "label": "See the timetable",
+            "link": {
+              "type": "section",
+              "pageId": "classes",
+              "anchor": "week",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Book a free taster",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "facts": [
+            {
+              "value": "46",
+              "label": "classes a week"
+            },
+            {
+              "value": "12",
+              "label": "lifters at most"
+            },
+            {
+              "value": "60",
+              "label": "minutes each"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "classes-week": {
+        "id": "classes-week",
+        "kind": "component",
+        "componentId": "steps-week",
+        "values": {
+          "eyebrow": "Timetable",
+          "title": "A week of classes, already on the calendar",
+          "intro": "These seven run every week of the year. Barbell Basics, Engine and Lunch Lift also repeat on other days, so there is always a slot that fits a shift pattern.",
+          "days": [
+            {
+              "day": "Mon",
+              "date": "2",
+              "slot": "afternoon",
+              "time": "18:00",
+              "title": "Barbell Basics",
+              "text": "Squat, press and deadlift taught from the empty bar. The place to start."
+            },
+            {
+              "day": "Tue",
+              "date": "3",
+              "slot": "morning",
+              "time": "6:30",
+              "title": "Engine",
+              "text": "Rower, sled and carries in intervals. Done before most people are at work."
+            },
+            {
+              "day": "Wed",
+              "date": "4",
+              "slot": "afternoon",
+              "time": "18:30",
+              "title": "Heavy Day",
+              "text": "Work up to one heavy set of three, with a coach on every platform."
+            },
+            {
+              "day": "Thu",
+              "date": "5",
+              "slot": "midday",
+              "time": "12:15",
+              "title": "Lunch Lift",
+              "text": "Forty-five minutes, two lifts, back at your desk by half past one."
+            },
+            {
+              "day": "Fri",
+              "date": "6",
+              "slot": "morning",
+              "time": "6:30",
+              "title": "Engine",
+              "text": "Friday is partner day. Bring a friend for free and share the sled."
+            },
+            {
+              "day": "Sat",
+              "date": "7",
+              "slot": "morning",
+              "time": "9:00",
+              "title": "Kettlebell Flow",
+              "text": "Swings, get-ups and carries strung into long, steady sets."
+            },
+            {
+              "day": "Sun",
+              "date": "8",
+              "slot": "morning",
+              "time": "10:00",
+              "title": "Mobility Reset",
+              "text": "Slow hips, shoulders and ankles work to undo the week. Open to non-members."
+            }
+          ],
+          "note": "Every class is 60 minutes and capped at 12 lifters. Lunch Lift runs 45 minutes."
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "week"
+      },
+      "classes-types": {
+        "id": "classes-types",
+        "kind": "component",
+        "componentId": "features-checkerboard",
+        "values": {
+          "eyebrow": "The classes",
+          "title": "Each class has one job",
+          "intro": "You do not need to pick a favourite. Most members do two strength classes and one conditioning class a week.",
+          "items": [
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Coach Ellie Marsh showing a beginner where to place the bar for a squat",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "label": "Mon and Thu · 18:00",
+              "title": "Barbell Basics",
+              "text": "An eight week course that repeats all year. You learn the squat, press, bench and deadlift, add a little weight every session and leave with a logbook that proves it."
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Four members pushing sleds down the indoor track",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "label": "Tue and Fri · 6:30",
+              "title": "Engine",
+              "text": "Conditioning without the burpees. Intervals on the rower, ski machine and sled, scaled so the new member and the county rower finish at the same time."
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A lifter standing up with a heavy squat while two spotters watch",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "label": "Wed · 18:30",
+              "title": "Heavy Day",
+              "text": "For members with six months under the bar. One main lift, worked up to a heavy triple, then accessory work chosen by your coach."
+            },
+            {
+              "image": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "A row of members holding kettlebells overhead",
+                "decorative": false,
+                "width": 1200,
+                "height": 900,
+                "placeholder": {
+                  "ratio": "4:3",
+                  "subject": "photo"
+                }
+              },
+              "label": "Sat · 9:00",
+              "title": "Kettlebell Flow",
+              "text": "Priya strings six movements into unbroken ten minute sets. Lighter on the joints than it sounds and harder on the lungs than it looks."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "classes-survey": {
+        "id": "classes-survey",
+        "kind": "component",
+        "componentId": "stats-meters",
+        "values": {
+          "eyebrow": "Spring 2026 member survey",
+          "title": "What members told us after 12 weeks of classes",
+          "intro": "Answers from 212 members who joined between September 2025 and February 2026.",
+          "items": [
+            {
+              "label": "Feel stronger in everyday life",
+              "display": "96%",
+              "value": 96,
+              "note": "Stairs, shopping bags and picking up children came up most."
+            },
+            {
+              "label": "Hit a personal best in the first 12 weeks",
+              "display": "88%",
+              "value": 88,
+              "note": "Half of them in the deadlift."
+            },
+            {
+              "label": "Now train three times a week or more",
+              "display": "81%",
+              "value": 81,
+              "note": "Up from 34% on the day they joined."
+            },
+            {
+              "label": "Had never touched a barbell before",
+              "display": "62%",
+              "value": 62,
+              "note": "Most of our members start from zero."
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "classes-faq": {
+        "id": "classes-faq",
+        "kind": "component",
+        "componentId": "faq-quick",
+        "values": {
+          "eyebrow": "Quick answers",
+          "title": "Before your first class",
+          "intro": "The six things people ask at the front desk.",
+          "items": [
+            {
+              "question": "Can I come if I have never lifted?",
+              "answer": "Yes",
+              "tone": "yes",
+              "detail": "Start with Barbell Basics. Everyone there is new too."
+            },
+            {
+              "question": "Do I need to book?",
+              "answer": "Yes",
+              "tone": "yes",
+              "detail": "Classes cap at 12, so book in the app up to 7 days ahead."
+            },
+            {
+              "question": "Do I need my own kit?",
+              "answer": "No",
+              "tone": "no",
+              "detail": "Flat shoes and water. Belts, chalk and straps are on the wall."
+            },
+            {
+              "question": "Is there a late cancel fee?",
+              "answer": "No",
+              "tone": "no",
+              "detail": "Cancel up to an hour before so someone on the waitlist gets in."
+            },
+            {
+              "question": "Are there showers?",
+              "answer": "Yes",
+              "tone": "yes",
+              "detail": "Four showers, lockers and fresh towels at the desk."
+            },
+            {
+              "question": "Classes for under 16s?",
+              "answer": "From January",
+              "tone": "soon",
+              "detail": "Youth Barbell starts on Saturday 9 January 2027."
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "classes-cta": {
+        "id": "classes-cta",
+        "kind": "component",
+        "componentId": "cta-calendar",
+        "values": {
+          "eyebrow": "Try one",
+          "title": "Book a free taster class",
+          "text": "Pick any class this week and come as our guest. A coach meets you ten minutes early, shows you round and keeps an eye on you all session.",
+          "facts": [
+            {
+              "icon": "clock",
+              "text": "60 minutes"
+            },
+            {
+              "icon": "users",
+              "text": "Up to 12 lifters"
+            },
+            {
+              "icon": "check",
+              "text": "All kit provided"
+            }
+          ],
+          "month": "November 2026",
+          "bookingLink": {
+            "type": "section",
+            "pageId": "contact",
+            "anchor": "book",
+            "newTab": false
+          },
+          "days": [
+            {
+              "weekday": "Mon",
+              "date": "2",
+              "slots": [
+                {
+                  "time": "12:15"
+                },
+                {
+                  "time": "18:00"
+                }
+              ]
+            },
+            {
+              "weekday": "Tue",
+              "date": "3",
+              "slots": [
+                {
+                  "time": "6:30"
+                },
+                {
+                  "time": "12:15"
+                },
+                {
+                  "time": "18:00"
+                }
+              ]
+            },
+            {
+              "weekday": "Wed",
+              "date": "4",
+              "slots": [
+                {
+                  "time": "12:15"
+                },
+                {
+                  "time": "18:30"
+                }
+              ]
+            },
+            {
+              "weekday": "Sat",
+              "date": "7",
+              "slots": [
+                {
+                  "time": "9:00"
+                },
+                {
+                  "time": "10:30"
+                }
+              ]
+            }
+          ],
+          "button": {
+            "label": "See all times",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "trainers-hero": {
+        "id": "trainers-hero",
+        "kind": "component",
+        "componentId": "hero-calendar",
+        "values": {
+          "eyebrow": "Six coaches, one standard",
+          "title": "Train with people who lift what they teach",
+          "text": "Every Anvil Yard coach holds a British Weightlifting or UKSCA qualification, competes or has competed, and still writes their own training in a paper logbook.",
+          "button": {
+            "label": "See all times",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Maya Okafor",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Maya Okafor",
+          "session": "30-minute intro session",
+          "month": "November 2026",
+          "days": [
+            {
+              "weekday": "Mon",
+              "date": "2",
+              "available": false,
+              "selected": false
+            },
+            {
+              "weekday": "Tue",
+              "date": "3",
+              "available": true,
+              "selected": true
+            },
+            {
+              "weekday": "Wed",
+              "date": "4",
+              "available": true,
+              "selected": false
+            },
+            {
+              "weekday": "Thu",
+              "date": "5",
+              "available": true,
+              "selected": false
+            },
+            {
+              "weekday": "Fri",
+              "date": "6",
+              "available": false,
+              "selected": false
+            }
+          ],
+          "slotsTitle": "Open times on Tuesday 3 November",
+          "slots": [
+            {
+              "label": "7:30 am",
+              "link": {
+                "type": "section",
+                "pageId": "contact",
+                "anchor": "book",
+                "newTab": false
+              }
+            },
+            {
+              "label": "12:45 pm",
+              "link": {
+                "type": "section",
+                "pageId": "contact",
+                "anchor": "book",
+                "newTab": false
+              }
+            },
+            {
+              "label": "4:00 pm",
+              "link": {
+                "type": "section",
+                "pageId": "contact",
+                "anchor": "book",
+                "newTab": false
+              }
+            },
+            {
+              "label": "7:15 pm",
+              "link": {
+                "type": "section",
+                "pageId": "contact",
+                "anchor": "book",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "trainers-team": {
+        "id": "trainers-team",
+        "kind": "component",
+        "componentId": "team-badges",
+        "values": {
+          "eyebrow": "On the floor",
+          "title": "The six people who will know your numbers",
+          "intro": "There is always at least one of them in the building. Their badges say what to ask them about.",
+          "people": [
+            {
+              "department": "Strength",
+              "tone": "primary",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Maya Okafor",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Maya Okafor",
+              "role": "Head coach and founder",
+              "since": "Coaching since 2011"
+            },
+            {
+              "department": "Powerlifting",
+              "tone": "dark",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Tom Hale",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Tom Hale",
+              "role": "Strength coach",
+              "since": "At the Yard since 2018"
+            },
+            {
+              "department": "Conditioning",
+              "tone": "primary",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Priya Nair",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Priya Nair",
+              "role": "Engine and kettlebell coach",
+              "since": "At the Yard since 2019"
+            },
+            {
+              "department": "Beginners",
+              "tone": "dark",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ellie Marsh",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Ellie Marsh",
+              "role": "Barbell Basics coach",
+              "since": "At the Yard since 2021"
+            },
+            {
+              "department": "Mobility",
+              "tone": "primary",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Dan Whitlock",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Dan Whitlock",
+              "role": "Physiotherapist and coach",
+              "since": "At the Yard since 2022"
+            },
+            {
+              "department": "Weightlifting",
+              "tone": "dark",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Sam Rees",
+                "decorative": false,
+                "width": 800,
+                "height": 800,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              },
+              "name": "Sam Rees",
+              "role": "Olympic lifting coach",
+              "since": "At the Yard since 2024"
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "trainers-interview": {
+        "id": "trainers-interview",
+        "kind": "component",
+        "componentId": "content-interview",
+        "values": {
+          "eyebrow": "Coach to coach",
+          "title": "“Nobody is too weak to start. That is the whole point.”",
+          "intro": "Ellie Marsh joined as a member in 2019 and now runs Barbell Basics. She asked Maya why the gym still teaches every new member itself.",
+          "hostName": "Ellie Marsh",
+          "hostInitials": "EM",
+          "hostRole": "Barbell Basics coach",
+          "guestName": "Maya Okafor",
+          "guestInitials": "MO",
+          "guestRole": "Head coach and founder",
+          "turns": [
+            {
+              "speaker": "host",
+              "text": "You opened in 2017 with two racks and a kettle. Why a strength gym, in Sheffield, in a building with no heating?",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "Because every gym I had worked in sold access and hoped you would not turn up. I wanted the opposite: a place that notices when you miss a week.",
+              "highlight": false
+            },
+            {
+              "speaker": "host",
+              "text": "People tell me they need to get fit before they join. What do you say to that?",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "Nobody is too weak to start. That is the whole point of a barbell: it goes down to 5 kg and up in half kilo steps.",
+              "highlight": true
+            },
+            {
+              "speaker": "host",
+              "text": "We cap classes at 12. We could fit 20 in the hall.",
+              "highlight": false
+            },
+            {
+              "speaker": "guest",
+              "text": "At 12 I can watch every working set. At 20 I am a timekeeper. The cap costs us money and it is the best decision we ever made.",
+              "highlight": false
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "trainers-quotes": {
+        "id": "trainers-quotes",
+        "kind": "component",
+        "componentId": "testimonials-polaroids",
+        "values": {
+          "eyebrow": "From the members",
+          "title": "What it is like to be coached here",
+          "intro": "Four members, four coaches, one thing in common: somebody was paying attention.",
+          "items": [
+            {
+              "quote": "Tom rewrote my programme around night shifts without me asking.",
+              "name": "Callum Reid",
+              "role": "Member since 2022",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Callum Reid",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "Ellie remembered my bad shoulder in week one and still asks about it.",
+              "name": "Farah Aziz",
+              "role": "Member since 2024",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Farah Aziz",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "Priya makes a 6:30 Engine class feel like the best part of Tuesday.",
+              "name": "Greg Lawton",
+              "role": "Member since 2020",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Greg Lawton",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            },
+            {
+              "quote": "Dan got me squatting again eight months after knee surgery.",
+              "name": "Ruth Adeyemi",
+              "role": "Member since 2023",
+              "photo": {
+                "source": "placeholder",
+                "src": "",
+                "alt": "Ruth Adeyemi",
+                "decorative": false,
+                "width": 1200,
+                "height": 1200,
+                "placeholder": {
+                  "ratio": "1:1",
+                  "subject": "person"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "trainers-sessions": {
+        "id": "trainers-sessions",
+        "kind": "component",
+        "componentId": "pricing-hourly",
+        "values": {
+          "eyebrow": "One to one",
+          "title": "Book time with a coach",
+          "intro": "Any member or guest can book a coach by the session. Coached members get one technique session a month included.",
+          "note": "Prices include VAT. Sessions run at 22 Mowbray Street and can be moved free of charge with 24 hours notice.",
+          "sessions": [
+            {
+              "name": "Intro session",
+              "description": "A tour, a movement check and a first go at the squat and deadlift. For anyone thinking of joining.",
+              "minutes": 30,
+              "length": "30 minutes",
+              "price": "Free",
+              "button": {
+                "label": "Book",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "book",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            },
+            {
+              "name": "Technique session",
+              "description": "One lift, filmed from two angles and fixed rep by rep. Bring the lift that has stalled.",
+              "minutes": 60,
+              "length": "60 minutes",
+              "price": "£45",
+              "button": {
+                "label": "Book",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "book",
+                  "newTab": false
+                },
+                "variant": "primary"
+              }
+            },
+            {
+              "name": "Programme review",
+              "description": "Go through your logbook with a coach and leave with the next 12 weeks written out.",
+              "minutes": 45,
+              "length": "45 minutes",
+              "price": "£35",
+              "button": {
+                "label": "Book",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "book",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "trainers-cta": {
+        "id": "trainers-cta",
+        "kind": "component",
+        "componentId": "cta-big-link",
+        "values": {
+          "kicker": "Not sure which coach suits you?",
+          "label": "Book a free intro",
+          "link": {
+            "type": "section",
+            "pageId": "contact",
+            "anchor": "book",
+            "newTab": false
+          },
+          "details": [
+            {
+              "text": "30 minutes"
+            },
+            {
+              "text": "Any coach, any day"
+            },
+            {
+              "text": "No kit needed"
+            }
+          ]
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "membership-hero": {
+        "id": "membership-hero",
+        "kind": "component",
+        "componentId": "hero-ticket",
+        "values": {
+          "eyebrow": "Membership · Kelham Island",
+          "title": "One week free, then pay only if you stay",
+          "text": "Your free week covers every class on the timetable, the open gym and a 30 minute intro with a coach. No card details and no joining fee.",
+          "primaryButton": {
+            "label": "Book your first session",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Compare memberships",
+            "link": {
+              "type": "section",
+              "pageId": "membership",
+              "anchor": "plans",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "ticketLabel": "Admit one",
+          "ticketTitle": "Free week pass",
+          "ticketDate": "7 days",
+          "rows": [
+            {
+              "label": "Valid for",
+              "value": "Every class and the open gym"
+            },
+            {
+              "label": "Starts",
+              "value": "The day of your first session"
+            },
+            {
+              "label": "Where",
+              "value": "22 Mowbray Street, Sheffield"
+            },
+            {
+              "label": "Bring",
+              "value": "Trainers and a water bottle"
+            }
+          ],
+          "ticketNumber": "No. 000412"
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "membership-plans": {
+        "id": "membership-plans",
+        "kind": "component",
+        "componentId": "pricing-spotlight",
+        "values": {
+          "eyebrow": "Memberships",
+          "title": "Three memberships, no joining fee",
+          "intro": "All memberships run month to month. Freeze for up to three months a year or cancel with 14 days notice.",
+          "featuredLabel": "Picked by 6 in 10 members",
+          "plans": [
+            {
+              "name": "Open Gym",
+              "description": "For lifters who already have a programme and want good kit and a quiet rack.",
+              "price": "£45",
+              "period": "per month",
+              "button": {
+                "label": "Start with Open Gym",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "book",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              },
+              "features": "<ul><li>Open gym at any hour we are open</li><li>Coach on the floor for form checks</li><li>Sunday Mobility Reset included</li><li>Classes at £8 each</li></ul>",
+              "featured": false
+            },
+            {
+              "name": "Classes",
+              "description": "For most people: unlimited coached classes plus the open gym in between.",
+              "price": "£69",
+              "period": "per month",
+              "button": {
+                "label": "Start your free week",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "book",
+                  "newTab": false
+                },
+                "variant": "primary"
+              },
+              "features": "<ul><li>Unlimited classes, all 46 a week</li><li>Open gym at any hour we are open</li><li>Barbell Basics course included</li><li>Bring a friend every Friday</li></ul>",
+              "featured": true
+            },
+            {
+              "name": "Coached",
+              "description": "For a specific goal: a programme written for you and a coach who checks it.",
+              "price": "£129",
+              "period": "per month",
+              "button": {
+                "label": "Talk to a coach",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "book",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              },
+              "features": "<ul><li>Everything in Classes</li><li>Your own 12 week programme</li><li>Monthly review with your coach</li><li>One technique session a month</li></ul>",
+              "featured": false
+            }
+          ]
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "plans"
+      },
+      "membership-packs": {
+        "id": "membership-packs",
+        "kind": "component",
+        "componentId": "pricing-credits",
+        "values": {
+          "eyebrow": "Not ready for monthly?",
+          "title": "Class packs for shift workers and visitors",
+          "intro": "Buy classes in a block and book them like any member. One class pass covers any 60 minute class on the timetable.",
+          "bestLabel": "Best value",
+          "packs": [
+            {
+              "credits": "1 class",
+              "size": 1,
+              "price": "£12",
+              "perCredit": "£12.00 per class",
+              "text": "A single drop-in, for visitors and the curious.",
+              "best": false,
+              "button": {
+                "label": "Buy 1 class",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "book",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            },
+            {
+              "credits": "5 classes",
+              "size": 4,
+              "price": "£50",
+              "perCredit": "£10.00 per class",
+              "text": "About a month of training once a week.",
+              "best": false,
+              "button": {
+                "label": "Buy 5 classes",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "book",
+                  "newTab": false
+                },
+                "variant": "secondary"
+              }
+            },
+            {
+              "credits": "10 classes",
+              "size": 8,
+              "price": "£85",
+              "perCredit": "£8.50 per class",
+              "text": "For rotating shifts: use them whenever the rota allows.",
+              "best": true,
+              "button": {
+                "label": "Buy 10 classes",
+                "link": {
+                  "type": "section",
+                  "pageId": "contact",
+                  "anchor": "book",
+                  "newTab": false
+                },
+                "variant": "primary"
+              }
+            }
+          ],
+          "note": "Packs are valid for six months from the first class and can be shared with one other person."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "membership-quote": {
+        "id": "membership-quote",
+        "kind": "component",
+        "componentId": "testimonial-highlight",
+        "values": {
+          "eyebrow": "Member story",
+          "before": "I paid for a chain gym for three years and went eleven times. Here I have",
+          "highlight": "missed four sessions in two years",
+          "after": "because somebody texts me when I do.",
+          "name": "Callum Reid",
+          "role": "Paramedic, Coached member since 2022",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Callum Reid",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "membership-faq": {
+        "id": "membership-faq",
+        "kind": "component",
+        "componentId": "faq-featured",
+        "values": {
+          "eyebrow": "Membership questions",
+          "title": "The question everyone asks at the desk",
+          "featuredLabel": "Most asked",
+          "featuredQuestion": "What happens if I sign up and stop coming?",
+          "featuredAnswer": "<p>We notice. If you miss ten days your coach sends a message, and if life has got in the way we freeze your membership for free rather than keep taking your money.</p><p>About one member in five uses a freeze each year. Almost all of them come back.</p>",
+          "authorPhoto": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Maya Okafor",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "authorName": "Maya Okafor",
+          "authorRole": "Head coach and founder",
+          "moreTitle": "Other questions",
+          "items": [
+            {
+              "question": "Is there a contract?",
+              "answer": "<p>No. Every membership is month to month and you can cancel with 14 days notice by email.</p>"
+            },
+            {
+              "question": "Do you offer discounts?",
+              "answer": "<p>Students, NHS staff and over 60s pay £10 less a month on any membership. Two people at one address save £15 between them.</p>"
+            },
+            {
+              "question": "Can I change membership later?",
+              "answer": "<p>Yes, at the start of any month. Most Coached members began on Classes.</p>"
+            },
+            {
+              "question": "Can I pay for a year?",
+              "answer": "<p>Yes. Twelve months paid up front costs the same as ten.</p>"
+            }
+          ],
+          "moreLink": {
+            "label": "Ask us something else",
+            "link": {
+              "type": "email",
+              "url": "hello@anvilyard.example",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "membership-guarantee": {
+        "id": "membership-guarantee",
+        "kind": "component",
+        "componentId": "cta-guarantee",
+        "values": {
+          "sealNumber": "30",
+          "sealUnit": "days",
+          "sealText": "Money-back guarantee",
+          "eyebrow": "No risk",
+          "title": "Train for a month. If you are not stronger, it is free.",
+          "text": "Come three times a week for your first paid month and follow the plan. If your logbook does not show more weight on the bar at the end, we refund the month.",
+          "points": [
+            {
+              "text": "Full refund of your first paid month"
+            },
+            {
+              "text": "Your logbook is the only proof we need"
+            },
+            {
+              "text": "Keep the programme either way"
+            }
+          ],
+          "primaryButton": {
+            "label": "Start with a free week",
+            "link": {
+              "type": "section",
+              "pageId": "contact",
+              "anchor": "book",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "showSecondary": true,
+          "secondaryButton": {
+            "label": "Email a question",
+            "link": {
+              "type": "email",
+              "url": "hello@anvilyard.example",
+              "newTab": false
+            },
+            "variant": "secondary"
+          },
+          "note": "In nine years we have refunded three people, and two of them rejoined."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-hero": {
+        "id": "contact-hero",
+        "kind": "component",
+        "componentId": "hero-minimal",
+        "values": {
+          "title": "We are Anvil Yard, a strength gym in Kelham Island where",
+          "linkLabel": "your first week",
+          "link": {
+            "type": "page",
+            "pageId": "membership",
+            "newTab": false
+          },
+          "titleEnd": "is free and the kettle is always on.",
+          "location": "Kelham Island, Sheffield",
+          "availability": "Open today, 5:30 am to 10 pm",
+          "available": true,
+          "meta": "Est. 2017",
+          "scrollLabel": "Book an intro",
+          "scrollLink": {
+            "type": "section",
+            "pageId": "contact",
+            "anchor": "book",
+            "newTab": false
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-book": {
+        "id": "contact-book",
+        "kind": "component",
+        "componentId": "contact-booking",
+        "values": {
+          "eyebrow": "Book an intro",
+          "title": "Thirty minutes with a coach, free",
+          "text": "A tour of the gym, a quick movement check and a first go at the squat and deadlift. Wear what you would wear for a walk.",
+          "hostPhoto": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Maya Okafor",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "hostName": "Maya Okafor",
+          "hostRole": "Head coach, Anvil Yard",
+          "duration": "30 minutes",
+          "platform": "In person at 22 Mowbray Street",
+          "timezone": "Times shown in UK time",
+          "monthLabel": "November 2026",
+          "fullLabel": "fully booked",
+          "days": [
+            {
+              "weekday": "Mon",
+              "date": "2",
+              "state": "full"
+            },
+            {
+              "weekday": "Tue",
+              "date": "3",
+              "state": "selected"
+            },
+            {
+              "weekday": "Wed",
+              "date": "4",
+              "state": "open"
+            },
+            {
+              "weekday": "Thu",
+              "date": "5",
+              "state": "open"
+            },
+            {
+              "weekday": "Fri",
+              "date": "6",
+              "state": "full"
+            },
+            {
+              "weekday": "Mon",
+              "date": "9",
+              "state": "open"
+            },
+            {
+              "weekday": "Tue",
+              "date": "10",
+              "state": "open"
+            },
+            {
+              "weekday": "Wed",
+              "date": "11",
+              "state": "full"
+            },
+            {
+              "weekday": "Thu",
+              "date": "12",
+              "state": "open"
+            },
+            {
+              "weekday": "Fri",
+              "date": "13",
+              "state": "open"
+            }
+          ],
+          "slotsTitle": "Tuesday 3 November",
+          "slots": [
+            {
+              "time": "7:30 am",
+              "link": {
+                "type": "email",
+                "url": "hello@anvilyard.example",
+                "newTab": false
+              }
+            },
+            {
+              "time": "9:00 am",
+              "link": {
+                "type": "email",
+                "url": "hello@anvilyard.example",
+                "newTab": false
+              }
+            },
+            {
+              "time": "12:45 pm",
+              "link": {
+                "type": "email",
+                "url": "hello@anvilyard.example",
+                "newTab": false
+              }
+            },
+            {
+              "time": "4:00 pm",
+              "link": {
+                "type": "email",
+                "url": "hello@anvilyard.example",
+                "newTab": false
+              }
+            },
+            {
+              "time": "5:30 pm",
+              "link": {
+                "type": "email",
+                "url": "hello@anvilyard.example",
+                "newTab": false
+              }
+            },
+            {
+              "time": "7:15 pm",
+              "link": {
+                "type": "email",
+                "url": "hello@anvilyard.example",
+                "newTab": false
+              }
+            }
+          ],
+          "note": "Cannot find a time? Call 0114 496 0153 and we will fit you in."
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": [],
+        "anchor": "book"
+      },
+      "contact-map": {
+        "id": "contact-map",
+        "kind": "component",
+        "componentId": "contact-map-card",
+        "values": {
+          "eyebrow": "Find us",
+          "title": "The old file works on Mowbray Street",
+          "address": "Unit 4, 22 Mowbray Street\nKelham Island, Sheffield S3 8EN",
+          "hours": "Monday to Friday, 5:30 am to 10 pm\nSaturday and Sunday, 7 am to 8 pm",
+          "phone": "0114 496 0153",
+          "email": "hello@anvilyard.example",
+          "button": {
+            "label": "Get directions",
+            "link": {
+              "type": "url",
+              "url": "https://www.openstreetmap.org/search?query=22+Mowbray+Street+Sheffield+S3+8EN",
+              "newTab": true
+            },
+            "variant": "primary"
+          }
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-directions": {
+        "id": "contact-directions",
+        "kind": "component",
+        "componentId": "content-directions",
+        "values": {
+          "eyebrow": "Getting here",
+          "title": "Ten minutes from the city centre",
+          "address": "Anvil Yard\nUnit 4, 22 Mowbray Street\nKelham Island, Sheffield S3 8EN",
+          "pinLabel": "Anvil Yard",
+          "modes": [
+            {
+              "icon": "lucide:tram-front",
+              "mode": "By tram",
+              "text": "Blue or Yellow route to Shalesmoor, then four minutes on foot down Green Lane."
+            },
+            {
+              "icon": "lucide:train-front",
+              "mode": "By bike",
+              "text": "Twelve covered racks inside the yard gate. The Upper Don cycle path passes the end of the street."
+            },
+            {
+              "icon": "lucide:bike",
+              "mode": "By car",
+              "text": "Twenty free spaces in the yard for members. Enter from Mowbray Street, not Alma Street."
+            }
+          ],
+          "showButton": true,
+          "button": {
+            "label": "Open in maps",
+            "link": {
+              "type": "url",
+              "url": "https://www.openstreetmap.org/search?query=22+Mowbray+Street+Sheffield+S3+8EN",
+              "newTab": true
+            },
+            "variant": "secondary"
+          }
+        },
+        "overrides": {
+          "--color-background": "var(--color-surface)"
+        },
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      },
+      "contact-cta": {
+        "id": "contact-cta",
+        "kind": "component",
+        "componentId": "cta-phone",
+        "values": {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Tom Hale at the front desk",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Tom Hale",
+          "role": "Strength coach, on the desk most weekdays",
+          "statusLabel": "At the desk now",
+          "eyebrow": "Prefer to talk?",
+          "title": "Call the Yard and a coach picks up",
+          "phone": "0114 496 0153",
+          "hours": "Every day, 7 am to 9 pm",
+          "note": "If we are mid-class, leave a message and we call back within the hour."
+        },
+        "overrides": {},
+        "disabled": false,
+        "extraClasses": [],
+        "hideOn": []
+      }
+    }
+  },
+  "sharedSlots": {
+    "header": ["header-banner", "header-nav"],
+    "footer": ["footer"]
+  },
+  "packBlocks": {},
+  "assets": {}
+}
