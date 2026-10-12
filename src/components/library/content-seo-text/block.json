@@ -1,0 +1,80 @@
+{
+  "name": "Content, long text for search",
+  "category": "content",
+  "description": "Long supporting text for the bottom of a landing page, with an intro that always shows and a read more part that opens without JavaScript.",
+  "tags": [
+    "seo",
+    "text",
+    "long text",
+    "article",
+    "about",
+    "description",
+    "search",
+    "keywords",
+    "read more",
+    "local"
+  ],
+  "fieldGroups": ["Heading", "Text", "Layout"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "About our studio",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Car detailing in Bristol, done by hand",
+      "required": true,
+      "maxLength": 140,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<p>Harbour Lane Detailing is a small car detailing studio in Bedminster, a few minutes from Bristol city centre. Since 2014 we have cleaned, corrected and protected everything from daily hatchbacks to weekend classics, one car at a time and always by hand.</p><p>Most customers come to us for a full valet or a deep interior clean before selling a car, after a long winter, or when family life has caught up with the back seats. Others book paint correction and a ceramic coating to keep a new car looking new. Whatever you drive, you get a fixed price before we start, photos of the finished work, and honest advice on what your car actually needs.</p>",
+      "group": "Text"
+    },
+    {
+      "name": "more",
+      "label": "Read more text",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<h3>Detailing services we offer</h3><p>A maintenance valet covers a safe two bucket hand wash, wheels, glass and a thorough vacuum, and takes about two hours. Our full detail adds clay bar decontamination, a machine polish and a hand applied wax or sealant. For tired paintwork we offer single stage and multi stage paint correction to remove swirl marks and light scratches, followed by a ceramic coating that protects the finish for up to five years.</p><h3>Interior cleaning and odour removal</h3><p>Interiors are steam cleaned, fabric seats and carpets are shampooed and extracted, and leather is cleaned and conditioned. We remove pet hair, child seat marks and smoke odours, and we clean and reproof convertible roofs.</p><h3>Where we work around Bristol</h3><p>Most work happens at our unit in Bedminster, where the lighting and the water are right for the job. We also collect and return cars across Bristol, including Clifton, Southville, Redland and Bishopston, and out to Long Ashton, Portishead and Keynsham by arrangement.</p><h3>Booking and prices</h3><p>Prices depend on the size and condition of the car, so we quote after a short look or a few photos. Valets start at £45 and full details at £180. Call the studio, or send a message with your registration and postcode.</p>",
+      "help": "Leave empty to show the intro only.",
+      "group": "Text"
+    },
+    {
+      "name": "moreLabel",
+      "label": "Read more label",
+      "type": "text",
+      "default": "Read more",
+      "required": true,
+      "group": "Text"
+    },
+    {
+      "name": "columns",
+      "label": "Columns",
+      "type": "segmented",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "help": "Two columns show on tablets and wider screens.",
+      "group": "Layout"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+<section class="b-pricing-donations section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="grid b-tiers" style="--cols: {{tiers.length}}">
+      {{#each tiers}}
+      <article class="card stack b-tier" {{#if featured}}data-featured{{/if}} data-field="tiers.{{@index}}">
+        <span class="b-heart">{{svgIcon "heart"}}</span>
+        <h3><span class="b-amount">{{amount}}</span>{{#if period}} <span class="b-period">{{period}}</span>{{/if}}</h3>
+        <p class="b-impact">{{nl2br impact}}</p>
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+      </article>
+      {{/each}}
+    </div>
+    {{#if (or otherLabel note)}}
+    <div class="stack b-foot">
+      {{#if otherLabel}}<a class="b-other" href="{{href otherLink}}" {{linkAttrs otherLink}} data-field="otherLabel">{{otherLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+      {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+    </div>
+    {{/if}}
+  </div>
+</section>

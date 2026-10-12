@@ -1,0 +1,81 @@
+@layer components {
+  .ve-app-settings-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 240px;
+  }
+
+  .ve-settings-key {
+    display: grid;
+    flex: 1;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 8px;
+  }
+
+  .ve-settings-model {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .ve-settings-model-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ve-model-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+  }
+
+  .ve-model-list {
+    max-height: 280px;
+    overflow-y: auto;
+  }
+
+  .ve-model-option {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    min-height: var(--ve-target);
+    padding: 8px 10px;
+    border: 0;
+    border-radius: var(--ve-radius);
+    background: none;
+    color: var(--ve-text);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .ve-model-option:hover,
+  .ve-model-option[aria-pressed='true'] {
+    background: var(--ve-surface);
+  }
+
+  .ve-model-option[aria-pressed='true'] {
+    box-shadow: inset 3px 0 0 var(--ve-accent);
+  }
+
+  .ve-model-name {
+    font-weight: 600;
+  }
+
+  @media (width < 520px) {
+    .ve-settings-key {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .ve-settings-key .ui-input {
+      grid-column: 1 / -1;
+    }
+  }
+}

@@ -2,7 +2,18 @@
   "name": "Gallery, arch frames",
   "category": "gallery",
   "description": "An editorial row of photos in arched frames with an outline, staggered heights and numbered captions.",
-  "tags": ["gallery", "photos", "arches", "editorial", "elegant", "studio", "spaces"],
+  "tags": [
+    "gallery",
+    "photos",
+    "arches",
+    "editorial",
+    "elegant",
+    "studio",
+    "spaces",
+    "lookbook",
+    "fashion",
+    "collection"
+  ],
   "fieldGroups": ["Heading", "Photos"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

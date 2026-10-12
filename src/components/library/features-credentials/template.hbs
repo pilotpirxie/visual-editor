@@ -1,0 +1,21 @@
+<section class="b-features-credentials section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="grid b-grid" role="list">
+      {{#each items}}
+      <li class="card stack b-card" data-field="items.{{@index}}">
+        <div class="b-logo">{{img image}}</div>
+        <div class="stack b-body">
+          <h3>{{#if (or link.url (or link.pageId link.anchor))}}<a href="{{href link}}" {{linkAttrs link}}>{{name}}{{svgIcon "arrow-up-right"}}</a>{{else}}{{name}}{{/if}}</h3>
+          {{#if detail}}<p class="b-detail">{{svgIcon "check-circle"}}<span>{{detail}}</span></p>{{/if}}
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+    {{#if note}}<p class="b-note" data-field="note">{{svgIcon "shield"}}<span>{{note}}</span></p>{{/if}}
+  </div>
+</section>

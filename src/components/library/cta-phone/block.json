@@ -2,7 +2,21 @@
   "name": "Call to action, call us",
   "category": "call-to-action",
   "description": "A photo of the person who answers, a huge phone number that starts a call, and your hours.",
-  "tags": ["cta", "phone", "call", "contact", "sales", "support", "person", "avatar"],
+  "tags": [
+    "cta",
+    "phone",
+    "call",
+    "contact",
+    "sales",
+    "support",
+    "person",
+    "avatar",
+    "emergency",
+    "call out",
+    "24 hours",
+    "urgent",
+    "trades"
+  ],
   "fieldGroups": ["Person", "Content"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

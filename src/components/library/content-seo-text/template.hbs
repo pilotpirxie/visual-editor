@@ -1,0 +1,17 @@
+<section class="b-content-seo-text section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-text" data-columns="{{columns}}">
+      <div class="prose b-intro" data-field="intro">{{richText intro headings=true}}</div>
+      {{#if more}}
+      <details class="b-more">
+        <summary class="b-toggle"><span data-field="moreLabel">{{moreLabel}}</span><span class="b-chevron">{{svgIcon "chevron-down"}}</span></summary>
+        <div class="prose b-rest" data-field="more">{{richText more headings=true}}</div>
+      </details>
+      {{/if}}
+    </div>
+  </div>
+</section>

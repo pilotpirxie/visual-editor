@@ -196,7 +196,7 @@ test('the design system, project settings and export work on a phone', async ({ 
 
 test('the home screen fits a phone screen', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Start a new site' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Start from a starter' })).toBeVisible();
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
   );

@@ -1,0 +1,106 @@
+@layer components {
+  @scope (.b-contact-appointment) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+    }
+
+    .b-text,
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    .b-form {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-pair {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-4);
+    }
+
+    .b-submit {
+      align-self: flex-start;
+    }
+
+    .b-aside {
+      --stack-gap: var(--space-6);
+      padding: var(--space-6);
+      border-radius: var(--card-radius);
+      background: var(--color-surface);
+    }
+
+    .b-phone {
+      --icon-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: 2.75rem;
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-bold);
+      overflow-wrap: anywhere;
+    }
+
+    .b-hours {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-hours h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-1) var(--space-4);
+      padding-block: var(--space-2);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .b-row dd {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-pair {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-form {
+        --card-padding: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-body {
+        grid-template-columns: 3fr 2fr;
+        gap: var(--space-12);
+      }
+
+      .b-aside {
+        padding: var(--space-8);
+      }
+    }
+  }
+}

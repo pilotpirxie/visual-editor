@@ -127,6 +127,7 @@ export function renderBlock(
     iconSet: ctx.iconSet,
     language: ctx.language,
     collector: ctx.collector,
+    liveMaps: ctx.mode !== 'canvas',
   };
   const rendered = component.template(templateValues, { data: renderData }).trim();
   const html = isBuiltIn(component.pack) ? rendered : stripUnsafeHtml(rendered).html.trim();

@@ -59,6 +59,8 @@ export type EditorDialog =
   | { kind: 'find' }
   | { kind: 'palette' }
   | { kind: 'help' }
+  | { kind: 'app-settings' }
+  | { kind: 'delete-block'; blockId: string }
   | { kind: 'save-block'; blockId: string };
 
 const MAX_NOTICES = 3;

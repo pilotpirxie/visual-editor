@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { undo } from '../../app/history';
 import { store } from '../../app/store';
-import { blur, changeValue, click, render } from '../../test/dom';
+import { blur, changeValue, click, render, runInAct } from '../../test/dom';
 import { loadIntoAppStore } from '../../test/fixtures';
 import { ProjectSettingsPanel } from './ProjectSettingsPanel';
 
@@ -36,6 +37,17 @@ describe('ProjectSettingsPanel', () => {
       language: 'pl',
       titleTemplate: '{{page.title}} - Acme',
     });
+  });
+
+  it('keeps a space typed at the end of the title while the stored title stays trimmed', () => {
+    const { container } = render(<ProjectSettingsPanel />);
+    changeValue(input(container, '#ve-field-project-title'), 'My ');
+    expect(input(container, '#ve-field-project-title')).toHaveProperty('value', 'My ');
+    expect(settings().title).toBe('My');
+    changeValue(input(container, '#ve-field-project-title'), 'My site');
+    expect(settings().title).toBe('My site');
+    runInAct(() => store.dispatch(undo()));
+    expect(input(container, '#ve-field-project-title')).toHaveProperty('value', 'Fieldnote');
   });
 
   it('keeps an empty title as a draft with a message', () => {

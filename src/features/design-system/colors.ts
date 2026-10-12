@@ -64,6 +64,33 @@ function hexChannel(linear: number): string {
     .padStart(2, '0');
 }
 
+export type Oklch = { lightness: number; chroma: number; hue: number };
+
+function linearChannel(hexPair: string): number {
+  const srgb = Number.parseInt(hexPair, 16) / 255;
+  if (srgb <= 0.04045) return srgb / 12.92;
+  return ((srgb + 0.055) / 1.055) ** 2.4;
+}
+
+export function hexToOklch(hex: string): Oklch | null {
+  if (!/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex)) return null;
+  const full = toPickerHex(hex);
+  const red = linearChannel(full.slice(1, 3));
+  const green = linearChannel(full.slice(3, 5));
+  const blue = linearChannel(full.slice(5, 7));
+  const long = Math.cbrt(0.4122214708 * red + 0.5363325363 * green + 0.0514459929 * blue);
+  const medium = Math.cbrt(0.2119034982 * red + 0.6806995451 * green + 0.1073969566 * blue);
+  const short = Math.cbrt(0.0883024619 * red + 0.2817188376 * green + 0.6299787005 * blue);
+  const a = 1.9779984951 * long - 2.428592205 * medium + 0.4505937099 * short;
+  const b = 0.0259040371 * long + 0.7827717662 * medium - 0.808675766 * short;
+  const degrees = (Math.atan2(b, a) * 180) / Math.PI;
+  return {
+    lightness: 0.2104542553 * long + 0.793617785 * medium - 0.0040720468 * short,
+    chroma: Math.hypot(a, b),
+    hue: (degrees + 360) % 360,
+  };
+}
+
 export function oklchToHex(lightness: number, chroma: number, hue: number): string {
   let fitted = chroma;
   let rgb = oklchToLinearRgb(lightness, fitted, hue);

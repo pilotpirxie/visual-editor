@@ -19,7 +19,7 @@ type DraftInputProps = {
   onCommit(text: string): void;
 };
 
-type Draft = { text: string; base: string; error: string; isErrorShown: boolean };
+type Draft = { text: string; base: string; error: string | null; isErrorShown: boolean };
 
 export function DraftInput({
   id,
@@ -36,7 +36,12 @@ export function DraftInput({
   onCommit,
 }: DraftInputProps): JSX.Element {
   const [draft, setDraft] = useState<Draft | null>(null);
-  const isDraftStale = draft !== null && draft.base !== value;
+  let isDraftStale = false;
+  if (draft !== null && draft.error === null) {
+    isDraftStale = draft.text.trim() !== value;
+  } else if (draft !== null) {
+    isDraftStale = draft.base !== value;
+  }
   if (isDraftStale) setDraft(null);
   const activeDraft = isDraftStale ? null : draft;
   const error = activeDraft?.isErrorShown === true ? activeDraft.error : null;
@@ -44,7 +49,7 @@ export function DraftInput({
   function change(text: string): void {
     const nextError = validate(text);
     if (nextError === null) {
-      setDraft(null);
+      setDraft({ text, base: value, error: null, isErrorShown: false });
       onCommit(text);
       return;
     }
@@ -54,6 +59,10 @@ export function DraftInput({
 
   function showErrorOnLeave(): void {
     if (activeDraft === null || activeDraft.isErrorShown) return;
+    if (activeDraft.error === null) {
+      setDraft(null);
+      return;
+    }
     setDraft({ ...activeDraft, isErrorShown: true });
   }
 

@@ -32,6 +32,7 @@ export type RenderData = {
   iconSet?: string;
   language?: string;
   collector?: RenderCollector;
+  liveMaps?: boolean;
 };
 
 export function createRenderCollector(): RenderCollector {
@@ -220,6 +221,111 @@ function nl2brHelper(text: unknown): Handlebars.SafeString {
   return new Handlebars.SafeString(escaped.replace(LINE_BREAK, '<br>'));
 }
 
+export const MAP_SERVICE_FIELD = 'mapService';
+export const MAP_SETTING_FIELDS: readonly string[] = [
+  MAP_SERVICE_FIELD,
+  'mapLatitude',
+  'mapLongitude',
+  'mapZoom',
+  'mapKey',
+];
+export const MAP_SERVICE_NAMES: Record<string, string> = {
+  google: 'Google Maps',
+  osm: 'OpenStreetMap',
+};
+
+const MIN_MAP_ZOOM = 3;
+const MAX_MAP_ZOOM = 19;
+const DEFAULT_MAP_ZOOM = 15;
+const MAX_LATITUDE = 85;
+const MAX_LONGITUDE = 180;
+const FULL_TURN = 360;
+const HALF_TURN = 180;
+const MAP_TILES_ACROSS = 2.5;
+const MAP_HEIGHT_SHARE = 0.6;
+const COORDINATE_DIGITS = 5;
+const WHITE_SPACE = /\s+/g;
+const MAP_NOTE = 'The map shows in Preview and on the exported site.';
+
+function numberOrNull(value: unknown): number | null {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  if (typeof value !== 'string' || value.trim() === '') return null;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function mapZoom(value: unknown): number {
+  const zoom = Math.round(numberOrNull(value) ?? DEFAULT_MAP_ZOOM);
+  return Math.min(MAX_MAP_ZOOM, Math.max(MIN_MAP_ZOOM, zoom));
+}
+
+function googleMapUrl(address: string, zoom: number, key: string): string {
+  const place = encodeURIComponent(address);
+  if (key === '') return `https://www.google.com/maps?q=${place}&z=${zoom}&output=embed`;
+  const apiKey = encodeURIComponent(key);
+  return `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${place}&zoom=${zoom}`;
+}
+
+function openStreetMapUrl(latitude: number, longitude: number, zoom: number): string {
+  const halfWidth = ((FULL_TURN / 2 ** zoom) * MAP_TILES_ACROSS) / 2;
+  const squeeze = Math.cos((latitude * Math.PI) / HALF_TURN);
+  const halfHeight = halfWidth * MAP_HEIGHT_SHARE * squeeze;
+  const corners = [
+    longitude - halfWidth,
+    latitude - halfHeight,
+    longitude + halfWidth,
+    latitude + halfHeight,
+  ];
+  const box = corners.map((corner) => corner.toFixed(COORDINATE_DIGITS)).join(',');
+  const marker = `${latitude.toFixed(COORDINATE_DIGITS)},${longitude.toFixed(COORDINATE_DIGITS)}`;
+  const query = `bbox=${encodeURIComponent(box)}&layer=mapnik&marker=${encodeURIComponent(marker)}`;
+  return `https://www.openstreetmap.org/export/embed.html?${query}`;
+}
+
+function mapPlace(address: unknown, options: HelperOptions): { url: string; label: string } | null {
+  const { hash } = options;
+  const zoom = mapZoom(hash.zoom);
+  const label = textOrEmpty(address).trim().replace(WHITE_SPACE, ' ');
+  if (hash.service !== 'osm') {
+    if (label === '') return null;
+    return { url: googleMapUrl(label, zoom, textOrEmpty(hash.key).trim()), label };
+  }
+  const latitude = numberOrNull(hash.latitude);
+  const longitude = numberOrNull(hash.longitude);
+  if (latitude === null || longitude === null) return null;
+  if (Math.abs(latitude) > MAX_LATITUDE || Math.abs(longitude) > MAX_LONGITUDE) return null;
+  const coordinates = `${latitude.toFixed(COORDINATE_DIGITS)}, ${longitude.toFixed(COORDINATE_DIGITS)}`;
+  return {
+    url: openStreetMapUrl(latitude, longitude, zoom),
+    label: label === '' ? coordinates : label,
+  };
+}
+
+function mapHelper(address: unknown, options: HelperOptions): Handlebars.SafeString | string {
+  const escape = Handlebars.escapeExpression;
+  const place = mapPlace(address, options);
+  const className: unknown = options.hash.class;
+  const classAttribute =
+    typeof className === 'string' && className !== '' ? ` class="${escape(className)}"` : '';
+  if (renderDataOf(options).liveMaps !== true) {
+    const label = place === null ? 'Add an address to show the map here.' : place.label;
+    return new Handlebars.SafeString(
+      `<div${classAttribute} data-map="placeholder"><strong>${escape(label)}</strong><small>${MAP_NOTE}</small></div>`,
+    );
+  }
+  if (place === null) return '';
+  const attributes = [
+    `src="${escape(place.url)}"`,
+    `title="${escape(`Map of ${place.label}`)}"`,
+    'loading="lazy"',
+    'referrerpolicy="no-referrer-when-downgrade"',
+    'allowfullscreen',
+  ];
+  return new Handlebars.SafeString(
+    `<iframe${classAttribute} data-map="live" ${attributes.join(' ')}></iframe>`,
+  );
+}
+
 Handlebars.registerHelper({
   href: hrefHelper,
   linkAttrs: linkAttrsHelper,
@@ -233,4 +339,5 @@ Handlebars.registerHelper({
   nl2br: nl2brHelper,
   safeUrl: safeUrlHelper,
   formatDate: formatDateHelper,
+  map: mapHelper,
 });

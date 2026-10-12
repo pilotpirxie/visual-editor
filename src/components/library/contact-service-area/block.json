@@ -1,0 +1,151 @@
+{
+  "name": "Contact, service area",
+  "category": "contacts",
+  "description": "The towns or postcodes you cover beside a drawn coverage map, with a line and a phone number for anyone not listed.",
+  "tags": [
+    "service area",
+    "areas served",
+    "towns",
+    "coverage",
+    "postcodes",
+    "local",
+    "near me",
+    "mobile service",
+    "call out",
+    "contact"
+  ],
+  "fieldGroups": ["Heading", "Map", "Areas", "Contact"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Areas we cover",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "An electrician at your door within the hour",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Brightwire vans are based in Leeds and on call day and night. These are the places we reach fastest for power cuts, tripped fuse boards and burning smells.",
+      "group": "Heading"
+    },
+    {
+      "name": "mapLabel",
+      "label": "Map label",
+      "type": "text",
+      "default": "Leeds and 15 miles around",
+      "maxLength": 60,
+      "group": "Map"
+    },
+    {
+      "name": "areas",
+      "label": "Areas",
+      "type": "list",
+      "group": "Areas",
+      "minItems": 3,
+      "maxItems": 24,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Town or area",
+          "type": "text",
+          "default": "Town",
+          "required": true
+        },
+        {
+          "name": "detail",
+          "label": "Detail",
+          "type": "text",
+          "default": "",
+          "help": "A postcode or a response time."
+        }
+      ],
+      "default": [
+        {
+          "name": "Leeds city centre",
+          "detail": "LS1, LS2"
+        },
+        {
+          "name": "Headingley",
+          "detail": "LS6"
+        },
+        {
+          "name": "Horsforth",
+          "detail": "LS18"
+        },
+        {
+          "name": "Pudsey",
+          "detail": "LS28"
+        },
+        {
+          "name": "Morley",
+          "detail": "LS27"
+        },
+        {
+          "name": "Garforth",
+          "detail": "LS25"
+        },
+        {
+          "name": "Otley",
+          "detail": "LS21"
+        },
+        {
+          "name": "Wetherby",
+          "detail": "LS22"
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Not on the list? Call and ask.",
+      "group": "Contact"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "0113 555 0142",
+      "group": "Contact"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Contact"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Request a call out",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "group": "Contact",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      }
+    }
+  ]
+}

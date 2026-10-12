@@ -1,0 +1,71 @@
+<section class="b-contact-appointment section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    <div class="b-body">
+      <form class="card stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+        <div class="b-pair">
+          <div class="field">
+            <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
+            <input id="{{block.id}}-name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="{{block.id}}-phone" data-field="phoneLabel">{{phoneLabel}}</label>
+            <input id="{{block.id}}-phone" type="tel" name="phone" autocomplete="tel" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
+          <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="{{block.id}}-service" data-field="serviceLabel">{{serviceLabel}}</label>
+          <select id="{{block.id}}-service" name="service">
+            {{#each services}}<option data-field="services.{{@index}}">{{label}}</option>{{/each}}
+          </select>
+        </div>
+        <div class="b-pair">
+          <div class="field">
+            <label for="{{block.id}}-date" data-field="dateLabel">{{dateLabel}}</label>
+            <input id="{{block.id}}-date" type="date" name="date" required>
+          </div>
+          <div class="field">
+            <label for="{{block.id}}-time" data-field="timeLabel">{{timeLabel}}</label>
+            <select id="{{block.id}}-time" name="time">
+              {{#each times}}<option data-field="times.{{@index}}">{{label}}</option>{{/each}}
+            </select>
+          </div>
+        </div>
+        {{#if showGuests}}
+        <div class="field">
+          <label for="{{block.id}}-guests" data-field="guestsLabel">{{guestsLabel}}</label>
+          <input id="{{block.id}}-guests" type="number" name="guests" min="1" inputmode="numeric">
+        </div>
+        {{/if}}
+        <div class="field">
+          <label for="{{block.id}}-notes" data-field="notesLabel">{{notesLabel}}</label>
+          <textarea id="{{block.id}}-notes" name="notes" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary b-submit" data-field="buttonLabel">{{svgIcon "calendar"}}{{buttonLabel}}</button>
+      </form>
+      <div class="stack b-aside">
+        {{#if phone}}<a class="b-phone" href="tel:{{phone}}" data-field="phone">{{svgIcon "phone"}}<span>{{phone}}</span></a>{{/if}}
+        <div class="stack b-hours">
+          <h3 data-field="hoursTitle">{{hoursTitle}}</h3>
+          <dl>
+            {{#each hours}}
+            <div class="b-row" data-field="hours.{{@index}}">
+              <dt>{{days}}</dt>
+              <dd>{{time}}</dd>
+            </div>
+            {{/each}}
+          </dl>
+          {{#if note}}<p class="b-note" data-field="note">{{note}}</p>{{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

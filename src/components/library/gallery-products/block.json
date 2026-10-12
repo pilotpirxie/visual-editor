@@ -1,0 +1,273 @@
+{
+  "name": "Gallery, product cards",
+  "category": "gallery",
+  "description": "Product photos with a name, short text, price, optional old price and badge, each linking to its own page.",
+  "tags": [
+    "products",
+    "shop",
+    "store",
+    "catalog",
+    "catalogue",
+    "collection",
+    "prices",
+    "merchandise",
+    "items for sale",
+    "lookbook",
+    "fashion",
+    "ecommerce"
+  ],
+  "fieldGroups": ["Heading", "Products", "Layout", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Autumn collection",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Made in small batches, worn for years",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every piece is cut and sewn in our Leeds workshop from linen, wool and vegetable-tanned leather. When a batch sells out, it is gone.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Products",
+      "type": "list",
+      "group": "Products",
+      "minItems": 2,
+      "maxItems": 12,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A photo of the product",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "product"
+            }
+          }
+        },
+        {
+          "name": "badge",
+          "label": "Badge",
+          "type": "text",
+          "default": "",
+          "maxLength": 24
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Product name"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "One line about the material or the fit.",
+          "maxLength": 120
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "£0"
+        },
+        {
+          "name": "comparePrice",
+          "label": "Old price",
+          "type": "text",
+          "default": "",
+          "help": "Shown struck through next to the price."
+        },
+        {
+          "name": "linkLabel",
+          "label": "Link text",
+          "type": "text",
+          "default": "View",
+          "help": "Leave empty to hide the link."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "An oat linen shirt on a wooden hanger",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "product"
+            }
+          },
+          "badge": "New",
+          "name": "Harbour linen shirt",
+          "text": "Midweight Irish linen, cut loose, with shell buttons.",
+          "price": "£95",
+          "comparePrice": "",
+          "linkLabel": "View",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A long charcoal wool coat on a tailor’s dummy",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "product"
+            }
+          },
+          "badge": "Last few",
+          "name": "Fell wool coat",
+          "text": "Double-faced British wool in charcoal, unlined.",
+          "price": "£320",
+          "comparePrice": "£395",
+          "linkLabel": "View",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A natural canvas tote bag with leather handles",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "product"
+            }
+          },
+          "badge": "",
+          "name": "Market canvas tote",
+          "text": "Waxed 18 oz canvas with bridle leather handles.",
+          "price": "£58",
+          "comparePrice": "",
+          "linkLabel": "View",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A tan leather belt with a brass buckle, coiled on a table",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "product"
+            }
+          },
+          "badge": "",
+          "name": "Saddle leather belt",
+          "text": "Vegetable-tanned leather with a solid brass buckle.",
+          "price": "£64",
+          "comparePrice": "",
+          "linkLabel": "View",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "columns",
+      "label": "Columns on desktop",
+      "type": "select",
+      "default": "4",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Shop the full collection",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "name": "Team, people with credentials",
+  "category": "team",
+  "description": "Cards for registered professionals with qualifications, a registration number, specialties and a booking link.",
+  "tags": [
+    "doctors",
+    "dentists",
+    "clinicians",
+    "lawyers",
+    "solicitors",
+    "advisers",
+    "trainers",
+    "practitioners",
+    "qualifications",
+    "registration",
+    "specialists",
+    "credentials",
+    "staff"
+  ],
+  "fieldGroups": ["Heading", "People"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our clinicians",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The dentists and hygienist who will look after you",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every clinician at Harbour Lane Dental is registered with the General Dental Council. Choose who you would like to see and book online.",
+      "group": "Heading"
+    },
+    {
+      "name": "people",
+      "label": "People",
+      "type": "list",
+      "group": "People",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Name"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Role"
+        },
+        {
+          "name": "qualifications",
+          "label": "Qualifications",
+          "type": "text",
+          "default": "BDS, MFDS RCS"
+        },
+        {
+          "name": "registration",
+          "label": "Registration",
+          "type": "text",
+          "default": "GDC no. 123456"
+        },
+        {
+          "name": "specialties",
+          "label": "Specialties",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 5,
+          "itemLabel": "label",
+          "itemFields": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "text",
+              "default": "Specialty",
+              "maxLength": 32
+            }
+          ],
+          "default": []
+        },
+        {
+          "name": "bio",
+          "label": "Bio",
+          "type": "textarea",
+          "default": "One or two sentences about this person.",
+          "maxLength": 240
+        },
+        {
+          "name": "linkLabel",
+          "label": "Link text",
+          "type": "text",
+          "default": "Book an appointment",
+          "help": "Leave empty to hide the link."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Dr Priya Anand in a navy clinic tunic",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Dr Priya Anand",
+          "role": "Principal dentist",
+          "qualifications": "BDS, MFDS RCS (Edin)",
+          "registration": "GDC no. 123456",
+          "specialties": [
+            {
+              "label": "Check-ups"
+            },
+            {
+              "label": "Crowns and bridges"
+            },
+            {
+              "label": "Nervous patients"
+            }
+          ],
+          "bio": "Priya opened the practice in 2014 and still sees patients from that first week. She explains every option before she picks up an instrument.",
+          "linkLabel": "Book with Priya",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Dr Tom Whitfield beside a dental chair",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Dr Tom Whitfield",
+          "role": "Associate dentist",
+          "qualifications": "BDS, MJDF RCS (Eng)",
+          "registration": "GDC no. 234567",
+          "specialties": [
+            {
+              "label": "Implants"
+            },
+            {
+              "label": "Root canal treatment"
+            },
+            {
+              "label": "Whitening"
+            }
+          ],
+          "bio": "Tom joined in 2019 after five years in a hospital restorative unit. He takes on the complex cases and places most of our implants.",
+          "linkLabel": "Book with Tom",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Sian Roberts holding a model of a jaw",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Sian Roberts",
+          "role": "Dental hygienist",
+          "qualifications": "Diploma in Dental Hygiene",
+          "registration": "GDC no. 345678",
+          "specialties": [
+            {
+              "label": "Gum health"
+            },
+            {
+              "label": "Scale and polish"
+            },
+            {
+              "label": "Children"
+            }
+          ],
+          "bio": "Sian has spent 12 years helping people keep their own teeth for life. You can book her directly, with no referral from a dentist.",
+          "linkLabel": "Book with Sian",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

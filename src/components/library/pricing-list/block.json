@@ -2,7 +2,19 @@
   "name": "Pricing, price list",
   "category": "pricing",
   "description": "Prices in named groups, like a menu or a list of service rates.",
-  "tags": ["pricing", "price list", "menu", "rates", "services", "restaurant"],
+  "tags": [
+    "pricing",
+    "price list",
+    "menu",
+    "rates",
+    "services",
+    "restaurant",
+    "treatments",
+    "dishes",
+    "fees",
+    "salon",
+    "drinks"
+  ],
   "fieldGroups": ["Heading", "Groups", "Note"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

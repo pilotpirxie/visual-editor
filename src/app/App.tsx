@@ -4,6 +4,7 @@ import { Notices } from '../features/editor/Notices';
 import { showStoredLink } from '../features/files/fileActions';
 import { FileDialogs } from '../features/files/FileDialogs';
 import { PackDialogs } from '../features/block-packs/PackDialogs';
+import { readAppSettings } from './appSettings';
 import { describeError } from './errors';
 import { HomeScreen } from '../features/home/HomeScreen';
 import { loadPackLibrary, syncProjectWithLibrary } from '../features/block-packs/packLibrary';
@@ -13,7 +14,7 @@ import {
   waitForProjectLock,
   type ProjectLock,
 } from '../persistence/projectLocks';
-import { noticeShown, pageOpened, readOnlyChanged } from './editorSlice';
+import { deviceChanged, noticeShown, pageOpened, readOnlyChanged } from './editorSlice';
 import { projectRefreshed } from './history';
 import { projectLoaded } from './projectSlice';
 import { loadProjectAssets } from './projectAssets';
@@ -111,6 +112,7 @@ function ProjectEditor({
     const hasPage = pageId !== null && project.pages.entities[pageId] !== undefined;
     const openPageId = hasPage ? pageId : project.pages.homePageId;
     dispatch(projectLoaded({ project, pageId: openPageId }));
+    dispatch(deviceChanged(readAppSettings().deviceOnOpen));
     void dispatch(loadProjectAssets());
     if (openPageId !== pageId) navigate(editorPath(project.id, openPageId), { replace: true });
     setOpenState({ status: 'ready', projectId: project.id });

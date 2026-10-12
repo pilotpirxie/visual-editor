@@ -1,0 +1,125 @@
+@layer components {
+  @scope (.b-team-profile) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-layout {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-side {
+      --stack-gap: var(--space-4);
+      max-width: 22rem;
+    }
+
+    .b-name {
+      font-size: var(--text-2xl);
+    }
+
+    .b-role {
+      margin-top: var(--space-1);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .b-socials {
+      --cluster-gap: var(--space-1);
+      margin-inline-start: calc(-1 * var(--space-2));
+    }
+
+    .b-social {
+      --icon-size: 1.25rem;
+      display: inline-grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .b-social:hover {
+      color: var(--color-primary);
+    }
+
+    .b-body {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-head,
+    .b-credentials {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-bio {
+      font-size: var(--text-lg);
+    }
+
+    .b-bio,
+    .b-label {
+      color: var(--color-text-muted);
+    }
+
+    .b-checks {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .b-checks li {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .b-checks .icon {
+      margin-block: 0.125em;
+      color: var(--color-primary);
+    }
+
+    .b-stats {
+      --grid-min: 9rem;
+      padding-block: var(--space-6);
+      border-block: var(--border-width) solid var(--color-border);
+    }
+
+    .b-value,
+    .b-outlets {
+      font-family: var(--font-heading);
+      font-weight: var(--font-weight-heading);
+    }
+
+    .b-value {
+      font-size: var(--text-3xl);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-label {
+      font-size: var(--text-sm);
+    }
+
+    .b-button {
+      align-self: flex-start;
+    }
+
+    .b-featured,
+    .b-outlets {
+      --cluster-gap: var(--space-2) var(--space-6);
+    }
+
+    .b-featured {
+      padding-top: var(--space-6);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .b-outlets {
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 768px) {
+      .b-layout {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        align-items: start;
+        gap: var(--space-12);
+      }
+    }
+  }
+}

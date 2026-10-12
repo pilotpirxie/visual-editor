@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { updateAppSettings } from '../../app/appSettings';
 import { blockSelected } from '../../app/editorSlice';
 import {
   componentBlockOf,
@@ -15,6 +16,7 @@ import {
   isNoopDrop,
   moveBlockBy,
   removeBlock,
+  removeBlockNow,
 } from './blockActions';
 
 function blockIds(store: TestStore): string[] {
@@ -122,10 +124,25 @@ describe('duplicateBlock', () => {
 });
 
 describe('removeBlock', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it('removes the block from the open page', () => {
     const store = createTestStore();
     const hero = blockIds(store)[1];
     store.dispatch(removeBlock(hero));
+    expect(blockIds(store)).not.toContain(hero);
+  });
+
+  it('asks first when the app setting says so', () => {
+    updateAppSettings({ shouldConfirmBlockDelete: true });
+    const store = createTestStore();
+    const hero = blockIds(store)[1];
+    store.dispatch(removeBlock(hero));
+    expect(blockIds(store)).toContain(hero);
+    expect(store.getState().editor.openDialog).toEqual({ kind: 'delete-block', blockId: hero });
+    store.dispatch(removeBlockNow(hero));
     expect(blockIds(store)).not.toContain(hero);
   });
 });

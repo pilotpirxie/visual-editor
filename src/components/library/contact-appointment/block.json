@@ -1,0 +1,287 @@
+{
+  "name": "Contact, appointment request",
+  "category": "contacts",
+  "description": "An appointment or reservation request form with service, date and time, beside your phone number and opening hours.",
+  "tags": [
+    "appointment",
+    "booking",
+    "book",
+    "reservation",
+    "reserve a table",
+    "request",
+    "schedule",
+    "salon",
+    "dentist",
+    "clinic",
+    "restaurant",
+    "garage",
+    "form",
+    "hours"
+  ],
+  "fieldGroups": ["Heading", "Form", "Hours"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Book a visit",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Request an appointment at Fern and Finch",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Tell us what you would like and when suits you. We reply to every request within two working hours to confirm your stylist and time.",
+      "group": "Heading"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Your name",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "phoneLabel",
+      "label": "Phone field label",
+      "type": "text",
+      "default": "Phone number",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Email for your confirmation",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "serviceLabel",
+      "label": "Service field label",
+      "type": "text",
+      "default": "What would you like?",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "services",
+      "label": "Services",
+      "type": "list",
+      "group": "Form",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Service",
+          "type": "text",
+          "default": "Service",
+          "required": true
+        }
+      ],
+      "default": [
+        {
+          "label": "Cut and blow dry"
+        },
+        {
+          "label": "Restyle with consultation"
+        },
+        {
+          "label": "Full head colour"
+        },
+        {
+          "label": "Balayage or highlights"
+        },
+        {
+          "label": "Gents cut"
+        },
+        {
+          "label": "Bridal trial"
+        }
+      ]
+    },
+    {
+      "name": "dateLabel",
+      "label": "Date field label",
+      "type": "text",
+      "default": "Preferred date",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "timeLabel",
+      "label": "Time field label",
+      "type": "text",
+      "default": "Preferred time",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "times",
+      "label": "Times",
+      "type": "list",
+      "group": "Form",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Time",
+          "type": "text",
+          "default": "Morning",
+          "required": true
+        }
+      ],
+      "default": [
+        {
+          "label": "Morning, 9:00 to 12:00"
+        },
+        {
+          "label": "Afternoon, 12:00 to 16:00"
+        },
+        {
+          "label": "Evening, 16:00 to 19:00"
+        },
+        {
+          "label": "Any time that day"
+        }
+      ]
+    },
+    {
+      "name": "showGuests",
+      "label": "Ask for party size",
+      "type": "boolean",
+      "default": false,
+      "group": "Form"
+    },
+    {
+      "name": "guestsLabel",
+      "label": "Party size field label",
+      "type": "text",
+      "default": "Number of people",
+      "group": "Form",
+      "visibleWhen": {
+        "field": "showGuests",
+        "equals": true
+      }
+    },
+    {
+      "name": "notesLabel",
+      "label": "Notes field label",
+      "type": "text",
+      "default": "Anything we should know?",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Request appointment",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "POST"
+        },
+        {
+          "value": "get",
+          "label": "GET"
+        }
+      ],
+      "group": "Form"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "0117 555 0164",
+      "group": "Hours"
+    },
+    {
+      "name": "hoursTitle",
+      "label": "Hours title",
+      "type": "text",
+      "default": "Opening hours",
+      "required": true,
+      "group": "Hours"
+    },
+    {
+      "name": "hours",
+      "label": "Opening hours",
+      "type": "list",
+      "group": "Hours",
+      "minItems": 1,
+      "maxItems": 7,
+      "itemLabel": "days",
+      "itemFields": [
+        {
+          "name": "days",
+          "label": "Days",
+          "type": "text",
+          "default": "Monday"
+        },
+        {
+          "name": "time",
+          "label": "Hours",
+          "type": "text",
+          "default": "9:00 to 17:00"
+        }
+      ],
+      "default": [
+        {
+          "days": "Tuesday and Wednesday",
+          "time": "9:00 to 18:00"
+        },
+        {
+          "days": "Thursday and Friday",
+          "time": "9:00 to 19:00"
+        },
+        {
+          "days": "Saturday",
+          "time": "8:30 to 17:00"
+        },
+        {
+          "days": "Sunday and Monday",
+          "time": "Closed"
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Colour appointments need a skin test 48 hours before your visit.",
+      "group": "Hours"
+    }
+  ]
+}

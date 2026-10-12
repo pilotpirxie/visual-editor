@@ -2,7 +2,17 @@
   "name": "Rich text, two columns",
   "category": "rich-text",
   "description": "A heading and lead above long-form text that flows into two columns on wider screens.",
-  "tags": ["text", "prose", "columns", "article", "principles", "long-form"],
+  "tags": [
+    "text",
+    "prose",
+    "columns",
+    "article",
+    "principles",
+    "long-form",
+    "seo",
+    "search",
+    "about the service"
+  ],
   "fieldGroups": ["Heading", "Text"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

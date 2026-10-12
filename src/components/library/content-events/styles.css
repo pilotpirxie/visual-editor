@@ -1,0 +1,109 @@
+@layer components {
+  @scope (.b-content-events) {
+    .b-inner {
+      --container-max-width: 60rem;
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-intro,
+    .b-meta,
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-list {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-event {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-date {
+      justify-self: start;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      color: var(--color-primary);
+      font-family: var(--font-heading);
+      font-weight: var(--font-weight-bold);
+      line-height: 1.25;
+      text-align: center;
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-2);
+      min-width: 0;
+    }
+
+    .b-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2) var(--space-3);
+    }
+
+    .b-meta {
+      --cluster-gap: var(--space-1) var(--space-4);
+      font-size: var(--text-sm);
+    }
+
+    .b-meta li {
+      --icon-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .b-meta .icon {
+      color: var(--color-primary);
+    }
+
+    .b-link {
+      --icon-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-self: start;
+      gap: var(--space-1);
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-button {
+      align-self: flex-start;
+    }
+
+    @media (min-width: 768px) {
+      .b-event {
+        grid-template-columns: 8rem minmax(0, 1fr) fit-content(12rem);
+        gap: var(--space-6);
+        align-items: center;
+      }
+
+      .b-date {
+        justify-self: stretch;
+        padding: var(--space-4) var(--space-2);
+      }
+
+      .b-body {
+        grid-column: 2;
+      }
+
+      .b-link {
+        grid-column: 3;
+      }
+    }
+  }
+}

@@ -2,7 +2,18 @@
   "name": "Content, data table",
   "category": "content",
   "description": "A heading and a table with a label column and three value columns that scrolls on small screens.",
-  "tags": ["table", "data", "specs", "comparison", "rows", "columns"],
+  "tags": [
+    "table",
+    "data",
+    "specs",
+    "comparison",
+    "rows",
+    "columns",
+    "fees",
+    "rates",
+    "size guide",
+    "price by size"
+  ],
   "fieldGroups": ["Heading", "Columns", "Rows"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

@@ -1,0 +1,79 @@
+@layer components {
+  @scope (.b-map-embed) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-map {
+      position: relative;
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .b-frame {
+      width: 100%;
+      height: 22rem;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--card-radius);
+      background-color: var(--color-surface);
+    }
+
+    .b-frame[data-map='placeholder'] {
+      display: grid;
+      place-content: start center;
+      gap: var(--space-2);
+      padding: var(--space-12) var(--space-6);
+      background-image:
+        linear-gradient(var(--color-border) var(--border-width), transparent 0),
+        linear-gradient(90deg, var(--color-border) var(--border-width), transparent 0);
+      background-size: 3rem 3rem;
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    .b-frame strong {
+      font-size: var(--text-lg);
+      color: var(--color-text);
+    }
+
+    .b-card {
+      --stack-gap: var(--space-3);
+      --card-shadow: var(--shadow-md);
+    }
+
+    .b-card h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-card address {
+      font-style: normal;
+      color: var(--color-text-muted);
+    }
+
+    .b-button {
+      align-self: flex-start;
+    }
+
+    @media (min-width: 768px) {
+      .b-frame {
+        height: 28rem;
+      }
+
+      .b-card {
+        position: absolute;
+        inset: auto auto var(--space-6) var(--space-6);
+        max-width: 20rem;
+      }
+    }
+  }
+}

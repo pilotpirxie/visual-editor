@@ -1,8 +1,22 @@
 {
   "name": "Pricing, membership tiers",
   "category": "pricing",
-  "description": "Membership tiers with a photo, a monthly price, perks and a join button.",
-  "tags": ["pricing", "membership", "tiers", "club", "gym", "community", "creator", "subscription"],
+  "description": "Membership tiers with a photo, a monthly price, perks and a join button. Also fits rooms, stays or class passes.",
+  "tags": [
+    "pricing",
+    "membership",
+    "tiers",
+    "club",
+    "gym",
+    "community",
+    "creator",
+    "subscription",
+    "rooms",
+    "hotel",
+    "stays",
+    "classes",
+    "passes"
+  ],
   "fieldGroups": ["Heading", "Tiers"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

@@ -2,7 +2,17 @@
   "name": "Gallery, sticky stack",
   "category": "gallery",
   "description": "Large numbered photo cards with captions beside them that stick and pile up as visitors scroll.",
-  "tags": ["gallery", "photos", "sticky", "scroll", "story", "case study", "cards"],
+  "tags": [
+    "gallery",
+    "photos",
+    "sticky",
+    "scroll",
+    "story",
+    "case study",
+    "cards",
+    "lookbook",
+    "fashion"
+  ],
   "fieldGroups": ["Heading", "Photos"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

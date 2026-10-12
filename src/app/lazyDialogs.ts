@@ -48,6 +48,14 @@ export const SaveBlockDialog = lazy(async () => ({
   default: (await import('../features/saved-blocks/SaveBlockDialog')).SaveBlockDialog,
 }));
 
+export const AppSettingsDialog = lazy(async () => ({
+  default: (await import('../features/settings/AppSettingsDialog')).AppSettingsDialog,
+}));
+
+export const GenerateSiteDialog = lazy(async () => ({
+  default: (await import('../features/assistant/GenerateSiteDialog')).GenerateSiteDialog,
+}));
+
 export const SnapshotsDialog = lazy(async () => ({
   default: (await import('../features/snapshots/SnapshotsDialog')).SnapshotsDialog,
 }));

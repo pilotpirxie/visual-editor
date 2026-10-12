@@ -20,12 +20,19 @@ import { instantiateStarter, type StarterInfo } from '../../starters/starters';
 import { canUseFileSystemAccess } from '../files/fileAccess';
 import { fileCommands } from '../files/fileCommands';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
-import { LicensesDialog, NewProjectDialog } from '../../app/lazyDialogs';
+import {
+  AppSettingsDialog,
+  GenerateSiteDialog,
+  LicensesDialog,
+  NewProjectDialog,
+} from '../../app/lazyDialogs';
+import { SitePrompt } from '../assistant/SitePrompt';
+import type { AppSettingsTab } from '../settings/AppSettingsDialog';
 import { DeleteProjectDialog } from './DeleteProjectDialog';
 import { duplicateProject, formatLastEdit, withTitle } from './projects';
 import { PageThumbnail, StarterGallery, useIsNearViewport } from './StarterGallery';
 import './home.css';
-import { Button, Icon, IconButton, Switch, TextInput, Title } from '../../../packages/ui/src';
+import { Button, Icon, IconButton, Switch, TextInput } from '../../../packages/ui/src';
 
 async function requireProject(id: string): Promise<Project> {
   const project = await getProject(id);
@@ -40,6 +47,7 @@ type RenameExit = 'keyboard' | 'blur';
 type PendingDelete = { summary: ProjectSummary; isOpenElsewhere: boolean };
 
 const TITLE_ID = 've-home-title';
+const PROJECTS_TITLE_ID = 've-home-projects-title';
 const STARTERS_TITLE_ID = 've-home-starters-title';
 
 async function loadThumbnailProject(projectId: string): Promise<Project | null> {
@@ -107,7 +115,9 @@ function RecentFiles({ links }: { links: FileLink[] }): JSX.Element | null {
   if (links.length === 0) return null;
   return (
     <section className="ve-home-recent" aria-labelledby="ve-home-recent-title">
-      <Title id="ve-home-recent-title">Recent files</Title>
+      <h3 id="ve-home-recent-title" className="ui-title">
+        Recent files
+      </h3>
       <ul className="ve-home-recent-list">
         {links.map((link) => (
           <li key={link.id}>
@@ -162,6 +172,8 @@ export function HomeScreen(): JSX.Element {
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [isLicensesOpen, setIsLicensesOpen] = useState(false);
   const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
+  const [settingsTab, setSettingsTab] = useState<AppSettingsTab | null>(null);
+  const [siteDescription, setSiteDescription] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<PendingDelete | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const isDark = useAppearance() === 'dark';
@@ -257,12 +269,13 @@ export function HomeScreen(): JSX.Element {
   }
 
   const hasProjects = projectList !== null && projectList.summaries.length > 0;
-  const isEmpty = projectList !== null && projectList.summaries.length === 0;
   return (
     <main className="ve-home">
       <header className="ve-home-header">
-        <h1 id={TITLE_ID}>{isEmpty ? 'Start a new site' : 'My projects'}</h1>
         <div className="ve-home-actions">
+          <Button icon="settings" aria-haspopup="dialog" onClick={() => setSettingsTab('general')}>
+            App settings
+          </Button>
           <Button icon="folder-open" onClick={fileCommands.openFromDisk}>
             Open from disk
           </Button>
@@ -278,6 +291,12 @@ export function HomeScreen(): JSX.Element {
         </div>
       </header>
 
+      <SitePrompt
+        titleId={TITLE_ID}
+        isDisabled={isCreating || siteDescription !== null}
+        onBuild={setSiteDescription}
+        onOpenSettings={() => setSettingsTab('assistant')}
+      />
       {error !== null && (
         <div className="ve-home-error" role="alert">
           <p>{error}</p>
@@ -298,66 +317,67 @@ export function HomeScreen(): JSX.Element {
           Loading your projects…
         </p>
       )}
-      {projectList !== null && <RecentFiles links={projectList.recentFiles} />}
-
-      {projectList !== null && hasProjects && (
-        <ul ref={gridRef} className="ve-home-grid" aria-label="Projects">
-          {projectList.summaries.map((summary) => (
-            <li key={summary.id} className="ve-home-card">
-              <ProjectThumbnail summary={summary} />
-              {renamingId === summary.id ? (
-                <RenameInput
-                  summary={summary}
-                  onDone={(title, exit) => finishRename(summary, title, exit)}
-                />
-              ) : (
-                <h2 className="ve-home-card-title">
-                  <a href={projectPath(summary.id)} onClick={followLink}>
-                    {summary.title}
-                  </a>
-                </h2>
-              )}
-              <p className="ui-muted">
-                Edited {formatLastEdit(summary.updatedAt, projectList.listedAt)}
-              </p>
-              <div className="ve-home-card-actions">
-                <IconButton
-                  ref={(button) => {
-                    if (button === null) return;
-                    renameButtonsRef.current.set(summary.id, button);
-                    return () => {
-                      renameButtonsRef.current.delete(summary.id);
-                    };
-                  }}
-                  label={`Rename ${summary.title}`}
-                  icon="pencil"
-                  onClick={() => setRenamingId(summary.id)}
-                />
-                <IconButton
-                  label={`Duplicate ${summary.title}`}
-                  icon="copy"
-                  onClick={() => duplicate(summary)}
-                />
-                <IconButton
-                  label={`Delete ${summary.title}`}
-                  icon="trash"
-                  onClick={() => void askToRemove(summary)}
-                />
-              </div>
-            </li>
-          ))}
-        </ul>
+      {projectList !== null && (hasProjects || projectList.recentFiles.length > 0) && (
+        <section className="ve-home-section" aria-labelledby={PROJECTS_TITLE_ID}>
+          <h2 id={PROJECTS_TITLE_ID} className="ve-home-section-title">
+            My projects
+          </h2>
+          {hasProjects && (
+            <ul ref={gridRef} className="ve-home-grid" aria-label="Projects">
+              {projectList.summaries.map((summary) => (
+                <li key={summary.id} className="ve-home-card">
+                  <ProjectThumbnail summary={summary} />
+                  {renamingId === summary.id ? (
+                    <RenameInput
+                      summary={summary}
+                      onDone={(title, exit) => finishRename(summary, title, exit)}
+                    />
+                  ) : (
+                    <h2 className="ve-home-card-title">
+                      <a href={projectPath(summary.id)} onClick={followLink}>
+                        {summary.title}
+                      </a>
+                    </h2>
+                  )}
+                  <p className="ui-muted">
+                    Edited {formatLastEdit(summary.updatedAt, projectList.listedAt)}
+                  </p>
+                  <div className="ve-home-card-actions">
+                    <IconButton
+                      ref={(button) => {
+                        if (button === null) return;
+                        renameButtonsRef.current.set(summary.id, button);
+                        return () => {
+                          renameButtonsRef.current.delete(summary.id);
+                        };
+                      }}
+                      label={`Rename ${summary.title}`}
+                      icon="pencil"
+                      onClick={() => setRenamingId(summary.id)}
+                    />
+                    <IconButton
+                      label={`Duplicate ${summary.title}`}
+                      icon="copy"
+                      onClick={() => duplicate(summary)}
+                    />
+                    <IconButton
+                      label={`Delete ${summary.title}`}
+                      icon="trash"
+                      onClick={() => void askToRemove(summary)}
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          <RecentFiles links={projectList.recentFiles} />
+        </section>
       )}
       {projectList !== null && (
-        <section
-          className="ve-home-starters"
-          aria-labelledby={hasProjects ? STARTERS_TITLE_ID : TITLE_ID}
-        >
-          {hasProjects && (
-            <h2 id={STARTERS_TITLE_ID} className="ve-home-section-title">
-              Start a new site
-            </h2>
-          )}
+        <section className="ve-home-section ve-home-starters" aria-labelledby={STARTERS_TITLE_ID}>
+          <h2 id={STARTERS_TITLE_ID} className="ve-home-section-title">
+            Start from a starter
+          </h2>
           <StarterGallery
             isDisabled={isCreating}
             leadingCard={<BlankSiteCard onStart={() => setIsNewProjectOpen(true)} />}
@@ -382,6 +402,16 @@ export function HomeScreen(): JSX.Element {
       <Suspense fallback={null}>
         {isLicensesOpen && <LicensesDialog onClose={() => setIsLicensesOpen(false)} />}
         {isNewProjectOpen && <NewProjectDialog onClose={() => setIsNewProjectOpen(false)} />}
+        {settingsTab !== null && (
+          <AppSettingsDialog initialTab={settingsTab} onClose={() => setSettingsTab(null)} />
+        )}
+        {siteDescription !== null && (
+          <GenerateSiteDialog
+            description={siteDescription}
+            onClose={() => setSiteDescription(null)}
+            onOpenSettings={() => setSettingsTab('assistant')}
+          />
+        )}
       </Suspense>
       {deleting !== null && (
         <DeleteProjectDialog

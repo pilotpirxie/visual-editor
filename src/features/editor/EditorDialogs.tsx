@@ -2,6 +2,7 @@ import { Suspense, useLayoutEffect, useState, type JSX } from 'react';
 import { dialogClosed, type EditorDialog } from '../../app/editorSlice';
 import { dispatch, useStore } from '../../app/store';
 import {
+  AppSettingsDialog,
   CommandPalette,
   ExportDialog,
   FindReplaceDialog,
@@ -11,6 +12,7 @@ import {
   SaveBlockDialog,
   SnapshotsDialog,
 } from '../../app/lazyDialogs';
+import { DeleteBlockDialog } from './DeleteBlockDialog';
 import { focusReturnTarget, restoreFocus } from '../../../packages/ui/src';
 
 function closeDialog(): void {
@@ -45,6 +47,10 @@ function DialogFor({ dialog }: { dialog: EditorDialog }): JSX.Element | null {
     return <HelpDialog onClose={closeDialog} />;
   } else if (dialog.kind === 'find') {
     return <FindReplaceDialog onClose={closeDialog} />;
+  } else if (dialog.kind === 'app-settings') {
+    return <AppSettingsDialog onClose={closeDialog} />;
+  } else if (dialog.kind === 'delete-block') {
+    return <DeleteBlockDialog blockId={dialog.blockId} onClose={closeDialog} />;
   } else if (dialog.kind === 'save-block') {
     return <SaveBlockDialog blockId={dialog.blockId} onClose={closeDialog} />;
   } else {

@@ -2,7 +2,18 @@
   "name": "Pricing, plan with add-ons",
   "category": "pricing",
   "description": "One base plan next to a list of optional add-ons with their own prices.",
-  "tags": ["pricing", "plan", "add-ons", "extras", "modular", "upsell", "options"],
+  "tags": [
+    "pricing",
+    "plan",
+    "add-ons",
+    "extras",
+    "modular",
+    "upsell",
+    "options",
+    "bonuses",
+    "what is included",
+    "included"
+  ],
   "fieldGroups": ["Heading", "Plan", "Add-ons"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

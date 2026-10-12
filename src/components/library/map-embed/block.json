@@ -1,0 +1,165 @@
+{
+  "name": "Utilities, map",
+  "category": "utilities",
+  "description": "A wide live map of your address from Google Maps or OpenStreetMap, with an optional heading and an address card.",
+  "tags": [
+    "map",
+    "google maps",
+    "openstreetmap",
+    "location",
+    "address",
+    "directions",
+    "find us",
+    "where we are",
+    "visit"
+  ],
+  "fieldGroups": ["Heading", "Address", "Map"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Find us",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Two minutes from St Andrew station",
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Take the King Street exit and walk west. The studio is on the fourth floor, above the bakery.",
+      "group": "Heading"
+    },
+    {
+      "name": "address",
+      "label": "Address",
+      "type": "textarea",
+      "default": "220 King Street West, Suite 400\nToronto, ON M5H 1K4",
+      "group": "Address",
+      "help": "Google Maps shows this address. It is also the text on the card."
+    },
+    {
+      "name": "showCard",
+      "label": "Show address card",
+      "type": "boolean",
+      "default": true,
+      "group": "Address"
+    },
+    {
+      "name": "cardTitle",
+      "label": "Card title",
+      "type": "text",
+      "default": "Fieldnote studio",
+      "group": "Address",
+      "visibleWhen": {
+        "field": "showCard",
+        "equals": true
+      }
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Address",
+      "visibleWhen": {
+        "field": "showCard",
+        "equals": true
+      }
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Get directions",
+        "link": {
+          "type": "url",
+          "url": "https://www.openstreetmap.org",
+          "newTab": true
+        },
+        "variant": "secondary"
+      },
+      "group": "Address",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      }
+    },
+    {
+      "name": "mapService",
+      "label": "Map service",
+      "type": "select",
+      "default": "google",
+      "group": "Map",
+      "options": [
+        {
+          "value": "google",
+          "label": "Google Maps"
+        },
+        {
+          "value": "osm",
+          "label": "OpenStreetMap"
+        }
+      ],
+      "help": "Google Maps finds the address. OpenStreetMap needs the position below."
+    },
+    {
+      "name": "mapLatitude",
+      "label": "Latitude",
+      "type": "number",
+      "default": 43.6465,
+      "min": -85,
+      "max": 85,
+      "step": 0.0001,
+      "group": "Map",
+      "visibleWhen": {
+        "field": "mapService",
+        "equals": "osm"
+      }
+    },
+    {
+      "name": "mapLongitude",
+      "label": "Longitude",
+      "type": "number",
+      "default": -79.3871,
+      "min": -180,
+      "max": 180,
+      "step": 0.0001,
+      "group": "Map",
+      "visibleWhen": {
+        "field": "mapService",
+        "equals": "osm"
+      }
+    },
+    {
+      "name": "mapZoom",
+      "label": "Zoom",
+      "type": "range",
+      "default": 15,
+      "min": 3,
+      "max": 19,
+      "step": 1,
+      "group": "Map"
+    },
+    {
+      "name": "mapKey",
+      "label": "Google Maps API key",
+      "type": "text",
+      "default": "",
+      "group": "Map",
+      "help": "Optional. Without a key the free Google Maps embed is used.",
+      "visibleWhen": {
+        "field": "mapService",
+        "equals": "google"
+      }
+    }
+  ]
+}

@@ -2,7 +2,17 @@
   "name": "Content, read more",
   "category": "content",
   "description": "A short intro that fades out, with a button that expands the rest of the story without JavaScript.",
-  "tags": ["read more", "expand", "story", "about", "details", "collapsible", "long-form"],
+  "tags": [
+    "read more",
+    "expand",
+    "story",
+    "about",
+    "details",
+    "collapsible",
+    "long-form",
+    "seo",
+    "search"
+  ],
   "fieldGroups": ["Heading", "Story"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

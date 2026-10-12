@@ -1,0 +1,21 @@
+<section class="b-map-embed section">
+  <div class="container stack b-inner">
+    {{#if title}}
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </header>
+    {{/if}}
+    <div class="b-map" data-field="address">
+      {{map address service=mapService latitude=mapLatitude longitude=mapLongitude zoom=mapZoom key=mapKey class="b-frame"}}
+      {{#if showCard}}
+      <div class="card stack b-card">
+        {{#if cardTitle}}<h3 data-field="cardTitle">{{cardTitle}}</h3>{{/if}}
+        {{#if address}}<address>{{nl2br address}}</address>{{/if}}
+        {{#if showButton}}<a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{svgIcon "compass"}}{{button.label}}</a>{{/if}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</section>

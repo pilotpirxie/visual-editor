@@ -1,0 +1,37 @@
+<section class="b-team-credentials section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="grid b-grid" role="list">
+      {{#each people}}
+      <li class="card stack b-card" data-field="people.{{@index}}">
+        <div class="b-person">
+          <div class="media b-photo">{{img photo}}</div>
+          <div class="b-identity">
+            <h3>{{name}}</h3>
+            {{#if role}}<p class="b-role">{{role}}</p>{{/if}}
+          </div>
+        </div>
+        {{#if (or qualifications registration)}}
+        <div class="b-record">
+          {{#if qualifications}}<p class="b-qualifications">{{qualifications}}</p>{{/if}}
+          {{#if registration}}<p class="b-registration">{{svgIcon "shield"}}<span>{{registration}}</span></p>{{/if}}
+        </div>
+        {{/if}}
+        {{#if specialties.length}}
+        <ul class="cluster b-tags" role="list">
+          {{#each specialties}}
+          <li class="badge" data-field="people.{{@../index}}.specialties.{{@index}}">{{label}}</li>
+          {{/each}}
+        </ul>
+        {{/if}}
+        {{#if bio}}<p class="b-bio">{{nl2br bio}}</p>{{/if}}
+        {{#if linkLabel}}<a class="btn btn-secondary b-book" href="{{href link}}" {{linkAttrs link}}>{{linkLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

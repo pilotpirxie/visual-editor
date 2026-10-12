@@ -1,0 +1,191 @@
+{
+  "name": "Features, credentials and memberships",
+  "category": "features",
+  "description": "Accreditations, licences, insurance and trade memberships as logo cards, each with a caption and a number.",
+  "tags": [
+    "credentials",
+    "accreditation",
+    "certified",
+    "licensed",
+    "insured",
+    "insurance",
+    "memberships",
+    "trust badges",
+    "regulated",
+    "approved",
+    "qualifications"
+  ],
+  "fieldGroups": ["Heading", "Credentials"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Qualified and insured",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Every engineer registered, every job covered",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Aire Valley Plumbing and Heating has worked in homes across Leeds since 2008. Ask to see any of these cards or certificates when we arrive.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Credentials",
+      "type": "list",
+      "group": "Credentials",
+      "minItems": 3,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Logo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Logo of the scheme or insurer",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "logo"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Credential name",
+          "required": true
+        },
+        {
+          "name": "detail",
+          "label": "Detail",
+          "type": "text",
+          "default": "Licence or membership number",
+          "help": "A number, a cover amount or the year you joined."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "",
+            "newTab": true
+          },
+          "help": "Where visitors can check it. Leave empty for no link."
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Gas engineer register logo",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "logo"
+            }
+          },
+          "name": "Registered gas engineers",
+          "detail": "Registration no. 584213",
+          "link": {
+            "type": "url",
+            "url": "https://register.example/check/584213",
+            "newTab": true
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Logo of our insurer, Calder Mutual",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "logo"
+            }
+          },
+          "name": "Public liability insurance",
+          "detail": "Insured to £5 million",
+          "link": {
+            "type": "url",
+            "url": "",
+            "newTab": true
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Yorkshire Plumbing and Heating Association logo",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "logo"
+            }
+          },
+          "name": "Yorkshire Plumbing and Heating Association",
+          "detail": "Member since 2011",
+          "link": {
+            "type": "url",
+            "url": "https://members.example/aire-valley",
+            "newTab": true
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Northfield Boilers approved installer badge",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "logo"
+            }
+          },
+          "name": "Northfield approved installer",
+          "detail": "Boilers fitted with a 10 year warranty",
+          "link": {
+            "type": "url",
+            "url": "",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Certificates are checked and renewed every April.",
+      "group": "Credentials"
+    }
+  ]
+}

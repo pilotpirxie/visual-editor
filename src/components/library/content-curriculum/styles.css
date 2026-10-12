@@ -1,0 +1,126 @@
+@layer components {
+  @scope (.b-content-curriculum) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+      max-width: 52rem;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-intro,
+    .b-text,
+    .b-meta,
+    .b-chevron,
+    .b-duration,
+    .b-lesson::before {
+      color: var(--color-text-muted);
+    }
+
+    .b-summary {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-modules {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .b-module {
+      --card-padding: 0;
+    }
+
+    .b-module[open] {
+      border-color: var(--color-primary);
+    }
+
+    .b-toggle {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: var(--space-4);
+      padding: var(--space-4);
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .b-toggle::-webkit-details-marker {
+      display: none;
+    }
+
+    .b-label {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .b-text,
+    .b-meta {
+      margin-top: var(--space-1);
+    }
+
+    .b-meta,
+    .b-duration,
+    .b-lesson::before {
+      font-size: var(--text-sm);
+    }
+
+    .b-chevron {
+      grid-area: 1 / 2 / span 4;
+      align-self: center;
+      transition: rotate var(--transition-fast);
+    }
+
+    [open] .b-chevron {
+      rotate: 180deg;
+    }
+
+    .b-lessons {
+      padding: 0 var(--space-4) var(--space-2);
+      counter-reset: lesson;
+    }
+
+    .b-lesson {
+      display: grid;
+      grid-template-columns: 1.5rem minmax(0, 1fr) auto;
+      align-items: baseline;
+      gap: var(--space-3);
+      padding-block: var(--space-3);
+      border-top: var(--border-width) solid var(--color-border);
+      counter-increment: lesson;
+    }
+
+    .b-lesson::before {
+      content: counter(lesson);
+    }
+
+    .b-tag {
+      margin-inline-start: var(--space-1);
+    }
+
+    .b-duration {
+      white-space: nowrap;
+    }
+
+    .b-button {
+      align-self: flex-start;
+    }
+
+    @media (min-width: 768px) {
+      .b-toggle {
+        padding: var(--space-6);
+      }
+
+      .b-lessons {
+        padding-inline: var(--space-6);
+      }
+    }
+  }
+}

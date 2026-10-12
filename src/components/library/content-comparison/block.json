@@ -2,7 +2,16 @@
   "name": "Content, before and after",
   "category": "content",
   "description": "Two columns that compare how work goes without your product and with it.",
-  "tags": ["comparison", "before", "after", "versus", "problem", "solution"],
+  "tags": [
+    "comparison",
+    "before",
+    "after",
+    "versus",
+    "problem",
+    "solution",
+    "who it is for",
+    "with and without"
+  ],
   "fieldGroups": ["Heading", "Before", "After"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

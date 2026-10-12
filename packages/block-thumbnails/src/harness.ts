@@ -39,6 +39,7 @@ async function render(componentId: string, presetId = CLEAN_PRESET.id): Promise<
   await ensureIconSets(iconSetsUsedBy(Object.values(project.blocks.entities), project));
   const html = renderStandalonePage(project, project.pages.homePageId, builtInComponents, {
     shouldLinkFonts: true,
+    isEditing: true,
   });
   return html
     .replace('<html ', '<html data-ve-editing ')

@@ -1,0 +1,94 @@
+@layer components {
+  @scope (.b-features-credentials) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 44rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro,
+    .b-detail,
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-grid {
+      --grid-min: 16rem;
+    }
+
+    .b-card {
+      --stack-gap: var(--space-4);
+      position: relative;
+      text-align: center;
+      transition: border-color var(--transition-fast);
+    }
+
+    .b-card:has(a):hover {
+      border-color: var(--color-primary);
+    }
+
+    .b-logo {
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+    }
+
+    .b-logo img {
+      width: 100%;
+      height: 5rem;
+      object-fit: contain;
+    }
+
+    .b-body {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-body h3 {
+      font-size: var(--text-lg);
+    }
+
+    .b-body a {
+      --icon-size: 1rem;
+      color: inherit;
+    }
+
+    .b-body a::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-detail,
+    .b-note {
+      --icon-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+    }
+
+    .b-detail .icon,
+    .b-note .icon {
+      color: var(--color-primary);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        --grid-min: 13rem;
+      }
+    }
+  }
+}

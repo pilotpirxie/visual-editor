@@ -2412,6 +2412,7 @@
           "email": "market@sparrowhill.example",
           "responseTime": "Same day",
           "responseLabel": "Every caller this year left with food the day they rang",
+          "showStatus": true,
           "statusText": "Free market open this Wednesday, 3 to 6:30 pm",
           "statusLink": {
             "label": "See the week",

@@ -68,6 +68,15 @@ describe('Toolbar', () => {
     expect(store.getState().editor.isLibraryDrawerOpen).toBe(true);
   });
 
+  it('opens App settings from the File menu', () => {
+    const { container } = render(<Toolbar />);
+    const fileMenu = container.querySelector('[role="menu"][aria-label="File"]');
+    if (fileMenu === null) throw new Error('Expected the File menu');
+    click(getButton(fileMenu, 'App settings…'));
+    expect(store.getState().editor.openDialog).toEqual({ kind: 'app-settings' });
+    runInAct(() => dispatch(dialogClosed()));
+  });
+
   it('marks the File menu when the linked file misses the latest changes', () => {
     const { container } = render(<Toolbar />);
     runInAct(() => {

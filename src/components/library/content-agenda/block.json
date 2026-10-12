@@ -2,7 +2,20 @@
   "name": "Content, agenda",
   "category": "content",
   "description": "A schedule grouped by day, with times, sessions, speakers and labels.",
-  "tags": ["agenda", "schedule", "program", "event", "conference", "timetable", "sessions"],
+  "tags": [
+    "agenda",
+    "schedule",
+    "program",
+    "event",
+    "conference",
+    "timetable",
+    "sessions",
+    "class timetable",
+    "classes",
+    "weekly",
+    "lessons",
+    "gym"
+  ],
   "fieldGroups": ["Heading", "Days"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

@@ -11,8 +11,10 @@ import {
   openProjectSettings,
   readZip,
 } from './editor';
+import { stubOpenRouter } from './fixtures/assistant';
 
 const STARTERS_LOAD_TIMEOUT_MS = 15_000;
+const MAX_TRANSITION_PASSES = 30;
 const MVP_STARTERS = ['SaaS product', 'Mobile app launch', 'Startup waitlist'];
 const SITE_WIDTHS = [375, 1440];
 const APPEARANCES = ['light', 'dark'] as const;
@@ -22,13 +24,16 @@ function expectNoViolations(violations: Violation[]): void {
 }
 
 async function transitionsFinished(page: Page): Promise<void> {
-  await page.evaluate(async () => {
-    const running: Promise<Animation>[] = [];
-    for (const animation of document.getAnimations()) {
-      if (animation instanceof CSSTransition) running.push(animation.finished);
+  await page.evaluate(async (maxPasses) => {
+    for (let pass = 0; pass < maxPasses; pass += 1) {
+      const running: Promise<Animation>[] = [];
+      for (const animation of document.getAnimations()) {
+        if (animation instanceof CSSTransition) running.push(animation.finished);
+      }
+      if (running.length === 0) return;
+      await Promise.allSettled(running);
     }
-    await Promise.allSettled(running);
-  });
+  }, MAX_TRANSITION_PASSES);
 }
 
 async function expectAccessible(page: Page): Promise<void> {
@@ -91,7 +96,7 @@ for (const appearance of APPEARANCES) {
 
     test('the home screen and the new project dialog are accessible', async ({ page }) => {
       await page.goto('/');
-      await expect(page.getByRole('heading', { name: 'Start a new site' })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Start from a starter' })).toBeVisible();
       await expectAccessible(page);
       await page.getByRole('button', { name: 'New project' }).click();
       await expectAccessible(page);
@@ -100,6 +105,33 @@ for (const appearance of APPEARANCES) {
       await page.goto('/');
       await expect(page.getByRole('list', { name: 'Projects' })).toBeVisible();
       await expectAccessible(page);
+    });
+
+    test('App settings and the site assistant are accessible', async ({ page }) => {
+      await stubOpenRouter(page, { hasQuestions: true });
+      await page.goto('/');
+      await expect(page.getByRole('heading', { name: 'Tell us about your site' })).toBeVisible();
+      await page.getByRole('button', { name: 'App settings', exact: true }).click();
+      const settings = page.getByRole('dialog', { name: 'App settings' });
+      await expect(settings).toBeVisible({ timeout: STARTERS_LOAD_TIMEOUT_MS });
+      await expectAccessible(page);
+      await settings.getByRole('tab', { name: 'Assistant' }).click();
+      await settings.getByLabel('OpenRouter API key').fill('sk-or-test');
+      await settings.getByRole('button', { name: 'Load models' }).click();
+      await settings.getByRole('button', { name: /^Acme Writer/ }).click();
+      await expectAccessible(page);
+      await closeDialog(page);
+
+      await page.getByRole('textbox', { name: 'Tell us about your site' }).fill('A bakery site');
+      await expectAccessible(page);
+      await page.getByRole('button', { name: 'Build my site' }).click();
+      const questions = page.getByRole('dialog', { name: 'A few quick questions' });
+      await expect(questions).toBeVisible({ timeout: STARTERS_LOAD_TIMEOUT_MS });
+      await expectAccessible(page);
+      await questions.getByRole('button', { name: 'By phone only' }).click();
+      await questions.getByRole('button', { name: 'Menu' }).click();
+      await expectAccessible(page);
+      await closeDialog(page);
     });
 
     test('the editor panels and tabs are accessible', async ({ page }) => {

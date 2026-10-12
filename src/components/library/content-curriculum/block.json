@@ -1,0 +1,274 @@
+{
+  "name": "Content, course curriculum",
+  "category": "content",
+  "description": "Modules that open to show their lessons and durations, with course totals above, for a course or a book.",
+  "tags": [
+    "curriculum",
+    "course",
+    "modules",
+    "lessons",
+    "syllabus",
+    "chapters",
+    "table of contents",
+    "programme",
+    "what you will learn",
+    "book contents"
+  ],
+  "fieldGroups": ["Heading", "Modules", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Course curriculum",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From your first wash to three finished paintings",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Watercolor for Beginners starts with what to buy and ends with paintings you will want to frame. Open a module to see every lesson in it.",
+      "group": "Heading"
+    },
+    {
+      "name": "summary",
+      "label": "Totals",
+      "type": "text",
+      "default": "4 modules, 18 lessons, 3 hours 22 minutes of video",
+      "group": "Heading",
+      "help": "Leave empty to hide the line."
+    },
+    {
+      "name": "modules",
+      "label": "Modules",
+      "type": "list",
+      "group": "Modules",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Module"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Module title"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What this module covers."
+        },
+        {
+          "name": "meta",
+          "label": "Lessons and length",
+          "type": "text",
+          "default": "1 lesson, 10 min"
+        },
+        {
+          "name": "lessons",
+          "label": "Lessons",
+          "type": "list",
+          "minItems": 1,
+          "maxItems": 12,
+          "itemLabel": "title",
+          "itemFields": [
+            {
+              "name": "title",
+              "label": "Title",
+              "type": "text",
+              "default": "Lesson title"
+            },
+            {
+              "name": "duration",
+              "label": "Duration",
+              "type": "text",
+              "default": "10 min",
+              "maxLength": 20
+            },
+            {
+              "name": "tag",
+              "label": "Tag",
+              "type": "text",
+              "default": "",
+              "maxLength": 24
+            }
+          ],
+          "default": [
+            {
+              "title": "Lesson title",
+              "duration": "10 min",
+              "tag": ""
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "label": "Module 1",
+          "title": "Paper, paint and brushes",
+          "text": "What to buy, what to skip, and how to set up a table you can leave out all week.",
+          "meta": "4 lessons, 32 min",
+          "lessons": [
+            {
+              "title": "Welcome and how the course works",
+              "duration": "4 min",
+              "tag": "Free preview"
+            },
+            {
+              "title": "Choosing paper that will not buckle",
+              "duration": "9 min",
+              "tag": ""
+            },
+            {
+              "title": "Twelve colors are enough",
+              "duration": "11 min",
+              "tag": ""
+            },
+            {
+              "title": "Three brushes and how to hold them",
+              "duration": "8 min",
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "label": "Module 2",
+          "title": "Controlling water",
+          "text": "The one skill behind every painting: how much water is on the brush and how much is on the paper.",
+          "meta": "5 lessons, 1 hour",
+          "lessons": [
+            {
+              "title": "The flat wash",
+              "duration": "10 min",
+              "tag": "Free preview"
+            },
+            {
+              "title": "The graded wash",
+              "duration": "12 min",
+              "tag": ""
+            },
+            {
+              "title": "Wet on wet",
+              "duration": "14 min",
+              "tag": ""
+            },
+            {
+              "title": "Wet on dry",
+              "duration": "9 min",
+              "tag": ""
+            },
+            {
+              "title": "Exercise: a sky in four washes",
+              "duration": "15 min",
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "label": "Module 3",
+          "title": "Mixing color",
+          "text": "Mix clean greens, soft greys and skin tones from a small palette, without making mud.",
+          "meta": "5 lessons, 54 min",
+          "lessons": [
+            {
+              "title": "The color wheel you will actually use",
+              "duration": "8 min",
+              "tag": ""
+            },
+            {
+              "title": "A warm and a cool version of each primary",
+              "duration": "11 min",
+              "tag": ""
+            },
+            {
+              "title": "Greens for landscapes",
+              "duration": "13 min",
+              "tag": ""
+            },
+            {
+              "title": "Greys and shadows without black",
+              "duration": "10 min",
+              "tag": ""
+            },
+            {
+              "title": "Exercise: a swatch chart of your palette",
+              "duration": "12 min",
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "label": "Module 4",
+          "title": "Your first paintings",
+          "text": "Three guided projects that bring washes, color and brushwork together, from pencil sketch to signature.",
+          "meta": "4 lessons, 56 min",
+          "lessons": [
+            {
+              "title": "Planning a painting from light to dark",
+              "duration": "7 min",
+              "tag": ""
+            },
+            {
+              "title": "Project: pears on a windowsill",
+              "duration": "18 min",
+              "tag": ""
+            },
+            {
+              "title": "Project: a harbor at dusk",
+              "duration": "22 min",
+              "tag": ""
+            },
+            {
+              "title": "Fixing mistakes and knowing when to stop",
+              "duration": "9 min",
+              "tag": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Enroll for $89",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

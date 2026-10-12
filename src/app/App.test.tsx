@@ -57,7 +57,7 @@ describe('App', () => {
   it('shows the project list at the root address', async () => {
     openPath('/');
     const { container } = render(<App />);
-    expect(await heading(container)).toBe('My projects');
+    expect(await heading(container)).toBe('Tell us about your site');
   });
 
   it('shows a not found page for unknown addresses', async () => {

@@ -210,14 +210,14 @@ export function renderStandalonePage(
   project: Project,
   pageId: string,
   registry: ReadonlyMap<string, RegisteredComponent>,
-  options: { shouldLinkFonts: boolean },
+  options: { shouldLinkFonts: boolean; isEditing?: boolean },
 ): string {
   const page = project.pages.entities[pageId];
   if (page === undefined) throw new Error(`Page ${pageId} does not exist`);
   const ctx = renderContextFor(
     siteContextOf(project),
     pageSlugsOf(project.pages),
-    'preview',
+    options.isEditing === true ? 'canvas' : 'preview',
     pageId,
   );
   const usedComponents: UsedComponents = new Map();

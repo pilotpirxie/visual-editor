@@ -1,0 +1,195 @@
+{
+  "name": "Content, upcoming events",
+  "category": "content",
+  "description": "A list of upcoming events, each with a date badge, time, place, a short text, an optional status tag and a link.",
+  "tags": [
+    "events",
+    "calendar",
+    "dates",
+    "upcoming",
+    "what's on",
+    "schedule",
+    "fundraiser",
+    "workshop",
+    "classes"
+  ],
+  "fieldGroups": ["Heading", "Events", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "What’s on",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Come and meet the animals this autumn",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every event raises money for the dogs, cats and rabbits in our care at Willow Bank Animal Rescue. Friendly dogs on leads are welcome unless we say otherwise.",
+      "group": "Heading"
+    },
+    {
+      "name": "events",
+      "label": "Events",
+      "type": "list",
+      "group": "Events",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-11-28"
+        },
+        {
+          "name": "time",
+          "label": "Time",
+          "type": "text",
+          "default": "10:00 to 12:00"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Event title",
+          "required": true
+        },
+        {
+          "name": "location",
+          "label": "Location",
+          "type": "text",
+          "default": "Where it happens"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "maxLength": 240,
+          "default": "Say who it is for and what to bring in one or two sentences."
+        },
+        {
+          "name": "tag",
+          "label": "Status tag",
+          "type": "text",
+          "maxLength": 24,
+          "default": "",
+          "help": "For example Free or Sold out."
+        },
+        {
+          "name": "linkLabel",
+          "label": "Link text",
+          "type": "text",
+          "default": "Event details",
+          "help": "Leave empty to hide the link."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "date": "2026-10-24",
+          "time": "11:00 to 15:00",
+          "title": "Autumn adoption day",
+          "location": "Willow Bank Rescue Centre, Mill Lane",
+          "text": "Meet the animals looking for a home, talk to the people who care for them and start an application on the day.",
+          "tag": "Free",
+          "linkLabel": "Plan your visit",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "date": "2026-11-01",
+          "time": "Starts at 10:00",
+          "title": "Five mile charity dog walk",
+          "location": "Meet at the Riverside Park bandstand",
+          "text": "Bring your own dog or borrow one of ours. Every pound of sponsorship pays for vet care this winter.",
+          "tag": "",
+          "linkLabel": "Sign up to walk",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "date": "2026-11-10",
+          "time": "18:30 to 20:00",
+          "title": "New volunteer induction",
+          "location": "Training room, Willow Bank Rescue Centre",
+          "text": "An evening introduction for new kennel hands, cat socialisers and charity shop helpers. No experience needed.",
+          "tag": "6 places left",
+          "linkLabel": "Book a place",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "date": "2026-11-20",
+          "time": "Doors open at 19:00",
+          "title": "Charity quiz night",
+          "location": "The Fox and Hounds, Church Street",
+          "text": "Teams of up to six, eight rounds and a raffle. Tickets are £8 each and include a hot supper.",
+          "tag": "Sold out",
+          "linkLabel": "Join the waiting list",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "See the full calendar",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      },
+      "group": "Button",
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      }
+    }
+  ]
+}

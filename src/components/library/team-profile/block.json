@@ -1,0 +1,282 @@
+{
+  "name": "Team, one person in depth",
+  "category": "team",
+  "description": "One person in depth: a portrait, bio, qualifications, a few numbers, social links and an \"as seen in\" line.",
+  "tags": [
+    "about me",
+    "author",
+    "instructor",
+    "tutor",
+    "coach",
+    "teacher",
+    "founder",
+    "bio",
+    "biography",
+    "profile",
+    "qualifications",
+    "credentials",
+    "personal brand"
+  ],
+  "fieldGroups": ["Heading", "Person", "Qualifications", "Numbers", "Social", "Featured", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Your tutor",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Learn Spanish the way people actually speak it",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "photo",
+      "label": "Portrait",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Marta Ortega at her desk with an open workbook",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "person"
+        }
+      },
+      "group": "Person"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Marta Ortega",
+      "group": "Person"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Certified Spanish tutor and author",
+      "group": "Person"
+    },
+    {
+      "name": "bio",
+      "label": "Bio",
+      "type": "richtext",
+      "default": "<p>I grew up in Valencia and have taught Spanish to adults since 2012, first at a language school in Madrid and now online, one student at a time.</p><p>We start from the conversations you want to have: ordering at a market, talking to your in-laws, running a meeting. Grammar comes in when you need it, never as a list to memorize.</p><p>In 2021 I wrote <em>Primeros Pasos</em>, a workbook for complete beginners that is now used in more than 60 evening classes.</p>",
+      "group": "Person"
+    },
+    {
+      "name": "credentialsTitle",
+      "label": "Heading",
+      "type": "text",
+      "default": "Qualifications",
+      "group": "Qualifications"
+    },
+    {
+      "name": "credentials",
+      "label": "Qualifications",
+      "type": "list",
+      "group": "Qualifications",
+      "minItems": 0,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "A qualification, with who awarded it"
+        }
+      ],
+      "default": [
+        {
+          "text": "MA in Teaching Spanish as a Foreign Language, University of Salamanca"
+        },
+        {
+          "text": "Accredited DELE examiner, levels A1 to C2"
+        },
+        {
+          "text": "Teacher training certificate, Instituto Cervantes"
+        },
+        {
+          "text": "Author of Primeros Pasos, a workbook for beginners"
+        }
+      ]
+    },
+    {
+      "name": "stats",
+      "label": "Numbers",
+      "type": "list",
+      "group": "Numbers",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "value",
+          "label": "Number",
+          "type": "text",
+          "default": "10",
+          "maxLength": 12
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "What the number counts"
+        }
+      ],
+      "default": [
+        {
+          "value": "14",
+          "label": "years of teaching"
+        },
+        {
+          "value": "1,200",
+          "label": "students taught"
+        },
+        {
+          "value": "96%",
+          "label": "pass their DELE exam first time"
+        }
+      ]
+    },
+    {
+      "name": "socials",
+      "label": "Social links",
+      "type": "list",
+      "group": "Social",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "LinkedIn"
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "simple-icons:linkedin",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "https://www.linkedin.com",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Instagram",
+          "icon": "simple-icons:instagram",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "YouTube",
+          "icon": "simple-icons:youtube",
+          "link": {
+            "type": "url",
+            "url": "https://www.youtube.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "LinkedIn",
+          "icon": "simple-icons:linkedin",
+          "link": {
+            "type": "url",
+            "url": "https://www.linkedin.com",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "featuredLabel",
+      "label": "Label",
+      "type": "text",
+      "default": "As seen in",
+      "group": "Featured"
+    },
+    {
+      "name": "featured",
+      "label": "Publications",
+      "type": "list",
+      "group": "Featured",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Publication"
+        }
+      ],
+      "default": [
+        {
+          "name": "The Language Gazette"
+        },
+        {
+          "name": "Radio Levante"
+        },
+        {
+          "name": "Expat Weekly"
+        },
+        {
+          "name": "The Polyglot Podcast"
+        }
+      ]
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Book a free trial lesson",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    }
+  ]
+}

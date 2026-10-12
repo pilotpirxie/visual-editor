@@ -1,7 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { createBlankProject } from '../../app/projectFactory';
 import type { Token } from '../../app/types';
-import { contrastRatio, contrastWarnings, oklchToHex, resolveColor, toPickerHex } from './colors';
+import {
+  contrastRatio,
+  contrastWarnings,
+  hexToOklch,
+  oklchToHex,
+  resolveColor,
+  toPickerHex,
+} from './colors';
 
 function cleanTokens(): Record<string, Token> {
   return createBlankProject('Test').designSystem.tokens;
@@ -126,5 +133,27 @@ describe('oklchToHex', () => {
     const hex = oklchToHex(0.9, 0.4, 150);
     expect(hex).toMatch(/^#[0-9a-f]{6}$/);
     expect(contrastRatio('#000000', hex)).toBeGreaterThan(10);
+  });
+});
+
+describe('hexToOklch', () => {
+  it('reads white, black and a short hex', () => {
+    expect(hexToOklch('#ffffff')?.lightness).toBeCloseTo(1, 3);
+    expect(hexToOklch('#ffffff')?.chroma).toBeCloseTo(0, 3);
+    expect(hexToOklch('#000')?.lightness).toBeCloseTo(0, 3);
+  });
+
+  it.each(['#4f46e5', '#e11d48', '#0f766e', '#f59e0b', '#636363', '#fdf6e3'])(
+    'turns %s back into the same hex',
+    (hex) => {
+      const color = hexToOklch(hex);
+      expect(color).not.toBeNull();
+      if (color === null) return;
+      expect(oklchToHex(color.lightness, color.chroma, color.hue)).toBe(hex);
+    },
+  );
+
+  it.each(['', 'red', '#12', '#12345g', 'rgb(0 0 0)', '#4f46e580'])('refuses %s', (value) => {
+    expect(hexToOklch(value)).toBeNull();
   });
 });

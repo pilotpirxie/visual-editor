@@ -2,7 +2,22 @@
   "name": "Gallery, before and after",
   "category": "gallery",
   "description": "Pairs of photos with Before and After labels, each with a title and a short description.",
-  "tags": ["gallery", "photos", "images", "before", "after", "comparison", "renovation"],
+  "tags": [
+    "gallery",
+    "photos",
+    "images",
+    "before",
+    "after",
+    "comparison",
+    "renovation",
+    "results",
+    "transformation",
+    "detailing",
+    "makeover",
+    "smile",
+    "hair",
+    "cleaning"
+  ],
   "fieldGroups": ["Heading", "Pairs", "Labels"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

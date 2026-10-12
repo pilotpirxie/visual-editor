@@ -1,8 +1,22 @@
 {
   "name": "Contact, urgent support line",
   "category": "contacts",
-  "description": "A dark band with a striped warning edge, a large 24/7 phone number, response time and a link to the status page.",
-  "tags": ["contact", "support", "phone", "urgent", "emergency", "status", "dark", "24/7"],
+  "description": "A dark band with a striped warning edge, a large phone number and a response time, for emergency call-outs or priority support. The status link is optional.",
+  "tags": [
+    "contact",
+    "support",
+    "phone",
+    "urgent",
+    "emergency",
+    "status",
+    "dark",
+    "24/7",
+    "call out",
+    "plumber",
+    "electrician",
+    "breakdown",
+    "emergency line"
+  ],
   "fieldGroups": ["Heading", "Phone", "Status"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [
@@ -65,11 +79,19 @@
       "group": "Status"
     },
     {
+      "name": "showStatus",
+      "label": "Show status link",
+      "type": "boolean",
+      "default": true,
+      "group": "Status"
+    },
+    {
       "name": "statusText",
       "label": "Status",
       "type": "text",
       "default": "All systems operational",
-      "group": "Status"
+      "group": "Status",
+      "visibleWhen": { "field": "showStatus", "equals": true }
     },
     {
       "name": "statusLink",
@@ -80,7 +102,8 @@
         "link": { "type": "url", "url": "#", "newTab": true },
         "variant": "ghost"
       },
-      "group": "Status"
+      "group": "Status",
+      "visibleWhen": { "field": "showStatus", "equals": true }
     }
   ]
 }

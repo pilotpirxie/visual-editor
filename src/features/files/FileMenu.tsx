@@ -81,6 +81,7 @@ export function FileMenu(): JSX.Element {
       isChecked: isDark,
       onSelect: () => setAppearance(isDark ? 'light' : 'dark'),
     },
+    { id: 'app-settings', label: 'App settings…', onSelect: openDialog({ kind: 'app-settings' }) },
   );
   if (isNarrow) items.push({ id: 'help', label: 'Help', onSelect: openDialog({ kind: 'help' }) });
   items.push({

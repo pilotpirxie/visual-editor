@@ -11,6 +11,7 @@ export const TEMPLATE_HELPERS = [
   'richText',
   'safeUrl',
   'formatDate',
+  'map',
 ] as const;
 
 export type TemplateHelper = (typeof TEMPLATE_HELPERS)[number];

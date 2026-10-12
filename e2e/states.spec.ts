@@ -25,7 +25,7 @@ test('a loading message shows before the app starts', async ({ page }) => {
   await expect(page.getByRole('status')).toHaveText('Loading Visual Editor…');
   releaseApp();
   await navigation;
-  await expect(page.getByRole('heading', { name: 'Start a new site' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Start from a starter' })).toBeVisible();
 });
 
 test('a browser without popovers gets a clear message instead of a broken editor', async ({

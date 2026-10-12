@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from '../../app/projectFactory';
 import type { Project } from '../../app/types';
-import { builtInComponents } from '../../components/registry';
+import { builtInComponents, createBlock } from '../../components/registry';
 import { placeholderImage } from '../../render/placeholder';
 import { componentBlockOf, homePage, withSearchDetails } from '../../test/fixtures';
 import { createPage } from '../../app/projectFactory';
@@ -84,6 +84,23 @@ describe('collectExportWarnings', () => {
       'Hero, centered text: “Title” is required but empty.',
       'Hero, centered text: “Primary button” links to a page that was deleted.',
       'The anchor id “top” is used twice.',
+    ]);
+  });
+
+  it('says which service a live map loads from', () => {
+    const project = sampleProject();
+    const definition = builtInComponents.get('contact-location')?.definition;
+    if (definition === undefined) throw new Error('No live map block');
+    const block = createBlock(definition);
+    project.blocks.ids.push(block.id);
+    project.blocks.entities[block.id] = block;
+    homePage(project).blockIds.push(block.id);
+    expect(warningTexts(project)).toEqual([
+      'Contact, live map and hours: loads a map from Google Maps when the page opens.',
+    ]);
+    block.values.mapService = 'osm';
+    expect(warningTexts(project)).toEqual([
+      'Contact, live map and hours: loads a map from OpenStreetMap when the page opens.',
     ]);
   });
 

@@ -1,0 +1,58 @@
+<section class="b-team-profile section">
+  <div class="container stack b-inner">
+    <div class="b-layout">
+      <div class="stack b-side">
+        <div class="media b-photo" style="--media-ratio: {{photo.width}} / {{photo.height}}" data-field="photo">{{img photo}}</div>
+        <div>
+          <h3 class="b-name" data-field="name">{{name}}</h3>
+          {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+        </div>
+        {{#if socials.length}}
+        <ul class="cluster b-socials" role="list">
+          {{#each socials}}
+          <li><a class="b-social" href="{{href link}}" {{linkAttrs link}} data-field="socials.{{@index}}">{{svgIcon icon}}<span class="visually-hidden">{{label}}, {{../name}}</span></a></li>
+          {{/each}}
+        </ul>
+        {{/if}}
+      </div>
+      <div class="stack b-body">
+        <header class="stack b-head">
+          {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+          <h2 data-field="title">{{title}}</h2>
+        </header>
+        <div class="prose b-bio" data-field="bio">{{richText bio}}</div>
+        {{#if credentials.length}}
+        <div class="stack b-credentials">
+          {{#if credentialsTitle}}<h3 data-field="credentialsTitle">{{credentialsTitle}}</h3>{{/if}}
+          <ul class="b-checks" role="list">
+            {{#each credentials}}
+            <li data-field="credentials.{{@index}}">{{svgIcon "award"}}<span>{{text}}</span></li>
+            {{/each}}
+          </ul>
+        </div>
+        {{/if}}
+        {{#if stats.length}}
+        <ul class="grid b-stats" role="list">
+          {{#each stats}}
+          <li data-field="stats.{{@index}}">
+            <p class="b-value">{{value}}</p>
+            <p class="b-label">{{label}}</p>
+          </li>
+          {{/each}}
+        </ul>
+        {{/if}}
+        {{#if showButton}}<a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>{{/if}}
+      </div>
+    </div>
+    {{#if featured.length}}
+    <div class="cluster b-featured">
+      {{#if featuredLabel}}<p class="b-label" data-field="featuredLabel">{{featuredLabel}}</p>{{/if}}
+      <ul class="cluster b-outlets" role="list">
+        {{#each featured}}
+        <li data-field="featured.{{@index}}">{{name}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    {{/if}}
+  </div>
+</section>

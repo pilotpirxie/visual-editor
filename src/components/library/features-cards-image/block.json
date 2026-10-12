@@ -2,7 +2,19 @@
   "name": "Features, image cards",
   "category": "features",
   "description": "Cards with a photo on top, a title, a short text and an optional link, for services or product areas.",
-  "tags": ["features", "cards", "images", "photos", "services", "overview"],
+  "tags": [
+    "features",
+    "cards",
+    "images",
+    "photos",
+    "services",
+    "overview",
+    "treatments",
+    "rooms",
+    "collections",
+    "classes",
+    "programmes"
+  ],
   "fieldGroups": ["Heading", "Items", "Layout"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

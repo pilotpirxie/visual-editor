@@ -99,5 +99,5 @@ test('a file that is not a project shows an error and changes nothing', async ({
     buffer: Buffer.from('{}'),
   });
   await expect(page.getByRole('alert')).toContainText('Opening the file failed');
-  await expect(page.getByRole('heading', { name: 'Start a new site' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Start from a starter' })).toBeVisible();
 });

@@ -1,0 +1,32 @@
+<section class="b-content-curriculum section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      {{#if summary}}<p class="b-summary" data-field="summary">{{svgIcon "book"}}<span>{{summary}}</span></p>{{/if}}
+    </header>
+    <div class="b-modules">
+      {{#each modules}}
+      <details class="card b-module" name="{{../block.id}}-modules"{{#if @first}} open{{/if}} data-field="modules.{{@index}}">
+        <summary class="b-toggle">
+          {{#if label}}<span class="b-label">{{label}}</span>{{/if}}
+          <h3 class="b-title">{{title}}</h3>
+          {{#if text}}<span class="b-text">{{nl2br text}}</span>{{/if}}
+          {{#if meta}}<span class="b-meta">{{meta}}</span>{{/if}}
+          <span class="b-chevron">{{svgIcon "chevron-down"}}</span>
+        </summary>
+        <ol class="b-lessons" role="list">
+          {{#each lessons}}
+          <li class="b-lesson" data-field="modules.{{@../index}}.lessons.{{@index}}">
+            <p class="b-name">{{title}}{{#if tag}} <span class="badge b-tag">{{tag}}</span>{{/if}}</p>
+            {{#if duration}}<p class="b-duration">{{duration}}</p>{{/if}}
+          </li>
+          {{/each}}
+        </ol>
+      </details>
+      {{/each}}
+    </div>
+    {{#if showButton}}<a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>{{/if}}
+  </div>
+</section>

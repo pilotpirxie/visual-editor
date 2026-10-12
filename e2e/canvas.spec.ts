@@ -97,6 +97,24 @@ test('double-clicking a heading edits it in place as one undo step', async ({ pa
   await expect(heading).toHaveText(original ?? '');
 });
 
+test('a map block shows a card while editing and the live map in Preview', async ({ page }) => {
+  await page.route('https://www.google.com/**', (route) =>
+    route.fulfill({ contentType: 'text/html', body: '<p>Map</p>' }),
+  );
+  await insertBlock(page, 'Contacts', 'Contact, live map and hours');
+  const canvas = page.frameLocator('.ve-canvas-frame');
+  const card = canvas.locator('.b-contact-location [data-map="placeholder"]');
+  await expect(card).toContainText('220 King Street West');
+  await expect(card).toContainText('The map shows in Preview and on the exported site.');
+  await expect(canvas.locator('iframe')).toHaveCount(0);
+
+  await page.getByRole('button', { name: 'Preview', exact: true }).click();
+  const map = canvas.locator('.b-contact-location iframe[data-map="live"]');
+  await expect(map).toHaveAttribute('src', /^https:\/\/www\.google\.com\/maps\?q=220%20King/);
+  await expect(map).toHaveAttribute('title', /^Map of 220 King Street West/);
+  await expect(card).toHaveCount(0);
+});
+
 test('a selected block offers no Add block button while the library is on screen', async ({
   page,
 }) => {

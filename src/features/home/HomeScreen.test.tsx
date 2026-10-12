@@ -97,6 +97,14 @@ beforeEach(() => {
   window.history.replaceState(null, '', '/');
 });
 
+function sectionTitles(container: HTMLElement): string[] {
+  const titles: string[] = [];
+  for (const title of container.querySelectorAll('.ve-home-section-title')) {
+    titles.push(title.textContent);
+  }
+  return titles;
+}
+
 describe('HomeScreen', () => {
   it('lists saved projects with when they were last edited', async () => {
     const container = await renderHome();
@@ -107,17 +115,18 @@ describe('HomeScreen', () => {
   it('opens straight on starting a new site when there are no projects', async () => {
     vi.mocked(listProjects).mockResolvedValue([]);
     const container = await renderHome();
-    expect(container.querySelector('h1')?.textContent).toBe('Start a new site');
+    expect(container.querySelector('h1')?.textContent).toBe('Tell us about your site');
     expect(container.querySelector('.ve-home-grid')).toBeNull();
-    expect(container.querySelector('.ve-home-section-title')).toBeNull();
+    expect(sectionTitles(container)).toEqual(['Start from a starter']);
     await waitForHomeStarters(container);
     expect(starterNames(container)[0]).toBe('Blank site');
   });
 
   it('lists the projects first and the starters below them', async () => {
     const container = await renderHome();
-    expect(container.querySelector('h1')?.textContent).toBe('My projects');
-    expect(container.querySelector('.ve-home-section-title')?.textContent).toBe('Start a new site');
+    expect(container.querySelector('h1')?.textContent).toBe('Tell us about your site');
+    expect(sectionTitles(container)).toEqual(['My projects', 'Start from a starter']);
+    expect(container.querySelectorAll('h1')).toHaveLength(1);
     await waitForHomeStarters(container);
     expect(starterNames(container)).toContain('Startup waitlist');
   });
@@ -308,5 +317,26 @@ describe('HomeScreen', () => {
     click(getButton(container, 'Delete Fieldnote'));
     click(await vi.waitFor(() => getButton(container, 'Delete project')));
     await vi.waitFor(() => expect(deleteProject).toHaveBeenCalledWith(stored.id));
+  });
+
+  it('opens App settings from the header', async () => {
+    const container = await renderHome();
+    click(getButton(container, 'App settings'));
+    await vi.waitFor(() => expect(container.textContent).toContain('Ask before deleting a block'));
+    click(getButton(container, 'Done'));
+    await vi.waitFor(() => {
+      expect(container.textContent).not.toContain('Ask before deleting a block');
+    });
+  });
+
+  it('offers to describe a site and opens the assistant settings from there', async () => {
+    localStorage.clear();
+    const container = await renderHome();
+    expect(container.querySelector('.ve-site-prompt h1')?.textContent).toBe(
+      'Tell us about your site',
+    );
+    expect(getButton(container, 'Build my site').disabled).toBe(true);
+    click(getButton(container, 'Open App settings'));
+    await vi.waitFor(() => expect(container.textContent).toContain('OpenRouter API key'));
   });
 });

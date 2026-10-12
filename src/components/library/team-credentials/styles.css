@@ -1,0 +1,85 @@
+@layer components {
+  @scope (.b-team-credentials) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 44rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+    }
+
+    .b-intro,
+    .b-bio,
+    .b-registration {
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      --grid-min: 18rem;
+    }
+
+    .b-card {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      flex: none;
+      width: 5rem;
+    }
+
+    .b-identity {
+      min-width: 0;
+    }
+
+    .b-role {
+      margin-top: var(--space-1);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .b-record {
+      display: grid;
+      gap: var(--space-1);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      font-size: var(--text-sm);
+      overflow-wrap: anywhere;
+    }
+
+    .b-qualifications {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-registration {
+      --icon-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .b-tags {
+      --cluster-gap: var(--space-2);
+    }
+
+    .b-book {
+      --icon-size: 1rem;
+      margin-top: auto;
+    }
+  }
+}

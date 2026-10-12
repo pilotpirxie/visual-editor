@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import { useState, type JSX } from 'react';
 import {
   APP_ICON_TYPES,
   FAVICON_TYPES,
@@ -115,13 +115,22 @@ function commitText(key: SiteMetaKey): (text: string) => void {
 }
 
 function SiteSection({ settings }: { settings: ProjectSettings }): JSX.Element {
+  const [typedTitle, setTypedTitle] = useState(settings.title);
+  const isTypedTitleStored = typedTitle.trim() === settings.title;
+
+  function changeTitle(value: unknown, kind: EditKind): void {
+    if (typeof value !== 'string') return;
+    setTypedTitle(value);
+    dispatch(settingSet('title', value, kind));
+  }
+
   return (
     <MetaSection id="settings:site" title="Site" isInitiallyOpen>
       <FieldControl
         field={TITLE_FIELD}
-        value={settings.title}
+        value={isTypedTitleStored ? typedTitle : settings.title}
         path="project-title"
-        onChange={changeSetting('title')}
+        onChange={changeTitle}
       />
       <FieldControl
         field={DESCRIPTION_FIELD}

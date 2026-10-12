@@ -2,7 +2,17 @@
   "name": "Call to action, with image",
   "category": "call-to-action",
   "description": "A closing pitch with two buttons in a card next to an image.",
-  "tags": ["cta", "image", "download", "signup", "card"],
+  "tags": [
+    "cta",
+    "image",
+    "download",
+    "signup",
+    "card",
+    "volunteer",
+    "join",
+    "donate",
+    "get involved"
+  ],
   "fieldGroups": ["Content", "Image"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

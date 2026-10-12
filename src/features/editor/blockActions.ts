@@ -4,7 +4,8 @@ import {
   slotForCategory,
   visibleBlockLists,
 } from '../../app/blockLists';
-import { blockSelected } from '../../app/editorSlice';
+import { readAppSettings } from '../../app/appSettings';
+import { blockSelected, dialogOpened } from '../../app/editorSlice';
 import {
   blockDuplicated,
   blockInserted,
@@ -133,11 +134,21 @@ function restoreFocusAfterRemoval(neighbour: HTMLElement | null): void {
   });
 }
 
-export function removeBlock(blockId: string): AppThunk {
+export function removeBlockNow(blockId: string): AppThunk {
   return (dispatch) => {
     const neighbour = neighbourLayerName();
     dispatch(blockRemoved({ blockId }));
     restoreFocusAfterRemoval(neighbour);
+  };
+}
+
+export function removeBlock(blockId: string): AppThunk {
+  return (dispatch) => {
+    if (readAppSettings().shouldConfirmBlockDelete) {
+      dispatch(dialogOpened({ kind: 'delete-block', blockId }));
+      return;
+    }
+    dispatch(removeBlockNow(blockId));
   };
 }
 

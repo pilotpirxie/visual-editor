@@ -1,8 +1,18 @@
 {
   "name": "Features, before and after",
   "category": "features",
-  "description": "Two panels compare the old way with your product: muted crosses on one side, highlighted checks on the other.",
-  "tags": ["features", "comparison", "versus", "before and after", "switching", "problem solution"],
+  "description": "Two panels compare the old way with your product: muted crosses on one side, highlighted checks on the other. Also works as who it is for and who it is not for.",
+  "tags": [
+    "features",
+    "comparison",
+    "versus",
+    "before and after",
+    "switching",
+    "problem solution",
+    "who it is for",
+    "not for you",
+    "fit"
+  ],
   "fieldGroups": ["Heading", "Before", "After", "Button"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

@@ -124,6 +124,79 @@ describe('template helpers', () => {
     expect(warn).toHaveBeenCalledWith('svgIcon: unknown icon "no-such-icon"');
   });
 
+  describe('map', () => {
+    function map(address: unknown, hash: Record<string, unknown>, liveMaps = true): string {
+      return String(helpers.map(address, { hash, data: { pageSlugs: {}, liveMaps } }));
+    }
+
+    function frame(address: unknown, hash: Record<string, unknown>): HTMLIFrameElement {
+      const holder = document.createElement('div');
+      holder.innerHTML = map(address, hash);
+      const element = holder.firstElementChild;
+      if (!(element instanceof HTMLIFrameElement)) throw new Error('No map frame was rendered');
+      return element;
+    }
+
+    it('shows the free Google map of an address in a lazy frame', () => {
+      const element = frame('12 Mill Lane,\nLeeds  LS1 4AB', { class: 'b-frame', zoom: 14 });
+      expect(element.getAttribute('src')).toBe(
+        'https://www.google.com/maps?q=12%20Mill%20Lane%2C%20Leeds%20LS1%204AB&z=14&output=embed',
+      );
+      expect(element.className).toBe('b-frame');
+      expect(element.title).toBe('Map of 12 Mill Lane, Leeds LS1 4AB');
+      expect(element.getAttribute('loading')).toBe('lazy');
+      expect(element.dataset.map).toBe('live');
+    });
+
+    it('uses the official Google embed when a key is given', () => {
+      const element = frame('Leeds', { service: 'google', key: ' AIza&key ', zoom: '11' });
+      expect(element.getAttribute('src')).toBe(
+        'https://www.google.com/maps/embed/v1/place?key=AIza%26key&q=Leeds&zoom=11',
+      );
+    });
+
+    it('shows OpenStreetMap around a position with a marker', () => {
+      const element = frame('', { service: 'osm', latitude: 53.8, longitude: -1.55, zoom: 15 });
+      const url = new URL(element.getAttribute('src') ?? '');
+      expect(url.origin + url.pathname).toBe('https://www.openstreetmap.org/export/embed.html');
+      expect(url.searchParams.get('marker')).toBe('53.80000,-1.55000');
+      expect(element.title).toBe('Map of 53.80000, -1.55000');
+      const corners = (url.searchParams.get('bbox') ?? '').split(',').map(Number);
+      expect(corners[0]).toBeLessThan(-1.55);
+      expect(corners[2]).toBeGreaterThan(-1.55);
+      expect(corners[1]).toBeLessThan(53.8);
+      expect(corners[3]).toBeGreaterThan(53.8);
+    });
+
+    it('keeps the zoom within what maps offer', () => {
+      expect(frame('Leeds', { zoom: 99 }).getAttribute('src')).toContain('&z=19&');
+      expect(frame('Leeds', { zoom: -4 }).getAttribute('src')).toContain('&z=3&');
+      expect(frame('Leeds', { zoom: 'far' }).getAttribute('src')).toContain('&z=15&');
+    });
+
+    it('escapes an address that tries to break out of the frame', () => {
+      const html = map('"><script>alert(1)</script>', {});
+      expect(html).not.toContain('<script>');
+      expect(html).toContain('title="Map of &quot;&gt;&lt;script&gt;');
+    });
+
+    it('renders nothing without an address or with an impossible position', () => {
+      expect(map('  ', {})).toBe('');
+      expect(map('Leeds', { service: 'osm' })).toBe('');
+      expect(map('', { service: 'osm', latitude: 120, longitude: 0 })).toBe('');
+    });
+
+    it('shows a card instead of the map while editing', () => {
+      const html = map('12 Mill Lane, Leeds', { class: 'b-frame' }, false);
+      expect(html).toBe(
+        '<div class="b-frame" data-map="placeholder"><strong>12 Mill Lane, Leeds</strong>' +
+          '<small>The map shows in Preview and on the exported site.</small></div>',
+      );
+      expect(map('', {}, false)).toContain('Add an address to show the map here.');
+      expect(map('Leeds', {}, false)).not.toContain('<iframe');
+    });
+  });
+
   describe('img', () => {
     const image = {
       source: 'placeholder',

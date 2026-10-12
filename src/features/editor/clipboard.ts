@@ -18,7 +18,7 @@ import { referencedTokenName } from '../../render/css';
 import { createRenderContext, renderAnyBlock } from '../../render/renderBlock';
 import { isSafeCssValue } from '../../render/sanitize';
 import { ensureIconSets, iconSetsUsedBy } from '../icons/ensureIconSets';
-import { pasteLocation, removeBlock } from './blockActions';
+import { pasteLocation, removeBlockNow } from './blockActions';
 
 export const BLOCK_CLIPBOARD_FORMAT = 'visual-editor/block';
 
@@ -206,7 +206,7 @@ export function copyBlockTo(blockId: string, data: ClipboardWriter): AppThunk<bo
 export function cutBlockTo(blockId: string, data: ClipboardWriter): AppThunk<boolean> {
   return (dispatch) => {
     const isCopied = dispatch(copyBlockTo(blockId, data));
-    if (isCopied) dispatch(removeBlock(blockId));
+    if (isCopied) dispatch(removeBlockNow(blockId));
     return isCopied;
   };
 }
@@ -294,7 +294,7 @@ export function copyBlockFromMenu(blockId: string): AppThunk<boolean> {
 
 export function cutBlockFromMenu(blockId: string): AppThunk {
   return (dispatch) => {
-    if (dispatch(copyBlockFromMenu(blockId))) dispatch(removeBlock(blockId));
+    if (dispatch(copyBlockFromMenu(blockId))) dispatch(removeBlockNow(blockId));
   };
 }
 

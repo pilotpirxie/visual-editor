@@ -1,0 +1,168 @@
+{
+  "name": "Pricing, donation amounts",
+  "category": "pricing",
+  "description": "Giving amounts as cards that say what each gift pays for, with a donate button and a note on tax relief.",
+  "tags": [
+    "donate",
+    "donation",
+    "give",
+    "giving",
+    "charity",
+    "nonprofit",
+    "fundraising",
+    "support us",
+    "sponsor",
+    "appeal"
+  ],
+  "fieldGroups": ["Heading", "Amounts", "Other amount"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Support our work",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your gift goes straight to an animal waiting for a home",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Willowbrook Animal Rescue takes in around 400 dogs, cats and rabbits a year. We get no government funding, so every bowl of food and every vet visit is paid for by people like you.",
+      "group": "Heading"
+    },
+    {
+      "name": "tiers",
+      "label": "Amounts",
+      "type": "list",
+      "group": "Amounts",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "amount",
+      "itemFields": [
+        {
+          "name": "amount",
+          "label": "Amount",
+          "type": "text",
+          "default": "£10",
+          "maxLength": 12
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": "a month",
+          "maxLength": 24
+        },
+        {
+          "name": "impact",
+          "label": "What it pays for",
+          "type": "textarea",
+          "default": "Say what this amount pays for."
+        },
+        {
+          "name": "featured",
+          "label": "Featured",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Donate",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "amount": "£10",
+          "period": "a month",
+          "impact": "Feeds one rescued dog for a week, every month of the year.",
+          "featured": false,
+          "button": {
+            "label": "Give £10 a month",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        {
+          "amount": "£25",
+          "period": "a month",
+          "impact": "Pays for the vaccinations and microchip of one new arrival each month.",
+          "featured": true,
+          "button": {
+            "label": "Give £25 a month",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "amount": "£60",
+          "period": "one off",
+          "impact": "Covers a vet check, neutering and a warm bed for one cat in its first fortnight with us.",
+          "featured": false,
+          "button": {
+            "label": "Give £60 once",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ]
+    },
+    {
+      "name": "otherLabel",
+      "label": "Other amount link text",
+      "type": "text",
+      "default": "Give another amount",
+      "group": "Other amount",
+      "help": "Leave empty to hide the link."
+    },
+    {
+      "name": "otherLink",
+      "label": "Other amount link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Other amount"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "text",
+      "default": "Gift Aid adds 25p to every £1 you give, at no cost to you. Willowbrook Animal Rescue is a registered charity, no. 1234567.",
+      "group": "Other amount"
+    }
+  ]
+}

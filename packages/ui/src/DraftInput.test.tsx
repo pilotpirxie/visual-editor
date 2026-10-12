@@ -1,3 +1,4 @@
+import { useState, type JSX } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { blur, changeValue, render } from '../../../src/test/dom';
 import { DraftInput } from './DraftInput';
@@ -15,6 +16,45 @@ describe('DraftInput', () => {
     changeValue(container.querySelector('input'), 'about-us');
     expect(onCommit).toHaveBeenCalledWith('about-us');
     expect(container.querySelector('[role="alert"]')).toBeNull();
+  });
+
+  it('keeps a typed space while the stored value is the same text trimmed', () => {
+    function Shadow(): JSX.Element {
+      const [value, setValue] = useState('0');
+      return (
+        <DraftInput
+          id="shadow"
+          value={value}
+          validate={() => null}
+          onCommit={(text) => setValue(text.trim())}
+        />
+      );
+    }
+    const { container } = render(<Shadow />);
+    const input = container.querySelector('input');
+    changeValue(input, '0 ');
+    expect(input?.value).toBe('0 ');
+    changeValue(input, '0 4px ');
+    expect(input?.value).toBe('0 4px ');
+    blur(input);
+    expect(input?.value).toBe('0 4px');
+  });
+
+  it('shows the stored value when it differs from what was typed', () => {
+    function Rounded(): JSX.Element {
+      const [value, setValue] = useState('1');
+      return (
+        <DraftInput
+          id="size"
+          value={value}
+          validate={() => null}
+          onCommit={(text) => setValue(String(Number(text)))}
+        />
+      );
+    }
+    const { container } = render(<Rounded />);
+    changeValue(container.querySelector('input'), '1.50');
+    expect(container.querySelector('input')?.value).toBe('1.5');
   });
 
   it('keeps invalid text as a draft and explains it once the field is left', () => {

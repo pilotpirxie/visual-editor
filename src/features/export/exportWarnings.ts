@@ -3,6 +3,7 @@ import type { Page, Project } from '../../app/types';
 import { forEachFieldValue } from '../../components/fieldValues';
 import { isButtonValue, isImageValue, isLinkValue, validateField } from '../../components/fields';
 import type { LinkValue, RegisteredComponent } from '../../components/types';
+import { MAP_SERVICE_FIELD, MAP_SERVICE_NAMES } from '../../render/handlebars';
 import { isPageIndexed } from '../../render/pageHead';
 import { activeSectionTheme } from '../../app/sectionThemes';
 import {
@@ -100,6 +101,10 @@ function blockWarnings(
     }
     if (field.required === true && validateField(field, value) !== null) {
       warn(`“${field.label}” is required but empty.`);
+    }
+    if (field.name === MAP_SERVICE_FIELD && typeof value === 'string') {
+      const service = MAP_SERVICE_NAMES[value] ?? MAP_SERVICE_NAMES.google;
+      warn(`loads a map from ${service} when the page opens.`);
     }
     const isFormAction = field.name === FORM_ACTION_FIELD && typeof value === 'string';
     if (isFormAction && value.trim() === '') {

@@ -2,7 +2,19 @@
   "name": "Team, photo grid",
   "category": "team",
   "description": "A heading, a short intro and a grid of photos with names and roles.",
-  "tags": ["team", "people", "about", "photos", "speakers", "grid"],
+  "tags": [
+    "team",
+    "people",
+    "about",
+    "photos",
+    "speakers",
+    "grid",
+    "trainers",
+    "staff",
+    "instructors",
+    "volunteers",
+    "trustees"
+  ],
   "fieldGroups": ["Heading", "People"],
   "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
   "fields": [

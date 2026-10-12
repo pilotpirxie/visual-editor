@@ -7,7 +7,7 @@ import { contrastRatio, oklchToHex } from './colors';
 import type { FontFamily } from './fontList';
 import { SHADOW_PRESETS, spacingTokens, typeScaleTokens } from './generators';
 
-type Random = {
+export type Random = {
   between(min: number, max: number): number;
   pick<Item>(items: readonly Item[]): Item;
   isChance(probability: number): boolean;
@@ -60,8 +60,8 @@ const ACCENT_CHROMA = 0.75;
 const REGULAR_WEIGHT = 400;
 const BOLD_WEIGHT = 700;
 const SEMIBOLD_WEIGHT = 600;
-const COMPACT_PADDING = 'clamp(3rem, 2rem + 4vw, 6rem)';
-const ROOMY_PADDING = 'clamp(4rem, 3rem + 5vw, 8rem)';
+export const COMPACT_PADDING = 'clamp(3rem, 2rem + 4vw, 6rem)';
+export const ROOMY_PADDING = 'clamp(4rem, 3rem + 5vw, 8rem)';
 const ROOMY_UNIT_PX = 5;
 const ROOMY_RATIO = 1.333;
 
@@ -83,7 +83,7 @@ const TIGHT_RATIOS = [1.2, 1.25];
 const ALL_BASES = [15, 16, 17, 18];
 const SMALL_BASES = [15, 16];
 
-const VOICES: readonly Voice[] = [
+export const VOICES: readonly Voice[] = [
   {
     families: [
       'Poppins',
@@ -210,7 +210,7 @@ const VOICES: readonly Voice[] = [
   },
 ];
 
-const BODY_FAMILIES: Record<BodyKind, readonly string[]> = {
+export const BODY_FAMILIES: Record<BodyKind, readonly string[]> = {
   sans: [
     'Inter',
     'DM Sans',
@@ -248,7 +248,7 @@ const BODY_FAMILIES: Record<BodyKind, readonly string[]> = {
 const BODY_LINE_HEIGHTS = ['1.6', '1.65', '1.7'];
 const SPACE_UNITS_PX = [4, 4.5, 5];
 
-const SHAPES: readonly Shape[] = [
+export const SHAPES: readonly Shape[] = [
   {
     radii: { small: '0rem', medium: '0rem', large: '0rem' },
     borderWidths: ['1px', '2px'],
@@ -281,22 +281,22 @@ const SHAPES: readonly Shape[] = [
   },
 ];
 
-const BUTTON_PADDINGS_Y = ['0.75rem', '0.875rem'];
-const BUTTON_PADDINGS_X = ['1.25rem', '1.375rem', '1.5rem'];
+export const BUTTON_PADDINGS_Y = ['0.75rem', '0.875rem'];
+export const BUTTON_PADDINGS_X = ['1.25rem', '1.375rem', '1.5rem'];
 
-const NO_SHADOWS: TokenValues = {
+export const NO_SHADOWS: TokenValues = {
   '--shadow-sm': 'none',
   '--shadow-md': 'none',
   '--shadow-lg': 'none',
 };
 
-const DARK_SHADOWS: TokenValues = {
+export const DARK_SHADOWS: TokenValues = {
   '--shadow-sm': '0 1px 2px rgb(0 0 0 / 0.35)',
   '--shadow-md': '0 6px 16px rgb(0 0 0 / 0.4)',
   '--shadow-lg': '0 16px 40px rgb(0 0 0 / 0.5)',
 };
 
-const PRIMARY_THEME_TOKENS = [
+export const PRIMARY_THEME_TOKENS = [
   '--theme-primary-background',
   '--theme-primary-surface',
   '--theme-primary-text',
@@ -330,7 +330,7 @@ function contrastOf(foreground: string, background: string): number {
   return contrastRatio(foreground, background) ?? 1;
 }
 
-function isDarkColor(hex: string): boolean {
+export function isDarkColor(hex: string): boolean {
   return contrastOf(WHITE, hex) > contrastOf(BLACK, hex);
 }
 
@@ -341,7 +341,7 @@ function isReadableOn(hex: string, backgrounds: readonly string[]): boolean {
   return true;
 }
 
-function readableOn(color: Oklch, backgrounds: readonly string[]): string {
+export function readableOn(color: Oklch, backgrounds: readonly string[]): string {
   const isOnDark = isDarkColor(backgrounds[0]);
   const step = isOnDark ? LIGHTNESS_STEP : -LIGHTNESS_STEP;
   let lightness = color.lightness;
@@ -353,7 +353,7 @@ function readableOn(color: Oklch, backgrounds: readonly string[]): string {
   return isOnDark ? WHITE : BLACK;
 }
 
-function contrastColorFor(fill: string, hue: number, random: Random): string {
+export function contrastColorFor(fill: string, hue: number, random: Random): string {
   const light: Oklch = {
     lightness: random.between(0.97, 1),
     chroma: random.between(0, 0.01),
@@ -616,7 +616,7 @@ function randomShadows(mood: Mood, random: Random): TokenValues {
   return random.pick(SHADOW_PRESETS).values;
 }
 
-function defaultIconSetIds(): string[] {
+export function defaultIconSetIds(): string[] {
   const ids: string[] = [];
   for (const set of ICON_SET_INFO) {
     if (!set.isBrandOnly) ids.push(set.id);
@@ -624,7 +624,7 @@ function defaultIconSetIds(): string[] {
   return ids;
 }
 
-function fontsFor(
+export function fontsFor(
   families: { heading: string; body: string },
   tokens: Record<string, Token>,
 ): FontSelection[] {
