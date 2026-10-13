@@ -372,6 +372,25 @@
     background: var(--ve-surface);
   }
 
+  .ve-image-generate {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--ve-border);
+  }
+
+  .ve-image-generate > .ui-field {
+    align-self: stretch;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ui-dialog:has(.ve-image-generate[data-busy]) .ve-image-preview {
+      animation: ve-image-wait 0.9s ease-in-out infinite alternate;
+    }
+  }
+
   .ve-richtext {
     border: 1px solid var(--ve-border);
     border-radius: var(--ve-radius);
@@ -572,5 +591,11 @@
     .ve-swatch-color {
       forced-color-adjust: none;
     }
+  }
+}
+
+@keyframes ve-image-wait {
+  to {
+    opacity: 0.35;
   }
 }

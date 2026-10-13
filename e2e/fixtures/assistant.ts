@@ -185,6 +185,25 @@ const SHARED = {
   ],
 };
 
+const CHANGES = {
+  reply: 'The headline is shorter now.',
+  edits: [{ section: 's1', instruction: 'Shorten the title' }],
+  adds: [],
+  removes: [],
+  moves: [],
+  themes: [],
+  pages: [],
+  tokens: [],
+  headingFont: '',
+  bodyFont: '',
+  title: '',
+  description: '',
+};
+
+const EDITED = { sections: [{ values: { title: 'Fresh bread, every morning' } }] };
+
+const EDIT_START = 'Write the content of sections of an existing website.';
+
 type ChatBody = {
   messages: { content: string }[];
   response_format?: { json_schema?: { name?: string } };
@@ -194,6 +213,7 @@ function stepOf(body: ChatBody): string {
   const name = body.response_format?.json_schema?.name;
   if (name !== undefined) return name;
   const user = body.messages[1]?.content ?? '';
+  if (user.startsWith(EDIT_START)) return 'edit';
   const page = /^Write the content of the page "(?<name>[^"]+)"/.exec(user)?.groups?.name;
   return page ?? 'shared';
 }
@@ -204,6 +224,8 @@ function answerFor(step: string, clarifyCount: number, options: OpenRouterOption
   }
   if (step === 'design_brief') return DESIGN;
   if (step === 'site_plan') return options.hasImagePage === true ? IMAGE_PLAN : PLAN;
+  if (step === 'site_changes') return CHANGES;
+  if (step === 'edit') return EDITED;
   if (step === 'Home') return HOME;
   if (step === 'shared') return SHARED;
   return { sections: [] };

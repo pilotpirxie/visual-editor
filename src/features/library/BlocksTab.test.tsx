@@ -115,7 +115,7 @@ describe('groupByCategory', () => {
 describe('BlocksTab', () => {
   it('lists categories with how many blocks each has', () => {
     const { container } = render(<BlocksTab />);
-    expect(categoryButton(container, 'Headers').textContent).toBe('Headers43');
+    expect(categoryButton(container, 'Headers').textContent).toBe('Headers44');
   });
 
   it('opens a category and goes back to the list', () => {
@@ -130,7 +130,7 @@ describe('BlocksTab', () => {
   it('searches by name and says when nothing matches', () => {
     const { container } = render(<BlocksTab />);
     searchFor(container, 'footer');
-    expect(container.querySelectorAll('.ve-component-card')).toHaveLength(30);
+    expect(container.querySelectorAll('.ve-component-card')).toHaveLength(31);
     searchFor(container, 'hologram');
     expect(container.textContent).toContain('No blocks match “hologram”.');
   });
@@ -268,8 +268,8 @@ describe('BlocksTab views', () => {
   it('shows the count of an open category and only its blocks', () => {
     const { container } = render(<BlocksTab />);
     click(categoryButton(container, 'Headers'));
-    expect(container.querySelector('.ve-blocks-back')?.textContent).toBe('Headers43');
-    expect(container.querySelectorAll('.ve-component-card')).toHaveLength(43);
+    expect(container.querySelector('.ve-blocks-back')?.textContent).toBe('Headers44');
+    expect(container.querySelectorAll('.ve-component-card')).toHaveLength(44);
     expect(queryButton(container, 'Load block pack')).toBeNull();
   });
 
@@ -284,7 +284,7 @@ describe('BlocksTab views', () => {
     expect(container.textContent).not.toContain('No blocks match');
     expect(queryButton(container, 'Manage packs')).toBeNull();
     searchFor(container, '');
-    expect(container.querySelector('.ve-blocks-back')?.textContent).toBe('Headers43');
+    expect(container.querySelector('.ve-blocks-back')?.textContent).toBe('Headers44');
   });
 
   it('treats a search of only spaces as no search', () => {

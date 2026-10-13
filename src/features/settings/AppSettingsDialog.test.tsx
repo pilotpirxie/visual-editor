@@ -15,6 +15,9 @@ const WRITER: AssistantModel = {
   completionPrice: 15,
 };
 
+const MODELS_URL = 'https://openrouter.ai/api/v1/models';
+const IMAGE_MODELS_URL = `${MODELS_URL}?output_modalities=image`;
+
 const MODELS_REPLY = {
   data: [
     {
@@ -39,7 +42,8 @@ const MODELS_REPLY = {
 let requests: string[] = [];
 let sentKeys: (string | null)[] = [];
 let signals: (AbortSignal | null)[] = [];
-let reply: () => Response | Promise<Response> = () => new Response(JSON.stringify(MODELS_REPLY));
+let reply: (url: string) => Response | Promise<Response> = () =>
+  new Response(JSON.stringify(MODELS_REPLY));
 
 function renderDialog(initialTab: AppSettingsTab = 'general'): HTMLDivElement {
   return render(<AppSettingsDialog initialTab={initialTab} onClose={() => {}} />).container;
@@ -58,14 +62,17 @@ function optionLabels(select: HTMLInputElement | HTMLSelectElement): string[] {
   return labels;
 }
 
-async function loadModels(container: HTMLElement): Promise<void> {
-  click(getButton(container, 'Load models'));
+async function tabOpened(): Promise<void> {
   await act(async () => {
-    await Promise.resolve();
-    await Promise.resolve();
+    await new Promise((resolve) => setTimeout(resolve, 0));
   });
+}
+
+async function listsLoaded(container: HTMLElement): Promise<void> {
+  await tabOpened();
   await vi.waitFor(() => {
-    if (container.textContent?.includes('Loading models')) throw new Error('Still loading');
+    const isLoading = requests.length < 2 || container.textContent?.includes('Loading');
+    if (isLoading) throw new Error('Still loading');
   });
 }
 
@@ -80,7 +87,7 @@ beforeEach(() => {
     requests.push(url);
     sentKeys.push(new Headers(init.headers).get('Authorization'));
     signals.push(init.signal ?? null);
-    return reply();
+    return reply(url);
   });
 });
 
@@ -141,25 +148,38 @@ describe('AppSettingsDialog, Assistant', () => {
     expect(requests).toEqual([]);
   });
 
-  it('loads the models only when asked, then lets one be picked', async () => {
+  it('loads both model lists when the tab opens, then lets a model be picked', async () => {
     updateAppSettings({ openRouterKey: 'sk-or-test' });
     const container = renderDialog('assistant');
-    expect(requests).toEqual([]);
     expect(container.textContent).toContain('No model chosen');
-    await loadModels(container);
-    expect(requests).toEqual(['https://openrouter.ai/api/v1/models']);
+    await listsLoaded(container);
+    expect([...requests].sort()).toEqual([MODELS_URL, IMAGE_MODELS_URL]);
     expect(container.textContent).toContain('2 models can build sites.');
     click(container.querySelector('.ve-model-option'));
     expect(readAppSettings().assistantModel).toEqual(WRITER);
     expect(container.querySelector('.ve-model-option')?.getAttribute('aria-pressed')).toBe('true');
     expect(container.textContent).toContain('$3.00 in, $15.00 out per million tokens');
-    expect(queryButton(container, 'Reload models')).not.toBeNull();
+    click(getButton(container, 'Reload models'));
+    await vi.waitFor(() => {
+      expect(requests).toHaveLength(3);
+    });
+    expect(requests[2]).toBe(MODELS_URL);
+  });
+
+  it('asks OpenRouter for nothing until the Assistant tab opens', async () => {
+    updateAppSettings({ openRouterKey: 'sk-or-test' });
+    const container = renderDialog('general');
+    await tabOpened();
+    expect(requests).toEqual([]);
+    click(getButton(container, 'Assistant'));
+    await listsLoaded(container);
+    expect(requests).toHaveLength(2);
   });
 
   it('filters the model list by name', async () => {
     updateAppSettings({ openRouterKey: 'sk-or-test' });
     const container = renderDialog('assistant');
-    await loadModels(container);
+    await listsLoaded(container);
     changeValue(container.querySelector('input[type="search"]'), 'quick');
     const names = [...container.querySelectorAll('.ve-model-name')].map((name) => name.textContent);
     expect(names).toEqual(['Acme Quick']);
@@ -174,7 +194,7 @@ describe('AppSettingsDialog, Assistant', () => {
     expect(optionLabels(effort)).toEqual(['Model default', 'Low', 'High']);
     changeValue(effort, 'high');
     expect(readAppSettings().assistantEffort).toBe('high');
-    await loadModels(container);
+    await listsLoaded(container);
     click(container.querySelectorAll('.ve-model-option')[1]);
     expect(readAppSettings().assistantModel?.id).toBe('acme/quick');
     expect(readAppSettings().assistantEffort).toBeNull();
@@ -204,11 +224,8 @@ describe('AppSettingsDialog, Assistant', () => {
     const container = renderDialog('assistant');
     expect(container.textContent).toContain('No image model chosen');
     expect(getButton(container, 'Remove image model').disabled).toBe(true);
-    click(getButton(container, 'Load image models'));
-    await vi.waitFor(() => {
-      expect(container.textContent).toContain('1 model can create images.');
-    });
-    expect(requests).toEqual(['https://openrouter.ai/api/v1/models?output_modalities=image']);
+    await listsLoaded(container);
+    expect(container.textContent).toContain('1 model can create images.');
     expect(container.querySelector('[aria-label="Image models"]')).not.toBeNull();
     click(container.querySelector('.ve-model-option'));
     expect(readAppSettings().imageModel).toEqual({ id: 'acme/painter', name: 'Acme Painter' });
@@ -223,7 +240,7 @@ describe('AppSettingsDialog, Assistant', () => {
     updateAppSettings({ openRouterKey: 'wrong' });
     reply = () => new Response(JSON.stringify({ error: { code: 401 } }), { status: 401 });
     const container = renderDialog('assistant');
-    await loadModels(container);
+    await listsLoaded(container);
     expect(container.querySelector('[role="alert"]')?.textContent).toBe(
       'OpenRouter did not accept the API key. Check it in App settings.',
     );
@@ -233,13 +250,13 @@ describe('AppSettingsDialog, Assistant', () => {
   it('says why the image models did not load and keeps the model list', async () => {
     const logged = vi.spyOn(console, 'error').mockImplementation(() => {});
     updateAppSettings({ openRouterKey: 'sk-or-test' });
+    reply = (url) => {
+      if (url !== IMAGE_MODELS_URL) return new Response(JSON.stringify(MODELS_REPLY));
+      return new Response(JSON.stringify({ error: { code: 402 } }), { status: 402 });
+    };
     const container = renderDialog('assistant');
-    await loadModels(container);
-    reply = () => new Response(JSON.stringify({ error: { code: 402 } }), { status: 402 });
-    click(getButton(container, 'Load image models'));
-    await vi.waitFor(() => {
-      expect(container.querySelector('[role="alert"]')).not.toBeNull();
-    });
+    await listsLoaded(container);
+    expect(container.querySelector('[role="alert"]')).not.toBeNull();
     expect(logged.mock.calls[0][0]).toBe('The OpenRouter image model list did not load');
     expect(container.textContent).toContain('2 models can build sites.');
     expect(container.querySelector('[aria-label="Image models"]')).toBeNull();
@@ -249,20 +266,18 @@ describe('AppSettingsDialog, Assistant', () => {
   it('sends the key without the spaces around it', async () => {
     updateAppSettings({ openRouterKey: '  sk-or-test ' });
     const container = renderDialog('assistant');
-    await loadModels(container);
-    expect(sentKeys).toEqual(['Bearer sk-or-test']);
+    await listsLoaded(container);
+    expect(sentKeys).toEqual(['Bearer sk-or-test', 'Bearer sk-or-test']);
   });
 
-  it('cannot load models while a list is loading', async () => {
+  it('cannot reload a list while it is loading', async () => {
     updateAppSettings({ openRouterKey: 'sk-or-test' });
     reply = () => new Promise<Response>(() => {});
     const container = renderDialog('assistant');
-    click(getButton(container, 'Load models'));
-    await vi.waitFor(() => {
-      expect(container.textContent).toContain('Loading models…');
-    });
+    await tabOpened();
+    expect(container.textContent).toContain('Loading models…');
     expect(getButton(container, 'Load models').disabled).toBe(true);
-    expect(getButton(container, 'Load image models').disabled).toBe(false);
+    expect(getButton(container, 'Load image models').disabled).toBe(true);
   });
 
   it('cancels a list that is still loading when the dialog goes away', async () => {
@@ -270,13 +285,11 @@ describe('AppSettingsDialog, Assistant', () => {
     updateAppSettings({ openRouterKey: 'sk-or-test' });
     reply = () => new Promise<Response>(() => {});
     const rendered = render(<AppSettingsDialog initialTab="assistant" onClose={() => {}} />);
-    click(getButton(rendered.container, 'Load models'));
-    await vi.waitFor(() => {
-      expect(signals).toHaveLength(1);
-    });
-    expect(signals[0]?.aborted).toBe(false);
+    await tabOpened();
+    expect(signals).toHaveLength(2);
+    expect(signals.map((signal) => signal?.aborted)).toEqual([false, false]);
     rendered.unmount();
-    expect(signals[0]?.aborted).toBe(true);
+    expect(signals.map((signal) => signal?.aborted)).toEqual([true, true]);
     expect(logged).not.toHaveBeenCalled();
   });
 });

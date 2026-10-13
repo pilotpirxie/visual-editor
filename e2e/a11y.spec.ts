@@ -164,6 +164,9 @@ for (const appearance of APPEARANCES) {
       await expectAccessible(page);
       await openLibraryTab(page, 'Pages');
       await expectAccessible(page);
+      await openLibraryTab(page, 'AI');
+      await expect(page.getByRole('textbox', { name: 'What should change?' })).toBeVisible();
+      await expectAccessible(page);
       await page.getByRole('button', { name: 'Design', exact: true }).click();
       await expectAccessible(page);
     });

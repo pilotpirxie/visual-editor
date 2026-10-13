@@ -1,6 +1,6 @@
 import { act } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { updateAppSettings, type AssistantModel } from '../../app/appSettings';
+import { updateAppSettings, type AppSettings, type AssistantModel } from '../../app/appSettings';
 import { noticeDismissed } from '../../app/editorSlice';
 import { navigate } from '../../app/router';
 import { dispatch, store } from '../../app/store';
@@ -8,20 +8,29 @@ import type {} from '../../app/types';
 import { putProject } from '../../persistence/db';
 import { changeValue, click, getButton, pressKey, queryButton, render } from '../../test/dom';
 import { GenerateSiteDialog } from './GenerateSiteDialog';
+import type { Picture } from './siteImages';
 import { savedProjects } from '../../test/fixtures';
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
 }));
 
-vi.mock('./siteImages', async (original) => ({
-  ...(await original<typeof import('./siteImages')>()),
-  fitImage: vi.fn(async () => ({
-    src: 'data:image/webp;base64,aGVsbG8=',
-    width: 1200,
-    height: 900,
-  })),
-}));
+vi.mock('./siteImages', async (original) => {
+  const actual = await original<typeof import('./siteImages')>();
+  return {
+    ...actual,
+    painterFor: (setup: AppSettings) => {
+      const painter = actual.painterFor(setup);
+      if (painter === null) return null;
+      const fit = async (): Promise<Picture> => ({
+        src: 'data:image/webp;base64,aGVsbG8=',
+        width: 1200,
+        height: 900,
+      });
+      return { ...painter, fit };
+    },
+  };
+});
 
 vi.mock('../../app/router', async (original) => ({
   ...(await original<typeof import('../../app/router')>()),

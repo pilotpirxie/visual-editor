@@ -10,7 +10,6 @@ import type { DesignSystem, Project } from '../../app/types';
 import { builtInComponents } from '../../components/registry';
 import { textDirection } from '../../render/direction';
 import { standalonePageParts } from '../../render/exportSite';
-import { googleFontsHref } from '../../render/fonts';
 import { syncFontLink } from '../canvas/fontLink';
 import { morphChildren } from '../canvas/morph';
 import { UNWRITTEN_CLASS } from './buildSite';
@@ -135,26 +134,15 @@ function pagesOf(site: Project): PreviewPage[] {
 
 function LookSketch({ look }: { look: DesignSystem | null }): JSX.Element {
   const style: CSSProperties = {};
-  let headingFamily = '';
-  let bodyFamily = '';
-  let fontsHref: string | null = null;
   if (look !== null) {
     for (const { property, token } of SKETCH_COLORS) {
       const color = look.tokens[token]?.value ?? '';
       if (HEX_COLOR.test(color)) style[property] = color;
     }
-    for (const font of look.fonts) {
-      if (font.role === 'heading') headingFamily = font.family;
-      if (font.role === 'body') bodyFamily = font.family;
-    }
-    fontsHref = googleFontsHref(look.fonts);
   }
-  const hasFonts = headingFamily !== '' && bodyFamily !== '';
-  const bodyLine = headingFamily === bodyFamily ? 'for headings and text' : `with ${bodyFamily}`;
 
   return (
     <div className="ve-site-preview ve-site-sketch" style={style} aria-hidden="true">
-      {fontsHref !== null && <link rel="stylesheet" href={fontsHref} />}
       <div className="ve-sketch-nav">
         <span className="ve-sketch-logo" />
         <span className="ve-sketch-line" />
@@ -163,22 +151,8 @@ function LookSketch({ look }: { look: DesignSystem | null }): JSX.Element {
         <span className="ve-sketch-button" />
       </div>
       <div className="ve-sketch-hero">
-        {hasFonts && (
-          <>
-            <p className="ve-sketch-title" style={{ fontFamily: `"${headingFamily}", serif` }}>
-              {headingFamily}
-            </p>
-            <p className="ve-sketch-text" style={{ fontFamily: `"${bodyFamily}", sans-serif` }}>
-              {bodyLine}
-            </p>
-          </>
-        )}
-        {!hasFonts && (
-          <>
-            <span className="ve-sketch-bar" data-size="title" />
-            <span className="ve-sketch-bar" data-size="text" />
-          </>
-        )}
+        <span className="ve-sketch-bar" data-size="title" />
+        <span className="ve-sketch-bar" data-size="text" />
         <span className="ve-sketch-button" data-size="large" />
       </div>
       <div className="ve-sketch-cards">

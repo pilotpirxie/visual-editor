@@ -23,10 +23,18 @@ export function isPageBlock(definition: ComponentDefinition): boolean {
   return slotForCategory(definition.category) === null;
 }
 
-export function catalogText(): string {
+export function firstBlockOf(category: Category): ComponentDefinition | null {
+  for (const { definition } of builtInComponents.values()) {
+    if (definition.category === category && siteBlock(definition.id) !== null) return definition;
+  }
+  return null;
+}
+
+export function catalogText(only: readonly Category[] | null = null): string {
   const byCategory = new Map<Category, string[]>();
   for (const { definition } of builtInComponents.values()) {
     if (HIDDEN_CATEGORIES.includes(definition.category)) continue;
+    if (only !== null && !only.includes(definition.category)) continue;
     const lines = byCategory.get(definition.category) ?? [];
     lines.push(`${definition.id}: ${definition.name}. ${definition.description ?? ''}`.trim());
     byCategory.set(definition.category, lines);
@@ -82,10 +90,13 @@ function fieldBriefs(fields: readonly Field[], hasExamples: boolean): Record<str
   return briefs;
 }
 
-export function blockBrief(definition: ComponentDefinition): Record<string, unknown> {
+export function blockBrief(
+  definition: ComponentDefinition,
+  hasExamples = true,
+): Record<string, unknown> {
   return {
     block: definition.id,
     name: definition.name,
-    fields: fieldBriefs(definition.fields, true),
+    fields: fieldBriefs(definition.fields, hasExamples),
   };
 }

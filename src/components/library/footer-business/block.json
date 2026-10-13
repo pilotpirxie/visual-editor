@@ -1,0 +1,404 @@
+{
+  "name": "Footer, links and contact details",
+  "category": "footers",
+  "description": "Logo, tagline and social links, up to three link columns, and a contact column with phone, email, address and opening hours, over a legal bar.",
+  "tags": [
+    "footer",
+    "links",
+    "columns",
+    "contact",
+    "phone",
+    "address",
+    "opening hours",
+    "local business",
+    "legal"
+  ],
+  "fieldGroups": ["Brand", "Columns", "Contact", "Legal"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "tagline",
+      "label": "Tagline",
+      "type": "textarea",
+      "default": "Family and business law for people in Leeds and West Yorkshire since 2011.",
+      "group": "Brand"
+    },
+    {
+      "name": "socials",
+      "label": "Social links",
+      "type": "list",
+      "group": "Brand",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Name",
+          "type": "text",
+          "default": "Social network"
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "globe",
+          "iconPurpose": "brand"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Facebook",
+          "icon": "simple-icons:facebook",
+          "link": {
+            "type": "url",
+            "url": "https://www.facebook.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "Instagram",
+          "icon": "simple-icons:instagram",
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com",
+            "newTab": true
+          }
+        },
+        {
+          "label": "YouTube",
+          "icon": "simple-icons:youtube",
+          "link": {
+            "type": "url",
+            "url": "https://www.youtube.com",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "columns",
+      "label": "Link columns",
+      "type": "list",
+      "group": "Columns",
+      "minItems": 0,
+      "maxItems": 3,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Column title",
+          "type": "text",
+          "default": "Column"
+        },
+        {
+          "name": "links",
+          "label": "Links",
+          "type": "list",
+          "minItems": 0,
+          "maxItems": 8,
+          "itemLabel": "label",
+          "itemFields": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "text",
+              "default": "Link"
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link",
+              "default": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ],
+          "default": []
+        }
+      ],
+      "default": [
+        {
+          "title": "Quick links",
+          "links": [
+            {
+              "label": "Home",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "About the firm",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "How we work",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Mediation",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Articles",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Contact",
+              "link": {
+                "type": "section",
+                "anchor": "contact",
+                "newTab": false
+              }
+            }
+          ]
+        },
+        {
+          "title": "Services",
+          "links": [
+            {
+              "label": "Criminal law",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Civil law",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Compensation claims",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Divorce",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Debt recovery",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            },
+            {
+              "label": "Personal insolvency",
+              "link": {
+                "type": "url",
+                "url": "#",
+                "newTab": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "contactTitle",
+      "label": "Contact title",
+      "type": "text",
+      "default": "Contact",
+      "group": "Contact"
+    },
+    {
+      "name": "contacts",
+      "label": "Contact details",
+      "type": "list",
+      "group": "Contact",
+      "minItems": 0,
+      "maxItems": 5,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "phone"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Contact detail"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "phone",
+          "text": "(555) 014-2290",
+          "link": {
+            "type": "phone",
+            "url": "+15550142290",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "mail",
+          "text": "office@marlowlegal.example",
+          "link": {
+            "type": "email",
+            "url": "office@marlowlegal.example",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "map-pin",
+          "text": "29 Radcliffe Street, Leeds LS1 4AP",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "hours",
+      "label": "Opening hours",
+      "type": "list",
+      "group": "Contact",
+      "minItems": 0,
+      "maxItems": 7,
+      "itemLabel": "days",
+      "itemFields": [
+        {
+          "name": "days",
+          "label": "Days",
+          "type": "text",
+          "default": "Day"
+        },
+        {
+          "name": "time",
+          "label": "Hours",
+          "type": "text",
+          "default": "9:00 to 17:00"
+        }
+      ],
+      "default": [
+        {
+          "days": "Monday to Friday",
+          "time": "9:00 to 17:00"
+        },
+        {
+          "days": "Saturday",
+          "time": "By appointment"
+        }
+      ]
+    },
+    {
+      "name": "copyright",
+      "label": "Legal line",
+      "type": "text",
+      "default": "© 2026 Marlow Legal. All rights reserved.",
+      "group": "Legal"
+    },
+    {
+      "name": "legalLinks",
+      "label": "Legal links",
+      "type": "list",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Privacy policy",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Cookies",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Terms",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "group": "Legal"
+    }
+  ]
+}

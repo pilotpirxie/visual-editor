@@ -1,5 +1,13 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
-import { createProject, insertBlock, layerNames, openPage, storedProject } from './editor';
+import {
+  closeLibraryDrawer,
+  createProject,
+  insertBlock,
+  layerNames,
+  openLibraryTab,
+  openPage,
+  storedProject,
+} from './editor';
 import { stubOpenRouter, useAssistantSettings } from './fixtures/assistant';
 
 const BUILD_TIMEOUT_MS = 30_000;
@@ -43,19 +51,19 @@ async function projectCount(page: Page): Promise<number> {
   return page.locator('.ve-home-card').count();
 }
 
-test('nothing is sent to OpenRouter until models are loaded', async ({ page }) => {
+test('the model lists load when the Assistant tab opens with a key', async ({ page }) => {
   const stub = await stubOpenRouter(page);
   await openAppSettingsFromHome(page);
   const dialog = page.getByRole('dialog', { name: 'App settings' });
   await dialog.getByRole('tab', { name: 'Assistant' }).click();
   await expect(dialog.getByRole('button', { name: 'Load models' })).toBeDisabled();
   await dialog.getByLabel('OpenRouter API key').fill('sk-or-test');
+  expect(stub.steps).toEqual([]);
   await dialog.getByRole('tab', { name: 'General' }).click();
   await dialog.getByRole('tab', { name: 'Assistant' }).click();
-  expect(stub.steps).toEqual([]);
-  await dialog.getByRole('button', { name: 'Load models' }).click();
   await expect(dialog.getByText('2 models can build sites.')).toBeVisible();
-  expect(stub.steps).toEqual(['models']);
+  await expect(dialog.getByText('1 model can create images.')).toBeVisible();
+  expect([...stub.steps].sort()).toEqual(['image-models', 'models']);
 });
 
 test('the key, model and effort are remembered and shown in the editor too', async ({ page }) => {
@@ -82,7 +90,8 @@ test('the key, model and effort are remembered and shown in the editor too', asy
   await dialog.getByRole('tab', { name: 'Assistant' }).click();
   await expect(dialog.getByLabel('OpenRouter API key')).toHaveValue('sk-or-test');
   await expect(dialog.getByLabel('OpenRouter API key')).toHaveAttribute('type', 'password');
-  await expect(dialog.getByText('Acme Writer', { exact: true })).toBeVisible();
+  const chosenModel = dialog.locator('.ve-settings-model').first();
+  await expect(chosenModel.getByText('Acme Writer', { exact: true })).toBeVisible();
   await expect(dialog.getByLabel('Reasoning effort')).toHaveValue('high');
   const saved = await storedProject(page);
   expect(JSON.stringify(saved)).not.toContain('sk-or-test');
@@ -290,13 +299,13 @@ test('an image model is picked in App settings and can be removed', async ({ pag
   const settings = page.getByRole('dialog', { name: 'App settings' });
   await settings.getByRole('tab', { name: 'Assistant' }).click();
   await expect(settings.getByText('No image model chosen')).toBeVisible();
-  await settings.getByRole('button', { name: 'Load image models' }).click();
   await settings.getByRole('button', { name: /^Acme Painter/ }).click();
-  expect(stub.steps).toEqual(['image-models']);
+  expect([...stub.steps].sort()).toEqual(['image-models', 'models']);
   await settings.getByRole('button', { name: 'Done' }).click();
   await page.getByRole('button', { name: 'App settings', exact: true }).click();
   await settings.getByRole('tab', { name: 'Assistant' }).click();
-  await expect(settings.getByText('Acme Painter')).toBeVisible();
+  const chosenImageModel = settings.locator('.ve-settings-model').nth(1);
+  await expect(chosenImageModel.getByText('Acme Painter')).toBeVisible();
   await settings.getByRole('button', { name: 'Remove image model' }).click();
   await expect(settings.getByText('No image model chosen')).toBeVisible();
 });
@@ -380,4 +389,58 @@ test('cancelling leaves the project list unchanged', async ({ page }) => {
   await expect(page.locator('dialog[open]')).toHaveCount(0);
   expect(stub.steps).toEqual(['site_clarification']);
   expect(await projectCount(page)).toBe(0);
+});
+
+test('the AI tab changes the page from a request and undo brings it back', async ({ page }) => {
+  const stub = await stubOpenRouter(page);
+  await useAssistantSettings(page);
+  await createProject(page);
+  await insertBlock(page, 'Headers', 'Hero, centered text');
+  const heading = page.frameLocator('.ve-canvas-frame').getByRole('heading', { level: 1 });
+  const titleBefore = await heading.innerText();
+  await openLibraryTab(page, 'AI');
+  const request = page.getByRole('textbox', { name: 'What should change?' });
+  await request.fill('Make the headline shorter');
+  await request.press('Enter');
+  await expect(page.locator('.ve-assistant-reply')).toHaveText('The headline is shorter now.', {
+    timeout: BUILD_TIMEOUT_MS,
+  });
+  await expect(page.locator('.ve-assistant-request')).toHaveText('Make the headline shorter');
+  await expect(page.locator('.ve-assistant-changes')).toHaveText('Rewrote “Hero, centered text”');
+  await expect(heading).toHaveText('Fresh bread, every morning');
+  await expect(request).toHaveValue('');
+  expect(stub.steps).toEqual(['site_changes', 'edit']);
+  await closeLibraryDrawer(page);
+  await page.getByRole('button', { name: 'Undo', exact: true }).click();
+  await expect(heading).toHaveText(titleBefore);
+});
+
+test('the AI tab asks for a key and a model first', async ({ page }) => {
+  await createProject(page);
+  await openLibraryTab(page, 'AI');
+  await expect(page.getByRole('textbox', { name: 'What should change?' })).toBeDisabled();
+  await page.locator('.ve-assistant').getByRole('button', { name: 'Open App settings' }).click();
+  const settings = page.getByRole('dialog', { name: 'App settings' });
+  await expect(settings.getByLabel('OpenRouter API key')).toBeVisible({
+    timeout: DIALOG_LOAD_TIMEOUT_MS,
+  });
+});
+
+test('an image field generates a picture with the image model', async ({ page }) => {
+  const stub = await stubOpenRouter(page);
+  await useAssistantSettings(page, true);
+  await createProject(page);
+  await insertBlock(page, 'Headers', 'Hero, text and image');
+  await page.getByRole('button', { name: 'Change image' }).click();
+  const dialog = page.getByRole('dialog');
+  await dialog.getByLabel('Describe an image to generate').fill('Bread on a wooden table');
+  await dialog.getByRole('button', { name: 'Generate image' }).click();
+  await expect(dialog.locator('.ve-image-preview')).toHaveAttribute(
+    'src',
+    /^data:image\/(webp|jpeg)/,
+  );
+  await dialog.getByRole('button', { name: 'Done' }).click();
+  const picture = page.frameLocator('.ve-canvas-frame').locator('img').first();
+  await expect(picture).toHaveAttribute('src', /^data:image\/(webp|jpeg)/);
+  expect(stub.steps).toEqual(['image']);
 });

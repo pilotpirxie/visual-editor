@@ -5,7 +5,7 @@ import {
   libraryRailClicked,
   type LibraryTab,
 } from '../../app/editorSlice';
-import { ProjectSettingsPanel } from '../../app/lazyDialogs';
+import { AssistantPanel, ProjectSettingsPanel } from '../../app/lazyDialogs';
 import { dispatch, useStore } from '../../app/store';
 import { BlocksTab } from './BlocksTab';
 import { PagesTab } from '../pages/PagesTab';
@@ -19,6 +19,7 @@ export const LIBRARY_TABS: { id: LibraryTab; label: string; icon: string }[] = [
   { id: 'blocks', label: 'Blocks', icon: 'layout-grid' },
   { id: 'layers', label: 'Layers', icon: 'layers' },
   { id: 'pages', label: 'Pages', icon: 'file' },
+  { id: 'ai', label: 'AI', icon: 'sparkles' },
   { id: 'settings', label: 'Settings', icon: 'settings' },
 ];
 
@@ -63,6 +64,11 @@ export function LibraryPanel(): JSX.Element {
         {activeTab === 'blocks' && <BlocksTab />}
         {activeTab === 'layers' && <LayersTab />}
         {activeTab === 'pages' && <PagesTab />}
+        {activeTab === 'ai' && (
+          <Suspense fallback={null}>
+            <AssistantPanel />
+          </Suspense>
+        )}
         {activeTab === 'settings' && (
           <Suspense fallback={null}>
             <ProjectSettingsPanel />

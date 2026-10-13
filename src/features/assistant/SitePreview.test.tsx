@@ -166,10 +166,9 @@ describe('SitePreview', () => {
     expect(sketch?.getAttribute('aria-hidden')).toBe('true');
     expect(sketch?.getAttribute('style') ?? '').toBe('');
     expect(container.querySelectorAll('.ve-sketch-bar')).toHaveLength(2);
-    expect(container.querySelector('.ve-sketch-title')).toBeNull();
   });
 
-  it('paints the sketch in the colors and fonts of the look', () => {
+  it('paints the sketch in the colors of the look and never shows font names', () => {
     const { container } = render(<SitePreview look={look} site={null} changedPage={null} />);
     const sketch = container.querySelector<HTMLElement>('.ve-site-sketch');
     expect(sketch?.style.getPropertyValue('--sketch-primary')).toBe(
@@ -178,10 +177,9 @@ describe('SitePreview', () => {
     expect(sketch?.style.getPropertyValue('--sketch-background')).toBe(
       look.tokens['--color-background'].value,
     );
-    expect(container.querySelector('.ve-sketch-title')?.textContent).toBe('Inter');
-    expect(container.querySelector('.ve-sketch-text')?.textContent).toBe('for headings and text');
-    expect(container.querySelector('link')?.getAttribute('href')).toContain('family=Inter');
-    expect(container.querySelectorAll('.ve-sketch-bar')).toHaveLength(0);
+    expect(sketch?.textContent).toBe('');
+    expect(container.querySelector('link')).toBeNull();
+    expect(container.querySelectorAll('.ve-sketch-bar')).toHaveLength(2);
   });
 
   it('shows the home page at the real width of the preview and switches pages in one frame', async () => {

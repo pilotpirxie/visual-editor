@@ -17,6 +17,7 @@ describe('filterComponents', () => {
       'footer-app',
       'footer-badges',
       'footer-bar',
+      'footer-business',
       'footer-card',
       'footer-centered',
       'footer-columns',

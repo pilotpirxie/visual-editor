@@ -1,0 +1,156 @@
+@layer components {
+  @scope (.b-hero-slides) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      position: relative;
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+
+    .b-track {
+      display: grid;
+      grid-auto-columns: 100%;
+      grid-auto-flow: column;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .b-track:focus-visible {
+      outline-offset: calc(-1 * var(--space-1));
+    }
+
+    .b-slide {
+      position: relative;
+      display: grid;
+      align-items: center;
+      min-height: clamp(30rem, 80svh, 46rem);
+      padding-block: var(--section-padding-y) calc(var(--section-padding-y) + var(--space-12));
+      overflow: hidden;
+      isolation: isolate;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    .b-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+
+    .b-backdrop img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .b-backdrop::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: color-mix(in oklab, var(--color-background) 70%, transparent);
+    }
+
+    .b-copy {
+      --stack-gap: var(--space-6);
+      align-items: flex-start;
+      max-width: 46rem;
+    }
+
+    :scope[data-align='center'] .b-copy {
+      align-items: center;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-eyebrow {
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.04em;
+      color: var(--color-primary);
+    }
+
+    .b-title {
+      font-size: var(--text-5xl);
+    }
+
+    .b-lead {
+      max-width: 38rem;
+      font-size: var(--text-lg);
+    }
+
+    .b-controls {
+      position: absolute;
+      inset: auto 0 var(--space-4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+    }
+
+    .b-controls[hidden] {
+      display: none;
+    }
+
+    .b-arrows {
+      display: none;
+      flex: none;
+      gap: var(--space-2);
+    }
+
+    .b-arrow {
+      --button-padding-x: var(--space-3);
+      --btn-radius: var(--radius-full);
+    }
+
+    .b-arrow:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .b-dots {
+      display: flex;
+    }
+
+    .b-dots button {
+      display: grid;
+      place-items: center;
+      width: 2rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
+
+    .b-dots button::before {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: var(--radius-full);
+      background: var(--color-text-muted);
+      transition: width var(--transition-fast);
+    }
+
+    .b-dots button[aria-current='true']::before {
+      width: 1.5rem;
+      background: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-controls {
+        justify-content: space-between;
+      }
+
+      .b-arrows {
+        display: flex;
+      }
+    }
+  }
+}

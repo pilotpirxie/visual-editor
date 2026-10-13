@@ -12,6 +12,7 @@ import {
   PLACEHOLDER_SUBJECTS,
   type ButtonVariant,
   type Field,
+  type ImageValue,
   type LinkType,
   type LinkValue,
   type PlaceholderRatio,
@@ -23,6 +24,14 @@ import { placeholderImage } from '../../render/placeholder';
 import { normalizeRichText } from '../../render/sanitize';
 
 export type SitePages = { ids: readonly string[]; homeId: string };
+
+export type Kept = {
+  pictures: ReadonlyMap<string, ImageValue>;
+  icons: ReadonlySet<string>;
+  anchors: ReadonlySet<string>;
+};
+
+const NOTHING_KEPT: Kept = { pictures: new Map(), icons: new Set(), anchors: new Set() };
 
 export const LOCKED_FIELD_NAMES: readonly string[] = [
   'formAction',
@@ -43,8 +52,13 @@ function knownChoice<Choice extends string>(
   return null;
 }
 
-function shapedImage(field: Field, value: unknown): unknown {
+function shapedImage(field: Field, value: unknown, kept: Kept): unknown {
   if (!isRecord(value)) return undefined;
+  const picture = typeof value.picture === 'string' ? kept.pictures.get(value.picture) : undefined;
+  if (picture !== undefined) {
+    const newAlt = typeof value.alt === 'string' ? value.alt.trim() : '';
+    return newAlt === '' ? picture : { ...picture, alt: newAlt, decorative: false };
+  }
   const standard = isImageValue(field.default) ? field.default : null;
   const usual = standard?.source === 'placeholder' ? standard.placeholder : null;
   const ratio = knownChoice(PLACEHOLDER_RATIOS, value.ratio) ?? usual?.ratio ?? DEFAULT_RATIO;
@@ -55,22 +69,27 @@ function shapedImage(field: Field, value: unknown): unknown {
   return placeholderImage({ ratio, subject }, alt, alt === '');
 }
 
-function shapedLink(value: unknown, pages: SitePages): LinkValue | undefined {
+function shapedLink(value: unknown, pages: SitePages, kept: Kept): LinkValue | undefined {
   if (!isRecord(value)) return undefined;
   const type: LinkType | null = knownChoice(LINK_TYPES, value.type);
   if (type === null) return undefined;
   if (type === 'page' || type === 'section') {
     const isKnownPage = typeof value.pageId === 'string' && pages.ids.includes(value.pageId);
     const pageId = isKnownPage && typeof value.pageId === 'string' ? value.pageId : pages.homeId;
+    const { anchor } = value;
+    const isKeptSection =
+      type === 'section' && typeof anchor === 'string' && kept.anchors.has(anchor);
+    if (isKeptSection && isKnownPage) return { type: 'section', pageId, anchor, newTab: false };
+    if (isKeptSection) return { type: 'section', anchor, newTab: false };
     return { type: 'page', pageId, newTab: false };
   }
   const url = typeof value.url === 'string' ? value.url.trim() : '';
   return { type, url, newTab: type === 'url' && value.newTab === true };
 }
 
-function shapedButton(field: Field, value: unknown, pages: SitePages): unknown {
+function shapedButton(field: Field, value: unknown, pages: SitePages, kept: Kept): unknown {
   if (!isRecord(value)) return undefined;
-  const link = shapedLink(value.link, pages);
+  const link = shapedLink(value.link, pages, kept);
   if (link === undefined || typeof value.label !== 'string') return undefined;
   const usual = isRecord(field.default) ? field.default.variant : undefined;
   const variant: ButtonVariant =
@@ -83,50 +102,64 @@ function shapedText(field: Field, value: unknown): unknown {
   return value.slice(0, field.maxLength);
 }
 
-function shaped(field: Field, value: unknown, pages: SitePages): unknown {
+function shaped(field: Field, value: unknown, pages: SitePages, kept: Kept): unknown {
   if (field.type === 'image') {
-    return shapedImage(field, value);
+    return shapedImage(field, value, kept);
   } else if (field.type === 'link') {
-    return shapedLink(value, pages);
+    return shapedLink(value, pages, kept);
   } else if (field.type === 'button') {
-    return shapedButton(field, value, pages);
+    return shapedButton(field, value, pages, kept);
   } else if (field.type === 'text' || field.type === 'textarea') {
     return shapedText(field, value);
   } else if (field.type === 'richtext' && typeof value === 'string') {
     return normalizeRichText(value, { allowHeadings: field.allowHeadings });
   } else if (field.type === 'icon') {
-    const isKnownIcon = typeof value === 'string' && (value === '' || isSemanticIcon(value));
+    const isKnownIcon =
+      typeof value === 'string' && (value === '' || isSemanticIcon(value) || kept.icons.has(value));
     return isKnownIcon || value === field.default ? value : undefined;
   } else {
     return value;
   }
 }
 
-function safeList(field: Field, value: unknown, pages: SitePages): unknown {
-  if (!Array.isArray(value)) return structuredClone(field.default);
+function usableList(
+  field: Field,
+  value: unknown,
+  pages: SitePages,
+  kept: Kept,
+): ListItem[] | undefined {
+  if (!Array.isArray(value)) return undefined;
   const given = asListItems(value).slice(0, field.maxItems);
-  if (given.length < (field.minItems ?? 0)) return structuredClone(field.default);
+  if (given.length < (field.minItems ?? 0)) return undefined;
   const items: ListItem[] = [];
-  for (const item of given) items.push(safeValues(field.itemFields ?? [], item, pages));
+  for (const item of given) items.push(safeValues(field.itemFields ?? [], item, pages, kept));
   return items;
+}
+
+export function usableValue(
+  field: Field,
+  untrusted: unknown,
+  pages: SitePages,
+  kept: Kept = NOTHING_KEPT,
+): unknown {
+  if (field.type === 'list') return usableList(field, untrusted, pages, kept);
+  if (LOCKED_FIELD_NAMES.includes(field.name)) return undefined;
+  const value = shaped(field, untrusted, pages, kept);
+  const isUsable = value !== undefined && validateField(field, value) === null;
+  return isUsable ? value : undefined;
 }
 
 export function safeValues(
   fields: readonly Field[],
   untrusted: unknown,
   pages: SitePages,
+  kept: Kept = NOTHING_KEPT,
 ): Record<string, unknown> {
   const given = isRecord(untrusted) ? untrusted : {};
   const values: Record<string, unknown> = {};
   for (const field of fields) {
-    if (field.type === 'list') {
-      values[field.name] = safeList(field, given[field.name], pages);
-      continue;
-    }
-    const isLocked = LOCKED_FIELD_NAMES.includes(field.name);
-    const value = isLocked ? undefined : shaped(field, given[field.name], pages);
-    const isUsable = value !== undefined && validateField(field, value) === null;
-    values[field.name] = isUsable ? value : structuredClone(field.default);
+    const value = usableValue(field, given[field.name], pages, kept);
+    values[field.name] = value === undefined ? structuredClone(field.default) : value;
   }
   return values;
 }

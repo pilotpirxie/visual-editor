@@ -32,7 +32,7 @@ export { shortcutLabel } from './shortcuts';
 export { Select } from './Select';
 export { Switch } from './Switch';
 export { TabPanel, Tabs } from './Tabs';
-export { TextArea } from './TextArea';
+export { submitOnEnter, TextArea } from './TextArea';
 export { TextInput } from './TextInput';
 export { Title } from './Title';
 export { TooltipLabel, useTooltip } from './Tooltip';

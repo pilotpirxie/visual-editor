@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { builtInComponents } from '../../components/registry';
-import { blockBrief, catalogText, HIDDEN_CATEGORIES, isPageBlock, siteBlock } from './siteCatalog';
+import {
+  blockBrief,
+  catalogText,
+  firstBlockOf,
+  HIDDEN_CATEGORIES,
+  isPageBlock,
+  siteBlock,
+} from './siteCatalog';
 
 const MAX_CATALOG_BYTES = 110_000;
 
@@ -65,5 +72,30 @@ describe('blockBrief', () => {
     expect(hero).toContain('"subject"');
     expect(hero).not.toContain('"source"');
     expect(hero).not.toContain('"width"');
+  });
+});
+
+describe('catalogText for some categories', () => {
+  it('lists only the blocks of the categories asked for', () => {
+    const text = catalogText(['pricing', 'faq']);
+    expect(text).toContain('(category "pricing")');
+    expect(text).toContain('(category "faq")');
+    expect(text).not.toContain('(category "headers")');
+    expect(text.length).toBeLessThan(catalogText().length / 4);
+  });
+});
+
+describe('firstBlockOf', () => {
+  it('finds a block of a category and nothing for a hidden one', () => {
+    expect(firstBlockOf('pricing')?.category).toBe('pricing');
+    expect(firstBlockOf('modals')).toBeNull();
+  });
+});
+
+describe('blockBrief without examples', () => {
+  it('leaves the examples out for a section that already has content', () => {
+    const brief = blockBrief(definitionOf('features-grid-3'), false);
+    expect(JSON.stringify(brief)).not.toContain('"example"');
+    expect(JSON.stringify(brief)).toContain('"itemFields"');
   });
 });

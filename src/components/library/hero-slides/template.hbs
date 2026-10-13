@@ -1,0 +1,24 @@
+<header class="b-hero-slides" data-behavior="carousel" data-align="{{align}}">
+  <div class="b-track" data-carousel-track role="region" aria-label="{{regionLabel}}" tabindex="0" data-field="regionLabel">
+    {{#each slides}}
+    <article class="b-slide" data-carousel-slide data-field="slides.{{@index}}">
+      <div class="b-backdrop">{{img image}}</div>
+      <div class="container b-inner">
+        <div class="stack b-copy">
+          {{#if eyebrow}}<p class="b-eyebrow">{{eyebrow}}</p>{{/if}}
+          {{#if @first}}<h1 class="b-title">{{title}}</h1>{{else}}<h2 class="b-title">{{title}}</h2>{{/if}}
+          {{#if text}}<p class="b-lead">{{nl2br text}}</p>{{/if}}
+          {{#if button.label}}<a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>{{/if}}
+        </div>
+      </div>
+    </article>
+    {{/each}}
+  </div>
+  <div class="container b-controls" data-carousel-controls hidden>
+    <div class="b-dots" data-carousel-dots="{{slideLabel}}"></div>
+    <div class="b-arrows">
+      <button type="button" class="btn btn-secondary b-arrow" data-carousel-previous>{{svgIcon "arrow-left"}}<span class="visually-hidden">{{previousLabel}}</span></button>
+      <button type="button" class="btn btn-secondary b-arrow" data-carousel-next>{{svgIcon "arrow-right"}}<span class="visually-hidden">{{nextLabel}}</span></button>
+    </div>
+  </div>
+</header>

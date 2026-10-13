@@ -1,4 +1,4 @@
-import type { AssistantModel, ImageModel } from '../../app/appSettings';
+import type { AppSettings, AssistantModel, ImageModel } from '../../app/appSettings';
 import { isRecord } from '../../components/fields';
 
 const API_URL = 'https://openrouter.ai/api/v1';
@@ -396,6 +396,25 @@ async function withOneRetry<Answer>(
 
 export function askForJson(request: JsonRequest, signal: AbortSignal): Promise<JsonAnswer> {
   return withOneRetry(() => askOnce(request, signal), signal);
+}
+
+export function askWith(
+  setup: AppSettings,
+  request: Pick<JsonRequest, 'system' | 'user' | 'schema'>,
+  signal: AbortSignal,
+): Promise<JsonAnswer> {
+  if (setup.assistantModel === null) {
+    return Promise.reject(new AssistantError('model', 'Pick a model in App settings first.'));
+  }
+  return askForJson(
+    {
+      key: setup.openRouterKey.trim(),
+      model: setup.assistantModel,
+      effort: setup.assistantEffort,
+      ...request,
+    },
+    signal,
+  );
 }
 
 async function imageOnce(request: ImageRequest, signal: AbortSignal): Promise<ImageAnswer> {

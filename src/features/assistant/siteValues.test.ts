@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { validateField } from '../../components/fields';
 import { forEachFieldValue } from '../../components/fieldValues';
 import { builtInComponents, createBlock } from '../../components/registry';
-import type { Field } from '../../components/types';
-import { safeValues, type SitePages } from './siteValues';
+import type { Field, ImageValue } from '../../components/types';
+import { safeValues, usableValue, type Kept, type SitePages } from './siteValues';
 
 const PAGES: SitePages = { ids: ['home', 'pricing'], homeId: 'home' };
 
@@ -217,5 +217,88 @@ describe('safeValues', () => {
       const defaults = createBlock(definition).values;
       expect(safeValues(definition.fields, {}, PAGES), definition.id).toEqual(defaults);
     }
+  });
+});
+
+describe('usableValue', () => {
+  const upload: ImageValue = {
+    source: 'upload',
+    src: 'data:image/png;base64,iVBORw0KGgo=',
+    name: 'team.png',
+    alt: 'The team',
+    decorative: true,
+    width: 640,
+    height: 480,
+  };
+  const kept: Kept = {
+    pictures: new Map([['p1', upload]]),
+    icons: new Set(['remix:star-line']),
+    anchors: new Set(['pricing']),
+  };
+
+  it('returns nothing for a value that cannot be used, so the caller keeps what it had', () => {
+    expect(usableValue(REQUIRED, '', PAGES)).toBeUndefined();
+    expect(usableValue(LIST, [{ title: 'Only one' }], PAGES)).toBeUndefined();
+    expect(usableValue(LIST, 'not a list', PAGES)).toBeUndefined();
+    expect(
+      usableValue({ ...TEXT, name: 'formAction' }, 'https://example.com', PAGES),
+    ).toBeUndefined();
+    expect(usableValue(TEXT, 'Fine', PAGES)).toBe('Fine');
+  });
+
+  it('keeps an uploaded picture by its id and can give it new alt text', () => {
+    expect(usableValue(IMAGE, { picture: 'p1', alt: ' ' }, PAGES, kept)).toBe(upload);
+    expect(usableValue(IMAGE, { picture: 'p1', alt: 'Six bakers' }, PAGES, kept)).toEqual({
+      ...upload,
+      alt: 'Six bakers',
+      decorative: false,
+    });
+    expect(usableValue(IMAGE, { picture: 'p9', alt: 'Six bakers' }, PAGES, kept)).toMatchObject({
+      source: 'placeholder',
+      alt: 'Six bakers',
+    });
+    expect(usableValue(IMAGE, { picture: 'p1' }, PAGES)).toMatchObject({ source: 'placeholder' });
+  });
+
+  it('keeps hand-picked icons that the section already had', () => {
+    expect(usableValue(ICON, 'remix:star-line', PAGES, kept)).toBe('remix:star-line');
+    expect(usableValue(ICON, 'remix:moon-line', PAGES, kept)).toBeUndefined();
+    expect(usableValue(ICON, 'remix:star-line', PAGES)).toBeUndefined();
+  });
+
+  it('keeps links to sections the block already pointed at', () => {
+    const samePage = { type: 'section', anchor: 'pricing' };
+    expect(usableValue(LINK, samePage, PAGES, kept)).toEqual({
+      type: 'section',
+      anchor: 'pricing',
+      newTab: false,
+    });
+    expect(usableValue(LINK, { ...samePage, pageId: 'pricing' }, PAGES, kept)).toEqual({
+      type: 'section',
+      pageId: 'pricing',
+      anchor: 'pricing',
+      newTab: false,
+    });
+    expect(usableValue(LINK, { type: 'section', anchor: 'invented' }, PAGES, kept)).toEqual({
+      type: 'page',
+      pageId: 'home',
+      newTab: false,
+    });
+    expect(usableValue(LINK, samePage, PAGES)).toEqual({
+      type: 'page',
+      pageId: 'home',
+      newTab: false,
+    });
+  });
+
+  it('keeps what a list item had when the list comes back whole', () => {
+    const items = [
+      { title: 'One', icon: 'remix:star-line' },
+      { title: 'Two', icon: 'remix:moon-line' },
+    ];
+    expect(usableValue(LIST, items, PAGES, kept)).toEqual([
+      { title: 'One', icon: 'remix:star-line' },
+      { title: 'Two', icon: 'lucide:sprout' },
+    ]);
   });
 });

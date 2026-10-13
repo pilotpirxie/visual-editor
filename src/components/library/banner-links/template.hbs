@@ -1,0 +1,25 @@
+<aside class="b-banner-links" aria-label="Contact and quick links">
+  <div class="b-scroller" data-theme="{{theme}}" role="region" aria-label="Contact and quick links" tabindex="0">
+    <div class="b-bar">
+      {{#if contacts.length}}
+      <ul class="b-group" role="list">
+        {{#each contacts}}
+        <li><a class="b-item" href="{{href link}}" {{linkAttrs link}} data-field="contacts.{{@index}}">{{svgIcon icon}}<span>{{text}}</span></a></li>
+        {{/each}}
+      </ul>
+      {{/if}}
+      <div class="b-group b-end">
+        {{#if links.length}}
+        <ul class="b-group" role="list">
+          {{#each links}}
+          <li><a class="b-item" href="{{href link}}" {{linkAttrs link}} data-field="links.{{@index}}"><span>{{label}}</span></a></li>
+          {{/each}}
+        </ul>
+        {{/if}}
+        {{#if showButton}}
+        <a class="btn btn-{{button.variant}} b-button" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</aside>

@@ -121,7 +121,7 @@ function text(value: unknown): string {
   return typeof value === 'string' ? value.trim() : '';
 }
 
-function objectSchema(properties: Record<string, unknown>): Record<string, unknown> {
+export function objectSchema(properties: Record<string, unknown>): Record<string, unknown> {
   return {
     type: 'object',
     properties,
@@ -130,13 +130,13 @@ function objectSchema(properties: Record<string, unknown>): Record<string, unkno
   };
 }
 
-const STRING = { type: 'string' };
+export const STRING = { type: 'string' };
 
-function choice(values: readonly string[]): Record<string, unknown> {
+export function choice(values: readonly string[]): Record<string, unknown> {
   return { type: 'string', enum: [...values] };
 }
 
-function listOf(items: Record<string, unknown>): Record<string, unknown> {
+export function listOf(items: Record<string, unknown>): Record<string, unknown> {
   return { type: 'array', items };
 }
 
@@ -443,8 +443,13 @@ export function parseSitePlan(value: unknown): SitePlan {
   };
 }
 
-function valueRules(plan: SitePlan): string[] {
-  const pageList = plan.pages.map(({ name, slug }) => `"${slug}" (${name})`).join(', ');
+export type PageName = Pick<PagePlan, 'name' | 'slug'>;
+
+const WHOLE_VALUES_RULE =
+  'Give a value for every field. Keep layout choices from the example unless the note needs another.';
+
+export function valueRules(pages: readonly PageName[]): string[] {
+  const pageList = pages.map(({ name, slug }) => `"${slug}" (${name})`).join(', ');
   return [
     'How to write values, by field type:',
     '- text, textarea: plain text. Stay within maxLength and close to the length of the example, so the layout holds.',
@@ -457,7 +462,6 @@ function valueRules(plan: SitePlan): string[] {
     `- link: { "type": "page", "pageId": page slug } for a page of this site (${pageList}), or { "type": "url", "url": "https://..." }, { "type": "email", "url": address }, { "type": "phone", "url": number }.`,
     `- button: { "label": text, "link": a link as above, "variant": one of ${BUTTON_VARIANTS.join(', ')} }.`,
     '- list: an array of objects with the fields in "itemFields". Respect minItems and maxItems; "usualCount" is the count the layout was designed for.',
-    'Give a value for every field. Keep layout choices from the example unless the note needs another.',
     'Write specific, concrete copy for this site: real service names, numbers, the town, what happens next. Use plausible invented names for people and companies where needed.',
     'An address shown on a live map must be the address or town from the brief, exactly as given. Never invent a street address for a map.',
   ];
@@ -543,7 +547,7 @@ export function pageRequest(brief: string, plan: SitePlan, part: PagePart): Step
       '',
     );
   }
-  lines.push(...siteSummary(brief, plan), '', ...valueRules(plan), '');
+  lines.push(...siteSummary(brief, plan), '', ...valueRules(plan.pages), WHOLE_VALUES_RULE, '');
   if (hasCustom) lines.push(...CUSTOM_RULES, '');
   lines.push(
     `Return JSON: { "sections": [...] } with exactly ${count} entries, in the same order as below.`,
@@ -565,7 +569,8 @@ export function sharedRequest(brief: string, plan: SitePlan): StepRequest {
     '',
     'The navigation links to the pages of this site. Keep it short: the most important pages only.',
     '',
-    ...valueRules(plan),
+    ...valueRules(plan.pages),
+    WHOLE_VALUES_RULE,
     '',
     'Return JSON: { "sections": [{ "values": {...} }, { "values": {...} }] }: first the navigation, then the footer.',
     '',

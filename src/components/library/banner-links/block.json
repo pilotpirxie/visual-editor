@@ -1,0 +1,181 @@
+{
+  "name": "Banner, contact and quick links",
+  "category": "banners",
+  "description": "A slim strip with contact details on one side and small links and a button on the other. Put it above any navigation; it swipes sideways on phones.",
+  "tags": [
+    "banner",
+    "top bar",
+    "utility",
+    "contact",
+    "phone",
+    "email",
+    "quick links",
+    "secondary menu"
+  ],
+  "fieldGroups": ["Contact", "Links", "Button", "Style"],
+  "styleOverrides": ["--color-background", "--color-text"],
+  "fields": [
+    {
+      "name": "contacts",
+      "label": "Contact details",
+      "type": "list",
+      "group": "Contact",
+      "minItems": 0,
+      "maxItems": 3,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "phone"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Contact detail"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "phone",
+          "text": "(555) 014-2290",
+          "link": {
+            "type": "phone",
+            "url": "+15550142290",
+            "newTab": false
+          }
+        },
+        {
+          "icon": "mail",
+          "text": "admissions@northfield.example",
+          "link": {
+            "type": "email",
+            "url": "admissions@northfield.example",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "links",
+      "label": "Links",
+      "type": "list",
+      "minItems": 0,
+      "maxItems": 6,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Link"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "label": "Virtual tour",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Student portal",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Library",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "label": "Staff directory",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "group": "Links"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Apply now",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "theme",
+      "label": "Colors",
+      "type": "select",
+      "default": "dark",
+      "options": [
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        }
+      ],
+      "help": "Light uses the block’s own background and text colors from the Style tab.",
+      "group": "Style"
+    }
+  ]
+}

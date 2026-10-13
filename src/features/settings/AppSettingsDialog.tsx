@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type JSX } from 'react';
+import { useEffect, useEffectEvent, useRef, useState, type JSX } from 'react';
 import { setAppearance, useAppearance } from '../../app/appearance';
 import {
   DEVICE_MODES,
@@ -77,12 +77,22 @@ type ModelLoader<Model> = {
 function useModelList<Model>(
   listFor: (key: string, signal: AbortSignal) => Promise<Model[]>,
   failureLog: string,
+  savedKey: string,
 ): ModelLoader<Model> {
   const [list, setList] = useState<ModelList<Model>>({ status: 'idle' });
+  const [keyOnOpen] = useState(savedKey);
   const loadingRef = useRef<AbortController | null>(null);
 
+  const loadOnOpen = useEffectEvent(() => {
+    if (keyOnOpen.trim() !== '') void loadModels(keyOnOpen);
+  });
+
   useEffect(() => {
-    return () => loadingRef.current?.abort();
+    const timer = setTimeout(loadOnOpen, 0);
+    return () => {
+      clearTimeout(timer);
+      loadingRef.current?.abort();
+    };
   }, []);
 
   async function loadModels(key: string): Promise<void> {
@@ -145,8 +155,12 @@ function GeneralSettings({ settings }: { settings: AppSettings }): JSX.Element {
 
 function AssistantSettings({ settings }: { settings: AppSettings }): JSX.Element {
   const [isKeyShown, setIsKeyShown] = useState(false);
-  const { list, loadModels } = useModelList(listModels, 'The OpenRouter model list did not load');
   const { openRouterKey, assistantModel, assistantEffort } = settings;
+  const { list, loadModels } = useModelList(
+    listModels,
+    'The OpenRouter model list did not load',
+    openRouterKey,
+  );
   const efforts = assistantModel?.efforts ?? [];
 
   const effortOptions = [
@@ -157,8 +171,8 @@ function AssistantSettings({ settings }: { settings: AppSettings }): JSX.Element
   return (
     <>
       <p className="ui-muted">
-        The assistant builds a site from your description on the home screen. It runs on your own
-        OpenRouter account.
+        The assistant builds a site from your description on the home screen and changes it from the
+        AI tab in the editor. It runs on your own OpenRouter account.
       </p>
       <Field id={KEY_ID} label="OpenRouter API key">
         <div className="ve-settings-key">
@@ -240,11 +254,12 @@ function AssistantSettings({ settings }: { settings: AppSettings }): JSX.Element
 }
 
 function ImageModelSettings({ settings }: { settings: AppSettings }): JSX.Element {
+  const { openRouterKey, imageModel } = settings;
   const { list, loadModels } = useModelList(
     listImageModels,
     'The OpenRouter image model list did not load',
+    openRouterKey,
   );
-  const { openRouterKey, imageModel } = settings;
 
   return (
     <>

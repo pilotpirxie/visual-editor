@@ -1,0 +1,210 @@
+{
+  "name": "Hero, slideshow",
+  "category": "headers",
+  "description": "Full-width slides that each have their own photo, heading, text and button. Visitors swipe or step through them with arrows and dots.",
+  "tags": [
+    "hero",
+    "heading",
+    "slider",
+    "slideshow",
+    "slides",
+    "carousel",
+    "photo",
+    "background",
+    "messages"
+  ],
+  "fieldGroups": ["Slides", "Layout", "Labels"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "slides",
+      "label": "Slides",
+      "type": "list",
+      "group": "Slides",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 675,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "eyebrow",
+          "label": "Eyebrow",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Slide title",
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": ""
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Learn more",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          },
+          "help": "Leave the label empty to hide the button."
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A solicitor talking with a couple across a desk in a bright office",
+            "decorative": false,
+            "width": 1200,
+            "height": 675,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "photo"
+            }
+          },
+          "eyebrow": "Family and business law in Leeds",
+          "title": "Clear legal help for families and small businesses",
+          "text": "Tell us what happened and get a plain answer about your options, the likely cost and the next step. The first consultation is free.",
+          "button": {
+            "label": "Book a free consultation",
+            "link": {
+              "type": "section",
+              "anchor": "contact",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Two people shaking hands across a table after signing an agreement",
+            "decorative": false,
+            "width": 1200,
+            "height": 675,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "photo"
+            }
+          },
+          "eyebrow": "Mediation",
+          "title": "Settle a dispute without going to court",
+          "text": "Most of our mediation cases close within six weeks, at a fraction of the cost of a hearing.",
+          "button": {
+            "label": "How mediation works",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A written fee quote and a pen on a wooden desk",
+            "decorative": false,
+            "width": 1200,
+            "height": 675,
+            "placeholder": {
+              "ratio": "16:9",
+              "subject": "photo"
+            }
+          },
+          "eyebrow": "Fixed fees",
+          "title": "Know the cost before we start",
+          "text": "Every case begins with a written quote, so there are no surprises on the invoice.",
+          "button": {
+            "label": "See our fees",
+            "link": {
+              "type": "section",
+              "anchor": "pricing",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        }
+      ]
+    },
+    {
+      "name": "align",
+      "label": "Text alignment",
+      "type": "segmented",
+      "default": "left",
+      "group": "Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left",
+          "icon": "align-left"
+        },
+        {
+          "value": "center",
+          "label": "Center",
+          "icon": "align-center"
+        }
+      ]
+    },
+    {
+      "name": "regionLabel",
+      "label": "Slideshow name",
+      "type": "text",
+      "default": "Highlights",
+      "group": "Labels",
+      "help": "Read out by screen readers."
+    },
+    {
+      "name": "slideLabel",
+      "label": "Dot label",
+      "type": "text",
+      "default": "Slide",
+      "group": "Labels"
+    },
+    {
+      "name": "previousLabel",
+      "label": "Previous button",
+      "type": "text",
+      "default": "Previous slide",
+      "group": "Labels"
+    },
+    {
+      "name": "nextLabel",
+      "label": "Next button",
+      "type": "text",
+      "default": "Next slide",
+      "group": "Labels"
+    }
+  ]
+}

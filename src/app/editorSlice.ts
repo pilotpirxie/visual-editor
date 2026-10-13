@@ -15,7 +15,7 @@ import type { Device, Project } from './types';
 
 export type DeviceMode = 'responsive' | Device;
 export type PanelSide = 'left' | 'right';
-export type LibraryTab = 'blocks' | 'layers' | 'pages' | 'settings';
+export type LibraryTab = 'blocks' | 'layers' | 'pages' | 'ai' | 'settings';
 export type PropertiesTab = 'content' | 'style' | 'advanced' | 'code';
 type CompactView = 'library' | 'canvas' | 'properties';
 export type CompactTab = 'canvas' | LibraryTab;
@@ -59,11 +59,22 @@ export type EditorDialog =
   | { kind: 'find' }
   | { kind: 'palette' }
   | { kind: 'help' }
-  | { kind: 'app-settings' }
+  | { kind: 'app-settings'; tab?: 'general' | 'assistant' }
   | { kind: 'delete-block'; blockId: string }
   | { kind: 'save-block'; blockId: string };
 
+export type AssistantMessage = {
+  id: string;
+  request: string;
+  status: 'working' | 'done' | 'failed';
+  reply: string;
+  changes: string[];
+};
+
+type AssistantAnswer = Pick<AssistantMessage, 'id' | 'status' | 'reply' | 'changes'>;
+
 const MAX_NOTICES = 3;
+const MAX_ASSISTANT_MESSAGES = 30;
 
 export type EditorState = {
   currentPageId: string | null;
@@ -93,6 +104,7 @@ export type EditorState = {
   sectionStates: Record<string, boolean>;
   openDialog: EditorDialog | null;
   isReadOnly: boolean;
+  assistantMessages: AssistantMessage[];
 };
 
 const initialState: EditorState = {
@@ -126,6 +138,7 @@ const initialState: EditorState = {
   sectionStates: {},
   openDialog: null,
   isReadOnly: false,
+  assistantMessages: [],
 };
 
 function showAddedBlock(state: EditorState, blockId: string): void {
@@ -291,6 +304,15 @@ export const editorSlice = createSlice({
     conversionRequested(state, action: PayloadAction<string | null>) {
       state.conversionBlockId = action.payload;
     },
+    assistantAsked(state, action: PayloadAction<{ id: string; request: string }>) {
+      const { id, request } = action.payload;
+      state.assistantMessages.unshift({ id, request, status: 'working', reply: '', changes: [] });
+      state.assistantMessages.splice(MAX_ASSISTANT_MESSAGES);
+    },
+    assistantAnswered(state, action: PayloadAction<AssistantAnswer>) {
+      const message = state.assistantMessages.find(({ id }) => id === action.payload.id);
+      if (message !== undefined) Object.assign(message, action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -321,6 +343,7 @@ export const editorSlice = createSlice({
         state.isLinkedFileStale = false;
         state.openDialog = null;
         state.isReadOnly = false;
+        state.assistantMessages = [];
       });
   },
 });
@@ -360,6 +383,8 @@ export const {
   dialogOpened,
   dialogClosed,
   readOnlyChanged,
+  assistantAsked,
+  assistantAnswered,
 } = editorSlice.actions;
 
 export function selectCompactTab(editor: EditorState): CompactTab | null {

@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { updateAppSettings, type AppSettings } from '../../app/appSettings';
 import type { EditKind } from '../../app/projectSlice';
 import type { Field, ImageValue } from '../../components/types';
 import { placeholderImage } from '../../render/placeholder';
@@ -8,12 +9,29 @@ import {
   chooseFile,
   click,
   getButton,
+  pressKey,
   queryButton,
   render,
   runInAct,
 } from '../../test/dom';
+import type { Picture } from '../assistant/siteImages';
 import { ImageField } from './ImageField';
 import { MAX_IMAGE_UPLOAD_BYTES } from './ImageUploadInput';
+
+const GENERATED_SRC = 'data:image/webp;base64,aGVsbG8=';
+
+vi.mock('../assistant/siteImages', async (original) => {
+  const actual = await original<typeof import('../assistant/siteImages')>();
+  return {
+    ...actual,
+    painterFor: (setup: AppSettings) => {
+      const painter = actual.painterFor(setup);
+      if (painter === null) return null;
+      const fit = async (): Promise<Picture> => ({ src: GENERATED_SRC, width: 512, height: 512 });
+      return { ...painter, fit };
+    },
+  };
+});
 
 const AVATAR = placeholderImage({ ratio: '1:1', subject: 'person' }, 'Ada');
 
@@ -69,8 +87,36 @@ function errorText(container: HTMLElement): string | null {
   return container.querySelector('[role="alert"]')?.textContent ?? null;
 }
 
+type ImageBody = { model: string; prompt: string; aspect_ratio: string };
+
+function stubImageModel(reply: () => Response): ImageBody[] {
+  const bodies: ImageBody[] = [];
+  updateAppSettings({
+    openRouterKey: 'sk-or-test',
+    imageModel: { id: 'acme/painter', name: 'Acme Painter' },
+  });
+  vi.stubGlobal('fetch', async (_url: string, init: RequestInit = {}) => {
+    bodies.push(JSON.parse(String(init.body)));
+    return reply();
+  });
+  return bodies;
+}
+
+function paintedReply(): Response {
+  const data = [{ b64_json: 'aGVsbG8=', media_type: 'image/png' }];
+  return new Response(JSON.stringify({ data, usage: { total_tokens: 10, cost: 0.01 } }));
+}
+
+function generateInput(container: HTMLElement): HTMLInputElement {
+  const input = container.querySelector('#img-generate');
+  if (!(input instanceof HTMLInputElement)) throw new Error('No image description input');
+  return input;
+}
+
 afterEach(() => {
   vi.unstubAllGlobals();
+  vi.restoreAllMocks();
+  localStorage.clear();
 });
 
 describe('ImageField', () => {
@@ -304,5 +350,75 @@ describe('ImageField dialog', () => {
     runInAct(() => input?.dispatchEvent(new Event('change', { bubbles: true })));
     expect(previewSrc(container)).toBe(before);
     expect(errorText(container)).toBeNull();
+  });
+
+  it('offers to generate an image only once a key and an image model are set', () => {
+    const { container } = renderField(AVATAR);
+    click(getButton(container, 'Change image'));
+    expect(getButton(container, 'Generate image').disabled).toBe(true);
+    expect(generateInput(container).disabled).toBe(true);
+    expect(container.textContent).toContain('pick an image model in App settings');
+  });
+
+  it('generates an image in the shape of the placeholder and describes it in the alt text', async () => {
+    const bodies = stubImageModel(paintedReply);
+    const { container, onChange } = renderField(AVATAR);
+    click(getButton(container, 'Change image'));
+    expect(container.textContent).not.toContain('pick an image model in App settings');
+    expect(generateInput(container).value).toBe('Ada');
+    changeValue(generateInput(container), ' Ada smiling at her desk ');
+    click(getButton(container, 'Generate image'));
+    expect(getButton(container, 'Generating image…').disabled).toBe(true);
+    await vi.waitFor(() => expect(previewSrc(container)).toBe(GENERATED_SRC));
+    expect(bodies).toHaveLength(1);
+    expect(bodies[0].model).toBe('acme/painter');
+    expect(bodies[0].aspect_ratio).toBe('1:1');
+    expect(bodies[0].prompt).toContain('portrait');
+    expect(bodies[0].prompt).toContain('It shows: Ada smiling at her desk');
+    click(getButton(container, 'Done'));
+    expect(onChange).toHaveBeenCalledWith(
+      {
+        source: 'upload',
+        name: 'generated-image.webp',
+        alt: 'Ada smiling at her desk',
+        decorative: false,
+        src: GENERATED_SRC,
+        width: 512,
+        height: 512,
+      },
+      'discrete',
+    );
+  });
+
+  it('generates on Enter without closing the dialog and keeps an image decorative', async () => {
+    stubImageModel(paintedReply);
+    const { container, onChange } = renderField(
+      placeholderImage({ ratio: '16:9', subject: 'photo' }, '', true),
+    );
+    click(getButton(container, 'Change image'));
+    changeValue(generateInput(container), 'Fresh bread on a wooden table');
+    pressKey(generateInput(container), 'Enter');
+    await vi.waitFor(() => expect(previewSrc(container)).toBe(GENERATED_SRC));
+    expect(onChange).not.toHaveBeenCalled();
+    click(getButton(container, 'Done'));
+    expect(onChange.mock.calls[0][0]).toMatchObject({
+      alt: 'Fresh bread on a wooden table',
+      decorative: true,
+    });
+  });
+
+  it('says why an image could not be generated and keeps the image it had', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    stubImageModel(() => new Response(JSON.stringify({ error: { code: 402 } }), { status: 402 }));
+    const { container } = renderField(UPLOADED);
+    click(getButton(container, 'Change image'));
+    click(getButton(container, 'Generate image'));
+    await vi.waitFor(() => {
+      expect(errorText(container)).toBe(
+        'This OpenRouter key does not have enough credit for the request.',
+      );
+    });
+    expect(previewSrc(container)).toBe(UPLOADED.src);
+    expect(getButton(container, 'Generate image').disabled).toBe(false);
   });
 });

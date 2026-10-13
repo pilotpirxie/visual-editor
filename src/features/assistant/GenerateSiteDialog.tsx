@@ -18,8 +18,8 @@ import {
   type SiteDraft,
   type StepStatus,
 } from './generateSite';
-import { askForImage, askForJson, AssistantError, type JsonAnswer, type Usage } from './openRouter';
-import { fitImage, type Painter } from './siteImages';
+import { askWith, AssistantError, type JsonAnswer, type Usage } from './openRouter';
+import { painterFor } from './siteImages';
 import { SitePreview } from './SitePreview';
 import { SiteQuestions } from './SiteQuestions';
 import {
@@ -104,6 +104,46 @@ const STATUS_TEXT: Record<StepStatus, string> = {
   done: 'done',
 };
 
+type BackdropShape = 'title' | 'text' | 'line' | 'button' | 'card' | 'dot';
+
+type BackdropTile = { layout: 'stack' | 'row'; shapes: readonly BackdropShape[] };
+
+const BACKDROP_SIDES: readonly (readonly BackdropTile[])[] = [
+  [
+    { layout: 'stack', shapes: ['title', 'text', 'button'] },
+    { layout: 'row', shapes: ['card', 'card', 'card'] },
+    { layout: 'stack', shapes: ['dot', 'text', 'line'] },
+  ],
+  [
+    { layout: 'stack', shapes: ['card', 'text'] },
+    { layout: 'stack', shapes: ['text', 'line', 'line', 'button'] },
+    { layout: 'row', shapes: ['dot', 'text'] },
+  ],
+];
+
+function PlaceholderBackdrop(): JSX.Element {
+  return (
+    <div className="ve-backdrop" aria-hidden="true">
+      {BACKDROP_SIDES.map((tiles, sideIndex) => (
+        <div key={sideIndex} className="ve-backdrop-side">
+          {tiles.map((tile, tileIndex) => (
+            <div key={tileIndex} className="ve-backdrop-tile" data-layout={tile.layout}>
+              {tile.shapes.map((shape, shapeIndex) => (
+                <span
+                  key={shapeIndex}
+                  className="ve-backdrop-shape"
+                  data-shape={shape}
+                  style={{ '--shape-step': sideIndex + tileIndex * 2 + shapeIndex }}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function usageText(usage: Usage): string {
   const tokens = `${TOKEN_FORMAT.format(usage.tokens)} tokens`;
   return usage.cost > 0 ? `${tokens} (${COST_FORMAT.format(usage.cost)})` : tokens;
@@ -134,17 +174,6 @@ function StepList({ steps }: { steps: BuildStep[] }): JSX.Element {
   );
 }
 
-function painterFor(setup: AppSettings): Painter | null {
-  const { imageModel } = setup;
-  if (imageModel === null) return null;
-  const key = setup.openRouterKey.trim();
-  return {
-    paint: (prompt, ratio, signal) =>
-      askForImage({ key, model: imageModel, prompt, aspectRatio: ratio }, signal),
-    fit: fitImage,
-  };
-}
-
 function showBuildNotices(built: BuiltSite): void {
   dispatch(noticeShown('info', `Your site is ready. It used ${usageText(built.draft.usage)}.`));
   if (built.defaultedPages.length > 0) {
@@ -166,25 +195,6 @@ function showBuildNotices(built: BuiltSite): void {
       ),
     );
   }
-}
-
-function askWith(
-  setup: AppSettings,
-  request: StepRequest,
-  signal: AbortSignal,
-): Promise<JsonAnswer> {
-  if (setup.assistantModel === null) {
-    return Promise.reject(new AssistantError('model', 'Pick a model in App settings first.'));
-  }
-  return askForJson(
-    {
-      key: setup.openRouterKey.trim(),
-      model: setup.assistantModel,
-      effort: setup.assistantEffort,
-      ...request,
-    },
-    signal,
-  );
 }
 
 function failedPhase(error: unknown, retry: 'clarify' | 'build', setup: AppSettings): Phase {
@@ -394,6 +404,7 @@ export function GenerateSiteDialog({
 
   return (
     <Dialog labelId={TITLE_ID} size="full" className="ve-generate-site" onClose={close}>
+      {progress === null && phase.kind !== 'failed' && <PlaceholderBackdrop />}
       <header className="ve-build-bar">
         <Title id={TITLE_ID}>{titleOf(phase)}</Title>
         <Button onClick={(event) => closeDialogOf(event.currentTarget)}>

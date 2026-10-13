@@ -17,7 +17,7 @@ export async function waitForStoredText(page: Page, text: string): Promise<void>
   await expect.poll(async () => JSON.stringify(await storedProject(page))).toContain(text);
 }
 
-export type LibraryTab = 'Blocks' | 'Layers' | 'Pages';
+export type LibraryTab = 'Blocks' | 'Layers' | 'Pages' | 'AI';
 
 export type StoredProject = {
   settings: { title: string; baseUrl?: string };

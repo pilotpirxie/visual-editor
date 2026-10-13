@@ -1,3 +1,4 @@
+import type { AppSettings } from '../../app/appSettings';
 import type { Project } from '../../app/types';
 import { isImageValue, isRecord } from '../../components/fields';
 import type {
@@ -7,14 +8,13 @@ import type {
 } from '../../components/types';
 import { placeholderSize } from '../../render/placeholder';
 import { MAX_IMAGE_UPLOAD_BYTES, readAsDataUrl } from '../properties/ImageUploadInput';
-import { AssistantError, type ImageAnswer, type Usage } from './openRouter';
+import { askForImage, AssistantError, type ImageAnswer, type Usage } from './openRouter';
 
-export type ImageSlot = {
+export type PictureWish = { alt: string; ratio: PlaceholderRatio; subject: PlaceholderSubject };
+
+export type ImageSlot = PictureWish & {
   holder: Record<string, unknown>;
   key: string;
-  alt: string;
-  ratio: PlaceholderRatio;
-  subject: PlaceholderSubject;
   pageSlug: string | null;
 };
 
@@ -95,7 +95,7 @@ export function imageSlots(project: Project): ImageSlot[] {
   return slots;
 }
 
-export function imagePrompt(brief: string, slot: ImageSlot): string {
+export function imagePrompt(brief: string, slot: PictureWish): string {
   return [
     `Create ${SUBJECT_STYLES[slot.subject]} for a website.`,
     `It shows: ${slot.alt}`,
@@ -124,7 +124,7 @@ function canvasBlob(canvas: HTMLCanvasElement, type: string, quality: number): P
   });
 }
 
-export async function fitImage(
+async function fitImage(
   dataUrl: string,
   ratio: PlaceholderRatio,
   subject: PlaceholderSubject,
@@ -164,6 +164,45 @@ export async function fitImage(
   return { src, width, height };
 }
 
+export function painterFor(setup: AppSettings): Painter | null {
+  const { imageModel } = setup;
+  const key = setup.openRouterKey.trim();
+  if (imageModel === null || key === '') return null;
+  return {
+    paint: (prompt, ratio, signal) =>
+      askForImage({ key, model: imageModel, prompt, aspectRatio: ratio }, signal),
+    fit: fitImage,
+  };
+}
+
+export function paintPicture(
+  painter: Painter,
+  brief: string,
+  wish: PictureWish,
+  signal: AbortSignal,
+): Promise<ImageAnswer> {
+  return painter.paint(imagePrompt(brief, wish), REQUESTED_RATIOS[wish.ratio], signal);
+}
+
+export async function fittedImage(
+  painter: Painter,
+  dataUrl: string,
+  wish: PictureWish,
+  baseName: string,
+): Promise<UploadedImageValue> {
+  const picture = await painter.fit(dataUrl, wish.ratio, wish.subject);
+  const extension = picture.src.startsWith(`data:${WEBP_TYPE}`) ? 'webp' : 'jpg';
+  const image: UploadedImageValue = {
+    source: 'upload',
+    name: `${baseName}.${extension}`,
+    alt: wish.alt,
+    decorative: false,
+    ...picture,
+  };
+  if (!isImageValue(image)) throw new Error('The fitted image is not a storable image');
+  return image;
+}
+
 export async function withSiteImages(
   project: Project,
   brief: string,
@@ -181,20 +220,14 @@ export async function withSiteImages(
   onProgress({ done: 0, total }, site, null);
 
   async function paintSlot(slot: ImageSlot, number: number): Promise<void> {
-    const requestedRatio = REQUESTED_RATIOS[slot.ratio];
-    const answer = await painter.paint(imagePrompt(brief, slot), requestedRatio, signal);
+    const answer = await paintPicture(painter, brief, slot, signal);
     usage = { tokens: usage.tokens + answer.usage.tokens, cost: usage.cost + answer.usage.cost };
-    const picture = await painter.fit(answer.dataUrl, slot.ratio, slot.subject);
-    const extension = picture.src.startsWith(`data:${WEBP_TYPE}`) ? 'webp' : 'jpg';
-    const image: UploadedImageValue = {
-      source: 'upload',
-      name: `site-image-${number}.${extension}`,
-      alt: slot.alt,
-      decorative: false,
-      ...picture,
-    };
-    if (!isImageValue(image)) throw new Error('The fitted image is not a storable image');
-    slot.holder[slot.key] = image;
+    slot.holder[slot.key] = await fittedImage(
+      painter,
+      answer.dataUrl,
+      slot,
+      `site-image-${number}`,
+    );
   }
 
   async function paintNext(): Promise<void> {

@@ -1,4 +1,15 @@
-import { useRef, useState, type ChangeEvent, type FormEvent, type JSX } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+  type JSX,
+  type KeyboardEvent,
+} from 'react';
+import { useAppSettings } from '../../app/appSettings';
+import { describeError } from '../../app/errors';
+import { useStore } from '../../app/store';
 import { isImageValue } from '../../components/fields';
 import {
   PLACEHOLDER_RATIOS,
@@ -7,8 +18,10 @@ import {
   type ImageValue,
   type PlaceholderRatio,
   type PlaceholderSubject,
+  type UploadedImageValue,
 } from '../../components/types';
 import { placeholderDataUrl, placeholderImage } from '../../render/placeholder';
+import { fittedImage, painterFor, paintPicture } from '../assistant/siteImages';
 import type { ControlProps } from './FieldControl';
 import { IMAGE_SIZE_ERROR, MAX_IMAGE_UPLOAD_BYTES, readAsDataUrl } from './ImageUploadInput';
 import {
@@ -30,6 +43,9 @@ const DEFAULT_PLACEHOLDER = { ratio: '4:3', subject: 'photo' } as const;
 const UPLOAD_HINT = 'PNG, JPEG, WebP or GIF, up to 1 MB.';
 const UPLOAD_TYPE_ERROR = 'Use a PNG, JPEG, WebP or GIF image';
 const UPLOAD_READ_ERROR = 'The image could not be read. Try another file.';
+const GENERATED_NAME = 'generated-image';
+const GENERATE_SETUP_HINT =
+  'Add an OpenRouter key and pick an image model in App settings to generate images.';
 
 const SUBJECT_LABELS: Record<PlaceholderSubject, string> = {
   photo: 'Photo',
@@ -117,6 +133,90 @@ function ShapeFields({ id, placeholder, onShape }: ShapeFieldsProps): JSX.Elemen
   );
 }
 
+function usualPlaceholder(field: ControlProps['field']): PlaceholderChoice {
+  const fieldDefault = field.default;
+  const hasPlaceholder = isImageValue(fieldDefault) && fieldDefault.source === 'placeholder';
+  return hasPlaceholder ? fieldDefault.placeholder : DEFAULT_PLACEHOLDER;
+}
+
+type Generation =
+  { status: 'idle' } | { status: 'working' } | { status: 'failed'; message: string };
+
+type ImageGeneratorProps = {
+  id: string;
+  shape: PlaceholderChoice;
+  startingText: string;
+  onImage(image: UploadedImageValue): void;
+};
+
+function ImageGenerator({ id, shape, startingText, onImage }: ImageGeneratorProps): JSX.Element {
+  const painter = painterFor(useAppSettings());
+  const siteTitle = useStore((state) => state.project.settings.title);
+  const siteDescription = useStore((state) => state.project.settings.description);
+  const [wanted, setWanted] = useState(startingText);
+  const [generation, setGeneration] = useState<Generation>({ status: 'idle' });
+  const runRef = useRef<AbortController | null>(null);
+  const inputId = `${id}-generate`;
+  const isWorking = generation.status === 'working';
+  const canGenerate = painter !== null && !isWorking && wanted.trim() !== '';
+
+  useEffect(() => {
+    return () => runRef.current?.abort();
+  }, []);
+
+  async function generate(): Promise<void> {
+    if (painter === null || !canGenerate) return;
+    const run = new AbortController();
+    runRef.current = run;
+    setGeneration({ status: 'working' });
+    const wish = { alt: wanted.trim(), ...shape };
+    try {
+      const brief = `${siteTitle}\n${siteDescription}`;
+      const answer = await paintPicture(painter, brief, wish, run.signal);
+      const image = await fittedImage(painter, answer.dataUrl, wish, GENERATED_NAME);
+      setGeneration({ status: 'idle' });
+      onImage(image);
+    } catch (error) {
+      if (run.signal.aborted) return;
+      console.error(`The image "${wish.alt}" could not be generated`, error);
+      setGeneration({ status: 'failed', message: describeError(error) });
+    }
+  }
+
+  function generateOnEnter(event: KeyboardEvent<HTMLInputElement>): void {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    void generate();
+  }
+
+  return (
+    <div className="ve-image-generate" data-busy={isWorking || undefined}>
+      <Field
+        id={inputId}
+        label="Describe an image to generate"
+        error={generation.status === 'failed' ? generation.message : null}
+      >
+        <TextInput
+          id={inputId}
+          value={wanted}
+          disabled={painter === null || isWorking}
+          placeholder="A baker taking bread out of the oven"
+          aria-describedby={generation.status === 'failed' ? fieldErrorId(inputId) : undefined}
+          onChange={(event) => setWanted(event.target.value)}
+          onKeyDown={generateOnEnter}
+        />
+      </Field>
+      <Button icon="sparkles" disabled={!canGenerate} onClick={() => void generate()}>
+        {isWorking ? 'Generating image…' : 'Generate image'}
+      </Button>
+      {painter === null && <p className="ui-muted">{GENERATE_SETUP_HINT}</p>}
+      <p className="ve-visually-hidden" role="status">
+        {isWorking ? 'Generating the image' : ''}
+      </p>
+    </div>
+  );
+}
+
 type AltFieldsProps = { altId: string; draft: ImageValue; onDraft(draft: ImageValue): void };
 
 function AltFields({ altId, draft, onDraft }: AltFieldsProps): JSX.Element {
@@ -182,13 +282,13 @@ function ImageDialog({ id, field, initial, onDone, onClose }: ImageDialogProps):
   }
 
   function switchToPlaceholder(): void {
-    const fieldDefault = field.default;
-    const placeholder =
-      isImageValue(fieldDefault) && fieldDefault.source === 'placeholder'
-        ? fieldDefault.placeholder
-        : DEFAULT_PLACEHOLDER;
     setUploadError(null);
-    setDraft(placeholderImage(placeholder, draft.alt, draft.decorative));
+    setDraft(placeholderImage(usualPlaceholder(field), draft.alt, draft.decorative));
+  }
+
+  function showGenerated(image: UploadedImageValue): void {
+    setUploadError(null);
+    setDraft(({ decorative }) => ({ ...image, decorative }));
   }
 
   function finish(event: FormEvent<HTMLFormElement>): void {
@@ -234,6 +334,12 @@ function ImageDialog({ id, field, initial, onDone, onClose }: ImageDialogProps):
           onChange={(event) => void upload(event)}
         />
         <FieldError id={uploadId} error={uploadError} />
+        <ImageGenerator
+          id={id}
+          shape={draft.source === 'placeholder' ? draft.placeholder : usualPlaceholder(field)}
+          startingText={initial.alt}
+          onImage={showGenerated}
+        />
         {draft.source === 'placeholder' && (
           <ShapeFields id={id} placeholder={draft.placeholder} onShape={changeShape} />
         )}

@@ -52,6 +52,10 @@ export const AppSettingsDialog = lazy(async () => ({
   default: (await import('../features/settings/AppSettingsDialog')).AppSettingsDialog,
 }));
 
+export const AssistantPanel = lazy(async () => ({
+  default: (await import('../features/assistant/AssistantPanel')).AssistantPanel,
+}));
+
 export const GenerateSiteDialog = lazy(async () => ({
   default: (await import('../features/assistant/GenerateSiteDialog')).GenerateSiteDialog,
 }));

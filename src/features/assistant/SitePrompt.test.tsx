@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { updateAppSettings, type AssistantModel } from '../../app/appSettings';
-import { changeValue, click, getButton, render } from '../../test/dom';
+import { changeValue, click, getButton, pressKey, render } from '../../test/dom';
 import { SitePrompt } from './SitePrompt';
 
 const MODEL: AssistantModel = {
@@ -64,6 +64,27 @@ describe('SitePrompt', () => {
     changeValue(container.querySelector('textarea'), '  A bakery site in Leeds  ');
     click(getButton(container, 'Build my site'));
     expect(onBuild).toHaveBeenCalledWith('A bakery site in Leeds');
+  });
+
+  it('builds on Enter and keeps Shift+Enter for a new line', () => {
+    updateAppSettings({ openRouterKey: 'sk-or-test', assistantModel: MODEL });
+    const { container, onBuild } = renderPrompt();
+    const box = container.querySelector('textarea');
+    changeValue(box, 'A bakery site');
+    if (box === null) throw new Error('No description box');
+    pressKey(box, 'Enter', { shiftKey: true });
+    expect(onBuild).not.toHaveBeenCalled();
+    pressKey(box, 'Enter');
+    expect(onBuild).toHaveBeenCalledWith('A bakery site');
+  });
+
+  it('does not build an empty description on Enter', () => {
+    updateAppSettings({ openRouterKey: 'sk-or-test', assistantModel: MODEL });
+    const { container, onBuild } = renderPrompt();
+    const box = container.querySelector('textarea');
+    if (box === null) throw new Error('No description box');
+    pressKey(box, 'Enter');
+    expect(onBuild).not.toHaveBeenCalled();
   });
 
   it('waits while another site is being built', () => {

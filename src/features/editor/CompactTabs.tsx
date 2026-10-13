@@ -4,6 +4,8 @@ import { dispatch, useStore } from '../../app/store';
 import { LIBRARY_TABS } from '../library/LibraryPanel';
 import { Button, Icon } from '../../../packages/ui/src';
 
+const EDITING_TABS: readonly CompactTab[] = ['ai', 'settings'];
+
 const TABS: { id: CompactTab; label: string; icon: string }[] = [
   { id: 'canvas', label: 'Canvas', icon: 'app-window' },
   ...LIBRARY_TABS,
@@ -21,7 +23,7 @@ export function CompactTabs(): JSX.Element {
           type="button"
           className="ve-compact-tab"
           aria-current={activeTab === id ? 'page' : undefined}
-          disabled={isReadOnly && id === 'settings'}
+          disabled={isReadOnly && EDITING_TABS.includes(id)}
           onClick={() => dispatch(compactTabSelected(id))}
         >
           <Icon name={icon} />

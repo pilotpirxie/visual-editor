@@ -39,8 +39,23 @@ describe('CompactTabs', () => {
   it('offers the canvas and the library views and marks the current one', () => {
     const { container } = render(<CompactTabs />);
     const labels = [...container.querySelectorAll('button')].map((button) => button.textContent);
-    expect(labels).toEqual(['Canvas', 'Blocks', 'Layers', 'Pages', 'Settings']);
+    expect(labels).toEqual(['Canvas', 'Blocks', 'Layers', 'Pages', 'AI', 'Settings']);
     expect(getButton(container, 'Canvas').getAttribute('aria-current')).toBe('page');
+  });
+
+  it('opens the assistant from its own tab', () => {
+    const { container } = render(<CompactTabs />);
+    click(getButton(container, 'AI'));
+    expect(store.getState().editor.libraryTab).toBe('ai');
+    expect(getButton(container, 'AI').getAttribute('aria-current')).toBe('page');
+  });
+
+  it('keeps the views that change the project out of a read-only tab', () => {
+    const { container } = render(<CompactTabs />);
+    runInAct(() => dispatch(readOnlyChanged(true)));
+    expect(getButton(container, 'AI').disabled).toBe(true);
+    expect(getButton(container, 'Settings').disabled).toBe(true);
+    expect(getButton(container, 'Pages').disabled).toBe(false);
   });
 
   it('opens project settings from its own tab', () => {

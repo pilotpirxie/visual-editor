@@ -400,7 +400,7 @@
     .ve-compact-tabs {
       grid-area: tabs;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       padding-bottom: env(safe-area-inset-bottom);
       border-top: 1px solid var(--ve-border);
       background: var(--ve-bg);

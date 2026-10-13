@@ -49,7 +49,7 @@ function componentBlock(
   return block;
 }
 
-function sectionBlock(
+export function sectionBlock(
   section: SectionPlan,
   writing: SectionWriting | null,
   pages: SitePages,

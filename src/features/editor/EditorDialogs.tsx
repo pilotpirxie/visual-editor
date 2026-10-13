@@ -48,7 +48,7 @@ function DialogFor({ dialog }: { dialog: EditorDialog }): JSX.Element | null {
   } else if (dialog.kind === 'find') {
     return <FindReplaceDialog onClose={closeDialog} />;
   } else if (dialog.kind === 'app-settings') {
-    return <AppSettingsDialog onClose={closeDialog} />;
+    return <AppSettingsDialog initialTab={dialog.tab} onClose={closeDialog} />;
   } else if (dialog.kind === 'delete-block') {
     return <DeleteBlockDialog blockId={dialog.blockId} onClose={closeDialog} />;
   } else if (dialog.kind === 'save-block') {

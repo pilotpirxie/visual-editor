@@ -36,6 +36,16 @@
     box-shadow: var(--ve-shadow);
   }
 
+  .ve-site-prompt-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ve-space-3);
+    width: 100%;
+    font-size: var(--ve-text-sm);
+    text-align: start;
+  }
+
   .ve-site-prompt-form:has(.ui-textarea:focus-visible) {
     border-color: var(--ve-accent);
     outline: 2px solid var(--ve-accent);
@@ -55,7 +65,8 @@
     field-sizing: content;
   }
 
-  .ve-site-prompt-setup .ve-home-footer-link {
+  .ve-site-prompt-setup .ve-home-footer-link,
+  .ve-assistant-link {
     min-height: 24px;
     padding: 0;
     border: 0;
@@ -80,6 +91,132 @@
   .ve-generate-site[open] {
     display: flex;
     flex-direction: column;
+  }
+
+  .ve-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .ve-backdrop-side {
+    position: absolute;
+    inset-block: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: calc((100% - 760px) / 2);
+  }
+
+  .ve-backdrop-side:first-child {
+    inset-inline-start: 0;
+  }
+
+  .ve-backdrop-side:last-child {
+    inset-inline-end: 0;
+  }
+
+  .ve-backdrop-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: min(240px, 76%);
+    padding: 16px;
+    border: 1px solid var(--ve-border);
+    border-radius: 12px;
+    background: var(--ve-bg);
+  }
+
+  .ve-backdrop-tile:nth-child(odd) {
+    margin-inline-end: 14%;
+  }
+
+  .ve-backdrop-tile:nth-child(even) {
+    margin-inline-start: 14%;
+  }
+
+  .ve-backdrop-tile[data-layout='row'] {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .ve-backdrop-shape {
+    flex: none;
+    width: 60%;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--ve-border);
+  }
+
+  .ve-backdrop-shape[data-shape='title'] {
+    width: 82%;
+    height: 22px;
+    border-radius: 6px;
+    background: var(--ve-border-strong);
+  }
+
+  .ve-backdrop-shape[data-shape='line'] {
+    width: 42%;
+  }
+
+  .ve-backdrop-shape[data-shape='button'] {
+    width: 76px;
+    height: 26px;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--ve-accent) 40%, var(--ve-bg));
+  }
+
+  .ve-backdrop-shape[data-shape='dot'] {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  .ve-backdrop-shape[data-shape='card'] {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--ve-border);
+    border-radius: 8px;
+    background: var(--ve-surface);
+  }
+
+  .ve-backdrop-tile[data-layout='row'] [data-shape='card'] {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    aspect-ratio: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ve-backdrop-tile {
+      animation: ve-backdrop-float 7s ease-in-out infinite alternate;
+    }
+
+    .ve-backdrop-tile:nth-child(2) {
+      animation-duration: 9s;
+      animation-delay: -3s;
+    }
+
+    .ve-backdrop-tile:nth-child(3) {
+      animation-duration: 8s;
+      animation-delay: -5s;
+    }
+
+    .ve-backdrop-shape {
+      animation: ve-sketch-build 6s ease-out infinite both;
+      animation-delay: calc(var(--shape-step, 0) * 0.3s);
+    }
+  }
+
+  @media (width < 1180px) {
+    .ve-backdrop {
+      display: none;
+    }
   }
 
   .ve-build-bar {
@@ -241,20 +378,6 @@
     min-height: 0;
     padding: var(--ve-space-6);
     text-align: center;
-  }
-
-  .ve-sketch-title {
-    margin: 0;
-    color: var(--sketch-text);
-    font-size: clamp(28px, 4vw, 56px);
-    font-weight: 700;
-    line-height: 1.1;
-  }
-
-  .ve-sketch-text {
-    margin: 0;
-    color: var(--sketch-muted);
-    font-size: 18px;
   }
 
   .ve-sketch-bar[data-size='title'] {
@@ -487,6 +610,108 @@
     }
   }
 
+  .ve-assistant {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ve-space-3);
+    padding: 12px;
+  }
+
+  .ve-assistant-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ve-space-2);
+  }
+
+  .ve-assistant-form .ui-textarea {
+    min-height: 3lh;
+    max-height: 10lh;
+    resize: none;
+    field-sizing: content;
+  }
+
+  .ve-assistant-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ve-space-2);
+    font-size: var(--ve-text-sm);
+  }
+
+  .ve-assistant-messages {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ve-space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ve-assistant-message {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ve-space-2);
+    padding: var(--ve-space-3);
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    background: var(--ve-bg);
+    overflow-wrap: anywhere;
+  }
+
+  .ve-assistant-request {
+    font-weight: 600;
+  }
+
+  .ve-assistant-reply.ui-field-error {
+    font-size: inherit;
+  }
+
+  .ve-assistant-changes {
+    margin: 0;
+    padding-inline-start: 18px;
+    color: var(--ve-muted);
+    font-size: var(--ve-text-sm);
+  }
+
+  .ve-assistant-working {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-block: 4px;
+  }
+
+  .ve-assistant-working > span {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--ve-border);
+  }
+
+  .ve-assistant-working > :nth-child(2) {
+    width: 80%;
+  }
+
+  .ve-assistant-working > :nth-child(3) {
+    width: 55%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ve-assistant-message {
+      animation: ve-assistant-in 0.25s ease-out;
+    }
+
+    .ve-assistant-working > span {
+      animation: ve-assistant-wait 1.1s ease-in-out infinite alternate;
+    }
+
+    .ve-assistant-working > :nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .ve-assistant-working > :nth-child(3) {
+      animation-delay: 0.4s;
+    }
+  }
+
   .ve-build-steps {
     display: flex;
     flex-direction: column;
@@ -639,6 +864,29 @@
   100% {
     opacity: 0;
     translate: 0 0;
+  }
+}
+
+@keyframes ve-backdrop-float {
+  from {
+    translate: 0 -10px;
+  }
+
+  to {
+    translate: 0 12px;
+  }
+}
+
+@keyframes ve-assistant-in {
+  from {
+    opacity: 0;
+    translate: 0 -12px;
+  }
+}
+
+@keyframes ve-assistant-wait {
+  to {
+    opacity: 0.35;
   }
 }
 
