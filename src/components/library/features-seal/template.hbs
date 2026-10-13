@@ -1,0 +1,19 @@
+<section class="b-features-seal section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="grid b-seals" role="list">
+      {{#each items}}
+      <li class="stack b-item" data-field="items.{{@index}}">
+        <span class="b-seal">{{svgIcon icon}}</span>
+        {{#if label}}<p class="b-label">{{label}}</p>{{/if}}
+        <h3>{{name}}</h3>
+        <p class="b-text">{{nl2br text}}</p>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,83 @@
+{
+  "name": "Rich text, chapters",
+  "category": "rich-text",
+  "description": "A long text split into numbered chapters that open and close one by one, with the first chapter open.",
+  "tags": [
+    "chapters",
+    "handbook",
+    "guide",
+    "accordion",
+    "numbered",
+    "sections",
+    "text",
+    "long-form"
+  ],
+  "fieldGroups": ["Heading", "Chapters"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "New client handbook",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your dog's first day with us",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "lead",
+      "label": "Lead paragraph",
+      "type": "textarea",
+      "default": "Four short chapters. Read the first one tonight and the rest before Monday.",
+      "group": "Heading"
+    },
+    {
+      "name": "parts",
+      "label": "Chapters",
+      "type": "list",
+      "group": "Chapters",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "heading",
+      "itemFields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "text",
+          "default": "Chapter heading"
+        },
+        {
+          "name": "body",
+          "label": "Text",
+          "type": "richtext",
+          "default": "<p>What this chapter covers.</p>"
+        }
+      ],
+      "default": [
+        {
+          "heading": "Before the first day",
+          "body": "<p>Every new dog starts with a free trial morning, from 8 to 12, so we can see who they get along with. We need two things from you by the Friday before.</p><ul><li>A photo of the vaccination card, including kennel cough from the last 12 months</li><li>The name and number of someone who can collect your dog if you cannot</li></ul>"
+        },
+        {
+          "heading": "What to pack",
+          "body": "<p>Less than you think. A flat collar with a name tag, a lead, and lunch in a labelled tub if your dog eats at midday.</p><p>Please leave toys and chews at home. Shared toys are the main cause of arguments here, as in most families.</p>"
+        },
+        {
+          "heading": "Drop-off and pick-up",
+          "body": "<p>Drop-off is between 7.30 and 9 am at the side gate on Tanner Row. Hand over the lead outside the gate and keep the goodbye short. Dogs settle in about four minutes once you are out of sight, and we will send you a photo to prove it.</p><p>Pick-up is from 4 to 6.30 pm. After 6.30 we charge 10 euros per started quarter of an hour, because our staff have dogs waiting at home too.</p>"
+        },
+        {
+          "heading": "The first week",
+          "body": "<p>Expect a very tired dog. Most sleep through the first evening and come home thirsty, a little hoarse and completely happy.</p><p>If your dog seems withdrawn after the third visit, tell us. Some dogs prefer half days, and a few prefer a quiet walk with one person. We offer both.</p>"
+        }
+      ]
+    }
+  ]
+}

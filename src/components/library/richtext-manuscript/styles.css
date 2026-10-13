@@ -1,0 +1,84 @@
+@layer components {
+  @scope (.b-richtext-manuscript) {
+    .b-page {
+      max-width: 34rem;
+      margin: auto;
+      overflow-wrap: anywhere;
+    }
+
+    .b-head {
+      text-align: center;
+    }
+
+    .b-kicker {
+      font-variant-caps: all-small-caps;
+      letter-spacing: 0.22em;
+    }
+
+    .b-kicker,
+    .b-byline {
+      color: var(--color-text-muted);
+    }
+
+    .b-byline,
+    .b-body :is(h2, h3) {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-ornament {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      max-width: 14rem;
+      margin: var(--space-12) auto;
+    }
+
+    .b-ornament::before,
+    .b-ornament::after {
+      content: '';
+      flex: 1;
+      border-top: var(--border-width) solid var(--color-text-muted);
+    }
+
+    .b-ornament span {
+      width: 0.6rem;
+      aspect-ratio: 1;
+      background: var(--color-primary);
+      box-shadow:
+        0.75rem -0.75rem 0 -0.15rem var(--color-text-muted),
+        -0.75rem 0.75rem 0 -0.15rem var(--color-text-muted);
+      rotate: 45deg;
+    }
+
+    .b-body {
+      --prose-measure: none;
+      --prose-gap: var(--space-6);
+    }
+
+    .b-body > p:first-of-type::first-line {
+      font-variant-caps: small-caps;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.05em;
+    }
+
+    .b-body > p + p {
+      margin-top: 0;
+      text-indent: 1.5em;
+    }
+
+    .b-body :is(h2, h3) {
+      font-size: var(--text-xl);
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .b-body {
+        font-size: var(--text-lg);
+        text-align: justify;
+        hyphens: auto;
+      }
+    }
+  }
+}

@@ -102,14 +102,17 @@ test('the export dialog publishes to Netlify with a pasted token and remembers t
   await insertBlock(page, 'Headers', 'Hero, centered text');
   await page.getByRole('button', { name: 'Export', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Export site' });
+  await expect(dialog.getByRole('radio', { name: /Download a zip/ })).toBeChecked();
+  await expect(dialog.getByLabel('Netlify access token')).toHaveCount(0);
+  await dialog.getByRole('radio', { name: /Publish to Netlify/ }).check();
   const publish = dialog.getByRole('button', { name: 'Publish to Netlify' });
   await expect(publish).toBeDisabled();
   await dialog.getByLabel('Netlify access token').fill('nfp_test');
   await publish.click();
+  const published = page.getByRole('dialog', { name: 'Site published' });
   await expect(
-    dialog.getByRole('link', { name: 'https://fieldnote-demo.netlify.app' }),
+    published.getByRole('link', { name: 'https://fieldnote-demo.netlify.app' }),
   ).toBeVisible();
-  await expect(dialog.getByRole('button', { name: 'Publish changes' })).toBeEnabled();
   expect(calls).toEqual([
     'POST /sites Bearer nfp_test',
     'POST /sites/site-1/deploys Bearer nfp_test',

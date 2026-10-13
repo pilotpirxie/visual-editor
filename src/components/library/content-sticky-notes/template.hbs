@@ -1,0 +1,17 @@
+<section class="b-content-sticky-notes section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    </div>
+    <ul class="b-board" role="list">
+      {{#each notes}}
+      <li class="b-note" data-field="notes.{{@index}}">
+        <p class="b-thought">{{nl2br text}}</p>
+        {{#if author}}<p class="b-author">{{author}}</p>{{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

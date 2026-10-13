@@ -1,0 +1,71 @@
+@layer components {
+  @scope (.b-contact-quiet-form) {
+    .b-inner {
+      --container-max-width: 38rem;
+      --stack-gap: var(--space-16);
+      padding-block: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-head::before {
+      content: '';
+      width: 2.5rem;
+      margin-block-end: var(--space-4);
+      border-block-start: 2px solid var(--color-primary);
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-text,
+    .b-note,
+    .b-form label {
+      color: var(--color-text-muted);
+    }
+
+    .b-form {
+      --stack-gap: var(--space-12);
+      --field-gap: 0;
+      --cluster-gap: var(--space-4) var(--space-6);
+    }
+
+    .b-form label {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-regular);
+      letter-spacing: 0.04em;
+    }
+
+    .b-form :is(input, textarea) {
+      padding-inline: 0;
+      border-width: 0 0 var(--border-width);
+      border-radius: 0;
+      background: linear-gradient(var(--color-primary) 0 0) 0 100% / 0 2px no-repeat;
+      font-size: var(--text-lg);
+    }
+
+    .b-form :is(input, textarea):focus-visible {
+      outline: 0;
+      background-size: 100% 2px;
+    }
+
+    .b-form textarea {
+      min-height: 6rem;
+    }
+
+    .b-note {
+      flex: 1 1 14rem;
+      font-size: var(--text-sm);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-form :is(input, textarea) {
+        transition: background-size var(--transition-normal);
+      }
+    }
+  }
+}

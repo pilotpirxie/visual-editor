@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-faq-picker) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro {
+      max-width: 40rem;
+      color: var(--color-text-muted);
+    }
+
+    .b-pick {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      min-height: 2.75rem;
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      font: var(--font-weight-bold) var(--text-lg) / var(--line-height-tight) var(--font-heading);
+      overflow-wrap: anywhere;
+      cursor: pointer;
+    }
+
+    .b-pick input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .b-pick:has(:checked) {
+      border-end-start-radius: 0;
+      border-end-end-radius: 0;
+      background: var(--color-surface);
+      color: var(--color-primary);
+    }
+
+    .b-pick:has(:focus-visible) {
+      outline: 2px solid var(--color-primary);
+      outline-offset: -2px;
+    }
+
+    .b-arrow {
+      flex: none;
+      rotate: 90deg;
+    }
+
+    .b-answer {
+      display: none;
+      padding: 0 var(--space-4) var(--space-6);
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      background: var(--color-surface);
+    }
+
+    .b-item:has(:checked) .b-answer {
+      display: block;
+    }
+
+    @media (min-width: 768px) {
+      .b-list {
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        grid-template-rows: repeat(12, auto) 1fr;
+      }
+
+      .b-item {
+        display: contents;
+      }
+
+      .b-pick {
+        grid-column: 1;
+      }
+
+      .b-pick:has(:checked) {
+        border-start-end-radius: 0;
+        border-end-start-radius: var(--radius-md);
+      }
+
+      .b-arrow {
+        rotate: none;
+      }
+
+      .b-answer {
+        grid-area: 1 / 2 / -1;
+        padding: var(--space-8);
+        border-radius: var(--radius-md);
+        border-start-start-radius: 0;
+        font-size: var(--text-lg);
+      }
+    }
+  }
+}

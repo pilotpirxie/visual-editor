@@ -1,0 +1,92 @@
+{
+  "name": "Contact, reply time",
+  "category": "contacts",
+  "description": "A soft tinted panel that says when to expect a reply, with the email and phone and three rows of icon and text. No form.",
+  "tags": ["contact", "reply time", "response", "calm", "email", "phone", "expectations"],
+  "fieldGroups": ["Heading", "Details", "Rows"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Inbox open, no rush",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "We reply within one working day",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Write as much or as little as you like. Nobody at Tidewater answers from a script, so a proper reply takes a little time.",
+      "group": "Heading"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "hello@tidewaterphysio.example",
+      "group": "Details"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "+44 1632 960142",
+      "group": "Details"
+    },
+    {
+      "name": "rows",
+      "label": "Rows",
+      "type": "list",
+      "group": "Rows",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "clock"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Closed on bank holidays"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Messages wait safely until the next working morning."
+        }
+      ],
+      "default": [
+        {
+          "icon": "mail",
+          "title": "Read every weekday at 8:00",
+          "text": "Anything sent after 17:00 or at the weekend is first in the queue the next working morning."
+        },
+        {
+          "icon": "user",
+          "title": "Answered by a physiotherapist",
+          "text": "Jo, Amara or Felix replies in person and can already suggest who to book with."
+        },
+        {
+          "icon": "phone",
+          "title": "Sharp or sudden pain? Call instead",
+          "text": "The front desk picks up from 8:00 to 18:00 and keeps two same-day slots free."
+        }
+      ]
+    }
+  ]
+}

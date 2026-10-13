@@ -1,0 +1,15 @@
+<section class="b-content-marginalia section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if byline}}<p class="b-byline" data-field="byline">{{byline}}</p>{{/if}}
+    </header>
+    {{#each items}}
+    <div class="b-row" data-field="items.{{@index}}">
+      <p class="b-text">{{nl2br text}}</p>
+      {{#if note}}<p class="b-aside" role="note">{{nl2br note}}</p>{{/if}}
+    </div>
+    {{/each}}
+  </div>
+</section>

@@ -1,0 +1,35 @@
+<section class="b-blog-editors-pick section">
+  <div class="container stack">
+    <header class="stack">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <div class="b-layout">
+      <figure class="b-cover">
+        <div class="media" data-field="pickImage">{{img pickImage}}</div>
+        {{#if ribbon}}<figcaption class="b-ribbon" data-field="ribbon">{{ribbon}}</figcaption>{{/if}}
+      </figure>
+      <article class="stack b-pick">
+        {{#if pickCategory}}<p class="b-kicker" data-field="pickCategory">{{pickCategory}}</p>{{/if}}
+        <h3 class="b-pick-title" data-field="pickTitle">{{pickTitle}}</h3>
+        {{#if pickExcerpt}}<p class="b-muted b-excerpt" data-field="pickExcerpt">{{nl2br pickExcerpt}}</p>{{/if}}
+        <p class="b-muted">
+          {{#if pickAuthor}}<span data-field="pickAuthor">{{pickAuthor}}</span>{{/if}}
+          {{#if pickDate}}<time class="b-date" datetime="{{pickDate}}" data-field="pickDate">{{formatDate pickDate}}</time>{{/if}}
+        </p>
+        <a class="b-read" href="{{href pickLink}}" {{linkAttrs pickLink}} data-field="pickLinkLabel">{{pickLinkLabel}}{{svgIcon "arrow-right"}}</a>
+      </article>
+      <div class="b-more">
+        {{#if listLabel}}<p class="b-label" data-field="listLabel">{{listLabel}}</p>{{/if}}
+        <ul class="b-list" role="list">
+          {{#each posts}}
+          <li class="b-item" data-field="posts.{{@index}}">
+            {{#if category}}<p class="b-kicker">{{category}}</p>{{/if}}
+            <h3 class="b-item-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

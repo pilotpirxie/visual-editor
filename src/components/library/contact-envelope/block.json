@@ -1,0 +1,96 @@
+{
+  "name": "Contact, envelope",
+  "category": "contacts",
+  "description": "A message form on a sheet of letter paper tucked into an open envelope with a raised flap, an address and a stamp.",
+  "tags": ["contact", "form", "envelope", "letter", "mail", "stamp", "playful", "message"],
+  "fieldGroups": ["Heading", "Envelope", "Form"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Write to the school",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Put it in a letter",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Ask about the autumn timetable, a placement test or evening Italian for two. Carla in the front office reads every letter and answers by email within two working days.",
+      "group": "Heading"
+    },
+    {
+      "name": "addressee",
+      "label": "Address on the envelope",
+      "type": "textarea",
+      "default": "Parla Language School\n12 Thistle Lane\nEdinburgh EH2 1DF",
+      "group": "Envelope"
+    },
+    {
+      "name": "stampIcon",
+      "label": "Stamp icon",
+      "type": "icon",
+      "default": "globe",
+      "group": "Envelope"
+    },
+    {
+      "name": "messageLabel",
+      "label": "Message field label",
+      "type": "text",
+      "default": "Dear Carla,",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "nameLabel",
+      "label": "Name field label",
+      "type": "text",
+      "default": "Signed (your name)",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email field label",
+      "type": "text",
+      "default": "Write back to (email)",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "buttonLabel",
+      "label": "Button label",
+      "type": "text",
+      "default": "Seal and send",
+      "required": true,
+      "group": "Form"
+    },
+    {
+      "name": "formAction",
+      "label": "Form action URL",
+      "type": "text",
+      "default": "",
+      "group": "Form"
+    },
+    {
+      "name": "formMethod",
+      "label": "Method",
+      "type": "select",
+      "default": "post",
+      "options": [
+        { "value": "post", "label": "POST" },
+        { "value": "get", "label": "GET" }
+      ],
+      "group": "Form"
+    }
+  ]
+}

@@ -20,8 +20,9 @@ function fix(check: LaunchCheck): void {
 export function LaunchChecklist({ onClose }: { onClose(): void }): JSX.Element {
   const project = useStore((state) => state.project);
   const components = useStore(selectComponents);
-  const { publishedSites } = useAppSettings();
-  const isPublished = publishedSites[project.id] !== undefined;
+  const { publishedSites, githubSites } = useAppSettings();
+  const isPublished =
+    publishedSites[project.id] !== undefined || githubSites[project.id] !== undefined;
   const checks = useMemo(
     () => launchChecks(project, components, isPublished),
     [project, components, isPublished],

@@ -1,0 +1,17 @@
+<section class="b-content-stamp section">
+  <div class="container b-inner">
+    <div class="stack b-copy">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if body}}<div class="prose b-body" data-field="body">{{richText body}}</div>{{/if}}
+    </div>
+    <div class="b-visual">
+      <div class="media b-photo" data-field="image">{{img image}}</div>
+      <p class="b-stamp">
+        {{#if stampTop}}<span data-field="stampTop">{{stampTop}}</span>{{/if}}
+        <strong class="b-word" data-field="stampWord">{{stampWord}}</strong>
+        {{#if stampBottom}}<span data-field="stampBottom">{{stampBottom}}</span>{{/if}}
+      </p>
+    </div>
+  </div>
+</section>

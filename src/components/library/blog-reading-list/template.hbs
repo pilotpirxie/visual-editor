@@ -1,0 +1,22 @@
+<section class="b-blog-reading-list section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-list" role="list">
+      {{#each posts}}
+      <li class="b-row" data-field="posts.{{@index}}">
+        <div class="media">{{img image}}</div>
+        <div>
+          <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          {{#if readingTime}}<p class="b-muted b-time">{{readingTime}}</p>{{/if}}
+        </div>
+        <span class="b-muted b-arrow">{{svgIcon "arrow-right"}}</span>
+      </li>
+      {{/each}}
+    </ul>
+    {{#if summary}}<p class="b-muted b-time b-summary" data-field="summary">{{summary}}</p>{{/if}}
+  </div>
+</section>

@@ -1,0 +1,40 @@
+<section class="b-pricing-currency section">
+  <div class="container stack b-inner">
+    <div class="b-top">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      <fieldset class="b-set">
+        <legend class="visually-hidden">{{legend}}</legend>
+        <div class="b-switch">
+          <label class="b-option" data-field="currency1"><input type="radio" class="b-cur-1" name="{{block.id}}-currency" value="{{currency1}}" checked><span>{{currency1}}</span></label>
+          <label class="b-option" data-field="currency2"><input type="radio" class="b-cur-2" name="{{block.id}}-currency" value="{{currency2}}"><span>{{currency2}}</span></label>
+          <label class="b-option" data-field="currency3"><input type="radio" class="b-cur-3" name="{{block.id}}-currency" value="{{currency3}}"><span>{{currency3}}</span></label>
+        </div>
+      </fieldset>
+    </div>
+    <div class="grid b-plans">
+      {{#each plans}}
+      <article class="card stack b-plan" {{#if featured}}data-featured{{/if}} data-field="plans.{{@index}}">
+        <div class="cluster">
+          <h3>{{name}}</h3>
+          {{#if featured}}<p class="badge">{{../featuredLabel}}</p>{{/if}}
+        </div>
+        <div>
+          <div class="b-prices">
+            <p class="b-price b-price-1">{{price1}}<span class="visually-hidden"> {{../currency1}}</span></p>
+            <p class="b-price b-price-2">{{price2}}<span class="visually-hidden"> {{../currency2}}</span></p>
+            <p class="b-price b-price-3">{{price3}}<span class="visually-hidden"> {{../currency3}}</span></p>
+          </div>
+          <p class="b-muted">{{period}}</p>
+        </div>
+        <div class="prose b-features">{{richText features}}</div>
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+      </article>
+      {{/each}}
+    </div>
+    {{#if note}}<p class="b-muted" data-field="note"><small>{{nl2br note}}</small></p>{{/if}}
+  </div>
+</section>

@@ -1,0 +1,30 @@
+<section class="b-richtext-two-lengths section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <fieldset class="b-switch">
+      <legend class="visually-hidden" data-field="pickerLabel">{{pickerLabel}}</legend>
+      <label class="b-pick">
+        <input type="radio" name="{{block.id}}-length" value="short" checked>
+        <span data-field="shortLabel">{{shortLabel}}</span>
+        {{#if shortNote}}<span class="b-note" data-field="shortNote">{{shortNote}}</span>{{/if}}
+      </label>
+      <label class="b-pick">
+        <input type="radio" id="{{block.id}}-full" name="{{block.id}}-length" value="full">
+        <span data-field="fullLabel">{{fullLabel}}</span>
+        {{#if fullNote}}<span class="b-note" data-field="fullNote">{{fullNote}}</span>{{/if}}
+      </label>
+    </fieldset>
+    <div class="b-short">
+      <p class="visually-hidden">{{shortLabel}}</p>
+      <div class="prose b-body" data-field="summary">{{richText summary}}</div>
+      {{#if moreLabel}}<label class="b-more" for="{{block.id}}-full"><span data-field="moreLabel">{{moreLabel}}</span>{{svgIcon "arrow-right"}}</label>{{/if}}
+    </div>
+    <div class="b-full">
+      <p class="visually-hidden">{{fullLabel}}</p>
+      <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+<section class="b-gallery-contact-sheet section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-sheet">
+      {{#if roll}}<p class="b-roll" data-field="roll">{{roll}}</p>{{/if}}
+      <ul class="b-frames" role="list">
+        {{#each items}}
+        <li class="b-frame" data-field="items.{{@index}}">
+          <figure>
+            <div class="media b-photo">{{img image}}</div>
+            <figcaption class="b-note">{{note}}</figcaption>
+          </figure>
+          {{#if pick}}<p class="b-pick" data-field="pickLabel">{{../pickLabel}}</p>{{/if}}
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

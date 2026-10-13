@@ -1,0 +1,41 @@
+{
+  "name": "Rich text, manuscript",
+  "category": "rich-text",
+  "description": "A centred, narrow book page with a small-caps line above the title, ornamental dividers, indented paragraphs and a bolder first line.",
+  "tags": ["essay", "book", "manuscript", "literary", "story", "ornament", "text", "elegant"],
+  "fieldGroups": ["Heading", "Text"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Line above the title",
+      "type": "text",
+      "default": "Notes from the bindery",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "On mending a book that someone loved",
+      "required": true,
+      "maxLength": 140,
+      "group": "Heading"
+    },
+    {
+      "name": "byline",
+      "label": "Byline",
+      "type": "text",
+      "default": "by Agnes Holm",
+      "group": "Heading"
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<p>Most of the books that come through our door are not valuable. They are cookbooks with a broken spine, a grandfather's atlas, a paperback that has been on forty holidays. Their owners apologise for bringing them in, and then stand at the counter for a long time before they let go.</p><p>We have mended books in this workshop on Kirkegata since 1962, and the first rule has not changed: do as little as possible. A repair should hold for another fifty years and still let the book look its age.</p><h2>What we keep</h2><p>Pencil notes in the margins stay. So do pressed flowers, bus tickets used as bookmarks and the stain on page 112 of the cookbook, which is usually the page that matters most. We photograph everything we find before we take the binding apart, and it all goes back where it was.</p><h2>What we replace</h2><p>Glue from the 1970s turns to dust, and there is no saving it. We resew the sections by hand with linen thread, line the spine with Japanese paper and wheat paste, and keep the old cover wherever it will still carry the weight.</p><p>A simple repair takes about three weeks and costs from 900 kroner. We will tell you honestly if a book is beyond mending. It happens perhaps twice a year.</p>",
+      "group": "Text"
+    }
+  ]
+}

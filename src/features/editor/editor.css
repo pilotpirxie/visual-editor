@@ -284,15 +284,17 @@
     inset-inline-start: 50%;
     z-index: 20;
     translate: -50% 0;
-    padding: 2px;
-    border: 1px solid var(--ve-border);
-    border-radius: 999px;
-    background: var(--ve-bg);
-    box-shadow: var(--ve-shadow);
   }
 
   .ve-preview-exit .ui-button {
+    min-height: 44px;
+    padding-inline: var(--ve-space-5);
+    border: 2px solid var(--ve-bg);
     border-radius: 999px;
+    box-shadow:
+      var(--ve-shadow),
+      0 8px 24px var(--ve-scrim);
+    font-size: var(--ve-text-lg);
   }
 
   @media (width >= 1700px) {

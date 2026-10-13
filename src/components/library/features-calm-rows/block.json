@@ -1,0 +1,103 @@
+{
+  "name": "Features, calm rows",
+  "category": "features",
+  "description": "A quiet list with one icon and one line per feature, wide spacing and soft dividers, beside a heading that stays in view.",
+  "tags": ["features", "list", "rows", "icons", "calm", "minimal", "quiet", "benefits"],
+  "fieldGroups": ["Heading", "Rows"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "What to expect",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Unhurried care, one appointment at a time",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Stillwater Physiotherapy is a small clinic beside the canal in Bath. We see eight patients a day each, so nobody is rushed.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Rows",
+      "type": "list",
+      "group": "Rows",
+      "minItems": 2,
+      "maxItems": 10,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "name",
+          "label": "First words",
+          "type": "text",
+          "default": "Free parking",
+          "required": true,
+          "maxLength": 40,
+          "help": "Shown in bold at the start of the line."
+        },
+        {
+          "name": "text",
+          "label": "Rest of the line",
+          "type": "text",
+          "default": "behind the clinic, with step-free access.",
+          "maxLength": 100
+        }
+      ],
+      "default": [
+        {
+          "icon": "clock",
+          "name": "Forty-five minutes",
+          "text": "with your physiotherapist, never split between two rooms."
+        },
+        {
+          "icon": "user",
+          "name": "The same person",
+          "text": "from your first assessment to your last visit."
+        },
+        {
+          "icon": "file",
+          "name": "A written plan",
+          "text": "after the first session, with three exercises and no more."
+        },
+        {
+          "icon": "calendar",
+          "name": "Appointments within a week,",
+          "text": "including early mornings from 7:15."
+        },
+        {
+          "icon": "heart",
+          "name": "No referral needed.",
+          "text": "We bill most insurers directly."
+        },
+        {
+          "icon": "leaf",
+          "name": "A quiet waiting room",
+          "text": "with tea, daylight and no television."
+        }
+      ]
+    }
+  ]
+}

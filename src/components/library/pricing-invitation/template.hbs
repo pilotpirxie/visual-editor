@@ -1,0 +1,19 @@
+<section class="b-pricing-invitation section">
+  <div class="container">
+    <div class="b-envelope">
+      <article class="stack b-invite">
+        {{#if eyebrow}}<p class="b-caps" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        {{#if lead}}<p class="b-script" data-field="lead">{{lead}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-script" data-field="text">{{nl2br text}}</p>{{/if}}
+        <p class="b-price">
+          {{#if fromLabel}}<span class="b-script" data-field="fromLabel">{{fromLabel}}</span>{{/if}}
+          <span class="b-amount" data-field="price">{{price}}</span>
+          {{#if period}}<span class="b-caps" data-field="period">{{period}}</span>{{/if}}
+        </p>
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+        {{#if note}}<p class="b-script b-note" data-field="note">{{nl2br note}}</p>{{/if}}
+      </article>
+    </div>
+  </div>
+</section>

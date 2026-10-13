@@ -1,0 +1,44 @@
+@layer components {
+  @scope (.b-richtext-quiet) {
+    .b-panel {
+      width: fit-content;
+      max-width: 100%;
+      margin: auto;
+      padding: var(--space-8) var(--space-6);
+      border-radius: calc(var(--radius-lg) * 2);
+      background: var(--color-surface);
+      overflow-wrap: anywhere;
+    }
+
+    .b-body {
+      --prose-measure: 50ch;
+      --prose-gap: var(--space-6);
+      color: color-mix(in oklab, var(--color-text) 86%, var(--color-surface));
+      font-size: var(--text-lg);
+      line-height: calc(var(--line-height-normal) * 1.15);
+    }
+
+    .b-body :is(h2, h3) {
+      color: var(--color-text);
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-body h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-body h3 {
+      font-size: var(--text-2xl);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        padding: var(--space-16);
+      }
+
+      .b-body {
+        font-size: var(--text-xl);
+      }
+    }
+  }
+}

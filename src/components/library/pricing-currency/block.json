@@ -1,0 +1,204 @@
+{
+  "name": "Pricing, currency switch",
+  "category": "pricing",
+  "description": "Plan cards with a small three-way currency switch that swaps every price between three currencies.",
+  "tags": ["pricing", "plans", "currency", "switch", "international", "radio", "interactive"],
+  "fieldGroups": ["Heading", "Currencies", "Plans"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Stays for 2027",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Board, bed and breakfast in Ericeira",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Tidewater Surf House sleeps twelve, a five-minute walk from the break. Every stay includes boards, wetsuits and breakfast.",
+      "group": "Heading"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "textarea",
+      "default": "You pay in the currency you choose here. A 20% deposit holds your bed.",
+      "group": "Heading"
+    },
+    {
+      "name": "legend",
+      "label": "Switch label for screen readers",
+      "type": "text",
+      "default": "Show prices in",
+      "required": true,
+      "group": "Currencies"
+    },
+    {
+      "name": "currency1",
+      "label": "First currency",
+      "type": "text",
+      "default": "USD",
+      "required": true,
+      "maxLength": 6,
+      "group": "Currencies"
+    },
+    {
+      "name": "currency2",
+      "label": "Second currency",
+      "type": "text",
+      "default": "EUR",
+      "required": true,
+      "maxLength": 6,
+      "group": "Currencies"
+    },
+    {
+      "name": "currency3",
+      "label": "Third currency",
+      "type": "text",
+      "default": "GBP",
+      "required": true,
+      "maxLength": 6,
+      "group": "Currencies"
+    },
+    {
+      "name": "featuredLabel",
+      "label": "Label on the featured plan",
+      "type": "text",
+      "default": "Most booked",
+      "group": "Plans"
+    },
+    {
+      "name": "plans",
+      "label": "Plans",
+      "type": "list",
+      "group": "Plans",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Plan name",
+          "type": "text",
+          "default": "Day pass"
+        },
+        {
+          "name": "price1",
+          "label": "Price in the first currency",
+          "type": "text",
+          "default": "$60"
+        },
+        {
+          "name": "price2",
+          "label": "Price in the second currency",
+          "type": "text",
+          "default": "€55"
+        },
+        {
+          "name": "price3",
+          "label": "Price in the third currency",
+          "type": "text",
+          "default": "£47"
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": "per person, one day"
+        },
+        {
+          "name": "features",
+          "label": "Included",
+          "type": "richtext",
+          "default": "<ul><li>Board and wetsuit</li><li>One group lesson</li></ul>"
+        },
+        {
+          "name": "featured",
+          "label": "Featured",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Check dates",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "Long weekend",
+          "price1": "$420",
+          "price2": "€390",
+          "price3": "£330",
+          "period": "per person, three nights",
+          "features": "<ul><li>Shared room and breakfast</li><li>Board and wetsuit all stay</li><li>Two group lessons</li></ul>",
+          "featured": false,
+          "button": {
+            "label": "Check weekends",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        {
+          "name": "Full week",
+          "price1": "$890",
+          "price2": "€820",
+          "price3": "£700",
+          "period": "per person, seven nights",
+          "features": "<ul><li>Shared room and breakfast</li><li>Five group lessons</li><li>Sunset yoga on the roof</li><li>Lisbon airport pickup</li></ul>",
+          "featured": true,
+          "button": {
+            "label": "Check weeks",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "name": "Coaching week",
+          "price1": "$1,290",
+          "price2": "€1,190",
+          "price3": "£1,020",
+          "period": "per person, seven nights",
+          "features": "<ul><li>Private room and breakfast</li><li>Daily coaching in a group of four</li><li>Video review every evening</li><li>Lisbon airport pickup</li></ul>",
+          "featured": false,
+          "button": {
+            "label": "Check coaching weeks",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ]
+    }
+  ]
+}

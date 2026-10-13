@@ -1,0 +1,156 @@
+{
+  "name": "Testimonials, speech bubbles",
+  "category": "testimonials",
+  "description": "Customer quotes in comic speech bubbles with thick outlines and tails that point at each speaker, alternating sides.",
+  "tags": [
+    "testimonials",
+    "quotes",
+    "speech bubbles",
+    "comic",
+    "conversation",
+    "avatars",
+    "playful"
+  ],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Overheard at the counter",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What riders say when they pick up their bikes",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Ines writes the good ones on the workshop whiteboard. These four have been up there the longest.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Speech bubbles",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "Fixed while I waited, and it rides like new."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Customer name"
+        },
+        {
+          "name": "role",
+          "label": "About them",
+          "type": "text",
+          "default": "City bike, daily rider"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "My commuter had been clicking for a year. Forty minutes and one new bottom bracket later: total silence.",
+          "name": "Dana Whitfield",
+          "role": "Rides 14 km to work",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Dana Whitfield",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "They told me my old frame was worth fixing, not replacing. That saved me about 600 euros.",
+          "name": "Marek Nowak",
+          "role": "1987 steel road bike",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Marek Nowak",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Puncture at 8:10, fixed by 8:25, at my desk by 9. I brought croissants the next day.",
+          "name": "Aisha Rahman",
+          "role": "Cargo bike, two kids on board",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Aisha Rahman",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "The first shop that explained what a derailleur does without making me feel silly.",
+          "name": "Colin Park",
+          "role": "Bought his first bike in March",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Colin Park",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

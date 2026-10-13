@@ -1,0 +1,26 @@
+<section class="b-blog-headline section">
+  <div class="container b-inner">
+    <h2 class="b-caps" data-field="title">{{title}}</h2>
+    <article class="b-band">
+      {{#if label}}<p class="b-sticker" data-field="label">{{label}}</p>{{/if}}
+      <h3 class="b-lead" data-field="leadTitle">{{leadTitle}}</h3>
+      <div class="b-foot">
+        <p class="b-caps b-meta">
+          {{#if leadAuthor}}<span data-field="leadAuthor">{{leadAuthor}}</span>{{/if}}
+          {{#if leadDate}}<time datetime="{{leadDate}}" data-field="leadDate">{{formatDate leadDate}}</time>{{/if}}
+          {{#if leadReadingTime}}<span data-field="leadReadingTime">{{leadReadingTime}}</span>{{/if}}
+        </p>
+        <a class="b-go" href="{{href leadLink}}" {{linkAttrs leadLink}} data-field="leadLinkLabel">{{leadLinkLabel}}<span class="b-circle">{{svgIcon "arrow-up-right"}}</span></a>
+      </div>
+    </article>
+    <div class="b-rest">
+      {{#each posts}}
+      <article class="b-post" data-field="posts.{{@index}}">
+        {{#if category}}<p class="b-caps b-kicker">{{category}}</p>{{/if}}
+        <h3><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+        {{#if date}}<time datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

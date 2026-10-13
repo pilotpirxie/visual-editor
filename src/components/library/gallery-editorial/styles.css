@@ -1,0 +1,103 @@
+@layer components {
+  @scope (.b-gallery-editorial) {
+    .b-inner {
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      max-width: 44rem;
+    }
+
+    .b-spread {
+      display: grid;
+      gap: var(--space-8) var(--space-6);
+      align-items: start;
+      counter-reset: shot total 3;
+    }
+
+    .b-shot {
+      display: grid;
+      gap: var(--space-3);
+      counter-increment: shot;
+    }
+
+    .b-shot:nth-child(2) {
+      order: 1;
+      width: 80%;
+      justify-self: end;
+    }
+
+    .b-shot:nth-child(3) {
+      order: 1;
+      width: 60%;
+    }
+
+    .b-photo {
+      --media-ratio: 3 / 4;
+      --media-radius: 0;
+    }
+
+    .b-shot:nth-child(2) .b-photo {
+      --media-ratio: 4 / 3;
+    }
+
+    .b-shot:nth-child(3) .b-photo {
+      --media-ratio: 1;
+    }
+
+    .b-credit {
+      display: flex;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .b-credit::before {
+      content: counter(shot, decimal-leading-zero) ' / ' counter(total, decimal-leading-zero);
+      flex: none;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      color: var(--color-text);
+    }
+
+    .b-caption {
+      padding-block-start: var(--space-6);
+      border-block-start: var(--border-width) solid var(--color-text);
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-style: italic;
+      line-height: var(--line-height-tight);
+      text-wrap: balance;
+    }
+
+    @media (min-width: 768px) {
+      .b-spread {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+      }
+
+      .b-shot:first-child {
+        grid-area: 1 / 1 / 4 / 7;
+      }
+
+      .b-caption {
+        grid-area: 1 / 8 / 2 / 13;
+      }
+
+      .b-shot:nth-child(2) {
+        grid-area: 2 / 7 / 3 / 11;
+        width: auto;
+      }
+
+      .b-shot:nth-child(2) .b-credit {
+        order: -1;
+      }
+
+      .b-shot:nth-child(3) {
+        grid-area: 3 / 10 / 4 / 13;
+        width: auto;
+        margin-block-start: calc(var(--space-16) * -2);
+        box-shadow: 0 0 0 var(--space-2) var(--color-background);
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+@layer components {
+  @scope (.b-gallery-stickers) {
+    :scope {
+      --section-bg: color-mix(in oklab, var(--color-primary) 14%, var(--color-background));
+    }
+
+    .b-inner {
+      --container-max-width: 60rem;
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-sheet {
+      --peel: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-8) var(--space-4);
+    }
+
+    .b-sticker {
+      --tilt: -2deg;
+      position: relative;
+      rotate: calc(var(--tilt) * var(--peel));
+    }
+
+    .b-item:nth-child(even) .b-sticker {
+      --tilt: 1.5deg;
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: 50%;
+      border: var(--space-2) solid var(--color-background);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-item:nth-child(3n + 2) .b-photo {
+      --media-radius: 42% 58% 62% 38% / 54% 40% 60% 46%;
+    }
+
+    .b-item:nth-child(3n) .b-photo {
+      --media-radius: 64% 36% 44% 56% / 42% 60% 40% 58%;
+    }
+
+    .b-label {
+      position: absolute;
+      inset: auto 0 calc(var(--space-3) * -1);
+      width: fit-content;
+      margin-inline: auto;
+      padding: var(--space-1) var(--space-3);
+      border: var(--space-1) solid var(--color-background);
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      text-align: center;
+      rotate: 3deg;
+    }
+
+    @media (min-width: 768px) {
+      .b-sheet {
+        --peel: 3.5;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-8) 0;
+        padding: 0 var(--space-6) var(--space-12);
+      }
+
+      .b-item {
+        margin-inline: calc(var(--space-3) * -1);
+      }
+
+      .b-item:nth-child(3n + 2) {
+        z-index: 1;
+        translate: 0 var(--space-12);
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-sticker {
+        transition: rotate var(--transition-normal);
+      }
+
+      .b-item:hover .b-sticker {
+        --peel: 0;
+      }
+    }
+  }
+}

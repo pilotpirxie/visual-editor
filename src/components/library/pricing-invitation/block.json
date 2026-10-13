@@ -1,0 +1,83 @@
+{
+  "name": "Pricing, invitation",
+  "category": "pricing",
+  "description": "One offer written as an invitation card on a tilted envelope: a thin inner border, centred italics, a starting price and one button.",
+  "tags": ["pricing", "invitation", "card", "single offer", "from price", "wedding", "elegant"],
+  "fieldGroups": ["Invitation", "Price"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Who invites",
+      "type": "text",
+      "default": "Wren & Thistle, florists",
+      "group": "Invitation"
+    },
+    {
+      "name": "lead",
+      "label": "Line above the title",
+      "type": "text",
+      "default": "invite you to plan",
+      "group": "Invitation"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A wedding in flowers",
+      "required": true,
+      "group": "Invitation"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Bouquets, buttonholes, a ceremony arch and every table, gathered from local growers in the week of your day.",
+      "group": "Invitation"
+    },
+    {
+      "name": "fromLabel",
+      "label": "Word above the price",
+      "type": "text",
+      "default": "from",
+      "group": "Price"
+    },
+    {
+      "name": "price",
+      "label": "Price",
+      "type": "text",
+      "default": "$1,400",
+      "required": true,
+      "group": "Price"
+    },
+    {
+      "name": "period",
+      "label": "Line under the price",
+      "type": "text",
+      "default": "for up to sixty guests",
+      "group": "Price"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "group": "Price",
+      "default": {
+        "label": "Request a consultation",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      }
+    },
+    {
+      "name": "note",
+      "label": "Reply note",
+      "type": "textarea",
+      "default": "Kindly reply at least twelve weeks before the date.",
+      "group": "Price"
+    }
+  ]
+}

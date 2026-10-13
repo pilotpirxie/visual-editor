@@ -1,0 +1,80 @@
+{
+  "name": "How it works, countdown",
+  "category": "how-it-works",
+  "description": "Giant outlined numerals count down to one across a bold colour band, ending on a single closing word.",
+  "tags": ["steps", "countdown", "numbers", "outline", "bold", "band", "expressive", "launch"],
+  "fieldGroups": ["Heading", "Steps", "Ending"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Same-week repairs",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your bike back on the road by Friday",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "No booking form and no three-week queue at Spoke & Sprocket. Most repairs take four working days, start to finish.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 5,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "One more step",
+          "maxLength": 50
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens before the count reaches one."
+        }
+      ],
+      "default": [
+        {
+          "title": "Drop it off",
+          "text": "Wheel it in any morning from 8. We look it over with you at the stand and write down what it needs."
+        },
+        {
+          "title": "We call with a price",
+          "text": "One call before closing time with a fixed price and a pick-up day. Nothing is fitted until you say yes."
+        },
+        {
+          "title": "Pick it up",
+          "text": "Tuned, test-ridden round the block and wiped down. Pay at the counter by cash or card."
+        }
+      ]
+    },
+    {
+      "name": "finale",
+      "label": "Closing word",
+      "type": "text",
+      "default": "Ride.",
+      "maxLength": 20,
+      "help": "Shown large after the last number. Leave empty to hide it.",
+      "group": "Ending"
+    }
+  ]
+}

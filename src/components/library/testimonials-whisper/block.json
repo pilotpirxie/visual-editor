@@ -1,0 +1,175 @@
+{
+  "name": "Testimonials, whispers",
+  "category": "testimonials",
+  "description": "Small muted quotes scattered in a sparse grid with wide spacing, no cards and tiny avatars.",
+  "tags": ["testimonials", "quotes", "minimal", "quiet", "calm", "sparse", "avatars"],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Stillwater Physio",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Quietly said, after the last session",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "items",
+      "label": "Quotes",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "I walked to the station this morning and did not think about my hip once."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "First name"
+        },
+        {
+          "name": "role",
+          "label": "About them",
+          "type": "text",
+          "default": "after six sessions"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "I picked up my granddaughter last week without thinking about my back first.",
+          "name": "Ruth",
+          "role": "67, lower back",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Ruth",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Ten sessions. I ran 5 km on Sunday and my knee had nothing to say about it.",
+          "name": "Imran",
+          "role": "runner",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Imran",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "Nobody rushed me. That was new.",
+          "name": "Celeste",
+          "role": "after shoulder surgery",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Celeste",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "The exercises fit on one page and take eight minutes. So I actually do them.",
+          "name": "Paul",
+          "role": "desk worker",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Paul",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "I slept through the night for the first time since the accident.",
+          "name": "Nadia",
+          "role": "cyclist",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Nadia",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "They noticed I was nervous before I said a word about it.",
+          "name": "Henrik",
+          "role": "first visit",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Henrik",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

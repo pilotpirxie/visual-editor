@@ -1,0 +1,110 @@
+@layer components {
+  @scope (.b-contact-poster) {
+    .b-sheet {
+      --rule: var(--space-1) solid var(--color-text);
+      display: grid;
+      border: var(--rule);
+      box-shadow: var(--space-2) var(--space-2) 0 var(--color-primary);
+    }
+
+    .b-side {
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-xl);
+      letter-spacing: 0.3em;
+    }
+
+    .b-side,
+    .b-phone,
+    h2,
+    h3 {
+      font-family: var(--font-heading);
+      font-weight: var(--font-weight-heading);
+      text-transform: uppercase;
+    }
+
+    .b-main {
+      min-width: 0;
+    }
+
+    .b-top,
+    .b-box {
+      padding: var(--space-6) var(--space-4);
+    }
+
+    h2 {
+      font-size: var(--text-lg);
+      letter-spacing: 0.08em;
+    }
+
+    .b-phone {
+      color: inherit;
+      font-size: min(var(--text-5xl) * 1.8, 10vw);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+    }
+
+    .b-note {
+      max-width: 32rem;
+    }
+
+    .b-boxes {
+      display: grid;
+    }
+
+    .b-box {
+      border-block-start: var(--rule);
+      font-size: var(--text-lg);
+      overflow-wrap: anywhere;
+    }
+
+    .b-box:nth-child(2) {
+      background: var(--color-text);
+      color: var(--color-background);
+    }
+
+    h3 {
+      margin-block-end: var(--space-2);
+      font-size: var(--text-sm);
+      letter-spacing: 0.08em;
+    }
+
+    address {
+      font-style: normal;
+    }
+
+    .b-box a {
+      color: inherit;
+    }
+
+    @media (min-width: 768px) {
+      .b-sheet {
+        grid-template-columns: auto minmax(0, 1fr);
+      }
+
+      .b-side {
+        padding: var(--space-6) var(--space-3);
+        font-size: var(--text-3xl);
+        text-align: center;
+        writing-mode: vertical-rl;
+        rotate: 180deg;
+      }
+
+      .b-top,
+      .b-box {
+        padding: var(--space-8);
+      }
+
+      .b-boxes {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+      }
+
+      .b-box + .b-box {
+        border-inline-start: var(--rule);
+      }
+    }
+  }
+}

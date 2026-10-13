@@ -1,0 +1,102 @@
+@layer components {
+  @scope (.b-gallery-clothesline) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      color: var(--color-text-muted);
+    }
+
+    .b-line {
+      --swing: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: var(--space-8);
+    }
+
+    .b-item {
+      position: relative;
+      padding: var(--space-6) var(--space-3) 0;
+    }
+
+    .b-item::before {
+      content: '';
+      position: absolute;
+      inset: var(--space-3) 0 auto;
+      border-top: 0.125rem solid var(--color-text-muted);
+    }
+
+    .b-print {
+      --tilt: -2deg;
+      position: relative;
+      transform-origin: top;
+      rotate: calc(var(--tilt) * var(--swing));
+    }
+
+    .b-item:nth-child(even) .b-print {
+      --tilt: 1.5deg;
+    }
+
+    .b-print::before {
+      content: '';
+      position: absolute;
+      top: calc(var(--space-6) * -1);
+      left: 50%;
+      width: 1rem;
+      height: 2.5rem;
+      border-radius: var(--radius-sm);
+      background:
+        linear-gradient(transparent 36%, var(--color-text) 36% 44%, transparent 44%),
+        color-mix(in oklab, var(--color-primary) 45%, var(--color-background));
+      translate: -50% 0;
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: 0;
+      border: var(--space-2) solid var(--color-background);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-caption {
+      margin-block-start: var(--space-3);
+      font-family: var(--font-heading);
+      font-style: italic;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .b-line {
+        --swing: 2;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        row-gap: var(--space-12);
+      }
+
+      .b-item {
+        padding-inline: var(--space-8);
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-print {
+        transition: rotate var(--transition-normal);
+      }
+
+      .b-item:hover .b-print {
+        --swing: -1;
+      }
+    }
+  }
+}

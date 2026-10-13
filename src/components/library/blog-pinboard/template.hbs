@@ -1,0 +1,22 @@
+<section class="b-blog-pinboard section">
+  <div class="container stack">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-board" role="list">
+      {{#each posts}}
+      <li class="stack b-note" data-field="posts.{{@index}}">
+        <p class="b-line">
+          {{#if category}}<span>{{category}}</span>{{/if}}
+          {{#if date}}<time datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+        </p>
+        <h3><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+        {{#if excerpt}}<p class="b-muted">{{nl2br excerpt}}</p>{{/if}}
+        {{#if author}}<p class="b-author">{{author}}</p>{{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,86 @@
+{
+  "name": "Contact, poster",
+  "category": "contacts",
+  "description": "A poster with thick borders: a rotated side label, the phone number set very large and boxes for the address, hours and email.",
+  "tags": ["contact", "poster", "phone", "address", "hours", "bold", "expressive", "borders"],
+  "fieldGroups": ["Heading", "Boxes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Side label",
+      "type": "text",
+      "default": "Contact",
+      "maxLength": 20,
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Ring the bakery",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "0114 496 0162",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "textarea",
+      "default": "Order sourdough, birthday cakes and trays of buns before noon and collect them warm the next morning.",
+      "group": "Heading"
+    },
+    {
+      "name": "addressLabel",
+      "label": "Address label",
+      "type": "text",
+      "default": "Find us",
+      "required": true,
+      "group": "Boxes"
+    },
+    {
+      "name": "address",
+      "label": "Address",
+      "type": "textarea",
+      "default": "8 Abbeydale Road\nSheffield S7 1FD",
+      "group": "Boxes"
+    },
+    {
+      "name": "hoursLabel",
+      "label": "Hours label",
+      "type": "text",
+      "default": "Open",
+      "required": true,
+      "group": "Boxes"
+    },
+    {
+      "name": "hours",
+      "label": "Hours",
+      "type": "textarea",
+      "default": "Wed to Fri 7:00 to 15:00\nSaturday 8:00 to 14:00\nSun to Tue closed",
+      "group": "Boxes"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email label",
+      "type": "text",
+      "default": "Write",
+      "required": true,
+      "group": "Boxes"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "bread@ovenbird.example",
+      "group": "Boxes"
+    }
+  ]
+}

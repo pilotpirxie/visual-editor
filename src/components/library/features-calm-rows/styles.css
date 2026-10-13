@@ -1,0 +1,66 @@
+@layer components {
+  @scope (.b-features-calm-rows) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    p:not(.eyebrow) {
+      color: var(--color-text-muted);
+    }
+
+    .b-row {
+      --icon-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding-block: var(--space-6);
+      font-size: var(--text-lg);
+    }
+
+    .b-row + .b-row {
+      border-block-start: var(--border-width) solid
+        color-mix(in oklab, var(--color-border) 60%, transparent);
+    }
+
+    .b-icon {
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 3.5rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 10%, var(--color-background));
+      color: var(--color-primary);
+    }
+
+    strong {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text);
+    }
+
+    @media (min-width: 768px) {
+      .b-row {
+        gap: var(--space-8);
+        padding-block: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-16);
+      }
+
+      .b-head {
+        position: sticky;
+        top: var(--space-8);
+        align-self: start;
+      }
+    }
+  }
+}

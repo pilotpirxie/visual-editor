@@ -1,0 +1,10 @@
+<section class="b-richtext-poster section">
+  <div class="container b-inner">
+    <header class="b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if stamp}}<p class="b-stamp" data-field="stamp">{{stamp}}</p>{{/if}}
+    </header>
+    <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+  </div>
+</section>

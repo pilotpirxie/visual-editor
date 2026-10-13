@@ -1,0 +1,103 @@
+{
+  "name": "Rich text, typed memo",
+  "category": "rich-text",
+  "description": "Text as a typewritten memo on a slightly tilted sheet, with To, From, Date and subject lines and a margin rule.",
+  "tags": ["memo", "typewriter", "notice", "announcement", "mono", "paper", "text", "playful"],
+  "fieldGroups": ["Memo head", "Text", "Labels"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "label",
+      "label": "Heading word",
+      "type": "text",
+      "default": "Memo",
+      "group": "Memo head",
+      "maxLength": 20
+    },
+    {
+      "name": "stamp",
+      "label": "Stamp",
+      "type": "text",
+      "default": "Please read",
+      "group": "Memo head",
+      "maxLength": 24
+    },
+    {
+      "name": "to",
+      "label": "To",
+      "type": "text",
+      "default": "All wholesale accounts",
+      "group": "Memo head"
+    },
+    {
+      "name": "from",
+      "label": "From",
+      "type": "text",
+      "default": "Hanna Lindqvist, head roaster",
+      "group": "Memo head"
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-10-05",
+      "group": "Memo head"
+    },
+    {
+      "name": "title",
+      "label": "Subject",
+      "type": "text",
+      "default": "Roast days move to Monday and Thursday",
+      "required": true,
+      "maxLength": 140,
+      "group": "Memo head"
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<p>From Monday 2 November we will roast twice a week instead of three times. The new roast days are Monday and Thursday, and every order leaves the roastery the morning after.</p><h2>What changes for you</h2><p>Orders placed by 2 pm on Sunday ship on Tuesday. Orders placed by 2 pm on Wednesday ship on Friday. An order that arrives after the cut-off simply joins the next roast.</p><ul><li>Standing orders move to the nearest roast day automatically.</li><li>The minimum order stays at 5 kg.</li><li>Prices do not change this year.</li></ul><h2>Why we are doing this</h2><p>Two larger batches let us run the roaster at its most efficient load, which cuts our gas use by about a fifth. It also gives Mikael a full day for cupping, which he has been squeezing in between deliveries.</p><p>If the new days cause trouble for your café, call me on 031 555 01 42 before the end of the month and we will find a rhythm that works.</p>",
+      "group": "Text"
+    },
+    {
+      "name": "reference",
+      "label": "Reference line",
+      "type": "text",
+      "default": "HL/mk - copies to dispatch and the front counter",
+      "group": "Text"
+    },
+    {
+      "name": "toLabel",
+      "label": "Label for To",
+      "type": "text",
+      "default": "To:",
+      "required": true,
+      "group": "Labels"
+    },
+    {
+      "name": "fromLabel",
+      "label": "Label for From",
+      "type": "text",
+      "default": "From:",
+      "required": true,
+      "group": "Labels"
+    },
+    {
+      "name": "dateLabel",
+      "label": "Label for Date",
+      "type": "text",
+      "default": "Date:",
+      "required": true,
+      "group": "Labels"
+    },
+    {
+      "name": "subjectLabel",
+      "label": "Label for Subject",
+      "type": "text",
+      "default": "Re:",
+      "required": true,
+      "group": "Labels"
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "name": "Testimonials, avatar switcher",
+  "category": "testimonials",
+  "description": "A row of avatars works as a picker: choosing a person shows their quote in the panel below, without any script.",
+  "tags": ["testimonials", "quotes", "avatars", "switcher", "picker", "interactive", "radio"],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Client stories",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Pick a face to hear how the job went",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "pickerLabel",
+      "label": "Picker label for screen readers",
+      "type": "text",
+      "default": "Choose a client",
+      "group": "Quotes"
+    },
+    {
+      "name": "items",
+      "label": "Quotes",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 2,
+      "maxItems": 5,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "They turned up when they said they would and left the house cleaner than they found it."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Client name"
+        },
+        {
+          "name": "role",
+          "label": "Project",
+          "type": "text",
+          "default": "Street, type of job"
+        },
+        {
+          "name": "photo",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "quote": "They found dry rot behind the old units on day two, showed me photos and gave me a fixed price to sort it before lunch. No surprises on the final bill.",
+          "name": "Greta Lindahl",
+          "role": "Alder Road, fitted kitchen",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Greta Lindahl",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "The staircase arrived in four pieces and was in by teatime. Our old one creaked on every step. This one is so quiet that the cat keeps startling us.",
+          "name": "Malik Benyahia",
+          "role": "Quay Street, loft staircase",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Malik Benyahia",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "We wanted shelves that looked as if they had always been in the house. Visitors now ask which of the Victorian owners built them.",
+          "name": "Rosa and Jim Albright",
+          "role": "Fern Lane, alcove bookshelves",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Rosa and Jim Albright",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "quote": "They worked two Sundays so my café never had to close. The new door opened on Monday at 7 with the paint dry.",
+          "name": "Yuki Arai",
+          "role": "Mill Row, shopfront and door",
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Yuki Arai",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

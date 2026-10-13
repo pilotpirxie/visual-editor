@@ -1,0 +1,288 @@
+{
+  "name": "Blog posts, topic filter",
+  "category": "blog",
+  "description": "A grid of posts under a row of topic chips: picking a chip shows only the posts of that topic, with no script.",
+  "tags": ["blog", "posts", "articles", "filter", "topics", "chips", "categories", "smart"],
+  "fieldGroups": ["Heading", "Topics", "Posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Garden notes",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What to do in the garden this month",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Advice from the potting bench at Fernhill Nursery. Pick a topic or read the lot.",
+      "group": "Heading"
+    },
+    {
+      "name": "filterLabel",
+      "label": "Filter label for screen readers",
+      "type": "text",
+      "default": "Show posts about",
+      "group": "Topics",
+      "required": true
+    },
+    {
+      "name": "allLabel",
+      "label": "Label for all posts",
+      "type": "text",
+      "default": "All",
+      "group": "Topics",
+      "required": true
+    },
+    {
+      "name": "topic1",
+      "label": "Topic 1",
+      "type": "text",
+      "default": "Planting",
+      "group": "Topics",
+      "required": true
+    },
+    {
+      "name": "topic2",
+      "label": "Topic 2",
+      "type": "text",
+      "default": "Care",
+      "group": "Topics",
+      "required": true
+    },
+    {
+      "name": "topic3",
+      "label": "Topic 3",
+      "type": "text",
+      "default": "Harvest",
+      "group": "Topics",
+      "required": true
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "topic",
+          "label": "Topic",
+          "type": "select",
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": "Topic 1"
+            },
+            {
+              "value": "2",
+              "label": "Topic 2"
+            },
+            {
+              "value": "3",
+              "label": "Topic 3"
+            }
+          ]
+        },
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Cover image",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "One job for the garden this week"
+        },
+        {
+          "name": "excerpt",
+          "label": "Excerpt",
+          "type": "textarea",
+          "default": "Two sentences on what to do and when to do it."
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "topic": "1",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Garlic cloves laid out along a drill in dark soil",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Plant garlic now for fat bulbs in July",
+          "excerpt": "Cloves go in 5 cm deep before the first hard frost. These three varieties cope with heavy clay.",
+          "date": "2026-10-07",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "topic": "2",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Fallen leaves raked onto a vegetable bed",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Leave the leaves: a lazy guide to autumn mulch",
+          "excerpt": "Rake them off the lawn and onto the beds. The worms will do the rest by March.",
+          "date": "2026-10-01",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "topic": "3",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Apples in a single layer on a slatted wooden tray",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Storing apples so they last until February",
+          "excerpt": "One layer deep, not touching, somewhere cool and dark. Check weekly and eat the bruised ones first.",
+          "date": "2026-09-24",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "topic": "1",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Bare-root roses bundled in damp hessian",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Bare-root roses are back on the benches",
+          "excerpt": "Cheaper than potted, quicker to establish, and only here until the end of November.",
+          "date": "2026-09-17",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "topic": "2",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Pelargoniums in terracotta pots on a windowsill",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "When to bring the pelargoniums indoors",
+          "excerpt": "Before the nights drop below 5 °C. Cut them back by a third and they will sit out winter on a windowsill.",
+          "date": "2026-09-10",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "topic": "3",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A bowl of green tomatoes beside jars of chutney",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Green tomatoes: ripen them or pickle them?",
+          "excerpt": "A banana in a paper bag works. So does our chutney recipe, which uses two kilos at once.",
+          "date": "2026-09-03",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

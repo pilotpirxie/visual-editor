@@ -4,7 +4,7 @@ import { designSheetToggled, dialogOpened, noticeDismissed } from '../../app/edi
 import { dispatch, store } from '../../app/store';
 import type { ButtonValue } from '../../components/types';
 import type { Project } from '../../app/types';
-import { click, getButton, queryButton, render } from '../../test/dom';
+import { changeValue, click, getButton, queryButton, render } from '../../test/dom';
 import {
   componentBlockOf,
   homePage,
@@ -13,10 +13,17 @@ import {
   withSearchDetails,
 } from '../../test/fixtures';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
+import { APP_SETTINGS_STORAGE_KEY, updateAppSettings } from '../../app/appSettings';
+import { publishSite } from '../publish/hosts';
 import { downloadBlob } from './download';
 import { ExportDialog, exportFileName, formatBytes } from './ExportDialog';
 
 vi.mock('./download', () => ({ downloadBlob: vi.fn() }));
+
+vi.mock(import('../publish/hosts'), async (importOriginal) => ({
+  ...(await importOriginal()),
+  publishSite: vi.fn(),
+}));
 
 vi.mock('../../persistence/db', () => ({
   putProject: vi.fn(async () => {}),
@@ -84,6 +91,23 @@ async function renderReady(onClose: () => void = () => {}): Promise<HTMLDivEleme
   return container;
 }
 
+function chooseDestination(container: HTMLElement, name: string): void {
+  for (const choice of container.querySelectorAll('.ve-export-destination')) {
+    if (choice.querySelector('.ve-export-destination-name')?.textContent !== name) continue;
+    click(choice.querySelector('input'));
+    return;
+  }
+  throw new Error(`No destination named "${name}"`);
+}
+
+function destinationNames(container: HTMLElement): string[] {
+  const names: string[] = [];
+  for (const name of container.querySelectorAll('.ve-export-destination-name')) {
+    names.push(name.textContent ?? '');
+  }
+  return names;
+}
+
 function isDialogOpen(container: HTMLElement): boolean {
   return container.querySelector('dialog')?.hasAttribute('open') === true;
 }
@@ -142,6 +166,20 @@ describe('ExportDialog', () => {
     expect(container.textContent).toContain('Everything looks ready.');
     expect(container.querySelector('[role="note"]')).toBeNull();
     expect(getButton(container, 'Download zip')).toBeDefined();
+  });
+
+  it('starts on the zip download and shows no publishing details until a host is chosen', async () => {
+    const container = await renderReady();
+    expect(destinationNames(container)).toEqual([
+      'Download a zip',
+      'Publish to Netlify',
+      'Publish to GitHub Pages',
+    ]);
+    expect(container.querySelector<HTMLInputElement>('input[type="radio"]:checked')).toBe(
+      container.querySelector('.ve-export-destination input'),
+    );
+    expect(container.querySelector('.ve-publish')).toBeNull();
+    expect(container.querySelectorAll('.ui-dialog-actions .ui-button--primary')).toHaveLength(1);
   });
 
   it('lists the files that will be written with their total size', async () => {
@@ -266,7 +304,7 @@ describe('ExportDialog', () => {
       'The site could not be exported: Icons are offline',
     );
     expect(queryButton(container, 'Download zip')).toBeNull();
-    expect(queryButton(container, 'Save to folder…')).toBeNull();
+    expect(destinationNames(container)).toEqual([]);
   });
 
   it('closes without exporting on Cancel', async () => {
@@ -281,7 +319,7 @@ describe('ExportDialog', () => {
 describe('ExportDialog saving into a folder', () => {
   it('hides the folder option when the browser cannot write into folders', async () => {
     const container = await renderReady();
-    expect(queryButton(container, 'Save to folder…')).toBeNull();
+    expect(destinationNames(container)).not.toContain('Save to a folder');
   });
 
   it('writes every file into the chosen folder and says so', async () => {
@@ -289,6 +327,7 @@ describe('ExportDialog saving into a folder', () => {
     setDirectoryPicker(async () => fakeFolder('my-site', written));
     const onClose = vi.fn();
     const container = await renderReady(onClose);
+    chooseDestination(container, 'Save to a folder');
     click(getButton(container, 'Save to folder…'));
     await vi.waitFor(() =>
       expect(container.querySelector('[role="status"]')?.textContent).toBe(
@@ -307,6 +346,7 @@ describe('ExportDialog saving into a folder', () => {
     });
     const onClose = vi.fn();
     const container = await renderReady(onClose);
+    chooseDestination(container, 'Save to a folder');
     click(getButton(container, 'Save to folder…'));
     await vi.waitFor(() => expect(getButton(container, 'Save to folder…').disabled).toBe(false));
     expect(onClose).not.toHaveBeenCalled();
@@ -321,8 +361,70 @@ describe('ExportDialog saving into a folder', () => {
     });
     const onClose = vi.fn();
     const container = await renderReady(onClose);
+    chooseDestination(container, 'Save to a folder');
     click(getButton(container, 'Save to folder…'));
     await vi.waitFor(() => expect(noticeTexts().join('\n')).toContain('Permission denied'));
     expect(onClose).not.toHaveBeenCalled();
+  });
+});
+
+describe('ExportDialog publishing', () => {
+  beforeEach(() => {
+    localStorage.removeItem(APP_SETTINGS_STORAGE_KEY);
+    vi.mocked(publishSite).mockReset();
+  });
+
+  it('needs a token before it can publish to the chosen host', async () => {
+    const container = await renderReady();
+    chooseDestination(container, 'Publish to GitHub Pages');
+    expect(getButton(container, 'Publish to GitHub Pages').disabled).toBe(true);
+    expect(container.querySelector('.ve-publish label')?.textContent).toBe('GitHub access token');
+    changeValue(container.querySelector('input[type="password"]'), 'ghp_test');
+    expect(getButton(container, 'Publish to GitHub Pages').disabled).toBe(false);
+    chooseDestination(container, 'Publish to Netlify');
+    expect(container.querySelector('.ve-publish label')?.textContent).toBe('Netlify access token');
+    expect(getButton(container, 'Publish to Netlify').disabled).toBe(true);
+  });
+
+  it('publishes to the chosen host and shows the address', async () => {
+    updateAppSettings({ netlifyToken: 'nfp_test' });
+    vi.mocked(publishSite).mockResolvedValue({ siteId: 's1', url: 'https://one.netlify.app' });
+    const container = await renderReady();
+    chooseDestination(container, 'Publish to Netlify');
+    click(getButton(container, 'Publish to Netlify'));
+    await vi.waitFor(() =>
+      expect(container.querySelector('h2')?.textContent).toBe('Site published'),
+    );
+    expect(vi.mocked(publishSite).mock.calls[0]?.[0]).toBe('netlify');
+    expect(container.querySelector('a')?.getAttribute('href')).toBe('https://one.netlify.app');
+    expect(downloadBlob).not.toHaveBeenCalled();
+  });
+
+  it('offers to publish changes once the project has a site on that host', async () => {
+    const projectId = store.getState().project.id;
+    const site = { siteId: 'ada/fieldnote', url: 'https://ada.github.io/fieldnote/' };
+    updateAppSettings({ githubToken: 'ghp_test', githubSites: { [projectId]: site } });
+    const container = await renderReady();
+    chooseDestination(container, 'Publish to GitHub Pages');
+    expect(getButton(container, 'Publish changes').disabled).toBe(false);
+    expect(container.querySelector('.ve-publish a')?.getAttribute('href')).toBe(site.url);
+  });
+
+  it('explains a failed publish next to the token and stays on the same choice', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    updateAppSettings({ netlifyToken: 'nfp_test' });
+    vi.mocked(publishSite).mockRejectedValue(new Error('Netlify did not accept the token.'));
+    const container = await renderReady();
+    chooseDestination(container, 'Publish to Netlify');
+    click(getButton(container, 'Publish to Netlify'));
+    await vi.waitFor(() =>
+      expect(container.querySelector('.ve-publish [role="alert"]')?.textContent).toBe(
+        'Netlify did not accept the token.',
+      ),
+    );
+    expect(noticeTexts()).toEqual([]);
+    expect(getButton(container, 'Publish to Netlify').disabled).toBe(false);
+    chooseDestination(container, 'Download a zip');
+    expect(container.querySelector('[role="alert"]')).toBeNull();
   });
 });

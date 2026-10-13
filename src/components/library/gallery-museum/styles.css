@@ -1,0 +1,85 @@
+@layer components {
+  @scope (.b-gallery-museum) {
+    :scope {
+      --section-bg: color-mix(in oklab, var(--color-surface) 60%, var(--color-background));
+    }
+
+    .b-inner {
+      gap: var(--space-16);
+    }
+
+    .b-head {
+      max-width: 36rem;
+    }
+
+    .b-intro {
+      color: var(--color-text-muted);
+    }
+
+    .b-wall {
+      --size: 17rem;
+      display: grid;
+      gap: var(--space-16);
+    }
+
+    .b-frame {
+      flex: none;
+      width: min(100%, calc(var(--w) / var(--h) * var(--size)));
+      padding: calc(var(--size) / 10);
+      border: 0.125rem solid var(--color-text);
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-photo {
+      --media-ratio: var(--w) / var(--h);
+      --media-radius: 0;
+      outline: var(--border-width) solid var(--color-border);
+    }
+
+    .b-label {
+      display: grid;
+      gap: var(--space-1);
+      max-width: 16rem;
+      margin-block-start: var(--space-6);
+      padding-inline-start: var(--space-4);
+      border-inline-start: var(--border-width) solid var(--color-text);
+      font-variant-caps: all-small-caps;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+    }
+
+    .b-title {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      line-height: var(--line-height-tight);
+      color: var(--color-text);
+    }
+
+    @media (min-width: 768px) {
+      .b-wall {
+        --size: 22rem;
+      }
+
+      .b-figure {
+        display: flex;
+        align-items: flex-end;
+        gap: var(--space-8);
+      }
+
+      .b-work:nth-child(even) .b-figure {
+        flex-direction: row-reverse;
+      }
+
+      .b-work:nth-child(3n) .b-figure {
+        justify-content: center;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-wall {
+        --size: 26rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "name": "Blog posts, postcards",
+  "category": "blog",
+  "description": "Posts as postcards: the image on one half, the title and excerpt on the other with a stamp for the date and address lines for the author.",
+  "tags": ["blog", "posts", "articles", "postcards", "stamp", "travel", "mail", "playful"],
+  "fieldGroups": ["Heading", "Posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Trail post",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Postcards from the coast path",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Our guides at Slow Coast Walks write home after every trip. Here is what landed on the mat this month.",
+      "group": "Heading"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "View from the walk",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "A short walk worth writing home about"
+        },
+        {
+          "name": "excerpt",
+          "label": "Excerpt",
+          "type": "textarea",
+          "default": "Two sentences from the trail, as you would write them on a card."
+        },
+        {
+          "name": "author",
+          "label": "Signed by",
+          "type": "text",
+          "default": "Marta, walk leader"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Red-roofed cottages stepping down to a bay at low tide",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Robin Hood's Bay to Whitby in three days, tide permitting",
+          "excerpt": "We crossed the scar at low water with twenty minutes to spare and ate kippers on the harbour wall.",
+          "author": "Marta, walk leader",
+          "date": "2026-10-02",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Wooden steps climbing a grassy cliff above the sea",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "The cliff path above Staithes is open again",
+          "excerpt": "Forty new oak steps, built by volunteers over two winters. Your knees will count every one.",
+          "author": "Owen, path warden",
+          "date": "2026-09-21",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A rucksack, a flask and a folded map on a stone wall",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "What we pack for a wet October walk",
+          "excerpt": "A flask, dry socks in a bread bag, and the paper map we swear we will not need.",
+          "author": "Priya, kit room",
+          "date": "2026-09-12",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

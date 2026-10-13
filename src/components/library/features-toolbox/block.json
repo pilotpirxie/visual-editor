@@ -1,0 +1,122 @@
+{
+  "name": "Features, toolbox",
+  "category": "features",
+  "description": "A compartment tray that shows what comes in the box, each compartment named on a strip of tape.",
+  "tags": ["features", "toolbox", "kit", "contents", "compartments", "tape", "playful", "included"],
+  "fieldGroups": ["Heading", "Box"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "What's in the box",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Everything for six pots at your own kitchen table",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The Clay at Home box from Fenn Street Pottery costs £48 and ships every Tuesday. You make the pots, we fire them.",
+      "group": "Heading"
+    },
+    {
+      "name": "boxLabel",
+      "label": "Label on the box",
+      "type": "text",
+      "default": "Clay at Home - this way up",
+      "maxLength": 40,
+      "group": "Box"
+    },
+    {
+      "name": "items",
+      "label": "Compartments",
+      "type": "list",
+      "group": "Box",
+      "minItems": 2,
+      "maxItems": 11,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Tape label",
+          "type": "text",
+          "default": "Spare sponge",
+          "required": true,
+          "maxLength": 24
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "gift"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Say what it is and what it is for."
+        },
+        {
+          "name": "amount",
+          "label": "Amount",
+          "type": "text",
+          "default": "1 piece",
+          "maxLength": 24
+        }
+      ],
+      "default": [
+        {
+          "name": "Stoneware clay",
+          "icon": "layers",
+          "text": "Speckled buff stoneware, wedged and ready to use straight from the bag. Enough for six mugs or one ambitious vase.",
+          "amount": "2 kg"
+        },
+        {
+          "name": "Wooden tools",
+          "icon": "pencil",
+          "text": "Rib, needle, wire cutter, sponge and a loop tool for trimming.",
+          "amount": "5 pieces"
+        },
+        {
+          "name": "Video lessons",
+          "icon": "play",
+          "text": "From pinch pots to a lidded jar, taught by Ines at her bench.",
+          "amount": "6 x 20 min"
+        },
+        {
+          "name": "Glaze tokens",
+          "icon": "sparkles",
+          "text": "Choose your colours from 12 house glazes when you drop off.",
+          "amount": "4 tokens"
+        },
+        {
+          "name": "Kiln firing",
+          "icon": "sun",
+          "text": "We bisque and glaze fire up to six pieces at 1,240 °C.",
+          "amount": "Included"
+        },
+        {
+          "name": "Return carton",
+          "icon": "send",
+          "text": "A padded carton and a prepaid label, so your pots travel back to the studio in one piece. Collect them two weeks later.",
+          "amount": "Prepaid"
+        }
+      ]
+    }
+  ]
+}

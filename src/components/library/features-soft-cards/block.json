@@ -1,0 +1,101 @@
+{
+  "name": "Features, soft cards",
+  "category": "features",
+  "description": "Rounded cards without borders, each tinted a little more strongly than the one before.",
+  "tags": ["features", "cards", "tint", "soft", "rounded", "calm", "gentle", "benefits"],
+  "fieldGroups": ["Heading", "Cards"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How we teach",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Small classes, patient teachers, real conversations",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Casa Tilde teaches Spanish to adults in the rooms above the bookshop on Call Lane, four evenings a week.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Cards",
+      "type": "list",
+      "group": "Cards",
+      "minItems": 2,
+      "maxItems": 9,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "sun"
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Summer intensives",
+          "required": true,
+          "maxLength": 50
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Two weeks of mornings in July, for anyone with a trip coming up."
+        }
+      ],
+      "default": [
+        {
+          "icon": "users",
+          "name": "Six at a table",
+          "text": "Classes never grow past six, so everybody has spoken within the first ten minutes."
+        },
+        {
+          "icon": "message",
+          "name": "Spanish from minute one",
+          "text": "Your teacher speaks slowly, draws a lot and switches to English only when you are truly stuck."
+        },
+        {
+          "icon": "coffee",
+          "name": "Thursday conversation café",
+          "text": "An hour of talk over coffee with no textbook in sight, free for every student."
+        },
+        {
+          "icon": "book",
+          "name": "A library to borrow from",
+          "text": "Four hundred graded readers, films and comics to take home between lessons."
+        },
+        {
+          "icon": "calendar",
+          "name": "Catch-up lessons",
+          "text": "Miss a class and you can sit in on the same lesson with another group that week."
+        },
+        {
+          "icon": "smile",
+          "name": "No exams unless you ask",
+          "text": "We prepare you for the DELE certificate if you want it, and only then."
+        }
+      ]
+    }
+  ]
+}

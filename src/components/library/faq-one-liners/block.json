@@ -1,0 +1,83 @@
+{
+  "name": "FAQ, one-liners",
+  "category": "faq",
+  "description": "Short questions with one-line answers that are always visible, set as a list with dotted leaders between question and answer.",
+  "tags": ["faq", "questions", "short answers", "definition list", "dotted", "calm", "quick"],
+  "fieldGroups": ["Heading", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Quick answers",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The short version",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Six things people ask at the counter of Little Oven, each answered in a line.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 20,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "Do you take cards?",
+          "maxLength": 80
+        },
+        {
+          "name": "answer",
+          "label": "Answer in one line",
+          "type": "text",
+          "default": "Cards and phones, and cash if you must.",
+          "maxLength": 120
+        }
+      ],
+      "default": [
+        {
+          "question": "When are you open?",
+          "answer": "Tuesday to Saturday, 7.30 am until we sell out."
+        },
+        {
+          "question": "Is the sourdough vegan?",
+          "answer": "Yes: flour, water, salt and a 12-year-old starter."
+        },
+        {
+          "question": "Do you bake gluten free?",
+          "answer": "On Thursdays only, in a separate kitchen."
+        },
+        {
+          "question": "Can I order a celebration cake?",
+          "answer": "With five days' notice, from £48."
+        },
+        {
+          "question": "Can I reserve a loaf?",
+          "answer": "Order online by 6 pm and collect the next morning."
+        },
+        {
+          "question": "Do you deliver?",
+          "answer": "By bike within two miles of the shop, for £3."
+        }
+      ]
+    }
+  ]
+}

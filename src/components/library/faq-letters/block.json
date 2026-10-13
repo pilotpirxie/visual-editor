@@ -1,0 +1,100 @@
+{
+  "name": "FAQ, reader letters",
+  "category": "faq",
+  "description": "An advice column: each question is a short signed reader letter in italics with the reply set below it.",
+  "tags": ["faq", "questions", "letters", "advice column", "newspaper", "editorial", "elegant"],
+  "fieldGroups": ["Heading", "Column", "Letters"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The advice column",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Dear Fern",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every week our shop manager answers the letters, emails and worried notes left at the till of Fern & Fettle, Leeds.",
+      "group": "Heading"
+    },
+    {
+      "name": "salutation",
+      "label": "Opening of every letter",
+      "type": "text",
+      "default": "Dear Fern,",
+      "maxLength": 40,
+      "group": "Column"
+    },
+    {
+      "name": "replyLabel",
+      "label": "Label above every reply",
+      "type": "text",
+      "default": "Fern replies",
+      "required": true,
+      "maxLength": 40,
+      "group": "Column"
+    },
+    {
+      "name": "items",
+      "label": "Letters",
+      "type": "list",
+      "group": "Letters",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "signature",
+      "itemFields": [
+        {
+          "name": "letter",
+          "label": "Letter",
+          "type": "textarea",
+          "default": "Is winter a bad time to repot? My rubber plant is climbing out of its pot."
+        },
+        {
+          "name": "signature",
+          "label": "Signed",
+          "type": "text",
+          "default": "Impatient in Ilkley"
+        },
+        {
+          "name": "reply",
+          "label": "Reply",
+          "type": "textarea",
+          "default": "Wait for March if you can. Roots settle fastest once the plant is growing again."
+        }
+      ],
+      "default": [
+        {
+          "letter": "my monstera has not put out a single new leaf since October. Is it sulking, or have I done something wrong?",
+          "signature": "Curious in Leeds",
+          "reply": "Neither. Most houseplants rest from October to March, when the light drops. Water half as often, skip the feed and expect a new leaf around April."
+        },
+        {
+          "letter": "do you deliver? I would love a fiddle-leaf fig, but I do not fancy carrying a tree home on the number 56 bus.",
+          "signature": "Carless in Kirkstall",
+          "reply": "We deliver anywhere in Leeds for £6, and free over £60. Tall plants travel upright in our van on Tuesdays and Fridays, and we carry them up the stairs."
+        },
+        {
+          "letter": "I live with a cat who eats everything green. Is there anything I can safely keep on a windowsill?",
+          "signature": "Outnumbered in Otley",
+          "reply": "Plenty. Calatheas, spider plants, Boston ferns and most herbs are safe for cats. Every pet-safe plant in the shop has a paw sticker on its pot."
+        },
+        {
+          "letter": "the peace lily I bought from you in March is already brown at the tips. Can I bring it back?",
+          "signature": "Guilty in Guiseley",
+          "reply": "Bring it in. Every plant has a 30-day guarantee, and after that our plant clinic is free on Saturday mornings. Brown tips usually mean hard tap water, which is easy to fix."
+        }
+      ]
+    }
+  ]
+}

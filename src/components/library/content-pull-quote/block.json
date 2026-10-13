@@ -1,0 +1,65 @@
+{
+  "name": "Content, pull quote",
+  "category": "content",
+  "description": "Body text interrupted by a large centred pull quote between two hairlines, after which the text continues.",
+  "tags": [
+    "pull quote",
+    "quote",
+    "article",
+    "essay",
+    "editorial",
+    "hairline",
+    "reading",
+    "elegant"
+  ],
+  "fieldGroups": ["Heading", "Text", "Pull quote"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "From the treatment room",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "What we mean when we say rest",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "before",
+      "label": "Text before the quote",
+      "type": "richtext",
+      "default": "<p>Most people arrive at Harbour Physio after two or three weeks of doing nothing. The knee hurt, so they stopped running. The back hurt, so they stopped lifting. It is the sensible thing to do, and for the first few days it is also the right one.</p><p>After that, rest starts to cost more than it gives. Tendons and discs are fed by movement. A joint that is never loaded gets weaker, stiffer and more sensitive, which is the opposite of what you came in for.</p>",
+      "group": "Text"
+    },
+    {
+      "name": "quote",
+      "label": "Pull quote",
+      "type": "textarea",
+      "default": "Rest is a dose, not a destination. Take enough to calm things down, then start asking the body small questions again.",
+      "group": "Pull quote",
+      "required": true,
+      "maxLength": 220
+    },
+    {
+      "name": "source",
+      "label": "Source",
+      "type": "text",
+      "default": "Marta Oyelaran, lead physiotherapist",
+      "group": "Pull quote"
+    },
+    {
+      "name": "after",
+      "label": "Text after the quote",
+      "type": "richtext",
+      "default": "<p>In practice that means your first session rarely ends with a list of things to avoid. You leave with two or three movements that are safe today, a clear idea of how much discomfort is fine, and a date to try a little more.</p><p>Most of our patients are back to their normal week within six sessions.</p>",
+      "group": "Text"
+    }
+  ]
+}

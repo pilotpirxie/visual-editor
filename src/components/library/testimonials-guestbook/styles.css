@@ -1,0 +1,87 @@
+@layer components {
+  @scope (.b-testimonials-guestbook) {
+    :scope {
+      --section-bg: var(--color-surface);
+      --rule: calc(var(--space-8) + var(--space-2));
+    }
+
+    .b-inner {
+      --container-max-width: 48rem;
+    }
+
+    .b-page {
+      position: relative;
+      padding: var(--space-8) var(--space-6);
+      border-inline-end: 0.4rem double var(--color-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-page::before {
+      content: '';
+      position: absolute;
+      inset-block-start: calc(var(--space-2) * -1);
+      inset-inline-end: var(--space-6);
+      width: 1.75rem;
+      height: 5.5rem;
+      background: var(--color-primary);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      padding-inline-end: var(--space-12);
+      margin-block-end: var(--space-8);
+    }
+
+    .b-intro,
+    .b-date {
+      color: var(--color-text-muted);
+    }
+
+    .b-entries {
+      background: linear-gradient(
+          transparent calc(100% - var(--border-width)),
+          var(--color-border) 0
+        )
+        0 0 / 100% var(--rule);
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-style: italic;
+      line-height: var(--rule);
+    }
+
+    .b-entry {
+      padding-block-end: var(--rule);
+    }
+
+    .b-signed {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: baseline;
+      column-gap: var(--space-3);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-date {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-style: normal;
+      font-weight: var(--font-weight-regular);
+    }
+
+    @media (min-width: 768px) {
+      .b-page {
+        padding: var(--space-12) var(--space-16);
+        rotate: -1deg;
+      }
+
+      .b-entries {
+        font-size: var(--text-xl);
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "name": "Content, sticky notes",
+  "category": "content",
+  "description": "A heading and short text beside a board of tilted sticky notes, each holding one short thought.",
+  "tags": ["notes", "sticky", "board", "tips", "thoughts", "tilted", "playful"],
+  "fieldGroups": ["Content", "Notes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "From the workshop wall",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Five things we tell everyone who wheels a bike in",
+      "group": "Content",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Halden Cycle Works has fixed bikes on Mill Street since 2009. These notes have hung above the truing stand for most of that time, and they are still the best advice we have.",
+      "group": "Content"
+    },
+    {
+      "name": "notes",
+      "label": "Notes",
+      "type": "list",
+      "group": "Notes",
+      "minItems": 3,
+      "maxItems": 5,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Thought",
+          "type": "textarea",
+          "default": "Lock the frame, not just the wheel.",
+          "maxLength": 110
+        },
+        {
+          "name": "author",
+          "label": "Signed by",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "default": [
+        {
+          "text": "Pump your tyres every two weeks. It fixes half of what people bring in.",
+          "author": "Dana"
+        },
+        {
+          "text": "If it clicks, bring it in. Clicks never fix themselves.",
+          "author": "Marek"
+        },
+        {
+          "text": "A clean chain lasts three times longer than a dirty one.",
+          "author": ""
+        },
+        {
+          "text": "We would rather sell you a 9 euro cable than a 600 euro bike.",
+          "author": "Dana"
+        },
+        {
+          "text": "Tea is free while you wait. Always.",
+          "author": "Ines"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+<section class="b-pricing-calm section">
+  <div class="container stack b-inner">
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h2 class="b-sentence"><span data-field="title">{{title}}</span> <span class="b-price" data-field="price">{{price}}</span></h2>
+    {{#if text}}<p class="b-muted b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    <ul class="cluster b-list" role="list">
+      {{#each items}}
+      <li class="b-item" data-field="items.{{@index}}">{{svgIcon "check"}}<span>{{text}}</span></li>
+      {{/each}}
+    </ul>
+    <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    {{#if note}}<p class="b-muted b-note" data-field="note">{{nl2br note}}</p>{{/if}}
+  </div>
+</section>

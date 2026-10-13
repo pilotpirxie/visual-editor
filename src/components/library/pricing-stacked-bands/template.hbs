@@ -1,0 +1,19 @@
+<section class="b-pricing-stacked-bands section">
+  <header class="container stack b-head">
+    {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h2 data-field="title">{{title}}</h2>
+    {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+  </header>
+  <ol class="b-bands" role="list">
+    {{#each plans}}
+    <li class="b-band" data-field="plans.{{@index}}">
+      <article class="container b-row">
+        <h3 class="b-name">{{name}}</h3>
+        <p class="b-price">{{price}} <small>{{period}}</small></p>
+        <p class="b-text">{{nl2br description}}</p>
+        <a class="btn btn-{{button.variant}} b-go" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+      </article>
+    </li>
+    {{/each}}
+  </ol>
+</section>

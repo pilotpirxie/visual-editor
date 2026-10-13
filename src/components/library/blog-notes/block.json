@@ -1,0 +1,123 @@
+{
+  "name": "Blog posts, short notes",
+  "category": "blog",
+  "description": "Untitled short notes in one narrow column, each with a date in monospace, a few sentences and a growth stage, like a digital garden.",
+  "tags": ["blog", "posts", "notes", "digital garden", "microblog", "stream", "journal", "calm"],
+  "fieldGroups": ["Heading", "Notes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Working notes",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "From the Ledgerbird workbench",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Small things we noticed while building invoicing software for freelancers. Unpolished on purpose, and updated when we change our minds.",
+      "group": "Heading"
+    },
+    {
+      "name": "notes",
+      "label": "Notes",
+      "type": "list",
+      "group": "Notes",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "text",
+          "label": "Note",
+          "type": "textarea",
+          "default": "Two or three sentences on something you noticed this week."
+        },
+        {
+          "name": "stage",
+          "label": "Growth stage",
+          "type": "text",
+          "default": "seedling"
+        },
+        {
+          "name": "link",
+          "label": "Link on the date",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "date": "2026-10-09",
+          "text": "Moved the Send button from the top of the invoice to the bottom. People were sending before they had checked the total. Mis-sent invoices fell by a third in a week.",
+          "stage": "evergreen",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "date": "2026-10-02",
+          "text": "A customer told us she writes invoices on the train home, one-handed. We had never tested the editor with a thumb. We have now, and the line-item rows are a little taller.",
+          "stage": "growing",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "date": "2026-09-24",
+          "text": "Late-payment reminders work better when they sound like a person. Our plainest template, three sentences and no bold text, gets paid four days sooner than the formal one.",
+          "stage": "evergreen",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "date": "2026-09-15",
+          "text": "Wondering whether the dashboard needs a chart at all. Most people open Ledgerbird to answer one question: who still owes me money?",
+          "stage": "seedling",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "date": "2026-09-06",
+          "text": "Started rounding tax per line instead of per invoice and broke nothing. It took four years to feel brave enough.",
+          "stage": "growing",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

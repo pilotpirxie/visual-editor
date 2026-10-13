@@ -1,0 +1,27 @@
+<section class="b-pricing-coupons section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="grid b-sheet" role="list">
+      {{#each coupons}}
+      <li class="b-coupon" data-field="coupons.{{@index}}">
+        <div class="stack b-body">
+          {{#if label}}<p class="eyebrow">{{label}}</p>{{/if}}
+          <h3 class="b-value">{{value}}</h3>
+          <p>{{nl2br description}}</p>
+        </div>
+        <span class="b-cut" aria-hidden="true">✂</span>
+        <div class="stack b-stub">
+          {{#if ../codeLabel}}<p>{{../codeLabel}}</p>{{/if}}
+          <p class="b-code">{{code}}</p>
+          {{#if expiry}}<p class="b-muted">{{expiry}}</p>{{/if}}
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+    {{#if note}}<p class="b-muted" data-field="note">{{nl2br note}}</p>{{/if}}
+  </div>
+</section>

@@ -1,0 +1,77 @@
+{
+  "name": "Contact, letterhead",
+  "category": "contacts",
+  "description": "A sheet of stationery with the site title as a centred wordmark, hairlines and the address, phone and email in three small-caps columns.",
+  "tags": ["contact", "letterhead", "stationery", "wordmark", "address", "elegant", "minimal"],
+  "fieldGroups": ["Heading", "Details"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "tagline",
+      "label": "Line under the wordmark",
+      "type": "text",
+      "default": "Bespoke tailoring, by appointment",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Write, telephone or call in",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Fittings take place at the atelier from Tuesday to Saturday. For a first commission allow an hour, and bring a jacket you already love to wear.",
+      "group": "Heading"
+    },
+    {
+      "name": "addressLabel",
+      "label": "Address label",
+      "type": "text",
+      "default": "Atelier",
+      "required": true,
+      "group": "Details"
+    },
+    {
+      "name": "address",
+      "label": "Address",
+      "type": "textarea",
+      "default": "9 Meard Street, Soho\nLondon W1F 0EN",
+      "group": "Details"
+    },
+    {
+      "name": "phoneLabel",
+      "label": "Phone label",
+      "type": "text",
+      "default": "Telephone",
+      "required": true,
+      "group": "Details"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "+44 20 7946 0182",
+      "group": "Details"
+    },
+    {
+      "name": "emailLabel",
+      "label": "Email label",
+      "type": "text",
+      "default": "Correspondence",
+      "required": true,
+      "group": "Details"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "fittings@meard.example",
+      "group": "Details"
+    }
+  ]
+}

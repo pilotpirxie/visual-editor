@@ -1,0 +1,100 @@
+@layer components {
+  @scope (.b-richtext-typewriter) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-sheet {
+      position: relative;
+      max-width: 46rem;
+      margin-inline: auto;
+      padding: var(--space-8) var(--space-4) var(--space-12) var(--space-8);
+      background: var(--color-background);
+      box-shadow: var(--shadow-lg);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      overflow-wrap: anywhere;
+      rotate: -0.6deg;
+    }
+
+    .b-sheet::before {
+      content: '';
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: var(--space-4);
+      border-inline-start: 2px solid color-mix(in oklab, var(--color-primary) 40%, transparent);
+    }
+
+    .b-sheet :is(h2, h3),
+    .b-label,
+    .b-stamp {
+      font: inherit;
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+    }
+
+    .b-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      margin-bottom: var(--space-6);
+    }
+
+    .b-label {
+      font-size: var(--text-2xl);
+      letter-spacing: 0.4em;
+    }
+
+    .b-stamp {
+      padding: var(--space-1) var(--space-3);
+      border: 2px solid;
+      color: var(--color-primary);
+      font-size: var(--text-xs);
+      rotate: 5deg;
+    }
+
+    .b-memo {
+      margin-bottom: var(--space-8);
+      border-bottom: 3px double;
+    }
+
+    .b-lines div {
+      display: flex;
+      gap: var(--space-3);
+      padding-block: var(--space-2);
+      border-top: var(--border-width) dashed var(--color-border);
+    }
+
+    .b-lines dt {
+      min-width: 4em;
+      text-transform: uppercase;
+    }
+
+    .b-lines dt,
+    .b-reference {
+      color: var(--color-text-muted);
+    }
+
+    .b-body :is(h2, h3) {
+      text-decoration: underline;
+    }
+
+    .b-reference {
+      margin-top: var(--space-12);
+    }
+
+    @media (min-width: 768px) {
+      .b-sheet {
+        padding: var(--space-12) var(--space-12) var(--space-16) var(--space-16);
+        font-size: var(--text-base);
+        rotate: -1deg;
+      }
+
+      .b-sheet::before {
+        inset-inline-start: var(--space-12);
+      }
+    }
+  }
+}

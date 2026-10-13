@@ -1,0 +1,23 @@
+<section class="b-blog-stacked-covers section">
+  <div class="container stack">
+    <header class="stack">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ol class="b-pile" role="list">
+      {{#each posts}}
+      <li class="b-cover" style="--i: {{@index}}" data-field="posts.{{@index}}">
+        <div class="media">{{img image}}</div>
+        <div class="b-body">
+          <h3><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          <p class="b-muted b-meta">
+            {{#if category}}<span class="b-category">{{category}}</span>{{/if}}
+            {{#if date}}<time datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+          </p>
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

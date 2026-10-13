@@ -1,0 +1,81 @@
+{
+  "name": "Features, quartet",
+  "category": "features",
+  "description": "Four features in a two by two layout with large outlined numerals, italic names and a small ornament where the dividing lines cross.",
+  "tags": ["features", "four", "quartet", "numbered", "steps", "two by two", "elegant", "ornament"],
+  "fieldGroups": ["Heading", "Features"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How we cut",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A suit takes four visits and about twelve weeks",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Aldous & Finch have cut suits on Chiltern Street since 1974. Nothing is hurried, and nothing leaves the shop until it sits properly.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Features",
+      "minItems": 4,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "The collection",
+          "required": true,
+          "maxLength": 40
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Say what happens at this visit and how long it takes."
+        }
+      ],
+      "default": [
+        {
+          "name": "The conversation",
+          "text": "An hour over coffee about where you will wear it, with two thousand cloths from Yorkshire and Biella to handle."
+        },
+        {
+          "name": "The measure",
+          "text": "Twenty-seven measurements, and a pencilled note of how you actually stand when nobody is looking."
+        },
+        {
+          "name": "The baste fitting",
+          "text": "Six weeks later you try the suit loosely stitched in white thread, and we chalk every change onto the cloth."
+        },
+        {
+          "name": "The finish",
+          "text": "Buttonholes sewn by hand, a final press, and alterations free for as long as you own the suit."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "name": "Contact, business cards",
+  "category": "contacts",
+  "description": "Two or three people as tilted business cards on a desk, each with a name, role, phone and email.",
+  "tags": ["contact", "people", "team", "business card", "phone", "email", "playful", "tilted"],
+  "fieldGroups": ["Heading", "Cards"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Contact",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Take a card, call the person",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "No switchboard and no ticket numbers. Every project at Halden Voss has one person who answers for it, so ring whoever fits your question.",
+      "group": "Heading"
+    },
+    {
+      "name": "firm",
+      "label": "Name printed on the cards",
+      "type": "text",
+      "default": "Halden Voss Architects",
+      "group": "Cards"
+    },
+    {
+      "name": "people",
+      "label": "People",
+      "type": "list",
+      "group": "Cards",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Sam Okafor"
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "type": "text",
+          "default": "Project architect"
+        },
+        {
+          "name": "phone",
+          "label": "Phone",
+          "type": "text",
+          "default": "+44 113 496 0100"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "text",
+          "default": "sam@haldenvoss.example"
+        }
+      ],
+      "default": [
+        {
+          "name": "Ingrid Halden",
+          "role": "Partner, new commissions",
+          "phone": "+44 113 496 0127",
+          "email": "ingrid@haldenvoss.example"
+        },
+        {
+          "name": "Tomasz Voss",
+          "role": "Partner, planning and heritage",
+          "phone": "+44 113 496 0131",
+          "email": "tomasz@haldenvoss.example"
+        },
+        {
+          "name": "Priya Nair",
+          "role": "Studio manager, press and careers",
+          "phone": "+44 113 496 0118",
+          "email": "studio@haldenvoss.example"
+        }
+      ]
+    }
+  ]
+}

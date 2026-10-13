@@ -1,5 +1,6 @@
 import { useEffect, useId, useMemo, useRef, useState, type JSX } from 'react';
 import { behaviors, core } from 'virtual:site-runtime';
+import { useAppSettings } from '../../app/appSettings';
 import {
   blockSelected,
   designSheetToggled,
@@ -9,12 +10,13 @@ import {
 } from '../../app/editorSlice';
 import { describeError } from '../../app/errors';
 import { slugify } from '../../app/slugs';
-import { dispatch, store } from '../../app/store';
+import { dispatch, store, useStore } from '../../app/store';
 import { componentsFor, ensurePackBlocks } from '../../components/registry';
 import type { ExportResult } from '../../render/assembleSite';
 import { prepareExportInput } from '../../render/exportSite';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import { openPage } from '../pages/pageActions';
+import { publishedSiteOf, publishSite, publishTokenOf, type PublishHost } from '../publish/hosts';
 import { PublishPanel } from '../publish/PublishPanel';
 import { downloadBlob } from './download';
 import { assembleExport, writeExportFolder } from './exportClient';
@@ -26,6 +28,31 @@ import './export.css';
 
 const TITLE_ID = 've-export-title';
 const BYTES_PER_KILOBYTE = 1024;
+
+type Destination = 'zip' | 'folder' | PublishHost;
+
+type DestinationChoice = { id: Destination; name: string; hint: string };
+
+const DESTINATIONS: readonly DestinationChoice[] = [
+  { id: 'zip', name: 'Download a zip', hint: 'One file with the whole site, ready for any host.' },
+  {
+    id: 'folder',
+    name: 'Save to a folder',
+    hint: 'Write the files into a folder on this computer.',
+  },
+  {
+    id: 'netlify',
+    name: 'Publish to Netlify',
+    hint: 'Put the site online in your Netlify account.',
+  },
+  {
+    id: 'github',
+    name: 'Publish to GitHub Pages',
+    hint: 'Put the site online from a public GitHub repository.',
+  },
+];
+
+type Outcome = { title: string; message: string; url: string | null };
 
 type Preparation =
   | { kind: 'preparing' }
@@ -107,17 +134,43 @@ function fixWarning(warning: ExportWarning): void {
   }
 }
 
-async function downloadZip({ zip }: AssembledExport): Promise<string> {
-  const fileName = exportFileName(store.getState().project.settings.title, new Date());
-  downloadBlob(zip, fileName);
-  return `Saved ${fileName} (${formatBytes(zip.size)}).`;
+function isPublishHost(destination: Destination): destination is PublishHost {
+  return destination === 'netlify' || destination === 'github';
 }
 
-async function saveToFolder({ result }: AssembledExport): Promise<string | null> {
-  const folder = await pickExportFolder();
-  if (folder === null) return null;
-  await writeExportFolder(folder, result.files);
-  return 'Saved to the folder you chose.';
+async function exportTo(
+  destination: Destination,
+  assembled: AssembledExport,
+): Promise<Outcome | null> {
+  if (destination === 'zip') {
+    const fileName = exportFileName(store.getState().project.settings.title, new Date());
+    downloadBlob(assembled.zip, fileName);
+    const message = `Saved ${fileName} (${formatBytes(assembled.zip.size)}).`;
+    return { title: 'Site exported', message, url: null };
+  } else if (destination === 'folder') {
+    const folder = await pickExportFolder();
+    if (folder === null) return null;
+    await writeExportFolder(folder, assembled.result.files);
+    return { title: 'Site exported', message: 'Saved to the folder you chose.', url: null };
+  } else {
+    const site = await publishSite(destination, assembled);
+    const message = 'Published. It can take a minute to show everywhere.';
+    return { title: 'Site published', message, url: site.url };
+  }
+}
+
+function actionLabel(destination: Destination, isPublished: boolean): string {
+  if (destination === 'zip') {
+    return 'Download zip';
+  } else if (destination === 'folder') {
+    return 'Save to folder…';
+  } else if (isPublished) {
+    return 'Publish changes';
+  } else if (destination === 'netlify') {
+    return 'Publish to Netlify';
+  } else {
+    return 'Publish to GitHub Pages';
+  }
 }
 
 function WarningList({ warnings }: { warnings: ExportWarning[] }): JSX.Element {
@@ -144,7 +197,7 @@ function WarningList({ warnings }: { warnings: ExportWarning[] }): JSX.Element {
   );
 }
 
-function ExportDone({ message }: { message: string }): JSX.Element {
+function ExportDone({ outcome }: { outcome: Outcome }): JSX.Element {
   const closeRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     closeRef.current?.focus();
@@ -152,12 +205,20 @@ function ExportDone({ message }: { message: string }): JSX.Element {
   return (
     <div className="ui-dialog-body">
       <h2 id={TITLE_ID} className="ui-title">
-        Site exported
+        {outcome.title}
       </h2>
-      <p role="status">{message}</p>
-      <p className="ui-muted">
-        To publish, upload these files to any static host. To view it now, open index.html.
-      </p>
+      <p role="status">{outcome.message}</p>
+      {outcome.url === null ? (
+        <p className="ui-muted">
+          To publish, upload these files to any static host. To view it now, open index.html.
+        </p>
+      ) : (
+        <p className="ve-export-address">
+          <a href={outcome.url} target="_blank" rel="noopener noreferrer">
+            {outcome.url}
+          </a>
+        </p>
+      )}
       <div className="ui-dialog-actions">
         <Button
           ref={closeRef}
@@ -198,10 +259,100 @@ function Summary({ result }: { result: ExportResult }): JSX.Element {
   );
 }
 
+type DestinationPickerProps = {
+  destination: Destination;
+  isDisabled: boolean;
+  onChoose(destination: Destination): void;
+};
+
+function DestinationPicker({
+  destination,
+  isDisabled,
+  onChoose,
+}: DestinationPickerProps): JSX.Element {
+  const name = useId();
+  const canUseFolder = canExportToFolder();
+  return (
+    <fieldset className="ve-export-destinations" disabled={isDisabled}>
+      <legend>Where should it go?</legend>
+      {DESTINATIONS.map((choice) => {
+        if (choice.id === 'folder' && !canUseFolder) return null;
+        return (
+          <label key={choice.id} className="ve-export-destination">
+            <input
+              type="radio"
+              name={name}
+              checked={destination === choice.id}
+              onChange={() => onChoose(choice.id)}
+            />
+            <span className="ve-export-destination-name">{choice.name}</span>
+            <span className="ui-muted">{choice.hint}</span>
+          </label>
+        );
+      })}
+    </fieldset>
+  );
+}
+
+type ExportChoiceProps = { assembled: AssembledExport; onDone(outcome: Outcome): void };
+
+function ExportChoice({ assembled, onDone }: ExportChoiceProps): JSX.Element {
+  const [destination, setDestination] = useState<Destination>('zip');
+  const [isBusy, setIsBusy] = useState(false);
+  const [publishError, setPublishError] = useState<string | null>(null);
+  const projectId = useStore((state) => state.project.id);
+  const settings = useAppSettings();
+  const host = isPublishHost(destination) ? destination : null;
+  const isPublished = host !== null && publishedSiteOf(host, settings, projectId) !== null;
+  const isTokenMissing = host !== null && publishTokenOf(host, settings).trim() === '';
+
+  async function run(): Promise<void> {
+    setIsBusy(true);
+    setPublishError(null);
+    try {
+      const outcome = await exportTo(destination, assembled);
+      if (outcome !== null) onDone(outcome);
+    } catch (error) {
+      console.error('Export failed', error);
+      if (host === null) {
+        dispatch(noticeShown('error', `Export failed: ${describeError(error)}`));
+      } else {
+        setPublishError(describeError(error));
+      }
+    } finally {
+      setIsBusy(false);
+    }
+  }
+
+  return (
+    <>
+      <DestinationPicker
+        destination={destination}
+        isDisabled={isBusy}
+        onChoose={(next) => {
+          setDestination(next);
+          setPublishError(null);
+        }}
+      />
+      {host !== null && <PublishPanel key={host} host={host} error={publishError} />}
+      <div className="ui-dialog-actions">
+        {isBusy && host !== null && (
+          <span className="ve-export-progress" role="status">
+            Publishing… This can take a minute.
+          </span>
+        )}
+        <Button onClick={(event) => closeDialogOf(event.currentTarget)}>Cancel</Button>
+        <Button variant="primary" disabled={isBusy || isTokenMissing} onClick={() => void run()}>
+          {actionLabel(destination, isPublished)}
+        </Button>
+      </div>
+    </>
+  );
+}
+
 export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
   const [preparation, setPreparation] = useState<Preparation>({ kind: 'preparing' });
-  const [isBusy, setIsBusy] = useState(false);
-  const [doneMessage, setDoneMessage] = useState<string | null>(null);
+  const [outcome, setOutcome] = useState<Outcome | null>(null);
 
   useEffect(() => {
     let isCancelled = false;
@@ -215,26 +366,10 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
     };
   }, []);
 
-  async function run(
-    action: (assembled: AssembledExport) => Promise<string | null>,
-  ): Promise<void> {
-    if (preparation.kind !== 'ready') return;
-    setIsBusy(true);
-    try {
-      const message = await action(preparation.assembled);
-      if (message !== null) setDoneMessage(message);
-    } catch (error) {
-      console.error('Export failed', error);
-      dispatch(noticeShown('error', `Export failed: ${describeError(error)}`));
-    } finally {
-      setIsBusy(false);
-    }
-  }
-
-  if (doneMessage !== null) {
+  if (outcome !== null) {
     return (
       <Dialog labelId={TITLE_ID} size="wide" onClose={onClose}>
-        <ExportDone message={doneMessage} />
+        <ExportDone outcome={outcome} />
       </Dialog>
     );
   }
@@ -261,41 +396,18 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
         )}
         {preparation.kind === 'ready' && !hasWarnings && (
           <p>
-            Everything looks ready. The zip holds one HTML file per page, one CSS file and the
-            images your pages use.
+            Everything looks ready. Your site is one HTML file per page, one CSS file and the images
+            your pages use.
           </p>
         )}
         {preparation.kind === 'ready' && <Summary result={preparation.assembled.result} />}
-        {preparation.kind === 'ready' && <PublishPanel zip={preparation.assembled.zip} />}
-        <div className="ui-dialog-actions">
-          <button
-            type="button"
-            className="ui-button ui-button--secondary"
-            onClick={(event) => closeDialogOf(event.currentTarget)}
-          >
-            Cancel
-          </button>
-          {preparation.kind === 'ready' && canExportToFolder() && (
-            <button
-              type="button"
-              className="ui-button ui-button--secondary"
-              disabled={isBusy}
-              onClick={() => void run(saveToFolder)}
-            >
-              Save to folder…
-            </button>
-          )}
-          {preparation.kind === 'ready' && (
-            <button
-              type="button"
-              className="ui-button ui-button--primary"
-              disabled={isBusy}
-              onClick={() => void run(downloadZip)}
-            >
-              Download zip
-            </button>
-          )}
-        </div>
+        {preparation.kind === 'ready' ? (
+          <ExportChoice assembled={preparation.assembled} onDone={setOutcome} />
+        ) : (
+          <div className="ui-dialog-actions">
+            <Button onClick={(event) => closeDialogOf(event.currentTarget)}>Cancel</Button>
+          </div>
+        )}
       </div>
     </Dialog>
   );

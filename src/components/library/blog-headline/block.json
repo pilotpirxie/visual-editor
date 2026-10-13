@@ -1,0 +1,136 @@
+{
+  "name": "Blog posts, big headline",
+  "category": "blog",
+  "description": "The latest post's title set very large on a primary band with a round sticker, a meta row and an arrow link, above two smaller posts.",
+  "tags": ["blog", "posts", "articles", "headline", "latest", "big type", "band", "expressive"],
+  "fieldGroups": ["Heading", "Latest post", "More posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The Lingua Nord blog",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "label",
+      "label": "Sticker",
+      "type": "text",
+      "default": "Just in",
+      "group": "Latest post",
+      "maxLength": 16
+    },
+    {
+      "name": "leadTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "Twenty minutes a day beats a gift for languages",
+      "group": "Latest post",
+      "required": true,
+      "maxLength": 90
+    },
+    {
+      "name": "leadAuthor",
+      "label": "Author",
+      "type": "text",
+      "default": "Sanna Lindqvist",
+      "group": "Latest post"
+    },
+    {
+      "name": "leadDate",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-10-06",
+      "group": "Latest post"
+    },
+    {
+      "name": "leadReadingTime",
+      "label": "Reading time",
+      "type": "text",
+      "default": "6 min read",
+      "group": "Latest post"
+    },
+    {
+      "name": "leadLinkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "Read the post",
+      "group": "Latest post",
+      "required": true
+    },
+    {
+      "name": "leadLink",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Latest post"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "More posts",
+      "minItems": 0,
+      "maxItems": 4,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "category",
+          "label": "Category",
+          "type": "text",
+          "default": "Method"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "One habit that makes new words stick"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "category": "Method",
+          "title": "Why we teach Swedish verbs before Swedish nouns",
+          "date": "2026-09-29",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Student stories",
+          "title": "From zero to a job interview in Danish in nine months",
+          "date": "2026-09-22",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

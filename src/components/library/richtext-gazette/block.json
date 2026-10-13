@@ -1,0 +1,71 @@
+{
+  "name": "Rich text, gazette",
+  "category": "rich-text",
+  "description": "A newspaper page: a masthead with double rules and a date line, a headline, then the article in two or three columns with column rules.",
+  "tags": ["newspaper", "gazette", "masthead", "columns", "news", "article", "text", "elegant"],
+  "fieldGroups": ["Masthead", "Headline", "Article"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "paper",
+      "label": "Paper name",
+      "type": "text",
+      "default": "The Mill Lane Gazette",
+      "required": true,
+      "maxLength": 40,
+      "group": "Masthead"
+    },
+    {
+      "name": "edition",
+      "label": "Edition",
+      "type": "text",
+      "default": "No. 212",
+      "group": "Masthead"
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-10-10",
+      "group": "Masthead"
+    },
+    {
+      "name": "motto",
+      "label": "Motto",
+      "type": "text",
+      "default": "Free with every loaf",
+      "group": "Masthead"
+    },
+    {
+      "name": "title",
+      "label": "Headline",
+      "type": "text",
+      "default": "Sourdough sells out by nine. This is why we are not baking more.",
+      "required": true,
+      "maxLength": 140,
+      "group": "Headline"
+    },
+    {
+      "name": "deck",
+      "label": "Standfirst",
+      "type": "textarea",
+      "default": "Our ovens hold 96 loaves a night and a good loaf takes 36 hours. A note on patience, flour and the Saturday queue.",
+      "group": "Headline"
+    },
+    {
+      "name": "byline",
+      "label": "Byline",
+      "type": "text",
+      "default": "By Ruth Adeyemi, head baker",
+      "group": "Headline"
+    },
+    {
+      "name": "body",
+      "label": "Article",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<p>Every Saturday the queue on Mill Lane reaches the bike shop by half past eight, and by nine the country sourdough is gone. Every Saturday somebody asks, kindly or otherwise, why we do not simply bake more. It is a fair question and it deserves a proper answer.</p><h2>Thirty-six hours, no shortcuts</h2><p>The dough for Saturday is mixed on Thursday evening. It rests overnight, is folded four times on Friday morning, shaped by hand after lunch and then spends eighteen hours in the cold room. That long, slow proof is where the flavour comes from. It is also why we cannot react when the weather turns fine and half the town decides it wants bread.</p><p>Our two deck ovens hold 48 loaves each. We fire them once for sourdough, at four in the morning, and then they are needed for rye, baguettes and the morning buns. A second sourdough bake would mean a second night shift, and we would rather keep the bakers we have.</p><h2>What we are doing instead</h2><p>From November you can reserve a loaf by Thursday noon, online or at the counter, and collect it any time before closing on Saturday. Reserved loaves are baked on top of the usual 96, in the gap we have found between the rye and the buns.</p><ul><li>Country sourdough, 800 g: 6.50</li><li>Seeded sourdough, 800 g: 7.20</li><li>Half loaves on request</li></ul><p>If you miss out anyway, the rye keeps for a week and makes better toast. We know it is not the same. Thank you for queueing, and for the patience.</p>",
+      "group": "Article"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+@layer components {
+  @scope (.b-features-seal) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head,
+    .b-item {
+      --stack-gap: var(--space-3);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-head {
+      max-width: 40rem;
+      margin-inline: auto;
+    }
+
+    .b-intro,
+    .b-item p {
+      color: var(--color-text-muted);
+    }
+
+    .b-seals {
+      --grid-gap: var(--space-12) var(--space-8);
+    }
+
+    .b-seal {
+      --icon-size: 2.25rem;
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 7.5rem;
+      aspect-ratio: 1;
+      margin-block-end: var(--space-3);
+      border: calc(var(--border-width) * 2) solid;
+      border-radius: var(--radius-full);
+      color: var(--color-primary);
+    }
+
+    .b-seal::before {
+      content: '';
+      position: absolute;
+      inset: var(--space-2);
+      border: var(--border-width) dashed;
+      border-radius: inherit;
+    }
+
+    .b-label {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-xs);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .b-label::before,
+    .b-label::after {
+      content: '';
+      width: var(--space-6);
+      border-block-start: var(--border-width) solid;
+    }
+
+    h3 {
+      font-size: var(--text-2xl);
+      font-style: italic;
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-text {
+      max-width: 34ch;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-seal::before {
+        animation: b-features-seal--turn 90s linear infinite;
+      }
+    }
+  }
+
+  @keyframes b-features-seal--turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+}

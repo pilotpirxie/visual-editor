@@ -1,0 +1,95 @@
+@layer components {
+  @scope (.b-testimonials-speech-bubbles) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+      --container-max-width: 54rem;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      text-align: center;
+    }
+
+    .b-talk {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-say {
+      display: grid;
+      gap: var(--space-6);
+      max-width: 34rem;
+    }
+
+    .b-bubble {
+      position: relative;
+      padding: var(--space-6);
+      border: 0.2rem solid var(--color-text);
+      border-radius: calc(var(--radius-lg) * 2);
+      background: var(--color-background);
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      rotate: -1deg;
+    }
+
+    .b-bubble::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      inset-inline-start: 1.95rem;
+      width: 1.6rem;
+      aspect-ratio: 1;
+      border: inherit;
+      border-width: 0 0.2rem 0.2rem 0;
+      border-radius: 0;
+      background: inherit;
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .b-speaker {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding-inline: var(--space-4);
+    }
+
+    .b-face {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 3.5rem;
+      border: 0.2rem solid var(--color-text);
+    }
+
+    .b-name {
+      display: block;
+    }
+
+    .b-role {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .b-turn:nth-child(even) {
+      .b-say {
+        margin-inline-start: auto;
+      }
+
+      .b-bubble {
+        background: var(--color-primary);
+        color: var(--color-primary-contrast);
+        rotate: 1deg;
+      }
+
+      .b-bubble::after {
+        inset-inline: auto 1.95rem;
+      }
+
+      .b-speaker {
+        flex-direction: row-reverse;
+        text-align: end;
+      }
+    }
+  }
+}

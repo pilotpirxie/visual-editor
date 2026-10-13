@@ -1,0 +1,114 @@
+{
+  "name": "Testimonials, postcards",
+  "category": "testimonials",
+  "description": "Customer quotes as tilted postcards with a stamp, a round postmark and address lines.",
+  "tags": ["testimonials", "quotes", "postcards", "stamp", "mail", "travel", "playful"],
+  "fieldGroups": ["Heading", "Postcards"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Guest post",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Postcards that found their way back to Tern House",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We leave a stamped card on every pillow. Some guests post them home, and some post them back to us.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Postcards",
+      "type": "list",
+      "group": "Postcards",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Message",
+          "type": "textarea",
+          "default": "Thank you for a lovely stay. We will be back in the spring."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Guest name"
+        },
+        {
+          "name": "detail",
+          "label": "Second address line",
+          "type": "text",
+          "default": "Room 2, one night"
+        },
+        {
+          "name": "place",
+          "label": "Town",
+          "type": "text",
+          "default": "York"
+        },
+        {
+          "name": "posted",
+          "label": "Postmark",
+          "type": "text",
+          "default": "2 May",
+          "maxLength": 8
+        },
+        {
+          "name": "icon",
+          "label": "Stamp icon",
+          "type": "icon",
+          "default": "heart"
+        }
+      ],
+      "default": [
+        {
+          "quote": "The sea-view room was worth every one of the 62 steps. Thank you for the flask of tea at 5 am before our sunrise walk.",
+          "name": "Priya and Tom Nair",
+          "detail": "Room 4, two nights",
+          "place": "Leeds",
+          "posted": "14 Jun",
+          "icon": "sun"
+        },
+        {
+          "quote": "I came for one night on the coast path and stayed three. Your breakfast kippers have ruined all other breakfasts for me.",
+          "name": "Anders Holm",
+          "detail": "Walking the Cleveland Way",
+          "place": "Aarhus",
+          "posted": "3 Sep",
+          "icon": "compass"
+        },
+        {
+          "quote": "Dog bed, dog towel and a sausage at breakfast. Biscuit has asked when we are going back.",
+          "name": "Marianne Bell",
+          "detail": "With Biscuit the terrier",
+          "place": "Edinburgh",
+          "posted": "22 Oct",
+          "icon": "heart"
+        },
+        {
+          "quote": "Thank you for drying our boots by the stove and for the hand-drawn map to the quiet beach.",
+          "name": "The Okoro family",
+          "detail": "Half-term week, rooms 1 and 2",
+          "place": "Manchester",
+          "posted": "19 Feb",
+          "icon": "coffee"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "name": "How it works, stamp card",
+  "category": "how-it-works",
+  "description": "Steps as numbered ink stamps on a loyalty card with a dotted border, each stamp pressed at a different angle.",
+  "tags": ["steps", "stamps", "loyalty card", "passport", "club", "playful", "process", "rewards"],
+  "fieldGroups": ["Heading", "Card", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Bread Club",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Five stamps, and the sixth loaf is on us",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "A paper card, a linen bag and one loaf a week. This is how the club runs, from your first Friday to your free one.",
+      "group": "Heading"
+    },
+    {
+      "name": "cardTitle",
+      "label": "Card title",
+      "type": "text",
+      "default": "Marsh Lane Bakery Bread Club",
+      "required": true,
+      "maxLength": 60,
+      "group": "Card"
+    },
+    {
+      "name": "cardNote",
+      "label": "Card note",
+      "type": "text",
+      "default": "Card no. 0417",
+      "maxLength": 30,
+      "group": "Card"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 9,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "stamp",
+          "label": "Word on the stamp",
+          "type": "text",
+          "default": "Done",
+          "maxLength": 9
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Next stamp",
+          "maxLength": 60
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What earns this stamp."
+        }
+      ],
+      "default": [
+        {
+          "stamp": "Join",
+          "title": "Ask for a card",
+          "text": "Pick one up at the till on Marsh Lane. It costs nothing and fits in a wallet."
+        },
+        {
+          "stamp": "Order",
+          "title": "Text us by Wednesday",
+          "text": "Country sourdough, seeded rye or the baker's choice. Orders close at 6 pm."
+        },
+        {
+          "stamp": "Baked",
+          "title": "We bake on Friday",
+          "text": "Your loaf goes into the oven at 4 am with your name chalked on the board."
+        },
+        {
+          "stamp": "Collect",
+          "title": "Pick it up warm",
+          "text": "From 7:30 on Friday or Saturday. We stamp your card at the counter."
+        },
+        {
+          "stamp": "Refill",
+          "title": "Bring the bag back",
+          "text": "Hand in the linen bag next week and we fill it again. No paper, no plastic."
+        },
+        {
+          "stamp": "Free",
+          "title": "Sixth loaf on us",
+          "text": "Five stamps earn a free loaf of your choice, and a fresh card to start again."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+@layer components {
+  @scope (.b-content-haiku) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+      align-items: center;
+      padding-block: var(--space-12);
+      background: radial-gradient(
+        circle closest-side,
+        color-mix(in oklab, var(--color-primary) 8%, transparent) 94%,
+        transparent 0
+      );
+      text-align: center;
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      color: var(--color-primary);
+    }
+
+    .b-poem {
+      display: grid;
+      gap: var(--space-3);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-normal);
+      letter-spacing: 0.01em;
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .b-line:nth-child(2) {
+      font-style: italic;
+    }
+
+    .b-signature {
+      display: grid;
+      justify-items: center;
+      gap: var(--space-6);
+      font-size: var(--text-xs);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .b-signature::before {
+      content: '';
+      width: 3rem;
+      border-block-start: var(--border-width) solid;
+    }
+
+    @media (min-width: 768px) {
+      .b-inner {
+        --stack-gap: var(--space-12);
+        padding-block: var(--space-16);
+      }
+
+      .b-poem {
+        gap: var(--space-4);
+        font-size: var(--text-4xl);
+      }
+    }
+  }
+}

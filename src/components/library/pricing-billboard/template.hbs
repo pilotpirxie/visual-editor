@@ -1,0 +1,19 @@
+<section class="b-pricing-billboard section">
+  <div class="container b-band">
+    {{#if eyebrow}}<p class="b-kicker" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <p class="b-figure">
+      <span class="b-price" data-field="price">{{price}}</span>
+      {{#if period}}<span class="b-period" data-field="period">{{period}}</span>{{/if}}
+    </p>
+    <div class="stack b-side">
+      <h2 data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <a class="btn btn-{{button.variant}} b-join" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
+    </div>
+  </div>
+  <ul class="b-strip" role="list">
+    {{#each items}}
+    <li class="b-item" data-field="items.{{@index}}">{{svgIcon icon}}<span>{{text}}</span></li>
+    {{/each}}
+  </ul>
+</section>

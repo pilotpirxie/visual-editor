@@ -1,0 +1,71 @@
+@layer components {
+  @scope (.b-faq-interview) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      display: grid;
+      gap: var(--space-8);
+      padding-block-start: var(--space-6);
+      border-top: 0.25rem solid;
+    }
+
+    .b-lede {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-pull {
+      align-self: end;
+      padding-inline-start: var(--space-6);
+      border-inline-start: 0.25rem solid var(--color-primary);
+      font: italic var(--text-2xl) / var(--line-height-tight) var(--font-heading);
+    }
+
+    .b-turn {
+      margin-block-end: var(--space-8);
+      break-inside: avoid;
+    }
+
+    .b-line {
+      padding-inline-start: 3rem;
+      text-indent: -3rem;
+      overflow-wrap: anywhere;
+    }
+
+    .b-question {
+      margin-block-end: var(--space-2);
+      font: italic var(--font-weight-bold) var(--text-xl) / var(--line-height-tight)
+        var(--font-heading);
+    }
+
+    .b-mark {
+      display: inline-block;
+      width: 3rem;
+      font: var(--font-weight-bold) var(--text-xl) / 1 var(--font-heading);
+      text-indent: 0;
+    }
+
+    .b-question .b-mark {
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 1024px) {
+      .b-head {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        gap: var(--space-16);
+      }
+
+      .b-talk {
+        columns: 2;
+        column-gap: var(--space-16);
+        column-rule: var(--border-width) solid var(--color-border);
+      }
+    }
+  }
+}

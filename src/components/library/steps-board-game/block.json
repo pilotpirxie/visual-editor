@@ -1,0 +1,109 @@
+{
+  "name": "How it works, board game",
+  "category": "how-it-works",
+  "description": "Steps as squares on a winding game board, from a Start square with a playing piece to a Finish square.",
+  "tags": ["steps", "board game", "track", "path", "squares", "playful", "journey", "process"],
+  "fieldGroups": ["Heading", "Board", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Spanish from zero",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Six squares from hola to your first real conversation",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Evening classes at Casa Lengua run in ten-week terms. Everyone moves along the same board, one square a fortnight.",
+      "group": "Heading"
+    },
+    {
+      "name": "startLabel",
+      "label": "Start square",
+      "type": "text",
+      "default": "Start",
+      "required": true,
+      "maxLength": 16,
+      "group": "Board"
+    },
+    {
+      "name": "finishLabel",
+      "label": "Finish square",
+      "type": "text",
+      "default": "Finish",
+      "required": true,
+      "maxLength": 16,
+      "group": "Board"
+    },
+    {
+      "name": "tokenIcon",
+      "label": "Playing piece",
+      "type": "icon",
+      "default": "star",
+      "group": "Board"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 10,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Next square",
+          "maxLength": 40
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens on this square, in one line.",
+          "maxLength": 120
+        }
+      ],
+      "default": [
+        {
+          "title": "Level chat",
+          "text": "Fifteen free minutes with a teacher to find your square."
+        },
+        {
+          "title": "Join a group",
+          "text": "Eight learners at most, Tuesdays or Thursdays at 18:30."
+        },
+        {
+          "title": "Weekly class",
+          "text": "Ninety minutes of talking. The grammar goes home with you."
+        },
+        {
+          "title": "Tapas night",
+          "text": "Week five: the whole group orders dinner in Spanish."
+        },
+        {
+          "title": "Mid-term check",
+          "text": "A one-to-one review of what stuck and what to repeat."
+        },
+        {
+          "title": "Final role-play",
+          "text": "Rent a flat, miss a train, complain politely. You pass."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+@layer components {
+  @scope (.b-pricing-currency) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 36rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-set {
+      min-width: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .b-switch {
+      display: flex;
+      padding: var(--space-1);
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-option {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-width: 4rem;
+      min-height: 2.75rem;
+      border-radius: var(--radius-full);
+    }
+
+    .b-option input {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .b-option:has(:checked) {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-option:has(:focus-visible) {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 3px;
+    }
+
+    .b-plan[data-featured] {
+      --card-shadow: var(--shadow-lg);
+      border-color: var(--color-primary);
+    }
+
+    .b-prices {
+      display: grid;
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-price {
+      grid-area: 1 / 1;
+      overflow-wrap: anywhere;
+    }
+
+    :scope:has(:is(.b-cur-2, .b-cur-3):checked) .b-price-1,
+    :scope:not(:has(.b-cur-2:checked)) .b-price-2,
+    :scope:not(:has(.b-cur-3:checked)) .b-price-3 {
+      visibility: hidden;
+      opacity: 0;
+      translate: 0 0.5em;
+    }
+
+    .b-features {
+      flex: 1;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-price {
+        transition:
+          opacity var(--transition-normal),
+          translate var(--transition-normal);
+      }
+    }
+  }
+}

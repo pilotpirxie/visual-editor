@@ -1,0 +1,101 @@
+@layer components {
+  @scope (.b-richtext-chapters) {
+    .b-inner {
+      --container-max-width: 52rem;
+      --stack-gap: var(--space-8);
+    }
+
+    .b-lead {
+      color: var(--color-text-muted);
+      font-size: var(--text-lg);
+    }
+
+    .b-chapters {
+      border-bottom: var(--border-width) solid var(--color-border);
+      counter-reset: chapter;
+    }
+
+    .b-chapter {
+      --num: 3rem;
+      border-top: var(--border-width) solid var(--color-border);
+      counter-increment: chapter;
+    }
+
+    .b-summary {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding-block: var(--space-4);
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .b-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .b-summary::before {
+      content: counter(chapter, decimal-leading-zero);
+      min-width: var(--num);
+      color: var(--color-primary);
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-heading);
+      line-height: 1;
+    }
+
+    .b-heading {
+      flex: 1;
+      font-size: var(--text-xl);
+    }
+
+    .b-toggle {
+      --icon-size: 1.25rem;
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 2.75rem;
+      aspect-ratio: 1;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+    }
+
+    .b-chapter[open] .b-toggle {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      rotate: 45deg;
+    }
+
+    .b-body {
+      --prose-measure: 40rem;
+      padding-bottom: var(--space-8);
+      overflow-wrap: anywhere;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-toggle {
+        transition: rotate var(--transition-normal);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .b-chapter {
+        --num: 5rem;
+      }
+
+      .b-summary::before {
+        font-size: var(--text-3xl);
+      }
+
+      .b-heading {
+        font-size: var(--text-2xl);
+      }
+
+      .b-body {
+        padding-inline-start: calc(var(--num) + var(--space-4));
+        font-size: var(--text-lg);
+      }
+    }
+  }
+}

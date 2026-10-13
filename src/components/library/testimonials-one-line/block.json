@@ -1,0 +1,82 @@
+{
+  "name": "Testimonials, one-liners",
+  "category": "testimonials",
+  "description": "A list of one-line quotes in large light type, each followed by a name and separated by thin lines.",
+  "tags": ["testimonials", "quotes", "list", "one line", "minimal", "calm", "typography"],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "In one line",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "We asked customers to keep it short",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "items",
+      "label": "Quotes",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 2,
+      "maxItems": 10,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "text",
+          "default": "It does one job and does it well.",
+          "maxLength": 90
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Customer name"
+        },
+        {
+          "name": "role",
+          "label": "Role or company",
+          "type": "text",
+          "default": "Freelancer"
+        }
+      ],
+      "default": [
+        {
+          "quote": "I send invoices from the train now.",
+          "name": "Lotte Vermeer",
+          "role": "Illustrator"
+        },
+        {
+          "quote": "Paid in four days instead of forty.",
+          "name": "Samuel Okonkwo",
+          "role": "Okonkwo Plumbing"
+        },
+        {
+          "quote": "My accountant has stopped sighing.",
+          "name": "Bea Lindgren",
+          "role": "Wedding photographer"
+        },
+        {
+          "quote": "Tax season took one afternoon.",
+          "name": "Rahul Mehta",
+          "role": "Freelance developer"
+        },
+        {
+          "quote": "The reminders are polite, so I don't have to be.",
+          "name": "Chloé Martin",
+          "role": "Studio Martin"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "name": "Features, colour blocks",
+  "category": "features",
+  "description": "A mosaic of solid blocks in primary, dark, surface and tint, in different sizes, each with a large icon.",
+  "tags": [
+    "features",
+    "mosaic",
+    "bento",
+    "colour",
+    "blocks",
+    "tiles",
+    "icons",
+    "expressive",
+    "bold"
+  ],
+  "fieldGroups": ["Heading", "Blocks"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Every membership includes",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A desk, a door that locks and very good coffee",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Foundry Lane is a coworking floor for sixty people in a former type foundry, five minutes on foot from Piccadilly station.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Blocks",
+      "type": "list",
+      "group": "Blocks",
+      "minItems": 3,
+      "maxItems": 12,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "sun"
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "A roof terrace",
+          "required": true,
+          "maxLength": 50
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Open from April to October, with shade."
+        }
+      ],
+      "default": [
+        {
+          "icon": "key",
+          "name": "Your own key, day and night",
+          "text": "Members come and go 24 hours a day, 365 days a year. The alarm knows your fob."
+        },
+        {
+          "icon": "wifi",
+          "name": "Gigabit fibre on two lines",
+          "text": "If one provider drops, the other takes over before your call notices."
+        },
+        {
+          "icon": "coffee",
+          "name": "Bottomless coffee",
+          "text": "Roasted two streets away."
+        },
+        {
+          "icon": "phone",
+          "name": "Six phone booths",
+          "text": "Ventilated, and free to book."
+        },
+        {
+          "icon": "users",
+          "name": "Rooms for 4, 8 and 14",
+          "text": "Ten hours of meeting room time a month come with every desk."
+        },
+        {
+          "icon": "mail",
+          "name": "A proper business address",
+          "text": "We sign for parcels and scan your post on the day it arrives."
+        }
+      ]
+    }
+  ]
+}

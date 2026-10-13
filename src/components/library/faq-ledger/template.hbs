@@ -1,0 +1,19 @@
+<section class="b-faq-ledger section">
+  <div class="container b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ol class="b-rows" role="list">
+      {{#each items}}
+      <li class="b-row" data-field="items.{{@index}}">
+        <details name="{{../block.id}}" {{#if @first}}open{{/if}}>
+          <summary class="b-question"><span>{{question}}</span><span class="b-plus">{{svgIcon "plus"}}</span></summary>
+          <div class="prose b-answer">{{richText answer}}</div>
+        </details>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+<section class="b-testimonial-monogram section">
+  <div class="container b-inner">
+    <figure class="stack b-figure">
+      <div class="b-ring" aria-hidden="true">
+        <span data-field="initials">{{initials}}</span>
+        <span class="b-ornament" data-field="ornament">{{svgIcon ornament}}</span>
+      </div>
+      <blockquote class="b-quote" data-field="quote"><p>{{nl2br quote}}</p></blockquote>
+      <figcaption class="b-credit">
+        <span class="b-name" data-field="name">{{name}}</span>
+        {{#if role}}<span class="b-role" data-field="role">{{role}}</span>{{/if}}
+      </figcaption>
+    </figure>
+  </div>
+</section>

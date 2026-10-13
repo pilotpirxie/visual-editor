@@ -1,0 +1,41 @@
+@layer components {
+  @scope (.b-content-big-word) {
+    .b-inner {
+      container-type: inline-size;
+    }
+
+    .b-word {
+      margin-block: var(--space-2) var(--space-4);
+      font-size: calc(var(--size) * 1cqi);
+      font-size-adjust: ch-width 0.62;
+      line-height: 0.85;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      overflow-wrap: anywhere;
+    }
+
+    .b-copy {
+      align-items: start;
+      max-width: 30rem;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 768px) {
+      .b-tuck {
+        display: flex;
+        gap: var(--space-6);
+      }
+
+      .b-tuck::before {
+        content: '';
+        flex: 1;
+        margin-block-start: 0.8em;
+        border-block-start: calc(var(--border-width) * 2) solid var(--color-primary);
+      }
+    }
+  }
+}

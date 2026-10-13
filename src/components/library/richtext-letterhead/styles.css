@@ -1,0 +1,93 @@
+@layer components {
+  @scope (.b-richtext-letterhead) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-sheet {
+      --crease: color-mix(in oklab, var(--color-border) 70%, transparent);
+      max-width: 44rem;
+      margin: auto;
+      padding: var(--space-8) var(--space-6) var(--space-12);
+      border-top: var(--space-2) solid var(--color-primary);
+      background: linear-gradient(
+          transparent calc(33.3% - 1px),
+          var(--crease) 0 33.3%,
+          transparent 0 calc(66.6% - 1px),
+          var(--crease) 0 66.6%,
+          transparent 0
+        )
+        var(--color-background);
+      box-shadow: var(--shadow-md);
+      overflow-wrap: anywhere;
+    }
+
+    .b-letterhead {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-1) var(--space-6);
+      padding-bottom: var(--space-4);
+      border-bottom: var(--border-width) solid;
+    }
+
+    .b-firm {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-heading);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .b-address,
+    .b-role {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      font-style: normal;
+    }
+
+    .b-date {
+      margin-block: var(--space-8);
+      text-align: end;
+    }
+
+    .b-sheet > h2 {
+      font-size: var(--text-2xl);
+    }
+
+    .b-greeting,
+    .b-signoff {
+      margin-block: var(--space-6) var(--space-4);
+    }
+
+    .b-body {
+      --prose-measure: none;
+    }
+
+    .b-body :is(h2, h3) {
+      font-size: var(--text-lg);
+    }
+
+    .b-signature {
+      width: fit-content;
+      margin-block: var(--space-3);
+      color: var(--color-primary);
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-style: italic;
+      line-height: var(--line-height-tight);
+      rotate: -3deg;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-sheet {
+        padding: var(--space-12) var(--space-16) var(--space-16);
+      }
+    }
+  }
+}

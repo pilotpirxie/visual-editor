@@ -1,0 +1,24 @@
+<section class="b-testimonials-guestbook section">
+  <div class="container b-inner">
+    <div class="b-page">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      <ul class="b-entries" role="list">
+        {{#each items}}
+        <li class="b-entry" data-field="items.{{@index}}">
+          <figure>
+            <blockquote><p>{{nl2br quote}}</p></blockquote>
+            <figcaption class="b-signed">
+              <span class="b-name">{{name}}</span>
+              {{#if date}}<time class="b-date" datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+            </figcaption>
+          </figure>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

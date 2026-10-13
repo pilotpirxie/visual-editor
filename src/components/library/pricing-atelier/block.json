@@ -1,0 +1,130 @@
+{
+  "name": "Pricing, atelier columns",
+  "category": "pricing",
+  "description": "Tiers as plain columns divided by hairlines and numbered I, II, III, with no cards or boxes.",
+  "tags": ["pricing", "tiers", "columns", "hairlines", "roman numerals", "studio", "elegant"],
+  "fieldGroups": ["Heading", "Tiers"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Fees",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three ways to work with the studio",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every project at Atelier Nord starts with a visit. Fees are fixed before we draw a line, and each stage can grow into the next.",
+      "group": "Heading"
+    },
+    {
+      "name": "tiers",
+      "label": "Tiers",
+      "type": "list",
+      "group": "Tiers",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Tier name",
+          "type": "text",
+          "default": "The garden"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "Terraces, planting and outdoor lighting drawn to match the house."
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$2,900"
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": "per garden"
+        },
+        {
+          "name": "features",
+          "label": "Included",
+          "type": "richtext",
+          "default": "<ul><li>Site survey</li><li>Planting plan</li></ul>"
+        },
+        {
+          "name": "linkLabel",
+          "label": "Link label",
+          "type": "text",
+          "default": "Ask for a proposal"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "The visit",
+          "description": "Two hours walking through your home with a sketchbook, and a written list of what we would change first.",
+          "price": "$240",
+          "period": "one session",
+          "features": "<ul><li>Two hours on site</li><li>Written notes within a week</li><li>Fee credited if you go on</li></ul>",
+          "linkLabel": "Book a visit",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "name": "The design",
+          "description": "Plans, elevations, materials and lighting for one floor, ready to hand to your own builder.",
+          "price": "$4,800",
+          "period": "per floor",
+          "features": "<ul><li>Measured survey</li><li>Two rounds of design</li><li>Material and lighting schedule</li><li>Drawings for your builder</li></ul>",
+          "linkLabel": "Ask for a proposal",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "name": "The whole house",
+          "description": "Design, tender and weekly site visits until the last door handle is fitted.",
+          "price": "12%",
+          "period": "of the build cost",
+          "features": "<ul><li>Everything in the design stage</li><li>Builder tender and contracts</li><li>Weekly site visits</li><li>Snagging and handover</li></ul>",
+          "linkLabel": "Start a conversation",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

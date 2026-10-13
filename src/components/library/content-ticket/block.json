@@ -1,0 +1,91 @@
+{
+  "name": "Content, admission ticket",
+  "category": "content",
+  "description": "An announcement shaped like an admission ticket, with a perforated tear line and a stub for the date and seat number.",
+  "tags": ["ticket", "event", "announcement", "stub", "date", "admission", "playful", "tilted"],
+  "fieldGroups": ["Announcement", "Button", "Stub"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Cupping night at Kiln Street Roasters",
+      "group": "Announcement"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Taste six new harvests before they reach the shelf",
+      "group": "Announcement",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Doors open at 18:30. Our head roaster Tomas pours coffees from Ethiopia, Colombia and Rwanda side by side and explains what he tastes. 24 seats, 15 euro each, and you take home a 250 g bag of your favourite.",
+      "group": "Announcement"
+    },
+    {
+      "name": "showButton",
+      "label": "Show button",
+      "type": "boolean",
+      "default": true,
+      "group": "Button"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Reserve a seat",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      },
+      "visibleWhen": {
+        "field": "showButton",
+        "equals": true
+      },
+      "group": "Button"
+    },
+    {
+      "name": "stubLabel",
+      "label": "Stub label",
+      "type": "text",
+      "default": "Admit one",
+      "group": "Stub",
+      "maxLength": 24
+    },
+    {
+      "name": "seatLabel",
+      "label": "Number label",
+      "type": "text",
+      "default": "Seat",
+      "group": "Stub",
+      "maxLength": 16
+    },
+    {
+      "name": "seat",
+      "label": "Number",
+      "type": "text",
+      "default": "C14",
+      "group": "Stub",
+      "required": true,
+      "maxLength": 5
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-11-05",
+      "group": "Stub"
+    }
+  ]
+}

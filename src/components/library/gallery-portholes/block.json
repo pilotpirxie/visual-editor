@@ -1,0 +1,157 @@
+{
+  "name": "Gallery, portholes",
+  "category": "gallery",
+  "description": "Round photo crops in a loose, staggered row on a soft tinted background, each with a name and a short note.",
+  "tags": ["gallery", "photos", "circles", "round", "portholes", "calm", "captions"],
+  "fieldGroups": ["Heading", "Photos"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Seen from the Marianne",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The regulars on the two o’clock trip",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We leave Anstruther harbour at 10 and 2, April to September, and go slowly. Nobody can promise wildlife, but these five rarely let us down.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Photos",
+      "type": "list",
+      "group": "Photos",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "caption",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "caption",
+          "label": "Name",
+          "type": "text",
+          "default": "Harbour porpoise",
+          "required": true,
+          "maxLength": 40
+        },
+        {
+          "name": "detail",
+          "label": "Note",
+          "type": "text",
+          "default": "Calm days only",
+          "maxLength": 40
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Two grey seals resting on dark rocks at low tide",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "caption": "Grey seals",
+          "detail": "On the Carr rocks, all year"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A puffin standing at the mouth of its burrow with sand eels in its beak",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "caption": "Puffins",
+          "detail": "Late April to July"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A white lighthouse on a low island under a pale sky",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "caption": "The May lighthouse",
+          "detail": "Built 1816, still lit"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A gannet folding its wings as it dives towards the sea",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "caption": "Gannets",
+          "detail": "Diving off the east stack"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Small fishing boats moored in a stone harbour at first light",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "caption": "The harbour wall",
+          "detail": "Best on the way home"
+        }
+      ]
+    }
+  ]
+}

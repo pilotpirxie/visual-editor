@@ -1,0 +1,95 @@
+{
+  "name": "How it works, roman numerals",
+  "category": "how-it-works",
+  "description": "Stages in columns divided by hairlines, each under a large roman numeral with its name in italics.",
+  "tags": [
+    "steps",
+    "roman numerals",
+    "columns",
+    "hairlines",
+    "elegant",
+    "classic",
+    "stages",
+    "process"
+  ],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How we work",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Four stages, from a first walk to the front door key",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every house Atelier Lund designs follows the same unhurried order. You always know which stage you are in and what it costs.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Stages",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Name",
+          "type": "text",
+          "default": "The next stage",
+          "maxLength": 40
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What we do together in this stage."
+        },
+        {
+          "name": "note",
+          "label": "Note",
+          "type": "text",
+          "default": "Four weeks",
+          "maxLength": 30
+        }
+      ],
+      "default": [
+        {
+          "title": "The brief",
+          "text": "We walk the site with you, listen to how you live and agree a budget before a single line is drawn.",
+          "note": "Two weeks"
+        },
+        {
+          "title": "The drawings",
+          "text": "Three directions in sketch and card model, refined into one set of plans you can read without us.",
+          "note": "Six weeks"
+        },
+        {
+          "title": "The permissions",
+          "text": "We prepare the planning application and speak to the council, the neighbours and the engineer.",
+          "note": "Three months"
+        },
+        {
+          "title": "The build",
+          "text": "We tender to builders we trust and visit the site every week until the keys are in your hand.",
+          "note": "Nine to twelve months"
+        }
+      ]
+    }
+  ]
+}

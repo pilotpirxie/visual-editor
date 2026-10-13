@@ -1,0 +1,20 @@
+<section class="b-richtext-gazette section">
+  <div class="container">
+    <header class="b-masthead">
+      <p class="b-paper" data-field="paper">{{paper}}</p>
+      <p class="b-dateline">
+        {{#if edition}}<span data-field="edition">{{edition}}</span>{{/if}}
+        {{#if date}}<time datetime="{{date}}" data-field="date">{{formatDate date}}</time>{{/if}}
+        {{#if motto}}<span data-field="motto">{{motto}}</span>{{/if}}
+      </p>
+    </header>
+    <article>
+      <header class="stack b-head">
+        <h2 data-field="title">{{title}}</h2>
+        {{#if deck}}<p class="b-deck" data-field="deck">{{nl2br deck}}</p>{{/if}}
+        {{#if byline}}<p class="b-byline" data-field="byline">{{byline}}</p>{{/if}}
+      </header>
+      <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,107 @@
+@layer components {
+  @scope (.b-blog-zine) {
+    .b-issue,
+    .b-meta {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      text-transform: uppercase;
+    }
+
+    .b-issue {
+      align-self: start;
+      padding: var(--space-1) var(--space-3);
+      border: 0.2rem solid;
+      rotate: -2deg;
+    }
+
+    .b-intro {
+      max-width: 40rem;
+    }
+
+    .b-pages {
+      display: grid;
+      gap: var(--space-8);
+      margin-block-start: var(--space-4);
+      counter-reset: page;
+    }
+
+    .b-page {
+      --media-radius: 0;
+      --media-ratio: 16 / 9;
+      position: relative;
+      padding: var(--space-4);
+      border: 0.2rem solid;
+      background: var(--color-background);
+      box-shadow: 0.4rem 0.4rem 0 var(--color-text);
+      counter-increment: page;
+    }
+
+    .b-photo {
+      border: 0.2rem solid;
+      filter: grayscale(1);
+    }
+
+    .b-title {
+      rotate: -1.5deg;
+    }
+
+    .b-link {
+      padding: 0.1em 0.3em;
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      line-height: 1.5;
+      text-decoration: none;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-page:nth-child(even) .b-link {
+      background: var(--color-text);
+      color: var(--color-background);
+    }
+
+    .b-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 var(--space-4);
+      margin-block-start: auto;
+      padding-block-start: var(--space-3);
+      border-block-start: 0.2rem dashed;
+    }
+
+    .b-meta::before {
+      content: 'p.' counter(page);
+      margin-inline-end: auto;
+    }
+
+    @media (min-width: 768px) {
+      .b-pages {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-page {
+        rotate: -1deg;
+      }
+
+      .b-page:nth-child(even) {
+        rotate: 1.5deg;
+        translate: 0 var(--space-6);
+      }
+
+      .b-title {
+        position: relative;
+        margin-block-start: calc(var(--space-12) * -1);
+      }
+
+      .b-page:nth-child(even) .b-title {
+        rotate: 2deg;
+      }
+    }
+  }
+}

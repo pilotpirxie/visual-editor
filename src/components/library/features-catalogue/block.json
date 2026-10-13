@@ -1,0 +1,107 @@
+{
+  "name": "Features, catalogue list",
+  "category": "features",
+  "description": "A numbered catalogue of entries between hairlines, with italic names, descriptions and a short note in aligned columns.",
+  "tags": [
+    "features",
+    "catalogue",
+    "list",
+    "numbered",
+    "index",
+    "services",
+    "elegant",
+    "editorial"
+  ],
+  "fieldGroups": ["Heading", "Entries"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Catalogue of services",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Six ways we can work on your house",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Halden & Voss is a studio of five architects in Leith. Take one entry on its own, or all six in order.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Entries",
+      "type": "list",
+      "group": "Entries",
+      "minItems": 2,
+      "maxItems": 12,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Measured survey",
+          "required": true,
+          "maxLength": 60
+        },
+        {
+          "name": "text",
+          "label": "Description",
+          "type": "textarea",
+          "default": "Say what the client receives and when."
+        },
+        {
+          "name": "note",
+          "label": "Note",
+          "type": "text",
+          "default": "on request",
+          "maxLength": 30,
+          "help": "A price, a duration or a short remark."
+        }
+      ],
+      "default": [
+        {
+          "name": "Feasibility study",
+          "text": "A measured survey, three sketch options and an honest view of cost before you commit to anything.",
+          "note": "from £1,400"
+        },
+        {
+          "name": "Planning application",
+          "text": "Drawings, a design statement and every conversation with the council, from submission to decision.",
+          "note": "8 to 12 weeks"
+        },
+        {
+          "name": "Listed building consent",
+          "text": "Heritage statements and careful detailing for homes in conservation areas.",
+          "note": "from £2,200"
+        },
+        {
+          "name": "Technical design",
+          "text": "Construction drawings and a specification that a builder can price without guessing.",
+          "note": "fixed fee"
+        },
+        {
+          "name": "Tender and contract",
+          "text": "We invite three builders we trust, compare their prices line by line and prepare the contract.",
+          "note": "4 weeks"
+        },
+        {
+          "name": "Site inspection",
+          "text": "Fortnightly visits, a written report after each one and sign-off of every payment to the builder.",
+          "note": "£320 a visit"
+        }
+      ]
+    }
+  ]
+}

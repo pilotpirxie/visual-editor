@@ -24,6 +24,8 @@ export type AppSettings = {
   imageModel: ImageModel | null;
   netlifyToken: string;
   publishedSites: Record<string, PublishedSite>;
+  githubToken: string;
+  githubSites: Record<string, PublishedSite>;
 };
 
 export type PublishedSite = { siteId: string; url: string };
@@ -41,6 +43,8 @@ export const DEFAULT_APP_SETTINGS: AppSettings = {
   imageModel: null,
   netlifyToken: '',
   publishedSites: {},
+  githubToken: '',
+  githubSites: {},
 };
 
 const SETTINGS_EVENT = 've-settings-change';
@@ -125,6 +129,8 @@ function settingsFrom(text: string | null): AppSettings {
     imageModel: storedImageModel(stored.imageModel),
     netlifyToken: typeof stored.netlifyToken === 'string' ? stored.netlifyToken : '',
     publishedSites: storedPublishedSites(stored.publishedSites),
+    githubToken: typeof stored.githubToken === 'string' ? stored.githubToken : '',
+    githubSites: storedPublishedSites(stored.githubSites),
   };
 }
 

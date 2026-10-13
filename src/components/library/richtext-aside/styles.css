@@ -1,0 +1,74 @@
+@layer components {
+  @scope (.b-richtext-aside) {
+    .b-article {
+      display: flow-root;
+      max-width: 42rem;
+      margin: auto;
+      overflow-wrap: anywhere;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-head,
+    .b-note {
+      margin-bottom: var(--space-8);
+    }
+
+    .b-note {
+      padding: var(--space-6);
+      border-radius: calc(var(--radius-lg) * 1.5);
+      background: color-mix(in oklab, var(--color-primary) 9%, var(--color-background));
+    }
+
+    .b-note-title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-3);
+      font-size: var(--text-lg);
+    }
+
+    .b-icon {
+      --icon-size: 1.25rem;
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-primary);
+    }
+
+    .b-note-text {
+      --prose-gap: var(--space-3);
+      --prose-marker-color: var(--color-primary);
+    }
+
+    .b-body {
+      --prose-measure: none;
+      --prose-gap: var(--space-6);
+    }
+
+    @media (min-width: 768px) {
+      .b-body {
+        font-size: var(--text-lg);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-article {
+        max-width: 50rem;
+        padding-inline-end: 8rem;
+      }
+
+      .b-note {
+        float: inline-end;
+        width: 19rem;
+        margin-block: var(--space-2) var(--space-6);
+        margin-inline: var(--space-8) -8rem;
+      }
+    }
+  }
+}

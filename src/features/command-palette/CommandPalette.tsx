@@ -107,8 +107,8 @@ export function CommandPalette({ onClose }: { onClose(): void }): JSX.Element {
           aria-autocomplete="list"
           aria-activedescendant={active === undefined ? undefined : optionId(active)}
           onKeyDown={onKeyDown}
-          onChange={(event) => {
-            setQuery(event.currentTarget.value);
+          onQuery={(nextQuery) => {
+            setQuery(nextQuery);
             setActiveIndex(0);
           }}
         />

@@ -1,0 +1,94 @@
+@layer components {
+  @scope (.b-testimonials-columns) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+      padding-block: var(--space-6);
+      border-block: 0.25rem double var(--color-text);
+      text-align: center;
+    }
+
+    .b-columns {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-column + .b-column {
+      padding-block-start: var(--space-8);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-byline {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .b-portrait {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      width: 5rem;
+      margin-block-end: var(--space-3);
+    }
+
+    .b-name {
+      font-variant-caps: all-small-caps;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.1em;
+    }
+
+    .b-role {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      font-style: italic;
+    }
+
+    .b-headline {
+      font-size: var(--text-2xl);
+      font-style: italic;
+      text-align: center;
+    }
+
+    .b-opinion {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-quote p::first-letter {
+      float: left;
+      padding-inline-end: var(--space-2);
+      color: var(--color-primary);
+      font-family: var(--font-heading);
+      font-size: 3.2em;
+      font-weight: var(--font-weight-heading);
+      line-height: 0.85;
+    }
+
+    @media (min-width: 768px) {
+      .b-columns {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+        gap: var(--space-6);
+      }
+
+      .b-column + .b-column {
+        padding-block-start: 0;
+        padding-inline-start: var(--space-6);
+        border-block-start: 0;
+        border-inline-start: var(--border-width) solid var(--color-border);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-columns {
+        gap: var(--space-12);
+      }
+
+      .b-column + .b-column {
+        padding-inline-start: var(--space-12);
+      }
+    }
+  }
+}

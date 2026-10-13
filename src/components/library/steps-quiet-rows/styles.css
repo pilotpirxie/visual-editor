@@ -1,0 +1,59 @@
+@layer components {
+  @scope (.b-steps-quiet-rows) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      max-width: 36rem;
+    }
+
+    h2,
+    h3 {
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-intro,
+    li p,
+    li::before {
+      color: var(--color-text-muted);
+    }
+
+    .b-rows {
+      border-block-end: 1px solid var(--color-border);
+      counter-reset: step;
+    }
+
+    li {
+      display: grid;
+      gap: var(--space-3);
+      padding-block: var(--space-12);
+      border-block-start: 1px solid var(--color-border);
+      counter-increment: step;
+    }
+
+    li::before {
+      content: counter(step, decimal-leading-zero);
+      font: var(--text-xs) var(--font-mono);
+      letter-spacing: 0.1em;
+    }
+
+    h3 {
+      font-size: var(--text-2xl);
+    }
+
+    li p {
+      max-width: 34rem;
+    }
+
+    @media (min-width: 768px) {
+      li {
+        grid-template-columns: 1fr 5fr 6fr;
+        gap: var(--space-8);
+        align-items: baseline;
+        padding-block: var(--space-16);
+      }
+    }
+  }
+}

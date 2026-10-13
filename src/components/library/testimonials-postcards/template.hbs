@@ -1,0 +1,27 @@
+<section class="b-testimonials-postcards section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="grid b-rack" role="list">
+      {{#each items}}
+      <li class="b-slot" data-field="items.{{@index}}">
+        <figure class="b-postcard">
+          <div class="b-postage">
+            {{#if posted}}<span class="b-postmark">{{posted}}</span>{{/if}}
+            <span class="b-stamp" aria-hidden="true">{{svgIcon icon}}</span>
+          </div>
+          <blockquote class="b-message"><p>{{nl2br quote}}</p></blockquote>
+          <figcaption class="b-address">
+            <span class="b-line b-name">{{name}}</span>
+            {{#if detail}}<span class="b-line">{{detail}}</span>{{/if}}
+            {{#if place}}<span class="b-line">{{place}}</span>{{/if}}
+          </figcaption>
+        </figure>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

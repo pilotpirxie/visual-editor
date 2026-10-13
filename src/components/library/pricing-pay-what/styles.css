@@ -1,0 +1,105 @@
+@layer components {
+  @scope (.b-pricing-pay-what) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 36rem;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-set {
+      width: 100%;
+      max-width: 42rem;
+      min-inline-size: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .b-options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-3);
+    }
+
+    .b-option {
+      display: contents;
+    }
+
+    .b-pill {
+      position: relative;
+      display: flex;
+      flex: 1 1 100%;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      min-height: 3.5rem;
+      padding: var(--space-2) var(--space-6);
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 10%, var(--color-background));
+    }
+
+    .b-pill input {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .b-pill:has(:checked) {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-pill:has(:focus-visible) {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 3px;
+    }
+
+    .b-amount {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-heading);
+    }
+
+    .b-detail {
+      flex-basis: 100%;
+      order: 1;
+      align-items: center;
+      padding-top: var(--space-6);
+    }
+
+    .b-options:has(:checked) .b-option:not(:has(:checked)) .b-detail {
+      display: none;
+    }
+
+    .b-note {
+      max-width: 30rem;
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-pill {
+        flex: 1 1 0;
+        flex-direction: column;
+        gap: 0;
+        padding-block: var(--space-4);
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-pill {
+        transition: background-color var(--transition-normal);
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-testimonials-bold-collage) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-pile {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      row-gap: var(--space-6);
+    }
+
+    .b-card {
+      flex: 0 1 100%;
+      min-width: 0;
+      padding: var(--space-6);
+      border: 0.2rem solid var(--color-text);
+      border-radius: var(--radius-lg);
+      background: var(--theme-dark-background);
+      color: var(--theme-dark-text);
+      box-shadow: var(--shadow-lg);
+      rotate: var(--tilt, -1deg);
+    }
+
+    .b-card:nth-child(3n + 2) {
+      --tilt: 1.2deg;
+      background: var(--theme-primary-background);
+      color: var(--theme-primary-text);
+    }
+
+    .b-card:nth-child(3n) {
+      --tilt: -0.6deg;
+      background: var(--color-surface);
+      color: var(--color-text);
+    }
+
+    .b-figure {
+      --stack-gap: var(--space-6);
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      overflow-wrap: anywhere;
+    }
+
+    .b-person {
+      display: grid;
+      font-size: var(--text-sm);
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 768px) {
+      .b-pile {
+        row-gap: 0;
+        padding-block-end: var(--space-8);
+      }
+
+      .b-card {
+        flex-basis: 54%;
+        padding: var(--space-12) var(--space-8);
+        rotate: calc(var(--tilt, -1deg) * 2.5);
+      }
+
+      .b-card:nth-child(n + 3) {
+        margin-block-start: calc(var(--space-4) * -1);
+      }
+
+      .b-card:nth-child(odd) {
+        margin-inline-end: -8%;
+        padding-inline-end: calc(8% + var(--space-8));
+      }
+
+      .b-card:nth-child(even) {
+        translate: 0 var(--space-4);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-quote {
+        font-size: var(--text-3xl);
+      }
+    }
+  }
+}

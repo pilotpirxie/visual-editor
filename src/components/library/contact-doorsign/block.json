@@ -1,0 +1,103 @@
+{
+  "name": "Contact, door sign",
+  "category": "contacts",
+  "description": "A tilted shop door sign hanging from a string with the opening hours, next to the address, phone and email.",
+  "tags": ["contact", "hours", "opening hours", "sign", "shop", "address", "playful", "tilted"],
+  "fieldGroups": ["Heading", "Details", "Sign"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Visit the workshop",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Wheel it in, no appointment needed",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Spoke & Sprocket is on the corner of Gloucester Road, two doors down from the bakery. Bring the bike as it is, we have seen worse.",
+      "group": "Heading"
+    },
+    {
+      "name": "address",
+      "label": "Address",
+      "type": "textarea",
+      "default": "41 Gloucester Road\nBristol BS7 8AD",
+      "group": "Details"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "+44 117 496 0153",
+      "group": "Details"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "workshop@spokeandsprocket.example",
+      "group": "Details"
+    },
+    {
+      "name": "kicker",
+      "label": "Small line on the sign",
+      "type": "text",
+      "default": "Come in,",
+      "group": "Sign"
+    },
+    {
+      "name": "status",
+      "label": "Large line on the sign",
+      "type": "text",
+      "default": "We’re open",
+      "required": true,
+      "group": "Sign"
+    },
+    {
+      "name": "hours",
+      "label": "Opening hours",
+      "type": "list",
+      "group": "Sign",
+      "minItems": 1,
+      "maxItems": 7,
+      "itemLabel": "days",
+      "itemFields": [
+        {
+          "name": "days",
+          "label": "Days",
+          "type": "text",
+          "default": "Bank holidays"
+        },
+        {
+          "name": "time",
+          "label": "Hours",
+          "type": "text",
+          "default": "10:00 to 14:00"
+        }
+      ],
+      "default": [
+        { "days": "Mon to Fri", "time": "8:00 to 18:30" },
+        { "days": "Saturday", "time": "9:00 to 16:00" },
+        { "days": "Sunday", "time": "Closed" }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Note under the hours",
+      "type": "text",
+      "default": "Punctures fixed while you wait until 17:00",
+      "group": "Sign"
+    }
+  ]
+}

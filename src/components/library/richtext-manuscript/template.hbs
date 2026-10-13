@@ -1,0 +1,14 @@
+<section class="b-richtext-manuscript section">
+  <div class="container">
+    <article class="b-page">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="b-kicker" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if byline}}<p class="b-byline" data-field="byline">{{byline}}</p>{{/if}}
+      </header>
+      <div class="b-ornament" aria-hidden="true"><span></span></div>
+      <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+      <div class="b-ornament" aria-hidden="true"><span></span></div>
+    </article>
+  </div>
+</section>

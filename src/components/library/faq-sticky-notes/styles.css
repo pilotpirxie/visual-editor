@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-faq-sticky-notes) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-intro {
+      max-width: 40rem;
+      color: var(--color-text-muted);
+    }
+
+    .b-board {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+      align-items: start;
+      gap: var(--space-8) var(--space-6);
+      padding: var(--space-8) var(--space-4);
+      border-radius: var(--radius-lg);
+      background: radial-gradient(
+          color-mix(in oklab, var(--color-text) 18%, transparent) 1px,
+          transparent 1.5px
+        )
+        0 0 / 1.25rem 1.25rem var(--color-surface);
+    }
+
+    .b-slot {
+      --ink: 22%;
+      rotate: -1deg;
+    }
+
+    .b-slot:nth-child(even) {
+      --ink: 38%;
+      rotate: 1.5deg;
+    }
+
+    .b-slot:nth-child(3n) {
+      --ink: 10%;
+    }
+
+    .b-note {
+      position: relative;
+      background: color-mix(in oklab, var(--color-primary) var(--ink), var(--color-background));
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-note::before {
+      content: '';
+      position: absolute;
+      inset: calc(var(--space-3) * -1) 35% auto;
+      height: 1.5rem;
+      background: color-mix(in oklab, var(--color-text) 18%, transparent);
+      rotate: -3deg;
+    }
+
+    .b-question {
+      display: grid;
+      align-content: space-between;
+      gap: var(--space-4);
+      min-height: 11rem;
+      padding: var(--space-8) var(--space-6) var(--space-4);
+      font: var(--font-weight-bold) var(--text-xl) / var(--line-height-tight) var(--font-heading);
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .b-question::-webkit-details-marker {
+      display: none;
+    }
+
+    [open] > .b-question {
+      min-height: 0;
+    }
+
+    .b-peel {
+      justify-self: end;
+    }
+
+    [open] .b-peel {
+      rotate: 45deg;
+    }
+
+    .b-answer {
+      margin-inline: var(--space-6);
+      padding-block: var(--space-4) var(--space-6);
+      border-top: var(--border-width) dashed;
+    }
+
+    @media (min-width: 768px) {
+      .b-board {
+        padding: var(--space-12) var(--space-8);
+      }
+
+      .b-slot:nth-child(3n) {
+        rotate: 2.5deg;
+      }
+    }
+  }
+}

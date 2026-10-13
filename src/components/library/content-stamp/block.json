@@ -1,0 +1,76 @@
+{
+  "name": "Content, rubber stamp",
+  "category": "content",
+  "description": "Text beside an image with a round, rotated rubber-stamp badge overlapping the image corner.",
+  "tags": ["stamp", "seal", "badge", "image", "story", "heritage", "playful", "rotated"],
+  "fieldGroups": ["Content", "Image", "Stamp"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our bakery",
+      "group": "Content"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "One oven, two bakers and a jar of starter named Greta",
+      "group": "Content",
+      "required": true,
+      "maxLength": 140
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "default": "<p>Lindgren's Bakery opened on Harbour Road in 1998. The oven has been replaced twice since then. Greta, our sourdough starter, has not.</p><p>We still mix at 3 am, shape every loaf by hand and sell out most days before noon. If you want a dark rye on Saturday, call us on Friday.</p>",
+      "group": "Content"
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "image",
+      "group": "Image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A baker scoring loaves of sourdough before they go into the oven",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "photo"
+        }
+      }
+    },
+    {
+      "name": "stampTop",
+      "label": "Top line",
+      "type": "text",
+      "default": "Family owned",
+      "group": "Stamp",
+      "maxLength": 16
+    },
+    {
+      "name": "stampWord",
+      "label": "Centre word",
+      "type": "text",
+      "default": "Fresh",
+      "group": "Stamp",
+      "required": true,
+      "maxLength": 8
+    },
+    {
+      "name": "stampBottom",
+      "label": "Bottom line",
+      "type": "text",
+      "default": "Since 1998",
+      "group": "Stamp",
+      "maxLength": 16
+    }
+  ]
+}

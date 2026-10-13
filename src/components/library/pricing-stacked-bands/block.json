@@ -1,0 +1,144 @@
+{
+  "name": "Pricing, stacked bands",
+  "category": "pricing",
+  "description": "Each plan is a full-width band with a big name and price; the bands step from surface to a tint to primary to dark.",
+  "tags": ["pricing", "plans", "bands", "stripes", "full width", "tiers", "expressive"],
+  "fieldGroups": ["Heading", "Plans"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Plans",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Start small. Step up when the inbox does.",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every Relay plan includes the shared inbox, unlimited email addresses and the mobile apps.",
+      "group": "Heading"
+    },
+    {
+      "name": "plans",
+      "label": "Plans",
+      "type": "list",
+      "group": "Plans",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Plan name",
+          "type": "text",
+          "default": "Studio",
+          "maxLength": 14
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$19"
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": "per person a month"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "Shared drafts and a second inbox for your side project."
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Try Studio free",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "Solo",
+          "price": "$0",
+          "period": "forever",
+          "description": "One person, one inbox and up to 100 conversations a month.",
+          "button": {
+            "label": "Start free",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        {
+          "name": "Crew",
+          "price": "$12",
+          "period": "per person a month",
+          "description": "Assign, snooze and leave notes on any conversation, for up to ten teammates.",
+          "button": {
+            "label": "Try Crew free",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "name": "Company",
+          "price": "$29",
+          "period": "per person a month",
+          "description": "Rules, saved replies, weekly reports and live chat on your website.",
+          "button": {
+            "label": "Try Company free",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "name": "Scale",
+          "price": "$59",
+          "period": "per person a month",
+          "description": "Single sign-on, an audit log, a 99.9% uptime promise and a named contact.",
+          "button": {
+            "label": "Talk to us",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        }
+      ]
+    }
+  ]
+}

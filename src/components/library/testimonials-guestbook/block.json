@@ -1,0 +1,83 @@
+{
+  "name": "Testimonials, guestbook",
+  "category": "testimonials",
+  "description": "A ruled guestbook page with handwritten-style entries, each signed with a name and a date, and a ribbon bookmark.",
+  "tags": ["testimonials", "quotes", "guestbook", "notebook", "ruled paper", "ribbon", "playful"],
+  "fieldGroups": ["Heading", "Entries"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Guestbook",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Kind words left by the door",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The book lives on the shelf next to the coat rack at Osteria Vento. A few pages from this year.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Entries",
+      "type": "list",
+      "group": "Entries",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Entry",
+          "type": "textarea",
+          "default": "A lovely evening. Thank you for the table by the window."
+        },
+        {
+          "name": "name",
+          "label": "Signed by",
+          "type": "text",
+          "default": "Guest name"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        }
+      ],
+      "default": [
+        {
+          "quote": "We booked for my mother's 80th and you gave us the round table by the window. She is still talking about the saffron risotto.",
+          "name": "The Brandt family",
+          "date": "2026-03-14"
+        },
+        {
+          "quote": "Came in from the rain without a reservation. Left two hours later with a full stomach and the recipe for the lemon cake.",
+          "name": "Jonas",
+          "date": "2026-04-02"
+        },
+        {
+          "quote": "Twelve years of Friday dinners here. The gnocchi has never once let us down.",
+          "name": "Helen and Peter Marsh",
+          "date": "2026-05-22"
+        },
+        {
+          "quote": "Our daughter drew the waiter a picture and he pinned it up by the till. That is why we come back.",
+          "name": "Samira O.",
+          "date": "2026-06-07"
+        }
+      ]
+    }
+  ]
+}

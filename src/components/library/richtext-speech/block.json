@@ -1,0 +1,67 @@
+{
+  "name": "Rich text, speech bubble",
+  "category": "rich-text",
+  "description": "Text inside one large speech bubble with a tail that points to the speaker's round photo, name and role.",
+  "tags": ["speech bubble", "founder", "message", "letter", "quote", "person", "text", "playful"],
+  "fieldGroups": ["Text", "Speaker"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "A word from the founder",
+      "group": "Text"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Why our classes never have more than eight people",
+      "required": true,
+      "maxLength": 140,
+      "group": "Text"
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<p>I started this school in 2014 in a room above a launderette, with six students and a kettle. Before that I spent ten years teaching in big academies, where a class of twenty meant each person spoke Spanish for about ninety seconds an hour.</p><h2>Eight is the number</h2><p>With eight people, everyone speaks every few minutes and nobody can hide at the back. With fewer than five, the conversation runs dry. So eight is where we stop, even when the waiting list is long.</p><h2>What that means for you</h2><ul><li>Evening courses fill early. Book by the end of August for the autumn term.</li><li>If a group drops below five, we merge it or refund you in full.</li><li>Your teacher will know your name, your job and which tense you avoid.</li></ul><p>Come and sit in on a class before you pay for anything. The kettle is still here.</p>",
+      "group": "Text"
+    },
+    {
+      "name": "photo",
+      "label": "Photo",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "Elena Marín",
+        "decorative": false,
+        "width": 400,
+        "height": 400,
+        "placeholder": {
+          "ratio": "1:1",
+          "subject": "person"
+        }
+      },
+      "group": "Speaker"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Elena Marín",
+      "required": true,
+      "group": "Speaker"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Founder and head teacher, Hola Leeds",
+      "group": "Speaker"
+    }
+  ]
+}

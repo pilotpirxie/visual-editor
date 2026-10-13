@@ -1,0 +1,48 @@
+{
+  "name": "Contact, shout",
+  "category": "contacts",
+  "description": "An enormous tilted headline on a primary colored band with a round sticker and large arrow links to the email and the phone number.",
+  "tags": ["contact", "email", "phone", "bold", "expressive", "large type", "band", "sticker"],
+  "fieldGroups": ["Heading", "Details"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Say hello",
+      "required": true,
+      "maxLength": 24,
+      "group": "Heading"
+    },
+    {
+      "name": "sticker",
+      "label": "Sticker",
+      "type": "text",
+      "default": "Open Tue to Sat",
+      "maxLength": 24,
+      "group": "Heading"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Gig posters, record sleeves, tote bags, wedding invitations. Tell us what you want on paper and we will tell you how loud it can get.",
+      "group": "Heading"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "hello@loudpaper.example",
+      "group": "Details"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "+44 161 496 0173",
+      "group": "Details"
+    }
+  ]
+}

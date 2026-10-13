@@ -1,0 +1,28 @@
+<section class="b-pricing-pay-what section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <fieldset class="b-set">
+      <legend class="visually-hidden">{{legend}}</legend>
+      <div class="b-options">
+        {{#each options}}
+        <div class="b-option" data-field="options.{{@index}}">
+          <label class="b-pill">
+            <input type="radio" name="{{../block.id}}-price" value="{{amount}}" {{#if selected}}checked{{/if}}>
+            <span class="b-amount">{{amount}}</span>
+            <span>{{label}}</span>
+          </label>
+          <div class="stack b-detail">
+            <p>{{nl2br text}}</p>
+            <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </fieldset>
+    {{#if note}}<p class="b-muted b-note" data-field="note">{{nl2br note}}</p>{{/if}}
+  </div>
+</section>

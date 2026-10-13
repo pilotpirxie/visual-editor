@@ -1,0 +1,21 @@
+<section class="b-faq-letters section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-column">
+      {{#each items}}
+      <article class="b-item" data-field="items.{{@index}}">
+        <blockquote class="stack b-letter">
+          <p>{{../salutation}} {{nl2br letter}}</p>
+          <p class="b-sign">{{signature}}</p>
+        </blockquote>
+        <p class="eyebrow">{{../replyLabel}}</p>
+        <p class="b-reply">{{nl2br reply}}</p>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

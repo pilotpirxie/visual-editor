@@ -1,0 +1,91 @@
+@layer components {
+  @scope (.b-pricing-menu) {
+    .b-menu {
+      --stack-gap: var(--space-8);
+      max-width: 42rem;
+      margin-inline: auto;
+      padding: var(--space-12) var(--space-8);
+      border: 0.375rem double var(--color-text);
+      outline: 1px solid var(--color-text);
+      outline-offset: -0.875rem;
+      background: var(--color-surface);
+    }
+
+    .b-head,
+    .b-note {
+      text-align: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-caps {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .b-aside {
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    .b-course,
+    .b-dishes {
+      --stack-gap: var(--space-4);
+    }
+
+    .b-rule,
+    .b-line,
+    .b-dish {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-2);
+    }
+
+    .b-rule {
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .b-rule::before,
+    .b-rule::after {
+      content: '';
+      flex: 1;
+      border-top: 1px solid var(--color-text);
+    }
+
+    .b-line {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+    }
+
+    .b-dish {
+      flex: 1;
+    }
+
+    .b-dish::after {
+      content: '';
+      flex: 1;
+      min-width: var(--space-4);
+      border-top: 2px dotted var(--color-text-muted);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    .b-book {
+      align-self: center;
+    }
+
+    @media (min-width: 768px) {
+      .b-menu {
+        padding: var(--space-16);
+      }
+    }
+  }
+}

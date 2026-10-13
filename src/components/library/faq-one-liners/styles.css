@@ -1,0 +1,56 @@
+@layer components {
+  @scope (.b-faq-one-liners) {
+    .b-inner {
+      --container-max-width: 58rem;
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro,
+    .b-answer {
+      color: var(--color-text-muted);
+    }
+
+    .b-row {
+      padding-block: var(--space-4);
+      border-bottom: 0.125rem dotted var(--color-border);
+      overflow-wrap: anywhere;
+    }
+
+    .b-question {
+      font: var(--font-weight-bold) var(--text-lg) / var(--line-height-tight) var(--font-heading);
+    }
+
+    .b-answer {
+      margin-block-start: var(--space-1);
+    }
+
+    @media (min-width: 768px) {
+      .b-row {
+        display: flex;
+        align-items: baseline;
+        gap: var(--space-3);
+        border: 0;
+      }
+
+      .b-row::before {
+        content: '';
+        flex: 1;
+        order: 1;
+        min-width: var(--space-8);
+        height: 0.25rem;
+        background: radial-gradient(circle, var(--color-text-muted) 1px, transparent 1.5px) 0 0 /
+          0.5rem 100% repeat-x;
+      }
+
+      .b-answer {
+        order: 2;
+        max-width: 55%;
+        text-align: end;
+      }
+    }
+  }
+}

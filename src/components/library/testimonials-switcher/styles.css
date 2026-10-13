@@ -1,0 +1,112 @@
+@layer components {
+  @scope (.b-testimonials-switcher) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+      text-align: center;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-stage {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-6) var(--space-2);
+      min-inline-size: 0;
+      max-width: 46rem;
+      margin: 0 auto;
+      padding: 0;
+      border: 0;
+    }
+
+    .b-item {
+      display: contents;
+    }
+
+    .b-pick {
+      position: relative;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+    }
+
+    .b-radio {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+
+    .b-face {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      display: block;
+      width: 3rem;
+      opacity: 0.5;
+    }
+
+    .b-pick:has(:checked) .b-face {
+      opacity: 1;
+      outline: 0.2rem solid var(--color-primary);
+      outline-offset: 0.15rem;
+    }
+
+    .b-pick:has(:focus-visible) {
+      outline: 0.15rem solid var(--color-text);
+      outline-offset: 0.5rem;
+    }
+
+    .b-pick:has(:checked)::after {
+      content: '';
+      position: absolute;
+      top: calc(100% + var(--space-6));
+      inset-inline-start: 50%;
+      width: 1.25rem;
+      height: 1.25rem;
+      background: var(--color-surface);
+      translate: -50% -50%;
+      rotate: 45deg;
+    }
+
+    .b-say {
+      --stack-gap: var(--space-6);
+      order: 1;
+      flex: 0 0 100%;
+      padding: var(--space-8) var(--space-6);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+    }
+
+    .b-stage:has(:checked) .b-item:not(:has(:checked)) .b-say {
+      display: none;
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+    }
+
+    .b-person {
+      display: grid;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .b-name {
+      color: var(--color-text);
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (min-width: 768px) {
+      .b-face {
+        width: 4rem;
+      }
+
+      .b-quote {
+        font-size: var(--text-2xl);
+      }
+    }
+  }
+}

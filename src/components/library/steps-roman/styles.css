@@ -1,0 +1,76 @@
+@layer components {
+  @scope (.b-steps-roman) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-4);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      color: var(--color-text-muted);
+      font-size: var(--text-lg);
+    }
+
+    .b-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+      overflow: hidden;
+      border-block: 3px double var(--color-text);
+      counter-reset: step;
+    }
+
+    li {
+      display: grid;
+      gap: var(--space-3);
+      align-content: start;
+      justify-items: center;
+      margin: -1px 0 0 -1px;
+      padding: var(--space-8) var(--space-6);
+      border: solid var(--color-border);
+      border-width: 1px 0 0 1px;
+      text-align: center;
+      counter-increment: step;
+    }
+
+    li::before {
+      content: counter(step, upper-roman);
+      color: var(--color-primary);
+      font: var(--font-weight-regular) calc(var(--text-5xl) * 1.25) / 1 var(--font-heading);
+    }
+
+    h3 {
+      font-size: var(--text-2xl);
+      font-style: italic;
+      font-weight: var(--font-weight-regular);
+    }
+
+    h3::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      margin: 0 auto var(--space-4);
+      border-block-start: 1px solid var(--color-text);
+    }
+
+    h3 + p {
+      color: var(--color-text-muted);
+    }
+
+    .b-note {
+      font-size: var(--text-xs);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 1024px) {
+      li {
+        padding-block: var(--space-12);
+      }
+    }
+  }
+}

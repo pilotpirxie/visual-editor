@@ -1,0 +1,32 @@
+{
+  "name": "Testimonial, pull quote",
+  "category": "testimonials",
+  "description": "One quote in large italics with a hanging quotation mark, a hairline and a small-caps attribution.",
+  "tags": ["testimonial", "quote", "pull quote", "editorial", "italic", "elegant", "typography"],
+  "fieldGroups": ["Quote", "Person"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "They listened for three meetings before they drew a single line. The house they gave us faces the morning sun, hides the road and cost exactly what they said it would.",
+      "required": true,
+      "group": "Quote"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Ingrid Solberg",
+      "group": "Person"
+    },
+    {
+      "name": "role",
+      "label": "Role or project",
+      "type": "text",
+      "default": "Homeowner, Fjordgata 12 renovation",
+      "group": "Person"
+    }
+  ]
+}

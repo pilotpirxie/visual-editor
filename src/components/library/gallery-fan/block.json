@@ -1,0 +1,145 @@
+{
+  "name": "Gallery, fanned cards",
+  "category": "gallery",
+  "description": "Three to five numbered photo cards spread like a hand of playing cards, and a two-column grid on phones.",
+  "tags": ["gallery", "photos", "fan", "cards", "hand", "playful", "rotated"],
+  "fieldGroups": ["Heading", "Cards"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The winter five",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Pick a card, any card",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Only five drinks make the list each season at Low Tide. Point at one and Inès will have it in front of you in four minutes.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Cards",
+      "type": "list",
+      "group": "Cards",
+      "minItems": 3,
+      "maxItems": 5,
+      "itemLabel": "caption",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "caption",
+          "label": "Caption",
+          "type": "text",
+          "default": "Guest bartender special",
+          "required": true,
+          "maxLength": 40
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A deep red cocktail in a coupe glass with a wisp of smoke",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "caption": "Smoked plum sour"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A pale green gimlet garnished with a basil leaf",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "caption": "Garden gimlet"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A dark negroni over one large ice cube with an orange twist",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "caption": "Cold brew negroni"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A tall sparkling spritz with a slice of pear and a thyme sprig",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "caption": "Pear and thyme spritz"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A highball glass with a honeycomb garnish on the bar counter",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "caption": "Salted honey highball"
+        }
+      ]
+    }
+  ]
+}

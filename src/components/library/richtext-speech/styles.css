@@ -1,0 +1,81 @@
+@layer components {
+  @scope (.b-richtext-speech) {
+    .b-talk {
+      max-width: 46rem;
+      margin: auto;
+    }
+
+    .b-bubble {
+      position: relative;
+      padding: var(--space-8) var(--space-6);
+      border-radius: calc(var(--radius-lg) * 2);
+      background: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
+      box-shadow: var(--space-2) var(--space-2) 0 var(--color-primary);
+      overflow-wrap: anywhere;
+    }
+
+    .b-bubble::after {
+      content: '';
+      position: absolute;
+      top: calc(100% - 1px);
+      inset-inline-start: var(--space-12);
+      width: 2.5rem;
+      height: 2rem;
+      background: inherit;
+      clip-path: polygon(0 0, 100% 0, 10% 100%);
+    }
+
+    .b-bubble > h2 {
+      margin-block: var(--space-2) var(--space-6);
+      font-size: var(--text-3xl);
+    }
+
+    .b-body {
+      --prose-measure: none;
+      --prose-marker-color: var(--color-primary);
+    }
+
+    .b-speaker {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-top: var(--space-12);
+      padding-inline-start: var(--space-4);
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 4.5rem;
+      outline: 3px solid var(--color-primary);
+      outline-offset: 3px;
+    }
+
+    .b-name {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-bubble {
+        padding: var(--space-12);
+        rotate: -1deg;
+      }
+
+      .b-body {
+        font-size: var(--text-lg);
+      }
+
+      .b-photo {
+        width: 5.5rem;
+      }
+    }
+  }
+}

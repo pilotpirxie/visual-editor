@@ -1,0 +1,101 @@
+{
+  "name": "Features, headline stack",
+  "category": "features",
+  "description": "A stack of giant one-word lines, each a link with a short description beside it, that fill with the primary colour on hover or focus.",
+  "tags": ["features", "typography", "headline", "giant", "list", "links", "expressive", "bold"],
+  "fieldGroups": ["Heading", "Lines"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Inside the hall",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "One £14 day pass opens all of it",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Gritstone is a climbing hall in an old steel works in Kelham Island, open from 7 am to 10 pm every day of the year.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Lines",
+      "type": "list",
+      "group": "Lines",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Giant line",
+          "type": "text",
+          "default": "Café",
+          "required": true,
+          "maxLength": 12,
+          "help": "One or two short words read best."
+        },
+        {
+          "name": "text",
+          "label": "Description",
+          "type": "textarea",
+          "default": "Flat whites, flapjacks and a view of the main wall."
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "Bouldering",
+          "text": "320 problems on 4.5 metre walls, reset every Monday and graded from first day to font 8a.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "name": "Top rope",
+          "text": "Forty lines up to 17 metres, twelve of them on auto belays so you can climb alone.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "name": "Training",
+          "text": "A 45 degree board, campus rungs and a weights room that stays quiet until 4 pm.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "name": "Kids club",
+          "text": "Coached sessions for ages 6 to 14 every Saturday morning, shoes included.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        },
+        {
+          "name": "Sauna",
+          "text": "Eight seats, cedar benches and a cold tap, free with every pass.",
+          "link": { "type": "url", "url": "#", "newTab": false }
+        }
+      ]
+    }
+  ]
+}

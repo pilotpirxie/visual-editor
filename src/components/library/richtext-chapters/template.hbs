@@ -1,0 +1,20 @@
+<section class="b-richtext-chapters section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if lead}}<p class="b-lead" data-field="lead">{{nl2br lead}}</p>{{/if}}
+    </header>
+    <div class="b-chapters">
+      {{#each parts}}
+      <details class="b-chapter" data-field="parts.{{@index}}"{{#if @first}} open{{/if}}>
+        <summary class="b-summary">
+          <h3 class="b-heading">{{heading}}</h3>
+          <span class="b-toggle">{{svgIcon "plus"}}</span>
+        </summary>
+        <div class="prose b-body">{{richText body}}</div>
+      </details>
+      {{/each}}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<section class="b-blog-peek section">
+  <div class="container stack">
+    <header class="stack">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-list" role="list">
+      {{#each posts}}
+      <li class="b-row" data-field="posts.{{@index}}">
+        <div class="media">{{img image}}</div>
+        <details name="{{../block.id}}-posts"{{#if @first}} open{{/if}}>
+          <summary class="b-summary">
+            <h3>{{title}}</h3>
+            <span class="b-muted b-chevron">{{svgIcon "chevron-down"}}</span>
+            {{#if date}}<time class="b-muted b-date" datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+          </summary>
+          <div class="stack b-body">
+            {{#if excerpt}}<p class="b-muted">{{nl2br excerpt}}</p>{{/if}}
+            <a class="b-read" href="{{href link}}" {{linkAttrs link}}>{{../linkLabel}}{{svgIcon "arrow-right"}}</a>
+          </div>
+        </details>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

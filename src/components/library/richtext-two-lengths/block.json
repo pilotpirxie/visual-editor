@@ -1,0 +1,100 @@
+{
+  "name": "Rich text, short and full version",
+  "category": "rich-text",
+  "description": "Two options, a short summary and the full text, that the reader switches between; the short one shows first.",
+  "tags": [
+    "summary",
+    "short version",
+    "full story",
+    "switch",
+    "toggle",
+    "tl;dr",
+    "text",
+    "long-form"
+  ],
+  "fieldGroups": ["Heading", "Short version", "Full version"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "How we work",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How a table gets made here",
+      "required": true,
+      "maxLength": 140,
+      "group": "Heading"
+    },
+    {
+      "name": "pickerLabel",
+      "label": "Switch label for screen readers",
+      "type": "text",
+      "default": "Choose a version",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "shortLabel",
+      "label": "Short option",
+      "type": "text",
+      "default": "Short version",
+      "required": true,
+      "maxLength": 24,
+      "group": "Short version"
+    },
+    {
+      "name": "shortNote",
+      "label": "Short option note",
+      "type": "text",
+      "default": "30 seconds",
+      "maxLength": 24,
+      "group": "Short version"
+    },
+    {
+      "name": "summary",
+      "label": "Short text",
+      "type": "richtext",
+      "default": "<p>We build each table to order from oak or ash that grew within 60 miles of the workshop. It takes about nine weeks from your deposit to delivery.</p><ul><li>You choose the size, the timber and one of three leg designs.</li><li>A dining table for six costs from 2,400 pounds, delivered.</li><li>If it ever wobbles, we come and fix it. There is no time limit.</li></ul>",
+      "group": "Short version"
+    },
+    {
+      "name": "moreLabel",
+      "label": "Link to the full version",
+      "type": "text",
+      "default": "Read the full story",
+      "maxLength": 40,
+      "group": "Short version"
+    },
+    {
+      "name": "fullLabel",
+      "label": "Full option",
+      "type": "text",
+      "default": "Full story",
+      "required": true,
+      "maxLength": 24,
+      "group": "Full version"
+    },
+    {
+      "name": "fullNote",
+      "label": "Full option note",
+      "type": "text",
+      "default": "4 minutes",
+      "maxLength": 24,
+      "group": "Full version"
+    },
+    {
+      "name": "body",
+      "label": "Full text",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<p>There are four of us, and we make about forty tables a year. That number has not changed since 2016 and we do not plan for it to.</p><h2>The timber</h2><p>We buy whole trees from two estates in Herefordshire, mostly oak and ash that had to come down anyway. The boards dry in our yard for a year per inch of thickness, then spend three weeks in the kiln. When you order, we walk you through the stack, in person or on a video call, and you pick the boards your table will be made from.</p><h2>Nine weeks, roughly</h2><ul><li>Weeks 1 and 2: we agree the drawing and you choose your boards.</li><li>Weeks 3 to 6: the top is jointed, glued and flattened by hand, and the frame is cut and fitted.</li><li>Weeks 7 and 8: three coats of hardwax oil, with four days between each.</li><li>Week 9: Joe and Samira deliver it, carry it in and level it on your floor.</li></ul><h2>What it costs, and why</h2><p>A table for six starts at 2,400 pounds and one for ten at 3,600. About a third of that is timber, half is the 60 or so hours of work, and the rest keeps the lights on. We ask for 30 percent when you order and the balance when the table is standing in your room.</p><h2>Afterwards</h2><p>Solid wood moves with the seasons. If a joint opens or a leg starts to rock, in year one or year twenty, tell us and we will come out. So far that has happened eleven times.</p>",
+      "group": "Full version"
+    }
+  ]
+}

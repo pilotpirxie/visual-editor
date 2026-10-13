@@ -1,0 +1,99 @@
+@layer components {
+  @scope (.b-gallery-contact-sheet) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-border: var(--theme-dark-border);
+      --color-primary: var(--theme-dark-accent);
+    }
+
+    .b-inner {
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      max-width: 40rem;
+    }
+
+    .b-intro,
+    .b-roll,
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-sheet {
+      padding: clamp(var(--space-4), 3vw, var(--space-8));
+      background: var(--color-surface);
+    }
+
+    .b-roll,
+    .b-note {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .b-frames {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6) var(--space-2);
+      margin-block-start: var(--space-4);
+      counter-reset: frame;
+    }
+
+    .b-frame {
+      position: relative;
+      counter-increment: frame;
+    }
+
+    .b-photo {
+      --media-ratio: 3 / 2;
+      --media-radius: 0;
+      border: var(--border-width) solid var(--color-border);
+    }
+
+    .b-note {
+      display: flex;
+      gap: var(--space-2);
+      margin-block-start: var(--space-2);
+    }
+
+    .b-note::before {
+      content: counter(frame, decimal-leading-zero);
+      color: var(--color-primary);
+    }
+
+    .b-pick {
+      font-family: var(--font-heading);
+      font-style: italic;
+      text-align: end;
+      color: var(--color-primary);
+    }
+
+    .b-pick::before,
+    .b-pick::after {
+      content: '';
+      position: absolute;
+      inset: calc(var(--space-2) * -1) calc(var(--space-2) * -1) auto;
+      aspect-ratio: 3 / 2;
+      border: 0.1875rem solid;
+      border-radius: 50%;
+      rotate: -3deg;
+    }
+
+    .b-pick::after {
+      border-width: 0.125rem;
+      border-radius: 46% 54% 50% 50% / 58% 44% 56% 42%;
+      rotate: 3deg;
+    }
+
+    @media (min-width: 768px) {
+      .b-frames {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+}

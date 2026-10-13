@@ -1,0 +1,93 @@
+@layer components {
+  @scope (.b-content-sticky-notes) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-board {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+      gap: var(--space-6);
+    }
+
+    .b-note {
+      --ink: var(--color-primary) 20%;
+      --tint: color-mix(in oklab, var(--ink), var(--color-background));
+      position: relative;
+      display: grid;
+      align-content: space-between;
+      gap: var(--space-4);
+      width: 100%;
+      max-width: 14rem;
+      aspect-ratio: 1;
+      padding: var(--space-6) var(--space-4);
+      background: linear-gradient(-45deg, transparent 1rem, var(--tint) 0);
+      box-shadow: var(--shadow-md);
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      line-height: var(--line-height-tight);
+      overflow-wrap: anywhere;
+      rotate: -2deg;
+    }
+
+    .b-note:nth-child(even) {
+      --ink: var(--color-text) 9%;
+      justify-self: end;
+      rotate: 1.5deg;
+    }
+
+    .b-note:nth-child(3n) {
+      --ink: var(--color-primary) 38%;
+      rotate: -1deg;
+    }
+
+    .b-note::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0 auto;
+      width: 1.414rem;
+      aspect-ratio: 1;
+      background: linear-gradient(
+        -45deg,
+        transparent 50%,
+        color-mix(in oklab, var(--color-text) 22%, var(--tint)) 0
+      );
+    }
+
+    .b-note:nth-child(even)::before {
+      content: '';
+      position: absolute;
+      top: -0.6rem;
+      left: 35%;
+      width: 4rem;
+      height: 1.25rem;
+      background: color-mix(in oklab, var(--color-primary) 35%, transparent);
+    }
+
+    .b-author {
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 768px) {
+      .b-note:nth-child(even) {
+        margin-block-start: var(--space-8);
+        rotate: 3deg;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      }
+    }
+  }
+}

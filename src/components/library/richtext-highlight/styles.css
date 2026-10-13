@@ -1,0 +1,70 @@
+@layer components {
+  @scope (.b-richtext-highlight) {
+    .b-inner {
+      --container-max-width: 50rem;
+      --marker: color-mix(in oklab, var(--color-primary) 32%, transparent);
+      overflow-wrap: anywhere;
+    }
+
+    .b-tag {
+      width: fit-content;
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-text);
+      color: var(--color-background);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      rotate: -2deg;
+    }
+
+    .b-title {
+      margin-block: var(--space-6) var(--space-12);
+      font-size: var(--text-5xl);
+    }
+
+    .b-mark,
+    .b-body strong {
+      background: linear-gradient(100deg, transparent 1%, var(--marker) 4% 95%, transparent 99%) 0
+        88% / 100% 0.55em no-repeat;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      color: inherit;
+    }
+
+    .b-body strong {
+      padding-inline: 0.15em;
+    }
+
+    .b-text {
+      padding-inline-start: var(--space-4);
+      border-inline-start: var(--space-2) solid var(--color-primary);
+    }
+
+    .b-lead {
+      margin-bottom: var(--space-8);
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-body {
+      --prose-measure: none;
+      --prose-gap: var(--space-6);
+    }
+
+    @media (min-width: 768px) {
+      .b-text {
+        padding-inline-start: var(--space-12);
+      }
+
+      .b-lead {
+        font-size: var(--text-2xl);
+        line-height: 1.4;
+      }
+
+      .b-body {
+        font-size: var(--text-lg);
+      }
+    }
+  }
+}

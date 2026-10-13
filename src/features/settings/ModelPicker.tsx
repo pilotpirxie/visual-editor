@@ -55,8 +55,8 @@ export function ModelPicker({ label, models, currentId, onPick }: ModelPickerPro
       <SearchInput
         label={`Search ${label.toLowerCase()}`}
         value={query}
-        onChange={(event) => {
-          setQuery(event.target.value);
+        onQuery={(nextQuery) => {
+          setQuery(nextQuery);
           setShownCount(PAGE_SIZE);
         }}
       />

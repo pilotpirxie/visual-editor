@@ -130,8 +130,8 @@ export function FontBrowser({
           placeholder="Search fonts"
           value={query}
           autoFocus
-          onChange={(event) => {
-            setQuery(event.target.value);
+          onQuery={(nextQuery) => {
+            setQuery(nextQuery);
             setShownCount(PAGE_SIZE);
           }}
           onKeyDown={(event) => {

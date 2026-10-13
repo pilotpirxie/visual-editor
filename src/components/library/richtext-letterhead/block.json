@@ -1,0 +1,79 @@
+{
+  "name": "Rich text, letterhead",
+  "category": "rich-text",
+  "description": "A letter on company stationery: the site title and address across the top, a date, a subject, the text and a signed sign-off.",
+  "tags": [
+    "letter",
+    "letterhead",
+    "stationery",
+    "notice",
+    "signature",
+    "formal",
+    "text",
+    "elegant"
+  ],
+  "fieldGroups": ["Letterhead", "Letter", "Sign-off"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "address",
+      "label": "Address line",
+      "type": "text",
+      "default": "14 Harbour Row, Bristol BS1 4RW - 0117 496 0150",
+      "group": "Letterhead"
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-10-12",
+      "group": "Letterhead"
+    },
+    {
+      "name": "title",
+      "label": "Subject",
+      "type": "text",
+      "default": "Building work at 22 Quay Street starts on 2 November",
+      "required": true,
+      "maxLength": 140,
+      "group": "Letter"
+    },
+    {
+      "name": "greeting",
+      "label": "Greeting",
+      "type": "text",
+      "default": "Dear neighbours,",
+      "group": "Letter"
+    },
+    {
+      "name": "body",
+      "label": "Letter",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<p>I am writing on behalf of the owners of 22 Quay Street, who have asked our studio to convert the old sail loft into four flats and a ground-floor workshop. Planning permission was granted in July, and work on site begins on Monday 2 November.</p><h2>What to expect</h2><p>The build will take about eleven months. The noisiest part is the first six weeks, when the rear extension comes down and the new foundations are dug.</p><ul><li>Working hours are 8 am to 5.30 pm on weekdays, and never at weekends.</li><li>Scaffolding goes up on the Quay Street side in the week of 9 November.</li><li>The pavement stays open throughout. Two parking bays are suspended until March.</li></ul><h2>Who to talk to</h2><p>Our site manager, Callum Reid, is on 0117 496 0153 during working hours and will answer the same day. You are also welcome at the open evening in the loft on Thursday 29 October from 6 pm. The drawings will be on the wall, and we will have time for every question.</p>",
+      "group": "Letter"
+    },
+    {
+      "name": "closing",
+      "label": "Closing words",
+      "type": "text",
+      "default": "Yours sincerely,",
+      "group": "Sign-off"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Priya Nair",
+      "required": true,
+      "group": "Sign-off"
+    },
+    {
+      "name": "role",
+      "label": "Role",
+      "type": "text",
+      "default": "Partner and project architect",
+      "group": "Sign-off"
+    }
+  ]
+}

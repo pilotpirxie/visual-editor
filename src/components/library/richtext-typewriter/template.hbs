@@ -1,0 +1,20 @@
+<section class="b-richtext-typewriter section">
+  <div class="container">
+    <article class="b-sheet">
+      <header class="b-memo">
+        <div class="b-top">
+          {{#if label}}<p class="b-label" data-field="label">{{label}}</p>{{/if}}
+          {{#if stamp}}<p class="b-stamp" data-field="stamp">{{stamp}}</p>{{/if}}
+        </div>
+        <dl class="b-lines">
+          {{#if to}}<div><dt data-field="toLabel">{{toLabel}}</dt><dd data-field="to">{{to}}</dd></div>{{/if}}
+          {{#if from}}<div><dt data-field="fromLabel">{{fromLabel}}</dt><dd data-field="from">{{from}}</dd></div>{{/if}}
+          {{#if date}}<div><dt data-field="dateLabel">{{dateLabel}}</dt><dd><time datetime="{{date}}" data-field="date">{{formatDate date}}</time></dd></div>{{/if}}
+          <div><dt data-field="subjectLabel">{{subjectLabel}}</dt><dd><h2 data-field="title">{{title}}</h2></dd></div>
+        </dl>
+      </header>
+      <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+      {{#if reference}}<p class="b-reference" data-field="reference">{{reference}}</p>{{/if}}
+    </article>
+  </div>
+</section>

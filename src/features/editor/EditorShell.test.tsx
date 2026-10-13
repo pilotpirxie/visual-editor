@@ -124,7 +124,11 @@ describe('EditorShell', () => {
     runInAct(() => dispatch(previewToggled(true)));
     const floating = container.querySelector('.ve-preview-exit');
     if (floating === null) throw new Error('Expected the floating preview exit');
-    click(getButton(floating, 'Exit preview'));
+    const exit = getButton(floating, 'Exit preview');
+    expect(exit.classList.contains('ui-button--primary')).toBe(true);
+    expect(exit.querySelector('.ve-wide-only')).toBeNull();
+    expect(exit.textContent).toBe('Exit preview');
+    click(exit);
     expect(store.getState().editor.isPreview).toBe(false);
     expect(container.querySelector('.ve-preview-exit')).toBeNull();
   });

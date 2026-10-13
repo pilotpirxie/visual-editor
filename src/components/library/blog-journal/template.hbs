@@ -1,0 +1,26 @@
+<section class="b-blog-journal section">
+  <div class="container stack b-inner">
+    <header class="stack b-masthead">
+      {{#if issue}}<p class="b-caps" data-field="issue">{{issue}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-quiet" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    {{#if label}}<p class="b-caps b-label" data-field="label">{{label}}</p>{{/if}}
+    <ol class="b-toc" role="list">
+      {{#each posts}}
+      <li class="b-entry" data-field="posts.{{@index}}">
+        <div class="b-row">
+          <h3 class="b-title"><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          <span class="b-leader" aria-hidden="true"></span>
+          {{#if author}}<span class="b-author">{{author}}</span>{{/if}}
+        </div>
+        <p class="b-row b-quiet">
+          {{#if kind}}<span>{{kind}}</span>{{/if}}
+          {{#if date}}<time datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+        </p>
+      </li>
+      {{/each}}
+    </ol>
+    {{#if note}}<p class="b-quiet b-colophon" data-field="note">{{nl2br note}}</p>{{/if}}
+  </div>
+</section>

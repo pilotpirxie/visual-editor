@@ -1,0 +1,132 @@
+{
+  "name": "Gallery, museum wall",
+  "category": "gallery",
+  "description": "Works hung far apart in thin frames with wide mats, each with a small-caps wall label giving title, medium and year.",
+  "tags": ["gallery", "museum", "exhibition", "art", "wall label", "frames", "elegant"],
+  "fieldGroups": ["Heading", "Works"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Room 2, until 30 November",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Maren Oduya: Salt and Paper",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Three years of prints made within walking distance of the Morston salt marsh. Every work is for sale; ask at the desk on Harbour Street for the price list.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Works",
+      "type": "list",
+      "group": "Works",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Artwork",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Untitled study",
+          "required": true
+        },
+        {
+          "name": "medium",
+          "label": "Medium",
+          "type": "text",
+          "default": "Ink on paper"
+        },
+        {
+          "name": "year",
+          "label": "Year",
+          "type": "text",
+          "default": "2026"
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A blue-grey monotype of horizontal bands suggesting a receding tide",
+            "decorative": false,
+            "width": 1200,
+            "height": 900,
+            "placeholder": {
+              "ratio": "4:3",
+              "subject": "photo"
+            }
+          },
+          "title": "Tide Table No. 3",
+          "medium": "Monotype on cotton rag",
+          "year": "2024"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A tall linocut of fishing nets hanging in a wooden loft",
+            "decorative": false,
+            "width": 900,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "3:4",
+              "subject": "photo"
+            }
+          },
+          "title": "Net Loft",
+          "medium": "Linocut, edition of 12",
+          "year": "2025"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A square gouache of a mud creek at low water under a pale sky",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "title": "Low Water, Morston",
+          "medium": "Gouache and graphite",
+          "year": "2023"
+        }
+      ]
+    }
+  ]
+}

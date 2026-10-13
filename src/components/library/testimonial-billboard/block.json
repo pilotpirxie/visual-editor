@@ -1,0 +1,46 @@
+{
+  "name": "Testimonial, billboard",
+  "category": "testimonials",
+  "description": "One quote in huge uppercase type on a slanted primary band, with one phrase picked out in inverted colors.",
+  "tags": ["testimonial", "quote", "billboard", "band", "huge type", "highlight", "expressive"],
+  "fieldGroups": ["Quote", "Person"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "before",
+      "label": "Text before the highlight",
+      "type": "textarea",
+      "default": "Six weeks ago I was scared of the kids' wall. Yesterday I",
+      "group": "Quote"
+    },
+    {
+      "name": "highlight",
+      "label": "Highlighted phrase",
+      "type": "text",
+      "default": "topped the 14-metre route",
+      "group": "Quote",
+      "required": true
+    },
+    {
+      "name": "after",
+      "label": "Text after the highlight",
+      "type": "textarea",
+      "default": "and rang the bell.",
+      "group": "Quote"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Joanne Petrakis",
+      "group": "Person"
+    },
+    {
+      "name": "role",
+      "label": "Role or detail",
+      "type": "text",
+      "default": "Granite Hall member since January, started climbing at 48",
+      "group": "Person"
+    }
+  ]
+}

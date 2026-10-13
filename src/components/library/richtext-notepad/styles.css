@@ -1,0 +1,104 @@
+@layer components {
+  @scope (.b-richtext-notepad) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-pad {
+      --ink: color-mix(in oklab, var(--color-primary) 30%, transparent);
+      max-width: 40rem;
+      margin: auto;
+      background: color-mix(in oklab, var(--color-primary) 5%, var(--color-background));
+      box-shadow: var(--shadow-lg);
+      overflow-wrap: anywhere;
+      rotate: 0.6deg;
+    }
+
+    .b-pad::before {
+      content: '';
+      display: block;
+      height: 3rem;
+      border-bottom: 2px dashed var(--ink);
+      background: radial-gradient(
+          circle closest-side,
+          color-mix(in oklab, var(--color-text) 25%, var(--color-surface)) 92%,
+          transparent
+        )
+        center / 2rem 1rem space no-repeat;
+    }
+
+    .b-head,
+    .b-ruled {
+      padding-inline: var(--space-6);
+    }
+
+    .b-head {
+      padding-block: var(--space-6) var(--space-4);
+      border-bottom: 2px solid var(--color-primary);
+    }
+
+    .b-kicker {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .b-pad :is(h2, h3),
+    .b-sign {
+      font-family: var(--font-heading);
+      font-style: italic;
+    }
+
+    .b-head h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .b-ruled {
+      --size: var(--text-base);
+      --line: calc(var(--size) * 2);
+      --prose-item-gap: 0;
+      padding-block: var(--line);
+      background: repeating-linear-gradient(
+          transparent 0 calc(var(--line) - 1px),
+          var(--ink) 0 var(--line)
+        )
+        0 calc(var(--size) * -0.3);
+      font-size: var(--size);
+      line-height: var(--line);
+    }
+
+    .b-body :is(h2, h3),
+    .b-sign {
+      font-size: calc(var(--size) * 1.2);
+      line-height: var(--line);
+    }
+
+    .b-body > * + *,
+    .b-sign {
+      margin-top: var(--line);
+    }
+
+    .b-body > :is(h2, h3) + * {
+      margin-top: 0;
+    }
+
+    .b-sign {
+      color: var(--color-primary);
+      text-align: end;
+    }
+
+    @media (min-width: 768px) {
+      .b-pad {
+        rotate: 1.2deg;
+      }
+
+      .b-head,
+      .b-ruled {
+        padding-inline: var(--space-12);
+      }
+
+      .b-ruled {
+        --size: var(--text-lg);
+      }
+    }
+  }
+}

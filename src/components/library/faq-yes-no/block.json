@@ -1,0 +1,125 @@
+{
+  "name": "FAQ, yes or no",
+  "category": "faq",
+  "description": "Each question shows its short answer up front as a pill with an icon: yes, no or it depends. The row opens for the explanation.",
+  "tags": ["faq", "questions", "yes", "no", "short answer", "pill", "verdict", "smart"],
+  "fieldGroups": ["Heading", "Short answers", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Asked daily at the workshop",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Short answer first",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Yes, no or it depends, then the detail if you want it. From the mechanics at Cog & Chain on Gloucester Road.",
+      "group": "Heading"
+    },
+    {
+      "name": "yesLabel",
+      "label": "Wording for yes",
+      "type": "text",
+      "default": "Yes",
+      "required": true,
+      "maxLength": 14,
+      "group": "Short answers"
+    },
+    {
+      "name": "noLabel",
+      "label": "Wording for no",
+      "type": "text",
+      "default": "No",
+      "required": true,
+      "maxLength": 14,
+      "group": "Short answers"
+    },
+    {
+      "name": "dependsLabel",
+      "label": "Wording for it depends",
+      "type": "text",
+      "default": "It depends",
+      "required": true,
+      "maxLength": 14,
+      "group": "Short answers"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 20,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "Do you take card payments?"
+        },
+        {
+          "name": "verdict",
+          "label": "Short answer",
+          "type": "select",
+          "default": "yes",
+          "options": [
+            { "value": "yes", "label": "Yes" },
+            { "value": "no", "label": "No" },
+            { "value": "depends", "label": "It depends" }
+          ]
+        },
+        {
+          "name": "answer",
+          "label": "Explanation",
+          "type": "richtext",
+          "default": "<p>Card, phone and cash are all fine.</p>"
+        }
+      ],
+      "default": [
+        {
+          "question": "Do you repair e-bikes?",
+          "verdict": "yes",
+          "answer": "<p>Bosch, Shimano Steps and Brose systems, including diagnostics and firmware updates. For other motors we can still do everything mechanical.</p>"
+        },
+        {
+          "question": "Do I need to book?",
+          "verdict": "depends",
+          "answer": "<p>Punctures, brake pads and gear tweaks are done while you wait. For a full service, book a day online so we can keep a stand free.</p>"
+        },
+        {
+          "question": "Can you fix it the same day?",
+          "verdict": "depends",
+          "answer": "<p>Drop it off before 10 am and most repairs are ready by 5 pm. If we have to order a part, we tell you before we start, with a price.</p>"
+        },
+        {
+          "question": "Do you sell new bikes?",
+          "verdict": "no",
+          "answer": "<p>We only repair and refurbish. There is a rack of serviced second-hand bikes from £140, each with a three-month guarantee.</p>"
+        },
+        {
+          "question": "Is there a guarantee on repairs?",
+          "verdict": "yes",
+          "answer": "<p>Twelve months on labour, and the maker's warranty on parts. If something we fixed works loose, bring it back and we put it right for free.</p>"
+        },
+        {
+          "question": "Will you fit parts I bought online?",
+          "verdict": "yes",
+          "answer": "<p>Happily, at our normal labour rate. We cannot guarantee parts we did not supply, and we will say so if one looks wrong for your bike.</p>"
+        }
+      ]
+    }
+  ]
+}

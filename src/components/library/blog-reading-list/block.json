@@ -1,0 +1,205 @@
+{
+  "name": "Blog posts, reading list",
+  "category": "blog",
+  "description": "A quiet list of posts on soft rows, each with a small round thumbnail, the title, a reading time and an arrow.",
+  "tags": [
+    "blog",
+    "posts",
+    "articles",
+    "reading list",
+    "reading time",
+    "thumbnails",
+    "rows",
+    "calm"
+  ],
+  "fieldGroups": ["Heading", "Posts", "Summary"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The reading list",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Short reads for sore backs and stiff mornings",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The physiotherapists at Stillwater write one plain-language article a month. Take your time.",
+      "group": "Heading"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Thumbnail",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Article thumbnail",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "A gentle habit worth five minutes"
+        },
+        {
+          "name": "readingTime",
+          "label": "Reading time",
+          "type": "text",
+          "default": "5 min read"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Someone stretching beside a standing desk",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "title": "What your lower back wants after a day at the desk",
+          "readingTime": "5 min read",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Morning light across an unmade bed",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "title": "Five gentle stretches before you get out of bed",
+          "readingTime": "4 min read",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Running shoes on a gravel path",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "title": "Is it okay to run on a sore knee?",
+          "readingTime": "7 min read",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Two pillows stacked on a linen sheet",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "title": "How to choose a pillow without spending a fortune",
+          "readingTime": "6 min read",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Hands resting on the ribs during a breathing exercise",
+            "decorative": false,
+            "width": 400,
+            "height": 400,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "photo"
+            }
+          },
+          "title": "Breathing through a flare-up, step by step",
+          "readingTime": "3 min read",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "summary",
+      "label": "Summary line",
+      "type": "text",
+      "default": "Five articles, about 25 minutes in all.",
+      "group": "Summary"
+    }
+  ]
+}

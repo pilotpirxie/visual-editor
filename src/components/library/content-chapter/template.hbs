@@ -1,0 +1,11 @@
+<section class="b-content-chapter section">
+  <div class="container b-inner">
+    {{#if number}}<p class="b-numeral" data-field="number" aria-hidden="true">{{number}}</p>{{/if}}
+    <header class="stack b-head">
+      {{#if label}}<p class="eyebrow b-label" data-field="label">{{label}}</p>{{/if}}
+      <h2 class="b-title" data-field="title">{{title}}</h2>
+    </header>
+    <div class="prose b-body" data-field="body">{{richText body}}</div>
+    {{#if showLink}}<a class="b-next" href="{{href link}}" {{linkAttrs link}} data-field="link"><span data-field="linkLabel">{{linkLabel}}</span>{{svgIcon "arrow-right"}}</a>{{/if}}
+  </div>
+</section>

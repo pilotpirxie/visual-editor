@@ -1,0 +1,76 @@
+{
+  "name": "How it works, footnotes",
+  "category": "how-it-works",
+  "description": "One large sentence sums up the whole process, with numbered markers on its key phrases and each step explained below as a footnote.",
+  "tags": ["steps", "footnotes", "sentence", "notes", "editorial", "elegant", "summary", "process"],
+  "fieldGroups": ["Heading", "Sentence", "Notes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The short version",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How a suit is made at Hollis & Daughter",
+      "required": true,
+      "maxLength": 100,
+      "group": "Heading"
+    },
+    {
+      "name": "sentence",
+      "label": "Sentence",
+      "type": "richtext",
+      "default": "<p>We <strong>take twenty-six measurements</strong>, <strong>draft a paper pattern</strong> that is yours alone, <strong>fit the cloth on you twice</strong> and <strong>finish every buttonhole by hand</strong>.</p>",
+      "help": "Make a phrase bold to give it the next note number.",
+      "group": "Sentence"
+    },
+    {
+      "name": "steps",
+      "label": "Notes",
+      "type": "list",
+      "group": "Notes",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "The next step",
+          "maxLength": 60
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What the matching phrase in the sentence means in practice."
+        }
+      ],
+      "default": [
+        {
+          "title": "The measuring",
+          "text": "Allow an hour at the shop on Call Lane. We note how you stand, which shoulder drops and where you keep your phone."
+        },
+        {
+          "title": "The pattern",
+          "text": "Drawn in pencil on brown paper and kept on file, so your second suit needs only one visit."
+        },
+        {
+          "title": "The fittings",
+          "text": "First in basted cloth held with white thread, then four weeks later with the sleeves set and the lining in."
+        },
+        {
+          "title": "The finishing",
+          "text": "A jacket has around forty hours of handwork in it. Yours is ready ten to twelve weeks after the first visit."
+        }
+      ]
+    }
+  ]
+}

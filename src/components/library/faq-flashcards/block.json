@@ -1,0 +1,81 @@
+{
+  "name": "FAQ, flashcards",
+  "category": "faq",
+  "description": "Questions as a deck of study flashcards with a Q corner mark. Opening a card shows the answer under an A mark.",
+  "tags": ["faq", "questions", "flashcards", "study", "cards", "school", "playful"],
+  "fieldGroups": ["Heading", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Before you enrol",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Six cards worth learning by heart",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "What new students ask about our evening Spanish courses, in the format we trust most.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Flashcards",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "Can I join in the middle of a term?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "textarea",
+          "default": "Yes, up to week four. We charge only for the lessons that are left."
+        }
+      ],
+      "default": [
+        {
+          "question": "Which level should I join?",
+          "answer": "Book the free 15-minute placement chat with a teacher. You leave with a level from A1 to C1 and a class to match."
+        },
+        {
+          "question": "How big are the classes?",
+          "answer": "Six to nine students, never more than ten. Small enough that everyone speaks in every lesson."
+        },
+        {
+          "question": "What if I fall behind?",
+          "answer": "Every course includes two 30-minute catch-up sessions with your teacher. Use them whenever the subjunctive wins."
+        },
+        {
+          "question": "Do you teach online as well?",
+          "answer": "Yes. Each evening group has a live online twin on the same timetable, so you can switch week by week when you travel."
+        },
+        {
+          "question": "How much is a term?",
+          "answer": "A 10-week term is £245 with the coursebook included. You can pay in two halves at no extra cost."
+        },
+        {
+          "question": "Will I get a certificate?",
+          "answer": "You get a CEFR level certificate at the end of each term. From B1 upwards we also run DELE exam preparation."
+        }
+      ]
+    }
+  ]
+}

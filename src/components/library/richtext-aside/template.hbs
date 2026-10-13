@@ -1,0 +1,18 @@
+<section class="b-richtext-aside section">
+  <div class="container">
+    <article class="b-article">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      <aside class="b-note" aria-labelledby="{{block.id}}-note">
+        <h3 class="b-note-title" id="{{block.id}}-note">
+          {{#if noteIcon}}<span class="b-icon" data-field="noteIcon">{{svgIcon noteIcon}}</span>{{/if}}
+          <span data-field="noteTitle">{{noteTitle}}</span>
+        </h3>
+        <div class="prose b-note-text" data-field="note">{{richText note}}</div>
+      </aside>
+      <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+    </article>
+  </div>
+</section>

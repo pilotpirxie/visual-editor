@@ -1,0 +1,67 @@
+{
+  "name": "Rich text, marker highlight",
+  "category": "rich-text",
+  "description": "A headline with a marker-pen stroke behind part of it, a bold lead paragraph and a thick bar down the side of the text; bold phrases in the text are marked too.",
+  "tags": [
+    "highlight",
+    "marker",
+    "announcement",
+    "statement",
+    "lead",
+    "bold",
+    "text",
+    "expressive"
+  ],
+  "fieldGroups": ["Heading", "Text"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Label",
+      "type": "text",
+      "default": "Pricing update",
+      "maxLength": 32,
+      "group": "Heading"
+    },
+    {
+      "name": "titleStart",
+      "label": "Title start",
+      "type": "text",
+      "default": "From January,",
+      "required": true,
+      "maxLength": 80,
+      "group": "Heading"
+    },
+    {
+      "name": "highlight",
+      "label": "Highlighted phrase",
+      "type": "text",
+      "default": "nobody pays per seat",
+      "maxLength": 40,
+      "group": "Heading"
+    },
+    {
+      "name": "titleEnd",
+      "label": "Title end",
+      "type": "text",
+      "default": "",
+      "maxLength": 60,
+      "group": "Heading"
+    },
+    {
+      "name": "lead",
+      "label": "Lead paragraph",
+      "type": "textarea",
+      "default": "We are replacing per-user pricing with one flat price per company. Invite the whole team, the accountant and the intern. The bill stays the same.",
+      "group": "Text"
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<h2>Why we are changing it</h2><p>Per-seat pricing made sense when we started. It also taught our customers a bad habit: sharing one login between five people to keep the bill down. We could see it in the data. <strong>One account in three was used from more than four devices a day.</strong></p><p>A shared login means nobody knows who approved an invoice, and that is exactly the problem Paperboat exists to solve.</p><h2>What you will pay</h2><ul><li><strong>Starter, 29 euros a month:</strong> up to 100 invoices a month, unlimited people.</li><li><strong>Studio, 79 euros a month:</strong> up to 1,000 invoices, approvals and bank sync.</li><li><strong>Company, 199 euros a month:</strong> unlimited invoices and a named support contact.</li></ul><h2>What happens to your plan</h2><p>Nothing, unless the new price is lower. On 1 January we compare what you pay now with the new plan that fits your invoice volume and move you to whichever is cheaper. <strong>Nobody's bill goes up in 2027.</strong> You will get an email with your own numbers by 1 December.</p>",
+      "group": "Text"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "name": "How it works, diagonal cascade",
+  "category": "how-it-works",
+  "description": "Step cards cascade down a diagonal on a dark band, each with a large number overlapping its top edge.",
+  "tags": ["steps", "diagonal", "cascade", "dark", "numbers", "expressive", "staggered", "process"],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "From demo to master",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Four sessions between your phone demo and a finished record",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Bring the songs to Low Road Studios. We bring the room, the microphones and an engineer who has heard every mistake before.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Next session",
+          "maxLength": 50
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What gets done in this session."
+        },
+        {
+          "name": "time",
+          "label": "How long",
+          "type": "text",
+          "default": "1 day",
+          "maxLength": 24
+        }
+      ],
+      "default": [
+        {
+          "title": "Pre-production",
+          "text": "One evening with your demos. We settle tempos, keys and what each song really needs.",
+          "time": "1 evening"
+        },
+        {
+          "title": "Tracking",
+          "text": "Drums and bass go down first in the live room, then guitars, keys and vocals.",
+          "time": "2 to 3 days"
+        },
+        {
+          "title": "Mixing",
+          "text": "We balance every song at the desk and send it over. You get three rounds of notes.",
+          "time": "1 week"
+        },
+        {
+          "title": "Mastering",
+          "text": "A final polish for streaming and vinyl, delivered as files you own outright.",
+          "time": "2 days"
+        }
+      ]
+    }
+  ]
+}

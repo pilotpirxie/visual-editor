@@ -1,0 +1,27 @@
+<section class="b-blog-topic-filter section">
+  <div class="container stack">
+    <header class="stack">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <fieldset class="b-chips">
+      <legend class="visually-hidden">{{filterLabel}}</legend>
+      <label class="b-chip" data-field="allLabel"><input type="radio" name="{{block.id}}-topic" value="all" checked>{{allLabel}}</label>
+      <label class="b-chip" data-field="topic1"><input class="b-pick-1" type="radio" name="{{block.id}}-topic" value="1">{{topic1}}</label>
+      <label class="b-chip" data-field="topic2"><input class="b-pick-2" type="radio" name="{{block.id}}-topic" value="2">{{topic2}}</label>
+      <label class="b-chip" data-field="topic3"><input class="b-pick-3" type="radio" name="{{block.id}}-topic" value="3">{{topic3}}</label>
+    </fieldset>
+    <ul class="b-posts" role="list">
+      {{#each posts}}
+      <li class="stack b-post" data-topic="{{topic}}" data-field="posts.{{@index}}">
+        <div class="media">{{img image}}</div>
+        <p class="b-topic">{{#if (eq topic "1")}}{{../topic1}}{{/if}}{{#if (eq topic "2")}}{{../topic2}}{{/if}}{{#if (eq topic "3")}}{{../topic3}}{{/if}}</p>
+        <h3><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+        {{#if excerpt}}<p class="b-muted">{{nl2br excerpt}}</p>{{/if}}
+        {{#if date}}<time class="b-muted b-date" datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

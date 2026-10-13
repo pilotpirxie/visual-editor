@@ -1,0 +1,96 @@
+@layer components {
+  @scope (.b-steps-stamps) {
+    .b-card {
+      margin-block-start: var(--space-8);
+      padding: var(--space-6);
+      border: 3px dotted var(--color-text-muted);
+      border-radius: var(--radius-lg);
+      background: color-mix(in oklab, var(--color-primary) 7%, var(--color-background));
+    }
+
+    .b-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-2);
+      padding-block-end: var(--space-4);
+      border-block-end: 1px dashed;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+
+    .b-stamps {
+      display: grid;
+      gap: var(--space-8) var(--space-6);
+      margin-block-start: var(--space-8);
+      counter-reset: step;
+    }
+
+    li {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-1) var(--space-4);
+      align-content: start;
+      counter-increment: step;
+    }
+
+    li p {
+      color: var(--color-text-muted);
+    }
+
+    .b-stamp {
+      display: grid;
+      grid-row: span 2;
+      place-content: center;
+      width: 5.5rem;
+      aspect-ratio: 1;
+      border: 0.4rem double;
+      border-radius: var(--radius-full);
+      color: var(--color-primary);
+      font: var(--font-weight-bold) var(--text-xs) var(--font-mono);
+      text-align: center;
+      text-transform: uppercase;
+      rotate: -9deg;
+    }
+
+    .b-stamp::before {
+      content: counter(step);
+      font: var(--font-weight-heading) var(--text-3xl) / 1 var(--font-heading);
+    }
+
+    li:nth-child(2n) .b-stamp {
+      rotate: 7deg;
+    }
+
+    li:nth-child(3n) .b-stamp {
+      rotate: -3deg;
+    }
+
+    li:last-child .b-stamp {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    @media (min-width: 768px) {
+      .b-card {
+        padding: var(--space-12);
+        rotate: -1deg;
+      }
+
+      .b-stamps {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      li {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        text-align: center;
+      }
+
+      .b-stamp {
+        width: 7rem;
+        margin-block-end: var(--space-3);
+      }
+    }
+  }
+}

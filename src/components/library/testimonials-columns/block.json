@@ -1,0 +1,133 @@
+{
+  "name": "Testimonials, opinion columns",
+  "category": "testimonials",
+  "description": "Three narrow columns divided by hairlines, each with a round portrait, a byline, a headline and a quote that starts with a drop cap.",
+  "tags": ["testimonials", "quotes", "columns", "newspaper", "editorial", "portraits", "elegant"],
+  "fieldGroups": ["Heading", "Columns"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Opinion",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three students, in their own words",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "items",
+      "label": "Columns",
+      "type": "list",
+      "group": "Columns",
+      "minItems": 2,
+      "maxItems": 3,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "photo",
+          "label": "Portrait",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Portrait",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Student name"
+        },
+        {
+          "name": "role",
+          "label": "Course",
+          "type": "text",
+          "default": "Spanish, level A2"
+        },
+        {
+          "name": "headline",
+          "label": "Headline",
+          "type": "text",
+          "default": "What changed after one term"
+        },
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "One term of evening classes and I can now order, complain and apologise without switching to English."
+        }
+      ],
+      "default": [
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Daniel Reyes",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Daniel Reyes",
+          "role": "Evening Polish, level B1",
+          "headline": "I finally argued with my mother-in-law",
+          "quote": "After two terms of evening Polish I held my own at Sunday dinner for the first time. Marta corrects my grammar in the moment and never in front of the group, and that made me brave enough to keep talking."
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Aiko Tanaka",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Aiko Tanaka",
+          "role": "Business English, level C1",
+          "headline": "Small classes, loud conversations",
+          "quote": "There were six of us and nobody could hide at the back. We spent most of every lesson talking about our own jobs, so the words I learned on Thursday were the words I needed on Monday morning."
+        },
+        {
+          "photo": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Olu Adeyemi",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "person"
+            }
+          },
+          "name": "Olu Adeyemi",
+          "role": "Intensive German, level A2",
+          "headline": "From a phrasebook to a job interview",
+          "quote": "I arrived with a phrasebook and a deadline of ten weeks. The intensive course was hard and the homework was daily, but I got through my interview in German and even made a joke that landed."
+        }
+      ]
+    }
+  ]
+}

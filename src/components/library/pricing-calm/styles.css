@@ -1,0 +1,80 @@
+@layer components {
+  @scope (.b-pricing-calm) {
+    .b-inner {
+      --stack-gap: var(--space-6);
+      position: relative;
+      align-items: center;
+      isolation: isolate;
+      text-align: center;
+    }
+
+    .b-inner::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      inset: calc(var(--space-8) * -1) 0;
+      background: radial-gradient(
+        closest-side,
+        color-mix(in oklab, var(--color-primary) 16%, transparent),
+        transparent
+      );
+    }
+
+    .b-sentence {
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-price {
+      display: block;
+      color: var(--color-primary);
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-text {
+      max-width: 30rem;
+      font-size: var(--text-lg);
+    }
+
+    .b-list {
+      --cluster-justify: center;
+      max-width: 40rem;
+      margin-block: var(--space-4);
+    }
+
+    .b-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      box-shadow: var(--shadow-sm);
+      text-align: start;
+    }
+
+    .b-item svg {
+      color: var(--color-primary);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-inner::before {
+        animation: b-pricing-calm--breathe 7s ease-in-out infinite alternate;
+      }
+    }
+  }
+
+  @keyframes b-pricing-calm--breathe {
+    from {
+      opacity: 0.5;
+      scale: 0.9;
+    }
+  }
+}

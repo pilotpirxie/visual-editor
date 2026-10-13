@@ -1,0 +1,130 @@
+{
+  "name": "Blog posts, long essays",
+  "category": "blog",
+  "description": "Long-form essays numbered in roman numerals, with large titles, a drop-cap excerpt, reading time and hairline rules.",
+  "tags": [
+    "blog",
+    "posts",
+    "articles",
+    "essays",
+    "long reads",
+    "reading time",
+    "roman numerals",
+    "elegant"
+  ],
+  "fieldGroups": ["Heading", "Essays"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Studio essays",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Long reads on building well",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "A few times a year, someone at Marlowe & Finch Architects sits down and writes at length. No project news, just the arguments we keep having at the drawing table.",
+      "group": "Heading"
+    },
+    {
+      "name": "posts",
+      "label": "Essays",
+      "type": "list",
+      "group": "Essays",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "An argument worth a long read"
+        },
+        {
+          "name": "excerpt",
+          "label": "Excerpt",
+          "type": "textarea",
+          "default": "Three or four sentences that set out the question the essay asks and why it matters to the people who will read it."
+        },
+        {
+          "name": "author",
+          "label": "Author",
+          "type": "text",
+          "default": "Ingrid Marlowe"
+        },
+        {
+          "name": "readingTime",
+          "label": "Reading time",
+          "type": "text",
+          "default": "15 min read"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "title": "The case for the boring roof",
+          "excerpt": "A pitched roof with a generous overhang has kept rain out of northern houses for eight hundred years. We spent a decade drawing flat ones anyway. This is an account of four leaks, two awkward client meetings, and what we now sketch first.",
+          "author": "Ingrid Marlowe",
+          "readingTime": "18 min read",
+          "date": "2026-09-30",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "What a staircase teaches you about a client",
+          "excerpt": "Ask someone how they want to arrive upstairs and you learn whether they hurry, whether they carry laundry, and who they expect to meet on the landing. Notes from thirty first meetings.",
+          "author": "Daniel Finch",
+          "readingTime": "12 min read",
+          "date": "2026-07-14",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Reuse is a drawing problem",
+          "excerpt": "Salvaged brick arrives in mixed sizes and salvaged beams arrive with a history. The hard part is not finding the material. It is drawing a building loose enough to accept it.",
+          "author": "Asha Venkataraman",
+          "readingTime": "22 min read",
+          "date": "2026-04-02",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

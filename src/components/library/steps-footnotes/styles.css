@@ -1,0 +1,86 @@
+@layer components {
+  @scope (.b-steps-footnotes) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+      max-width: 60rem;
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+    }
+
+    h2 {
+      font-size: var(--text-xl);
+    }
+
+    .b-sentence {
+      font: var(--font-weight-regular) var(--text-3xl) / 1.25 var(--font-heading);
+      text-wrap: pretty;
+      counter-reset: note;
+    }
+
+    strong {
+      font-style: italic;
+      font-weight: inherit;
+    }
+
+    strong::after,
+    li::before {
+      content: counter(note);
+      color: var(--color-primary);
+      font: var(--font-weight-bold) var(--text-sm) var(--font-body);
+      counter-increment: note;
+    }
+
+    strong::after {
+      margin-inline-start: 0.15em;
+      font-size: max(var(--text-sm), 0.42em);
+      vertical-align: super;
+    }
+
+    .b-notes {
+      display: grid;
+      gap: var(--space-6) var(--space-12);
+      margin-block-start: var(--space-4);
+      counter-reset: note;
+    }
+
+    .b-notes::before {
+      content: '';
+      grid-column: 1 / -1;
+      width: 6rem;
+      border-block-start: 1px solid var(--color-text);
+    }
+
+    li {
+      display: grid;
+      grid-template-columns: 1.5rem minmax(0, 1fr);
+      gap: var(--space-1) 0;
+    }
+
+    li::before {
+      grid-row: span 2;
+    }
+
+    h3 {
+      font-size: var(--text-lg);
+      font-style: italic;
+      font-weight: var(--font-weight-regular);
+    }
+
+    li p {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-sentence {
+        font-size: var(--text-4xl);
+      }
+
+      .b-notes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  }
+}

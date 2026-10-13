@@ -1,0 +1,104 @@
+{
+  "name": "Features, playing cards",
+  "category": "features",
+  "description": "A hand of playing cards, each with a rank and icon in two opposite corners and one feature on its face.",
+  "tags": ["features", "cards", "playing cards", "hand", "fan", "rotated", "playful", "games"],
+  "fieldGroups": ["Heading", "Cards"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "House rules",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Four good reasons to pull up a chair",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Dice & Draught is a board game café on Fenwick Lane, open from noon until the last game ends.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Cards",
+      "type": "list",
+      "group": "Cards",
+      "minItems": 3,
+      "maxItems": 5,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "rank",
+          "label": "Corner rank",
+          "type": "text",
+          "default": "10",
+          "maxLength": 2,
+          "help": "One or two characters, such as A, K, Q, J or 10."
+        },
+        {
+          "name": "icon",
+          "label": "Corner icon",
+          "type": "icon",
+          "default": "star"
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "House favourite",
+          "required": true,
+          "maxLength": 24
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "One short line about what players get.",
+          "maxLength": 80
+        }
+      ],
+      "default": [
+        {
+          "rank": "A",
+          "icon": "puzzle",
+          "name": "640 games",
+          "text": "From Azul to Zombicide, shelved by how long they take."
+        },
+        {
+          "rank": "K",
+          "icon": "users",
+          "name": "Game gurus",
+          "text": "We teach any game in five minutes, then leave you to it."
+        },
+        {
+          "rank": "Q",
+          "icon": "coffee",
+          "name": "Table snacks",
+          "text": "Toasties and flat whites that will not smudge the cards."
+        },
+        {
+          "rank": "J",
+          "icon": "clock",
+          "name": "£6 a seat",
+          "text": "Stay as long as you like. Under tens play free before 5 pm."
+        }
+      ]
+    }
+  ]
+}

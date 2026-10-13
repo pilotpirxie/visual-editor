@@ -1,0 +1,28 @@
+<section class="b-pricing-plan-picker section">
+  <div class="container stack">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <fieldset class="b-set">
+      <legend class="visually-hidden">{{legend}}</legend>
+      <div class="b-picker">
+        {{#each plans}}
+        <div class="b-plan" data-field="plans.{{@index}}">
+          <label class="b-row">
+            <input type="radio" name="{{../block.id}}-plan" value="{{name}}" {{#if @first}}checked{{/if}}>
+            <span class="b-name"><strong>{{name}}</strong>{{#if tagline}}<small>{{tagline}}</small>{{/if}}</span>
+            <span class="b-short">{{price}}</span>
+          </label>
+          <div class="stack b-summary">
+            <p class="b-price">{{price}} <small>{{period}}</small></p>
+            <div class="prose">{{richText features}}</div>
+            <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </fieldset>
+  </div>
+</section>

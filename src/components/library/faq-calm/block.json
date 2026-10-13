@@ -1,0 +1,95 @@
+{
+  "name": "FAQ, calm",
+  "category": "faq",
+  "description": "One centred column of large, quiet questions without lines. The open question sits on a soft rounded tint.",
+  "tags": ["faq", "questions", "calm", "quiet", "minimal", "centred", "accordion"],
+  "fieldGroups": ["Heading", "Questions", "Closing"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Before your first session",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Take your time. Here is what people usually ask.",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "No question is too small. If yours is not here, ask us in whatever words you have.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "What if I need to cancel?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "richtext",
+          "default": "<p>Give us 48 hours and there is no charge.</p>"
+        }
+      ],
+      "default": [
+        {
+          "question": "What happens in a first session?",
+          "answer": "<p>We talk for 50 minutes about what brought you here and what you hope will change. There are no forms, and nothing you have to say before you are ready.</p>"
+        },
+        {
+          "question": "Is what I say confidential?",
+          "answer": "<p>Yes. Nothing leaves the room unless you or someone else is at serious risk, and even then we would talk with you first.</p>"
+        },
+        {
+          "question": "How many sessions will I need?",
+          "answer": "<p>Some people come for six weeks, others for a year. We look back together every sixth session, and you can stop whenever you choose.</p>"
+        },
+        {
+          "question": "How much does it cost?",
+          "answer": "<p>Sessions are £60. We keep four reduced-fee places at £35 for students and people on a low income.</p>"
+        },
+        {
+          "question": "Can we meet online?",
+          "answer": "<p>Yes. About a third of the people we see meet us by video, and you can move between the room and online from week to week.</p>"
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Closing note",
+      "type": "textarea",
+      "default": "Not sure counselling is for you? A 15-minute phone call is free and commits you to nothing.",
+      "group": "Closing"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Arrange a call",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "secondary"
+      },
+      "group": "Closing"
+    }
+  ]
+}

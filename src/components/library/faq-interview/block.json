@@ -1,0 +1,105 @@
+{
+  "name": "FAQ, interview",
+  "category": "faq",
+  "description": "Questions and answers set like a magazine interview with hanging Q. and A. letters and a pull quote. Always open, two columns on desktop.",
+  "tags": ["faq", "questions", "interview", "magazine", "editorial", "pull quote", "elegant"],
+  "fieldGroups": ["Heading", "Interview"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "In conversation",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How a house gets built, in six questions",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Ines Morel, founding partner of Morel Okafor Architects in Bath, on fees, planning and why the first meeting should cost nothing.",
+      "group": "Heading"
+    },
+    {
+      "name": "pullQuote",
+      "label": "Pull quote",
+      "type": "text",
+      "default": "A good brief is two pages long and mostly about how you live.",
+      "maxLength": 160,
+      "group": "Heading"
+    },
+    {
+      "name": "questionMark",
+      "label": "Letter before questions",
+      "type": "text",
+      "default": "Q.",
+      "maxLength": 3,
+      "group": "Interview"
+    },
+    {
+      "name": "answerMark",
+      "label": "Letter before answers",
+      "type": "text",
+      "default": "A.",
+      "maxLength": 3,
+      "group": "Interview"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "Interview",
+      "minItems": 1,
+      "maxItems": 16,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "Do you work outside Bath?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "textarea",
+          "default": "Yes, within about an hour's drive, so we can be on site every fortnight."
+        }
+      ],
+      "default": [
+        {
+          "question": "When should someone first call an architect?",
+          "answer": "Before they buy, if they can. Half an hour on a plot or in a tired house can save a client from the wrong purchase. We make that first visit for free."
+        },
+        {
+          "question": "How do your fees work?",
+          "answer": "For a full service we charge 9 to 12 percent of the build cost, split across five stages. You can stop after any stage and keep the drawings."
+        },
+        {
+          "question": "How long does planning permission take?",
+          "answer": "The council has eight weeks to decide a household application. Allow three months before that for surveys and design, and longer for a listed building."
+        },
+        {
+          "question": "Do you help to find a builder?",
+          "answer": "We tender every project to three or four contractors we have worked with before, then check their prices line by line. The choice is always the client's."
+        },
+        {
+          "question": "What sends a project over budget?",
+          "answer": "Changing your mind on site. A wall moved on paper costs nothing. A wall moved in week twelve costs £4,000. We settle the decisions before the digger arrives."
+        },
+        {
+          "question": "Is any job too small for you?",
+          "answer": "We take on a few extensions and loft conversions each year, from about £80,000 of building work. Below that, we will happily recommend someone good."
+        }
+      ]
+    }
+  ]
+}

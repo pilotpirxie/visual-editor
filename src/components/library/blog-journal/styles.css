@@ -1,0 +1,95 @@
+@layer components {
+  @scope (.b-blog-journal) {
+    .b-inner {
+      --container-max-width: 48rem;
+      --stack-gap: var(--space-8);
+    }
+
+    .b-masthead {
+      --stack-gap: var(--space-3);
+      padding-block: var(--space-8);
+      border-block: 0.25rem double;
+    }
+
+    .b-masthead,
+    .b-label,
+    .b-colophon {
+      text-align: center;
+    }
+
+    .b-caps {
+      font-size: var(--text-sm);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .b-quiet,
+    .b-author {
+      font-style: italic;
+    }
+
+    .b-quiet {
+      color: var(--color-text-muted);
+    }
+
+    .b-toc {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-entry {
+      position: relative;
+    }
+
+    .b-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0 var(--space-3);
+    }
+
+    .b-title {
+      flex-basis: 100%;
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-leader {
+      flex: 1;
+      min-width: var(--space-4);
+      border-block-end: 2px dotted var(--color-text-muted);
+    }
+
+    .b-author {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      overflow-wrap: anywhere;
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-entry:hover .b-leader {
+      border-color: var(--color-primary);
+    }
+
+    .b-colophon {
+      padding-block-start: var(--space-6);
+      border-block-start: var(--border-width) solid;
+    }
+
+    @media (min-width: 768px) {
+      .b-title {
+        flex-basis: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,106 @@
+@layer components {
+  @scope (.b-contact-doorsign) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+    }
+
+    .b-details li {
+      display: flex;
+      gap: var(--space-3);
+      overflow-wrap: anywhere;
+    }
+
+    .b-details svg {
+      color: var(--color-primary);
+    }
+
+    .b-details address {
+      font-style: normal;
+    }
+
+    .b-hang {
+      position: relative;
+      width: min(88%, 20rem);
+      margin-inline: auto;
+      padding-block-start: 6rem;
+      transform-origin: top;
+      rotate: 2deg;
+    }
+
+    .b-hang::before {
+      content: '';
+      position: absolute;
+      top: 2.5rem;
+      left: 50%;
+      width: 7rem;
+      aspect-ratio: 1;
+      border: solid;
+      border-width: 2px 0 0 2px;
+      background: radial-gradient(circle at 0 0, currentColor 0.6rem, transparent 0);
+      translate: -50% 0;
+      rotate: 45deg;
+    }
+
+    .b-sign {
+      position: relative;
+      padding: var(--space-8) var(--space-6);
+      border-radius: var(--radius-lg);
+      outline: 2px solid;
+      outline-offset: -0.6rem;
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+    }
+
+    .b-kicker {
+      font-style: italic;
+    }
+
+    .b-status {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      text-transform: uppercase;
+    }
+
+    .b-hours {
+      margin-block: var(--space-4);
+    }
+
+    .b-row {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding-block: var(--space-2);
+      border-block-start: var(--border-width) dashed;
+      text-align: start;
+    }
+
+    .b-row dd {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-note {
+      font-size: var(--text-sm);
+    }
+
+    @media (min-width: 768px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      }
+
+      .b-hang {
+        rotate: 5deg;
+      }
+    }
+  }
+}

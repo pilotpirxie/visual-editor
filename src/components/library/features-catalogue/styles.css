@@ -1,0 +1,71 @@
+@layer components {
+  @scope (.b-features-catalogue) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro,
+    .b-row p,
+    .b-row::before {
+      color: var(--color-text-muted);
+    }
+
+    .b-list {
+      display: grid;
+      border-block: calc(var(--border-width) * 3) double var(--color-text);
+      counter-reset: entry;
+    }
+
+    .b-row {
+      display: grid;
+      gap: var(--space-2);
+      padding-block: var(--space-6);
+      counter-increment: entry;
+    }
+
+    .b-row + .b-row {
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-row::before {
+      content: 'No. ' counter(entry, decimal-leading-zero);
+      font: var(--text-sm) var(--font-mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      font-size: var(--text-2xl);
+      font-style: italic;
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-row .b-note {
+      font-family: var(--font-heading);
+      font-style: italic;
+      color: var(--color-text);
+    }
+
+    @media (min-width: 768px) {
+      .b-list {
+        grid-template-columns: auto minmax(0, 2fr) minmax(0, 3fr) auto;
+      }
+
+      .b-row {
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
+        column-gap: var(--space-8);
+        align-items: baseline;
+      }
+
+      .b-note {
+        text-align: end;
+      }
+    }
+  }
+}

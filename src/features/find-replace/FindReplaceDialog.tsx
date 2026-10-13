@@ -35,6 +35,7 @@ import {
   DialogActions,
   DialogBody,
   Field,
+  SearchInput,
   Section,
   TextInput,
 } from '../../../packages/ui/src';
@@ -197,12 +198,13 @@ export function FindReplaceDialog({ onClose }: { onClose(): void }): JSX.Element
       <DialogBody titleId={TITLE_ID} title="Find and replace" onSubmit={replace}>
         <div className="ve-find-fields">
           <Field id={FIND_ID} label="Find">
-            <TextInput
+            <SearchInput
               id={FIND_ID}
-              type="search"
+              label="Find"
+              placeholder=""
               value={query}
               autoFocus
-              onChange={(event) => setQuery(event.currentTarget.value)}
+              onQuery={setQuery}
             />
           </Field>
           {!isReadOnly && (

@@ -1,0 +1,85 @@
+@layer components {
+  @scope (.b-features-color-blocks) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro {
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .b-tile {
+      --stack-gap: var(--space-2);
+      --icon-size: 3.5rem;
+      min-height: 14rem;
+      padding: var(--space-6);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+    }
+
+    .b-tile svg {
+      margin-block-end: auto;
+    }
+
+    .b-tile:nth-child(4n + 1) {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-tile:nth-child(4n + 2) {
+      background: var(--theme-dark-background);
+      color: var(--theme-dark-text);
+    }
+
+    .b-tile:nth-child(4n) {
+      background: color-mix(in oklab, var(--color-primary) 18%, var(--color-background));
+    }
+
+    h3 {
+      margin-block-start: var(--space-6);
+      font-size: var(--text-2xl);
+    }
+
+    @media (min-width: 768px) {
+      .b-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-tile {
+        grid-column: span 2;
+      }
+
+      .b-tile:nth-child(6n + 3),
+      .b-tile:nth-child(6n + 4) {
+        grid-column: span 1;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .b-tile:nth-child(6n + 1) {
+        --icon-size: 7rem;
+        grid-row: span 2;
+        padding: var(--space-8);
+        font-size: var(--text-lg);
+      }
+
+      .b-tile:nth-child(6n + 1) h3 {
+        font-size: var(--text-4xl);
+      }
+    }
+  }
+}

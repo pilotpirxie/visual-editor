@@ -1,0 +1,42 @@
+{
+  "name": "Rich text, poster",
+  "category": "rich-text",
+  "description": "A dark band with an oversized uppercase title that stays in view on desktop while the text scrolls beside it.",
+  "tags": ["poster", "dark", "manifesto", "statement", "sticky", "big title", "text", "expressive"],
+  "fieldGroups": ["Title", "Text"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Why we still do it",
+      "group": "Title"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Film is not dead. We checked.",
+      "required": true,
+      "maxLength": 80,
+      "group": "Title"
+    },
+    {
+      "name": "stamp",
+      "label": "Tilted label",
+      "type": "text",
+      "default": "35 mm every Friday",
+      "maxLength": 32,
+      "group": "Title"
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<p>The Lantern has shown films from real film since 1987, and every few years somebody tells us, kindly, that we can stop now. We have looked into it. We are not stopping.</p><h2>What you get from a print</h2><p>A 35 mm print is a physical object that has been to other cinemas before ours. It arrives in six heavy cans, with scratches from Lyon and a splice somebody made in Glasgow in 1994. The colours are not on a hard drive. They are in the film itself, and a 2,000 watt lamp pushes them through to the screen.</p><p>It flickers, very slightly. The grain moves. Nobody can pause it. For two hours, 140 people in the dark watch the same strip of film go past once.</p><h2>What it costs us</h2><ul><li>Two projectors from 1962, serviced every August by the last engineer in the region who knows them.</li><li>A projectionist in the booth for every screening. Ours is called Dot, and she has been here for 31 years.</li><li>Shipping. A feature weighs about 25 kilos.</li></ul><h2>Come on a Friday</h2><p>Every Friday at 8 pm we show one film from a print, with a short introduction and no adverts. Tickets are 9 pounds, and the bar stays open until the reels are back in their cans.</p>",
+      "group": "Text"
+    }
+  ]
+}

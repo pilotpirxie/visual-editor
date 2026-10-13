@@ -1,0 +1,18 @@
+<section class="b-steps-roman section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ol class="b-columns" role="list">
+      {{#each steps}}
+      <li data-field="steps.{{@index}}">
+        <h3>{{title}}</h3>
+        <p>{{nl2br text}}</p>
+        {{#if note}}<p class="b-note">{{note}}</p>{{/if}}
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

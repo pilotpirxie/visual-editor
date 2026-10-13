@@ -10,6 +10,78 @@
     background: var(--ve-surface);
   }
 
+  .ve-export-destinations {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ve-space-2);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .ve-export-destinations legend {
+    margin-block-end: var(--ve-space-3);
+    padding: 0;
+    font-weight: 600;
+  }
+
+  .ve-export-destination {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0 var(--ve-space-3);
+    padding: var(--ve-space-3) var(--ve-space-4);
+    border: 1px solid var(--ve-border);
+    border-radius: var(--ve-radius);
+    cursor: pointer;
+  }
+
+  .ve-export-destination:hover {
+    border-color: var(--ve-border-strong);
+  }
+
+  .ve-export-destination:has(:checked) {
+    border-color: var(--ve-accent);
+    background: var(--ve-accent-soft);
+  }
+
+  .ve-export-destination:has(:focus-visible) {
+    outline: 2px solid var(--ve-accent);
+    outline-offset: 1px;
+  }
+
+  .ve-export-destinations:disabled .ve-export-destination {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .ve-export-destination input {
+    grid-row: span 2;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: var(--ve-accent);
+  }
+
+  .ve-export-destination-name {
+    font-weight: 600;
+  }
+
+  .ve-export-destination .ui-muted {
+    grid-column: 2;
+  }
+
+  .ve-export-progress {
+    margin-inline-end: auto;
+    align-self: center;
+    color: var(--ve-muted);
+  }
+
+  .ve-export-address {
+    overflow-wrap: anywhere;
+  }
+
   .ve-export-warnings-title {
     font-size: var(--ve-text-md);
   }

@@ -1,0 +1,76 @@
+{
+  "name": "Testimonials, bold collage",
+  "category": "testimonials",
+  "description": "Quote cards in dark, primary and surface treatments that tilt and overlap like a pile of posters.",
+  "tags": ["testimonials", "quotes", "collage", "overlap", "rotated", "posters", "expressive"],
+  "fieldGroups": ["Heading", "Quotes"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Loud and clear",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Clients who are not shy about it",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "items",
+      "label": "Quote cards",
+      "type": "list",
+      "group": "Quotes",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "quote",
+          "label": "Quote",
+          "type": "textarea",
+          "default": "Printed on time, and the colours match the proof exactly."
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Client name"
+        },
+        {
+          "name": "role",
+          "label": "Role or company",
+          "type": "text",
+          "default": "Company"
+        }
+      ],
+      "default": [
+        {
+          "quote": "400 tote bags, three colours, five days. They did not even blink.",
+          "name": "Farah Aziz",
+          "role": "Sunday Market Collective"
+        },
+        {
+          "quote": "The neon pink is so bright our drummer wears sunglasses to load-in.",
+          "name": "Deko Warsame",
+          "role": "Bass, The Night Buses"
+        },
+        {
+          "quote": "They rang me to fix a typo I had missed. On my own poster.",
+          "name": "Tomás Herrera",
+          "role": "Herrera Bakery"
+        },
+        {
+          "quote": "Our festival shirts sold out by Saturday lunchtime.",
+          "name": "Imogen Clarke",
+          "role": "Low Tide Festival"
+        }
+      ]
+    }
+  ]
+}

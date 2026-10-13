@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-blog-postcards) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-muted {
+      max-width: 40rem;
+      color: var(--color-text-muted);
+    }
+
+    .b-pile {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-postcard {
+      --paper: color-mix(in oklab, var(--color-surface) 60%, var(--color-background));
+      --media-radius: 0;
+      --media-ratio: 3 / 2;
+      position: relative;
+      display: grid;
+      gap: var(--space-4);
+      max-width: 48rem;
+      padding: var(--space-3);
+      background: var(--paper);
+      box-shadow: var(--shadow-lg);
+      rotate: -1deg;
+    }
+
+    .b-postcard:nth-child(even) {
+      rotate: 1deg;
+    }
+
+    .b-message {
+      padding: var(--space-2);
+    }
+
+    .b-stamp {
+      float: inline-end;
+      width: 5.5rem;
+      margin-inline-start: var(--space-3);
+      padding-block: var(--space-3);
+      border: 0.25rem dotted var(--paper);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-align: center;
+      rotate: 3deg;
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-excerpt {
+      margin-block: var(--space-3) var(--space-4);
+    }
+
+    .b-address {
+      clear: both;
+      min-height: 6rem;
+      background: repeating-linear-gradient(
+        transparent 0 calc(2rem - 1px),
+        var(--color-border) 0 2rem
+      );
+      font-style: italic;
+      line-height: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .b-postcard {
+        --media-ratio: auto;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        rotate: -2deg;
+      }
+
+      .b-postcard:nth-child(even) {
+        justify-self: end;
+        margin-block: calc(var(--space-12) * -1);
+        rotate: 2deg;
+      }
+
+      .b-message {
+        padding-inline-start: var(--space-4);
+        border-inline-start: var(--border-width) solid var(--color-border);
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<section class="b-contact-directory section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <table class="b-table" role="table">
+      <thead role="rowgroup">
+        <tr role="row">
+          <th role="columnheader" scope="col" data-field="topicHeader">{{topicHeader}}</th>
+          <th role="columnheader" scope="col" data-field="personHeader">{{personHeader}}</th>
+          <th role="columnheader" scope="col" data-field="emailHeader">{{emailHeader}}</th>
+          <th role="columnheader" scope="col" data-field="phoneHeader">{{phoneHeader}}</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">
+        {{#each rows}}
+        <tr role="row" data-field="rows.{{@index}}">
+          <th class="b-topic" role="rowheader" scope="row">{{topic}}</th>
+          <td role="cell">{{person}}</td>
+          <td role="cell">{{#if email}}<a href="mailto:{{email}}">{{email}}</a>{{/if}}</td>
+          <td role="cell">{{#if phone}}<a href="tel:{{phone}}">{{phone}}</a>{{/if}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,85 @@
+@layer components {
+  @scope (.b-steps-ticket-stubs) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-stubs {
+      display: grid;
+      gap: var(--space-8) var(--space-6);
+      margin-block-start: var(--space-8);
+      counter-reset: step;
+    }
+
+    li {
+      display: grid;
+      gap: var(--space-3);
+      align-content: start;
+      padding: 0 var(--space-6) var(--space-8);
+      background: var(--color-background);
+      mask: radial-gradient(0.45rem at 50% 100%, transparent 96%, var(--color-text)) 50% / 1.2rem
+        100%;
+      rotate: -1deg;
+      counter-increment: step;
+    }
+
+    li:nth-child(even) {
+      rotate: 1deg;
+    }
+
+    li::before {
+      content: counter(step, decimal-leading-zero);
+      margin-inline: calc(var(--space-6) * -1);
+      padding: var(--space-4) var(--space-6);
+      border-block-end: 2px dashed var(--color-border);
+      background:
+        radial-gradient(0.7rem at 0 100%, var(--color-surface) 96%, transparent),
+        radial-gradient(0.7rem at 100% 100%, var(--color-surface) 96%, transparent);
+      color: var(--color-primary);
+      font: var(--font-weight-heading) var(--text-5xl) / 1 var(--font-heading);
+    }
+
+    li::after {
+      content: '';
+      width: 6rem;
+      height: 1.5rem;
+      background: repeating-linear-gradient(90deg, currentColor 0 2px, transparent 0 5px);
+    }
+
+    .b-label {
+      order: -1;
+      margin-inline: calc(var(--space-6) * -1);
+      padding: var(--space-2) var(--space-6);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font: var(--font-weight-bold) var(--text-xs) var(--font-mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h3 + p {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-stubs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      li {
+        rotate: -3deg;
+      }
+
+      li:nth-child(even) {
+        translate: 0 var(--space-6);
+        rotate: 2.5deg;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-stubs {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+}

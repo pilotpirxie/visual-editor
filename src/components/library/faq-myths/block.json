@@ -1,0 +1,99 @@
+{
+  "name": "FAQ, myth and fact",
+  "category": "faq",
+  "description": "Common myths shown struck through under a rotated stamp, each followed by the fact that corrects it. Always visible.",
+  "tags": ["faq", "questions", "myths", "facts", "stamp", "misconceptions", "playful"],
+  "fieldGroups": ["Heading", "Myths"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Myth or fact",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Six things your back wishes you would stop believing",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We hear these in the treatment room every week. Here is what the research, and 14 years of sore backs, actually say.",
+      "group": "Heading"
+    },
+    {
+      "name": "mythLabel",
+      "label": "Stamp on the myth",
+      "type": "text",
+      "default": "Myth",
+      "required": true,
+      "maxLength": 16,
+      "group": "Myths"
+    },
+    {
+      "name": "factLabel",
+      "label": "Label on the fact",
+      "type": "text",
+      "default": "Fact",
+      "required": true,
+      "maxLength": 24,
+      "group": "Myths"
+    },
+    {
+      "name": "items",
+      "label": "Myths",
+      "type": "list",
+      "group": "Myths",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "myth",
+      "itemFields": [
+        {
+          "name": "myth",
+          "label": "Myth",
+          "type": "text",
+          "default": "Stretching before a run prevents injury."
+        },
+        {
+          "name": "fact",
+          "label": "Fact",
+          "type": "textarea",
+          "default": "A light warm-up protects you more. Save the long stretches for afterwards."
+        }
+      ],
+      "default": [
+        {
+          "myth": "If it hurts, rest until it stops.",
+          "fact": "Gentle movement speeds up recovery for most back and joint pain. We show you which movements are safe from day one."
+        },
+        {
+          "myth": "You need a scan before treatment can start.",
+          "fact": "Fewer than 1 in 20 people we see need imaging. A 45-minute assessment tells us more than most scans do."
+        },
+        {
+          "myth": "You need a referral from your GP.",
+          "fact": "You can book with us directly. If you plan to claim on insurance, check whether your insurer asks for one."
+        },
+        {
+          "myth": "Physio means months of weekly visits.",
+          "fact": "Most people need three to six sessions. You leave the first one with a plan you can follow at home."
+        },
+        {
+          "myth": "Good posture means sitting up straight all day.",
+          "fact": "No single posture is the right one. Your next position is the healthiest, so change it every 30 minutes."
+        },
+        {
+          "myth": "Cracking your knuckles causes arthritis.",
+          "fact": "Studies have found no link. The pop is gas moving in the joint fluid, so crack away."
+        }
+      ]
+    }
+  ]
+}

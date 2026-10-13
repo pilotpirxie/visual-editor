@@ -1,0 +1,88 @@
+{
+  "name": "Pricing, one calm sentence",
+  "category": "pricing",
+  "description": "The whole price as one quiet centred sentence over a soft glow, with a short list of what is included.",
+  "tags": ["pricing", "single plan", "sentence", "simple", "minimal", "soft", "calm"],
+  "fieldGroups": ["Sentence", "Included", "Button"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Margin for one writer",
+      "group": "Sentence"
+    },
+    {
+      "name": "title",
+      "label": "First sentence",
+      "type": "text",
+      "default": "One plan.",
+      "required": true,
+      "maxLength": 60,
+      "group": "Sentence"
+    },
+    {
+      "name": "price",
+      "label": "Price sentence",
+      "type": "text",
+      "default": "$12 a month.",
+      "required": true,
+      "maxLength": 60,
+      "group": "Sentence"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Everything Margin does, on every device you write on. Nothing to compare and nothing to unlock later.",
+      "group": "Sentence"
+    },
+    {
+      "name": "items",
+      "label": "Included",
+      "type": "list",
+      "group": "Included",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Dark mode for late nights"
+        }
+      ],
+      "default": [
+        { "text": "Unlimited notebooks" },
+        { "text": "Sync on phone, tablet and desktop" },
+        { "text": "Works offline" },
+        { "text": "Export to plain text and PDF" },
+        { "text": "A person answers support" }
+      ]
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "group": "Button",
+      "default": {
+        "label": "Start 30 days free",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      }
+    },
+    {
+      "name": "note",
+      "label": "Note under the button",
+      "type": "textarea",
+      "default": "No card needed. Cancel in two clicks.",
+      "group": "Button"
+    }
+  ]
+}

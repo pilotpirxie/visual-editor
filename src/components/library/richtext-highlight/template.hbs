@@ -1,0 +1,10 @@
+<section class="b-richtext-highlight section">
+  <div class="container b-inner">
+    {{#if eyebrow}}<p class="b-tag" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h2 class="b-title"><span data-field="titleStart">{{titleStart}}</span>{{#if highlight}} <mark class="b-mark" data-field="highlight">{{highlight}}</mark>{{/if}}{{#if titleEnd}} <span data-field="titleEnd">{{titleEnd}}</span>{{/if}}</h2>
+    <div class="b-text">
+      {{#if lead}}<p class="b-lead" data-field="lead">{{nl2br lead}}</p>{{/if}}
+      <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+    </div>
+  </div>
+</section>

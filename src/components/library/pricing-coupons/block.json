@@ -1,0 +1,110 @@
+{
+  "name": "Pricing, coupons",
+  "category": "pricing",
+  "description": "Offers as paper coupons with side notches, a dashed cut line, a code and an expiry line.",
+  "tags": ["pricing", "coupon", "voucher", "discount", "offer", "promo code", "playful"],
+  "fieldGroups": ["Heading", "Coupons"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "This month at the counter",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Clip a coupon, bring it in, eat well",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Show the code on your phone or just say it out loud. One coupon per visit, at both Rye & Butter bakeries.",
+      "group": "Heading"
+    },
+    {
+      "name": "note",
+      "label": "Small print",
+      "type": "textarea",
+      "default": "Coupons cannot be combined. Ask us about allergens before you order.",
+      "group": "Heading"
+    },
+    {
+      "name": "codeLabel",
+      "label": "Line above each code",
+      "type": "text",
+      "default": "Say this at the till",
+      "group": "Coupons"
+    },
+    {
+      "name": "coupons",
+      "label": "Coupons",
+      "type": "list",
+      "group": "Coupons",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "value",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Rainy day"
+        },
+        {
+          "name": "value",
+          "label": "Offer",
+          "type": "text",
+          "default": "$1 off"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "Any hot drink when it is raining outside."
+        },
+        {
+          "name": "code",
+          "label": "Code",
+          "type": "text",
+          "default": "DRIZZLE"
+        },
+        {
+          "name": "expiry",
+          "label": "Expiry line",
+          "type": "text",
+          "default": "Valid until 31 March"
+        }
+      ],
+      "default": [
+        {
+          "label": "Early birds",
+          "value": "2 for 1",
+          "description": "Croissants and morning buns before 8:30, Monday to Friday.",
+          "code": "EARLYBUN",
+          "expiry": "Valid until 30 November"
+        },
+        {
+          "label": "Weekend loaf",
+          "value": "$3 off",
+          "description": "Any large sourdough or seeded rye when you spend $12 or more.",
+          "code": "LOAF3",
+          "expiry": "Valid until 14 December"
+        },
+        {
+          "label": "Birthday treat",
+          "value": "Free slice",
+          "description": "A slice of the cake of the day with any hot drink in your birthday week.",
+          "code": "CANDLE",
+          "expiry": "Valid all year"
+        }
+      ]
+    }
+  ]
+}

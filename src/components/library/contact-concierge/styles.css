@@ -1,0 +1,92 @@
+@layer components {
+  @scope (.b-contact-concierge) {
+    .b-inner {
+      display: grid;
+      justify-items: center;
+      gap: var(--space-6);
+      text-align: center;
+    }
+
+    .b-bell {
+      display: grid;
+      place-items: center;
+      width: 3.5rem;
+      aspect-ratio: 1;
+      border: var(--border-width) solid;
+      border-radius: var(--radius-full);
+      color: var(--color-primary);
+    }
+
+    .b-lead {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-regular);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .b-lead::before,
+    .b-lead::after {
+      content: '';
+      width: 2.5rem;
+      border-block-start: var(--border-width) solid;
+    }
+
+    .b-email {
+      color: inherit;
+      font-family: var(--font-heading);
+      font-size: min(var(--text-5xl) * 1.25, 7vw);
+      font-style: italic;
+      line-height: var(--line-height-tight);
+      text-decoration-thickness: 0.03em;
+      text-underline-offset: 0.16em;
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .b-email:hover {
+      color: var(--color-primary);
+    }
+
+    .b-note {
+      max-width: 30rem;
+      font-style: italic;
+    }
+
+    .b-note,
+    .b-details {
+      color: var(--color-text-muted);
+    }
+
+    .b-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0 var(--space-8);
+      width: 100%;
+      margin-block-start: var(--space-6);
+      padding-block-start: var(--space-4);
+      border-block-start: var(--border-width) solid var(--color-border);
+      font-size: var(--text-sm);
+    }
+
+    .b-details li {
+      --icon-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+    }
+
+    .b-details a {
+      color: inherit;
+    }
+
+    .b-details address {
+      font-style: normal;
+    }
+  }
+}

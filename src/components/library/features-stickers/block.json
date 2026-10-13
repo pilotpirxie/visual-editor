@@ -1,0 +1,109 @@
+{
+  "name": "Features, sticker sheet",
+  "category": "features",
+  "description": "A sheet of round, pill and starburst stickers, one per feature, with each description in a list beside it.",
+  "tags": ["features", "stickers", "badges", "shapes", "rotated", "playful", "services"],
+  "fieldGroups": ["Heading", "Stickers"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "At the workshop",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Everything your bike needs, under one very small roof",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Kettle & Crank is two mechanics, one stand and a coffee hatch on Picton Street. No booking needed before noon.",
+      "group": "Heading"
+    },
+    {
+      "name": "sheetLabel",
+      "label": "Sheet label",
+      "type": "text",
+      "default": "Kettle & Crank Cycles / shop stickers / sheet 2 of 3",
+      "maxLength": 60,
+      "group": "Stickers"
+    },
+    {
+      "name": "items",
+      "label": "Stickers",
+      "type": "list",
+      "group": "Stickers",
+      "minItems": 2,
+      "maxItems": 9,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "star"
+        },
+        {
+          "name": "name",
+          "label": "Sticker text",
+          "type": "text",
+          "default": "New in",
+          "required": true,
+          "maxLength": 16
+        },
+        {
+          "name": "text",
+          "label": "Description",
+          "type": "textarea",
+          "default": "Say what this is, what it costs and how long it takes."
+        }
+      ],
+      "default": [
+        {
+          "icon": "zap",
+          "name": "Flat fix",
+          "text": "Punctures mended while you wait, usually in under 20 minutes. £9 with a new tube."
+        },
+        {
+          "icon": "settings",
+          "name": "Full service",
+          "text": "Stripped, cleaned, re-greased and rebuilt for £85, back to you within three working days."
+        },
+        {
+          "icon": "repeat",
+          "name": "Loan bikes",
+          "text": "Borrow one of our six loan bikes for free while yours is on the stand."
+        },
+        {
+          "icon": "shield",
+          "name": "Safety check",
+          "text": "Brakes, bolts and bearings looked over at no charge before any long ride."
+        },
+        {
+          "icon": "target",
+          "name": "Wheel truing",
+          "text": "Wobbly rims straightened by hand on the jig, £18 a wheel."
+        },
+        {
+          "icon": "coffee",
+          "name": "Coffee hatch",
+          "text": "A flat white for £2.50 while you wait. The first one is on us with any service."
+        }
+      ]
+    }
+  ]
+}

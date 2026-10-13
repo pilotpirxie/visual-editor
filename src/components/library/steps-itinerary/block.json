@@ -1,0 +1,91 @@
+{
+  "name": "How it works, itinerary",
+  "category": "how-it-works",
+  "description": "A travel itinerary with the day or time in small caps on the left, a dotted route line and each stop described on the right.",
+  "tags": ["steps", "itinerary", "travel", "schedule", "route", "elegant", "timeline", "agenda"],
+  "fieldGroups": ["Heading", "Stops"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Sample itinerary",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A weekend on the fells, hour by hour",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Eight walkers, one guide and a farmhouse in Borrowdale. This is how the three days usually unfold, weather permitting.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Stops",
+      "type": "list",
+      "group": "Stops",
+      "minItems": 2,
+      "maxItems": 10,
+      "itemLabel": "place",
+      "itemFields": [
+        {
+          "name": "when",
+          "label": "Day or time",
+          "type": "text",
+          "default": "Day 2",
+          "maxLength": 16
+        },
+        {
+          "name": "place",
+          "label": "Place",
+          "type": "text",
+          "default": "Next stop",
+          "maxLength": 60
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens at this stop."
+        }
+      ],
+      "default": [
+        {
+          "when": "Fri 18:00",
+          "place": "Seatoller Farm",
+          "text": "Boots off, bags upstairs, soup on the table. We go through the route and the forecast over supper."
+        },
+        {
+          "when": "Sat 08:30",
+          "place": "Honister Pass",
+          "text": "A steady climb on the old slate miners' track. First flask of tea at the top, around ten."
+        },
+        {
+          "when": "Sat 13:00",
+          "place": "Haystacks summit",
+          "text": "Lunch beside Innominate Tarn, the spot Wainwright loved best. Sandwiches are in your pack."
+        },
+        {
+          "when": "Sat 19:30",
+          "place": "The Langstrath Inn",
+          "text": "A table for nine and no walking home: the minibus leaves when the last pudding is finished."
+        },
+        {
+          "when": "Sun 10:00",
+          "place": "Derwentwater shore",
+          "text": "An easy four miles by the lake to loosen the legs, then the 14:10 train from Penrith."
+        }
+      ]
+    }
+  ]
+}

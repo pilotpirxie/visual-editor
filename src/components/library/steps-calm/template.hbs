@@ -1,0 +1,18 @@
+<section class="b-steps-calm section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ol class="b-flow" role="list">
+      {{#each steps}}
+      <li data-field="steps.{{@index}}">
+        <span class="b-orb" aria-hidden="true">{{svgIcon icon}}</span>
+        <h3>{{label}}</h3>
+        <p>{{nl2br text}}</p>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

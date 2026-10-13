@@ -1,0 +1,105 @@
+@layer components {
+  @scope (.b-testimonials-postcards) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-rack {
+      --grid-min: 27rem;
+      --grid-gap: var(--space-8);
+    }
+
+    .b-slot {
+      container-type: inline-size;
+      rotate: var(--tilt, -1deg);
+    }
+
+    .b-slot:nth-child(even) {
+      --tilt: 1deg;
+    }
+
+    .b-postcard {
+      display: grid;
+      gap: var(--space-4) var(--space-6);
+      height: 100%;
+      padding: var(--space-6);
+      background: var(--color-background);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-postage {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .b-postmark,
+    .b-stamp {
+      display: grid;
+      place-content: center;
+      width: 4.75rem;
+      aspect-ratio: 1;
+    }
+
+    .b-postmark {
+      margin-inline-end: calc(var(--space-4) * -1);
+      border: 0.2rem double;
+      border-radius: var(--radius-full);
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      rotate: -14deg;
+    }
+
+    .b-stamp {
+      width: 3.75rem;
+      aspect-ratio: 4 / 5;
+      border: 0.3rem dotted var(--color-background);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-message {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-style: italic;
+    }
+
+    .b-address {
+      display: grid;
+      font-size: var(--text-sm);
+    }
+
+    .b-line {
+      padding-block: var(--space-2);
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    @container (min-width: 28rem) {
+      .b-postcard {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        rotate: var(--tilt, -1deg);
+      }
+
+      .b-message {
+        grid-area: 1 / 1 / 3 / 2;
+        padding-inline-end: var(--space-6);
+        border-inline-end: var(--border-width) solid var(--color-border);
+      }
+    }
+  }
+}

@@ -436,7 +436,7 @@ export function parsePackInfo(raw: unknown): { info: PackInfo | null; errors: Pa
   return { info: { id: raw.id, name, version: raw.version, author, license }, errors };
 }
 
-function base64Of(bytes: Uint8Array): string {
+export function base64Of(bytes: Uint8Array): string {
   let binary = '';
   for (let index = 0; index < bytes.length; index += BASE64_CHUNK) {
     binary += String.fromCharCode(...bytes.subarray(index, index + BASE64_CHUNK));

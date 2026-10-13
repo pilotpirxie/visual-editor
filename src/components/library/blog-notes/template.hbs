@@ -1,0 +1,18 @@
+<section class="b-blog-notes section">
+  <div class="container stack b-inner">
+    <header class="stack">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 class="b-heading" data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-stream">
+      {{#each notes}}
+      <article class="b-note" data-field="notes.{{@index}}">
+        {{#if date}}<a class="b-muted b-date" href="{{href link}}" {{linkAttrs link}}><time datetime="{{date}}">{{formatDate date}}</time></a>{{/if}}
+        <p class="b-text">{{nl2br text}}</p>
+        {{#if stage}}<p class="b-stage">{{svgIcon "leaf"}}{{stage}}</p>{{/if}}
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

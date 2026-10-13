@@ -1,0 +1,23 @@
+<section class="b-testimonials-columns section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <ul class="b-columns" role="list">
+      {{#each items}}
+      <li class="b-column" data-field="items.{{@index}}">
+        <figure class="stack b-opinion">
+          <figcaption class="b-byline">
+            <span class="media b-portrait">{{img photo}}</span>
+            <span class="b-name">{{name}}</span>
+            {{#if role}}<span class="b-role">{{role}}</span>{{/if}}
+          </figcaption>
+          {{#if headline}}<h3 class="b-headline">{{headline}}</h3>{{/if}}
+          <blockquote class="b-quote"><p>{{nl2br quote}}</p></blockquote>
+        </figure>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

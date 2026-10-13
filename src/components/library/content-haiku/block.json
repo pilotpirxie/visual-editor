@@ -1,0 +1,51 @@
+{
+  "name": "Content, haiku",
+  "category": "content",
+  "description": "Three short centred lines with a lot of space around them, a thin rule and a small signature line.",
+  "tags": ["haiku", "poem", "statement", "quiet", "minimal", "calm", "centred", "three lines"],
+  "fieldGroups": ["Lines", "Signature"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "leaf",
+      "group": "Lines"
+    },
+    {
+      "name": "line1",
+      "label": "First line",
+      "type": "text",
+      "default": "Steam lifts from the cup",
+      "group": "Lines",
+      "required": true,
+      "maxLength": 60
+    },
+    {
+      "name": "line2",
+      "label": "Second line",
+      "type": "text",
+      "default": "the afternoon slows its pace",
+      "group": "Lines",
+      "required": true,
+      "maxLength": 60
+    },
+    {
+      "name": "line3",
+      "label": "Third line",
+      "type": "text",
+      "default": "nothing else to do",
+      "group": "Lines",
+      "required": true,
+      "maxLength": 60
+    },
+    {
+      "name": "signature",
+      "label": "Signature",
+      "type": "text",
+      "default": "Kumo Tea Room, Rua das Flores 41",
+      "group": "Signature"
+    }
+  ]
+}

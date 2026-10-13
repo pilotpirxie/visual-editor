@@ -1,0 +1,25 @@
+<section class="b-testimonials-speech-bubbles section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="stack b-talk" role="list">
+      {{#each items}}
+      <li class="b-turn" data-field="items.{{@index}}">
+        <figure class="b-say">
+          <blockquote class="b-bubble"><p>{{nl2br quote}}</p></blockquote>
+          <figcaption class="b-speaker">
+            <span class="media b-face">{{img photo}}</span>
+            <span>
+              <strong class="b-name">{{name}}</strong>
+              {{#if role}}<span class="b-role">{{role}}</span>{{/if}}
+            </span>
+          </figcaption>
+        </figure>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

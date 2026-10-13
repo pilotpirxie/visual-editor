@@ -1,0 +1,47 @@
+{
+  "name": "Testimonial, monogram",
+  "category": "testimonials",
+  "description": "One centred quote under a large double ring holding the customer's initials, with a small ornament on the ring.",
+  "tags": ["testimonial", "quote", "monogram", "initials", "wedding", "elegant", "centred"],
+  "fieldGroups": ["Monogram", "Quote", "Person"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "initials",
+      "label": "Initials",
+      "type": "text",
+      "default": "M & T",
+      "maxLength": 5,
+      "group": "Monogram"
+    },
+    {
+      "name": "ornament",
+      "label": "Ornament",
+      "type": "icon",
+      "default": "leaf",
+      "group": "Monogram"
+    },
+    {
+      "name": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "default": "We asked for a meadow, not a bouquet, and that is what was waiting in the barn. Guests still ask who did the flowers, and the cornflowers we dried now hang on our kitchen wall.",
+      "required": true,
+      "group": "Quote"
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "default": "Maren and Theo Lindqvist",
+      "group": "Person"
+    },
+    {
+      "name": "role",
+      "label": "Occasion or role",
+      "type": "text",
+      "default": "Married at Holm Farm, 6 June 2026",
+      "group": "Person"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "name": "Pricing, menu card",
+  "category": "pricing",
+  "description": "A restaurant menu card with a double border, a centred title and courses whose dishes run to their prices on dotted leaders.",
+  "tags": ["pricing", "menu", "restaurant", "cafe", "price list", "dishes", "elegant"],
+  "fieldGroups": ["Heading", "Courses", "Closing"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Line above the title",
+      "type": "text",
+      "default": "Marlowe's on Fenn Street",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Evening menu",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Served Tuesday to Saturday from half past five. The kitchen closes at ten.",
+      "group": "Heading"
+    },
+    {
+      "name": "courses",
+      "label": "Courses",
+      "type": "list",
+      "group": "Courses",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Course name",
+          "type": "text",
+          "default": "On the side"
+        },
+        {
+          "name": "dishes",
+          "label": "Dishes",
+          "type": "list",
+          "minItems": 1,
+          "maxItems": 12,
+          "itemLabel": "name",
+          "itemFields": [
+            {
+              "name": "name",
+              "label": "Dish",
+              "type": "text",
+              "default": "Chips and aioli"
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "type": "textarea",
+              "default": ""
+            },
+            {
+              "name": "price",
+              "label": "Price",
+              "type": "text",
+              "default": "$6"
+            }
+          ],
+          "default": [
+            {
+              "name": "Chips and aioli",
+              "description": "",
+              "price": "$6"
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "name": "To begin",
+          "dishes": [
+            {
+              "name": "Whipped cod roe",
+              "description": "Radishes, lemon, toasted sourdough",
+              "price": "$9"
+            },
+            {
+              "name": "Leek and potato soup",
+              "description": "Brown butter, chives",
+              "price": "$8"
+            },
+            {
+              "name": "Burrata",
+              "description": "Blood orange, fennel, olive oil",
+              "price": "$12"
+            }
+          ]
+        },
+        {
+          "name": "Mains",
+          "dishes": [
+            {
+              "name": "Roast chicken for two",
+              "description": "Bread sauce, watercress, chips to share",
+              "price": "$46"
+            },
+            {
+              "name": "Hake",
+              "description": "White beans, mussels, parsley oil",
+              "price": "$24"
+            },
+            {
+              "name": "Mushroom and barley pie",
+              "description": "Buttered greens, mustard cream",
+              "price": "$19"
+            }
+          ]
+        },
+        {
+          "name": "To finish",
+          "dishes": [
+            {
+              "name": "Treacle tart",
+              "description": "Clotted cream",
+              "price": "$8"
+            },
+            {
+              "name": "Three cheeses",
+              "description": "Oat biscuits, quince",
+              "price": "$11"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Small print",
+      "type": "textarea",
+      "default": "Please tell us about allergies before you order. A 10% service charge is added for tables of six or more.",
+      "group": "Closing"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "group": "Closing",
+      "default": {
+        "label": "Book a table",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "secondary"
+      }
+    }
+  ]
+}

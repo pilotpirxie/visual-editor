@@ -1,0 +1,14 @@
+<section class="b-richtext-notepad section">
+  <div class="container">
+    <article class="b-pad">
+      <header class="b-head">
+        {{#if eyebrow}}<p class="b-kicker" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+      </header>
+      <div class="b-ruled">
+        <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+        {{#if signature}}<p class="b-sign" data-field="signature">{{signature}}</p>{{/if}}
+      </div>
+    </article>
+  </div>
+</section>

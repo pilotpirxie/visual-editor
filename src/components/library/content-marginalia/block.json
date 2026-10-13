@@ -1,0 +1,75 @@
+{
+  "name": "Content, margin notes",
+  "category": "content",
+  "description": "A narrow reading column with numbered asides in the outer margin on desktop and as small italic notes under each paragraph on phones.",
+  "tags": ["marginalia", "margin", "notes", "asides", "essay", "reading", "editorial", "elegant"],
+  "fieldGroups": ["Heading", "Paragraphs"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Studio notes",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Why we still draw the stair first",
+      "group": "Heading",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "name": "byline",
+      "label": "Byline",
+      "type": "text",
+      "default": "Elin Sandberg, partner at Sandberg Holm Arkitekter",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Paragraphs",
+      "type": "list",
+      "group": "Paragraphs",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "text",
+          "label": "Paragraph",
+          "type": "textarea",
+          "default": "The next thought in the essay goes here, in three or four sentences."
+        },
+        {
+          "name": "note",
+          "label": "Margin note",
+          "type": "textarea",
+          "default": "",
+          "help": "Optional. A short aside, source or detail that belongs to this paragraph."
+        }
+      ],
+      "default": [
+        {
+          "text": "Every house we design starts with the same drawing: a section through the stair, at 1:20, in pencil. Before the plan, before the facade, before anyone has asked how many bedrooms there will be.",
+          "note": "The habit comes from Ingrid Holm's years in a joinery workshop in Bergen, where stairs were built before the walls around them."
+        },
+        {
+          "text": "A stair decides how a family meets. Put it by the front door and people pass each other all day. Hide it at the back and the upper floor becomes a separate country.",
+          "note": "In the Fjellveien house the landing is wide enough for a reading chair. It is the most used seat in the building."
+        },
+        {
+          "text": "It also sets the budget for daylight. A stair that is open to the roof carries light two floors down, which is worth more to us than a larger window that faces the neighbour.",
+          "note": ""
+        },
+        {
+          "text": "So when clients ask what to bring to the first meeting, we say: a list of who gets up first in the morning, and where they go.",
+          "note": "Most lists are shorter than people expect. The record so far is four lines."
+        }
+      ]
+    }
+  ]
+}

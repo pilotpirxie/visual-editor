@@ -25,7 +25,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
 }
 
-function textAt(record: Record<string, unknown>, key: string): string | null {
+export function textAt(record: Record<string, unknown>, key: string): string | null {
   const value = record[key];
   return typeof value === 'string' && value !== '' ? value : null;
 }
@@ -66,7 +66,7 @@ async function callNetlify(request: NetlifyRequest): Promise<Record<string, unkn
   return body;
 }
 
-function wait(milliseconds: number): Promise<void> {
+export function wait(milliseconds: number): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(resolve, milliseconds);
   });

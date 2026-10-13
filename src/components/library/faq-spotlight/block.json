@@ -1,0 +1,86 @@
+{
+  "name": "FAQ, spotlight panel",
+  "category": "faq",
+  "description": "A split layout: an oversized heading on a primary colour panel with a short intro and a button, and the accordion beside it.",
+  "tags": ["faq", "questions", "split", "panel", "oversized", "vertical heading", "expressive"],
+  "fieldGroups": ["Panel", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Questions?",
+      "required": true,
+      "maxLength": 40,
+      "group": "Panel"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "The six we hear most about Billfold. For anything else, a real person replies within one working day.",
+      "group": "Panel"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "default": {
+        "label": "Email support",
+        "link": { "type": "url", "url": "#", "newTab": false },
+        "variant": "primary"
+      },
+      "group": "Panel"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 16,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "Can I add my own logo?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "richtext",
+          "default": "<p>Yes. Upload it once and it appears on every invoice, quote and receipt.</p>"
+        }
+      ],
+      "default": [
+        {
+          "question": "Is there a free plan?",
+          "answer": "<p>Yes. Send up to five invoices a month for free, for as long as you like. You do not need a card to sign up.</p>"
+        },
+        {
+          "question": "How do my clients pay?",
+          "answer": "<p>By card, bank transfer or direct debit, straight from the invoice. The money reaches your own account in two working days.</p>"
+        },
+        {
+          "question": "What does Billfold take per payment?",
+          "answer": "<p>1.2% on card payments, capped at £4 an invoice. Bank transfers and direct debits cost nothing.</p>"
+        },
+        {
+          "question": "Can I bring invoices from another tool?",
+          "answer": "<p>Yes. Upload an export from FreeAgent, Xero or a spreadsheet, and your clients, items and invoice numbers carry on where they stopped.</p>"
+        },
+        {
+          "question": "Does it chase late payers for me?",
+          "answer": "<p>If you want it to. Polite reminders go out 3, 10 and 21 days after the due date, in your own words, and stop the moment you are paid.</p>"
+        },
+        {
+          "question": "Can I cancel whenever I like?",
+          "answer": "<p>Yes, in two clicks from the settings page. You keep read-only access to every invoice for seven years.</p>"
+        }
+      ]
+    }
+  ]
+}

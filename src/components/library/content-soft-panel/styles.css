@@ -1,0 +1,69 @@
+@layer components {
+  @scope (.b-content-soft-panel) {
+    .b-panel {
+      --origin: 100% 0;
+      --tint: color-mix(in oklab, var(--color-primary) 9%, var(--color-background));
+      align-items: start;
+      max-width: 58rem;
+      margin-inline: auto;
+      padding: var(--space-8) var(--space-6);
+      border-radius: calc(var(--radius-lg) * 2 + var(--space-6));
+      background:
+        radial-gradient(circle at var(--origin), transparent, var(--tint) 55%),
+        repeating-radial-gradient(
+          circle at var(--origin),
+          var(--tint) 0 2.5rem,
+          color-mix(in oklab, var(--color-primary) 18%, var(--color-background)) 2.5rem 5rem
+        );
+    }
+
+    .b-icon {
+      --icon-size: 1.5rem;
+      display: grid;
+      place-items: center;
+      width: 3.5rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-primary);
+    }
+
+    .b-title {
+      max-width: 22ch;
+      font-size: var(--text-2xl);
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .b-text {
+      max-width: 34rem;
+      font-size: var(--text-lg);
+    }
+
+    .b-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 2.75rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      text-underline-offset: 0.25em;
+    }
+
+    .b-link:hover {
+      text-decoration: none;
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        --origin: 100% 50%;
+        --stack-gap: var(--space-6);
+        padding: var(--space-16);
+      }
+
+      .b-title {
+        font-size: var(--text-3xl);
+      }
+    }
+  }
+}

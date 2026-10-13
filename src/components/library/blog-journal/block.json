@@ -1,0 +1,159 @@
+{
+  "name": "Blog posts, journal contents",
+  "category": "blog",
+  "description": "A literary journal's contents page: an issue heading between double rules, then titles joined to their authors by dotted leaders.",
+  "tags": ["blog", "posts", "articles", "journal", "contents", "literary", "leaders", "elegant"],
+  "fieldGroups": ["Issue", "Posts", "Colophon"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "issue",
+      "label": "Issue line",
+      "type": "text",
+      "default": "Issue No. 27 · Autumn 2026",
+      "group": "Issue"
+    },
+    {
+      "name": "title",
+      "label": "Journal name",
+      "type": "text",
+      "default": "The Larkspur Review",
+      "group": "Issue",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "New writing from the reading room above Larkspur Books, Hebden Bridge.",
+      "group": "Issue"
+    },
+    {
+      "name": "label",
+      "label": "List label",
+      "type": "text",
+      "default": "Contents",
+      "group": "Posts"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "A Title in the Contents"
+        },
+        {
+          "name": "kind",
+          "label": "Kind of piece",
+          "type": "text",
+          "default": "Essay"
+        },
+        {
+          "name": "author",
+          "label": "Author",
+          "type": "text",
+          "default": "Ada Okafor"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "title": "The Last Ferry to Ulva",
+          "kind": "Essay",
+          "author": "Ada Okafor",
+          "date": "2026-10-01",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Inventory of a Flooded Bookshop",
+          "kind": "Memoir",
+          "author": "Tom Greenhalgh",
+          "date": "2026-09-24",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Three Poems for the Calder",
+          "kind": "Poetry",
+          "author": "Mei-Lin Zhou",
+          "date": "2026-09-17",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "What the Binder Knew",
+          "kind": "Short story",
+          "author": "Rosalind Pike",
+          "date": "2026-09-10",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Reading Sebald on the 592 Bus",
+          "kind": "Criticism",
+          "author": "Idris Rahman",
+          "date": "2026-09-03",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "A Conversation with Our Oldest Subscriber",
+          "kind": "Interview",
+          "author": "Hannah Lyle",
+          "date": "2026-08-27",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "label": "Colophon",
+      "type": "textarea",
+      "default": "Printed in an edition of 600 on the press in the back room. Subscriptions from £24 a year.",
+      "group": "Colophon"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+<section class="b-content-pull-quote section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    {{#if before}}<div class="prose b-text" data-field="before">{{richText before}}</div>{{/if}}
+    <figure class="b-pull">
+      <span class="b-mark" aria-hidden="true">{{svgIcon "quote"}}</span>
+      <blockquote class="b-quote" data-field="quote"><p>{{nl2br quote}}</p></blockquote>
+      {{#if source}}<figcaption class="b-source" data-field="source">{{source}}</figcaption>{{/if}}
+    </figure>
+    {{#if after}}<div class="prose b-text" data-field="after">{{richText after}}</div>{{/if}}
+  </div>
+</section>

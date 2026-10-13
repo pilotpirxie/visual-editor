@@ -1,0 +1,101 @@
+@layer components {
+  @scope (.b-pricing-billboard) {
+    :scope {
+      --color-background: var(--theme-primary-background);
+      --color-text: var(--theme-primary-text);
+      --color-primary: var(--theme-primary-accent);
+      --color-primary-contrast: var(--theme-primary-accent-contrast);
+      padding-bottom: 0;
+    }
+
+    .b-band {
+      display: grid;
+      align-items: center;
+      gap: var(--space-8);
+      container-type: inline-size;
+    }
+
+    .b-kicker,
+    .b-period,
+    .b-strip {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .b-kicker {
+      padding-bottom: var(--space-3);
+      border-bottom: 2px solid;
+    }
+
+    .b-figure {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      rotate: -2deg;
+    }
+
+    .b-price {
+      font-family: var(--font-heading);
+      font-size: min(calc(var(--text-5xl) * 6), 38cqi);
+      font-weight: var(--font-weight-heading);
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      overflow-wrap: anywhere;
+    }
+
+    .b-period {
+      font-size: var(--text-lg);
+      writing-mode: vertical-rl;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+    }
+
+    .b-join {
+      align-self: start;
+    }
+
+    .b-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-3) var(--space-8);
+      margin-top: var(--section-padding-y);
+      padding: var(--space-4) var(--container-padding-x);
+      background: var(--theme-dark-background);
+      color: var(--theme-dark-text);
+    }
+
+    .b-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .b-item svg {
+      color: var(--theme-dark-accent);
+    }
+
+    @media (min-width: 1024px) {
+      .b-band {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      }
+
+      .b-kicker {
+        grid-column: 1 / -1;
+      }
+
+      .b-figure {
+        rotate: -4deg;
+      }
+
+      .b-price {
+        font-size: min(calc(var(--text-5xl) * 6), 25cqi);
+      }
+    }
+  }
+}

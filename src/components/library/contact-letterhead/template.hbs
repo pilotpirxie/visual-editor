@@ -1,0 +1,30 @@
+<section class="b-contact-letterhead section">
+  <div class="container">
+    <div class="b-sheet">
+      <p class="b-wordmark">{{site.title}}</p>
+      {{#if tagline}}<p class="b-tagline" data-field="tagline">{{tagline}}</p>{{/if}}
+      <h2 class="b-title" data-field="title">{{title}}</h2>
+      {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+      <dl class="b-columns">
+        {{#if address}}
+        <div data-field="address">
+          <dt data-field="addressLabel">{{addressLabel}}</dt>
+          <dd><address>{{nl2br address}}</address></dd>
+        </div>
+        {{/if}}
+        {{#if phone}}
+        <div data-field="phone">
+          <dt data-field="phoneLabel">{{phoneLabel}}</dt>
+          <dd><a href="tel:{{phone}}">{{phone}}</a></dd>
+        </div>
+        {{/if}}
+        {{#if email}}
+        <div data-field="email">
+          <dt data-field="emailLabel">{{emailLabel}}</dt>
+          <dd><a href="mailto:{{email}}">{{email}}</a></dd>
+        </div>
+        {{/if}}
+      </dl>
+    </div>
+  </div>
+</section>

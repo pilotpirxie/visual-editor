@@ -1,0 +1,18 @@
+{
+  "name": "Rich text, quiet reading",
+  "category": "rich-text",
+  "description": "Only the text, set large with generous line spacing at about 60 characters per line on a soft surface panel.",
+  "tags": ["reading", "calm", "quiet", "large text", "panel", "minimal", "text", "prose"],
+  "fieldGroups": ["Text"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<h2>Your first visit</h2><p>You do not need a referral, and you do not need to know what is wrong. Most people who come to us only know that something hurts and has done for a while. That is enough to start with.</p><p>The first appointment is 50 minutes. We spend about half of it talking: what you do all day, how you sleep, what you have already tried. Then we look at how you move, gently, and we stop whenever you ask.</p><h3>What to bring</h3><p>Wear something you can move in. Bring any scans or letters you already have, and a list of the medicines you take. If you would like someone with you, they are welcome in the room.</p><h3>Afterwards</h3><p>You leave with a plain explanation of what we found, two or three exercises that take ten minutes a day, and an honest guess at how many visits you will need. For most people it is between four and six.</p><p>A first visit costs 68 euros. If you need to cancel, tell us the day before and there is no charge.</p>",
+      "group": "Text"
+    }
+  ]
+}

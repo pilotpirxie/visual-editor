@@ -1,0 +1,20 @@
+<section class="b-faq-interview section">
+  <div class="container stack b-inner">
+    <header class="b-head">
+      <div class="stack b-lede">
+        {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </div>
+      {{#if pullQuote}}<blockquote class="b-pull" data-field="pullQuote"><p>{{pullQuote}}</p></blockquote>{{/if}}
+    </header>
+    <dl class="b-talk">
+      {{#each items}}
+      <div class="b-turn" data-field="items.{{@index}}">
+        <dt class="b-line b-question"><span class="b-mark" aria-hidden="true">{{../questionMark}}</span>{{question}}</dt>
+        <dd class="b-line"><span class="b-mark" aria-hidden="true">{{../answerMark}}</span>{{nl2br answer}}</dd>
+      </div>
+      {{/each}}
+    </dl>
+  </div>
+</section>

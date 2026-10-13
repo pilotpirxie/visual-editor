@@ -1,0 +1,184 @@
+{
+  "name": "Blog posts, editor's pick",
+  "category": "blog",
+  "description": "One picked post with a tall portrait image and a hanging ribbon, beside a short list of text-only links.",
+  "tags": [
+    "blog",
+    "posts",
+    "articles",
+    "editor's pick",
+    "ribbon",
+    "portrait",
+    "featured",
+    "elegant"
+  ],
+  "fieldGroups": ["Heading", "Picked post", "More posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "The roastery journal",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Reading for the slow cup",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "ribbon",
+      "label": "Ribbon",
+      "type": "text",
+      "default": "Editor's pick",
+      "group": "Picked post",
+      "maxLength": 24
+    },
+    {
+      "name": "pickImage",
+      "label": "Image",
+      "type": "image",
+      "default": {
+        "source": "placeholder",
+        "src": "",
+        "alt": "A grower turning coffee cherries on a raised drying bed in Huila",
+        "decorative": false,
+        "width": 900,
+        "height": 1200,
+        "placeholder": {
+          "ratio": "3:4",
+          "subject": "photo"
+        }
+      },
+      "group": "Picked post"
+    },
+    {
+      "name": "pickCategory",
+      "label": "Category",
+      "type": "text",
+      "default": "Origin trip",
+      "group": "Picked post"
+    },
+    {
+      "name": "pickTitle",
+      "label": "Title",
+      "type": "text",
+      "default": "Eleven days in Huila with the growers behind our house espresso",
+      "group": "Picked post",
+      "required": true
+    },
+    {
+      "name": "pickExcerpt",
+      "label": "Excerpt",
+      "type": "textarea",
+      "default": "We went to sign next year's contract and came home with a notebook of things we had been getting wrong: how early the cherries are picked, why the drying beds face east, and what a fair price looks like from the other side of the table.",
+      "group": "Picked post"
+    },
+    {
+      "name": "pickAuthor",
+      "label": "Author",
+      "type": "text",
+      "default": "Camila Reyes, head of sourcing",
+      "group": "Picked post"
+    },
+    {
+      "name": "pickDate",
+      "label": "Date",
+      "type": "date",
+      "default": "2026-10-04",
+      "group": "Picked post"
+    },
+    {
+      "name": "pickLinkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "Read the story",
+      "group": "Picked post",
+      "required": true
+    },
+    {
+      "name": "pickLink",
+      "label": "Link",
+      "type": "link",
+      "default": {
+        "type": "url",
+        "url": "#",
+        "newTab": false
+      },
+      "group": "Picked post"
+    },
+    {
+      "name": "listLabel",
+      "label": "List label",
+      "type": "text",
+      "default": "Also worth a pour",
+      "group": "More posts"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "More posts",
+      "minItems": 1,
+      "maxItems": 5,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "category",
+          "label": "Category",
+          "type": "text",
+          "default": "Brew guide"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "A short read from the roastery"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "category": "Brew guide",
+          "title": "A V60 recipe that forgives a cheap grinder",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Roasting",
+          "title": "Why we stopped calling anything a dark roast",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Shop notes",
+          "title": "The Harbour Street bar turns five on 14 November",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

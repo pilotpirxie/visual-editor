@@ -1,0 +1,26 @@
+<section class="b-contact-slow section">
+  <div class="container">
+    <div class="b-panel">
+      <div class="stack b-copy">
+        {{#if eyebrow}}<p class="eyebrow b-status" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+        {{#if (or email phone)}}
+        <p class="b-links">
+          {{#if email}}<a href="mailto:{{email}}" data-field="email">{{email}}</a>{{/if}}
+          {{#if phone}}<a href="tel:{{phone}}" data-field="phone">{{phone}}</a>{{/if}}
+        </p>
+        {{/if}}
+      </div>
+      <ul class="b-rows" role="list">
+        {{#each rows}}
+        <li class="b-row" data-field="rows.{{@index}}">
+          <span class="b-icon">{{svgIcon icon}}</span>
+          <h3>{{title}}</h3>
+          {{#if text}}<p>{{nl2br text}}</p>{{/if}}
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

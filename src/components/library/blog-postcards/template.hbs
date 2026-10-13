@@ -1,0 +1,22 @@
+<section class="b-blog-postcards section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-pile">
+      {{#each posts}}
+      <article class="b-postcard" data-field="posts.{{@index}}">
+        <div class="media">{{img image}}</div>
+        <div class="b-message">
+          {{#if date}}<time class="b-stamp" datetime="{{date}}">{{formatDate date}}</time>{{/if}}
+          <h3><a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{title}}</a></h3>
+          {{#if excerpt}}<p class="b-muted b-excerpt">{{nl2br excerpt}}</p>{{/if}}
+          <p class="b-address">{{author}}</p>
+        </div>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,97 @@
+@layer components {
+  @scope (.b-pricing-stacked-bands) {
+    :scope {
+      padding-bottom: 0;
+    }
+
+    .b-head {
+      margin-bottom: var(--space-12);
+    }
+
+    .b-intro {
+      max-width: 36rem;
+      color: var(--color-text-muted);
+    }
+
+    .b-band {
+      --band: var(--color-surface);
+      padding-block: var(--space-12);
+      background: var(--band);
+      color: var(--color-text);
+    }
+
+    .b-band:nth-child(4n + 2) {
+      --band: color-mix(in oklab, var(--color-primary) 16%, var(--color-background));
+    }
+
+    .b-band:nth-child(4n + 3) {
+      --color-background: var(--theme-primary-background);
+      --color-text: var(--theme-primary-text);
+      --color-primary: var(--theme-primary-accent);
+      --color-primary-contrast: var(--theme-primary-accent-contrast);
+      --band: var(--color-background);
+    }
+
+    .b-band:nth-child(4n) {
+      --color-background: var(--theme-dark-background);
+      --color-text: var(--theme-dark-text);
+      --color-primary: var(--theme-dark-accent);
+      --color-primary-contrast: var(--theme-dark-accent-contrast);
+      --band: var(--color-background);
+    }
+
+    .b-row {
+      display: grid;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .b-name,
+    .b-price {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      overflow-wrap: anywhere;
+    }
+
+    .b-name {
+      text-transform: uppercase;
+    }
+
+    .b-price small {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-go {
+      justify-self: start;
+    }
+
+    @media (min-width: 768px) {
+      .b-row {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
+      .b-name,
+      .b-price {
+        font-size: var(--text-5xl);
+      }
+
+      .b-go {
+        justify-self: end;
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-name {
+        transition: translate var(--transition-normal);
+      }
+
+      .b-band:hover .b-name {
+        translate: var(--space-3);
+      }
+    }
+  }
+}

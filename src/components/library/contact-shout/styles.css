@@ -1,0 +1,95 @@
+@layer components {
+  @scope (.b-contact-shout) {
+    :scope {
+      --section-bg: var(--color-primary);
+    }
+
+    .b-inner {
+      position: relative;
+      display: grid;
+      gap: var(--space-8);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-loud {
+      font-size: min(var(--text-5xl) * 2.4, 21vw);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      transform-origin: left;
+      rotate: -2deg;
+    }
+
+    .b-sticker {
+      position: absolute;
+      inset: 0 var(--container-padding-x) auto auto;
+      display: grid;
+      place-items: center;
+      width: 6.5rem;
+      aspect-ratio: 1;
+      padding: var(--space-3);
+      border-radius: var(--radius-full);
+      background: var(--color-primary-contrast);
+      color: var(--color-primary);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      text-align: center;
+      text-transform: uppercase;
+      rotate: 12deg;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+    }
+
+    .b-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-block: var(--space-4);
+      border-block-start: 3px solid;
+      color: inherit;
+      font-family: var(--font-heading);
+      font-size: min(var(--text-3xl), 5.2vw);
+      font-weight: var(--font-weight-heading);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    .b-link:focus-visible {
+      outline-color: currentColor;
+    }
+
+    .b-arrow {
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 1.75em;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-primary-contrast);
+      color: var(--color-primary);
+    }
+
+    .b-link:hover .b-arrow {
+      rotate: 45deg;
+    }
+
+    @media (min-width: 768px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: var(--space-12);
+      }
+
+      .b-loud {
+        grid-column: span 2;
+      }
+
+      .b-sticker {
+        width: 8rem;
+      }
+    }
+  }
+}

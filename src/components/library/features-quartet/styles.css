@@ -1,0 +1,77 @@
+@layer components {
+  @scope (.b-features-quartet) {
+    .b-inner {
+      --stack-gap: var(--space-8);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro,
+    .b-cell p {
+      color: var(--color-text-muted);
+    }
+
+    .b-grid {
+      position: relative;
+      display: grid;
+      gap: var(--border-width);
+      background: var(--color-border);
+      counter-reset: cell;
+    }
+
+    .b-cell {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-2) var(--space-6);
+      align-content: start;
+      padding-block: var(--space-8);
+      background: var(--color-background);
+      counter-increment: cell;
+    }
+
+    .b-cell::before {
+      content: counter(cell);
+      grid-row: span 2;
+      width: 1ch;
+      font: var(--font-weight-regular) calc(var(--text-5xl) * 1.5) / 0.9 var(--font-heading);
+      color: var(--color-text-muted);
+      text-align: center;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: var(--border-width) var(--color-text);
+    }
+
+    h3 {
+      font-size: var(--text-2xl);
+      font-style: italic;
+      font-weight: var(--font-weight-regular);
+    }
+
+    @media (min-width: 768px) {
+      .b-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-grid::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        width: 1rem;
+        height: 1rem;
+        margin: auto;
+        border: calc(var(--border-width) * 3) double var(--color-primary);
+        background: var(--color-background);
+        box-shadow: 0 0 0 var(--space-3) var(--color-background);
+        rotate: 45deg;
+      }
+
+      .b-cell {
+        padding: var(--space-12) var(--space-8);
+      }
+    }
+  }
+}

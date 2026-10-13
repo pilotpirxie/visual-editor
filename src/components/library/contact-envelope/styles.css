@@ -1,0 +1,94 @@
+@layer components {
+  @scope (.b-contact-envelope) {
+    .b-inner {
+      --container-max-width: 48rem;
+      text-align: center;
+    }
+
+    .b-text {
+      color: var(--color-text-muted);
+    }
+
+    .b-mail {
+      --env: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
+      --deep: color-mix(in oklab, var(--color-primary) 28%, var(--color-background));
+      --peak: 5rem;
+      position: relative;
+      z-index: 0;
+      padding-block-start: var(--space-8);
+      text-align: start;
+    }
+
+    .b-mail::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: var(--deep);
+      clip-path: polygon(50% 0, 100% var(--peak), 100% 100%, 0 100%, 0 var(--peak));
+    }
+
+    .b-letter {
+      display: grid;
+      gap: var(--space-6);
+      margin: 0 6% calc(var(--space-8) * -1);
+      padding: var(--space-8) var(--space-6) var(--space-16);
+      background: var(--color-background);
+      box-shadow: var(--shadow-md);
+      rotate: -1deg;
+    }
+
+    .b-letter :is(input, textarea) {
+      border-width: 0 0 var(--border-width);
+      border-radius: 0;
+      background: none;
+    }
+
+    .b-message label {
+      font-size: var(--text-xl);
+      font-style: italic;
+    }
+
+    .b-pocket {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-6);
+      padding: var(--space-6);
+      background: conic-gradient(from 120deg at 50% 0, var(--deep) 120deg, var(--env) 0);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-stamp {
+      display: grid;
+      place-items: center;
+      width: 4rem;
+      height: 5rem;
+      border: 0.3rem dotted var(--env);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-xl);
+      rotate: 3deg;
+    }
+
+    .b-send {
+      grid-column: span 2;
+      place-self: center;
+    }
+
+    @media (min-width: 768px) {
+      .b-mail {
+        --peak: 11rem;
+        padding-block-start: var(--space-12);
+      }
+
+      .b-letter {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-message {
+        grid-column: span 2;
+      }
+    }
+  }
+}

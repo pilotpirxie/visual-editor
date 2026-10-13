@@ -1,0 +1,13 @@
+<section class="b-contact-concierge section">
+  <div class="container b-inner">
+    <span class="b-bell" aria-hidden="true" data-field="icon">{{svgIcon icon}}</span>
+    <h2 class="b-lead" data-field="title">{{title}}</h2>
+    <a class="b-email" href="mailto:{{email}}" data-field="email">{{email}}</a>
+    {{#if note}}<p class="b-note" data-field="note">{{nl2br note}}</p>{{/if}}
+    <ul class="b-details" role="list">
+      {{#if phone}}<li data-field="phone">{{svgIcon "phone"}}<a href="tel:{{phone}}">{{phone}}</a></li>{{/if}}
+      {{#if hours}}<li data-field="hours">{{svgIcon "clock"}}<span>{{hours}}</span></li>{{/if}}
+      {{#if address}}<li data-field="address">{{svgIcon "map-pin"}}<address>{{address}}</address></li>{{/if}}
+    </ul>
+  </div>
+</section>

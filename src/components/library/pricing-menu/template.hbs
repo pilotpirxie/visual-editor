@@ -1,0 +1,26 @@
+<section class="b-pricing-menu section">
+  <div class="container">
+    <article class="stack b-menu">
+      <header class="stack b-head">
+        {{#if eyebrow}}<p class="b-caps" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+        <h2 data-field="title">{{title}}</h2>
+        {{#if intro}}<p class="b-aside" data-field="intro">{{nl2br intro}}</p>{{/if}}
+      </header>
+      {{#each courses}}
+      <div class="stack b-course" data-field="courses.{{@index}}">
+        <h3 class="b-caps b-rule">{{name}}</h3>
+        <ul class="stack b-dishes" role="list">
+          {{#each dishes}}
+          <li data-field="courses.{{@../index}}.dishes.{{@index}}">
+            <p class="b-line"><span class="b-dish">{{name}}</span><span>{{price}}</span></p>
+            {{#if description}}<p class="b-aside">{{nl2br description}}</p>{{/if}}
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+      {{/each}}
+      {{#if note}}<p class="b-aside b-note" data-field="note">{{nl2br note}}</p>{{/if}}
+      {{#if button.label}}<a class="btn btn-{{button.variant}} b-book" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>{{/if}}
+    </article>
+  </div>
+</section>

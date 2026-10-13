@@ -1,0 +1,96 @@
+{
+  "name": "Features, seals",
+  "category": "features",
+  "description": "Three centred features, each under a circular seal made of a double ring around an icon.",
+  "tags": ["features", "seal", "emblem", "guarantee", "promise", "three", "centred", "elegant"],
+  "fieldGroups": ["Heading", "Seals"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Our word",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three promises that come with every repair",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Morel & Daughter have repaired mechanical watches at the same bench on Rue des Granges since 1958.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Seals",
+      "type": "list",
+      "group": "Seals",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "award"
+        },
+        {
+          "name": "label",
+          "label": "Small label",
+          "type": "text",
+          "default": "In writing",
+          "maxLength": 20
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "A written estimate",
+          "required": true,
+          "maxLength": 50
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "Say what you promise and how a customer can hold you to it."
+        }
+      ],
+      "default": [
+        {
+          "icon": "eye",
+          "label": "At the bench",
+          "name": "Opened only by a watchmaker",
+          "text": "Every case is opened by Claire or Henri Morel in the shop, and never sent away to a service centre."
+        },
+        {
+          "icon": "shield",
+          "label": "24 months",
+          "name": "Guaranteed for two years",
+          "text": "Each overhaul is timed for ten days in five positions before it leaves, then guaranteed for two years."
+        },
+        {
+          "icon": "hourglass",
+          "label": "Nothing hidden",
+          "name": "Returned with its old parts",
+          "text": "Worn springs and gaskets come back to you in a paper envelope, labelled by hand."
+        }
+      ]
+    }
+  ]
+}

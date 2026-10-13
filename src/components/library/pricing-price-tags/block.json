@@ -1,0 +1,128 @@
+{
+  "name": "Pricing, price tags",
+  "category": "pricing",
+  "description": "Services as hanging paper price tags with a punched hole, a string and a large price, each tilted differently.",
+  "tags": ["pricing", "price tag", "label", "hanging", "services", "shop", "playful"],
+  "fieldGroups": ["Heading", "Tags"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Workshop prices",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Pick a tag, drop off your bike, ride home tomorrow",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every service at Kettle Street Cycles ends with a wash and a test ride. Parts are extra, and we always call before fitting anything.",
+      "group": "Heading"
+    },
+    {
+      "name": "tags",
+      "label": "Price tags",
+      "type": "list",
+      "group": "Tags",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Puncture repair"
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$15"
+        },
+        {
+          "name": "period",
+          "label": "Small print under the price",
+          "type": "text",
+          "default": "while you wait"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "New inner tube fitted and the tyre checked for glass."
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Book a slot",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "Safety check",
+          "price": "$25",
+          "period": "about 30 minutes",
+          "description": "Brakes, gears, tyres and every bolt checked and adjusted while you wait.",
+          "button": {
+            "label": "Book a check",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        {
+          "name": "Full tune-up",
+          "price": "$85",
+          "period": "ready next day",
+          "description": "Wheels trued, gears and brakes reset, drivetrain degreased and cables oiled.",
+          "button": {
+            "label": "Book a tune-up",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "name": "Winter overhaul",
+          "price": "$160",
+          "period": "allow three days",
+          "description": "Stripped to the frame, bearings regreased, new cables and a full rebuild.",
+          "button": {
+            "label": "Book an overhaul",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ]
+    }
+  ]
+}

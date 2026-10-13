@@ -28,4 +28,37 @@
     font: inherit;
     font-size: var(--ve-input-text);
   }
+
+  .ui-search input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .ui-search-clear {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    margin-inline-end: calc(var(--ve-space-2) * -1);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .ui-search-clear:hover {
+    background: color-mix(in oklab, currentColor 12%, transparent);
+    color: var(--ve-text);
+  }
+
+  .ui-search-clear:focus-visible {
+    outline: 2px solid var(--ve-accent);
+  }
+
+  .ui-search-clear .ve-icon {
+    width: 14px;
+    height: 14px;
+  }
 }

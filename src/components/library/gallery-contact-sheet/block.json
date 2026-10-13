@@ -1,0 +1,227 @@
+{
+  "name": "Gallery, contact sheet",
+  "category": "gallery",
+  "description": "A dark photographer’s contact sheet: numbered frames in thin borders, with one frame circled as the pick.",
+  "tags": [
+    "gallery",
+    "photos",
+    "contact sheet",
+    "film",
+    "photographer",
+    "dark",
+    "proofs",
+    "elegant"
+  ],
+  "fieldGroups": ["Heading", "Sheet", "Frames"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Proofs before the edit",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "The Hartley wedding, straight off the roll",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Every couple gets their contact sheets within a week. Circle the frames you love and Ida prints those by hand in the darkroom on Mill Lane.",
+      "group": "Heading"
+    },
+    {
+      "name": "roll",
+      "label": "Roll label",
+      "type": "text",
+      "default": "Roll 14 of 22 / HP5 pushed to 800 / Ashby Hall, 6 Sept",
+      "group": "Sheet"
+    },
+    {
+      "name": "pickLabel",
+      "label": "Note on the picked frame",
+      "type": "text",
+      "default": "print this one",
+      "maxLength": 24,
+      "group": "Sheet"
+    },
+    {
+      "name": "items",
+      "label": "Frames",
+      "type": "list",
+      "group": "Frames",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "note",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "note",
+          "label": "Note",
+          "type": "text",
+          "default": "candid",
+          "maxLength": 24
+        },
+        {
+          "name": "pick",
+          "label": "Circle this frame",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Guests arriving under umbrellas on a gravel drive",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "note": "arrivals",
+          "pick": false
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Two wedding rings resting on an open hymn book",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "note": "the rings",
+          "pick": false
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The groom turning to see the bride at the end of the aisle",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "note": "first look",
+          "pick": false
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A flower girl asleep on a church pew",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "note": "pew nap",
+          "pick": false
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The couple laughing as confetti falls outside the hall",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "note": "confetti",
+          "pick": false
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The couple walking alone across a wet lawn at dusk",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "note": "the lawn",
+          "pick": true
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "The best man reading from crumpled notes while guests laugh",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "note": "speeches",
+          "pick": false
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Guests holding sparklers in a line outside Ashby Hall",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "note": "sparklers",
+          "pick": false
+        }
+      ]
+    }
+  ]
+}

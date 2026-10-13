@@ -1,0 +1,73 @@
+@layer components {
+  @scope (.b-gallery-portholes) {
+    :scope {
+      --section-bg: color-mix(in oklab, var(--color-primary) 6%, var(--color-surface));
+    }
+
+    .b-inner {
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      max-width: 38rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro,
+    .b-caption {
+      color: var(--color-text-muted);
+    }
+
+    .b-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-8) var(--space-6);
+    }
+
+    .b-item {
+      flex: 1 1 7rem;
+      max-width: 12rem;
+    }
+
+    .b-item:nth-child(even) {
+      margin-block-start: var(--space-8);
+    }
+
+    .b-item:nth-child(3n) {
+      flex-grow: 1.5;
+      max-width: 15rem;
+    }
+
+    .b-photo {
+      --media-ratio: 1;
+      --media-radius: 50%;
+      border: var(--space-2) solid var(--color-background);
+      outline: var(--border-width) solid var(--color-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .b-caption {
+      display: grid;
+      gap: var(--space-1);
+      margin-block-start: var(--space-4);
+      font-size: var(--text-sm);
+      text-align: center;
+    }
+
+    .b-name {
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      line-height: var(--line-height-tight);
+      color: var(--color-text);
+    }
+
+    @media (min-width: 768px) {
+      .b-row {
+        background: linear-gradient(var(--color-text-muted) 0 0) 0 5rem / 100% var(--border-width)
+          no-repeat;
+      }
+    }
+  }
+}

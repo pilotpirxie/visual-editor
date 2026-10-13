@@ -1,0 +1,188 @@
+{
+  "name": "Blog posts, zine",
+  "category": "blog",
+  "description": "A cut-and-paste zine page: photocopied images, titles on rotated highlighted strips, thick borders and hard shadows.",
+  "tags": ["blog", "posts", "articles", "zine", "collage", "cut and paste", "punk", "playful"],
+  "fieldGroups": ["Heading", "Posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "issue",
+      "label": "Issue number",
+      "type": "text",
+      "default": "Issue 14 / October 2026",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Dead Wax, the Sidewinder Records zine",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Photocopied on the shop's dying Canon and stapled by hand. Free with any purchase, or read it here.",
+      "group": "Heading"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Cover image",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "New in the racks this week"
+        },
+        {
+          "name": "excerpt",
+          "label": "Excerpt",
+          "type": "textarea",
+          "default": "Two sentences on what this piece is about."
+        },
+        {
+          "name": "author",
+          "label": "Author",
+          "type": "text",
+          "default": "Noor"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Crates of seven-inch singles stacked in a garage",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "We found 400 unplayed 45s in a Leeds garage",
+          "excerpt": "A retired jukebox engineer, eleven crates and one very long Saturday. Here is what went in the racks.",
+          "author": "Noor",
+          "date": "2026-10-03",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A record being wiped with a soft cloth",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Clean a charity shop record without ruining it",
+          "excerpt": "Distilled water, one drop of washing-up liquid and the cloth you already own. Put the wood glue down.",
+          "author": "Callum",
+          "date": "2026-09-26",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A band squeezed into the corner of the shop for an in-store set",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "Five local bands who still press vinyl",
+          "excerpt": "All under 300 copies, all recorded within two miles of the shop, all on the wall by the till.",
+          "author": "Noor",
+          "date": "2026-09-18",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A worn LP sleeve with a price sticker half peeled off",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "title": "In defence of the scratched copy",
+          "excerpt": "Jas on why the crackle on his Alice Coltrane LP is part of the arrangement now.",
+          "author": "Jas",
+          "date": "2026-09-09",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

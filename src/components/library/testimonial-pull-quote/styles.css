@@ -1,0 +1,75 @@
+@layer components {
+  @scope (.b-testimonial-pull-quote) {
+    .b-inner {
+      --container-max-width: 60rem;
+    }
+
+    .b-figure {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-quote {
+      position: relative;
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-style: italic;
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-quote::before {
+      content: '“';
+      display: block;
+      height: 0.5em;
+      margin-block-end: var(--space-3);
+      color: var(--color-primary);
+      font-size: 9rem;
+      font-style: normal;
+      line-height: 1;
+    }
+
+    .b-credit {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-1) var(--space-6);
+      padding-block-start: var(--space-4);
+      border-block-start: var(--border-width) solid var(--color-text);
+      font-variant-caps: all-small-caps;
+      letter-spacing: 0.12em;
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-figure {
+        gap: var(--space-12);
+        padding-inline-start: calc(var(--space-16) + var(--space-12));
+      }
+
+      .b-quote {
+        font-size: var(--text-3xl);
+      }
+
+      .b-quote::before {
+        position: absolute;
+        inset: 0 100% auto auto;
+        margin-inline-end: var(--space-4);
+        font-size: 12rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-quote {
+        font-size: var(--text-4xl);
+      }
+    }
+  }
+}

@@ -1,98 +1,70 @@
-import { useId, useState, type JSX } from 'react';
-import { readAppSettings, updateAppSettings, useAppSettings } from '../../app/appSettings';
-import { describeError } from '../../app/errors';
+import { useId, type JSX } from 'react';
+import { updateAppSettings, useAppSettings } from '../../app/appSettings';
 import { useStore } from '../../app/store';
-import { PublishError, publishToNetlify } from './netlify';
+import { publishedSiteOf, publishTokenChange, publishTokenOf, type PublishHost } from './hosts';
 import { Button, Field, TextInput } from '../../../packages/ui/src';
 import './publish.css';
 
-type PublishStatus =
-  | { kind: 'idle' }
-  | { kind: 'publishing' }
-  | { kind: 'live' }
-  | { kind: 'failed'; message: string };
+type HostText = { name: string; tokenLabel: string; note: string };
 
-function forgetSite(projectId: string): void {
-  const { [projectId]: forgotten, ...others } = readAppSettings().publishedSites;
-  if (forgotten !== undefined) updateAppSettings({ publishedSites: others });
-}
+const HOST_TEXT: Record<PublishHost, HostText> = {
+  netlify: {
+    name: 'Netlify',
+    tokenLabel: 'Netlify access token',
+    note: 'Make a token in Netlify under User settings, Applications, Personal access tokens. It is kept in this browser and sent only to netlify.com. It is never saved in projects or exported sites.',
+  },
+  github: {
+    name: 'GitHub Pages',
+    tokenLabel: 'GitHub access token',
+    note: 'Make a classic token on GitHub under Settings, Developer settings, Personal access tokens, with the repo scope. It is kept in this browser and sent only to github.com. It is never saved in projects or exported sites. The site goes into a new public repository in your account.',
+  },
+};
 
-export function PublishPanel({ zip }: { zip: Blob }): JSX.Element {
+type PublishPanelProps = { host: PublishHost; error: string | null };
+
+export function PublishPanel({ host, error }: PublishPanelProps): JSX.Element {
   const id = useId();
   const projectId = useStore((state) => state.project.id);
-  const { netlifyToken, publishedSites } = useAppSettings();
-  const [status, setStatus] = useState<PublishStatus>({ kind: 'idle' });
-  const published = publishedSites[projectId];
-  const token = netlifyToken.trim();
-
-  async function publish(): Promise<void> {
-    setStatus({ kind: 'publishing' });
-    try {
-      const site = await publishToNetlify(zip, token, published?.siteId ?? null);
-      const sites = { ...readAppSettings().publishedSites, [projectId]: site };
-      updateAppSettings({ publishedSites: sites });
-      setStatus({ kind: 'live' });
-    } catch (error) {
-      console.error('Publishing to Netlify failed', error);
-      const isSiteGone = error instanceof PublishError && error.problem === 'missing-site';
-      if (isSiteGone) forgetSite(projectId);
-      const advice = isSiteGone ? ' Publish again to make a new site.' : '';
-      setStatus({ kind: 'failed', message: `${describeError(error)}${advice}` });
-    }
-  }
+  const settings = useAppSettings();
+  const text = HOST_TEXT[host];
+  const token = publishTokenOf(host, settings);
+  const published = publishedSiteOf(host, settings, projectId);
 
   return (
-    <section className="ve-publish" aria-labelledby={`${id}-title`}>
-      <h3 id={`${id}-title`} className="ve-publish-title">
-        Publish online
-      </h3>
-      {published !== undefined && (
+    <section className="ve-publish" aria-label={`${text.name} details`}>
+      {published !== null && (
         <p>
-          Your site is live at{' '}
+          Your site's address is{' '}
           <a href={published.url} target="_blank" rel="noopener noreferrer">
             {published.url}
           </a>
         </p>
       )}
-      <Field id={`${id}-token`} label="Netlify access token">
+      <Field id={`${id}-token`} label={text.tokenLabel}>
         <div className="ve-publish-token">
           <TextInput
             id={`${id}-token`}
             type="password"
-            value={netlifyToken}
+            value={token}
             autoComplete="off"
             spellCheck={false}
             aria-describedby={`${id}-note`}
-            onChange={(event) => updateAppSettings({ netlifyToken: event.target.value })}
+            onChange={(event) => updateAppSettings(publishTokenChange(host, event.target.value))}
           />
           <Button
-            disabled={netlifyToken === ''}
-            onClick={() => updateAppSettings({ netlifyToken: '' })}
+            disabled={token === ''}
+            onClick={() => updateAppSettings(publishTokenChange(host, ''))}
           >
             Remove
           </Button>
         </div>
       </Field>
       <p id={`${id}-note`} className="ui-muted">
-        Make a token in Netlify under User settings, Applications, Personal access tokens. It is
-        kept in this browser and sent only to netlify.com. It is never saved in projects or exported
-        sites.
+        {text.note}
       </p>
-      <div className="ve-publish-actions">
-        <Button
-          disabled={token === '' || status.kind === 'publishing'}
-          onClick={() => void publish()}
-        >
-          {published === undefined ? 'Publish to Netlify' : 'Publish changes'}
-        </Button>
-        <span role="status">
-          {status.kind === 'publishing' && 'Publishing…'}
-          {status.kind === 'live' && 'Published. It can take a minute to show everywhere.'}
-        </span>
-      </div>
-      {status.kind === 'failed' && (
+      {error !== null && (
         <p className="ui-field-error" role="alert">
-          {status.message}
+          {error}
         </p>
       )}
     </section>

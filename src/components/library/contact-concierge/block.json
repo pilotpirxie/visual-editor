@@ -1,0 +1,61 @@
+{
+  "name": "Contact, concierge",
+  "category": "contacts",
+  "description": "One short line and the email address as a very large italic underlined link, with the phone, desk hours and address in a small row beneath.",
+  "tags": ["contact", "email", "concierge", "hotel", "elegant", "minimal", "large type"],
+  "fieldGroups": ["Heading", "Details"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "icon",
+      "label": "Icon",
+      "type": "icon",
+      "default": "bell",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Write to us",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "default": "stay@marlowe.example",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "note",
+      "label": "Note",
+      "type": "textarea",
+      "default": "Ines or Daniel at the front desk will answer personally, usually within the hour.",
+      "group": "Heading"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "default": "+1 207 555 0148",
+      "group": "Details"
+    },
+    {
+      "name": "hours",
+      "label": "Hours",
+      "type": "text",
+      "default": "Front desk 7:00 to 23:00",
+      "group": "Details"
+    },
+    {
+      "name": "address",
+      "label": "Address",
+      "type": "text",
+      "default": "62 Danforth Street, Portland, Maine",
+      "group": "Details"
+    }
+  ]
+}

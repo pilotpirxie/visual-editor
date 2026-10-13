@@ -138,7 +138,7 @@ export function EditorShell(): JSX.Element {
       </PanelBoundary>
       {isPreview && !isReadOnly && (
         <div className="ve-preview-exit">
-          <PreviewButton isDisabled={false} />
+          <PreviewButton isDisabled={false} isProminent />
         </div>
       )}
       <PanelBoundary name="library panel" className="ve-panel ve-library">

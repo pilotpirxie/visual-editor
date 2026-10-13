@@ -1,0 +1,156 @@
+{
+  "name": "Features, explorer",
+  "category": "features",
+  "description": "Features as a list of choices beside a panel that shows the chosen one with its screenshot and text. On phones every feature shows in full under its name.",
+  "tags": ["features", "explorer", "picker", "interactive", "screenshots", "product tour", "smart"],
+  "fieldGroups": ["Heading", "Features"],
+  "styleOverrides": [
+    "--color-background",
+    "--color-text",
+    "--color-primary",
+    "--section-padding-y"
+  ],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "A closer look",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Next week's rota, done before the kettle boils",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Larder is rota software for cafés, bars and restaurants with five to fifty staff. Pick a feature to see it.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Features",
+      "type": "list",
+      "group": "Features",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "bell"
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "default": "Shift reminders",
+          "required": true,
+          "maxLength": 40
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "A text message goes out the evening before every shift."
+        },
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A screenshot of the feature",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "screenshot"
+            }
+          }
+        }
+      ],
+      "default": [
+        {
+          "icon": "calendar",
+          "name": "Drag-and-drop rota",
+          "text": "Build the week by dragging shifts onto names. Larder warns you about clashes, short rests and anyone creeping past 48 hours.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A weekly rota with colour-coded shifts for nine members of staff",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "screenshot"
+            }
+          }
+        },
+        {
+          "icon": "repeat",
+          "name": "Shift swaps",
+          "text": "Someone offers a shift from their phone, a colleague picks it up and you approve it with one tap. No more group chat at midnight.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A phone showing a shift swap waiting for approval",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "screenshot"
+            }
+          }
+        },
+        {
+          "icon": "clock",
+          "name": "Clock in at the till",
+          "text": "A four digit code at the start and end of each shift. Hours go straight to the timesheet, rounded the way your contracts say.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A tablet beside the till showing a clock-in keypad",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "screenshot"
+            }
+          }
+        },
+        {
+          "icon": "dollar",
+          "name": "Payroll export",
+          "text": "On the last Friday of the month, send approved hours, holiday and tips to Xero, Sage or a plain spreadsheet.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A payroll summary with hours and tips for each person",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "screenshot"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

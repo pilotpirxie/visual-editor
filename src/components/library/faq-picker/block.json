@@ -1,0 +1,81 @@
+{
+  "name": "FAQ, question picker",
+  "category": "faq",
+  "description": "A list of questions to choose from on one side and the chosen answer in a panel beside it. On phones the answer shows under its question.",
+  "tags": ["faq", "questions", "picker", "master detail", "side panel", "vertical tabs", "smart"],
+  "fieldGroups": ["Heading", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Dog owners ask",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Pick a question",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Choose what you want to know and read only that answer, straight from the team at Muddy Paws Daycare in Stockport.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 2,
+      "maxItems": 12,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "Do you take puppies?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "richtext",
+          "default": "<p>From 16 weeks, once their second vaccinations are done. Puppies have their own room and shorter play sessions.</p>"
+        }
+      ],
+      "default": [
+        {
+          "question": "What does a day look like?",
+          "answer": "<p>Drop-off is from 7.30 am. The dogs play in groups of eight, matched by size and energy, with a field walk at 11 and a quiet hour after lunch.</p><p>We send you a photo by 2 pm, and pick-up runs until 6.30 pm.</p>"
+        },
+        {
+          "question": "Does my dog need a trial day?",
+          "answer": "<p>Yes. Every dog starts with a free half day so we can see how they settle and which group suits them. About one dog in ten needs a second, shorter visit first.</p>"
+        },
+        {
+          "question": "Which vaccinations do you ask for?",
+          "answer": "<p>Up-to-date boosters and a kennel cough vaccine given at least two weeks before the first day. Bring the record card to the trial day and we keep a copy.</p>"
+        },
+        {
+          "question": "What does it cost?",
+          "answer": "<p>A full day is £32 and a half day is £20. A ten-day pass is £290 and never expires. A second dog from the same home gets 20% off.</p>"
+        },
+        {
+          "question": "Can you collect my dog?",
+          "answer": "<p>Our van collects within three miles of the centre for £5 each way. Morning pick-ups run from 7 to 8.30 am.</p>"
+        },
+        {
+          "question": "What if my dog is unwell?",
+          "answer": "<p>We call you straight away and move them to the quiet room. If it is urgent, we take them to Brook Lane Vets next door and stay until you arrive.</p>"
+        }
+      ]
+    }
+  ]
+}

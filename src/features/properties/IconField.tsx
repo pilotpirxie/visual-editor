@@ -12,7 +12,7 @@ import {
 import { allowedIconSets } from '../icons/iconSets';
 import { isIconSetLoaded, loadIconSet } from '../icons/loadIconSet';
 import type { ControlProps } from './FieldControl';
-import { Icon } from '../../../packages/ui/src';
+import { SearchInput } from '../../../packages/ui/src';
 import { cachedByText } from '../../render/textCache';
 
 const MAX_RESULTS = 96;
@@ -140,22 +140,17 @@ type IconSearchProps = { query: string; onQuery(query: string): void; onClose():
 
 function IconSearch({ query, onQuery, onClose }: IconSearchProps): JSX.Element {
   return (
-    <label className="ui-search">
-      <Icon name="search" />
-      <input
-        type="search"
-        placeholder="Search icons"
-        aria-label="Search icons"
-        value={query}
-        autoFocus
-        onChange={(event) => onQuery(event.target.value)}
-        onKeyDown={(event) => {
-          if (event.key !== 'Escape') return;
-          event.preventDefault();
-          onClose();
-        }}
-      />
-    </label>
+    <SearchInput
+      label="Search icons"
+      value={query}
+      autoFocus
+      onQuery={onQuery}
+      onKeyDown={(event) => {
+        if (event.key !== 'Escape') return;
+        event.preventDefault();
+        onClose();
+      }}
+    />
   );
 }
 

@@ -1,0 +1,81 @@
+@layer components {
+  @scope (.b-steps-diagonal) {
+    :scope {
+      --color-background: var(--theme-dark-background);
+      --color-surface: var(--theme-dark-surface);
+      --color-text: var(--theme-dark-text);
+      --color-text-muted: var(--theme-dark-text-muted);
+      --color-primary: var(--theme-dark-accent);
+    }
+
+    .b-inner {
+      --stack-gap: var(--space-16);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      max-width: 40rem;
+    }
+
+    .b-intro,
+    h3 + p {
+      color: var(--color-text-muted);
+    }
+
+    .b-cascade {
+      display: grid;
+      gap: var(--space-12);
+      counter-reset: step;
+    }
+
+    li {
+      --num: calc(var(--text-5xl) * 1.5);
+      position: relative;
+      padding: calc(var(--num) / 2 + var(--space-3)) var(--space-6) var(--space-6);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      counter-increment: step;
+    }
+
+    li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      inset: -0.5em auto auto var(--space-4);
+      color: var(--color-primary);
+      font: var(--font-weight-heading) var(--num) / 1 var(--font-heading);
+      rotate: -4deg;
+    }
+
+    h3 + p {
+      margin-block: var(--space-2) var(--space-4);
+    }
+
+    .b-time {
+      color: var(--color-primary);
+      font: var(--font-weight-bold) var(--text-xs) var(--font-mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 768px) {
+      li {
+        width: min(100%, 26rem);
+        margin-inline-start: calc(var(--i) / (var(--n) - 1) * (100% - 26rem));
+      }
+
+      li + li {
+        margin-block-start: calc(var(--space-8) * -1);
+      }
+
+      li::before {
+        rotate: -8deg;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      li {
+        --num: calc(var(--text-5xl) * 2);
+      }
+    }
+  }
+}

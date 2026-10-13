@@ -1,0 +1,81 @@
+{
+  "name": "FAQ, sticky notes",
+  "category": "faq",
+  "description": "Questions as tilted, taped sticky notes on a pinboard. Opening a note shows the answer on it.",
+  "tags": ["faq", "questions", "sticky notes", "pinboard", "noticeboard", "playful", "tilted"],
+  "fieldGroups": ["Heading", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Studio noticeboard",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Everything people ask before their first class",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "We pinned the answers by the kiln room door. Here is the same board, minus the clay dust.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Notes",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "Can I book a private session?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "textarea",
+          "default": "Yes. Email the studio and we will find a time that suits you."
+        }
+      ],
+      "default": [
+        {
+          "question": "Do I need any experience?",
+          "answer": "None. Most people who walk in have not touched clay since school. Week one starts with a pinch pot, not the wheel."
+        },
+        {
+          "question": "What should I wear?",
+          "answer": "Clothes you would garden in, and short nails if you want to throw. We lend aprons. Clay washes out, glaze sometimes does not."
+        },
+        {
+          "question": "When do I get my pots back?",
+          "answer": "About three weeks after you make them. They dry for a week and are fired twice. We email you when they reach the pick-up shelf."
+        },
+        {
+          "question": "Can I bring my kids?",
+          "answer": "Saturday family sessions welcome ages 6 and up with an adult. Evening courses are for ages 16 and over."
+        },
+        {
+          "question": "What if I miss a week?",
+          "answer": "Tell us by noon the day before and you can sit in on another group that week, or use a free practice slot on Sunday."
+        },
+        {
+          "question": "Are the glazes food safe?",
+          "answer": "Yes. Every glaze on the studio shelf is lead-free and fired to 1,240 °C, so your mugs can go in the dishwasher."
+        }
+      ]
+    }
+  ]
+}

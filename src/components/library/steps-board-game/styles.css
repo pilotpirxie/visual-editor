@@ -1,0 +1,100 @@
+@layer components {
+  @scope (.b-steps-board-game) {
+    .b-track {
+      display: grid;
+      gap: var(--space-6);
+      margin-block-start: var(--space-8);
+      counter-reset: step;
+    }
+
+    li {
+      position: relative;
+      width: 84%;
+      padding: var(--space-4);
+      border: 3px solid var(--color-text);
+      border-radius: var(--radius-md);
+    }
+
+    li:nth-child(even) {
+      --x: 40%;
+      margin-inline-start: 16%;
+      background: color-mix(in oklab, var(--color-primary) 14%, var(--color-background));
+    }
+
+    li + li::before {
+      content: '';
+      position: absolute;
+      inset: var(--at, auto auto 100% var(--x, 60%));
+      width: var(--space-6);
+      border-block-start: 3px dashed var(--color-text);
+      transform-origin: 0;
+      rotate: var(--rot, -90deg);
+    }
+
+    h3::before {
+      content: counter(step);
+      display: block;
+      color: var(--color-primary);
+      font-size: var(--text-3xl);
+      counter-increment: step;
+    }
+
+    li.b-end {
+      display: grid;
+      place-items: center;
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      font-size: var(--text-xl);
+    }
+
+    li.b-finish {
+      background: var(--color-text);
+      color: var(--color-background);
+    }
+
+    .b-token {
+      position: absolute;
+      inset: -1rem -1rem auto auto;
+      display: flex;
+      padding: var(--space-2);
+      border: 3px solid;
+      border-radius: var(--radius-full);
+      background: inherit;
+      box-shadow: 0 5px var(--color-text);
+    }
+
+    @media (min-width: 768px) {
+      .b-track {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-auto-flow: dense;
+      }
+
+      li:nth-child(n) {
+        --at: 50% 100% auto auto;
+        --rot: 0deg;
+        width: auto;
+        margin: 0;
+        aspect-ratio: 2;
+      }
+
+      li:nth-child(6n + 4) {
+        grid-column: 3;
+      }
+
+      li:nth-child(6n + 5) {
+        --at: 50% auto auto 100%;
+        grid-column: 2;
+      }
+
+      li:nth-child(6n) {
+        --at: 50% auto auto 100%;
+        grid-column: 1;
+      }
+
+      li:nth-child(3n + 1) {
+        --at: auto auto 100% 50%;
+        --rot: -90deg;
+      }
+    }
+  }
+}

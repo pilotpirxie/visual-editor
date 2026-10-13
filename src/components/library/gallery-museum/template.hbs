@@ -1,0 +1,25 @@
+<section class="b-gallery-museum section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-wall" role="list">
+      {{#each items}}
+      <li class="b-work" data-field="items.{{@index}}">
+        <figure class="b-figure" style="--w: {{image.width}}; --h: {{image.height}}">
+          <div class="b-frame">
+            <div class="media b-photo">{{img image}}</div>
+          </div>
+          <figcaption class="b-label">
+            <span class="b-title">{{title}}</span>
+            {{#if medium}}<span>{{medium}}</span>{{/if}}
+            {{#if year}}<span>{{year}}</span>{{/if}}
+          </figcaption>
+        </figure>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

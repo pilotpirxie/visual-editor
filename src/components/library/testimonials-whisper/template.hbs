@@ -1,0 +1,21 @@
+<section class="b-testimonials-whisper section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 class="b-title" data-field="title">{{title}}</h2>
+    </header>
+    <ul class="b-sky" role="list">
+      {{#each items}}
+      <li class="b-whisper" data-field="items.{{@index}}">
+        <figure class="stack b-figure">
+          <blockquote class="b-quote"><p>{{nl2br quote}}</p></blockquote>
+          <figcaption class="b-person">
+            <span class="media b-face">{{img photo}}</span>
+            <span>{{name}}{{#if role}}, {{role}}{{/if}}</span>
+          </figcaption>
+        </figure>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,56 @@
+{
+  "name": "Rich text, with a side note",
+  "category": "rich-text",
+  "description": "An article with a soft tinted note box that floats beside the text on desktop and sits above it on phones.",
+  "tags": ["article", "guide", "side note", "tip", "good to know", "float", "text", "calm"],
+  "fieldGroups": ["Heading", "Note", "Article"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Planting guide",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How to plant a bare-root tree",
+      "required": true,
+      "maxLength": 140,
+      "group": "Heading"
+    },
+    {
+      "name": "noteIcon",
+      "label": "Note icon",
+      "type": "icon",
+      "default": "lightbulb",
+      "group": "Note"
+    },
+    {
+      "name": "noteTitle",
+      "label": "Note title",
+      "type": "text",
+      "default": "Good to know",
+      "required": true,
+      "group": "Note"
+    },
+    {
+      "name": "note",
+      "label": "Note text",
+      "type": "richtext",
+      "default": "<ul><li>Bare-root season runs from November to March.</li><li>We lift trees on Tuesdays. Order by Sunday to collect the same week.</li><li>Every tree comes with a stake, a tie and a two-year guarantee.</li></ul>",
+      "group": "Note"
+    },
+    {
+      "name": "body",
+      "label": "Article",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<p>A bare-root tree arrives looking like a stick with a handful of roots, and it is hard to believe it will grow. It will. Trees planted this way in winter settle faster than potted ones, cost about half as much and are far easier to carry home on the bus.</p><h2>Before you dig</h2><p>Unwrap the roots as soon as you get home and stand them in a bucket of water for an hour, no longer. If you cannot plant the same day, lay the tree in a shallow trench and cover the roots with damp soil. They must never dry out.</p><h2>Planting</h2><p>Dig a hole twice as wide as the roots and no deeper than they are. Spread the roots out, hold the tree so the darker soil mark on the trunk sits level with the ground, and fill in with the earth you took out. Do not add compost. A tree that finds rich soil in its hole has no reason to grow beyond it.</p><ul><li>Firm the soil with your heel, working from the outside in.</li><li>Drive the stake in on the windward side, a hand's width from the trunk.</li><li>Water with a full can, even if it is raining.</li></ul><h2>The first year</h2><p>Keep a circle of bare soil about a metre across around the trunk and mulch it every spring. Water once a week from April to September, a full can each time. That is all. Most of the trees we replace under guarantee were not neglected. They were planted too deep.</p>",
+      "group": "Article"
+    }
+  ]
+}

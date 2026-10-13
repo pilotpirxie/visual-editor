@@ -1,0 +1,125 @@
+{
+  "name": "Contact, directory",
+  "category": "contacts",
+  "description": "A directory table with a topic, person, email and phone in hairline rows; on phones each row becomes a stacked card.",
+  "tags": ["contact", "directory", "table", "departments", "people", "email", "phone", "elegant"],
+  "fieldGroups": ["Heading", "Columns", "Rows"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Directory",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Who to write to",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Larkspur Press is eleven people in a former print works in Glasgow. Go straight to whoever looks after your question.",
+      "group": "Heading"
+    },
+    {
+      "name": "topicHeader",
+      "label": "Topic column",
+      "type": "text",
+      "default": "Regarding",
+      "required": true,
+      "group": "Columns"
+    },
+    {
+      "name": "personHeader",
+      "label": "Person column",
+      "type": "text",
+      "default": "Ask for",
+      "required": true,
+      "group": "Columns"
+    },
+    {
+      "name": "emailHeader",
+      "label": "Email column",
+      "type": "text",
+      "default": "Email",
+      "required": true,
+      "group": "Columns"
+    },
+    {
+      "name": "phoneHeader",
+      "label": "Phone column",
+      "type": "text",
+      "default": "Telephone",
+      "required": true,
+      "group": "Columns"
+    },
+    {
+      "name": "rows",
+      "label": "Rows",
+      "type": "list",
+      "group": "Rows",
+      "minItems": 1,
+      "maxItems": 12,
+      "itemLabel": "topic",
+      "itemFields": [
+        {
+          "name": "topic",
+          "label": "Topic",
+          "type": "text",
+          "default": "Events and readings"
+        },
+        {
+          "name": "person",
+          "label": "Person",
+          "type": "text",
+          "default": "Noor Rahman"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "text",
+          "default": "events@larkspur.example"
+        },
+        {
+          "name": "phone",
+          "label": "Phone",
+          "type": "text",
+          "default": "+44 141 496 0100"
+        }
+      ],
+      "default": [
+        {
+          "topic": "Rights and translations",
+          "person": "Helena Brandt",
+          "email": "rights@larkspur.example",
+          "phone": "+44 141 496 0114"
+        },
+        {
+          "topic": "Press and review copies",
+          "person": "Idris Okonkwo",
+          "email": "press@larkspur.example",
+          "phone": "+44 141 496 0127"
+        },
+        {
+          "topic": "Bookshop orders",
+          "person": "Maeve Donnelly",
+          "email": "trade@larkspur.example",
+          "phone": "+44 141 496 0133"
+        },
+        {
+          "topic": "Manuscripts",
+          "person": "Tom Avery",
+          "email": "submissions@larkspur.example",
+          "phone": "+44 141 496 0140"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+<section class="b-richtext-letterhead section">
+  <div class="container">
+    <article class="b-sheet">
+      <header class="b-letterhead">
+        <p class="b-firm">{{site.title}}</p>
+        {{#if address}}<address class="b-address" data-field="address">{{address}}</address>{{/if}}
+      </header>
+      {{#if date}}<p class="b-date"><time datetime="{{date}}" data-field="date">{{formatDate date}}</time></p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if greeting}}<p class="b-greeting" data-field="greeting">{{greeting}}</p>{{/if}}
+      <div class="prose b-body" data-field="body">{{richText body headings=true}}</div>
+      <div class="b-signoff">
+        {{#if closing}}<p data-field="closing">{{closing}}</p>{{/if}}
+        <p class="b-signature" aria-hidden="true">{{name}}</p>
+        <p class="b-name" data-field="name">{{name}}</p>
+        {{#if role}}<p class="b-role" data-field="role">{{role}}</p>{{/if}}
+      </div>
+    </article>
+  </div>
+</section>

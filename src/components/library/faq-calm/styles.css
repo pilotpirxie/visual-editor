@@ -1,0 +1,80 @@
+@layer components {
+  @scope (.b-faq-calm) {
+    .b-inner {
+      --container-max-width: 46rem;
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head,
+    .b-foot {
+      --stack-gap: var(--space-4);
+      align-items: center;
+      text-align: center;
+    }
+
+    .b-head h2 {
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-intro,
+    .b-answer,
+    .b-icon,
+    .b-note {
+      color: var(--color-text-muted);
+    }
+
+    .b-item {
+      padding-inline: var(--space-4);
+      border-radius: var(--radius-lg);
+    }
+
+    .b-item[open] {
+      background: color-mix(in oklab, var(--color-primary) 8%, transparent);
+    }
+
+    .b-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-block: var(--space-6);
+      font: var(--font-weight-regular) var(--text-2xl) / var(--line-height-tight)
+        var(--font-heading);
+      list-style: none;
+      overflow-wrap: anywhere;
+      cursor: pointer;
+    }
+
+    .b-question::-webkit-details-marker {
+      display: none;
+    }
+
+    .b-icon {
+      flex: none;
+    }
+
+    [open] .b-icon {
+      rotate: 180deg;
+    }
+
+    .b-answer {
+      padding-block-end: var(--space-8);
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 768px) {
+      .b-item {
+        padding-inline: var(--space-8);
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-item,
+      .b-icon {
+        transition:
+          background-color var(--transition-normal),
+          rotate var(--transition-normal);
+      }
+    }
+  }
+}

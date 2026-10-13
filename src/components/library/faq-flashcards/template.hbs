@@ -1,0 +1,17 @@
+<section class="b-faq-flashcards section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="b-deck">
+      {{#each items}}
+      <details class="b-flash" name="{{../block.id}}" data-field="items.{{@index}}" {{#if @first}}open{{/if}}>
+        <summary class="b-side b-question"><span class="b-mark" aria-hidden="true">Q</span><span>{{question}}</span><span class="b-flip">{{svgIcon "refresh"}}</span></summary>
+        <div class="b-side b-answer"><span class="b-mark" aria-hidden="true">A</span><p>{{nl2br answer}}</p></div>
+      </details>
+      {{/each}}
+    </div>
+  </div>
+</section>

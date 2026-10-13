@@ -1,0 +1,86 @@
+{
+  "name": "How it works, ticket stubs",
+  "category": "how-it-works",
+  "description": "Each step is a torn ticket stub with a perforated edge and a big number, set in a row and tilted alternately.",
+  "tags": ["steps", "tickets", "stubs", "cinema", "event", "playful", "tilted", "process"],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Private screenings",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Hire the Rex for a night of your own",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Birthdays, film clubs and works nights out, on a screen with nobody else in it. Four stubs between you and the opening titles.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Admit one",
+          "maxLength": 24
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Next stub",
+          "maxLength": 60
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens at this point."
+        }
+      ],
+      "default": [
+        {
+          "label": "6 weeks out",
+          "title": "Pick your evening",
+          "text": "Tell us the date and the size of your party. Screen Two seats 38, the main house 140."
+        },
+        {
+          "label": "4 weeks out",
+          "title": "Choose the film",
+          "text": "A 1950s musical or last month's release: if it can be licensed, we clear the rights for you."
+        },
+        {
+          "label": "1 week out",
+          "title": "Plan the interval",
+          "text": "Popcorn tubs, a cheese board or an open bar in the foyer. Send final numbers by Monday."
+        },
+        {
+          "label": "On the night",
+          "title": "Lights down",
+          "text": "Doors open half an hour early for your guests, and your name goes up on the marquee."
+        }
+      ]
+    }
+  ]
+}

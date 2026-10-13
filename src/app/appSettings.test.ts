@@ -53,6 +53,8 @@ describe('app settings', () => {
       imageModel: null,
       netlifyToken: '',
       publishedSites: {},
+      githubToken: '',
+      githubSites: {},
     });
   });
 
@@ -70,6 +72,17 @@ describe('app settings', () => {
       JSON.stringify({ netlifyToken: 7, publishedSites: { p1: { siteId: 's1' }, p2: 'x' } }),
     );
     expect(readAppSettings()).toMatchObject({ netlifyToken: '', publishedSites: {} });
+  });
+
+  it('remembers the GitHub token and repositories and drops damaged entries', () => {
+    const githubSites = { p1: { siteId: 'ada/acme', url: 'https://ada.github.io/acme/' } };
+    updateAppSettings({ githubToken: 'ghp_test', githubSites });
+    expect(readAppSettings()).toMatchObject({ githubToken: 'ghp_test', githubSites });
+    localStorage.setItem(
+      APP_SETTINGS_STORAGE_KEY,
+      JSON.stringify({ githubToken: 7, githubSites: { p1: { siteId: 'ada/acme' } } }),
+    );
+    expect(readAppSettings()).toMatchObject({ githubToken: '', githubSites: {} });
   });
 
   it('remembers the image model, forgets it when removed and ignores a damaged one', () => {

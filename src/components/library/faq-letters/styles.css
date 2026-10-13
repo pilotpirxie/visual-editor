@@ -1,0 +1,72 @@
+@layer components {
+  @scope (.b-faq-letters) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+      padding-block-end: var(--space-8);
+      border-bottom: 0.25rem double;
+      text-align: center;
+    }
+
+    .b-head h2,
+    .b-letter {
+      font-style: italic;
+    }
+
+    .b-intro,
+    .b-sign,
+    .b-item::after {
+      color: var(--color-text-muted);
+    }
+
+    .b-column {
+      column-width: 22rem;
+      column-gap: var(--space-16);
+      column-rule: var(--border-width) solid var(--color-border);
+    }
+
+    .b-item {
+      display: grid;
+      gap: var(--space-3);
+      max-width: 36rem;
+      margin-inline: auto;
+      break-inside: avoid;
+    }
+
+    .b-item::after {
+      content: '* * *';
+      padding-block: var(--space-6);
+      text-align: center;
+      letter-spacing: 0.5em;
+    }
+
+    .b-item:last-child::after {
+      content: none;
+    }
+
+    .b-letter {
+      --stack-gap: var(--space-2);
+      margin-block-end: var(--space-3);
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      overflow-wrap: anywhere;
+    }
+
+    .b-sign {
+      font: var(--font-weight-bold) var(--text-sm) var(--font-body);
+      letter-spacing: 0.08em;
+      text-align: end;
+      text-transform: uppercase;
+    }
+
+    .b-reply::first-letter {
+      float: left;
+      padding-inline-end: var(--space-1);
+      font: var(--font-weight-heading) 3.2em / 0.85 var(--font-heading);
+      color: var(--color-primary);
+    }
+  }
+}

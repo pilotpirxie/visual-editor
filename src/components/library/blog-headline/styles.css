@@ -1,0 +1,111 @@
+@layer components {
+  @scope (.b-blog-headline) {
+    .b-inner,
+    .b-band,
+    .b-rest,
+    .b-post {
+      position: relative;
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .b-caps {
+      font-size: var(--text-sm);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .b-band {
+      padding: var(--space-12) 6% var(--space-6);
+      border-radius: var(--radius-lg);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .b-sticker,
+    .b-circle {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+    }
+
+    .b-sticker {
+      position: absolute;
+      top: -1rem;
+      right: 5%;
+      width: 5rem;
+      background: var(--color-text);
+      color: var(--color-background);
+      font-size: var(--text-xs);
+      text-align: center;
+      rotate: 12deg;
+    }
+
+    .b-lead {
+      max-width: 18ch;
+      font-size: min(calc(var(--text-5xl) * 1.5), 11vw);
+      line-height: 1;
+    }
+
+    .b-foot {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-block-start: var(--space-4);
+      border-block-start: var(--border-width) solid;
+    }
+
+    .b-meta > * + *::before {
+      content: '/ ';
+    }
+
+    .b-go,
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-go {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-go:focus-visible {
+      outline-color: currentColor;
+    }
+
+    .b-go::after,
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-circle {
+      width: 3rem;
+      background: var(--color-primary-contrast);
+      color: var(--color-primary);
+    }
+
+    .b-post {
+      gap: var(--space-2);
+      padding-block-start: var(--space-4);
+      border-block-start: 0.25rem solid;
+    }
+
+    .b-kicker {
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-rest {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  }
+}

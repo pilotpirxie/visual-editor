@@ -1,0 +1,34 @@
+<section class="b-contact-poster section">
+  <div class="container">
+    <div class="b-sheet">
+      {{#if eyebrow}}<p class="b-side" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <div class="b-main">
+        <div class="stack b-top">
+          <h2 data-field="title">{{title}}</h2>
+          <a class="b-phone" href="tel:{{phone}}" data-field="phone">{{phone}}</a>
+          {{#if note}}<p class="b-note" data-field="note">{{nl2br note}}</p>{{/if}}
+        </div>
+        <div class="b-boxes">
+          {{#if address}}
+          <div class="b-box" data-field="address">
+            <h3 data-field="addressLabel">{{addressLabel}}</h3>
+            <address>{{nl2br address}}</address>
+          </div>
+          {{/if}}
+          {{#if hours}}
+          <div class="b-box" data-field="hours">
+            <h3 data-field="hoursLabel">{{hoursLabel}}</h3>
+            <p>{{nl2br hours}}</p>
+          </div>
+          {{/if}}
+          {{#if email}}
+          <div class="b-box" data-field="email">
+            <h3 data-field="emailLabel">{{emailLabel}}</h3>
+            <a href="mailto:{{email}}">{{email}}</a>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

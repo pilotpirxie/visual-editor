@@ -1,0 +1,20 @@
+<section class="b-pricing-atelier section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ol class="b-tiers" role="list">
+      {{#each tiers}}
+      <li class="stack b-tier" data-field="tiers.{{@index}}">
+        <h3>{{name}}</h3>
+        <p class="b-muted">{{nl2br description}}</p>
+        <p class="b-price">{{price}} <small class="b-muted">{{period}}</small></p>
+        <div class="b-list">{{richText features}}</div>
+        {{#if linkLabel}}<a class="b-link" href="{{href link}}" {{linkAttrs link}}>{{linkLabel}}{{svgIcon "arrow-right"}}</a>{{/if}}
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

@@ -1,0 +1,82 @@
+{
+  "name": "FAQ, big question mark",
+  "category": "faq",
+  "description": "A dark band with a giant tilted question mark in the background and bold, oversized questions that open one at a time.",
+  "tags": ["faq", "questions", "dark", "bold", "oversized", "question mark", "expressive"],
+  "fieldGroups": ["Heading", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "First time at Gritstone?",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Go on, ask.",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "What first-timers want to know before they chalk up at our climbing centre in Sheffield.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 10,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "Is there parking?",
+          "maxLength": 60
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "textarea",
+          "default": "Forty free spaces behind the building, and bike racks by the door."
+        }
+      ],
+      "default": [
+        {
+          "question": "Never climbed before?",
+          "answer": "Good. Book a 90-minute taster for £22 and an instructor will have you up a wall, and safely down again, within the first ten minutes."
+        },
+        {
+          "question": "Scared of heights?",
+          "answer": "Most of us are. Start in the bouldering room, where the walls stop at 4.5 metres and the floor is one very large mattress."
+        },
+        {
+          "question": "What do I wear?",
+          "answer": "Anything you can stretch in. Climbing shoes and chalk are included on your first visit, and shoe hire is £4 after that."
+        },
+        {
+          "question": "Can I come alone?",
+          "answer": "Yes. Bouldering needs no partner, and at the Tuesday social we pair you with someone at your level."
+        },
+        {
+          "question": "How old is old enough?",
+          "answer": "Five for kids' club and 14 to climb without an adult. There is no upper limit: our oldest member is 78."
+        },
+        {
+          "question": "Do I have to join?",
+          "answer": "No. Day entry is £13. Monthly membership is £49 and pays for itself in four visits."
+        }
+      ]
+    }
+  ]
+}

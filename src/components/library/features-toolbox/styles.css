@@ -1,0 +1,89 @@
+@layer components {
+  @scope (.b-features-toolbox) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      max-width: 40rem;
+    }
+
+    .b-head,
+    .b-slot {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-intro,
+    .b-slot p {
+      color: var(--color-text-muted);
+    }
+
+    .b-tray {
+      padding: var(--space-3);
+      border-radius: var(--radius-lg);
+      background: var(--color-primary);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .b-slots {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .b-slot {
+      --icon-size: 2.25rem;
+      align-items: start;
+      padding: var(--space-6) var(--space-4) var(--space-4);
+      border-radius: var(--radius-sm);
+      background: var(--color-surface);
+    }
+
+    .b-slot svg {
+      color: var(--color-primary);
+    }
+
+    .b-tape {
+      margin-block-start: calc(var(--space-8) * -1);
+      padding: var(--space-1) var(--space-4);
+      background: color-mix(in oklab, var(--color-primary) 25%, var(--color-background));
+      font: var(--font-weight-bold) var(--text-sm) var(--font-mono);
+      clip-path: polygon(0 0, 100% 0, calc(100% - 0.4rem) 50%, 100% 100%, 0 100%, 0.4rem 50%);
+    }
+
+    .b-lid {
+      width: fit-content;
+      margin: calc(var(--space-6) * -1) auto var(--space-4);
+      rotate: -2deg;
+    }
+
+    .b-slot:nth-child(3n + 1) .b-tape {
+      rotate: -2deg;
+    }
+
+    .b-slot:nth-child(3n) .b-tape {
+      rotate: 1.5deg;
+    }
+
+    .b-slot .b-amount {
+      margin-block-start: auto;
+      font: var(--text-xs) var(--font-mono);
+      color: var(--color-text);
+    }
+
+    @media (min-width: 768px) {
+      .b-slots {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .b-slot:nth-child(5n + 1) {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-slots {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+}

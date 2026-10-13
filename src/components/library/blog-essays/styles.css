@@ -1,0 +1,103 @@
+@layer components {
+  @scope (.b-blog-essays) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      align-self: start;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-list {
+      counter-reset: essay;
+      border-block-end: var(--border-width) solid;
+    }
+
+    .b-essay {
+      position: relative;
+      display: grid;
+      gap: var(--space-3);
+      padding-block: var(--space-8);
+      border-block-start: var(--border-width) solid;
+      counter-increment: essay;
+    }
+
+    .b-essay::before {
+      content: counter(essay, upper-roman) '.';
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-style: italic;
+      line-height: var(--line-height-tight);
+      color: var(--color-primary);
+    }
+
+    .b-title {
+      font-size: var(--text-3xl);
+    }
+
+    .b-excerpt {
+      max-width: 60ch;
+      font-size: var(--text-lg);
+    }
+
+    .b-excerpt::first-letter {
+      float: inline-start;
+      margin-inline-end: var(--space-2);
+      font-family: var(--font-heading);
+      font-size: 3.2em;
+      line-height: 0.85;
+      color: var(--color-text);
+    }
+
+    .b-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1) var(--space-6);
+      font-size: var(--text-sm);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .b-author {
+      color: var(--color-text);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .b-essay:hover .b-link {
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .b-essay {
+        grid-template-columns: 4rem minmax(0, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+        gap: var(--space-16);
+      }
+
+      .b-head {
+        position: sticky;
+        top: var(--space-8);
+      }
+    }
+  }
+}

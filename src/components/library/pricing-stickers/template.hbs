@@ -1,0 +1,21 @@
+<section class="b-pricing-stickers section">
+  <div class="container stack">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-muted" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <div class="grid b-plans">
+      {{#each plans}}
+      <article class="card stack b-plan" {{#if featured}}data-featured{{/if}} data-field="plans.{{@index}}">
+        {{#if featured}}<p class="b-sticker">{{../stickerLabel}}</p>{{/if}}
+        <h3>{{name}}</h3>
+        <p><span class="b-amount">{{price}}</span> <span class="b-muted">{{period}}</span></p>
+        {{#if description}}<p>{{nl2br description}}</p>{{/if}}
+        <div class="prose b-features">{{richText features}}</div>
+        <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}}>{{button.label}}</a>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

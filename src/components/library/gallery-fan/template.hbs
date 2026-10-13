@@ -1,0 +1,19 @@
+<section class="b-gallery-fan section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+      {{#if intro}}<p class="b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
+    </header>
+    <ul class="b-hand" role="list">
+      {{#each items}}
+      <li class="b-card" style="--i: {{@index}}" data-field="items.{{@index}}">
+        <figure>
+          <figcaption class="b-caption">{{caption}}</figcaption>
+          <div class="media b-photo">{{img image}}</div>
+        </figure>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

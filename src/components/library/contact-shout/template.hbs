@@ -1,0 +1,11 @@
+<section class="b-contact-shout section">
+  <div class="container b-inner">
+    <h2 class="b-loud" data-field="title">{{title}}</h2>
+    {{#if sticker}}<p class="b-sticker" data-field="sticker">{{sticker}}</p>{{/if}}
+    {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
+    <div class="b-links">
+      {{#if email}}<a class="b-link" href="mailto:{{email}}" data-field="email"><span>{{email}}</span><span class="b-arrow">{{svgIcon "arrow-up-right"}}</span></a>{{/if}}
+      {{#if phone}}<a class="b-link" href="tel:{{phone}}" data-field="phone"><span>{{phone}}</span><span class="b-arrow">{{svgIcon "arrow-up-right"}}</span></a>{{/if}}
+    </div>
+  </div>
+</section>

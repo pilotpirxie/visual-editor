@@ -1,0 +1,93 @@
+@layer components {
+  @scope (.b-faq-spotlight) {
+    .b-inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .b-panel {
+      --color-text: var(--theme-primary-text);
+      --color-primary: var(--theme-primary-accent);
+      --color-primary-contrast: var(--theme-primary-accent-contrast);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-8);
+      padding: var(--space-8) var(--space-6);
+      border-radius: var(--radius-lg);
+      background: var(--theme-primary-background);
+      color: var(--color-text);
+    }
+
+    .b-aside {
+      align-items: start;
+      font-size: var(--text-lg);
+    }
+
+    .b-item {
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .b-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-block: var(--space-6);
+      font: var(--font-weight-bold) var(--text-xl) / var(--line-height-tight) var(--font-heading);
+      list-style: none;
+      overflow-wrap: anywhere;
+      cursor: pointer;
+    }
+
+    .b-question::-webkit-details-marker {
+      display: none;
+    }
+
+    .b-icon {
+      flex: none;
+      color: var(--color-primary);
+    }
+
+    [open] .b-icon {
+      rotate: 180deg;
+    }
+
+    .b-answer {
+      padding-block-end: var(--space-6);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        padding: var(--space-12) var(--space-8);
+      }
+
+      .b-panel h2 {
+        font-size: var(--text-5xl);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-inner {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: var(--space-12);
+      }
+
+      .b-panel {
+        flex-direction: row;
+      }
+
+      .b-panel h2 {
+        font-size: calc(var(--text-5xl) * 1.6);
+        line-height: 0.9;
+        writing-mode: vertical-rl;
+        rotate: 180deg;
+      }
+
+      .b-aside {
+        align-self: end;
+      }
+    }
+  }
+}

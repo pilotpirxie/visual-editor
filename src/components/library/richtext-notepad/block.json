@@ -1,0 +1,41 @@
+{
+  "name": "Rich text, notepad",
+  "category": "rich-text",
+  "description": "Text written on a slightly tilted notepad page with ruled lines, binding holes and a handwritten-style heading.",
+  "tags": ["notepad", "notes", "ruled paper", "tips", "handwritten", "text", "playful", "paper"],
+  "fieldGroups": ["Heading", "Text"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Line above the title",
+      "type": "text",
+      "default": "Notes from the workbench, no. 14",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "How to keep your chain alive through winter",
+      "required": true,
+      "maxLength": 140,
+      "group": "Heading"
+    },
+    {
+      "name": "body",
+      "label": "Text",
+      "type": "richtext",
+      "allowHeadings": true,
+      "default": "<p>Road salt eats chains. Every March we replace dozens that would have lasted two more years with ten minutes of care a week. This is what we tell everyone who rides through the cold months.</p><h2>After a wet ride</h2><p>Wipe the chain with a dry rag while you turn the pedals backwards. You are not cleaning it, only getting the salty water off before it dries.</p><h2>Once a week</h2><ul><li>Degrease the chain and let it dry for five minutes.</li><li>Put one drop of wet lube on each link, not a stripe along the whole chain.</li><li>Wipe off the extra. Lube belongs inside the rollers, not on the outside.</li></ul><h2>When to come and see us</h2><p>If the chain skips under load or looks orange in the morning, bring the bike in. A chain check takes two minutes and costs nothing. A new chain is 29 euros fitted. A new chain, cassette and chainrings is closer to 180.</p>",
+      "group": "Text"
+    },
+    {
+      "name": "signature",
+      "label": "Signature",
+      "type": "text",
+      "default": "Tomas, back bench",
+      "group": "Text"
+    }
+  ]
+}

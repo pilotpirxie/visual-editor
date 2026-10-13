@@ -1,0 +1,81 @@
+{
+  "name": "FAQ, ledger",
+  "category": "faq",
+  "description": "Numbered questions on hairline rows with a margin rule, like a ledger page. Each row opens with a plus that turns.",
+  "tags": ["faq", "questions", "ledger", "rows", "numbered", "hairline", "elegant"],
+  "fieldGroups": ["Heading", "Questions"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Before we take you on",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Your questions, itemised",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Plain answers on fees, deadlines and what we need from you. If yours is not in the book, the first call with Alder & Finch is free.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Questions",
+      "type": "list",
+      "group": "Questions",
+      "minItems": 1,
+      "maxItems": 20,
+      "itemLabel": "question",
+      "itemFields": [
+        {
+          "name": "question",
+          "label": "Question",
+          "type": "text",
+          "default": "Do you help with VAT registration?"
+        },
+        {
+          "name": "answer",
+          "label": "Answer",
+          "type": "richtext",
+          "default": "<p>Yes. We register you, choose the right scheme and file every quarterly return.</p>"
+        }
+      ],
+      "default": [
+        {
+          "question": "What do you charge?",
+          "answer": "<p>A fixed monthly fee, agreed before we start. Sole traders pay from £45 a month and limited companies from £120, with year-end accounts and tax returns included.</p>"
+        },
+        {
+          "question": "Can you take over from my current accountant?",
+          "answer": "<p>Yes. We write to them for your records, which usually takes about two weeks. You do not have to make the awkward phone call.</p>"
+        },
+        {
+          "question": "Which bookkeeping software do I need?",
+          "answer": "<p>We work in Xero, FreeAgent and QuickBooks. If you have none, a FreeAgent licence is included in your fee and we connect it to your bank.</p>"
+        },
+        {
+          "question": "What happens if HMRC writes to me?",
+          "answer": "<p>Send us a photo of the letter the same day. Replying to routine letters is part of your fee, and every plan covers the cost of a full enquiry.</p>"
+        },
+        {
+          "question": "How late can I leave my tax return?",
+          "answer": "<p>Get your records to us by 30 November and we guarantee to file before the 31 January deadline. After that we still try, but we cannot promise.</p>"
+        },
+        {
+          "question": "Do I have to come to the office?",
+          "answer": "<p>No. Most clients meet us by video twice a year. If you prefer paper and a proper cup of tea, we are above the bakery on Castle Street, Shrewsbury.</p>"
+        }
+      ]
+    }
+  ]
+}

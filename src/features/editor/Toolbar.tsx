@@ -179,9 +179,13 @@ function LogoLink(): JSX.Element {
   );
 }
 
-type PreviewButtonProps = { isDisabled: boolean; className?: string };
+type PreviewButtonProps = { isDisabled: boolean; className?: string; isProminent?: boolean };
 
-export function PreviewButton({ isDisabled, className }: PreviewButtonProps): JSX.Element {
+export function PreviewButton({
+  isDisabled,
+  className,
+  isProminent = false,
+}: PreviewButtonProps): JSX.Element {
   const isPreview = useStore((state) => state.editor.isPreview);
   const label = isPreview ? 'Exit preview' : 'Preview';
   const { triggerProps, tooltip } = useTooltip({ text: label, shortcut: SHORTCUT_KEYS.preview });
@@ -189,14 +193,14 @@ export function PreviewButton({ isDisabled, className }: PreviewButtonProps): JS
     <>
       <Button
         className={className}
-        variant="ghost"
+        variant={isProminent ? 'primary' : 'ghost'}
         icon={isPreview ? 'eye-off' : 'eye'}
         aria-label={label}
         disabled={isDisabled}
         {...triggerProps}
         onClick={() => dispatch(previewToggled(!isPreview))}
       >
-        <span className="ve-wide-only">{label}</span>
+        <span className={isProminent ? undefined : 've-wide-only'}>{label}</span>
       </Button>
       {tooltip}
     </>

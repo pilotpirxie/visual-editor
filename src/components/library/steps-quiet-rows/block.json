@@ -1,0 +1,75 @@
+{
+  "name": "How it works, quiet rows",
+  "category": "how-it-works",
+  "description": "One step per row with generous whitespace, a tiny number on the left and a light divider between rows.",
+  "tags": ["steps", "rows", "minimal", "calm", "whitespace", "list", "quiet", "process"],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Process",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "A garden takes a year. We take it one season at a time.",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Field & Hedge designs and plants around twelve gardens a year, all within an hour of Ludlow.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "The next step",
+          "maxLength": 60
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "textarea",
+          "default": "What happens in this step, in a sentence or two."
+        }
+      ],
+      "default": [
+        {
+          "title": "Walk the ground in winter",
+          "text": "We visit while the garden is bare and its bones show. You tell us what you would like to see from the kitchen window."
+        },
+        {
+          "title": "Draw the plan in spring",
+          "text": "A hand-coloured planting plan arrives by post, with every tree, shrub and bulb listed beside its price."
+        },
+        {
+          "title": "Make the beds in summer",
+          "text": "Paths are laid and soil is improved while the nursery grows your plants on."
+        },
+        {
+          "title": "Plant in October",
+          "text": "Everything goes into the ground when roots settle best. We come back in May to see it wake up."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+<section class="b-testimonials-switcher section">
+  <div class="container stack b-inner">
+    <header class="stack b-head">
+      {{#if eyebrow}}<p class="eyebrow" data-field="eyebrow">{{eyebrow}}</p>{{/if}}
+      <h2 data-field="title">{{title}}</h2>
+    </header>
+    <fieldset class="b-stage">
+      <legend class="visually-hidden">{{pickerLabel}}</legend>
+      {{#each items}}
+      <div class="b-item" data-field="items.{{@index}}">
+        <label class="b-pick">
+          <input class="b-radio" type="radio" name="{{../block.id}}-person" value="{{@index}}" {{#if @first}}checked{{/if}}>
+          <span class="media b-face">{{img photo}}</span>
+          <span class="visually-hidden">{{name}}</span>
+        </label>
+        <figure class="stack b-say">
+          <blockquote class="b-quote"><p>{{nl2br quote}}</p></blockquote>
+          <figcaption class="b-person">
+            <span class="b-name">{{name}}</span>
+            {{#if role}}<span>{{role}}</span>{{/if}}
+          </figcaption>
+        </figure>
+      </div>
+      {{/each}}
+    </fieldset>
+  </div>
+</section>

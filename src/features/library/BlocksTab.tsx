@@ -283,7 +283,7 @@ export function BlocksTab(): JSX.Element {
           className="ve-blocks-search"
           label="Search blocks"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onQuery={setQuery}
         />
         {isSavedShown && (
           <GroupHeader

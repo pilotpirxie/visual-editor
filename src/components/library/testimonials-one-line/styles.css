@@ -1,0 +1,64 @@
+@layer components {
+  @scope (.b-testimonials-one-line) {
+    .b-inner {
+      --stack-gap: var(--space-12);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-3);
+    }
+
+    .b-lines {
+      border-block-end: var(--border-width) solid var(--color-border);
+    }
+
+    .b-figure {
+      display: grid;
+      gap: var(--space-2) var(--space-8);
+      padding-block: var(--space-6);
+      border-block-start: var(--border-width) solid var(--color-border);
+    }
+
+    .b-quote {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-tight);
+      text-wrap: balance;
+    }
+
+    .b-person {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: var(--space-2);
+      font-size: var(--text-sm);
+    }
+
+    .b-name {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-role {
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .b-figure {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 18rem);
+        align-items: baseline;
+        padding-block: var(--space-8);
+      }
+
+      .b-person {
+        justify-content: flex-end;
+        text-align: end;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-quote {
+        font-size: var(--text-3xl);
+      }
+    }
+  }
+}

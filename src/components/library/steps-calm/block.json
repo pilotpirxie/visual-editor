@@ -1,0 +1,81 @@
+{
+  "name": "How it works, soft circles",
+  "category": "how-it-works",
+  "description": "A few soft circles joined by one thin line, each with an icon, a short label and one sentence.",
+  "tags": ["steps", "circles", "calm", "minimal", "soft", "line", "wellbeing", "process"],
+  "fieldGroups": ["Heading", "Steps"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Your first month",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Three unhurried steps back to moving freely",
+      "required": true,
+      "maxLength": 120,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "At Stillwater Physiotherapy you see the same therapist every time, in a quiet room, for as long as the session needs.",
+      "group": "Heading"
+    },
+    {
+      "name": "steps",
+      "label": "Steps",
+      "type": "list",
+      "group": "Steps",
+      "minItems": 2,
+      "maxItems": 4,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "leaf"
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Rest",
+          "maxLength": 30
+        },
+        {
+          "name": "text",
+          "label": "Sentence",
+          "type": "textarea",
+          "default": "One calm sentence about this step.",
+          "maxLength": 160
+        }
+      ],
+      "default": [
+        {
+          "icon": "message",
+          "label": "Listen",
+          "text": "A full hour to hear what hurts, when it began and what you miss doing most."
+        },
+        {
+          "icon": "compass",
+          "label": "Plan",
+          "text": "Three or four exercises that fit into your day, written down and filmed on your phone."
+        },
+        {
+          "icon": "leaf",
+          "label": "Return",
+          "text": "A check-in every fortnight until the stairs, the garden or the pool feel easy again."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Pricing, billboard",
+  "category": "pricing",
+  "description": "One giant price number on a band in the primary colour, with what is included as a dark strip underneath.",
+  "tags": [
+    "pricing",
+    "single price",
+    "giant number",
+    "billboard",
+    "band",
+    "membership",
+    "expressive"
+  ],
+  "fieldGroups": ["Price", "Pitch", "Strip"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Line above the price",
+      "type": "text",
+      "default": "Ironworks Gym, East Dock",
+      "group": "Price"
+    },
+    {
+      "name": "price",
+      "label": "Price",
+      "type": "text",
+      "default": "$39",
+      "required": true,
+      "maxLength": 6,
+      "help": "Keep it to four characters or fewer so it stays huge.",
+      "group": "Price"
+    },
+    {
+      "name": "period",
+      "label": "Period",
+      "type": "text",
+      "default": "a month",
+      "maxLength": 16,
+      "group": "Price"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "One price for the whole building",
+      "required": true,
+      "group": "Pitch"
+    },
+    {
+      "name": "text",
+      "label": "Text",
+      "type": "textarea",
+      "default": "Weights floor, classes, sauna and the climbing wall. No joining fee, no contract and no off-peak small print.",
+      "group": "Pitch"
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "type": "button",
+      "group": "Pitch",
+      "default": {
+        "label": "Join today",
+        "link": {
+          "type": "url",
+          "url": "#",
+          "newTab": false
+        },
+        "variant": "primary"
+      }
+    },
+    {
+      "name": "items",
+      "label": "Included",
+      "type": "list",
+      "group": "Strip",
+      "minItems": 1,
+      "maxItems": 6,
+      "itemLabel": "text",
+      "itemFields": [
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "icon",
+          "default": "check"
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "text",
+          "default": "Free parking"
+        }
+      ],
+      "default": [
+        { "icon": "clock", "text": "Open 5am to midnight" },
+        { "icon": "calendar", "text": "40 classes a week" },
+        { "icon": "sun", "text": "Sauna and cold plunge" },
+        { "icon": "users", "text": "Bring a friend on Fridays" }
+      ]
+    }
+  ]
+}

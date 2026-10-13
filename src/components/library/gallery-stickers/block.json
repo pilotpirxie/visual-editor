@@ -1,0 +1,159 @@
+{
+  "name": "Gallery, stickers",
+  "category": "gallery",
+  "description": "Photos cut into round and blob shapes with a thick edge, like die-cut stickers, each with a small name label.",
+  "tags": ["gallery", "photos", "stickers", "blobs", "round", "playful", "labels"],
+  "fieldGroups": ["Heading", "Stickers"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "In the cabinet this week",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Six flavours, churned before you were awake",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Giro makes every tub in the back room on Leith Walk each morning. When one is empty, it is gone until next week.",
+      "group": "Heading"
+    },
+    {
+      "name": "items",
+      "label": "Stickers",
+      "type": "list",
+      "group": "Stickers",
+      "minItems": 2,
+      "maxItems": 8,
+      "itemLabel": "label",
+      "itemFields": [
+        {
+          "name": "image",
+          "label": "Photo",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "product"
+            }
+          }
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "text",
+          "default": "Guest flavour",
+          "maxLength": 32
+        }
+      ],
+      "default": [
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A scoop of pale green pistachio gelato in a paper cup",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "product"
+            }
+          },
+          "label": "Pistachio"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Bright red blood orange sorbet in a waffle cone",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "product"
+            }
+          },
+          "label": "Blood orange"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A steel tub of white fior di latte gelato with a spatula",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "product"
+            }
+          },
+          "label": "Fior di latte"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Hazelnut gelato topped with crushed caramelised nuts",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "product"
+            }
+          },
+          "label": "Hazelnut"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Vanilla gelato rippled with dark sour cherry sauce",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "product"
+            }
+          },
+          "label": "Sour cherry"
+        },
+        {
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A child holding a cone of salted caramel gelato outside the shop",
+            "decorative": false,
+            "width": 1200,
+            "height": 1200,
+            "placeholder": {
+              "ratio": "1:1",
+              "subject": "product"
+            }
+          },
+          "label": "Salted caramel"
+        }
+      ]
+    }
+  ]
+}

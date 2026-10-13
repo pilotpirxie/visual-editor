@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-contact-letterhead) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-sheet {
+      max-width: 56rem;
+      margin-inline: auto;
+      padding: var(--space-12) var(--space-6);
+      background: var(--color-background);
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+
+    .b-wordmark {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      line-height: var(--line-height-tight);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .b-wordmark::after {
+      content: '';
+      display: block;
+      width: 4rem;
+      margin: var(--space-4) auto;
+      border-block-start: 3px double var(--color-primary);
+    }
+
+    .b-tagline,
+    .b-columns {
+      font-variant-caps: all-small-caps;
+      letter-spacing: 0.08em;
+    }
+
+    .b-tagline,
+    .b-text,
+    .b-columns dt {
+      color: var(--color-text-muted);
+    }
+
+    .b-title {
+      margin-block: var(--space-12) var(--space-3);
+      font-size: var(--text-2xl);
+      font-style: italic;
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-text {
+      max-width: 34rem;
+      margin-inline: auto;
+    }
+
+    .b-columns {
+      display: grid;
+      gap: var(--border-width);
+      margin-block-start: var(--space-12);
+      border-block: var(--border-width) solid var(--color-border);
+      background: var(--color-border);
+    }
+
+    .b-columns > div {
+      padding: var(--space-6) var(--space-3);
+      background: var(--color-background);
+      overflow-wrap: anywhere;
+    }
+
+    .b-columns dt {
+      font-size: var(--text-sm);
+    }
+
+    .b-columns dd {
+      font-size: var(--text-lg);
+    }
+
+    .b-columns address {
+      font-style: normal;
+    }
+
+    .b-columns a {
+      color: inherit;
+    }
+
+    @media (min-width: 768px) {
+      .b-sheet {
+        padding: var(--space-16) var(--space-12);
+      }
+
+      .b-columns {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+@layer components {
+  @scope (.b-testimonials-whisper) {
+    .b-inner {
+      --stack-gap: var(--space-16);
+    }
+
+    .b-head {
+      --stack-gap: var(--space-2);
+    }
+
+    .b-title {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-regular);
+    }
+
+    .b-sky {
+      display: grid;
+      gap: var(--space-12);
+    }
+
+    .b-figure {
+      --stack-gap: var(--space-3);
+      max-width: 30ch;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .b-whisper:nth-child(even) .b-figure {
+      margin-inline-start: auto;
+    }
+
+    .b-figure:hover .b-quote {
+      color: var(--color-text);
+    }
+
+    .b-person {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+    }
+
+    .b-face {
+      --media-ratio: 1;
+      --media-radius: var(--radius-full);
+      flex: none;
+      width: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .b-sky {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-16) var(--space-12);
+      }
+
+      .b-whisper:nth-child(3n + 2) {
+        margin-block-start: var(--space-16);
+      }
+
+      .b-whisper:nth-child(3n) {
+        margin-block-start: var(--space-8);
+      }
+    }
+  }
+}

@@ -1,0 +1,106 @@
+@layer components {
+  @scope (.b-gallery-fan) {
+    :scope {
+      --section-bg: var(--color-surface);
+    }
+
+    .b-inner {
+      gap: var(--space-12);
+    }
+
+    .b-head {
+      max-width: 40rem;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .b-intro {
+      color: var(--color-text-muted);
+    }
+
+    .b-hand {
+      --n: 5;
+      --step: 0.6deg;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-4);
+      counter-reset: card;
+    }
+
+    .b-hand:has(> :nth-child(4):last-child) {
+      --n: 4;
+    }
+
+    .b-hand:has(> :nth-child(3):last-child) {
+      --n: 3;
+    }
+
+    .b-card {
+      width: calc(50% - var(--space-2));
+      padding: var(--space-3);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-background);
+      box-shadow: var(--shadow-md);
+      counter-increment: card;
+      rotate: calc((var(--i) - (var(--n) - 1) / 2) * var(--step));
+    }
+
+    .b-card:hover {
+      z-index: 1;
+      translate: 0 calc(var(--space-4) * -1);
+    }
+
+    .b-caption {
+      min-height: 3.5em;
+      margin-block-end: var(--space-2);
+      font-family: var(--font-heading);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+    }
+
+    .b-caption::before {
+      content: counter(card, decimal-leading-zero);
+      display: block;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-primary);
+    }
+
+    .b-photo {
+      --media-ratio: 3 / 4;
+      --media-radius: var(--radius-md);
+    }
+
+    @media (min-width: 768px) {
+      .b-hand {
+        --step: calc(36deg / var(--n));
+        display: grid;
+        padding-block-end: var(--space-16);
+      }
+
+      .b-card {
+        grid-area: 1 / 1;
+        width: 11rem;
+        transform-origin: 50% 340%;
+      }
+
+      .b-caption {
+        max-width: 62%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .b-card {
+        width: 14rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-card {
+        transition: translate var(--transition-normal);
+      }
+    }
+  }
+}

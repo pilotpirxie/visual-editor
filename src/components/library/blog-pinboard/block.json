@@ -1,0 +1,166 @@
+{
+  "name": "Blog posts, pinboard",
+  "category": "blog",
+  "description": "Posts as tilted index cards pinned to a cork board, each with a ruled first line for topic and date.",
+  "tags": [
+    "blog",
+    "posts",
+    "articles",
+    "notes",
+    "pinboard",
+    "index cards",
+    "cork board",
+    "playful"
+  ],
+  "fieldGroups": ["Heading", "Posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Workshop notes",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Pinned above the workbench",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Short notes from the mechanics at Kettle Lane Cycles: fixes, routes and things we learned the hard way.",
+      "group": "Heading"
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 9,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "category",
+          "label": "Topic",
+          "type": "text",
+          "default": "Workshop"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "A note from the workshop"
+        },
+        {
+          "name": "excerpt",
+          "label": "Excerpt",
+          "type": "textarea",
+          "default": "Two short sentences on what the post covers."
+        },
+        {
+          "name": "author",
+          "label": "Author",
+          "type": "text",
+          "default": "Ines"
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "category": "How-to",
+          "date": "2026-10-05",
+          "title": "Fix a puncture in eight minutes, no levers needed",
+          "excerpt": "Thumbs, patience and one trick with the valve. Ines timed herself on a wet Tuesday.",
+          "author": "Ines",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Routes",
+          "date": "2026-09-28",
+          "title": "The flat 30 km loop to Bramley Lock and back",
+          "excerpt": "Quiet lanes, one bakery stop and a towpath that stays dry until November.",
+          "author": "Tomasz",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Workshop",
+          "date": "2026-09-19",
+          "title": "Why your gears skip after the first rain",
+          "excerpt": "It is almost never the derailleur. Check the cable where it enters the frame first.",
+          "author": "Ines",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Kit",
+          "date": "2026-09-10",
+          "title": "Lights we still trust after three winters",
+          "excerpt": "Four sets under £45 that survived daily commutes, two crashes and one canal.",
+          "author": "Dev",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "Shop news",
+          "date": "2026-09-02",
+          "title": "Saturday tune-up mornings are back",
+          "excerpt": "Bring your bike at 9, learn to index your own gears, leave by 11. Tea provided.",
+          "author": "Tomasz",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "category": "How-to",
+          "date": "2026-08-24",
+          "title": "How tight is tight enough? A torque cheat sheet",
+          "excerpt": "The six bolts worth a torque wrench, and the ones your fingers can judge.",
+          "author": "Dev",
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

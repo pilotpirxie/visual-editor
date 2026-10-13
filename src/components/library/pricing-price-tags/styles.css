@@ -1,0 +1,96 @@
+@layer components {
+  @scope (.b-pricing-price-tags) {
+    .b-inner {
+      text-align: center;
+    }
+
+    .b-head {
+      max-width: 40rem;
+      margin-inline: auto;
+    }
+
+    .b-muted {
+      color: var(--color-text-muted);
+    }
+
+    .b-rail {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-8);
+      margin-top: var(--space-6);
+    }
+
+    .b-slot {
+      --tilt: -1.5deg;
+      position: relative;
+      display: grid;
+      flex: 0 1 17rem;
+      padding-top: 2.5rem;
+      filter: drop-shadow(0 0.5rem 0.75rem color-mix(in oklab, var(--color-text) 18%, transparent));
+    }
+
+    .b-slot:nth-child(even) {
+      --tilt: 1deg;
+    }
+
+    .b-slot::after,
+    .b-tag::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      border-radius: var(--radius-full);
+      translate: -50% -50%;
+    }
+
+    .b-slot::after {
+      top: 2.125rem;
+      width: 0.75rem;
+      height: 4.25rem;
+      border: 0.1rem solid var(--color-text-muted);
+      background: radial-gradient(circle at 50% 0.2rem, var(--color-text) 0.3rem, transparent 0);
+    }
+
+    .b-tag {
+      padding: 4rem var(--space-6) var(--space-6);
+      background: var(--color-surface);
+      clip-path: polygon(2rem 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 0 100%, 0 2rem);
+      mask: radial-gradient(circle at 50% 1.75rem, transparent 0.4rem, var(--color-text) 0);
+      rotate: calc(var(--tilt) * var(--swing, 1));
+      transform-origin: 50% 1.75rem;
+    }
+
+    .b-tag::before {
+      top: 1.75rem;
+      width: 1.75rem;
+      height: 1.75rem;
+      border: 0.4rem solid var(--color-primary);
+    }
+
+    .b-name {
+      font-size: var(--text-sm);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .b-price {
+      font-family: var(--font-heading);
+      font-size: var(--text-5xl);
+      font-weight: var(--font-weight-heading);
+      line-height: var(--line-height-tight);
+      overflow-wrap: anywhere;
+    }
+
+    .b-text {
+      flex: 1;
+      padding-top: var(--space-3);
+      border-top: 2px dashed var(--color-border);
+    }
+
+    @media (min-width: 768px) {
+      .b-slot {
+        --swing: 2.5;
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+@layer components {
+  @scope (.b-blog-topic-filter) {
+    .b-muted {
+      max-width: 40rem;
+      color: var(--color-text-muted);
+    }
+
+    .b-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      min-width: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .b-chip {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 2.75rem;
+      padding-inline: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-chip input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .b-chip:has(:checked) {
+      border-color: var(--color-text);
+      background: var(--color-text);
+      color: var(--color-background);
+    }
+
+    .b-chip:has(:focus-visible) {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    .b-posts {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr));
+      gap: var(--space-8) var(--space-6);
+      margin-block-start: var(--space-2);
+    }
+
+    .b-post {
+      --stack-gap: var(--space-2);
+      --media-ratio: 3 / 2;
+      position: relative;
+    }
+
+    :scope:has(.b-pick-1:checked) .b-post:not([data-topic='1']),
+    :scope:has(.b-pick-2:checked) .b-post:not([data-topic='2']),
+    :scope:has(.b-pick-3:checked) .b-post:not([data-topic='3']) {
+      display: none;
+    }
+
+    .b-topic,
+    .b-date {
+      font-size: var(--text-sm);
+    }
+
+    .b-topic {
+      margin-block-start: var(--space-2);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .b-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .b-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-post {
+        transition: opacity var(--transition-normal);
+
+        @starting-style {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}

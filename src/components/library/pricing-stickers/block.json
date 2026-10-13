@@ -1,0 +1,154 @@
+{
+  "name": "Pricing, stickers",
+  "category": "pricing",
+  "description": "Plan cards with a hard offset shadow; the featured plan carries a rotated starburst sticker.",
+  "tags": ["pricing", "plans", "sticker", "starburst", "best value", "bold shadow", "playful"],
+  "fieldGroups": ["Heading", "Plans"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Spanish evenings",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Pay by the class, the month or the whole term",
+      "required": true,
+      "group": "Heading"
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Eight students at most, a teacher in the room and coffee on us. Change plans whenever your calendar does.",
+      "group": "Heading"
+    },
+    {
+      "name": "stickerLabel",
+      "label": "Sticker on the featured plan",
+      "type": "text",
+      "default": "Best value",
+      "maxLength": 24,
+      "group": "Plans"
+    },
+    {
+      "name": "plans",
+      "label": "Plans",
+      "type": "list",
+      "group": "Plans",
+      "minItems": 1,
+      "maxItems": 4,
+      "itemLabel": "name",
+      "itemFields": [
+        {
+          "name": "name",
+          "label": "Plan name",
+          "type": "text",
+          "default": "Private lesson"
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "text",
+          "default": "$45"
+        },
+        {
+          "name": "period",
+          "label": "Period",
+          "type": "text",
+          "default": "per hour"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "default": "For a trip or an exam that is coming up fast."
+        },
+        {
+          "name": "features",
+          "label": "Included",
+          "type": "richtext",
+          "default": "<ul><li>One teacher, one student</li><li>At the school or online</li></ul>"
+        },
+        {
+          "name": "featured",
+          "label": "Featured",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "button",
+          "label": "Button",
+          "type": "button",
+          "default": {
+            "label": "Book a lesson",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ],
+      "default": [
+        {
+          "name": "Drop-in",
+          "price": "$18",
+          "period": "per class",
+          "description": "For trying a level before you commit to it.",
+          "features": "<ul><li>One 90-minute class</li><li>Any weekday evening</li><li>Book up to the same day</li></ul>",
+          "featured": false,
+          "button": {
+            "label": "Book a class",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        },
+        {
+          "name": "Monthly pass",
+          "price": "$96",
+          "period": "per month",
+          "description": "For steady progress, two evenings a week.",
+          "features": "<ul><li>8 classes a month</li><li>Saturday conversation club</li><li>Homework feedback by email</li><li>Pause it while you travel</li></ul>",
+          "featured": true,
+          "button": {
+            "label": "Get the pass",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "primary"
+          }
+        },
+        {
+          "name": "Full term",
+          "price": "$330",
+          "period": "for 12 weeks",
+          "description": "For reaching the next level by summer.",
+          "features": "<ul><li>24 classes with one group</li><li>Level test and certificate</li><li>One private lesson a month</li></ul>",
+          "featured": false,
+          "button": {
+            "label": "Join the term",
+            "link": {
+              "type": "url",
+              "url": "#",
+              "newTab": false
+            },
+            "variant": "secondary"
+          }
+        }
+      ]
+    }
+  ]
+}

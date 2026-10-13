@@ -1,0 +1,208 @@
+{
+  "name": "Blog posts, peek inside",
+  "category": "blog",
+  "description": "Rows of post titles that open one at a time: the small thumbnail grows into the image and the excerpt and link appear.",
+  "tags": ["blog", "posts", "articles", "accordion", "expand", "preview", "peek", "smart"],
+  "fieldGroups": ["Heading", "Posts"],
+  "styleOverrides": ["--color-background", "--color-text", "--section-padding-y"],
+  "fields": [
+    {
+      "name": "eyebrow",
+      "label": "Eyebrow",
+      "type": "text",
+      "default": "Studio diary",
+      "group": "Heading"
+    },
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "default": "Lately at the wheel",
+      "group": "Heading",
+      "required": true
+    },
+    {
+      "name": "intro",
+      "label": "Intro",
+      "type": "textarea",
+      "default": "Notes from Slipware Studio. Open a post to peek inside before you read the whole thing.",
+      "group": "Heading"
+    },
+    {
+      "name": "linkLabel",
+      "label": "Link text",
+      "type": "text",
+      "default": "Read the post",
+      "group": "Posts",
+      "required": true
+    },
+    {
+      "name": "posts",
+      "label": "Posts",
+      "type": "list",
+      "group": "Posts",
+      "minItems": 1,
+      "maxItems": 8,
+      "itemLabel": "title",
+      "itemFields": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "default": "Fresh out of the kiln"
+        },
+        {
+          "name": "date",
+          "label": "Date",
+          "type": "date",
+          "default": "2026-09-01"
+        },
+        {
+          "name": "excerpt",
+          "label": "Excerpt",
+          "type": "textarea",
+          "default": "Two sentences that tell the reader what they will find inside."
+        },
+        {
+          "name": "image",
+          "label": "Image",
+          "type": "image",
+          "default": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Photo from the studio",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          }
+        },
+        {
+          "name": "link",
+          "label": "Link",
+          "type": "link",
+          "default": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ],
+      "default": [
+        {
+          "title": "Why our mugs got 20 grams heavier",
+          "date": "2026-10-05",
+          "excerpt": "After forty snapped handles we thickened the join and changed the clay body. Here is what the breakage numbers looked like before and after.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A row of unglazed mugs drying on a wooden board",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Kiln log: the celadon firing that finally worked",
+          "date": "2026-09-27",
+          "excerpt": "Cone 10, a slow cool and a glaze batch we nearly threw away. Photos of every shelf as it came out.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Pale green bowls on a kiln shelf",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "A beginner's guide to centring clay",
+          "date": "2026-09-18",
+          "excerpt": "Elbows in, wheel fast, hands wet. The three corrections we give in every first class.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Hands cupped around a spinning lump of clay",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "What to do with a cracked bowl",
+          "date": "2026-09-09",
+          "excerpt": "Gold repair, a plant pot, or the hammer. An honest look at which fixes are food safe.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "A stoneware bowl with a hairline crack along the rim",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        },
+        {
+          "title": "Autumn class dates and the new Sunday slot",
+          "date": "2026-08-30",
+          "excerpt": "Six-week courses start on 2 November. Sunday mornings are now open to returning students.",
+          "image": {
+            "source": "placeholder",
+            "src": "",
+            "alt": "Aprons hanging on pegs beside the studio door",
+            "decorative": false,
+            "width": 1200,
+            "height": 800,
+            "placeholder": {
+              "ratio": "3:2",
+              "subject": "photo"
+            }
+          },
+          "link": {
+            "type": "url",
+            "url": "#",
+            "newTab": false
+          }
+        }
+      ]
+    }
+  ]
+}

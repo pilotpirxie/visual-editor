@@ -1,0 +1,94 @@
+@layer components {
+  @scope (.b-contact-slow) {
+    .b-panel {
+      --soft: color-mix(in oklab, var(--color-primary) 18%, var(--color-background));
+      display: grid;
+      gap: var(--space-8);
+      padding: var(--space-8) var(--space-6);
+      border-radius: var(--radius-lg);
+      background: color-mix(in oklab, var(--soft) 45%, var(--color-background));
+    }
+
+    .b-status::before {
+      content: '';
+      display: inline-block;
+      width: 0.6em;
+      aspect-ratio: 1;
+      margin-inline-end: var(--space-2);
+      border-radius: var(--radius-full);
+      background: currentColor;
+    }
+
+    .b-text {
+      font-size: var(--text-lg);
+    }
+
+    .b-text,
+    .b-row p {
+      color: var(--color-text-muted);
+    }
+
+    .b-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 var(--space-6);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .b-links a {
+      display: flex;
+      align-items: center;
+      min-height: 2.75rem;
+      color: inherit;
+      overflow-wrap: anywhere;
+    }
+
+    .b-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-1) var(--space-4);
+      padding-block: var(--space-6);
+    }
+
+    .b-row + .b-row {
+      border-block-start: var(--border-width) solid var(--soft);
+    }
+
+    .b-icon {
+      display: grid;
+      grid-row: span 2;
+      place-items: center;
+      width: 3rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-full);
+      background: var(--color-background);
+      color: var(--color-primary);
+    }
+
+    .b-row h3 {
+      font-size: var(--text-lg);
+    }
+
+    @media (min-width: 768px) {
+      .b-panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: center;
+        gap: var(--space-12);
+        padding: var(--space-12);
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .b-status::before {
+        animation: b-contact-slow--breathe 3s ease-in-out infinite alternate;
+      }
+    }
+  }
+
+  @keyframes b-contact-slow--breathe {
+    to {
+      opacity: 0.3;
+      scale: 0.7;
+    }
+  }
+}
