@@ -5,6 +5,7 @@ import { expect, test, type Page } from '@playwright/test';
 import {
   closeLibraryDrawer,
   createProject,
+  insertBlock,
   openLibraryTab,
   showAllBlockCategories,
   showBlockCategory,
@@ -73,7 +74,8 @@ test('the editor is ready in under 3 seconds', async ({ page }) => {
 
 test('a field edit reaches the canvas in under 100 ms on a 30-block page', async ({ page }) => {
   await createProject(page);
-  await insertBlocks(page, BLOCK_COUNT);
+  await insertBlocks(page, BLOCK_COUNT - 1);
+  await insertBlock(page, 'Headers', 'Hero, centered text');
   await page.frameLocator('.ve-canvas-frame').locator('[data-component="hero-centered"]').click();
   await expect(page.locator('#ve-field-title')).toBeVisible();
   await slowDownCpu(page);

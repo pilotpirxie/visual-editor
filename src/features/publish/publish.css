@@ -1,0 +1,23 @@
+@layer components {
+  .ve-publish-title {
+    font-size: var(--ve-text-md);
+  }
+
+  .ve-publish-token {
+    display: grid;
+    flex: 1;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--ve-space-2);
+  }
+
+  .ve-publish-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ve-space-3);
+  }
+
+  .ve-publish a {
+    overflow-wrap: anywhere;
+  }
+}

@@ -63,7 +63,7 @@ type DeviceMenuProps = {
   onChange(mode: DeviceMode): void;
 };
 
-function deviceItems({ value, modes, onChange }: DeviceMenuProps): MenuItem[] {
+export function deviceItems({ value, modes, onChange }: DeviceMenuProps): MenuItem[] {
   const items: MenuItem[] = [];
   for (const mode of modes) {
     items.push({

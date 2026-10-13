@@ -53,6 +53,7 @@ export type LinkedFile = {
 
 export type EditorDialog =
   | { kind: 'export' }
+  | { kind: 'launch' }
   | { kind: 'licenses' }
   | { kind: 'new-project' }
   | { kind: 'snapshots' }

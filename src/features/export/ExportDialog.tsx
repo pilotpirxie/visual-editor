@@ -15,6 +15,7 @@ import type { ExportResult } from '../../render/assembleSite';
 import { prepareExportInput } from '../../render/exportSite';
 import { ensureProjectIconSets } from '../icons/ensureIconSets';
 import { openPage } from '../pages/pageActions';
+import { PublishPanel } from '../publish/PublishPanel';
 import { downloadBlob } from './download';
 import { assembleExport, writeExportFolder } from './exportClient';
 import { canExportToFolder, pickExportFolder } from './exportFolder';
@@ -265,6 +266,7 @@ export function ExportDialog({ onClose }: { onClose(): void }): JSX.Element {
           </p>
         )}
         {preparation.kind === 'ready' && <Summary result={preparation.assembled.result} />}
+        {preparation.kind === 'ready' && <PublishPanel zip={preparation.assembled.zip} />}
         <div className="ui-dialog-actions">
           <button
             type="button"

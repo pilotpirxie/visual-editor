@@ -15,12 +15,27 @@ type AutosaveOptions = {
   onStatus(status: SaveStatus): void;
 };
 
+const RETRY_DELAYS_MS = [2_000, 10_000, 30_000];
+
 export function createAutosave({ save, delayMs, onStatus }: AutosaveOptions): Autosave {
   let pending: Project | null = null;
   let timer: ReturnType<typeof setTimeout> | null = null;
   let lastWrite: Promise<void> = Promise.resolve();
   let writesInFlight = 0;
   let hasFailed = false;
+  let retriesUsed = 0;
+
+  function stopRetrying(): void {
+    retriesUsed = RETRY_DELAYS_MS.length;
+  }
+
+  function retryLater(project: Project): void {
+    const retryDelayMs = RETRY_DELAYS_MS[retriesUsed];
+    if (pending !== null || retryDelayMs === undefined) return;
+    retriesUsed += 1;
+    pending = project;
+    timer = setTimeout(() => void writePending(), retryDelayMs);
+  }
 
   async function saveAndReport(project: Project): Promise<void> {
     try {
@@ -29,6 +44,7 @@ export function createAutosave({ save, delayMs, onStatus }: AutosaveOptions): Au
       console.error(`Autosave failed for project ${project.id}`, error);
       hasFailed = true;
       onStatus('error');
+      retryLater(project);
       return;
     }
     hasFailed = false;
@@ -50,7 +66,7 @@ export function createAutosave({ save, delayMs, onStatus }: AutosaveOptions): Au
     return lastWrite;
   }
 
-  function flush(): Promise<void> {
+  function writePending(): Promise<void> {
     if (timer !== null) {
       clearTimeout(timer);
       timer = null;
@@ -61,15 +77,22 @@ export function createAutosave({ save, delayMs, onStatus }: AutosaveOptions): Au
     return write(project);
   }
 
+  function flush(): Promise<void> {
+    stopRetrying();
+    return writePending();
+  }
+
   function schedule(project: Project): void {
-    if (pending !== null && pending.id !== project.id) void flush();
+    if (pending !== null && pending.id !== project.id) void writePending();
     pending = project;
+    retriesUsed = 0;
     onStatus('saving');
     if (timer !== null) clearTimeout(timer);
-    timer = setTimeout(() => void flush(), delayMs);
+    timer = setTimeout(() => void writePending(), delayMs);
   }
 
   function discard(projectId: string): void {
+    stopRetrying();
     if (pending?.id !== projectId) return;
     pending = null;
     if (timer !== null) {

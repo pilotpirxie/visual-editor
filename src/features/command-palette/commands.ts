@@ -10,7 +10,7 @@ import { searchWords } from '../library/search';
 import { openPage } from '../pages/pageActions';
 import { insertSavedBlock } from '../saved-blocks/savedBlockActions';
 
-type PaletteDialog = 'export' | 'find' | 'snapshots' | 'help';
+type PaletteDialog = 'export' | 'launch' | 'find' | 'snapshots' | 'help';
 
 export type PaletteAction =
   | { kind: 'insert-block'; componentId: string }
@@ -47,6 +47,12 @@ const SITE_COMMANDS: {
   isEditing: boolean;
 }[] = [
   { dialog: 'export', label: 'Export site', keywords: 'download zip html', isEditing: false },
+  {
+    dialog: 'launch',
+    label: 'Launch checklist',
+    keywords: 'publish ready go live',
+    isEditing: true,
+  },
   { dialog: 'find', label: 'Find and replace', keywords: 'search text', isEditing: true },
   { dialog: 'snapshots', label: 'Snapshots', keywords: 'restore history version', isEditing: true },
   { dialog: 'help', label: 'Help and keyboard shortcuts', keywords: 'keys', isEditing: false },

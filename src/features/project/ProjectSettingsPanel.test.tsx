@@ -74,12 +74,54 @@ describe('ProjectSettingsPanel', () => {
       'Search engines',
       'Social sharing',
       'Icons and colors',
+      'Forms',
+      'Visitor statistics',
       'Site verification',
       'Sitemap and robots.txt',
       'Structured data',
       'Custom meta tags',
     ]);
     expect(openTitles).toEqual(['Site', 'Search engines']);
+  });
+
+  it('stores the Formspree form ID from a pasted address and hides the field for Netlify', () => {
+    const { container } = render(<ProjectSettingsPanel />);
+    changeValue(input(container, '#ve-project-form-service'), 'formspree');
+    const target = input(container, '#ve-project-form-target');
+    changeValue(target, 'https://formspree.io/f/abcdwxyz');
+    blur(target);
+    expect(settings()).toMatchObject({ formService: 'formspree', formTarget: 'abcdwxyz' });
+    changeValue(input(container, '#ve-project-form-service'), 'netlify');
+    expect(input(container, '#ve-project-form-target')).toBeNull();
+    changeValue(input(container, '#ve-project-form-service'), '');
+    expect(settings()).not.toHaveProperty('formService');
+  });
+
+  it('refuses a form address that is not from Formspree', () => {
+    const { container } = render(<ProjectSettingsPanel />);
+    changeValue(input(container, '#ve-project-form-service'), 'formspree');
+    const target = input(container, '#ve-project-form-target');
+    changeValue(target, 'not a form');
+    blur(target);
+    expect(settings()).not.toHaveProperty('formTarget');
+    expect(container.ownerDocument.body.textContent).toContain(
+      'Paste the form address from Formspree',
+    );
+  });
+
+  it('stores a statistics service and its ID, and checks the ID for that service', () => {
+    const { container } = render(<ProjectSettingsPanel />);
+    changeValue(input(container, '#ve-project-analytics-service'), 'plausible');
+    const id = input(container, '#ve-project-analytics-id');
+    changeValue(id, 'example.com');
+    blur(id);
+    expect(settings()).toMatchObject({ analyticsService: 'plausible', analyticsId: 'example.com' });
+    changeValue(input(container, '#ve-project-analytics-service'), 'cloudflare');
+    const token = input(container, '#ve-project-analytics-id');
+    expect(token).toHaveProperty('value', '');
+    changeValue(token, 'short');
+    blur(token);
+    expect(settings().analyticsId).toBe('example.com');
   });
 
   it('stores crawler switches only when they differ from the default', () => {

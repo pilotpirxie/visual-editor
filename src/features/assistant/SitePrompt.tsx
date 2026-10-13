@@ -4,7 +4,6 @@ import './assistant.css';
 import { Button, submitOnEnter, TextArea } from '../../../packages/ui/src';
 
 const HELP_ID = 've-site-prompt-help';
-const KEYS_ID = 've-site-prompt-keys';
 const MAX_DESCRIPTION_LENGTH = 4000;
 const ROWS = 3;
 
@@ -43,7 +42,7 @@ export function SitePrompt({
       <form className="ve-site-prompt-form" onSubmit={submit}>
         <TextArea
           aria-labelledby={titleId}
-          aria-describedby={`${HELP_ID} ${KEYS_ID}`}
+          aria-describedby={HELP_ID}
           rows={ROWS}
           maxLength={MAX_DESCRIPTION_LENGTH}
           placeholder="A site for my bakery in Leeds: our story, the menu with prices, opening hours and how to order a cake."
@@ -51,14 +50,9 @@ export function SitePrompt({
           onChange={(event) => setDescription(event.target.value)}
           onKeyDown={submitOnEnter}
         />
-        <div className="ve-site-prompt-actions">
-          <span id={KEYS_ID} className="ui-muted">
-            Enter to build, Shift+Enter for a new line
-          </span>
-          <Button type="submit" variant="primary" icon="sparkles" disabled={!canBuild}>
-            Build my site
-          </Button>
-        </div>
+        <Button type="submit" variant="primary" icon="sparkles" disabled={!canBuild}>
+          Build my site
+        </Button>
       </form>
       {!isReady && (
         <p className="ve-site-prompt-setup ui-muted">

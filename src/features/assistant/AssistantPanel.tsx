@@ -3,35 +3,45 @@ import { useAppSettings } from '../../app/appSettings';
 import { dialogOpened, type AssistantMessage } from '../../app/editorSlice';
 import { dispatch, useStore } from '../../app/store';
 import { askAssistant, stopAssistant } from './assistantChat';
+import { TypedStatus } from './TypedStatus';
 import './assistant.css';
-import { Button, submitOnEnter, TextArea } from '../../../packages/ui/src';
+import { Button, Icon, submitOnEnter, TextArea } from '../../../packages/ui/src';
 
 const REQUEST_ID = 've-assistant-request';
-const KEYS_ID = 've-assistant-keys';
 const MAX_REQUEST_LENGTH = 2000;
 const ROWS = 3;
+const THINKING_PHRASES = [
+  'Reading your request…',
+  'Looking at your page…',
+  'Working out the changes…',
+  'Choosing the words…',
+];
 
 function MessageItem({ message }: { message: AssistantMessage }): JSX.Element {
   const { request, status, reply, changes } = message;
   return (
     <li className="ve-assistant-message">
+      <div className="ve-assistant-answer">
+        {status === 'working' && (
+          <div className="ve-assistant-working">
+            <Icon name="sparkles" />
+            <TypedStatus phrases={THINKING_PHRASES} />
+          </div>
+        )}
+        {status === 'done' && <p className="ve-assistant-reply">{reply}</p>}
+        {status === 'failed' && <p className="ve-assistant-reply ui-field-error">{reply}</p>}
+        {changes.length > 0 && (
+          <ul className="ve-assistant-changes">
+            {changes.map((change) => (
+              <li key={change}>
+                <Icon name="check" />
+                {change}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       <p className="ve-assistant-request">{request}</p>
-      {status === 'working' && (
-        <div className="ve-assistant-working" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </div>
-      )}
-      {status === 'done' && <p className="ve-assistant-reply">{reply}</p>}
-      {status === 'failed' && <p className="ve-assistant-reply ui-field-error">{reply}</p>}
-      {changes.length > 0 && (
-        <ul className="ve-assistant-changes">
-          {changes.map((change) => (
-            <li key={change}>{change}</li>
-          ))}
-        </ul>
-      )}
     </li>
   );
 }
@@ -73,16 +83,12 @@ export function AssistantPanel(): JSX.Element {
           rows={ROWS}
           maxLength={MAX_REQUEST_LENGTH}
           placeholder="Make the headline shorter and add a pricing section below it."
-          aria-describedby={KEYS_ID}
           disabled={!isReady}
           value={request}
           onChange={(event) => setRequest(event.target.value)}
           onKeyDown={submitOnEnter}
         />
         <div className="ve-assistant-actions">
-          <span id={KEYS_ID} className="ui-muted">
-            Enter to send
-          </span>
           {isWorking && <Button onClick={stopAssistant}>Stop</Button>}
           {!isWorking && (
             <Button type="submit" variant="primary" icon="sparkles" disabled={!canAsk}>
@@ -101,12 +107,6 @@ export function AssistantPanel(): JSX.Element {
           >
             Open App settings
           </button>
-        </p>
-      )}
-      {isReady && messages.length === 0 && (
-        <p className="ui-muted">
-          Say what to change in plain words: text, sections, pages, colors or fonts. Select a
-          section first to change just that one. Undo brings back what you had.
         </p>
       )}
       <p className="ve-visually-hidden" role="status">

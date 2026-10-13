@@ -94,6 +94,89 @@ describe('createAutosave', () => {
     error.mockRestore();
   });
 
+  it('tries a failed save again until it works', async () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+    let attempts = 0;
+    const { autosave, saved, statuses } = setup(async () => {
+      attempts += 1;
+      if (attempts === 1) throw new Error('The connection is closing');
+    });
+    autosave.schedule(createSampleProject());
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(statuses.at(-1)).toBe('error');
+    expect(autosave.hasUnsavedChanges()).toBe(true);
+    await vi.advanceTimersByTimeAsync(2000);
+    expect(saved).toHaveLength(1);
+    expect(statuses.at(-1)).toBe('saved');
+    expect(autosave.hasUnsavedChanges()).toBe(false);
+    error.mockRestore();
+  });
+
+  it('gives up after three more tries when saving keeps failing', async () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+    let attempts = 0;
+    const { autosave, statuses } = setup(async () => {
+      attempts += 1;
+      throw new Error('Quota exceeded');
+    });
+    autosave.schedule(createSampleProject());
+    await vi.advanceTimersByTimeAsync(1000 + 2000 + 10_000 + 30_000);
+    expect(attempts).toBe(4);
+    await vi.advanceTimersByTimeAsync(600_000);
+    expect(attempts).toBe(4);
+    expect(statuses.at(-1)).toBe('error');
+    expect(autosave.hasUnsavedChanges()).toBe(true);
+    error.mockRestore();
+  });
+
+  it('saves a newer edit instead of trying the failed one again', async () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+    let attempts = 0;
+    const { autosave, saved } = setup(async () => {
+      attempts += 1;
+      if (attempts === 1) throw new Error('The connection is closing');
+    });
+    const project = createSampleProject();
+    autosave.schedule(edited(project, 'A'));
+    await vi.advanceTimersByTimeAsync(1000);
+    autosave.schedule(edited(project, 'AB'));
+    await vi.advanceTimersByTimeAsync(60_000);
+    expect(saved.map(({ settings }) => settings.title)).toEqual(['AB']);
+    error.mockRestore();
+  });
+
+  it('does not try again after a flush, so nothing is written once editing has ended', async () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+    let attempts = 0;
+    const { autosave } = setup(async () => {
+      attempts += 1;
+      throw new Error('Quota exceeded');
+    });
+    autosave.schedule(createSampleProject());
+    await vi.advanceTimersByTimeAsync(1000);
+    await autosave.flush();
+    expect(attempts).toBe(2);
+    await vi.advanceTimersByTimeAsync(600_000);
+    expect(attempts).toBe(2);
+    error.mockRestore();
+  });
+
+  it('does not try again for a project that was deleted elsewhere', async () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+    let attempts = 0;
+    const { autosave } = setup(async () => {
+      attempts += 1;
+      throw new Error('Quota exceeded');
+    });
+    const project = createSampleProject();
+    autosave.schedule(project);
+    await vi.advanceTimersByTimeAsync(1000);
+    autosave.discard(project.id);
+    await vi.advanceTimersByTimeAsync(600_000);
+    expect(attempts).toBe(1);
+    error.mockRestore();
+  });
+
   it('has unsaved changes from the first edit until the write finishes', async () => {
     let finishWrite = (): void => {};
     const { autosave } = setup(

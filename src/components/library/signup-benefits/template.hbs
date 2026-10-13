@@ -20,7 +20,7 @@
     </div>
     <div class="card stack b-card">
       <h3 class="b-form-title" data-field="formTitle">{{formTitle}}</h3>
-      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <form class="stack b-form" {{formAttrs formAction formMethod}} data-field="formAction">
         <div class="field">
           <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
           <input id="{{block.id}}-name" name="name" autocomplete="name" required>

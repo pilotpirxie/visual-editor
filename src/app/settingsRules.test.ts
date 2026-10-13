@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
+  analyticsIdError,
   FAVICON_TYPES,
+  formspreeId,
+  formTargetError,
   pageMetaError,
   settingError,
   siteMetaError,
@@ -172,5 +175,36 @@ describe('verificationToken', () => {
 
   it('takes the content of a pasted meta tag', () => {
     expect(verificationToken("<meta name='msvalidate.01' content='B12'>")).toBe('B12');
+  });
+});
+
+describe('form and statistics settings', () => {
+  it('reads the form ID from a pasted Formspree address', () => {
+    expect(formspreeId(' https://formspree.io/f/abcdwxyz ')).toBe('abcdwxyz');
+    expect(formspreeId('abcdwxyz')).toBe('abcdwxyz');
+  });
+
+  it('checks the form target for the chosen service', () => {
+    expect(formTargetError('formspree', 'https://formspree.io/f/abcdwxyz')).toBeNull();
+    expect(formTargetError('formspree', 'https://example.com/contact')).toMatch(/Formspree/);
+    expect(formTargetError('custom', 'https://example.com/contact')).toBeNull();
+    expect(formTargetError('custom', 'abcdwxyz')).toMatch(/https/);
+    expect(formTargetError('netlify', 'anything')).toBeNull();
+    expect(formTargetError(undefined, 'anything')).toBeNull();
+  });
+
+  it('checks the statistics ID for the chosen service', () => {
+    expect(analyticsIdError('plausible', 'example.com')).toBeNull();
+    expect(analyticsIdError('plausible', 'https://example.com')).toMatch(/Plausible/);
+    expect(analyticsIdError('goatcounter', 'mysite')).toBeNull();
+    expect(analyticsIdError('cloudflare', 'a'.repeat(32))).toBeNull();
+    expect(analyticsIdError('cloudflare', 'short')).toMatch(/32-character/);
+  });
+
+  it('refuses stored values that are neither an ID nor an address', () => {
+    expect(siteMetaError('formTarget', 'javascript:alert(1)')).not.toBeNull();
+    expect(siteMetaError('formService', 'mailchimp')).not.toBeNull();
+    expect(siteMetaError('analyticsId', '<script>')).not.toBeNull();
+    expect(siteMetaError('analyticsService', 'google')).not.toBeNull();
   });
 });

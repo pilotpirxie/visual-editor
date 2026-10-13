@@ -51,7 +51,25 @@ describe('app settings', () => {
       assistantModel: MODEL,
       assistantEffort: 'high',
       imageModel: null,
+      netlifyToken: '',
+      publishedSites: {},
     });
+  });
+
+  it('remembers the Netlify token and published sites and drops damaged entries', () => {
+    updateAppSettings({
+      netlifyToken: 'nfp_test',
+      publishedSites: { p1: { siteId: 's1', url: 'https://one.netlify.app' } },
+    });
+    expect(readAppSettings()).toMatchObject({
+      netlifyToken: 'nfp_test',
+      publishedSites: { p1: { siteId: 's1', url: 'https://one.netlify.app' } },
+    });
+    localStorage.setItem(
+      APP_SETTINGS_STORAGE_KEY,
+      JSON.stringify({ netlifyToken: 7, publishedSites: { p1: { siteId: 's1' }, p2: 'x' } }),
+    );
+    expect(readAppSettings()).toMatchObject({ netlifyToken: '', publishedSites: {} });
   });
 
   it('remembers the image model, forgets it when removed and ignores a damaged one', () => {

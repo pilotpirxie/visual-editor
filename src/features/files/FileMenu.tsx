@@ -52,6 +52,12 @@ export function FileMenu(): JSX.Element {
     },
     { id: 'export', label: 'Export site…', onSelect: openDialog({ kind: 'export' }) },
     {
+      id: 'launch',
+      label: 'Launch checklist…',
+      disabled: isReadOnly,
+      onSelect: openDialog({ kind: 'launch' }),
+    },
+    {
       id: 'load-pack',
       label: 'Load block pack…',
       disabled: isReadOnly,

@@ -9,7 +9,8 @@ import {
   type ThunkDispatch,
 } from '@reduxjs/toolkit';
 import { useSyncExternalStore } from 'react';
-import { pageSlugsOf, renderContextFor } from '../render/renderBlock';
+import { siteFormOf } from '../render/handlebars';
+import { pageSlugsOf, renderContextFor, type SiteContext } from '../render/renderBlock';
 import { createAutosave, type SaveStatus } from '../persistence/autosave';
 import { putProject } from '../persistence/db';
 import {
@@ -167,21 +168,30 @@ export const selectComponents = createSelector(
   (packBlocks) => componentsFor({ packBlocks }),
 );
 
-export const selectCanvasRenderContext = createSelector(
+const selectSiteContext = createSelector(
   [
     (state: RootState) => state.project.settings.title,
     (state: RootState) => state.project.designSystem.iconSet,
     (state: RootState) => state.project.settings.language,
+    (state: RootState) => state.project.settings.formService,
+    (state: RootState) => state.project.settings.formTarget,
+  ],
+  (siteTitle, iconSet, language, formService, formTarget): SiteContext => ({
+    siteTitle,
+    iconSet,
+    language,
+    siteForm: siteFormOf(formService, formTarget),
+  }),
+);
+
+export const selectCanvasRenderContext = createSelector(
+  [
+    selectSiteContext,
     selectPageSlugs,
     (state: RootState) => state.editor.isPreview,
     (state: RootState) => selectCurrentPage(state).id,
     (state: RootState) => state.editor.iconSetsVersion,
   ],
-  (siteTitle, iconSet, language, pageSlugs, isPreview, currentPageId) =>
-    renderContextFor(
-      { siteTitle, iconSet, language },
-      pageSlugs,
-      isPreview ? 'preview' : 'canvas',
-      currentPageId,
-    ),
+  (site, pageSlugs, isPreview, currentPageId) =>
+    renderContextFor(site, pageSlugs, isPreview ? 'preview' : 'canvas', currentPageId),
 );

@@ -3,6 +3,8 @@ import {
   designSheetToggled,
   deviceChanged,
   dialogOpened,
+  LIBRARY_DRAWER_QUERY,
+  libraryRailClicked,
   panelToggled,
   previewToggled,
   type DeviceMode,
@@ -18,11 +20,14 @@ import {
   Icon,
   IconButton,
   MenuButton,
+  useMediaQuery,
   useTooltip,
   type MenuItem,
 } from '../../../packages/ui/src';
-import { DeviceMenu, DeviceToggle, ViewMenu } from './DeviceToggle';
+import { deviceItems, DeviceMenu, DeviceToggle, ViewMenu } from './DeviceToggle';
 import { SHORTCUT_KEYS } from './shortcutList';
+
+const DEVICE_MODES: DeviceMode[] = ['responsive', 'desktop', 'tablet', 'phone'];
 
 function EditMenu({ isReadOnly }: { isReadOnly: boolean }): JSX.Element {
   const selectedBlockId = useStore((state) => state.editor.selectedBlockId);
@@ -93,6 +98,55 @@ function EditMenu({ isReadOnly }: { isReadOnly: boolean }): JSX.Element {
   return <MenuButton label="Edit" icon="clipboard" items={items} disabled={isReadOnly} />;
 }
 
+function WideViewMenu({ isReadOnly }: { isReadOnly: boolean }): JSX.Element {
+  const device = useStore((state) => state.editor.device);
+  const libraryTab = useStore((state) => state.editor.libraryTab);
+  const isDrawer = useMediaQuery(LIBRARY_DRAWER_QUERY);
+  const isLibraryOpen = useStore((state) =>
+    isDrawer ? state.editor.isLibraryDrawerOpen : !state.editor.panels.left.collapsed,
+  );
+  const isPropertiesOpen = useStore((state) => !state.editor.panels.right.collapsed);
+  const isDesignSheetOpen = useStore((state) => state.editor.isDesignSheetOpen);
+  const items: MenuItem[] = [
+    {
+      id: 'library',
+      label: 'Library panel',
+      isChecked: isLibraryOpen,
+      disabled: isReadOnly,
+      onSelect: () => dispatch(libraryRailClicked({ tab: libraryTab, isDrawer })),
+    },
+    {
+      id: 'properties',
+      label: 'Properties panel',
+      isChecked: isPropertiesOpen,
+      disabled: isReadOnly,
+      onSelect: () => dispatch(panelToggled('right')),
+    },
+    {
+      id: 'design',
+      label: 'Design panel',
+      isChecked: isDesignSheetOpen,
+      disabled: isReadOnly,
+      onSelect: () => dispatch(designSheetToggled(!isDesignSheetOpen)),
+    },
+    { id: 'device-separator', isSeparator: true },
+    ...deviceItems({
+      value: device,
+      modes: DEVICE_MODES,
+      onChange: (mode) => dispatch(deviceChanged(mode)),
+    }),
+    { id: 'preview-separator', isSeparator: true },
+    {
+      id: 'preview',
+      label: 'Preview',
+      shortcut: SHORTCUT_KEYS.preview,
+      disabled: isReadOnly,
+      onSelect: () => dispatch(previewToggled(true)),
+    },
+  ];
+  return <MenuButton label="View" icon="app-window" items={items} className="ve-wide-only" />;
+}
+
 function PropertiesToggle(): JSX.Element {
   const isOpen = useStore((state) => !state.editor.panels.right.collapsed);
   return (
@@ -105,8 +159,6 @@ function PropertiesToggle(): JSX.Element {
     />
   );
 }
-
-const DEVICE_MODES: DeviceMode[] = ['responsive', 'desktop', 'tablet', 'phone'];
 
 function LogoLink(): JSX.Element {
   const { triggerProps, tooltip } = useTooltip({ text: 'My projects' });
@@ -164,6 +216,7 @@ export function Toolbar(): JSX.Element {
         <LogoLink />
         <FileMenu />
         <EditMenu isReadOnly={isReadOnly} />
+        <WideViewMenu isReadOnly={isReadOnly} />
       </div>
 
       <div className="ve-toolbar-group ve-toolbar-center">

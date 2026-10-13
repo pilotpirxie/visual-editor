@@ -8,7 +8,7 @@
       <p class="b-proof"><span class="b-count" data-field="count">{{count}}</span> <span data-field="countLabel">{{countLabel}}</span></p>
       {{/if}}
     </div>
-    <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+    <form class="stack b-form" {{formAttrs formAction formMethod}} data-field="formAction">
       <div class="field">
         <label for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
         <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">

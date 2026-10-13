@@ -75,12 +75,12 @@ describe('AssistantPanel', () => {
     expect(store.getState().editor.openDialog).toEqual({ kind: 'app-settings', tab: 'assistant' });
   });
 
-  it('explains what it can do before the first request', () => {
+  it('shows only the request box before the first request', () => {
     updateAppSettings({ openRouterKey: 'sk-or-test', assistantModel: MODEL });
     const { container } = render(<AssistantPanel />);
     expect(requestBox(container).disabled).toBe(false);
     expect(queryButton(container, 'Open App settings')).toBeNull();
-    expect(container.textContent).toContain('Undo brings back what you had.');
+    expect(container.querySelector('.ui-muted')).toBeNull();
     expect(getButton(container, 'Change it').disabled).toBe(true);
   });
 
@@ -114,7 +114,7 @@ describe('AssistantPanel', () => {
     expect(hero.values.title).toBe('Hear every customer');
   });
 
-  it('lists the newest request first, right under the box', () => {
+  it('lists the newest request first, each answer above its request', () => {
     updateAppSettings({ openRouterKey: 'sk-or-test', assistantModel: MODEL });
     const { container } = render(<AssistantPanel />);
     runInAct(() => {
@@ -129,6 +129,11 @@ describe('AssistantPanel', () => {
     const replies = [...container.querySelectorAll('.ve-assistant-reply')];
     expect(replies[0].classList.contains('ui-field-error')).toBe(true);
     expect(replies[1].classList.contains('ui-field-error')).toBe(false);
+    const answer = container.querySelector('.ve-assistant-answer');
+    const request = container.querySelector('.ve-assistant-request');
+    expect(answer?.compareDocumentPosition(request ?? answer)).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
     const form = container.querySelector('form');
     const list = container.querySelector('ol');
     expect(form?.compareDocumentPosition(list ?? form)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);

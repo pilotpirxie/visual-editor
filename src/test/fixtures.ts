@@ -3,6 +3,7 @@ import { createSampleProject } from '../app/projectFactory';
 import { blockShared, projectLoaded } from '../app/projectSlice';
 import { createAppStore, dispatch, store } from '../app/store';
 import { FONT_ROLES, type ComponentBlock, type Page, type Project } from '../app/types';
+import { builtInComponents, createBlock } from '../components/registry';
 import { putProject } from '../persistence/db';
 import { SYSTEM_FONT_STACKS } from '../render/fonts';
 
@@ -48,6 +49,16 @@ export function loadIntoAppStore(project: Project = createSampleProject()): Proj
 export function componentBlockOf(project: Project, blockId: string): ComponentBlock {
   const block = project.blocks.entities[blockId];
   if (block?.kind !== 'component') throw new Error(`Block ${blockId} is not a component block`);
+  return block;
+}
+
+export function addBlock(project: Project, componentId: string): ComponentBlock {
+  const definition = builtInComponents.get(componentId)?.definition;
+  if (definition === undefined) throw new Error(`No ${componentId} block`);
+  const block = createBlock(definition);
+  project.blocks.ids.push(block.id);
+  project.blocks.entities[block.id] = block;
+  homePage(project).blockIds.push(block.id);
   return block;
 }
 

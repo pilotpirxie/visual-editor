@@ -1,10 +1,14 @@
 import {
+  ANALYTICS_SERVICES,
+  FORM_SERVICES,
   IMAGE_PREVIEW_SIZES,
   OPEN_GRAPH_TYPES,
   PAGE_SCHEMA_TYPES,
   SITE_ENTITY_TYPES,
   SITEMAP_FREQUENCIES,
   VERIFICATION_SERVICES,
+  type AnalyticsService,
+  type FormService,
   type MetaTag,
   type PageMeta,
   type SharedMeta,
@@ -236,6 +240,71 @@ function socialProfiles(value: unknown): Parsed<string> {
   return { value };
 }
 
+const FORMSPREE_ADDRESS = /^https:\/\/formspree\.io\/f\/(?<id>[A-Za-z0-9]+)\/?$/;
+const FORMSPREE_ID = /^[A-Za-z0-9]{4,40}$/;
+
+export function formspreeId(input: string): string {
+  const pasted = FORMSPREE_ADDRESS.exec(input.trim())?.groups?.id;
+  return pasted ?? input.trim();
+}
+
+export function formTargetError(service: FormService | undefined, input: string): string | null {
+  const target = input.trim();
+  if (target === '' || service === undefined || service === 'netlify') return null;
+  if (service === 'formspree') {
+    return FORMSPREE_ID.test(formspreeId(target))
+      ? null
+      : 'Paste the form address from Formspree, like https://formspree.io/f/abcdwxyz';
+  }
+  return WEB_URL.test(target) ? null : 'Enter a full address that starts with https://';
+}
+
+function formTarget(value: unknown): Parsed<string> {
+  if (typeof value !== 'string') return { error: 'Enter where forms send messages' };
+  const target = value.trim();
+  if (target.length > MAX_LONG_TEXT) return { error: `Use at most ${MAX_LONG_TEXT} characters` };
+  if (!FORMSPREE_ID.test(target) && !WEB_URL.test(target)) {
+    return { error: 'Enter a form ID or a full address that starts with https://' };
+  }
+  return { value: target };
+}
+
+type AnalyticsIdRule = { pattern: RegExp; error: string };
+
+const ANALYTICS_ID_RULES: Record<AnalyticsService, AnalyticsIdRule> = {
+  plausible: {
+    pattern: /^[a-z0-9](?:[a-z0-9.-]{0,251}[a-z0-9])?$/i,
+    error: 'Enter the site address you added in Plausible, like example.com',
+  },
+  goatcounter: {
+    pattern: /^[a-z0-9][a-z0-9-]{0,62}$/i,
+    error: 'Enter your GoatCounter code, the first part of yourcode.goatcounter.com',
+  },
+  cloudflare: {
+    pattern: /^[a-f0-9]{32}$/i,
+    error: 'Paste the 32-character token from the Cloudflare Web Analytics snippet',
+  },
+};
+
+export function analyticsIdError(
+  service: AnalyticsService | undefined,
+  input: string,
+): string | null {
+  const id = input.trim();
+  if (id === '' || service === undefined) return null;
+  const rule = ANALYTICS_ID_RULES[service];
+  return rule.pattern.test(id) ? null : rule.error;
+}
+
+function analyticsId(value: unknown): Parsed<string> {
+  if (typeof value !== 'string') return { error: 'Enter the ID from your statistics service' };
+  const id = value.trim();
+  for (const service of ANALYTICS_SERVICES) {
+    if (ANALYTICS_ID_RULES[service].pattern.test(id)) return { value: id };
+  }
+  return { error: 'Enter the ID from your statistics service' };
+}
+
 const SHARED_META_RULES: Rules<SharedMeta> = {
   author: text(MAX_SHORT_TEXT),
   keywords: text(MAX_LONG_TEXT),
@@ -267,6 +336,10 @@ export const SITE_META_RULES: Rules<SiteMeta> = {
   socialProfiles,
   contactEmail: email,
   contactPhone: phone,
+  formService: choice(FORM_SERVICES),
+  formTarget,
+  analyticsService: choice(ANALYTICS_SERVICES),
+  analyticsId,
 };
 
 export const PAGE_META_RULES: Rules<PageMeta> = {

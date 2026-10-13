@@ -5,7 +5,7 @@
         <h2 data-field="title">{{title}}</h2>
         {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
       </header>
-      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <form class="stack b-form" {{formAttrs formAction formMethod}} data-field="formAction">
         <fieldset class="b-roles">
           <legend class="b-legend" data-field="rolesLabel">{{rolesLabel}}</legend>
           <div class="b-options">

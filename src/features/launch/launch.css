@@ -1,0 +1,42 @@
+@layer components {
+  .ve-launch-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ve-launch-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--ve-space-3);
+    padding-block: var(--ve-space-3);
+    border-bottom: 1px solid var(--ve-border);
+  }
+
+  .ve-launch-mark {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--ve-border);
+    border-radius: 50%;
+  }
+
+  .ve-launch-item[data-done] .ve-launch-mark {
+    border-color: var(--ve-accent);
+    background: var(--ve-accent);
+    color: var(--ve-bg);
+  }
+
+  .ve-launch-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--ve-space-1);
+    min-width: 0;
+  }
+
+  .ve-launch-item .ui-button {
+    flex: none;
+  }
+}

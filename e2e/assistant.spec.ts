@@ -433,6 +433,7 @@ test('an image field generates a picture with the image model', async ({ page })
   await insertBlock(page, 'Headers', 'Hero, text and image');
   await page.getByRole('button', { name: 'Change image' }).click();
   const dialog = page.getByRole('dialog');
+  await dialog.getByRole('button', { name: 'Generate with AI' }).click();
   await dialog.getByLabel('Describe an image to generate').fill('Bread on a wooden table');
   await dialog.getByRole('button', { name: 'Generate image' }).click();
   await expect(dialog.locator('.ve-image-preview')).toHaveAttribute(

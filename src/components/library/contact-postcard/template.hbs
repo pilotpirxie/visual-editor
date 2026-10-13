@@ -5,7 +5,7 @@
       <h2 data-field="title">{{title}}</h2>
       {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
     </header>
-    <form class="b-card" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+    <form class="b-card" {{formAttrs formAction formMethod}} data-field="formAction">
       <div class="field b-message">
         <label for="{{block.id}}-message" data-field="messageLabel">{{messageLabel}}</label>
         <textarea id="{{block.id}}-message" name="message" rows="6" required></textarea>

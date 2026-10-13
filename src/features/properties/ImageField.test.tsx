@@ -355,6 +355,10 @@ describe('ImageField dialog', () => {
   it('offers to generate an image only once a key and an image model are set', () => {
     const { container } = renderField(AVATAR);
     click(getButton(container, 'Change image'));
+    expect(container.querySelector('#img-generate')).toBeNull();
+    expect(getButton(container, 'Generate with AI').getAttribute('aria-expanded')).toBe('false');
+    click(getButton(container, 'Generate with AI'));
+    expect(getButton(container, 'Generate with AI').getAttribute('aria-expanded')).toBe('true');
     expect(getButton(container, 'Generate image').disabled).toBe(true);
     expect(generateInput(container).disabled).toBe(true);
     expect(container.textContent).toContain('pick an image model in App settings');
@@ -364,6 +368,7 @@ describe('ImageField dialog', () => {
     const bodies = stubImageModel(paintedReply);
     const { container, onChange } = renderField(AVATAR);
     click(getButton(container, 'Change image'));
+    click(getButton(container, 'Generate with AI'));
     expect(container.textContent).not.toContain('pick an image model in App settings');
     expect(generateInput(container).value).toBe('Ada');
     changeValue(generateInput(container), ' Ada smiling at her desk ');
@@ -396,6 +401,7 @@ describe('ImageField dialog', () => {
       placeholderImage({ ratio: '16:9', subject: 'photo' }, '', true),
     );
     click(getButton(container, 'Change image'));
+    click(getButton(container, 'Generate with AI'));
     changeValue(generateInput(container), 'Fresh bread on a wooden table');
     pressKey(generateInput(container), 'Enter');
     await vi.waitFor(() => expect(previewSrc(container)).toBe(GENERATED_SRC));
@@ -412,6 +418,7 @@ describe('ImageField dialog', () => {
     stubImageModel(() => new Response(JSON.stringify({ error: { code: 402 } }), { status: 402 }));
     const { container } = renderField(UPLOADED);
     click(getButton(container, 'Change image'));
+    click(getButton(container, 'Generate with AI'));
     click(getButton(container, 'Generate image'));
     await vi.waitFor(() => {
       expect(errorText(container)).toBe(

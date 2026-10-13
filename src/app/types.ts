@@ -98,6 +98,14 @@ export const VERIFICATION_SERVICES = ['google', 'bing', 'yandex', 'pinterest', '
 
 export type VerificationService = (typeof VERIFICATION_SERVICES)[number];
 
+export const FORM_SERVICES = ['formspree', 'netlify', 'custom'] as const;
+
+export type FormService = (typeof FORM_SERVICES)[number];
+
+export const ANALYTICS_SERVICES = ['plausible', 'goatcounter', 'cloudflare'] as const;
+
+export type AnalyticsService = (typeof ANALYTICS_SERVICES)[number];
+
 export type SharedMeta = {
   author?: string;
   keywords?: string;
@@ -128,6 +136,10 @@ export type SiteMeta = SharedMeta & {
   socialProfiles?: string;
   contactEmail?: string;
   contactPhone?: string;
+  formService?: FormService;
+  formTarget?: string;
+  analyticsService?: AnalyticsService;
+  analyticsId?: string;
 };
 
 export type PageMeta = SharedMeta & {

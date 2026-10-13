@@ -156,11 +156,13 @@ function ImageGenerator({ id, shape, startingText, onImage }: ImageGeneratorProp
   const [wanted, setWanted] = useState(startingText);
   const [generation, setGeneration] = useState<Generation>({ status: 'idle' });
   const runRef = useRef<AbortController | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const inputId = `${id}-generate`;
   const isWorking = generation.status === 'working';
   const canGenerate = painter !== null && !isWorking && wanted.trim() !== '';
 
   useEffect(() => {
+    inputRef.current?.focus();
     return () => runRef.current?.abort();
   }, []);
 
@@ -190,7 +192,7 @@ function ImageGenerator({ id, shape, startingText, onImage }: ImageGeneratorProp
   }
 
   return (
-    <div className="ve-image-generate" data-busy={isWorking || undefined}>
+    <div id={`${id}-generator`} className="ve-image-generate" data-busy={isWorking || undefined}>
       <Field
         id={inputId}
         label="Describe an image to generate"
@@ -198,6 +200,7 @@ function ImageGenerator({ id, shape, startingText, onImage }: ImageGeneratorProp
       >
         <TextInput
           id={inputId}
+          ref={inputRef}
           value={wanted}
           disabled={painter === null || isWorking}
           placeholder="A baker taking bread out of the oven"
@@ -253,6 +256,7 @@ type ImageDialogProps = {
 function ImageDialog({ id, field, initial, onDone, onClose }: ImageDialogProps): JSX.Element {
   const [draft, setDraft] = useState(initial);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [isGeneratorOpen, setIsGeneratorOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const titleId = `${id}-dialog-title`;
   const uploadId = `${id}-upload`;
@@ -315,6 +319,14 @@ function ImageDialog({ id, field, initial, onDone, onClose }: ImageDialogProps):
           >
             {draft.source === 'upload' ? 'Replace image' : 'Upload image'}
           </Button>
+          <Button
+            icon="sparkles"
+            aria-expanded={isGeneratorOpen}
+            aria-controls={`${id}-generator`}
+            onClick={() => setIsGeneratorOpen(!isGeneratorOpen)}
+          >
+            Generate with AI
+          </Button>
           {draft.source === 'upload' && (
             <Button variant="ghost" onClick={switchToPlaceholder}>
               Use a placeholder
@@ -334,12 +346,14 @@ function ImageDialog({ id, field, initial, onDone, onClose }: ImageDialogProps):
           onChange={(event) => void upload(event)}
         />
         <FieldError id={uploadId} error={uploadError} />
-        <ImageGenerator
-          id={id}
-          shape={draft.source === 'placeholder' ? draft.placeholder : usualPlaceholder(field)}
-          startingText={initial.alt}
-          onImage={showGenerated}
-        />
+        {isGeneratorOpen && (
+          <ImageGenerator
+            id={id}
+            shape={draft.source === 'placeholder' ? draft.placeholder : usualPlaceholder(field)}
+            startingText={initial.alt}
+            onImage={showGenerated}
+          />
+        )}
         {draft.source === 'placeholder' && (
           <ShapeFields id={id} placeholder={draft.placeholder} onShape={changeShape} />
         )}

@@ -185,8 +185,14 @@ function AddressInput({
         placeholder={input.placeholder}
         spellCheck={false}
         value={link.url ?? ''}
+        aria-describedby={type === 'url' ? `${id}-address-hint` : undefined}
         onChange={(event) => onChange({ ...link, url: event.target.value }, 'continuous')}
       />
+      {type === 'url' && (
+        <p id={`${id}-address-hint`} className="ui-muted">
+          Checkout and booking links work here too, for example from Stripe or Calendly.
+        </p>
+      )}
       {type === 'url' && (
         <label className="ui-check">
           <input

@@ -113,7 +113,7 @@ describe.each(STARTERS)('the $name starter', (starter) => {
   it('exports with no warnings other than missing form action URLs and the social image', () => {
     const project = projectOf(starter);
     for (const warning of collectExportWarnings(project, builtInComponents)) {
-      expect(warning.text).toMatch(/the form has no action URL|^No social image on /);
+      expect(warning.text).toMatch(/the form does not send anything yet|^No social image on /);
     }
     const { files } = buildExportFiles(project, builtInComponents, runtime);
     expect(Object.keys(files)).toContain('index.html');

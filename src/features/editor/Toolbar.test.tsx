@@ -7,6 +7,7 @@ import {
   linkedFileOutdated,
   panelToggled,
   previewToggled,
+  readOnlyChanged,
 } from '../../app/editorSlice';
 import { blockValueSet } from '../../app/projectSlice';
 import { dispatch, store } from '../../app/store';
@@ -126,6 +127,49 @@ describe('Toolbar', () => {
     expect(getButton(container, 'Show properties panel').getAttribute('aria-pressed')).toBe(
       'false',
     );
+  });
+
+  it('shows and hides the panels, switches the device and starts Preview from the View menu', () => {
+    const { container } = render(<Toolbar />);
+    const viewMenu = container.querySelector('[role="menu"][aria-label="View"]');
+    if (viewMenu === null) throw new Error('Expected the View menu');
+    const library = getButton(viewMenu, 'Library panel');
+    expect(library.getAttribute('aria-checked')).toBe('true');
+    click(library);
+    expect(store.getState().editor.panels.left.collapsed).toBe(true);
+    expect(library.getAttribute('aria-checked')).toBe('false');
+
+    const wasPropertiesCollapsed = store.getState().editor.panels.right.collapsed;
+    const properties = getButton(viewMenu, 'Properties panel');
+    expect(properties.getAttribute('aria-checked')).toBe(String(!wasPropertiesCollapsed));
+    click(properties);
+    expect(store.getState().editor.panels.right.collapsed).toBe(!wasPropertiesCollapsed);
+
+    click(getButton(viewMenu, 'Design panel'));
+    expect(store.getState().editor.isDesignSheetOpen).toBe(true);
+    expect(getButton(container, 'Design').getAttribute('aria-pressed')).toBe('true');
+    click(getButton(viewMenu, 'Design panel'));
+    expect(store.getState().editor.isDesignSheetOpen).toBe(false);
+
+    click(getButton(viewMenu, 'Tablet (768 px)'));
+    expect(store.getState().editor.device).toBe('tablet');
+    expect(getButton(viewMenu, 'Tablet (768 px)').getAttribute('aria-checked')).toBe('true');
+
+    click(getButton(viewMenu, 'Preview'));
+    expect(store.getState().editor.isPreview).toBe(true);
+  });
+
+  it('keeps the panels and Preview out of reach in a read-only tab', () => {
+    const { container } = render(<Toolbar />);
+    runInAct(() => dispatch(readOnlyChanged(true)));
+    const viewMenu = container.querySelector('[role="menu"][aria-label="View"]');
+    if (viewMenu === null) throw new Error('Expected the View menu');
+    expect(getButton(viewMenu, 'Library panel').disabled).toBe(true);
+    expect(getButton(viewMenu, 'Properties panel').disabled).toBe(true);
+    expect(getButton(viewMenu, 'Design panel').disabled).toBe(true);
+    expect(getButton(viewMenu, 'Preview').disabled).toBe(true);
+    expect(getButton(viewMenu, 'Phone (375 px)').disabled).toBe(false);
+    runInAct(() => dispatch(readOnlyChanged(false)));
   });
 
   it('opens and closes the design system sheet', () => {

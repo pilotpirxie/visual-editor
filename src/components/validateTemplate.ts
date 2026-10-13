@@ -92,6 +92,8 @@ const URL_ATTRIBUTES = new Set([
   'data',
 ]);
 const URL_HELPERS = new Set(['href', 'safeUrl']);
+const SITE_ONLY_BEHAVIOR = 'analytics';
+const TAG_ATTRIBUTE_HELPERS = new Set(['linkAttrs', 'formAttrs']);
 const SAFE_URL_PREFIXES = ['#', 'mailto:', 'tel:'];
 const STYLE_FIELD_TYPES = new Set(['number', 'range', 'select', 'segmented', 'color']);
 const IMAGE_SIZE_KEYS = new Set(['width', 'height']);
@@ -220,8 +222,11 @@ function behaviorProblem(scanner: Scanner): string | null {
     return `${BEHAVIOR_ATTRIBUTE} must name behaviors, not template values`;
   const names = scanner.attrValue.split(WHITESPACE).filter((name) => name !== '');
   const unknown = names.find((name) => !Object.hasOwn(behaviors, name));
-  if (unknown === undefined) return null;
-  return `"${unknown}" is not a site runtime behavior`;
+  if (unknown !== undefined) return `"${unknown}" is not a site runtime behavior`;
+  if (names.includes(SITE_ONLY_BEHAVIOR)) {
+    return `"${SITE_ONLY_BEHAVIOR}" is set in Project settings, not in a block`;
+  }
+  return null;
 }
 
 function finishAttribute(walk: Walk): void {
@@ -476,8 +481,14 @@ function checkMustachePosition(
     case 'text':
       return;
     case 'in-tag':
-      if (helper !== 'linkAttrs')
-        walk.report(line, 'only {{linkAttrs …}} can add attributes inside a tag');
+      if (helper === null || !TAG_ATTRIBUTE_HELPERS.has(helper)) {
+        walk.report(
+          line,
+          'only {{linkAttrs …}} and {{formAttrs …}} can add attributes inside a tag',
+        );
+      } else if (helper === 'formAttrs' && scanner.tagName !== 'form') {
+        walk.report(line, '{{formAttrs …}} can only go inside a <form> tag');
+      }
       return;
     case 'attr-value-double':
     case 'attr-value-single':

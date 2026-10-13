@@ -12,7 +12,7 @@
       </ul>
       {{/if}}
     </div>
-    <form class="card stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+    <form class="card stack b-form" {{formAttrs formAction formMethod}} data-field="formAction">
       <div class="field">
         <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
         <input id="{{block.id}}-name" name="name" autocomplete="name" required>

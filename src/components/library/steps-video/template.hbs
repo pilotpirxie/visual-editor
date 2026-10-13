@@ -5,9 +5,9 @@
       <h2 data-field="title">{{title}}</h2>
       {{#if intro}}<p class="b-muted b-intro" data-field="intro">{{nl2br intro}}</p>{{/if}}
     </header>
-    <div class="b-player">
+    <div class="b-player" data-behavior="embed" data-embed-src="{{embedUrl videoLink}}" data-embed-title="{{videoLabel}}">
       <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">{{img image}}</div>
-      <a class="b-play" href="{{href videoLink}}" {{linkAttrs videoLink}} data-field="videoLink">
+      <a class="b-play" href="{{href videoLink}}" {{linkAttrs videoLink}} data-embed-trigger data-field="videoLink">
         <span class="b-play-icon">{{svgIcon "play"}}</span>
         <span class="visually-hidden" data-field="videoLabel">{{videoLabel}}</span>
       </a>

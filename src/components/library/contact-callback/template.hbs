@@ -8,7 +8,7 @@
         {{#if text}}<p class="b-text" data-field="text">{{nl2br text}}</p>{{/if}}
         {{#if hours}}<p class="b-hours" data-field="hours">{{svgIcon "clock"}}<span>{{hours}}</span></p>{{/if}}
       </div>
-      <form class="card stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <form class="card stack b-form" {{formAttrs formAction formMethod}} data-field="formAction">
         <div class="field">
           <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>
           <input id="{{block.id}}-name" name="name" autocomplete="name" required>

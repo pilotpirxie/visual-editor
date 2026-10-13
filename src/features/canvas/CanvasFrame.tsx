@@ -64,6 +64,10 @@ function closeOpenModals(doc: Document): void {
   }
 }
 
+function removeEmbeddedPlayers(doc: Document): void {
+  for (const frame of doc.querySelectorAll('iframe[data-embed-frame]')) frame.remove();
+}
+
 export type CanvasFrameHandle = { iframe: HTMLIFrameElement; doc: Document };
 
 type CanvasFrameProps = {
@@ -180,7 +184,9 @@ export function CanvasFrame({ width, height, scale, onReady }: CanvasFrameProps)
   useLayoutEffect(() => {
     if (doc === null) return;
     doc.documentElement.toggleAttribute('data-ve-editing', !isPreview);
-    if (!isPreview) closeOpenModals(doc);
+    if (isPreview) return;
+    closeOpenModals(doc);
+    removeEmbeddedPlayers(doc);
   }, [doc, isPreview]);
 
   useLayoutEffect(() => {

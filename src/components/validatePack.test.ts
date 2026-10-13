@@ -117,9 +117,24 @@ describe('template rules', () => {
     ]);
   });
 
+  it('lets formAttrs add attributes only inside a form tag', async () => {
+    expect(
+      await templateErrors(quoteCardWith('<form {{formAttrs author author}}></form>')),
+    ).toEqual([]);
+    expect(await templateErrors(quoteCardWith('<p {{formAttrs author author}}>Hi</p>'))).toEqual([
+      'template.hbs@9: {{formAttrs …}} can only go inside a <form> tag',
+    ]);
+  });
+
+  it('keeps the statistics behavior out of blocks', async () => {
+    expect(await templateErrors(quoteCardWith('<p data-behavior="analytics">Hi</p>'))).toEqual([
+      'template.hbs@9: "analytics" is set in Project settings, not in a block',
+    ]);
+  });
+
   it('refuses mustaches in attribute names, unquoted values and comments', async () => {
     expect(await templateErrors(quoteCardWith('<p {{author}}="x">Hi</p>'))).toEqual([
-      'template.hbs@9: only {{linkAttrs …}} can add attributes inside a tag',
+      'template.hbs@9: only {{linkAttrs …}} and {{formAttrs …}} can add attributes inside a tag',
     ]);
     expect(await templateErrors(quoteCardWith('<p title={{author}}>Hi</p>'))).toEqual([
       'template.hbs@9: a {{…}} can only go in text or inside a quoted attribute value',

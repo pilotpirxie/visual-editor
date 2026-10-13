@@ -6,7 +6,7 @@ import { loadIconSet } from '../features/icons/loadIconSet';
 import { placeholderImage } from './placeholder';
 import { buildLicensesText, buildSiteJs, dataUrlToBlob } from './assembleSite';
 import { buildExportFiles } from './exportSite';
-import { componentBlockOf, withSystemFonts } from '../test/fixtures';
+import { addBlock, componentBlockOf, withSystemFonts } from '../test/fixtures';
 
 const runtime = { core: '/* core */', behaviors: { menu: '/* menu */' } };
 
@@ -420,6 +420,51 @@ describe('buildExportFiles', () => {
     });
     expect(files['assets/images/icon-icon.png']).toBeInstanceOf(Blob);
     expect(text(files, 'index.html')).toContain('<link rel="manifest" href="site.webmanifest">');
+  });
+
+  it('marks every page for the chosen statistics service and ships its loader', () => {
+    const project = createSampleProject();
+    const withStatistics = {
+      core: '/* core */',
+      behaviors: { ...runtime.behaviors, analytics: '/* analytics */' },
+    };
+    const plain = buildExportFiles(project, builtInComponents, withStatistics).files;
+    expect(text(plain, 'index.html')).toContain('\n<body>\n');
+    expect(text(plain, 'assets/js/site.js')).not.toContain('/* analytics */');
+
+    project.settings.analyticsService = 'plausible';
+    project.settings.analyticsId = 'example.com';
+    const files = buildExportFiles(project, builtInComponents, withStatistics).files;
+    expect(text(files, 'index.html')).toContain(
+      '<body data-behavior="analytics" data-analytics-service="plausible" data-analytics-id="example.com">',
+    );
+    expect(text(files, 'assets/js/site.js')).toContain('/* analytics */');
+
+    project.settings.analyticsService = 'cloudflare';
+    const mismatched = buildExportFiles(project, builtInComponents, withStatistics).files;
+    expect(text(mismatched, 'index.html')).toContain('\n<body>\n');
+  });
+
+  it('sends forms without their own address to the form service of the site', () => {
+    const project = createSampleProject();
+    const block = addBlock(project, 'contact-form');
+    expect(text(filesOf(project), 'index.html')).toContain('method="dialog"');
+
+    project.settings.formService = 'formspree';
+    project.settings.formTarget = 'abcdwxyz';
+    expect(text(filesOf(project), 'index.html')).toContain(
+      'action="https://formspree.io/f/abcdwxyz" method="post"',
+    );
+
+    project.settings.formService = 'netlify';
+    expect(text(filesOf(project), 'index.html')).toContain(
+      'method="post" data-netlify="true" name="contact-form"',
+    );
+
+    block.values.formAction = 'https://own.example/form';
+    expect(text(filesOf(project), 'index.html')).toContain(
+      'action="https://own.example/form" method="post"',
+    );
   });
 
   it('ships no site.js and no script tag when no behavior is used', () => {

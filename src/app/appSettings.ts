@@ -22,7 +22,11 @@ export type AppSettings = {
   assistantModel: AssistantModel | null;
   assistantEffort: string | null;
   imageModel: ImageModel | null;
+  netlifyToken: string;
+  publishedSites: Record<string, PublishedSite>;
 };
+
+export type PublishedSite = { siteId: string; url: string };
 
 export const APP_SETTINGS_STORAGE_KEY = 've-settings';
 
@@ -35,6 +39,8 @@ export const DEFAULT_APP_SETTINGS: AppSettings = {
   assistantModel: null,
   assistantEffort: null,
   imageModel: null,
+  netlifyToken: '',
+  publishedSites: {},
 };
 
 const SETTINGS_EVENT = 've-settings-change';
@@ -76,6 +82,17 @@ function storedImageModel(value: unknown): ImageModel | null {
   return { id, name };
 }
 
+function storedPublishedSites(value: unknown): Record<string, PublishedSite> {
+  const sites: Record<string, PublishedSite> = {};
+  if (!isRecord(value)) return sites;
+  for (const [projectId, site] of Object.entries(value)) {
+    if (!isRecord(site)) continue;
+    const { siteId, url } = site;
+    if (typeof siteId === 'string' && typeof url === 'string') sites[projectId] = { siteId, url };
+  }
+  return sites;
+}
+
 function storedDevice(value: unknown): DeviceMode {
   for (const mode of DEVICE_MODES) {
     if (mode === value) return mode;
@@ -106,6 +123,8 @@ function settingsFrom(text: string | null): AppSettings {
     assistantModel,
     assistantEffort: hasEffort ? effort : null,
     imageModel: storedImageModel(stored.imageModel),
+    netlifyToken: typeof stored.netlifyToken === 'string' ? stored.netlifyToken : '',
+    publishedSites: storedPublishedSites(stored.publishedSites),
   };
 }
 

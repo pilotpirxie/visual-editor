@@ -1,5 +1,6 @@
 @layer components {
-  .ve-export-warnings {
+  .ve-export-warnings,
+  .ve-publish {
     display: flex;
     flex-direction: column;
     gap: var(--ve-space-3);

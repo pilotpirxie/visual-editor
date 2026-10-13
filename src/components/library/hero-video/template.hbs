@@ -12,11 +12,11 @@
       </div>
     </div>
     <figure class="b-video">
-      <div class="b-player">
+      <div class="b-player" data-behavior="embed" data-embed-src="{{embedUrl videoLink}}" data-embed-title="{{videoLabel}}">
         <div class="media b-media" style="--media-ratio: {{image.width}} / {{image.height}}" data-field="image">
           {{img image}}
         </div>
-        <a class="b-play" href="{{href videoLink}}" {{linkAttrs videoLink}} aria-labelledby="{{block.id}}-video-label" data-field="videoLink">{{svgIcon "play"}}</a>
+        <a class="b-play" href="{{href videoLink}}" {{linkAttrs videoLink}} data-embed-trigger aria-labelledby="{{block.id}}-video-label" data-field="videoLink">{{svgIcon "play"}}</a>
       </div>
       <figcaption class="b-caption" id="{{block.id}}-video-label" data-field="videoLabel">{{videoLabel}}</figcaption>
     </figure>

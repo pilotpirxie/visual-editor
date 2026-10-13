@@ -8,7 +8,7 @@
       <p><span data-field="progressLabel">{{progressLabel}}</span><strong>{{progress}}%</strong></p>
       <div class="b-track"><span style="width: {{progress}}%"></span></div>
     </div>
-    <form class="b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+    <form class="b-form" {{formAttrs formAction formMethod}} data-field="formAction">
       <div class="field b-field">
         <label class="visually-hidden" for="{{block.id}}-email" data-field="emailLabel">{{emailLabel}}</label>
         <input id="{{block.id}}-email" type="email" name="email" autocomplete="email" required placeholder="{{emailPlaceholder}}">

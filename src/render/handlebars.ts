@@ -1,7 +1,9 @@
 import Handlebars from 'handlebars/runtime';
 import type { HelperOptions } from 'handlebars';
+import { formspreeId, formTargetError } from '../app/settingsRules';
 import { slugify } from '../app/slugs';
-import { isImageValue } from '../components/fields';
+import type { SiteMeta } from '../app/types';
+import { isImageValue, isLinkValue } from '../components/fields';
 import type { LinkValue } from '../components/types';
 import {
   DEFAULT_ICON_SET,
@@ -25,8 +27,12 @@ export type RenderCollector = {
   uploads: Map<string, string>;
 };
 
+export type SiteForm = { service: 'netlify' } | { service: 'address'; action: string };
+
 export type RenderData = {
   pageSlugs: Record<string, string>;
+  siteForm?: SiteForm | null;
+  formName?: string;
   currentPageId?: string | null;
   eagerImages?: boolean;
   iconSet?: string;
@@ -181,6 +187,83 @@ function richTextHelper(html: unknown, options: HelperOptions): Handlebars.SafeS
 function safeUrlHelper(url: unknown): string {
   const text = textOrEmpty(url).trim();
   return text !== '' && isSafeUrl(text) ? text : '';
+}
+
+const VIDEO_ID = /^[\w-]{3,40}$/;
+const SITE_PREFIX = /^(?:www|m)\./;
+const YOUTUBE_PLAYER_PATHS = ['embed', 'shorts', 'live'];
+
+function youTubeVideoId(url: URL, segments: string[]): string | null {
+  const [first, second] = segments;
+  if (first === 'watch') return url.searchParams.get('v');
+  if (first !== undefined && YOUTUBE_PLAYER_PATHS.includes(first)) return second ?? null;
+  return null;
+}
+
+export function videoEmbedUrl(address: string): string | null {
+  const trimmed = address.trim();
+  if (!URL.canParse(trimmed)) return null;
+  const url = new URL(trimmed);
+  const host = url.hostname.replace(SITE_PREFIX, '');
+  const segments = url.pathname.split('/').filter((segment) => segment !== '');
+  let id: string | null = null;
+  let player = '';
+  if (host === 'youtu.be') {
+    id = segments[0] ?? null;
+    player = 'https://www.youtube-nocookie.com/embed/';
+  } else if (host === 'youtube.com' || host === 'youtube-nocookie.com') {
+    id = youTubeVideoId(url, segments);
+    player = 'https://www.youtube-nocookie.com/embed/';
+  } else if (host === 'vimeo.com' || host === 'player.vimeo.com') {
+    id = segments.at(-1) ?? null;
+    player = 'https://player.vimeo.com/video/';
+  }
+  if (url.protocol !== 'https:' || id === null || !VIDEO_ID.test(id)) return null;
+  return `${player}${id}?autoplay=1`;
+}
+
+function embedUrlHelper(link: unknown): string {
+  if (!isLinkValue(link) || link.type !== 'url') return '';
+  return videoEmbedUrl(link.url ?? '') ?? '';
+}
+
+const FORMSPREE_FORMS = 'https://formspree.io/f/';
+
+export function siteFormOf(
+  formService: SiteMeta['formService'],
+  formTarget: SiteMeta['formTarget'],
+): SiteForm | null {
+  if (formService === undefined) return null;
+  if (formService === 'netlify') return { service: 'netlify' };
+  const target = formTarget?.trim() ?? '';
+  if (target === '' || formTargetError(formService, target) !== null) return null;
+  if (formService === 'formspree') {
+    return { service: 'address', action: `${FORMSPREE_FORMS}${formspreeId(target)}` };
+  }
+  return isSafeUrl(target) ? { service: 'address', action: target } : null;
+}
+
+const NO_FORM_TARGET = 'method="dialog"';
+const DEFAULT_FORM_NAME = 'contact';
+
+function formAttrsHelper(
+  action: unknown,
+  method: unknown,
+  options: HelperOptions,
+): Handlebars.SafeString {
+  const escape = Handlebars.escapeExpression;
+  const ownAction = safeUrlHelper(action);
+  if (ownAction !== '') {
+    const ownMethod = method === 'get' ? 'get' : 'post';
+    return new Handlebars.SafeString(`action="${escape(ownAction)}" method="${ownMethod}"`);
+  }
+  const { siteForm, formName } = renderDataOf(options);
+  if (siteForm === undefined || siteForm === null) return new Handlebars.SafeString(NO_FORM_TARGET);
+  if (siteForm.service === 'netlify') {
+    const name = escape(formName ?? DEFAULT_FORM_NAME);
+    return new Handlebars.SafeString(`method="post" data-netlify="true" name="${name}"`);
+  }
+  return new Handlebars.SafeString(`action="${escape(siteForm.action)}" method="post"`);
 }
 
 const DEFAULT_LANGUAGE = 'en';
@@ -338,6 +421,8 @@ Handlebars.registerHelper({
   richText: richTextHelper,
   nl2br: nl2brHelper,
   safeUrl: safeUrlHelper,
+  formAttrs: formAttrsHelper,
+  embedUrl: embedUrlHelper,
   formatDate: formatDateHelper,
   map: mapHelper,
 });

@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { createSampleProject } from '../../app/projectFactory';
 import type { Project, ComponentBlock } from '../../app/types';
-import { builtInComponents, createBlock } from '../../components/registry';
+import { builtInComponents } from '../../components/registry';
 import { placeholderImage } from '../../render/placeholder';
-import { componentBlockOf, homePage, withSearchDetails } from '../../test/fixtures';
+import { addBlock, componentBlockOf, homePage, withSearchDetails } from '../../test/fixtures';
 import { createPage } from '../../app/projectFactory';
 import { collectExportWarnings, searchEngineWarnings } from './exportWarnings';
 
@@ -89,12 +89,7 @@ describe('collectExportWarnings', () => {
 
   it('says which service a live map loads from', () => {
     const project = sampleProject();
-    const definition = builtInComponents.get('contact-location')?.definition;
-    if (definition === undefined) throw new Error('No live map block');
-    const block = createBlock(definition);
-    project.blocks.ids.push(block.id);
-    project.blocks.entities[block.id] = block;
-    homePage(project).blockIds.push(block.id);
+    const block = addBlock(project, 'contact-location');
     expect(warningTexts(project)).toEqual([
       'Contact, live map and hours: loads a map from Google Maps when the page opens.',
     ]);
@@ -102,6 +97,19 @@ describe('collectExportWarnings', () => {
     expect(warningTexts(project)).toEqual([
       'Contact, live map and hours: loads a map from OpenStreetMap when the page opens.',
     ]);
+  });
+
+  it('warns about a form that sends nothing until the site or the form has a destination', () => {
+    const project = sampleProject();
+    const block = addBlock(project, 'contact-form');
+    expect(warningTexts(project)).toEqual([
+      'Contact, form and details: the form does not send anything yet. Choose where forms go in Project settings, under Forms.',
+    ]);
+    project.settings.formService = 'netlify';
+    expect(warningTexts(project)).toEqual([]);
+    project.settings.formService = undefined;
+    block.values.formAction = 'https://forms.example/submit';
+    expect(warningTexts(project)).toEqual([]);
   });
 
   it('skips disabled blocks', () => {

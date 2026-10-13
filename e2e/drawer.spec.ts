@@ -59,6 +59,44 @@ test('the empty page offers a button that opens the block library', async ({ pag
   await expect(page.locator('.ve-blocks-search input')).toBeFocused();
 });
 
+test('the View menu shows and hides the library and the properties panel and starts Preview', async ({
+  page,
+}) => {
+  await createProject(page);
+  const content = page.locator('.ve-library-content');
+  const properties = page.locator('aside.ve-properties');
+  const viewButton = page.getByRole('button', { name: 'View', exact: true });
+  const libraryItem = page.getByRole('menuitemcheckbox', { name: 'Library panel' });
+  const propertiesItem = page.getByRole('menuitemcheckbox', { name: 'Properties panel' });
+
+  await viewButton.click();
+  await expect(libraryItem).not.toBeChecked();
+  await libraryItem.click();
+  await expect(content).toBeVisible();
+  await viewButton.click();
+  await expect(libraryItem).toBeChecked();
+  await libraryItem.click();
+  await expect(content).toBeHidden();
+
+  await expect(properties).toBeVisible();
+  await viewButton.click();
+  await propertiesItem.click();
+  await expect(properties).toBeHidden();
+  await viewButton.click();
+  await expect(propertiesItem).not.toBeChecked();
+  await propertiesItem.click();
+  await expect(properties).toBeVisible();
+
+  await viewButton.click();
+  await page.getByRole('menuitem', { name: 'Preview' }).click();
+  await expect(page.locator('.ve-toolbar')).toBeHidden();
+  await page.getByRole('button', { name: 'Exit preview' }).click();
+  await expect(viewButton).toBeVisible();
+
+  await page.setViewportSize({ width: 900, height: 800 });
+  await expect(viewButton).toBeHidden();
+});
+
 test('the editor has no horizontal overflow at 1024 px', async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 768 });
   await createProject(page);

@@ -12,7 +12,7 @@
       </ul>
       {{/if}}
     </div>
-    <form class="card stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+    <form class="card stack b-form" {{formAttrs formAction formMethod}} data-field="formAction">
       {{#if formTitle}}<p class="b-form-title" data-field="formTitle">{{formTitle}}</p>{{/if}}
       <div class="field">
         <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>

@@ -36,6 +36,10 @@ export const FindReplaceDialog = lazy(async () => ({
   default: (await import('../features/find-replace/FindReplaceDialog')).FindReplaceDialog,
 }));
 
+export const LaunchChecklist = lazy(async () => ({
+  default: (await import('../features/launch/LaunchChecklist')).LaunchChecklist,
+}));
+
 export const HelpDialog = lazy(async () => ({
   default: (await import('../features/help/HelpDialog')).HelpDialog,
 }));

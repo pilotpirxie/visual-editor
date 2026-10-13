@@ -19,7 +19,7 @@
         <p class="b-muted" data-field="membersText">{{membersText}}</p>
       </div>
       {{/if}}
-      <form class="stack b-form" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <form class="stack b-form" {{formAttrs formAction formMethod}} data-field="formAction">
         <p class="b-email" data-field="email">{{svgIcon "mail"}}<span>{{emailLabel}} <strong>{{email}}</strong></span></p>
         <div class="field">
           <label for="{{block.id}}-name" data-field="nameLabel">{{nameLabel}}</label>

@@ -4,7 +4,7 @@ import type { Block, ComponentBlock, HtmlBlock, Project } from '../app/types';
 import { isBuiltIn } from '../components/packFormat';
 import type { RegisteredComponent } from '../components/types';
 import { formatHtml } from './formatHtml';
-import type { RenderData } from './handlebars';
+import { siteFormOf, type RenderData, type SiteForm } from './handlebars';
 import { decorateHtmlRoots, stripUnsafeHtml } from './htmlSafety';
 import './handlebars';
 
@@ -28,23 +28,38 @@ export function pageSlugsOf(pages: Project['pages']): Record<string, string> {
   return pageSlugs;
 }
 
-export type SiteContext = { siteTitle: string; iconSet: string; language: string };
+export type SiteContext = {
+  siteTitle: string;
+  iconSet: string;
+  language: string;
+  siteForm: SiteForm | null;
+};
 
 export function siteContextOf(project: Pick<Project, 'settings' | 'designSystem'>): SiteContext {
+  const { title, language, formService, formTarget } = project.settings;
   return {
-    siteTitle: project.settings.title,
+    siteTitle: title,
     iconSet: project.designSystem.iconSet,
-    language: project.settings.language,
+    language,
+    siteForm: siteFormOf(formService, formTarget),
   };
 }
 
 export function renderContextFor(
-  { siteTitle, iconSet, language }: SiteContext,
+  { siteTitle, iconSet, language, siteForm }: SiteContext,
   pageSlugs: Record<string, string>,
   mode: RenderContext['mode'],
   currentPageId: string | null,
 ): RenderContext {
-  return { mode, site: { title: siteTitle }, pageSlugs, currentPageId, iconSet, language };
+  return {
+    mode,
+    site: { title: siteTitle },
+    pageSlugs,
+    currentPageId,
+    iconSet,
+    language,
+    siteForm,
+  };
 }
 
 export function createRenderContext(
@@ -128,6 +143,8 @@ export function renderBlock(
     language: ctx.language,
     collector: ctx.collector,
     liveMaps: ctx.mode !== 'canvas',
+    siteForm: ctx.siteForm,
+    formName: block.anchor ?? component.definition.id,
   };
   const rendered = component.template(templateValues, { data: renderData }).trim();
   const html = isBuiltIn(component.pack) ? rendered : stripUnsafeHtml(rendered).html.trim();

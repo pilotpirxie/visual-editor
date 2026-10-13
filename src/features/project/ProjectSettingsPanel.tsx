@@ -11,14 +11,24 @@ import {
   type EditKind,
   type SettingKey,
 } from '../../app/projectSlice';
-import { siteMetaError, verificationToken, type SiteMetaKey } from '../../app/settingsRules';
+import {
+  analyticsIdError,
+  formspreeId,
+  formTargetError,
+  siteMetaError,
+  verificationToken,
+  type SiteMetaKey,
+} from '../../app/settingsRules';
 import { dispatch, useStore } from '../../app/store';
 import {
+  ANALYTICS_SERVICES,
+  FORM_SERVICES,
   IMAGE_PREVIEW_SIZES,
   OPEN_GRAPH_TYPES,
   SITE_ENTITY_TYPES,
   SITEMAP_FREQUENCIES,
   VERIFICATION_SERVICES,
+  type AnalyticsService,
   type ProjectSettings,
   type SiteMeta,
   type VerificationService,
@@ -337,6 +347,104 @@ function IconsSection({ settings }: { settings: ProjectSettings }): JSX.Element 
   );
 }
 
+const FORM_SERVICE_OPTIONS: ChoiceOption[] = [
+  { value: 'formspree', label: 'Formspree' },
+  { value: 'netlify', label: 'Netlify Forms' },
+  { value: 'custom', label: 'My own address' },
+];
+
+function FormsSection({ settings }: { settings: ProjectSettings }): JSX.Element {
+  const service = settings.formService;
+  const storedTarget = settings.formTarget ?? '';
+  const target = formTargetError(service, storedTarget) === null ? storedTarget : '';
+  return (
+    <RememberedSection id="settings:forms" title="Forms" defaultOpen={false}>
+      <MetaSelect
+        id="ve-project-form-service"
+        label="Where forms send messages"
+        value={service}
+        options={FORM_SERVICE_OPTIONS}
+        emptyLabel="Nowhere yet"
+        onChange={(value) => setMeta('formService', pickOption(FORM_SERVICES, value), 'discrete')}
+      />
+      {service === 'formspree' && (
+        <MetaTextInput
+          id="ve-project-form-target"
+          label="Form address from Formspree"
+          value={target}
+          placeholder="https://formspree.io/f/abcdwxyz"
+          validate={(text) => formTargetError('formspree', text)}
+          onCommit={(text) => setMeta('formTarget', formspreeId(text), 'continuous')}
+        />
+      )}
+      {service === 'custom' && (
+        <MetaTextInput
+          id="ve-project-form-target"
+          label="Address that receives every form"
+          value={target}
+          placeholder="https://example.com/contact"
+          validate={(text) => formTargetError('custom', text)}
+          onCommit={commitText('formTarget')}
+        />
+      )}
+      {service === 'netlify' && (
+        <p className="ui-muted">
+          Works when the site is published on Netlify. Turn on form detection in your Netlify
+          project first.
+        </p>
+      )}
+      <p className="ui-muted">
+        Every form on the site uses this, unless the form has its own address in its Content tab.
+      </p>
+    </RememberedSection>
+  );
+}
+
+const ANALYTICS_OPTIONS: ChoiceOption[] = [
+  { value: 'plausible', label: 'Plausible' },
+  { value: 'goatcounter', label: 'GoatCounter' },
+  { value: 'cloudflare', label: 'Cloudflare Web Analytics' },
+];
+
+const ANALYTICS_ID_LABELS: Record<AnalyticsService, { label: string; placeholder: string }> = {
+  plausible: { label: 'Site address in Plausible', placeholder: 'example.com' },
+  goatcounter: { label: 'GoatCounter code', placeholder: 'mysite' },
+  cloudflare: { label: 'Cloudflare token', placeholder: '32 letters and digits' },
+};
+
+function StatisticsSection({ settings }: { settings: ProjectSettings }): JSX.Element {
+  const service = settings.analyticsService;
+  const storedId = settings.analyticsId ?? '';
+  const id = analyticsIdError(service, storedId) === null ? storedId : '';
+  return (
+    <RememberedSection id="settings:statistics" title="Visitor statistics" defaultOpen={false}>
+      <MetaSelect
+        id="ve-project-analytics-service"
+        label="Statistics service"
+        value={service}
+        options={ANALYTICS_OPTIONS}
+        emptyLabel="None"
+        onChange={(value) =>
+          setMeta('analyticsService', pickOption(ANALYTICS_SERVICES, value), 'discrete')
+        }
+      />
+      {service !== undefined && (
+        <MetaTextInput
+          id="ve-project-analytics-id"
+          label={ANALYTICS_ID_LABELS[service].label}
+          value={id}
+          placeholder={ANALYTICS_ID_LABELS[service].placeholder}
+          validate={(text) => analyticsIdError(service, text)}
+          onCommit={(text) => setMeta('analyticsId', text.trim(), 'continuous')}
+        />
+      )}
+      <p className="ui-muted">
+        Statistics run on the exported site only, never in the editor or in Preview.
+      </p>
+    </RememberedSection>
+  );
+}
+
 function VerificationSection({ settings }: { settings: ProjectSettings }): JSX.Element {
   const codes = settings.verification ?? {};
   return (
@@ -479,6 +587,8 @@ export function ProjectSettingsPanel(): JSX.Element {
       <SearchSection settings={settings} />
       <SharingSection settings={settings} />
       <IconsSection settings={settings} />
+      <FormsSection settings={settings} />
+      <StatisticsSection settings={settings} />
       <VerificationSection settings={settings} />
       <CrawlersSection settings={settings} />
       <StructuredDataSection settings={settings} />

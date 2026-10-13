@@ -72,9 +72,13 @@ function createMissingStores(db: IDBDatabase): void {
   }
 }
 
-function closeOnVersionChange(db: IDBDatabase): void {
+function reopenAfterClose(db: IDBDatabase): void {
   db.onversionchange = () => {
     db.close();
+    databasePromise = null;
+  };
+  db.onclose = () => {
+    console.warn('The browser closed the storage connection; the next read or save reopens it');
     databasePromise = null;
   };
 }
@@ -84,7 +88,7 @@ function openDatabase(): Promise<IDBDatabase> {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
     request.onupgradeneeded = () => createMissingStores(request.result);
     request.onsuccess = () => {
-      closeOnVersionChange(request.result);
+      reopenAfterClose(request.result);
       resolve(request.result);
     };
     request.onerror = () => reject(request.error);

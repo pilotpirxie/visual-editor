@@ -10,6 +10,8 @@ export const TEMPLATE_HELPERS = [
   'nl2br',
   'richText',
   'safeUrl',
+  'formAttrs',
+  'embedUrl',
   'formatDate',
   'map',
 ] as const;

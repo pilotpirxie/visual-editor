@@ -6,7 +6,7 @@
       {{#if text}}<p class="b-muted" data-field="text">{{nl2br text}}</p>{{/if}}
     </header>
     <div class="b-grid">
-      <form class="stack b-email" {{#if formAction}}action="{{safeUrl formAction}}" method="{{formMethod}}"{{else}}method="dialog"{{/if}} data-field="formAction">
+      <form class="stack b-email" {{formAttrs formAction formMethod}} data-field="formAction">
         <span class="b-icon">{{svgIcon "mail"}}</span>
         <p class="b-name" data-field="emailTitle">{{emailTitle}}</p>
         {{#if emailText}}<p class="b-muted" data-field="emailText">{{emailText}}</p>{{/if}}

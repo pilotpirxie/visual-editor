@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars/runtime';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { createRenderCollector, resolveHref } from './handlebars';
+import { createRenderCollector, resolveHref, siteFormOf, videoEmbedUrl } from './handlebars';
 import { registerIconSet } from './icons';
 
 const data = { pageSlugs: { home: 'index', about: 'about' } };
@@ -116,6 +116,81 @@ describe('template helpers', () => {
     expect(helpers.safeUrl('https://forms.example/submit')).toBe('https://forms.example/submit');
     expect(helpers.safeUrl(' javascript:alert(1)')).toBe('');
     expect(helpers.safeUrl(undefined)).toBe('');
+  });
+
+  it('formAttrs prefers the form address, then the site service, then sends nothing', () => {
+    const noSiteForm = { hash: {}, data: { pageSlugs: {} } };
+    expect(String(helpers.formAttrs('https://forms.example/submit', 'get', noSiteForm))).toBe(
+      'action="https://forms.example/submit" method="get"',
+    );
+    expect(String(helpers.formAttrs('', 'post', noSiteForm))).toBe('method="dialog"');
+    expect(String(helpers.formAttrs(' javascript:alert(1)', 'post', noSiteForm))).toBe(
+      'method="dialog"',
+    );
+    const formspree = siteFormOf('formspree', 'abcdwxyz');
+    const withFormspree = { hash: {}, data: { pageSlugs: {}, siteForm: formspree } };
+    expect(String(helpers.formAttrs('', 'get', withFormspree))).toBe(
+      'action="https://formspree.io/f/abcdwxyz" method="post"',
+    );
+    expect(String(helpers.formAttrs('https://own.example/form', 'post', withFormspree))).toBe(
+      'action="https://own.example/form" method="post"',
+    );
+    const netlify = { pageSlugs: {}, siteForm: siteFormOf('netlify', undefined), formName: 'a"b' };
+    expect(String(helpers.formAttrs('', 'post', { hash: {}, data: netlify }))).toBe(
+      'method="post" data-netlify="true" name="a&quot;b"',
+    );
+  });
+
+  it('siteFormOf ignores a target that does not fit the service', () => {
+    expect(siteFormOf(undefined, 'abcdwxyz')).toBeNull();
+    expect(siteFormOf('formspree', '')).toBeNull();
+    expect(siteFormOf('formspree', 'https://example.com/contact')).toBeNull();
+    expect(siteFormOf('custom', 'abcdwxyz')).toBeNull();
+    expect(siteFormOf('custom', 'https://example.com/contact')).toEqual({
+      service: 'address',
+      action: 'https://example.com/contact',
+    });
+  });
+
+  it.each([
+    [
+      'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1',
+    ],
+    [
+      'https://youtu.be/dQw4w9WgXcQ?t=10',
+      'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1',
+    ],
+    [
+      'https://m.youtube.com/shorts/abc123DEF_-',
+      'https://www.youtube-nocookie.com/embed/abc123DEF_-?autoplay=1',
+    ],
+    ['https://vimeo.com/123456789', 'https://player.vimeo.com/video/123456789?autoplay=1'],
+    [
+      'https://player.vimeo.com/video/123456789',
+      'https://player.vimeo.com/video/123456789?autoplay=1',
+    ],
+  ])('videoEmbedUrl turns %s into a player address', (address, expected) => {
+    expect(videoEmbedUrl(address)).toBe(expected);
+  });
+
+  it.each([
+    'https://example.com/watch?v=dQw4w9WgXcQ',
+    'http://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'https://www.youtube.com/watch?v="><script>',
+    'https://www.youtube.com/',
+    'about.html',
+    '',
+  ])('videoEmbedUrl refuses %s', (address) => {
+    expect(videoEmbedUrl(address)).toBeNull();
+  });
+
+  it('embedUrl only reads web address links', () => {
+    const video = { type: 'url', url: 'https://vimeo.com/123456789', newTab: true };
+    expect(helpers.embedUrl(video)).toBe('https://player.vimeo.com/video/123456789?autoplay=1');
+    expect(helpers.embedUrl({ type: 'page', pageId: 'about', newTab: false })).toBe('');
+    expect(helpers.embedUrl({ type: 'url', url: 'https://example.com', newTab: false })).toBe('');
+    expect(helpers.embedUrl(undefined)).toBe('');
   });
 
   it('svgIcon warns and renders nothing for an unknown icon', () => {

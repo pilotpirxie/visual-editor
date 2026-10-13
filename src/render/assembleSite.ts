@@ -1,6 +1,14 @@
-import { AI_CRAWLERS } from '../app/settingsRules';
+import { AI_CRAWLERS, analyticsIdError } from '../app/settingsRules';
 import { slugify } from '../app/slugs';
-import type { Asset, FontSelection, Page, Project, ProjectSettings, Token } from '../app/types';
+import type {
+  AnalyticsService,
+  Asset,
+  FontSelection,
+  Page,
+  Project,
+  ProjectSettings,
+  Token,
+} from '../app/types';
 import { resolveColor } from '../features/design-system/colors';
 import { iconSetInfo } from '../../packages/icon-data/src/sets';
 import { escapeHtml } from './attributes';
@@ -49,6 +57,7 @@ export type ExportInput = {
 };
 
 const SITE_JS_PATH = 'assets/js/site.js';
+const ANALYTICS_BEHAVIOR = 'analytics';
 
 const LICENSES_PATH = 'licenses.txt';
 const SITEMAP_PATH = 'sitemap.xml';
@@ -295,15 +304,33 @@ function buildWebManifest(site: ExportSite, assetFiles: Record<string, string>):
   return `${JSON.stringify(manifest, null, MANIFEST_INDENT)}\n`;
 }
 
+type SiteAnalytics = { service: AnalyticsService; id: string };
+
+function siteAnalyticsOf(settings: ProjectSettings): SiteAnalytics | null {
+  const service = settings.analyticsService;
+  const id = settings.analyticsId?.trim() ?? '';
+  if (service === undefined || id === '' || analyticsIdError(service, id) !== null) return null;
+  return { service, id };
+}
+
+function bodyTag(analytics: SiteAnalytics | null): string {
+  if (analytics === null) return '<body>';
+  const service = escapeHtml(analytics.service);
+  const id = escapeHtml(analytics.id);
+  return `<body data-behavior="${ANALYTICS_BEHAVIOR}" data-analytics-service="${service}" data-analytics-id="${id}">`;
+}
+
 type PageDocument = {
   lang: string;
   head: string[];
   sprite: string | null;
   blocks: PageBlocks;
   hasScript: boolean;
+  analytics: SiteAnalytics | null;
 };
 
-function renderPageDocument({ lang, head, sprite, blocks, hasScript }: PageDocument): string {
+function renderPageDocument(page: PageDocument): string {
+  const { lang, head, sprite, blocks, hasScript } = page;
   const lines = [
     '<!doctype html>',
     `<html lang="${escapeHtml(lang)}" dir="${textDirection(lang)}">`,
@@ -311,7 +338,7 @@ function renderPageDocument({ lang, head, sprite, blocks, hasScript }: PageDocum
     ...head,
     '</head>',
   ];
-  lines.push('<body>');
+  lines.push(bodyTag(page.analytics));
   const skipLinkLang = ENGLISH.test(lang) ? '' : ' lang="en"';
   lines.push(
     `  <a class="${SKIP_LINK_CLASS}" href="#${MAIN_ID}"${skipLinkLang}>Skip to content</a>`,
@@ -359,7 +386,10 @@ export function assembleSite(input: ExportInput, runtime: SiteRuntimeChunks): Ex
   const { site, pages } = input;
   const html = pageHtml(pages);
   const notes: string[] = [];
-  const behaviorNames = knownBehaviors(namesIn(html, BEHAVIOR_ATTRIBUTE), runtime, notes);
+  const analytics = siteAnalyticsOf(site.settings);
+  const usedBehaviors = namesIn(html, BEHAVIOR_ATTRIBUTE);
+  if (analytics !== null) usedBehaviors.add(ANALYTICS_BEHAVIOR);
+  const behaviorNames = knownBehaviors(usedBehaviors, runtime, notes);
   const hasScript = behaviorNames.length > 0;
   const usedClasses = namesIn(html, CLASS_ATTRIBUTE);
   usedClasses.add(SKIP_LINK_CLASS);
@@ -382,6 +412,7 @@ export function assembleSite(input: ExportInput, runtime: SiteRuntimeChunks): Ex
       sprite: prepared.sprite,
       blocks: prepared.blocks,
       hasScript,
+      analytics,
     });
   }
   files[SITE_CSS_PATH] = siteCss.css;

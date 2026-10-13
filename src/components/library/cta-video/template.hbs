@@ -15,9 +15,9 @@
         <a class="btn btn-{{button.variant}}" href="{{href button.link}}" {{linkAttrs button.link}} data-field="button">{{button.label}}</a>
       </div>
     </div>
-    <div class="b-player">
+    <div class="b-player" data-behavior="embed" data-embed-src="{{embedUrl videoLink}}" data-embed-title="{{videoLabel}}">
       <div class="media b-media" data-field="image">{{img image}}</div>
-      <a class="b-play" href="{{href videoLink}}" {{linkAttrs videoLink}} data-field="videoLink">{{svgIcon "play"}}<span class="visually-hidden">{{videoLabel}}</span></a>
+      <a class="b-play" href="{{href videoLink}}" {{linkAttrs videoLink}} data-embed-trigger data-field="videoLink">{{svgIcon "play"}}<span class="visually-hidden">{{videoLabel}}</span></a>
       {{#if duration}}<span class="b-duration" data-field="duration">{{duration}}</span>{{/if}}
       <span class="b-progress" aria-hidden="true"></span>
     </div>

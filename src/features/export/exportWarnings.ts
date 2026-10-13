@@ -3,7 +3,7 @@ import type { Page, Project } from '../../app/types';
 import { forEachFieldValue } from '../../components/fieldValues';
 import { isButtonValue, isImageValue, isLinkValue, validateField } from '../../components/fields';
 import type { LinkValue, RegisteredComponent } from '../../components/types';
-import { MAP_SERVICE_FIELD, MAP_SERVICE_NAMES } from '../../render/handlebars';
+import { MAP_SERVICE_FIELD, MAP_SERVICE_NAMES, siteFormOf } from '../../render/handlebars';
 import { isPageIndexed } from '../../render/pageHead';
 import { activeSectionTheme } from '../../app/sectionThemes';
 import {
@@ -22,7 +22,7 @@ export type ExportWarning = {
   siteArea?: SiteArea;
 };
 
-const FORM_ACTION_FIELD = 'formAction';
+export const FORM_ACTION_FIELD = 'formAction';
 const RESERVED_ANCHOR = 'main';
 const TEXT_TOKEN = '--color-text';
 const BACKGROUND_TOKEN = '--color-background';
@@ -73,6 +73,8 @@ function blockWarnings(
     ];
   }
   const name = component.definition.name;
+  const { formService, formTarget } = project.settings;
+  const hasSiteForm = siteFormOf(formService, formTarget) !== null;
   const warnings: ExportWarning[] = [];
   function warn(text: string): void {
     warnings.push({ pageId, blockId, text: `${name}: ${text}` });
@@ -107,8 +109,10 @@ function blockWarnings(
       warn(`loads a map from ${service} when the page opens.`);
     }
     const isFormAction = field.name === FORM_ACTION_FIELD && typeof value === 'string';
-    if (isFormAction && value.trim() === '') {
-      warn('the form has no action URL, so it will not send anything.');
+    if (isFormAction && value.trim() === '' && !hasSiteForm) {
+      warn(
+        'the form does not send anything yet. Choose where forms go in Project settings, under Forms.',
+      );
     }
   });
   return warnings;
